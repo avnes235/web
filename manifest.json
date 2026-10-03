@@ -1,0 +1,22 @@
+{
+  "name": "Casinetori · Casino y juegos con amigos",
+  "short_name": "Casinetori",
+  "description": "Casino y juegos arcade gratis con dinero de mentira. Juega con tus amigos y sube en el ranking.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1020",
+  "theme_color": "#141416",
+  "lang": "es",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "screenshots": [
+    {"src": "og.png", "sizes": "1200x630", "type": "image/png", "form_factor": "wide", "label": "Casinetori"}
+  ]
+}
