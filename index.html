@@ -4455,7 +4455,7 @@ $('#admSide').addEventListener('click',async e=>{const q=e.target.closest('[data
   if(a==='ban'){ADM.bans.has(id)?ADM.bans.delete(id):ADM.bans.add(id);try{await NET.db.collection('meta').doc('bans').set({ids:[...ADM.bans]});toast(ADM.bans.has(id)?'Baneado del ranking':'Baneo quitado',esc(nm),'var(--red)','🔨')}catch(err){toast('No se ha podido','Revisa la conexión','var(--coral)','⚠️')}renderAdmin();renderAdmSide();return}
   if((a==='give'||a==='take')&&!amt){toast('Pon una cantidad','','var(--coral)','⚠️');return}
   let text='';if(a==='msg'){text=$('#admMsg').value.trim();if(!text){toast('Escribe el mensaje','','var(--coral)','⚠️');return}}
-  b.disabled=true;const ok=await sendCmd(id,a,amt,text);b.disabled=false;
+  b.disabled=true;const ok=await sendCmdP(id,a,amt,text);b.disabled=false;
   if(ok){sfx('coin');const L={give:'Le das '+short(amt)+' €',take:'Le quitas '+short(amt)+' €',double:'Le duplicas la cartera',zero:'Le dejas a cero',bsod:'Pantallazo azul enviado',flip:'Pantalla girada',fake:'Susto enviado',msg:'Mensaje enviado',reset:'Partida borrada'};
     toast(L[a]||'Hecho',esc(nm),'var(--red)','🛠️');if(a==='msg')$('#admMsg').value='';renderAdmSide()}});
 async function admRestore(id,tgt){try{const sv=await NET.db.collection('data/users/'+id).doc('save').get();if(!sv.exists){toast('No tiene partida guardada en la nube','Solo se puede recuperar si jugaba con la web conectada','var(--coral)','⚠️');return false}
@@ -4468,7 +4468,7 @@ $('#admGlobal').addEventListener('click',async e=>{const b=e.target.closest('[da
   const ids=[...NET.players.keys()];if(!ids.length){toast('No hay nadie todavía','','var(--coral)','⚠️');return}
   let n=0,text='';if(g==='give'){n=Math.floor(+String($('#gAmt').value).replace(/\D/g,'')||0);if(!n){toast('Pon una cantidad','','var(--coral)','⚠️');return}}
   if(g==='tax')n=10;if(g==='msg'){text=$('#gMsg').value.trim();if(!text){toast('Escribe el mensaje','','var(--coral)','⚠️');return}}
-  b.disabled=true;let ok=0;for(const id of ids){if(await sendCmd(id,g,n,text))ok++}b.disabled=false;$('#gState').textContent='Enviado a '+ok+' de '+ids.length+' jugadores';sfx('big');if(g==='msg')$('#gMsg').value=''});
+  b.disabled=true;let ok=0;for(const id of ids){if(await sendCmdP(id,g,n,text))ok++}b.disabled=false;$('#gState').textContent='Enviado a '+ok+' de '+ids.length+' jugadores';sfx('big');if(g==='msg')$('#gMsg').value=''});
 /* Pantalla completa: esconde la barra de Claude y la del navegador */
 (function(){const b=$('#fsBtn'),el=document.documentElement;const can=document.fullscreenEnabled||document.webkitFullscreenEnabled;if(!can){b.hidden=true;return}
   b.addEventListener('click',async()=>{try{if(document.fullscreenElement||document.webkitFullscreenElement){await (document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{await (el.requestFullscreen||el.webkitRequestFullscreen).call(el)}}
@@ -5544,7 +5544,7 @@ $('#admInbox').addEventListener('click',async e=>{const fb=e.target.closest('[da
     okB.disabled=true;if(!await admRestore(oldId,m.from)){okB.disabled=false;return}}
   const prize=okB&&m.type!=='rec'?(BZ.rw[id]||0):0;
   try{btn.disabled=true;await db.collection('inbox').doc(id).update({st:okB?'ok':'no',rep,prize,rt:Date.now()});
-    if(prize)await sendCmd(m.from,'give',prize);
+    if(prize)await sendCmdP(m.from,'give',prize);
     sfx(okB?'coin':'click');toast(okB?'Aprobado':'Rechazado',esc(m.name||'')+(prize?' · +'+fmt(prize)+' €':''),okB?'var(--mint)':'var(--red)',okB?'✅':'❌');delete BZ.rep[id];delete BZ.rw[id]}
   catch(err){toast('No se ha podido','¿Has pegado las reglas nuevas de Firebase?','var(--coral)','⚠️');btn.disabled=false}});
 const _rAdm=renderAdmin;renderAdmin=function(){_rAdm();if(view==='admin'&&ADM.on){bzAdmStart();renderAdmInbox()}};
@@ -6939,7 +6939,7 @@ $('#admSide').addEventListener('click',async e=>{const id=ADM.sel;if(!id)return;
     if(!PA_FX[k]&&!k.startsWith('emoji:'))return;fx.disabled=true;const ok=await _paSend(id,'fx',k);fx.disabled=false;if(ok){fx.classList.add('sent');setTimeout(()=>fx.classList.remove('sent'),2200);_paDone((PA_FX[k]?PA_FX[k][1]:'Lluvia de emoji')+' enviado',nm)}return}
   const b=e.target.closest('[data-pa]');if(!b||b.disabled)return;const a=b.dataset.pa;
   const conf=(k,lbl)=>{if(ADM.paConf!==k+id){ADM.paConf=k+id;const t0=b.textContent;b.textContent=lbl||'¿Seguro? Pulsa otra vez';setTimeout(()=>{if(ADM.paConf===k+id){ADM.paConf=null;b.textContent=t0}},3000);return false}ADM.paConf=null;return true};
-  const send=async(type,data,msg,patch)=>{b.disabled=true;const ok=await _paSend(id,type,data);b.disabled=false;if(ok){if(patch){const q=NET.players.get(id);if(q)Object.assign(q,patch)}_paDone(msg,nm);return true}return false};
+  const send=async(type,data,msg,patch)=>{b.disabled=true;const ok=await _paSend(id,type,data);b.disabled=false;if(ok){if(patch)admPend(id,patch);_paDone(msg,nm);return true}return false};
   if(a==='setclr'){$$('#admSide [data-pset]').forEach(i=>{i.value='';_paMark(i)});return}
   if(a==='setgo'){const o={},bad=[];$$('#admSide [data-pset]').forEach(i=>{const v=_paNum(i.value);if(v==null)return;if(Number.isNaN(v)||v<0){bad.push(PA_SETF[i.dataset.pset]);return}o[i.dataset.pset]=i.dataset.pset==='pt'?v*60:v});
     if(bad.length){toast('Número raro en '+bad.join(', '),'Escribe solo cifras, o 2,5m / 300k','var(--coral)','⚠️');return}
@@ -8903,6 +8903,28 @@ function excTry(){if(excOpen||!excQ.length)return;if(typeof running!=='undefined
   const done=()=>{el.hidden=true;excOpen=false;excTry()};
   $('#excOn').onclick=()=>{const c=myCos();keys.forEach(key=>{const i=key.indexOf(':'),k=key.slice(0,i),id=key.slice(i+1);if(k==='av')S.av=id;else c[k]=id});save();renderMe();try{if(view==='perfil')renderPerfil()}catch(e){}NET.lastP='';pushPlayer();sfx('buy');toast('¡Puesto!','Ya lo ve todo el mundo en el ranking','#b06bff','👑');done()};
   $('#excX').onclick=()=>{toast('Guardado','Lo tienes en tu Perfil cuando quieras','#b06bff','👑');done()}}
+/* ===== panel del jefe: lo que le cambias a alguien se ve al momento (aunque no esté conectado) ===== */
+const ADM_FS=['coins','earned','lvl','ach','achL','ti','name','code','img','exc','show','cos','pt','cw','clk','col','spent','own'];
+function admPatch(id,type,n,text){const p=NET.players.get(id)||{},c=Math.floor(+p.coins||0),e=Math.floor(+p.earned||0);n=Math.max(0,Math.floor(+n||0));
+  if(type==='give')return{coins:c+n,earned:e+n};if(type==='take')return{coins:Math.max(0,c-n)};if(type==='zero')return{coins:0};
+  if(type==='double')return{coins:c*2,earned:e+c};if(type==='tax')return{coins:c-Math.floor(c*Math.min(90,n||10)/100)};
+  if(type==='exc'||type==='excrm'){const t=String(text||''),keys=(t.startsWith('pack:')?(EXC_PACKS[t.slice(5)]||[]):[t]).filter(k=>EXC_ALL.includes(k));if(!keys.length)return null;
+    const has=Array.isArray(p.exc)?p.exc.slice():[];return{exc:type==='exc'?has.concat(keys.filter(k=>!has.includes(k))):has.filter(k=>!keys.includes(k))}}
+  return null}
+function admPend(id,patch){if(!id||!patch||!Object.keys(patch).length)return;ADM.pend=ADM.pend||new Map();const cur=ADM.pend.get(id);
+  ADM.pend.set(id,{patch:{...(cur?cur.patch:{}),...patch},t:Date.now()});const q=NET.players.get(id);if(q)Object.assign(q,patch);
+  /* también en su ficha del ranking, para que todos lo vean ya aunque no esté conectado */
+  const w={};for(const k of ADM_FS)if(k in patch)w[k]=k==='own'?(patch.own||[]).map(o=>Array.isArray(o)?{e:o[0],n:o[1],q:o[2],p:o[3]}:o):patch[k];
+  if(NET.db&&Object.keys(w).length)NET.db.collection('players').doc(id).set(w,{merge:true}).catch(()=>{});
+  try{renderRank()}catch(e){}try{renderAdmin()}catch(e){}try{if(ADM.sel===id)renderAdmSide()}catch(e){}}
+function admPendApply(){if(!ADM.pend||!ADM.pend.size)return;const now=Date.now();
+  for(const [id,x] of ADM.pend){const q=NET.players.get(id);if(!q){if(now-x.t>600000)ADM.pend.delete(id);continue}
+    const same=Object.keys(x.patch).every(k=>JSON.stringify(q[k])===JSON.stringify(x.patch[k]));
+    /* su juego ya ha mandado datos nuevos después del cambio: mandan ellos */
+    if((+q.t||0)>x.t&&(same||(+q.t||0)-x.t>20000)){ADM.pend.delete(id);continue}
+    Object.assign(q,x.patch)}}
+async function sendCmdP(id,type,n,text){const ok=await sendCmd(id,type,n,text);if(ok)admPend(id,admPatch(id,type,n,text));return ok}
+const _opPend=onPlayers;onPlayers=function(){try{admPendApply()}catch(e){}return _opPend.apply(this,arguments)};
 const _acEx=applyCmd;applyCmd=function(id,c){if(!c||(c.type!=='exc'&&c.type!=='excrm'))return _acEx.apply(this,arguments);
   S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return;S.cmdDone.push(id);if(S.cmdDone.length>120)S.cmdDone.shift();
   const t=String(c.text||''),keys=(t.startsWith('pack:')?(EXC_PACKS[t.slice(5)]||[]):[t]).filter(k=>EXC_ALL.includes(k));if(!keys.length)return;S.exc=S.exc||[];
@@ -8917,12 +8939,12 @@ const _rasEx=renderAdmSide;renderAdmSide=function(){_rasEx.apply(this,arguments)
   const h=`<span class="alab">👑 Exclusivos · solo tú puedes darlos</span><div class="excad">${Object.keys(EXC_PACKS).map(k=>`<button class="pk" data-xg="pack:${k}">Pack ${k.toUpperCase()}</button>`).join('')}${EXC_ALL.map(k=>`<button data-xg="${esc(k)}" aria-pressed="${has.has(k)}" title="${has.has(k)?'Lo tiene · pulsa para quitárselo':'Dárselo'}">${has.has(k)?'✓ ':''}${esc(excName(k))}</button>`).join('')}</div><p class="netmsg" style="margin:0">Le sale en grande en su pantalla. Si ya lo tiene (✓), al pulsar se lo quitas.</p>`;
   if(anchor)anchor.insertAdjacentHTML('beforebegin',h);else el.insertAdjacentHTML('beforeend',h)};
 $('#admSide').addEventListener('click',async e=>{const b=e.target.closest('[data-xg]');if(!b||!ADM.sel)return;const key=b.dataset.xg,on=b.getAttribute('aria-pressed')==='true',nm=(NET.players.get(ADM.sel)||{}).name||'ese';
-  b.disabled=true;const ok=await sendCmd(ADM.sel,on?'excrm':'exc',0,key);b.disabled=false;
+  b.disabled=true;const ok=await sendCmdP(ADM.sel,on?'excrm':'exc',0,key);b.disabled=false;
   if(ok){sfx('coin');toast(on?'Exclusivo quitado':'Exclusivo enviado',esc(nm)+' · '+esc(key.startsWith('pack:')?'Pack '+key.slice(5).toUpperCase():excName(key)),'#b06bff','👑')}});
 (()=>{const g=$('#admGlobal');if(!g)return;g.insertAdjacentHTML('beforeend',`<div class="row"><select class="inp" id="gxSel" aria-label="Exclusivo para todos">${Object.keys(EXC_PACKS).map(k=>`<option value="pack:${k}">Pack ${k.toUpperCase()}</option>`).join('')}${EXC_ALL.map(k=>`<option value="${esc(k)}">${esc(excName(k))}</option>`).join('')}</select><button class="btn" id="gxGo" style="background:#7a2cff;color:#fff">👑 Dar a todos los jugadores</button></div><p class="netmsg" style="margin:0">Perfecto para el pack OG: se lo llevan todos los que ya están en el ranking ahora. Los que lleguen después no lo tendrán.</p>`);
   $('#gxGo').onclick=async()=>{const b=$('#gxGo'),key=$('#gxSel').value,ids=[...NET.players.keys()];if(!ids.length)return;
     if(b.dataset.c!=='1'){b.dataset.c='1';b.textContent='¿Seguro? Pulsa otra vez ('+ids.length+' jugadores)';setTimeout(()=>{b.dataset.c='';b.textContent='👑 Dar a todos los jugadores'},3500);return}
-    b.dataset.c='';b.disabled=true;let ok=0;for(const id of ids){if(await sendCmd(id,'exc',0,key))ok++}b.disabled=false;b.textContent='👑 Dar a todos los jugadores';$('#gState').textContent='Exclusivo enviado a '+ok+' de '+ids.length+' jugadores';sfx('big');confetti(100)}})();
+    b.dataset.c='';b.disabled=true;let ok=0;for(const id of ids){if(await sendCmdP(id,'exc',0,key))ok++}b.disabled=false;b.textContent='👑 Dar a todos los jugadores';$('#gState').textContent='Exclusivo enviado a '+ok+' de '+ids.length+' jugadores';sfx('big');confetti(100)}})();
 i18nAdd([['Saltar a otra ruleta · 1.000 € ›','Skip to another wheel · €1,000 ›','Passer à une autre roue · 1 000 € ›','Saltar para outra roda · 1.000 € ›'],
  ['Exclusivo','Exclusive','Exclusif','Exclusivo'],['¡Ponérmelo ya!','Put it on now!','Je le mets !','Pôr já!'],['Guardar para luego','Save for later','Garder pour plus tard','Guardar para depois'],
  ['👑 Regalo exclusivo del jefe','👑 Exclusive gift from the boss','👑 Cadeau exclusif du boss','👑 Prenda exclusiva do chefe'],
