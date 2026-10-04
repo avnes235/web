@@ -6,12 +6,18 @@ header .in{display:flex;align-items:center;gap:12px;justify-content:space-betwee
 header img{width:36px;height:36px;border-radius:9px}.play{background:#ffd600;color:#111;font-weight:900;text-decoration:none;padding:9px 16px;border-radius:10px;border:2px solid #000;box-shadow:3px 3px 0 #000;white-space:nowrap}
 h1{font-size:34px;line-height:1.15;margin:26px 0 6px}h2{font-size:22px;margin:30px 0 6px;color:#ffd600}.upd{color:#9aa0bd;font-size:14px;margin:0 0 20px}
 .card{background:#171a2e;border:2px solid #2a2f4a;border-radius:14px;padding:14px 18px;margin:16px 0}li{margin:4px 0}
+.mbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}@media(max-width:480px){.mbtns{grid-template-columns:1fr}}.mb{display:flex;align-items:center;gap:10px;background:#0d1020;border:2px solid #2a2f4a;border-radius:12px;padding:10px 12px;color:#fff;text-decoration:none;font:800 15px system-ui,sans-serif;cursor:pointer;text-align:left}.mb:hover{border-color:#ffd600}.mb span{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;flex:none}.mb b{font-weight:800}
 footer{border-top:1px solid #2a2f4a;margin-top:40px;color:#9aa0bd;font-size:14px}footer nav{display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:8px}</style></head><body>
 <header><div class="in"><a class="logo" href="./"><img src="icon-192.png" alt="">CASINETORI</a><a class="play" href="./">Jugar gratis ›</a></div></header>
 <main>
 <h1>Contacto</h1><p class="upd">Te contestamos lo antes posible.</p>
 <div class="card"><h2 style="margin-top:0">Dentro del juego</h2><p>La forma más rápida: abre <b>Ayuda › Buzón del jefe</b> en <a href="./">Casinetori</a> y escribe tu mensaje. La respuesta te llega dentro del juego.</p></div>
-<div class="card"><h2 style="margin-top:0">Por correo</h2><p><a href="mailto:contacto@casinetori.com">contacto@casinetori.com</a></p></div>
+<div class="card" id="correo"><h2 style="margin-top:0">Por correo</h2><p>Escríbenos a <b style="color:#ffd600">contacto@casinetori.com</b>. Elige cómo:</p>
+<div class="mbtns"><a class="mb" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=contacto@casinetori.com&su=Casinetori"><span style="background:#ea4335">G</span>Gmail</a>
+<a class="mb" target="_blank" rel="noopener" href="https://outlook.live.com/mail/0/deeplink/compose?to=contacto@casinetori.com&subject=Casinetori"><span style="background:#0a64c8">O</span>Outlook / Hotmail</a>
+<button class="mb" type="button" id="cpy"><span style="background:#14e08a;color:#062">⧉</span><b id="cpyT">Copiar la dirección</b></button>
+<a class="mb" href="mailto:contacto@casinetori.com?subject=Casinetori"><span style="background:#3a3f5c">✉</span>Otra app de correo</a></div></div>
+<script>document.getElementById('cpy').onclick=async()=>{const t=document.getElementById('cpyT');try{await navigator.clipboard.writeText('contacto@casinetori.com')}catch(e){const i=document.createElement('input');i.value='contacto@casinetori.com';document.body.appendChild(i);i.select();document.execCommand('copy');i.remove()}t.textContent='¡Copiada!';setTimeout(()=>t.textContent='Copiar la dirección',2000)}</script>
 <h2>¿Para qué puedes escribirnos?</h2><ul><li>Avisar de un fallo.</li><li>Proponer una idea o un juego nuevo.</li><li>Recuperar tu cuenta.</li><li>Pedir que borremos tus datos.</li><li>Denunciar a un jugador que hace trampas o molesta.</li></ul></main>
 <footer><div class="in"><nav><a href="sobre.html">Qué es Casinetori</a><a href="privacidad.html">Privacidad y cookies</a><a href="aviso-legal.html">Aviso legal</a><a href="contacto.html">Contacto</a></nav>© 2026 Casinetori · Juego gratuito con dinero ficticio. Aquí no se apuesta ni se gana dinero real.</div></footer>
 </body></html>
