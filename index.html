@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-04-q">
+<meta name="app-version" content="2026-10-04-r">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1555,6 +1555,7 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 [data-delacc]{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
 [data-delacc]::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.28)}
 [data-delacc].holding::after{width:100%;transition:width 2s linear}
+.flgw{display:block;line-height:0}.flgw .flg{width:58px;height:40px;border-radius:5px;box-shadow:0 2px 6px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.15);display:inline-block}
 .botchat{background:rgba(0,0,0,.28);border:1px solid rgba(127,227,255,.25);border-radius:12px;padding:10px;margin-bottom:10px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:7px;scroll-behavior:smooth}
 .bm{max-width:86%;padding:8px 11px;border-radius:14px;font-size:13.5px;font-weight:700;line-height:1.38;animation:bmin .25s ease-out}.bm.b{align-self:flex-start;background:#1d3d8a;color:#eaf1ff;border-bottom-left-radius:4px}.bm.u{align-self:flex-end;background:#ffd600;color:#111;border-bottom-right-radius:4px}
 @keyframes bmin{from{transform:translateY(6px);opacity:0}}.bm .act{display:block;margin-top:7px;background:#fff;color:#111;border:2px solid #000;border-radius:8px;padding:5px 9px;font:800 12px var(--f-b);cursor:pointer;width:max-content}
@@ -8545,8 +8546,8 @@ const _acNuke=applyCmd;applyCmd=function(id,c){if(c&&c.type==='nuke'){S.cmdDone=
 
 /* ---- Elegir idioma al entrar ---- */
 function askLang(then){$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('wide','notes');mb.onclick=null;mb.dataset.lock='1';
-  const F={es:'🇪🇸',en:'🇬🇧',fr:'🇫🇷',pt:'🇵🇹'};
-  mb.innerHTML=`<div data-noi18n><h2 style="font-size:28px;text-align:center">🌍 Idioma · Language · Langue · Língua</h2><div class="langpick">${_i18nLangs.map(([k,t])=>`<button data-lp="${k}" aria-pressed="${_i18nL===k}" lang="${k}"><span class="emo">${F[k]||'🌐'}</span><b>${t}</b></button>`).join('')}</div></div>`;
+  const F={es:'<svg viewBox="0 0 60 40" class="flg"><rect width="60" height="40" fill="#c60b1e"/><rect y="10" width="60" height="20" fill="#ffc400"/></svg>',en:'<svg viewBox="0 0 60 30" class="flg"><clipPath id="fuk"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="fuk2"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#fuk)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#fuk2)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>',fr:'<svg viewBox="0 0 60 40" class="flg"><rect width="20" height="40" fill="#0055a4"/><rect x="20" width="20" height="40" fill="#fff"/><rect x="40" width="20" height="40" fill="#ef4135"/></svg>',pt:'<svg viewBox="0 0 60 40" class="flg"><rect width="24" height="40" fill="#046a38"/><rect x="24" width="36" height="40" fill="#da291c"/><circle cx="24" cy="20" r="8" fill="#ffe900" stroke="#000" stroke-width=".6"/><path d="M19.5 15.5h9v7a4.5 4.5 0 0 1-9 0z" fill="#fff" stroke="#da291c" stroke-width="1.6"/></svg>'};
+  mb.innerHTML=`<div data-noi18n><h2 style="font-size:28px;text-align:center">🌍 Idioma · Language · Langue · Língua</h2><div class="langpick">${_i18nLangs.map(([k,t])=>`<button data-lp="${k}" aria-pressed="${_i18nL===k}" lang="${k}"><span class="flgw">${F[k]||'🌐'}</span><b>${t}</b></button>`).join('')}</div></div>`;
   mb.onclick=e=>{const b=e.target.closest('[data-lp]');if(!b)return;const l=b.dataset.lp;S.langAsked=true;save();setCfg('lang',l);_i18nApply(l);sfx('click');delete mb.dataset.lock;closeModal();if(then)setTimeout(then,120)}}
 const _opL=openProfile;openProfile=function(first){if(first&&!S.langAsked&&!(S.cfg&&S.cfg.lang)){askLang(()=>openProfile(first));return}return _opL.apply(this,arguments)};
 (function(){const iv=setInterval(()=>{if(S.langAsked||(S.cfg&&S.cfg.lang)){clearInterval(iv);return}if(S.name&&$('#modal').hidden)askLang()},1500)})();
