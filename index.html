@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-04-r">
+<meta name="app-version" content="2026-10-04-s">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1555,6 +1555,19 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 [data-delacc]{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
 [data-delacc]::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.28)}
 [data-delacc].holding::after{width:100%;transition:width 2s linear}
+.fads{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:420px;margin:10px auto 0;position:relative;z-index:2}
+.fad{display:flex;align-items:center;gap:8px;background:#141a2e;color:#fff;border:2px solid #000;border-radius:12px;padding:8px 10px;box-shadow:3px 3px 0 #000;cursor:pointer;text-align:left}
+.fad .e{font-size:22px}.fad b{display:block;font:900 12.5px var(--f-b)}.fad small{display:block;font:800 11px var(--f-b);color:var(--sun)}.fad.on{background:#14e08a;color:#062}.fad.on small{color:#062}.fad:disabled{opacity:.6}
+.bigcoin.auto{animation:fauto .12s infinite alternate}@keyframes fauto{to{transform:scale(.95)}}
+.evbar.ev2{background:linear-gradient(90deg,var(--evc,#ffd600),#fff2a8 60%,var(--evc,#ffd600));background-size:200% 100%;animation:rgbmove 4s linear infinite}
+.evbar .eve{font-size:26px;line-height:1}.evbar .evt{display:flex;flex-direction:column;gap:1px;min-width:0}.evbar .evt small{text-transform:none;letter-spacing:0;font-weight:800;font-size:12.5px;opacity:.85}
+.evbar .evbtn{background:#111;color:#ffd600;border:2px solid #000;border-radius:8px;padding:6px 10px;font:900 12px var(--f-b);cursor:pointer;text-transform:uppercase}
+#rainL{position:fixed;inset:0;pointer-events:none;z-index:9300;overflow:hidden}
+.rc{position:absolute;top:-60px;width:46px;height:46px;border-radius:50%;pointer-events:auto;cursor:pointer;border:3px solid #a8740a;background:radial-gradient(circle at 35% 30%,#fff6b0,#ffd600 45%,#c99a1a);box-shadow:0 4px 0 #8a5d00,0 0 14px rgba(255,214,0,.7);font:900 20px/40px var(--f-b);color:#8a5d00;text-align:center;animation:rcfall linear forwards;touch-action:manipulation}
+@keyframes rcfall{to{transform:translateY(calc(100vh + 120px)) rotate(var(--rr,360deg))}}
+.rpop{position:fixed;pointer-events:none;z-index:9301;font:900 18px var(--f-b);color:#14e08a;text-shadow:0 2px 0 #000;animation:rpop .8s ease-out forwards}@keyframes rpop{to{transform:translateY(-50px);opacity:0}}
+.evadm{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}.evadm h4{margin:0 0 8px;font:900 15px var(--f-b)}.evchips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.evchip{border:2px solid var(--line);background:#1a1d2e;color:#fff;border-radius:9px;padding:6px 9px;font:800 12px var(--f-b);cursor:pointer}.evchip[aria-pressed=true]{border-color:var(--mint);background:rgba(20,224,138,.15)}.evchip[aria-pressed=false]{opacity:.5;text-decoration:line-through}
+.evday{font-size:12.5px;font-weight:700;color:var(--muted);line-height:1.6}.evday b{color:#fff}
 .flgw{display:block;line-height:0}.flgw .flg{width:58px;height:40px;border-radius:5px;box-shadow:0 2px 6px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.15);display:inline-block}
 .botchat{background:rgba(0,0,0,.28);border:1px solid rgba(127,227,255,.25);border-radius:12px;padding:10px;margin-bottom:10px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:7px;scroll-behavior:smooth}
 .bm{max-width:86%;padding:8px 11px;border-radius:14px;font-size:13.5px;font-weight:700;line-height:1.38;animation:bmin .25s ease-out}.bm.b{align-self:flex-start;background:#1d3d8a;color:#eaf1ff;border-bottom-left-radius:4px}.bm.u{align-self:flex-end;background:#ffd600;color:#111;border-bottom-right-radius:4px}
@@ -3058,6 +3071,7 @@ html[data-fit="s"]{zoom:.88}html[data-fit="x"]{zoom:.76}
             <div><small>Clics</small><b id="fClk">0</b></div>
           </div>
           <div class="fen"><span>Energía</span><div class="fenbar"><i id="fEn"></i></div><b id="fEnT">100</b></div>
+          <div class="fads" id="fabAds"><button class="fad" data-fad="auto"><span class="e">🤖</span><span><b>Autoclick 1 min</b><small>📺 Ver anuncio</small></span></button><button class="fad" data-fad="inf"><span class="e">⚡</span><span><b>Energía infinita 1 min</b><small>📺 Ver anuncio</small></span></button></div>
           <p class="fnote">Aquí se cura a mano. Si te quedas sin energía, los clics valen mucho menos. Con autoclicker te pillo y te multo.</p>
         </div>
         <div>
@@ -4669,7 +4683,7 @@ function bestPub(){const o={};Object.keys(S.best||{}).forEach(k=>{if(k.includes(
 function normP(d){if(d&&Array.isArray(d.own))d.own=d.own.map(o=>Array.isArray(o)?o:o&&typeof o==='object'?[o.e,o.n,o.q,o.p]:o);return d}
 async function pushPlayer(){if(!NET.ok||!NET.id||!S.name||NET.kicked)return;if(NET.busyP){NET.pushAgain=true;return}const c=myCos();
   const body={name:S.name.slice(0,14),av:S.av||'😎',code:S.code||'',coins:Math.floor(S.coins),earned:Math.floor(S.earned),lvl:S.lvl,ach:S.ach.length,spent:ownedValue(),col:ownedValue(),cheat:S.strikes||0,
-    pt:Math.floor(S.playtime||0),cw:st('casinoWon'),clk:st('clicks'),best:bestPub(),cos:{c:c.c,f:c.f,bg:c.bg},img:S.img||'',ti:tiText(),show:cfg('showVit')?showList().map(i=>P[i][0]):[],own:cfg('showVit')?ownPub().map(o=>({e:o[0],n:o[1],q:o[2],p:o[3]})):[],achL:(S.ach||[]).slice(0,80),since:S.since||Date.now(),bw:S.bw||{},gm:st('games'),sp:st('spins'),wn:st('wins'),ord:S.orders||0,gf:st('gifts'),trs:st('sent'),pr:st('pranks'),gold:st('golden'),strk:(S.daily||{}).streak||0,at:curAt(),bl:S.bl||{},cl:st('casinoLost'),blv:bestLvPub(),jp:S.jp||null,gv:st('gifted'),exc:(S.exc||[]).slice(0,40)};
+    pt:Math.floor(S.playtime||0),cw:st('casinoWon'),clk:st('clicks'),best:bestPub(),cos:{c:c.c,f:c.f,bg:c.bg},img:S.img||'',ti:tiText(),show:cfg('showVit')?showList().map(i=>P[i][0]):[],own:cfg('showVit')?ownPub().map(o=>({e:o[0],n:o[1],q:o[2],p:o[3]})):[],achL:(S.ach||[]).slice(0,80),since:S.since||Date.now(),bw:S.bw||{},gm:st('games'),sp:st('spins'),wn:st('wins'),ord:S.orders||0,gf:st('gifts'),trs:st('sent'),pr:st('pranks'),gold:st('golden'),strk:(S.daily||{}).streak||0,at:curAt(),bl:S.bl||{},cl:st('casinoLost'),blv:bestLvPub(),jp:S.jp||null,gv:st('gifted'),rain:S.rainG||null,exc:(S.exc||[]).slice(0,40)};
   const j=JSON.stringify({...body,pt:0});if(j===NET.lastP&&Date.now()-(NET.lastT||0)<60000)return;
   NET.busyP=true;try{await NET.db.collection('players').doc(NET.id).set({...body,t:Date.now()});NET.lastP=j;NET.lastT=Date.now()}
   catch(e){NET.pushErr=String(e&&e.message||e);try{console.warn('pushPlayer',e)}catch(_){}if(e&&e.code==='permission-denied'){NET.ro=true;NET.why='La base de datos no deja guardar. Revisa las reglas de Firebase.';renderRank()}}NET.busyP=false;if(NET.pushAgain){NET.pushAgain=false;setTimeout(pushPlayer,250)}}
@@ -5043,6 +5057,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-04-s',t:'Eventos y anuncios en la fábrica',items:[['🎉','Eventos todos los días','Cada día salen eventos al azar: doble o triple dinero, lluvia de dinero para robar entre todos, doble XP, fábrica a tope, ruletas sin espera, casino caliente, fiebre del oro y regalos del jefe.','new','#ffd600'],['📺','Fábrica con anuncios','Mira un anuncio y llévate 1 minuto de autoclick o 1 minuto de energía infinita.','new','#14e08a']]},
  {v:'2026-10-04-q',t:'Bot Casinetori',items:[['🤖','Habla con el bot','La cuenta oficial ahora es el Bot Casinetori: sale fijo arriba en Ranking y al tocarlo puedes preguntarle dudas, pedir consejos o que te cuente un chiste. No se le pueden mandar regalos ni mensajes.','new','#3f7cff']]},
  {v:'2026-10-04-p',t:'Perfil oficial',items:[['✔️','Atajos en la cuenta oficial','Toca el perfil de la cuenta oficial de Casinetori para escribir al equipo, ver novedades, ayuda, invitar amigos o leer las normas.','new','#3f7cff']]},
  {v:'2026-10-04-o',t:'Cuenta oficial',items:[['✔️','Casinetori oficial','La cuenta oficial del juego tiene su propio pack exclusivo: título azul «Oficial ✔», marco que cambia de color, nombre brillante y fondo propio.','new','#3f7cff']]},
@@ -9027,6 +9042,82 @@ const _opBot=openPlayer;openPlayer=function(id){_opBot.apply(this,arguments);if(
   oc.querySelector('.oh').insertAdjacentHTML('afterend',`<div class="botchat" id="botChat"><div class="bm b">¡Hola${nm}! Soy el bot de Casinetori 🤖 ¿En qué te ayudo?</div></div><div class="bchips">${BOT_Q.map((q,i)=>`<button class="bchip" data-bq="${i}">${q[0]} ${esc(q[1])}</button>`).join('')}</div>`);
   oc.querySelector('.oh b').innerHTML='<i>✔</i>Bot Casinetori · cuenta oficial';
   oc.querySelectorAll('[data-bq]').forEach(b=>b.onclick=()=>{sfx('click');botAsk(+b.dataset.bq)})};
+
+/* ===== 2026-10-04-s: EVENTOS (automáticos cada día + los que lanza el jefe) ===== */
+const EVT={x2:['💰','Doble dinero','Todo lo que ganes vale el doble',10,'#ffd600'],x3:['🔥','Triple locura','Todo lo que ganes vale el triple',5,'#ff6b4a'],
+  rain:['🌧️','Lluvia de dinero','Caen monedas: ¡pilla todas las que puedas antes que los demás!',3,'#14e08a'],xp:['⭐','Doble XP','Subes de nivel el doble de rápido',15,'#b06bff'],
+  fab:['🏭','Fábrica a tope','Los clics de la fábrica valen x5 y no gastan energía',10,'#3ff0ff'],wheel:['🎡','Ruletas sin espera','Gira las ruletas de Inicio sin esperar',10,'#ff4fd8'],
+  casino:['🎰','Casino caliente','Lo que ganes en el casino vale x2',10,'#ff9d00'],gold:['✨','Fiebre del oro','Salen monedas doradas en la fábrica cada pocos segundos',10,'#ffe066'],
+  gift:['🎁','Regalo del jefe','Recoge tu regalo antes de que se acabe',15,'#14e08a']};
+let EVCFG={auto:true,off:{}};
+function evRng(seed){let h=1779033703^seed.length;for(let i=0;i<seed.length;i++){h=Math.imul(h^seed.charCodeAt(i),3432918353);h=h<<13|h>>>19}return()=>{h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);h^=h>>>16;return(h>>>0)/4294967296}}
+function evDay(d){const k=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(),R=evRng('cas'+k),hours=[11,13,16,18,20,22],out=[],types=Object.keys(EVT);
+  const hs=hours.slice().sort(()=>R()-.5).slice(0,4).sort((a,b)=>a-b);hs.forEach((h,i)=>{const t=types[Math.floor(R()*types.length)],st=new Date(d.getFullYear(),d.getMonth(),d.getDate(),h,Math.floor(R()*50)).getTime();out.push({type:t,start:st,until:st+EVT[t][3]*60e3,id:'auto'+k+'_'+i,pool:2000000,auto:1})});return out}
+function curEv(){const now=Date.now(),m=NET.event;
+  if(m&&+m.until>now&&+m.until-now<3*3600e3){const t=EVT[m.type]?m.type:(+m.mult>=3?'x3':+m.mult>=2?'x2':null);if(t)return{type:t,until:+m.until,id:m.id||('man'+m.until),pool:+m.pool||2000000,name:m.name}}
+  if(EVCFG.auto===false)return null;for(const e of evDay(new Date()))if(now>=e.start&&now<e.until&&!(EVCFG.off||{})[e.type])return e;return null}
+evMult=function(){const e=curEv();return e?(e.type==='x3'?3:e.type==='x2'?2:1):1};
+const _xpEv=xp;xp=function(n){const e=curEv();return _xpEv.call(this,e&&e.type==='xp'?n*2:n)};
+const _fgEv=fabGive;fabGive=function(v){const e=curEv();return _fgEv.call(this,e&&e.type==='fab'?v*5:v)};
+let evSeen='';
+function evRender(){const el=$('#evbar');if(!el)return;const e=curEv();if(!e){el.hidden=true;el.classList.remove('ev2');return}const T=EVT[e.type],sec=Math.max(0,Math.ceil((e.until-Date.now())/1000));
+  el.hidden=false;el.classList.add('ev2');el.style.setProperty('--evc',T[4]);let extra='';
+  if(e.type==='rain'){const L=rainLeft(e);extra=`<small>Quedan ${fmt(L)} € en el aire${rainTopTxt(e)}</small>`}
+  if(e.type==='gift'){extra=(S.evGift===e.id)?'<small>Ya has recogido tu regalo ✔</small>':`<button class="evbtn" id="evGift">🎁 Recoger</button>`}
+  el.innerHTML=`<span class="eve">${T[0]}</span><span class="evt"><b>${esc(e.name||T[1])}</b><small>${esc(T[2])}</small>${e.type==='rain'?extra:''}</span>${e.type==='gift'?extra:''}<span class="num">${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}</span>`;
+  const g=$('#evGift');if(g)g.onclick=()=>{if(S.evGift===e.id)return;S.evGift=e.id;const v=Math.max(5000,(S.lvl||1)*5000);give(v);save();sfx('big');confetti(160);troll('🎁 REGALO DEL JEFE','+'+fmt(v)+' € para ti','#14e08a',true);evRender()};
+  if(evSeen!==e.id){evSeen=e.id;if(!(e.type==='x2'||e.type==='x3')||e.auto)setTimeout(()=>{try{sfx('big');troll(T[0]+' '+String(e.name||T[1]).toUpperCase(),T[2],T[4],true)}catch(_){}},400)}}
+renderEvent=function(){evRender()};
+/* efectos que se notan cada segundo */
+setInterval(()=>{const e=curEv();try{evRender()}catch(_){}if(!e){rainStop();return}
+  if(e.type==='wheel'&&!wBusy&&!S.wPend&&(S.wheelAt||0)>0){S.wheelAt=0;try{if(view==='inicio')wheelInfo()}catch(_){}}
+  if(e.type==='casino'&&!(S.casMult&&+S.casMult.until>=e.until&&+S.casMult.v>=2))S.casMult={v:2,until:e.until};
+  if(e.type==='fab')S.fabEn=100;
+  if(e.type==='gold'&&goldNext>Date.now()+5000)goldNext=Date.now()+rnd(2500,5000);
+  if(e.type==='rain')rainStart(e);else rainStop()},1000);
+/* lluvia de dinero compartida: lo que pilla uno ya no lo pilla otro */
+function rainTaken(e){let t=0;NET.players.forEach((p,id)=>{if(id!==NET.id&&p.rain&&p.rain.id===e.id)t+=+p.rain.n||0});if(S.rainG&&S.rainG.id===e.id)t+=+S.rainG.n||0;return t}
+function rainLeft(e){return Math.max(0,(e.pool||2000000)-rainTaken(e))}
+function rainTopTxt(e){const arr=[];NET.players.forEach((p,id)=>{if(id!==NET.id&&p.rain&&p.rain.id===e.id&&+p.rain.n>0)arr.push([p.name,+p.rain.n])});if(S.rainG&&S.rainG.id===e.id&&S.rainG.n>0)arr.push([S.name||'Tú',S.rainG.n]);arr.sort((a,b)=>b[1]-a[1]);return arr.length?' · 🥇 '+esc(arr[0][0])+' '+short(arr[0][1])+' €':''}
+let rainIv=null,rainPushT=0;
+function rainStart(e){if(rainIv)return;let L=$('#rainL');if(!L){L=document.createElement('div');L.id='rainL';document.body.appendChild(L)}
+  rainIv=setInterval(()=>{const left=rainLeft(e),val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100);if(left<val||document.hidden||$('#excWin:not([hidden])'))return;if(L.childElementCount>14)return;
+    const c=document.createElement('button');c.className='rc';c.textContent='€';c.style.left=(4+Math.random()*88)+'vw';const dur=3.2+Math.random()*2.5;c.style.animationDuration=dur+'s';c.style.setProperty('--rr',(Math.random()*720-360)+'deg');
+    c.onpointerdown=ev=>{ev.preventDefault();ev.stopPropagation();if(c.dataset.got)return;c.dataset.got=1;const l2=rainLeft(e),v=Math.min(val,l2);if(v<=0){c.remove();return}
+      if(!S.rainG||S.rainG.id!==e.id)S.rainG={id:e.id,n:0};S.rainG.n+=v;S.coins+=v;S.earned+=v;try{sfx('coin')}catch(_){}
+      const pp=document.createElement('div');pp.className='rpop';pp.textContent='+'+short(v)+' €';pp.style.left=ev.clientX-20+'px';pp.style.top=ev.clientY-20+'px';document.body.appendChild(pp);setTimeout(()=>pp.remove(),800);c.remove();
+      save();if(Date.now()-rainPushT>2500){rainPushT=Date.now();NET.lastP='';pushPlayer()}else setTimeout(()=>{if(Date.now()-rainPushT>=2400){rainPushT=Date.now();NET.lastP='';pushPlayer()}},2600)};
+    L.appendChild(c);setTimeout(()=>c.remove(),dur*1000+200)},420)}
+function rainStop(){if(rainIv){clearInterval(rainIv);rainIv=null}const L=$('#rainL');if(L)L.innerHTML=''}
+/* configuración de eventos que pone el jefe */
+setTimeout(function evCfgListen(){if(!NET.db){setTimeout(evCfgListen,2000);return}NET.db.collection('meta').doc('evcfg').onSnapshot(sn=>{const d=sn.exists?sn.data():null;EVCFG={auto:d?d.auto!==false:true,off:(d&&d.off)||{}};try{evRender();if(view==='admin')evAdmRender()}catch(_){}},()=>{})},1500);
+/* ---------- panel del jefe: eventos ---------- */
+function evAdmRender(){const g=$('#admGlobal');if(!g)return;let box=$('#evAdm');if(!box){g.insertAdjacentHTML('beforeend','<div class="evadm" id="evAdm"></div>');box=$('#evAdm')}
+  const today=evDay(new Date()),cur=curEv(),hm=t=>new Date(t).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  box.innerHTML=`<h4>🎉 Eventos</h4>
+   <div class="row"><button class="btn ${EVCFG.auto?'mint':'alt'}" id="evAuto">${EVCFG.auto?'✅ Eventos automáticos: SÍ':'⛔ Eventos automáticos: NO'}</button><span class="netmsg">Toca un evento para que salga o no salga en los automáticos:</span></div>
+   <div class="evchips">${Object.entries(EVT).map(([k,t])=>`<button class="evchip" data-evt="${k}" aria-pressed="${!EVCFG.off[k]}">${t[0]} ${esc(t[1])}</button>`).join('')}</div>
+   <div class="evday">Hoy: ${today.map(e=>`<b>${hm(e.start)}</b> ${EVT[e.type][0]} ${EVT[e.type][1]}${EVCFG.off[e.type]||!EVCFG.auto?' <i>(apagado)</i>':''}`).join(' · ')}</div>
+   <div class="row" style="margin-top:8px"><select class="inp" id="evType">${Object.entries(EVT).map(([k,t])=>`<option value="${k}">${t[0]} ${esc(t[1])}</option>`).join('')}</select>
+     <select class="inp" id="evDur"><option value="3">3 min</option><option value="5">5 min</option><option value="10" selected>10 min</option><option value="15">15 min</option><option value="30">30 min</option><option value="60">1 hora</option></select>
+     <input class="inp num" id="evPool" value="2000000" inputmode="numeric" aria-label="Dinero de la lluvia" title="Dinero total de la lluvia">
+     <button class="btn" id="evGo" style="background:#ffd600;color:#111">🚀 Lanzar ahora</button><button class="btn alt" id="evCut">✋ Cortar</button></div>
+   <p class="netmsg" style="margin:4px 0 0">${cur?'Ahora mismo: '+EVT[cur.type][0]+' '+EVT[cur.type][1]+' (acaba a las '+hm(cur.until)+')':'Ahora mismo no hay evento.'} El número es el dinero total de la lluvia, que se reparten entre todos.</p>`;
+  $('#evAuto').onclick=async()=>{try{await NET.db.collection('meta').doc('evcfg').set({auto:!EVCFG.auto,off:EVCFG.off||{}});sfx('click')}catch(e){toast('No se ha podido','Revisa la conexión','var(--coral)','⚠️')}};
+  box.querySelectorAll('[data-evt]').forEach(b=>b.onclick=async()=>{const k=b.dataset.evt,off={...(EVCFG.off||{})};if(off[k])delete off[k];else off[k]=true;try{await NET.db.collection('meta').doc('evcfg').set({auto:EVCFG.auto!==false,off});sfx('click')}catch(e){}});
+  $('#evGo').onclick=async()=>{const t=$('#evType').value,m=+$('#evDur').value,pool=Math.max(10000,Math.floor(+String($('#evPool').value).replace(/\D/g,'')||2000000));const until=Date.now()+m*60e3;
+    try{await NET.db.collection('meta').doc('event').set({type:t,until,name:EVT[t][1],id:'man'+Date.now(),pool,mult:t==='x3'?3:t==='x2'?2:1});sfx('big');toast('Evento lanzado',EVT[t][0]+' '+EVT[t][1]+' · '+m+' min','var(--sun)','🎉')}catch(e){toast('No se ha podido','Revisa la conexión','var(--coral)','⚠️')}};
+  $('#evCut').onclick=async()=>{try{await NET.db.collection('meta').doc('event').set({mult:1,until:0,name:''});if(EVCFG.auto&&curEv()){const c=curEv();const off={...(EVCFG.off||{})};toast('Evento manual cortado','Si es uno automático, apágalo tocándolo en la lista','var(--sun)','✋')}else toast('Evento cortado','','var(--sun)','✋')}catch(e){}}}
+const _rAdmEv=renderAdmin;renderAdmin=function(){const r=_rAdmEv.apply(this,arguments);try{if(ADM.on)evAdmRender()}catch(e){}return r};
+/* ---------- fábrica: anuncios de autoclick y energía infinita ---------- */
+let fabAutoIv=null;
+function fadRender(){const a=$('[data-fad="auto"]'),i=$('[data-fad="inf"]');if(!a||!i)return;const now=Date.now();
+  [[a,S.fabAuto,'Autoclick'],[i,S.fabInf,'Energía infinita']].forEach(([b,u,n])=>{const on=+u>now;b.classList.toggle('on',on);b.querySelector('small').textContent=on?'¡Activo! '+Math.ceil((u-now)/1000)+' s':'📺 Ver anuncio'})}
+function fabAutoRun(){if(fabAutoIv)return;fabAutoIv=setInterval(()=>{if(!(+S.fabAuto>Date.now())){clearInterval(fabAutoIv);fabAutoIv=null;const b=$('#bigcoin');if(b)b.classList.remove('auto');return}
+  const v=perClick();fabGive(v);if(view==='fabrica'){const b=$('#bigcoin');if(b)b.classList.add('auto');if(Math.random()<.35){const z=fz.getBoundingClientRect(),f=document.createElement('div');f.className='floaty';f.textContent='+'+fmtC(v);f.style.left=(z.width/2-20+(Math.random()-.5)*80)+'px';f.style.top=(z.height/2-60+(Math.random()-.5)*40)+'px';fz.appendChild(f);setTimeout(()=>f.remove(),900)}}},125)}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-fad]');if(!b)return;const k=b.dataset.fad,key=k==='auto'?'fabAuto':'fabInf';if(+S[key]>Date.now()){toast('Ya lo tienes activo','Aprovéchalo','var(--mint)','⚡');return}
+  sfx('click');showRewardAd('fab_'+k,()=>{S[key]=Date.now()+60e3;save();sfx('big');confetti(80);toast(k==='auto'?'🤖 Autoclick 1 minuto':'⚡ Energía infinita 1 minuto','¡A tope!','var(--mint)',k==='auto'?'🤖':'⚡');if(k==='auto')fabAutoRun();fadRender()})});
+setInterval(()=>{if(+S.fabInf>Date.now())S.fabEn=100;if(+S.fabAuto>Date.now())fabAutoRun();if(view==='fabrica')fadRender()},250);
 })();
 </script>
 
