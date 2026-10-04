@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-04-j">
+<meta name="app-version" content="2026-10-04-l">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1555,6 +1555,16 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 [data-delacc]{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
 [data-delacc]::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.28)}
 [data-delacc].holding::after{width:100%;transition:width 2s linear}
+#jnStack{position:fixed;right:12px;bottom:84px;z-index:9500;display:flex;flex-direction:column;gap:8px;width:min(320px,calc(100vw - 24px));pointer-events:none}
+@media (min-width:881px){#jnStack{bottom:16px}}
+.jn{pointer-events:auto;display:flex;gap:10px;align-items:flex-start;background:#15182a;border:2px solid var(--jc,#3f7cff);border-left-width:6px;border-radius:10px;padding:8px 10px;box-shadow:0 10px 28px rgba(0,0,0,.55);cursor:pointer;animation:jnin .35s cubic-bezier(.2,1.4,.4,1);font-size:13px}
+.jn.out{animation:jnout .3s forwards}@keyframes jnin{from{transform:translateX(30px);opacity:0}}@keyframes jnout{to{transform:translateX(30px);opacity:0}}
+.jn .e{font-size:20px;line-height:1}.jn .b{flex:1;min-width:0}.jn .h{display:flex;gap:6px;align-items:baseline;font:900 11px var(--f-b);letter-spacing:1px;text-transform:uppercase;color:var(--jc)}.jn .h i{font-style:normal;color:var(--muted);font-weight:700;letter-spacing:0;text-transform:none;margin-left:auto}
+.jn .n{font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.jn .t{color:var(--muted);font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.jn .x{background:none;border:0;color:var(--muted);font-size:14px;cursor:pointer;padding:0 2px}
+.admbadge{position:absolute;top:2px;right:6px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--red);color:#fff;font:900 11px/18px var(--f-b);text-align:center;box-shadow:0 0 0 2px var(--bg)}
+#navAdmin{position:relative}
+.jnperm{margin:8px 0 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;font-weight:700;color:var(--muted)}
 .tk{position:relative;background:radial-gradient(circle at 15% 0,#ffe08a,transparent 45%),linear-gradient(135deg,#ffc23d,#ff7a2e)!important}
 .tk:before,.tk:after{content:'';position:absolute;top:50%;width:22px;height:22px;border-radius:50%;background:var(--bg);transform:translateY(-50%)}.tk:before{left:-12px}.tk:after{right:-12px}
 .tk .th{align-items:center!important}.tk .th h3{font-size:30px;text-shadow:2px 2px 0 rgba(255,255,255,.35)}
@@ -3754,7 +3764,7 @@ const TMULT=[1,2,3,5,10,50],TW=[30,26,18,14,9,3];
 let tk=null;const scv=$('#scratch'),sctx=scv.getContext('2d');
 function updTkPrice(){const pr=tk&&tk.live?tk.price:Math.max(10,curBet());$('#tkPrice').textContent=short(pr)+' €';const L=$('#tkLad');if(L)L.innerHTML=TMULT.slice().reverse().map(m=>`<span class="tkl${m>=50?' top':m>=10?' hi':''}" data-m="${m}"><em>x${m}</em>${short(m*pr)} €</span>`).join('')}
 function tkCells(mults){$('#tgrid').innerHTML=mults.map((m,i)=>`<div class="tcell" data-i="${i}" data-m="${m}"><span class="coinic">€</span><b>${short(m*tk.price)} €</b></div>`).join('');const sr=$('#tkSer');if(sr)sr.textContent='Nº '+String(Math.floor(Math.random()*1e6)).padStart(6,'0');try{updTkPrice()}catch(e){}}
-function coverTk(){const r=$('#tkwrap').getBoundingClientRect();scv.width=Math.max(1,r.width*DPR);scv.height=Math.max(1,r.height*DPR);scv.style.opacity=1;scv.style.pointerEvents='auto';
+function coverTk(){const r=$('#tkwrap').getBoundingClientRect();scv.style.transition='none';scv.width=Math.max(1,r.width*DPR);scv.height=Math.max(1,r.height*DPR);scv.style.opacity=1;void scv.offsetWidth;requestAnimationFrame(()=>requestAnimationFrame(()=>{scv.style.transition=''}));scv.style.pointerEvents='auto';
   const W=scv.width,H=scv.height,g=sctx.createLinearGradient(0,0,W,H);g.addColorStop(0,'#b8860b');g.addColorStop(.25,'#ffe27a');g.addColorStop(.5,'#d9a520');g.addColorStop(.75,'#fff1b0');g.addColorStop(1,'#a8740a');sctx.globalCompositeOperation='source-over';sctx.fillStyle=g;sctx.fillRect(0,0,W,H);
   sctx.save();sctx.globalAlpha=.18;sctx.fillStyle='#fff';for(let x=-H;x<W;x+=34*DPR){sctx.beginPath();sctx.moveTo(x,H);sctx.lineTo(x+H,0);sctx.lineTo(x+H+10*DPR,0);sctx.lineTo(x+10*DPR,H);sctx.fill()}sctx.restore();
   sctx.fillStyle='rgba(90,55,0,.22)';sctx.font=`${20*DPR}px "Anton",sans-serif`;sctx.textAlign='center';for(let y=30*DPR;y<H;y+=46*DPR)for(let x=(y/46/DPR%2?40:95)*DPR;x<W;x+=130*DPR)sctx.fillText('€ RASCA €',x,y);
@@ -3767,7 +3777,7 @@ $('#buyTk').addEventListener('click',()=>{if(tk&&tk.live)return;const price=Math
   ev('scratch');xp(6);sfx('buy');const win=Math.random()<.38;let mults;
   if(win){let r=Math.random()*TW.reduce((a,b)=>a+b),k=0;for(;k<TMULT.length;k++)if((r-=TW[k])<0)break;k=Math.min(k,TMULT.length-1);const others=TMULT.filter((_,j)=>j!==k);mults=[TMULT[k],TMULT[k],TMULT[k]];while(mults.length<6){const o=others[ri(0,others.length-1)];if(mults.filter(x=>x===o).length<2)mults.push(o)}tk={price,live:true,prize:TMULT[k]}}
   else{mults=[];while(mults.length<6){const o=TMULT[ri(0,TMULT.length-1)];if(mults.filter(x=>x===o).length<2)mults.push(o)}tk={price,live:true,prize:0}}
-  mults.sort(()=>Math.random()-.5);tkCells(mults);coverTk();$('#tkMsg').textContent='¡Rasca!';$('#buyTk').disabled=true;$('#revealTk').disabled=false;save()});
+  mults.sort(()=>Math.random()-.5);coverTk();tkCells(mults);$('#tkMsg').textContent='¡Rasca!';$('#buyTk').disabled=true;$('#revealTk').disabled=false;save()});
 let scratching=false,scrCount=0;
 function scr(e){if(!scratching||!tk||!tk.live)return;const r=scv.getBoundingClientRect();const x=(e.clientX-r.left)*scv.width/r.width,y=(e.clientY-r.top)*scv.height/r.height;
   sctx.globalCompositeOperation='destination-out';const R_=28*DPR,gr=sctx.createRadialGradient(x,y,R_*.45,x,y,R_);gr.addColorStop(0,'rgba(0,0,0,1)');gr.addColorStop(1,'rgba(0,0,0,0)');sctx.fillStyle=gr;sctx.beginPath();sctx.arc(x,y,R_,0,7);sctx.fill();sctx.fillStyle='#000';
@@ -5003,6 +5013,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-04-k',t:'Avisos para el jefe',items:[['🔔','El jefe se entera al momento','Cuando alguien escribe al Buzón del jefe (fallos, ideas, cuentas…), al jefe le sale un aviso pequeño en la esquina.','new','#3f7cff']]},
  {v:'2026-10-04-i',t:'Rasca y gana nuevo',items:[['🎟️','Más bonito','Lámina dorada con brillos, virutas y sonido de rascar de verdad, y el premio sale abajo sin tapar los números.','new','#ffc23d'],['🐞','Arreglado','Al ganar ya no se iluminan casillas que no tocan (antes 250.000 brillaba si ganabas 50.000).','fix','#14e08a']]},
  {v:'2026-10-04-g',t:'Los más generosos',items:[['🎁','Nuevo ranking: Generosos','En Ranking hay una clasificación nueva con quién ha regalado más dinero a sus amigos. Cuenta desde hoy.','new','#14e08a'],['🎡','Números claros','La ruleta del todo o nada pone «1 millón» o «48 mil» en vez de abreviaturas.','fix','#ffd600']]},
  {v:'2026-10-04-f',t:'Entra con Google',items:[['🔑','Cuenta con Google','Ahora puedes guardar tu partida y entrar desde cualquier sitio con tu cuenta de Google, con un toque.','new','#4aa8ff'],['🎡','Todo o nada renovada','Pierdes mucho menos (2 % de tu dinero) y si te llevas el gordo solo se bloquea 10 minutos. Los números se leen derechos y ya no se cortan.','new','#ffd600'],['🚀','Dash más justo','Las cajas de choque de la nave, la wave y los pinchos son más pequeñas: ya no mueres sin tocar nada.','fix','#3ff0ff']]},
@@ -8888,6 +8899,25 @@ RKC2.push(['gv','🎁','Generosos','Quién ha regalado más dinero a sus amigos 
   const _rl=rankList;rankList=function(tab,cat){if(cat!=='gv')return _rl(tab,cat);return _rl(tab,'coins').filter(p=>pval(p,'gv')>0).sort((a,b)=>pval(b,'gv')-pval(a,'gv'))};
   try{if(view==='ranking')renderRank()}catch(e){}})();
 i18nAdd([['Generosos','Most generous','Généreux','Generosos'],['Quién ha regalado más dinero a sus amigos (cuenta desde el 4 de octubre).','Who has gifted the most money to friends (counting since October 4).','Qui a offert le plus d\'argent à ses amis (depuis le 4 octobre).','Quem ofereceu mais dinheiro aos amigos (conta desde 4 de outubro).']]);
+
+/* ===== 2026-10-04-k: avisos pequeñitos para el jefe cuando llega algo al buzón ===== */
+(()=>{let started=false,known=null,sumShown=false;
+  const stack=()=>{let s_=$('#jnStack');if(!s_){s_=document.createElement('div');s_.id='jnStack';document.body.appendChild(s_)}return s_};
+  const badge=n=>{const b=$('#navAdmin');if(!b)return;let d=b.querySelector('.admbadge');if(!n){if(d)d.remove();return}if(!d){d=document.createElement('span');d.className='admbadge';b.appendChild(d)}d.textContent=n>99?'99+':n};
+  const goInbox=()=>{try{go('admin');setTimeout(()=>{const ib=$('#admInbox');if(ib)ib.scrollIntoView({behavior:'smooth',block:'start'})},250)}catch(e){}};
+  function jn(m){const T=(typeof BZT!=='undefined'&&(BZT[m.type]||BZT.otro))||['💬','Mensaje','#3f7cff'];const el=document.createElement('div');el.className='jn';el.style.setProperty('--jc',T[2]);
+    el.innerHTML=`<span class="e">${T[0]}</span><div class="b"><div class="h">Buzón · ${esc(T[1])}<i>ahora</i></div><div class="n">${esc(m.name||'Alguien')}${m.code?' <small style="color:var(--muted)">'+esc(m.code)+'</small>':''}</div><div class="t">${esc(String(m.text||'').slice(0,120))}</div></div><button class="x" aria-label="Cerrar">✕</button>`;
+    const kill=()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)};el.querySelector('.x').onclick=e=>{e.stopPropagation();kill()};el.onclick=()=>{kill();goInbox()};
+    const st_=stack();st_.appendChild(el);while(st_.children.length>4)st_.firstChild.remove();setTimeout(kill,9000);try{tone(880,.07,'sine',.05);tone(1320,.09,'sine',.04,0,.08)}catch(e){}
+    try{if('Notification' in window&&Notification.permission==='granted'&&document.visibilityState!=='visible'){const n=new Notification('Casinetori · '+T[1]+' de '+(m.name||'alguien'),{body:String(m.text||'').slice(0,140),icon:'icon-192.png',tag:'bz'+(m.t||'')});n.onclick=()=>{window.focus();goInbox();n.close()}}}catch(e){}}
+  function start(){if(started||!ADM.on||!NET.db)return;started=true;
+    NET.db.collection('inbox').onSnapshot(sn=>{const pend=sn.docs.filter(d=>(d.data()||{}).st==='pend').length;badge(pend);
+      if(known===null){known=new Set(sn.docs.map(d=>d.id));if(pend&&!sumShown){sumShown=true;setTimeout(()=>{const el=document.createElement('div');el.className='jn';el.style.setProperty('--jc','#ffd600');el.innerHTML=`<span class="e">📮</span><div class="b"><div class="h">Buzón del jefe</div><div class="n">Tienes ${pend} ${pend===1?'mensaje':'mensajes'} sin contestar</div><div class="t">Toca para verlos</div></div><button class="x" aria-label="Cerrar">✕</button>`;const kill=()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)};el.querySelector('.x').onclick=e=>{e.stopPropagation();kill()};el.onclick=()=>{kill();goInbox()};stack().appendChild(el);setTimeout(kill,8000)},2500)}return}
+      sn.docChanges().forEach(c=>{if(c.type==='added'&&!known.has(c.doc.id)){known.add(c.doc.id);const m=c.doc.data()||{};if(m.from!==NET.id&&m.st==='pend')jn(m)}})},()=>{started=false})}
+  setInterval(start,3000);setTimeout(start,1500);
+  /* botón para recibir también avisos del sistema (con la pestaña en segundo plano) */
+  const _rai=typeof renderAdmInbox==='function'?renderAdmInbox:null;if(_rai){renderAdmInbox=function(){const r=_rai.apply(this,arguments);try{const ib=$('#admInbox');if(ib&&'Notification' in window&&Notification.permission!=='granted'&&!ib.querySelector('.jnperm')){ib.insertAdjacentHTML('afterbegin',`<div class="jnperm">🔔 ¿Quieres avisos aunque tengas el juego en otra pestaña? <button class="btn sm alt" id="jnAsk">Activar avisos</button></div>`);$('#jnAsk').onclick=async()=>{try{const r_=await Notification.requestPermission();toast(r_==='granted'?'Avisos activados':'Avisos no activados',r_==='granted'?'Te avisaremos aunque estés en otra pestaña':'Puedes activarlos en los ajustes del navegador','var(--sky)','🔔');renderAdmInbox()}catch(e){}}}}catch(e){}return r}}
+  window.__jnTest=jn})();
 })();
 </script>
 
