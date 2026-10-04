@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-04-o">
+<meta name="app-version" content="2026-10-04-q">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1555,6 +1555,19 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 [data-delacc]{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
 [data-delacc]::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.28)}
 [data-delacc].holding::after{width:100%;transition:width 2s linear}
+.botchat{background:rgba(0,0,0,.28);border:1px solid rgba(127,227,255,.25);border-radius:12px;padding:10px;margin-bottom:10px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:7px;scroll-behavior:smooth}
+.bm{max-width:86%;padding:8px 11px;border-radius:14px;font-size:13.5px;font-weight:700;line-height:1.38;animation:bmin .25s ease-out}.bm.b{align-self:flex-start;background:#1d3d8a;color:#eaf1ff;border-bottom-left-radius:4px}.bm.u{align-self:flex-end;background:#ffd600;color:#111;border-bottom-right-radius:4px}
+@keyframes bmin{from{transform:translateY(6px);opacity:0}}.bm .act{display:block;margin-top:7px;background:#fff;color:#111;border:2px solid #000;border-radius:8px;padding:5px 9px;font:800 12px var(--f-b);cursor:pointer;width:max-content}
+.bm.typ{display:flex;gap:4px;padding:11px 13px}.bm.typ i{width:7px;height:7px;border-radius:50%;background:#9fc0ff;animation:btyp 1s infinite}.bm.typ i:nth-child(2){animation-delay:.15s}.bm.typ i:nth-child(3){animation-delay:.3s}@keyframes btyp{50%{transform:translateY(-4px);opacity:.5}}
+.bchips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.bchip{background:rgba(255,255,255,.1);border:1px solid rgba(127,227,255,.45);color:#fff;border-radius:999px;padding:6px 10px;font:800 12px var(--f-b);cursor:pointer}.bchip:hover{background:rgba(127,227,255,.2)}
+.botrow{display:flex;align-items:center;gap:10px;width:100%;margin:0 0 10px;padding:10px 12px;border-radius:12px;border:2px solid #7fe3ff;background:linear-gradient(135deg,#0b1d47,#14306e 60%,#24125a);color:#fff;cursor:pointer;text-align:left;box-shadow:0 0 16px rgba(63,124,255,.35)}
+.botrow .e{font-size:28px}.botrow b{display:block;font:900 15px var(--f-b)}.botrow small{display:block;color:#b9c8ec;font-weight:700;font-size:12px}.botrow .go{margin-left:auto;background:#ffd600;color:#111;border:2px solid #000;border-radius:8px;padding:5px 10px;font:900 12px var(--f-b)}
+.bottag{display:inline-block;background:#1d6bff;color:#fff;font:900 10px var(--f-b);letter-spacing:1px;padding:2px 6px;border-radius:5px;margin-left:6px;vertical-align:middle}
+.ofcard{margin:10px 0 14px;border-radius:14px;padding:12px;background:radial-gradient(circle at 90% 0,rgba(255,214,0,.25),transparent 45%),linear-gradient(135deg,#0b1d47,#14306e 60%,#24125a);border:2px solid #7fe3ff;box-shadow:0 0 22px rgba(63,124,255,.35)}
+.ofcard .oh b{display:flex;align-items:center;gap:6px;font:900 15px var(--f-b);color:#fff}.ofcard .oh b i{font-style:normal;background:#1d6bff;border-radius:50%;width:18px;height:18px;display:inline-grid;place-items:center;font-size:11px;box-shadow:0 0 8px #3f7cff}
+.ofcard .oh small{display:block;color:#b9c8ec;font-weight:700;font-size:12px;margin:2px 0 10px}
+.ofg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ofb{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(127,227,255,.35);border-radius:10px;padding:9px 10px;color:#fff;font:800 13px var(--f-b);cursor:pointer;text-align:left;text-decoration:none}
+.ofb:hover{background:rgba(255,255,255,.16);border-color:#7fe3ff}.ofb .e{font-size:18px;flex:none}.ofb.wide{grid-column:1/-1;justify-content:center;background:#ffd600;color:#111;border-color:#000}
 .nc-xofi{-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;background-image:linear-gradient(90deg,#fff,#7fe3ff,#3f7cff,#b06bff,#ffd600,#fff)!important;background-color:transparent!important;background-size:300% 100%!important;animation:rgbmove 3.5s linear infinite;filter:drop-shadow(0 0 6px rgba(63,124,255,.75))}
 .fr-xofi{animation:xofir 3s linear infinite!important}
 @keyframes xofir{0%{box-shadow:0 0 0 3px #fff,0 0 0 6px #3f7cff,0 0 0 9px #ffd600,0 0 26px 4px #3f7cff}33%{box-shadow:0 0 0 3px #fff,0 0 0 6px #b06bff,0 0 0 9px #3ff0ff,0 0 26px 4px #b06bff}66%{box-shadow:0 0 0 3px #fff,0 0 0 6px #ffd600,0 0 0 9px #ff4fd8,0 0 26px 4px #ffd600}100%{box-shadow:0 0 0 3px #fff,0 0 0 6px #3f7cff,0 0 0 9px #ffd600,0 0 26px 4px #3f7cff}}
@@ -5029,6 +5042,8 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-04-q',t:'Bot Casinetori',items:[['🤖','Habla con el bot','La cuenta oficial ahora es el Bot Casinetori: sale fijo arriba en Ranking y al tocarlo puedes preguntarle dudas, pedir consejos o que te cuente un chiste. No se le pueden mandar regalos ni mensajes.','new','#3f7cff']]},
+ {v:'2026-10-04-p',t:'Perfil oficial',items:[['✔️','Atajos en la cuenta oficial','Toca el perfil de la cuenta oficial de Casinetori para escribir al equipo, ver novedades, ayuda, invitar amigos o leer las normas.','new','#3f7cff']]},
  {v:'2026-10-04-o',t:'Cuenta oficial',items:[['✔️','Casinetori oficial','La cuenta oficial del juego tiene su propio pack exclusivo: título azul «Oficial ✔», marco que cambia de color, nombre brillante y fondo propio.','new','#3f7cff']]},
  {v:'2026-10-04-m',t:'Compartir y sesiones',items:[['📤','Compartir más fácil','Ventana propia para compartir con WhatsApp, Telegram, X, Facebook, copiar el enlace o guardar la imagen.','new','#25d366'],['📱','Menos avisos de «otro dispositivo»','Ya no sale al recargar. Y si de verdad abres la partida en otro sitio, sale un aviso pequeño arriba y al volver se recupera sola.','fix','#3f7cff']]},
  {v:'2026-10-04-k',t:'Avisos para el jefe',items:[['🔔','El jefe se entera al momento','Cuando alguien escribe al Buzón del jefe (fallos, ideas, cuentas…), al jefe le sale un aviso pequeño en la esquina.','new','#3f7cff']]},
@@ -8941,6 +8956,23 @@ RKC2.push(['gv','🎁','Generosos','Quién ha regalado más dinero a sus amigos 
 COS.ti.push(['xofi','Oficial ✔',999,'','x']);COS.f.push(['xofi','Oficial',999,'fr-xofi','x']);COS.c.push(['xofi','Oficial',999,'nc-xofi','x']);COS.bg.push(['xofi','Oficial',999,'bg-xofi','x']);
 EXAV.push('🎰');BGSW.xofi='linear-gradient(135deg,#06122e,#0d2a6b 55%,#1a0b3d)';EXC_TI.add('Oficial ✔');
 EXC_PACKS.oficial=['ti:xofi','f:xofi','c:xofi','bg:xofi','av:🎰'];EXC_PACKS.oficial.forEach(k=>{if(!EXC_ALL.includes(k))EXC_ALL.push(k)});
+/* perfil de la cuenta oficial: atajos de contacto y ayuda */
+const isOfi=p=>!!p&&(p.me?hasExc('ti','xofi'):Array.isArray(p.exc)&&p.exc.includes('ti:xofi'));
+const _opOfi=openPlayer;openPlayer=function(id){_opOfi.apply(this,arguments);const me=id===NET.id||id==='me';const p=me?{me:true}:(NET.players.get(id)||{});if(!isOfi(p))return;const mb=$('#mbox');if(!mb||mb.querySelector('.ofcard'))return;
+  const h=`<div class="ofcard"><div class="oh"><b><i>✔</i>Cuenta oficial de Casinetori</b><small>Novedades, ayuda y contacto directo con el equipo del juego.</small></div><div class="ofg">
+    <button class="ofb wide" data-ofa="bz"><span class="e">📮</span>Escribir al equipo (Buzón del jefe)</button>
+    <a class="ofb" href="contacto.html#correo" target="_blank" rel="noopener"><span class="e">✉️</span>Contactar por correo</a>
+    <button class="ofb" data-ofa="news"><span class="e">🆕</span>Novedades</button>
+    <button class="ofb" data-ofa="faq"><span class="e">❓</span>Preguntas frecuentes</button>
+    <button class="ofb" data-ofa="tuto"><span class="e">🎓</span>Tutoriales</button>
+    <button class="ofb" data-ofa="share"><span class="e">📤</span>Invitar a amigos</button>
+    <a class="ofb" href="sobre.html" target="_blank" rel="noopener"><span class="e">ℹ️</span>Qué es Casinetori</a>
+    <a class="ofb" href="privacidad.html" target="_blank" rel="noopener"><span class="e">🔒</span>Privacidad</a>
+    <a class="ofb" href="aviso-legal.html" target="_blank" rel="noopener"><span class="e">📜</span>Normas del juego</a></div></div>`;
+  const anchor=mb.querySelector('.pp-stats,.pp-stat')||null;const first=mb.firstElementChild&&mb.firstElementChild.nextElementSibling;
+  if(anchor&&anchor.parentElement)anchor.parentElement.insertAdjacentHTML('beforebegin',h);else if(first)first.insertAdjacentHTML('afterend',h);else mb.insertAdjacentHTML('afterbegin',h);
+  mb.querySelectorAll('[data-ofa]').forEach(b=>b.onclick=()=>{const a=b.dataset.ofa;sfx('click');closeModal();if(a==='bz')openBuzon();else if(a==='share')shareInvite();else{hlTab=a;go('ayuda')}})};
+i18nAdd([['Cuenta oficial de Casinetori','Official Casinetori account','Compte officiel de Casinetori','Conta oficial do Casinetori'],['Novedades, ayuda y contacto directo con el equipo del juego.','News, help and direct contact with the game team.','Nouveautés, aide et contact direct avec l\'équipe du jeu.','Novidades, ajuda e contacto direto com a equipa do jogo.'],['Escribir al equipo (Buzón del jefe)','Write to the team (Boss mailbox)','Écrire à l\'équipe (Boîte du boss)','Escrever à equipa (Caixa do chefe)'],['Contactar por correo','Contact by email','Contacter par e-mail','Contactar por e-mail'],['Invitar a amigos','Invite friends','Inviter des amis','Convidar amigos'],['Normas del juego','Game rules','Règles du jeu','Regras do jogo']]);
 i18nAdd([['Generosos','Most generous','Généreux','Generosos'],['Quién ha regalado más dinero a sus amigos (cuenta desde el 4 de octubre).','Who has gifted the most money to friends (counting since October 4).','Qui a offert le plus d\'argent à ses amis (depuis le 4 octobre).','Quem ofereceu mais dinheiro aos amigos (conta desde 4 de outubro).']]);
 
 /* ===== 2026-10-04-k: avisos pequeñitos para el jefe cuando llega algo al buzón ===== */
@@ -8961,6 +8993,39 @@ i18nAdd([['Generosos','Most generous','Généreux','Generosos'],['Quién ha rega
   /* botón para recibir también avisos del sistema (con la pestaña en segundo plano) */
   const _rai=typeof renderAdmInbox==='function'?renderAdmInbox:null;if(_rai){renderAdmInbox=function(){const r=_rai.apply(this,arguments);try{const ib=$('#admInbox');if(ib&&'Notification' in window&&Notification.permission!=='granted'&&!ib.querySelector('.jnperm')){ib.insertAdjacentHTML('afterbegin',`<div class="jnperm">🔔 ¿Quieres avisos aunque tengas el juego en otra pestaña? <button class="btn sm alt" id="jnAsk">Activar avisos</button></div>`);$('#jnAsk').onclick=async()=>{try{const r_=await Notification.requestPermission();toast(r_==='granted'?'Avisos activados':'Avisos no activados',r_==='granted'?'Te avisaremos aunque estés en otra pestaña':'Puedes activarlos en los ajustes del navegador','var(--sky)','🔔');renderAdmInbox()}catch(e){}}}}catch(e){}return r}}
   window.__jnTest=jn})();
+
+/* ===== 2026-10-04-q: la cuenta oficial es el BOT Casinetori ===== */
+const ofiId=()=>{for(const [id,p] of NET.players)if(Array.isArray(p.exc)&&p.exc.includes('ti:xofi'))return id;return null};
+const isOfiId=id=>!!id&&id!==NET.id&&id!=='me'&&isOfi(NET.players.get(id)||{});
+/* fuera del ranking (es un bot), pero fijo arriba para hablar con él */
+const _rlBot=rankList;rankList=function(){return _rlBot.apply(this,arguments).filter(p=>p.me||!isOfi(p))};
+const _rrBot=renderRank;renderRank=function(){const r=_rrBot.apply(this,arguments);try{const id=ofiId(),L=$('#rkList');if(id&&L&&view==='ranking'&&!L.parentElement.querySelector('.botrow')&&id!==NET.id){L.insertAdjacentHTML('beforebegin',`<button class="botrow" data-botid="${esc(id)}"><span class="e">🤖</span><span><b>Bot Casinetori <span class="bottag">OFICIAL ✔</span></b><small>Dudas, ayuda, novedades y contacto con el equipo</small></span><span class="go">Hablar</span></button>`)}}catch(e){}return r};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-botid]');if(b){sfx('click');openPlayer(b.dataset.botid)}});
+/* no se le pueden mandar regalos, mensajitos, solicitudes ni retos */
+const BOT_ATTRS=['gift','tr','req','addid','olch','to','pot','jpot'];
+const botSel=id=>BOT_ATTRS.map(a=>`[data-${a}="${CSS.escape(id)}"]`).join(',');
+function botHide(root){const id=ofiId();if(!id||id===NET.id)return;(root||document).querySelectorAll(botSel(id)).forEach(el=>{el.style.display='none'})}
+new MutationObserver(()=>{try{botHide()}catch(e){}}).observe(document.body,{childList:true,subtree:true});
+document.addEventListener('click',e=>{const id=ofiId();if(!id||id===NET.id)return;const el=e.target.closest(botSel(id));if(el){e.stopImmediatePropagation();e.preventDefault();toast('Es el bot oficial','No se le pueden mandar regalos, mensajes ni retos. Toca su perfil para hablar con él','#3f7cff','🤖')}},true);
+['sendReq','acceptReq'].forEach(fn=>{try{const o=eval(fn);if(typeof o==='function'){const w=function(id){if(isOfiId(id)){toast('Es el bot oficial','No se puede agregar de amigo','#3f7cff','🤖');return}return o.apply(this,arguments)};eval(fn+'=w')}}catch(e){}});
+/* el perfil del bot: chat con respuestas rápidas */
+const BOT_Q=[['💰','¿Cómo gano dinero?',()=>['Gira las ruletas de Inicio cada poco, cobra el premio diario, haz las misiones y juega en el Casino y en Juegos. En la Fábrica ganas dinero pulsando la moneda y mejorándola.',['🎡 Ir a Inicio',()=>go('inicio')]]],
+  ['🎁','¿Cómo invito amigos?',()=>['Pásale tu enlace a un colega: él empieza con '+fmt(REF_NEW)+' € y tú cobras cuando llegue a nivel 3. Cada invitación paga más que la anterior, hasta 2 millones.',['📤 Invitar ahora',()=>{closeModal();shareInvite()}]]],
+  ['💾','¿Cómo guardo mi partida?',()=>['Crea una cuenta en Ajustes, con Google o con usuario y contraseña. Así tu partida se guarda en la nube y la tienes en cualquier móvil u ordenador.',['⚙️ Ir a Ajustes',()=>{closeModal();go('ajustes')}]]],
+  ['🎡','Las ruletas',()=>['En Inicio hay varias ruletas que van rotando: dinero, XP, multiplicadora del casino y la del todo o nada (1 millón o pierdes un poquito). Si la que sale no te gusta, sáltala por 1.000 €.']],
+  ['🤝','Amigos y regalos',()=>['En Ranking › Amigos pones el código de tu colega. A tus amigos les puedes regalar dinero, mandar mensajitos troll y retar a duelos online.']],
+  ['👑','¿Qué son los exclusivos?',()=>['Títulos, marcos, colores y caras que no se consiguen jugando: solo los regala el jefe. Pórtate bien y quién sabe 😉']],
+  ['🐞','He encontrado un fallo',()=>['¡Gracias! Cuéntaselo al jefe por el Buzón. Si es un fallo de verdad, igual te llevas premio.',['📮 Abrir el buzón',()=>{closeModal();openBuzon()}]]],
+  ['🎲','Dame un consejo',()=>[['En el rasca, el premio gordo es x50. ¡Rasca con fe!','Cobra el premio diario todos los días: la racha sube y el premio también.','En la del todo o nada solo pierdes el 2 % de tu dinero. El millón está ahí…','Las misiones se renuevan al cobrarlas: no las dejes a medias.','Crea una cuenta para no perder tu partida si cambias de móvil.','En el trading, empieza en Práctica hasta que le pilles el truco.'][Math.floor(Math.random()*6)]]],
+  ['😂','Cuéntame un chiste',()=>[['¿Por qué la tragaperras nunca está sola? Porque siempre tiene tres iguales al lado 🎰','Mi cartera y yo tenemos algo en común: los dos estamos vacíos después del casino 😅','Le pregunté a la ruleta si me quería. Me dijo: «Gira y lo verás» 🎡','El jefe me dijo que trabajara duro. Ahora soy un bot y no cobro 🤖'][Math.floor(Math.random()*4)]]]];
+function botAsk(i){const box=$('#botChat');if(!box)return;const q=BOT_Q[i];box.insertAdjacentHTML('beforeend',`<div class="bm u">${q[0]} ${esc(q[1])}</div><div class="bm b typ"><i></i><i></i><i></i></div>`);box.scrollTop=box.scrollHeight;
+  setTimeout(()=>{const t=box.querySelector('.typ');if(t)t.remove();const [txt,act]=q[2]();const id='ba'+Date.now();box.insertAdjacentHTML('beforeend',`<div class="bm b">${esc(txt)}${act?`<button class="act" id="${id}">${esc(act[0])}</button>`:''}</div>`);if(act){const b=$('#'+id);if(b)b.onclick=()=>{sfx('click');act[1]()}}box.scrollTop=box.scrollHeight;try{tone(660,.05,'sine',.03)}catch(e){}},650+Math.random()*500)}
+const _opBot=openPlayer;openPlayer=function(id){_opBot.apply(this,arguments);if(!isOfiId(id))return;const mb=$('#mbox');if(!mb)return;
+  mb.querySelectorAll('[data-pp="gift"],[data-pp="troll"],[data-pp="req"],[data-pp="nick"],[data-pp="unf"]').forEach(b=>b.remove());botHide(mb);
+  const oc=mb.querySelector('.ofcard');if(!oc||oc.querySelector('#botChat'))return;const nm=S.name?', '+esc(S.name):'';
+  oc.querySelector('.oh').insertAdjacentHTML('afterend',`<div class="botchat" id="botChat"><div class="bm b">¡Hola${nm}! Soy el bot de Casinetori 🤖 ¿En qué te ayudo?</div></div><div class="bchips">${BOT_Q.map((q,i)=>`<button class="bchip" data-bq="${i}">${q[0]} ${esc(q[1])}</button>`).join('')}</div>`);
+  oc.querySelector('.oh b').innerHTML='<i>✔</i>Bot Casinetori · cuenta oficial';
+  oc.querySelectorAll('[data-bq]').forEach(b=>b.onclick=()=>{sfx('click');botAsk(+b.dataset.bq)})};
 })();
 </script>
 
