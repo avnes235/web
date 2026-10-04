@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-04-h">
+<meta name="app-version" content="2026-10-04-i">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1555,6 +1555,28 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 [data-delacc]{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
 [data-delacc]::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.28)}
 [data-delacc].holding::after{width:100%;transition:width 2s linear}
+.tk{position:relative;background:radial-gradient(circle at 15% 0,#ffe08a,transparent 45%),linear-gradient(135deg,#ffc23d,#ff7a2e)!important}
+.tk:before,.tk:after{content:'';position:absolute;top:50%;width:22px;height:22px;border-radius:50%;background:var(--bg);transform:translateY(-50%)}.tk:before{left:-12px}.tk:after{right:-12px}
+.tk .th{align-items:center!important}.tk .th h3{font-size:30px;text-shadow:2px 2px 0 rgba(255,255,255,.35)}
+.tkbadge{display:flex;flex-direction:column;align-items:flex-end;background:#141a2e;border:2px solid #000;border-radius:10px;padding:5px 10px;box-shadow:3px 3px 0 #000;line-height:1.05}
+.tkbadge small{font:900 9px var(--f-b);letter-spacing:2px;text-transform:uppercase;color:#9aa0bd}.tk .th .tkbadge span{background:none;padding:0;font:900 18px var(--f-n);color:var(--sun)}
+.tklad{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:-4px 0 10px;padding-bottom:2px}.tklad::-webkit-scrollbar{display:none}
+.tkl{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;background:rgba(20,14,0,.18);border:2px solid rgba(20,14,0,.25);border-radius:8px;padding:3px 8px;font:800 11px var(--f-n);color:#1b1200;white-space:nowrap}
+.tkl em{font:900 13px var(--f-b);font-style:normal}.tkl.hi{background:rgba(255,255,255,.35)}.tkl.top{background:#141a2e;color:#ffd600;border-color:#000}
+.tkl.on{background:#14e08a!important;color:#062!important;border-color:#000;transform:scale(1.08);box-shadow:0 0 0 3px #fff,0 0 18px #14e08a;transition:.3s}
+.tcell{position:relative;gap:2px!important;transition:transform .3s,opacity .3s,filter .3s}.tcell b{font:900 clamp(11px,2.3vw,18px)/1 var(--f-n);white-space:nowrap}.tcell small{font:900 11px var(--f-b);color:#b07a00;letter-spacing:1px}
+.tcell.gold{background:linear-gradient(160deg,#fffbe6,#ffe9a8)}.tcell.dim{opacity:.38;filter:grayscale(.6)}
+.tcell.win{background:radial-gradient(circle,#fff6b0,#ffd600)!important;border:3px solid #000!important;box-shadow:0 0 0 3px #fff,0 0 22px #ffd600;animation:tkwin .7s ease-in-out infinite alternate!important;z-index:1}
+@keyframes tkwin{from{transform:scale(1)}to{transform:scale(1.04) rotate(-1.5deg)}}
+.tcell.near{border:3px solid #ff3b4f!important;background:#ffe5e8!important}
+.tkflake{position:absolute;width:7px;height:5px;background:linear-gradient(135deg,#fff1b0,#c99a1a);border-radius:1px;pointer-events:none;z-index:3;animation:tkfl .75s ease-in forwards}
+@keyframes tkfl{to{transform:translate(var(--dx),70px) rotate(var(--rt));opacity:0}}
+.tkban{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;text-align:center;padding:12px 22px;border-radius:14px;border:3px solid #000;box-shadow:6px 6px 0 #000;animation:tkban .55s cubic-bezier(.2,1.6,.4,1) both;pointer-events:none;max-width:92%}
+.tkban small{display:block;font:900 13px var(--f-b);letter-spacing:2px}.tkban b{display:block;font:400 clamp(22px,5vw,34px)/1.1 var(--f-d,'Anton',sans-serif);white-space:nowrap}.tkban em{display:block;font:900 14px var(--f-b);font-style:normal;opacity:.75}
+.tkban.ok{background:#14e08a;color:#062;animation:tkban .55s cubic-bezier(.2,1.6,.4,1) both,tkout .6s 3s forwards}.tkban.big{background:linear-gradient(135deg,#ffd600,#ff9d00);color:#1b1200;animation:tkban .55s cubic-bezier(.2,1.6,.4,1) both,tkout .6s 4s forwards}.tkban.no{background:#2a0d14;color:#ffb3bc;border-color:#ff3b4f;box-shadow:6px 6px 0 #000;animation:tkban .4s ease-out both, tkout .5s 2.2s forwards}
+@keyframes tkban{from{transform:translate(-50%,-50%) scale(.2) rotate(-12deg);opacity:0}}@keyframes tkout{to{opacity:0}}
+.tkwrap.won{box-shadow:0 0 0 4px #ffd600,0 0 30px #ffd600}
+.tk .tf{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}.tkser{font:800 11px var(--f-n);opacity:.6;letter-spacing:1px}
 .crow.wiperow{flex-wrap:wrap;align-items:center;gap:10px}.crow.wiperow .cl{flex:1 1 220px;min-width:0}.crow.wiperow .cl b,.crow.wiperow .cl small{white-space:normal;word-break:normal;overflow-wrap:break-word}#cfWipe{flex:0 0 auto;max-width:100%;white-space:normal;text-align:center}
 .gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#fff;color:#1f1f1f;border:2px solid #000;border-radius:10px;padding:11px 14px;font:800 15px var(--f-b);cursor:pointer;box-shadow:3px 3px 0 #000}.gbtn:disabled{opacity:.6}.gbtn svg{width:20px;height:20px;flex:none}.gor{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;font-weight:800;margin:4px 0}.gor:before,.gor:after{content:'';flex:1;height:1px;background:var(--line)}
 #mvBig{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:18px;background:radial-gradient(circle at 50% 30%,#2a1a00,#0b0b10 70%);overflow:auto;text-align:center}
@@ -3044,9 +3066,9 @@ html[data-fit="s"]{zoom:.88}html[data-fit="x"]{zoom:.76}
 
       <div id="c-rasca" class="rasca" hidden>
         <div class="tk">
-          <div class="th"><h3>Rasca y gana</h3><span id="tkPrice">50</span></div>
+          <div class="th"><h3>Rasca y gana</h3><div class="tkbadge"><small>Tarjeta</small><span id="tkPrice">50</span></div></div><div class="tklad" id="tkLad"></div>
           <div class="tkwrap" id="tkwrap"><div class="tgrid" id="tgrid"></div><canvas id="scratch"></canvas></div>
-          <div class="tf">Tres cantidades iguales = te llevas ese premio</div>
+          <div class="tf"><span>Tres iguales = te llevas ese premio</span><span class="tkser" id="tkSer">Nº 000000</span></div>
         </div>
         <div class="panel" style="display:flex;flex-direction:column;gap:12px">
           <h3 style="font-size:22px">¿Cómo va?</h3>
@@ -3724,12 +3746,16 @@ $('#auto').addEventListener('click',()=>{if(autoLeft>0){autoLeft=0;$('#auto').te
 /* Rasca y gana */
 const TMULT=[1,2,3,5,10,50],TW=[30,26,18,14,9,3];
 let tk=null;const scv=$('#scratch'),sctx=scv.getContext('2d');
-function updTkPrice(){$('#tkPrice').textContent=short(Math.max(10,curBet()))+' €'}
-function tkCells(mults){$('#tgrid').innerHTML=mults.map((m,i)=>`<div class="tcell" data-i="${i}"><span class="coinic">€</span>${short(m*tk.price)}</div>`).join('')}
+function updTkPrice(){const pr=tk&&tk.live?tk.price:Math.max(10,curBet());$('#tkPrice').textContent=short(pr)+' €';const L=$('#tkLad');if(L)L.innerHTML=TMULT.slice().reverse().map(m=>`<span class="tkl${m>=50?' top':m>=10?' hi':''}" data-m="${m}"><em>x${m}</em>${short(m*pr)} €</span>`).join('')}
+function tkCells(mults){$('#tgrid').innerHTML=mults.map((m,i)=>`<div class="tcell${m>=50?' gold':''}" data-i="${i}" data-m="${m}"><span class="coinic">€</span><b>${short(m*tk.price)} €</b><small>x${m}</small></div>`).join('');const sr=$('#tkSer');if(sr)sr.textContent='Nº '+String(Math.floor(Math.random()*1e6)).padStart(6,'0');try{updTkPrice()}catch(e){}}
 function coverTk(){const r=$('#tkwrap').getBoundingClientRect();scv.width=Math.max(1,r.width*DPR);scv.height=Math.max(1,r.height*DPR);scv.style.opacity=1;scv.style.pointerEvents='auto';
-  const g=sctx.createLinearGradient(0,0,scv.width,scv.height);g.addColorStop(0,'#c9ced9');g.addColorStop(.5,'#eef1f6');g.addColorStop(1,'#aeb4c2');sctx.globalCompositeOperation='source-over';sctx.fillStyle=g;sctx.fillRect(0,0,scv.width,scv.height);
-  sctx.fillStyle='rgba(20,26,46,.18)';sctx.font=`${22*DPR}px "Anton",sans-serif`;sctx.textAlign='center';for(let y=30*DPR;y<scv.height;y+=46*DPR)for(let x=(y/46/DPR%2?40:90)*DPR;x<scv.width;x+=130*DPR)sctx.fillText('RASCA',x,y);
-  sctx.fillStyle='rgba(20,26,46,.55)';sctx.font=`${30*DPR}px "Anton",sans-serif`;sctx.fillText('¡RASCA AQUÍ!',scv.width/2,scv.height/2+10*DPR);scv.style.pointerEvents=tk&&tk.live?'auto':'none'}
+  const W=scv.width,H=scv.height,g=sctx.createLinearGradient(0,0,W,H);g.addColorStop(0,'#b8860b');g.addColorStop(.25,'#ffe27a');g.addColorStop(.5,'#d9a520');g.addColorStop(.75,'#fff1b0');g.addColorStop(1,'#a8740a');sctx.globalCompositeOperation='source-over';sctx.fillStyle=g;sctx.fillRect(0,0,W,H);
+  sctx.save();sctx.globalAlpha=.18;sctx.fillStyle='#fff';for(let x=-H;x<W;x+=34*DPR){sctx.beginPath();sctx.moveTo(x,H);sctx.lineTo(x+H,0);sctx.lineTo(x+H+10*DPR,0);sctx.lineTo(x+10*DPR,H);sctx.fill()}sctx.restore();
+  sctx.fillStyle='rgba(90,55,0,.22)';sctx.font=`${20*DPR}px "Anton",sans-serif`;sctx.textAlign='center';for(let y=30*DPR;y<H;y+=46*DPR)for(let x=(y/46/DPR%2?40:95)*DPR;x<W;x+=130*DPR)sctx.fillText('€ RASCA €',x,y);
+  for(let i=0;i<26;i++){const x=Math.random()*W,y=Math.random()*H,r=(1.5+Math.random()*3)*DPR;sctx.fillStyle='rgba(255,255,255,.85)';sctx.beginPath();sctx.moveTo(x,y-r*2);sctx.lineTo(x+r*.5,y-r*.5);sctx.lineTo(x+r*2,y);sctx.lineTo(x+r*.5,y+r*.5);sctx.lineTo(x,y+r*2);sctx.lineTo(x-r*.5,y+r*.5);sctx.lineTo(x-r*2,y);sctx.lineTo(x-r*.5,y-r*.5);sctx.fill()}
+  const bw=Math.min(W*.8,300*DPR),bh=58*DPR;sctx.fillStyle='rgba(20,14,0,.78)';sctx.beginPath();sctx.roundRect?sctx.roundRect(W/2-bw/2,H/2-bh/2,bw,bh,14*DPR):sctx.rect(W/2-bw/2,H/2-bh/2,bw,bh);sctx.fill();
+  sctx.fillStyle='#ffd600';sctx.font=`${30*DPR}px "Anton",sans-serif`;sctx.textBaseline='middle';sctx.fillText('¡RASCA AQUÍ!',W/2,H/2+2*DPR);sctx.textBaseline='alphabetic';
+  try{$('#tkwrap').querySelectorAll('.tkban,.tkflake').forEach(e=>e.remove());$$('#tgrid .tcell').forEach(c=>c.classList.remove('win','dim'));$('#tkwrap').classList.remove('won','lost')}catch(e){}scv.style.pointerEvents=tk&&tk.live?'auto':'none'}
 function idleTk(){tk={price:Math.max(10,curBet()),live:false};tkCells([1,2,3,5,10,50]);coverTk()}
 $('#buyTk').addEventListener('click',()=>{if(tk&&tk.live)return;const price=Math.max(10,curBet());if(!take(price)){noMoney($('#tkMsg'));return}
   ev('scratch');xp(6);sfx('buy');const win=Math.random()<.38;let mults;
@@ -3738,13 +3764,16 @@ $('#buyTk').addEventListener('click',()=>{if(tk&&tk.live)return;const price=Math
   mults.sort(()=>Math.random()-.5);tkCells(mults);coverTk();$('#tkMsg').textContent='¡Rasca!';$('#buyTk').disabled=true;$('#revealTk').disabled=false;save()});
 let scratching=false,scrCount=0;
 function scr(e){if(!scratching||!tk||!tk.live)return;const r=scv.getBoundingClientRect();const x=(e.clientX-r.left)*scv.width/r.width,y=(e.clientY-r.top)*scv.height/r.height;
-  sctx.globalCompositeOperation='destination-out';sctx.beginPath();sctx.arc(x,y,24*DPR,0,7);sctx.fill();if(++scrCount%4===0)sfx('tick');if(scrCount%10===0&&cleared()>.55)revealTk()}
+  sctx.globalCompositeOperation='destination-out';const R_=28*DPR,gr=sctx.createRadialGradient(x,y,R_*.45,x,y,R_);gr.addColorStop(0,'rgba(0,0,0,1)');gr.addColorStop(1,'rgba(0,0,0,0)');sctx.fillStyle=gr;sctx.beginPath();sctx.arc(x,y,R_,0,7);sctx.fill();sctx.fillStyle='#000';
+  if(++scrCount%3===0){tkFlake(e.clientX-r.left,e.clientY-r.top);sfx('tick')}if(scrCount%10===0){const c=cleared();const m=$('#tkMsg');if(m&&tk.live)m.textContent='Rascado: '+Math.min(99,Math.round(c/.55*100))+' %';if(c>.55)revealTk()}}
+function tkFlake(x,y){const w=$('#tkwrap');if(!w)return;for(let i=0;i<2;i++){const f=document.createElement('i');f.className='tkflake';f.style.left=(x+(Math.random()-.5)*20)+'px';f.style.top=(y+(Math.random()-.5)*10)+'px';f.style.setProperty('--dx',((Math.random()-.5)*60)+'px');f.style.setProperty('--rt',(Math.random()*540-270)+'deg');w.appendChild(f);setTimeout(()=>f.remove(),750)}}
 function cleared(){const d=sctx.getImageData(0,0,scv.width,scv.height).data;let c=0,t=0;for(let i=3;i<d.length;i+=4*64){t++;if(d[i]<40)c++}return c/t}
 scv.addEventListener('pointerdown',e=>{scratching=true;try{scv.setPointerCapture(e.pointerId)}catch(_){}scr(e)});scv.addEventListener('pointermove',scr);
 addEventListener('pointerup',()=>scratching=false);
 function revealTk(){if(!tk||!tk.live)return;tk.live=false;scv.style.opacity=0;scv.style.pointerEvents='none';$('#buyTk').disabled=false;$('#revealTk').disabled=true;
-  if(tk.prize){const w=tk.prize*tk.price;casinoWin(w,'rasca',tk.price);ev('wins');ev('scratchWin');$$('.tcell').forEach(c=>{if(c.textContent.trim().endsWith(short(w)))c.classList.add('win')});$('#tkMsg').textContent='¡Premio! +'+short(w)+' €';sfx(tk.prize>=10?'big':'win');const b=$('#tkwrap').getBoundingClientRect();confetti(tk.prize>=10?160:70,b.left+b.width/2,b.top+b.height/2)}
-  else{$('#tkMsg').textContent='Sin premio. ¿Otra?';sfx('lose');casinoLose(tk.price,'rasca');afterLoss()}save()}
+  if(tk.prize){const w=tk.prize*tk.price;casinoWin(w,'rasca',tk.price);ev('wins');ev('scratchWin');$$('#tgrid .tcell').forEach(c=>c.classList.add(+c.dataset.m===tk.prize?'win':'dim'));$$('#tkLad .tkl').forEach(l=>l.classList.toggle('on',+l.dataset.m===tk.prize));tkBanner(true,w,tk.prize);$('#tkMsg').textContent='¡Premio! +'+short(w)+' €';sfx(tk.prize>=10?'big':'win');const b=$('#tkwrap').getBoundingClientRect();confetti(tk.prize>=10?160:70,b.left+b.width/2,b.top+b.height/2)}
+  else{const cnt={};$$('#tgrid .tcell').forEach(c=>{cnt[c.dataset.m]=(cnt[c.dataset.m]||0)+1});const near=Object.keys(cnt).filter(k=>cnt[k]===2).map(Number).sort((a,b)=>b-a)[0];$$('#tgrid .tcell').forEach(c=>c.classList.add(near&&+c.dataset.m===near?'near':'dim'));tkBanner(false,0,near||0);$('#tkMsg').textContent=near>=10?'¡Uy! Casi el x'+near+'. ¿Otra?':'Sin premio. ¿Otra?';sfx('lose');casinoLose(tk.price,'rasca');afterLoss()}save()}
+function tkBanner(win,w,m){const wr=$('#tkwrap');if(!wr)return;wr.classList.add(win?'won':'lost');const b=document.createElement('div');b.className='tkban '+(win?(m>=10?'big':'ok'):'no');b.innerHTML=win?`<small>${m>=50?'¡¡PREMIO GORDO!!':m>=10?'¡PREMIAZO!':'¡PREMIO!'}</small><b>+${short(w)} €</b><em>x${m}</em>`:`<small>${m>=10?'¡Casi!':'Sin premio'}</small><b>${m>=10?'Te faltó uno':'Otra vez será'}</b>`;wr.appendChild(b)}
 $('#revealTk').addEventListener('click',revealTk);
 /* Carreras */
 const RUN=[['Relámpago','#ffc23d'],['Tortilla','#ff6b4a'],['Turbo','#4aa8ff'],['Canela','#2fd6a3'],['Pepito','#ff5fa8']];
@@ -4961,6 +4990,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-04-i',t:'Rasca y gana nuevo',items:[['🎟️','Más bonito','Lámina dorada con brillos, virutas al rascar, contador de lo que llevas rascado y cartel de premio. Arriba ves todos los premios posibles.','new','#ffc23d'],['🐞','Arreglado','Al ganar ya no se iluminan casillas que no tocan (antes 250.000 brillaba si ganabas 50.000).','fix','#14e08a']]},
  {v:'2026-10-04-g',t:'Los más generosos',items:[['🎁','Nuevo ranking: Generosos','En Ranking hay una clasificación nueva con quién ha regalado más dinero a sus amigos. Cuenta desde hoy.','new','#14e08a'],['🎡','Números claros','La ruleta del todo o nada pone «1 millón» o «48 mil» en vez de abreviaturas.','fix','#ffd600']]},
  {v:'2026-10-04-f',t:'Entra con Google',items:[['🔑','Cuenta con Google','Ahora puedes guardar tu partida y entrar desde cualquier sitio con tu cuenta de Google, con un toque.','new','#4aa8ff'],['🎡','Todo o nada renovada','Pierdes mucho menos (2 % de tu dinero) y si te llevas el gordo solo se bloquea 10 minutos. Los números se leen derechos y ya no se cortan.','new','#ffd600'],['🚀','Dash más justo','Las cajas de choque de la nave, la wave y los pinchos son más pequeñas: ya no mueres sin tocar nada.','fix','#3ff0ff']]},
  {v:'2026-10-04-b',t:'Ruletas sin trampas',items:[['🔒','El gordo bloqueado se ve','Cuando ganas el millón, la ruleta del todo o nada sigue saliendo, pero con candado y la cuenta atrás de las 3 horas.','new','#ffd600'],['🚫','Sin trucos al recargar','Si recargas mientras gira la ruleta, la tirada cuenta igual (lo bueno y lo malo) y la espera también. Ya no se puede tirar dos veces.','fix','#ff3b4f']]},
