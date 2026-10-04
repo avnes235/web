@@ -8911,18 +8911,23 @@ function admPatch(id,type,n,text){const p=NET.players.get(id)||{},c=Math.floor(+
   if(type==='exc'||type==='excrm'){const t=String(text||''),keys=(t.startsWith('pack:')?(EXC_PACKS[t.slice(5)]||[]):[t]).filter(k=>EXC_ALL.includes(k));if(!keys.length)return null;
     const has=Array.isArray(p.exc)?p.exc.slice():[];return{exc:type==='exc'?has.concat(keys.filter(k=>!has.includes(k))):has.filter(k=>!keys.includes(k))}}
   return null}
-function admPend(id,patch){if(!id||!patch||!Object.keys(patch).length)return;ADM.pend=ADM.pend||new Map();const cur=ADM.pend.get(id);
-  ADM.pend.set(id,{patch:{...(cur?cur.patch:{}),...patch},t:Date.now()});const q=NET.players.get(id);if(q)Object.assign(q,patch);
+/* se guarda en este navegador: si recargas, lo que has dado sigue saliendo hasta que su juego lo confirme */
+const ADM_PK='cas-admpend';
+function admPendLoad(){if(ADM.pend)return ADM.pend;ADM.pend=new Map();try{const o=JSON.parse(localStorage.getItem(ADM_PK)||'{}');for(const id in o){const x=o[id];if(x&&x.patch&&Date.now()-(+x.t||0)<14*86400e3)ADM.pend.set(id,x)}}catch(e){}return ADM.pend}
+function admPendSave(){try{if(!ADM.pend||!ADM.pend.size)localStorage.removeItem(ADM_PK);else localStorage.setItem(ADM_PK,JSON.stringify(Object.fromEntries(ADM.pend)))}catch(e){}}
+function admPend(id,patch){if(!id||!patch||!Object.keys(patch).length)return;admPendLoad();const cur=ADM.pend.get(id);
+  ADM.pend.set(id,{patch:{...(cur?cur.patch:{}),...patch},t:Date.now()});admPendSave();const q=NET.players.get(id);if(q)Object.assign(q,patch);
   /* también en su ficha del ranking, para que todos lo vean ya aunque no esté conectado */
   const w={};for(const k of ADM_FS)if(k in patch)w[k]=k==='own'?(patch.own||[]).map(o=>Array.isArray(o)?{e:o[0],n:o[1],q:o[2],p:o[3]}:o):patch[k];
   if(NET.db&&Object.keys(w).length)NET.db.collection('players').doc(id).set(w,{merge:true}).catch(()=>{});
   try{renderRank()}catch(e){}try{renderAdmin()}catch(e){}try{if(ADM.sel===id)renderAdmSide()}catch(e){}}
-function admPendApply(){if(!ADM.pend||!ADM.pend.size)return;const now=Date.now();
-  for(const [id,x] of ADM.pend){const q=NET.players.get(id);if(!q){if(now-x.t>600000)ADM.pend.delete(id);continue}
+function admPendApply(){admPendLoad();if(!ADM.pend.size)return;const now=Date.now(),n0=ADM.pend.size;
+  for(const [id,x] of ADM.pend){const q=NET.players.get(id);if(!q){if(now-x.t>14*86400e3)ADM.pend.delete(id);continue}
     const same=Object.keys(x.patch).every(k=>JSON.stringify(q[k])===JSON.stringify(x.patch[k]));
     /* su juego ya ha mandado datos nuevos después del cambio: mandan ellos */
-    if((+q.t||0)>x.t&&(same||(+q.t||0)-x.t>20000)){ADM.pend.delete(id);continue}
-    Object.assign(q,x.patch)}}
+    if((+q.t||0)>x.t&&(same||(+q.t||0)-x.t>120000)){ADM.pend.delete(id);continue}
+    Object.assign(q,x.patch)}
+  if(ADM.pend.size!==n0)admPendSave()}
 async function sendCmdP(id,type,n,text){const ok=await sendCmd(id,type,n,text);if(ok)admPend(id,admPatch(id,type,n,text));return ok}
 const _opPend=onPlayers;onPlayers=function(){try{admPendApply()}catch(e){}return _opPend.apply(this,arguments)};
 const _acEx=applyCmd;applyCmd=function(id,c){if(!c||(c.type!=='exc'&&c.type!=='excrm'))return _acEx.apply(this,arguments);
