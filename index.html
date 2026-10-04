@@ -2419,6 +2419,7 @@ html{touch-action:manipulation}
 .pod .step{width:100%;display:grid;place-items:center;font:44px/1 var(--f-d);color:#111;border:3px solid #000;box-shadow:var(--hard)}
 .pod.p1 .step{height:120px;background:linear-gradient(#ffe45c,#ffb300)}
 .pod.p2 .step{height:88px;background:linear-gradient(#f2f5fb,#aeb6c8)}
+.pod.tie1 .step{background:linear-gradient(#ffe45c,#ffb300)}.pod.tie1 .pay{background:#ffd600}.pod.tie2 .step{background:linear-gradient(#f2f5fb,#aeb6c8)}
 .pod.p3 .step{height:66px;background:linear-gradient(#f0b07a,#b86a32)}
 .pod.empty .pav{opacity:.25}
 .pod.empty b{color:var(--muted)}
@@ -4853,14 +4854,18 @@ const RKC2=[['coins','💰','Dinero','Quién tiene más dinero ahora mismo en la
 if(rkCat==='game')rkCat='coins';
 function renderRkCats(){$('#rkCats').innerHTML=RKC2.map(([k,e,n])=>`<button class="rkc" data-cat="${k}" aria-pressed="${rkCat===k}"><span class="emo">${e}</span>${n}</button>`).join('');
   $('#rkDesc').textContent=(RKC2.find(x=>x[0]===rkCat)||RKC2[0])[3]}
-function podiumHTML(arr,cat){const slot=(p,k)=>{if(!p)return`<div class="pod p${k} empty"><div class="pav emo">❔</div><b>Libre</b><span class="pv">–</span><div class="step">${k}</div></div>`;
-    return`<div class="pod p${k} ${p.me?'me':''}" data-prof="${esc(p.id)}" title="Ver perfil">${k===1?'<span class="crown emo">👑</span>':''}<div class="pav emo ${frCls(p.cos)}">${avH(p)}</div><b class="${ncCls(p.cos)}">${esc(p.name||'Sin nombre')}${p.me?' (tú)':''}</b>${p.ti?`<span class="ptt">${esc(p.ti)}</span>`:''}<span class="pv">${fmtValP(cat,p)}</span><div class="step">${k}</div></div>`};
+/* empates: mismo puesto (1, 1, 3…) */
+let RK_ARR=null,RK_CAT=null;
+function rkIdx(arr,i,cat){if(!arr||!arr[i])return i;const v=pval(arr[i],cat);let j=i;while(j>0&&pval(arr[j-1],cat)===v)j--;return j}
+function podiumHTML(arr,cat){RK_ARR=arr;RK_CAT=cat;const slot=(p,k)=>{if(!p)return`<div class="pod p${k} empty"><div class="pav emo">❔</div><b>Libre</b><span class="pv">–</span><div class="step">${k}</div></div>`;
+    const r=rkIdx(arr,arr.indexOf(p),cat)+1;
+    return`<div class="pod p${k} ${p.me?'me':''} ${r<k?'tie'+r:''}" data-rk="${r}" data-prof="${esc(p.id)}" title="Ver perfil">${r===1?'<span class="crown emo">👑</span>':''}<div class="pav emo ${frCls(p.cos)}">${avH(p)}</div><b class="${ncCls(p.cos)}">${esc(p.name||'Sin nombre')}${p.me?' (tú)':''}</b>${p.ti?`<span class="ptt">${esc(p.ti)}</span>`:''}<span class="pv">${fmtValP(cat,p)}</span><div class="step">${r}</div></div>`};
   return`<div class="podium">${slot(arr[1],2)}${slot(arr[0],1)}${slot(arr[2],3)}</div>`}
-function myPosHTML(arr,cat,unitWord){const i=arr.findIndex(p=>p.me);if(i<0||arr.length<2)return'';const me=arr[i];
-  let t;if(i===0)t='Vas el primero. A ver cuánto te dura.';else{const o=arr[i-1],a=pval(o,cat),b=pval(me,cat),mn=cat==='game'&&gameMin(rkG);
+function myPosHTML(arr,cat,unitWord){const i0=arr.findIndex(p=>p.me);if(i0<0||arr.length<2)return'';const me=arr[i0],i=rkIdx(arr,i0,cat);
+  let t;if(i===0)t=i0>0||(arr[1]&&pval(arr[1],cat)===pval(me,cat))?'Vas el primero, empatado. ¡Desempata!':'Vas el primero. A ver cuánto te dura.';else{const o=arr[i-1],a=pval(o,cat),b=pval(me,cat),mn=cat==='game'&&gameMin(rkG);
     const diff=mn?b-a:a-b;t='Te faltan '+(cat==='game'?(rkG==='reflejos'?diff+' ms':rkG==='memoria'?diff+' movimientos':fmt(diff)+' puntos'):fmtVal(cat,diff))+' para pasar a '+(o.name||'el de arriba')+'.'}
   return`<div class="mypos"><span class="big">${i+1}º</span><span class="t"><b>Tu posición de ${arr.length}</b><span>${esc(t)}</span></span></div>`}
-function rowHTML(p,i,cat,top,withActs){const on=!p.me&&NET.online.has(p.id),fr=(S.friends||[]).includes(p.id),pend=(S.outReq||[]).includes(p.id),v=pval(p,cat);
+function rowHTML(p,i,cat,top,withActs){if(RK_ARR&&RK_ARR[i]===p)i=rkIdx(RK_ARR,i,cat);const on=!p.me&&NET.online.has(p.id),fr=(S.friends||[]).includes(p.id),pend=(S.outReq||[]).includes(p.id),v=pval(p,cat);
   const acts=!withActs||p.me||!NET.ok?'':(fr?`<button class="btn mint sm" data-gift="${esc(p.id)}">Regalar</button>`:'')+`<button class="btn pink sm" data-tr="${esc(p.id)}">💬 Mensajito · 100 €</button>`+
     (!fr?(pend?'<button class="btn alt sm" disabled>Pendiente</button>':`<button class="btn alt sm" data-req="${esc(p.id)}">+ Amigo</button>`):'')+(rkTab==='amigos'&&fr?`<button class="btn dark sm unf" data-rmid="${esc(p.id)}">✕ Quitar amigo</button>`:'');
   const sh=(p.show||[]).slice(0,3).map(x=>esc(x)).join('');const mn=cat==='game'&&gameMin(rkG);
@@ -5357,7 +5362,7 @@ function boardList(g,d){const key=g+'_'+d,arr=[...NET.players.entries()].filter(
   const mv=S.best&&S.best[g+'.'+d];if(mv>0&&S.name)arr.push({id:NET.id||'me',name:S.name,v:+mv,me:true});const mn=gameMin(g);return arr.sort((a,b)=>mn?a.v-b.v:b.v-a.v)}
 function topPayFor(len,pos){const paid=Math.min(3,len-1);return len>=TOP_MIN&&pos<paid?TOPPAY[pos]:0}
 function topEarn(){const items=[];let total=0;if(!NET.ok)return{total,items};
-  GLIST.forEach(([g,n])=>DIFFS.forEach(([d,dn])=>{const L=boardList(g,d),i=L.findIndex(x=>x.me);if(i<0)return;const base=topPayFor(L.length,i);if(!base)return;const amt=Math.round(base*TDMUL[d]);total+=amt;items.push({g,n,d,dn,pos:i+1,amt})}));
+  GLIST.forEach(([g,n])=>DIFFS.forEach(([d,dn])=>{const L=boardList(g,d),i0=L.findIndex(x=>x.me);if(i0<0)return;let i=i0;while(i>0&&L[i-1].v===L[i0].v)i--;const base=topPayFor(L.length,i);if(!base)return;const amt=Math.round(base*TDMUL[d]);total+=amt;items.push({g,n,d,dn,pos:i+1,amt})}));
   return{total,items}}
 const hourNow=()=>Math.floor(Date.now()/3600000);
 function topCheck(){if(!NET.ok||!S.name||performance.now()<12000||NET.players.size<2)return;const h=hourNow();if(!S.topHour){S.topHour=h;save();return}
@@ -5376,7 +5381,7 @@ function renderTopPay(){const el=$('#topPay');if(!el)return;const e=topEarn(),le
       <span class="cd">Próximo pago en <b id="topCd">${mm}</b></span>${st('topPaid')?`<small>Llevas cobrado ${short(st('topPaid'))} €</small>`:''}`:'<small>Necesitas conexión para entrar en los rankings.</small>'}</div>`}
 setInterval(()=>{const c=$('#topCd');if(c&&view==='arcade'){const left=3600-Math.floor(Date.now()/1000)%3600;c.textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0')}},1000);
 const _rar=renderArcadeRank;renderArcadeRank=function(){_rar();renderTopPay();if(!NET.ok)return;const L=boardList(arG,arD);
-  $$('#arBoard .podium .pod').forEach(pd=>{const k=pd.classList.contains('p1')?0:pd.classList.contains('p2')?1:2;if(pd.classList.contains('empty'))return;const amt=Math.round(topPayFor(L.length,k)*TDMUL[arD]);
+  $$('#arBoard .podium .pod').forEach(pd=>{if(pd.classList.contains('empty'))return;const k=(+pd.dataset.rk||(pd.classList.contains('p1')?1:pd.classList.contains('p2')?2:3))-1;const amt=Math.round(topPayFor(L.length,k)*TDMUL[arD]);
     if(amt)pd.querySelector('.pv').insertAdjacentHTML('afterend',`<span class="pay">+${short(amt)} €/h</span>`)})};
 
 
