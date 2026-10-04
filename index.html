@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-04-b">
+<meta name="app-version" content="2026-10-04-d">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1555,6 +1555,12 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 [data-delacc]{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
 [data-delacc]::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.28)}
 [data-delacc].holding::after{width:100%;transition:width 2s linear}
+#mvBig{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:18px;background:radial-gradient(circle at 50% 30%,#2a1a00,#0b0b10 70%);overflow:auto;text-align:center}
+#mvBig .mvb{max-width:520px;width:100%}#mvBig .mvh{font:400 clamp(44px,13vw,86px)/.95 var(--f-d,'Anton',sans-serif);color:#ffd600;text-shadow:0 5px 0 #000;margin:6px 0 10px;letter-spacing:1px}
+#mvBig .mve{font-size:64px;animation:mvbounce 1.4s ease-in-out infinite}@keyframes mvbounce{50%{transform:translateY(-10px)}}
+#mvBig .mvu{display:inline-block;font:900 clamp(22px,7vw,34px) var(--f-b);background:#ffd600;color:#111;padding:8px 16px;border-radius:12px;border:3px solid #000;box-shadow:5px 5px 0 #000;margin:6px 0 16px}
+#mvBig p{font-weight:700;color:#e9ecf8;margin:0 0 10px;font-size:17px;line-height:1.45}#mvBig .mvd{background:#3a0d14;border:2px solid #ff3b4f;color:#ffb3bc;border-radius:12px;padding:10px 12px;font-weight:800;margin:6px 0 16px}
+#mvBig .mvd b{color:#fff;font-size:20px}#mvBig .btn{width:100%;font-size:20px;padding:16px}#mvBig .linkb{margin-top:12px;color:#9aa0bd}#mvBig .warn{margin-top:10px}
 .wheelcard.wlocked #wheel{filter:grayscale(.75) brightness(.55)}.wlock{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;text-align:center}.wlock div{background:rgba(0,0,0,.78);border:2px solid #ffd600;border-radius:12px;padding:8px 12px;font:900 13px var(--f-b);color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.5)}.wlock b{display:block;font-size:30px;line-height:1}.wlock em{display:block;font:900 18px var(--f-n);color:#ffd600;font-style:normal;margin-top:2px}
 #cfWipe,#wipe{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}#cfWipe::after,#wipe::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.35)}#cfWipe.holding::after,#wipe.holding::after{width:100%;transition:width 3s linear}#cfWipe.holding,#wipe.holding{animation:wshake .12s linear infinite}@keyframes wshake{25%{transform:translateX(-1px)}75%{transform:translateX(1px)}}
 #v-trading .tr-acct{grid-template-columns:minmax(0,1fr) auto}#v-trading .tr-help{white-space:normal;max-width:45vw}
@@ -2807,6 +2813,7 @@ html[data-fit="s"]{zoom:.88}html[data-fit="x"]{zoom:.76}
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
 <link rel="canonical" href="https://casinetori.com/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3319684352930343" crossorigin="anonymous"></script>
 <meta property="og:url" content="https://casinetori.com/">
 <meta property="og:image" content="https://casinetori.com/og.png">
 <meta name="twitter:image" content="https://casinetori.com/og.png">
@@ -8006,8 +8013,8 @@ setInterval(()=>{try{if(NET.ok&&!OL.started)olStart();if(OL.started&&!TN.started
 /* ================= gu: modo guía, Ajustes 2, cómo se puntúa y anuncios con premio ================= */
 /* Anuncios: pon aquí tu ID de editor de Google (AdSense > Cuenta), tipo 'ca-pub-1234567890123456'.
    Vacío = modo prueba (sale un anuncio de mentira de 5 s y te da el premio igual). */
-const ADS_CLIENT='';
-const ADS_TEST=true;        // true mientras pruebas (data-adbreak-test="on"). Ponlo en false al publicar de verdad.
+const ADS_CLIENT='ca-pub-3319684352930343';
+const ADS_TEST=false;        // true mientras pruebas (data-adbreak-test="on"). Ponlo en false al publicar de verdad.
 const ADS_MAX_HOUR=12;      // máximo de anuncios con premio por hora y jugador
 CFG_DEF.guide=true;
 
@@ -8296,6 +8303,7 @@ const _guOverlay=overlay;overlay=function(mode){const r=_guOverlay.apply(this,ar
 const GU_AD={busy:false,ready:false,loaded:false,failed:false};
 function guAdsInit(){if(!ADS_CLIENT||GU_AD.loaded)return;GU_AD.loaded=true;
   window.adsbygoogle=window.adsbygoogle||[];window.adBreak=window.adConfig=function(o){window.adsbygoogle.push(o)};
+  if(document.querySelector('script[src*="adsbygoogle.js"]')){try{window.adConfig({preloadAdBreaks:'on',sound:'on',onReady:()=>{GU_AD.ready=true}})}catch(e){}return}
   const s=document.createElement('script');s.async=true;s.crossOrigin='anonymous';
   s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+encodeURIComponent(ADS_CLIENT);
   s.setAttribute('data-ad-client',ADS_CLIENT);if(ADS_TEST)s.setAttribute('data-adbreak-test','on');s.setAttribute('data-ad-frequency-hint','30s');
@@ -8313,7 +8321,7 @@ function showRewardAd(placement,onReward){placement=String(placement||'reward').
     const reward=()=>{if(paid)return;paid=true;guAdLog().push(Date.now());try{save()}catch(e){}try{onReward&&onReward()}catch(e){console.error(e)}};
     const done=()=>{if(fin)return;fin=true;GU_AD.busy=false;res(paid)};
     if(ADS_CLIENT){
-      if(GU_AD.failed||!GU_AD.ready||typeof window.adBreak!=='function'){toast('No se ha podido cargar el anuncio','¿Tienes un bloqueador de anuncios? Prueba en un rato','var(--sky)','📺');done();return}
+      if(GU_AD.failed||!GU_AD.ready||typeof window.adBreak!=='function'){guAdFake(reward,done);return}
       const wd=setTimeout(done,90000);
       try{window.adBreak({type:'reward',name:placement,
         beforeAd:()=>{},afterAd:()=>{},
@@ -8350,7 +8358,7 @@ function guDwDraw(){const c=$('#guDayCv');if(!c)return;const g=c.getContext('2d'
   g.beginPath();g.arc(R,R,R-2,0,Math.PI*2);g.lineWidth=5;g.strokeStyle='#000';g.stroke()}
 function guDayToday(){return typeof dayKey==='function'?dayKey():new Date().toDateString()}
 function guDayHTML(){return `<div class="gu-dw"><span class="ptr"></span><canvas id="guDayCv" width="300" height="300" aria-hidden="true"></canvas><span class="hub emo">🎬</span></div>
-  <div class="gu-dt"><h3>Anuncio del día ${ADS_CLIENT?'':'<span class="gu-test">prueba</span>'}</h3><p class="gu-dd">Mira un anuncio y gira esta ruleta especial. Premio máximo: <b>10.000 €</b>.</p>
+  <div class="gu-dt"><h3>Anuncio del día</h3><p class="gu-dd">Mira un anuncio y gira esta ruleta especial. Premio máximo: <b>10.000 €</b>.</p>
    <button class="btn big mint" id="guDayBtn" type="button">Ver anuncio y girar</button><small class="gu-di" id="guDayInfo">Una vez al día</small>
    <details><summary>Probabilidades</summary><div>${GU_DW.slice().sort((a,b)=>a[0]-b[0]).map(s=>`<span><b>${guN(s[0])} €</b> ${String(s[1]).replace('.',',')} %</span>`).join('')}</div></details></div>`}
 function guDayMount(){if($('#guDay'))return;const home=$('#v-inicio');if(!home)return;const d=document.createElement('div');d.className='panel';d.id='guDay';d.innerHTML=guDayHTML();
@@ -8776,6 +8784,19 @@ i18nAdd([['Mantén pulsado 3 s para borrar','Hold 3 s to delete','Maintiens 3 s 
   S.wheelAt=Math.max(wa,+S.wheelAt||0);if(S.wheelAt>Date.now())S.wheelAt=Date.now();S.riskLock=Math.max(rl,+S.riskLock||0);S.jpN=Math.max(jn,S.jpN||0);if(jp&&(!S.jp||+jp.t>+S.jp.t))S.jp=jp;if(wp&&!S.wPend)S.wPend=wp;if(S.wPend&&+S.wPend.at<=S.wDone)delete S.wPend};
   const tryRes=()=>{if(S.wPend&&!wBusy){try{wResolve(true)}catch(e){}}};setTimeout(tryRes,2500);setTimeout(tryRes,9000)})();
 i18nAdd([['Bloqueada','Locked','Bloquée','Bloqueada'],['Tu tirada de antes','Your earlier spin','Ton tour d\'avant','A tua jogada de antes'],['Recargaste mientras giraba: aquí tienes lo que te tocó','You reloaded while it was spinning: here is what you got','Tu as rechargé pendant que ça tournait : voici ce que tu as gagné','Recarregaste enquanto girava: aqui tens o que te saiu']]);
+
+/* ===== 2026-10-04-c: aviso de mudanza a pantalla completa (tapa todo, también «Jugar aquí») ===== */
+const MV_END=new Date('2026-10-11T23:59:00+02:00').getTime();
+mvAsk=function(){if(!OLD_SITE||$('#mvBig'))return;const left=Math.max(0,Math.ceil((MV_END-Date.now())/86400e3)),over=Date.now()>MV_END;
+  const el=document.createElement('div');el.id='mvBig';el.setAttribute('role','dialog');el.setAttribute('data-noi18n','');
+  el.innerHTML=`<div class="mvb"><div class="mve">🏠</div><div class="mvh">¡NOS MUDAMOS!</div><p>Casinetori tiene casa nueva:</p><div class="mvu">casinetori.com</div>
+   <div class="mvd">${over?'Esta página <b>ya no funciona</b>.':`Esta página dejará de funcionar en <b>${left} ${left===1?'día':'días'}</b> (el 11 de octubre).`}</div>
+   <p>${NET.isAnon?'Pulsa el botón y te llevas tu partida entera: dinero, nivel, cosas y amigos. No hace falta cuenta.':'Tienes cuenta: entra allí con tu usuario y contraseña y tendrás tu partida tal cual.'}</p>
+   <button class="btn big" id="mvGo">${NET.isAnon?'🚀 Llevarme mi partida':'🚀 Ir a casinetori.com'}</button>
+   <p class="warn" id="mvErr" hidden>No se ha podido preparar la mudanza. Crea una cuenta en Ajustes y entra con ella en la web nueva.</p>
+   ${over?'':'<button class="linkb" id="mvLater">Seguir aquí unos días más</button>'}</div>`;
+  document.body.appendChild(el);try{sfx('big')}catch(e){}
+  $('#mvGo').onclick=mvGo;const l=$('#mvLater');if(l)l.onclick=()=>{el.remove()}};
 })();
 </script>
 
