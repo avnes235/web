@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-04-e">
+<meta name="app-version" content="2026-10-04-g">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1555,6 +1555,8 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 [data-delacc]{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
 [data-delacc]::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.28)}
 [data-delacc].holding::after{width:100%;transition:width 2s linear}
+.crow.wiperow{flex-wrap:wrap;align-items:center;gap:10px}.crow.wiperow .cl{flex:1 1 220px;min-width:0}.crow.wiperow .cl b,.crow.wiperow .cl small{white-space:normal;word-break:normal;overflow-wrap:break-word}#cfWipe{flex:0 0 auto;max-width:100%;white-space:normal;text-align:center}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#fff;color:#1f1f1f;border:2px solid #000;border-radius:10px;padding:11px 14px;font:800 15px var(--f-b);cursor:pointer;box-shadow:3px 3px 0 #000}.gbtn:disabled{opacity:.6}.gbtn svg{width:20px;height:20px;flex:none}.gor{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;font-weight:800;margin:4px 0}.gor:before,.gor:after{content:'';flex:1;height:1px;background:var(--line)}
 #mvBig{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:18px;background:radial-gradient(circle at 50% 30%,#2a1a00,#0b0b10 70%);overflow:auto;text-align:center}
 #mvBig .mvb{max-width:520px;width:100%}#mvBig .mvh{font:400 clamp(44px,13vw,86px)/.95 var(--f-d,'Anton',sans-serif);color:#ffd600;text-shadow:0 5px 0 #000;margin:6px 0 10px;letter-spacing:1px}
 #mvBig .mve{font-size:64px;animation:mvbounce 1.4s ease-in-out infinite}@keyframes mvbounce{50%{transform:translateY(-10px)}}
@@ -4585,7 +4587,7 @@ function bestPub(){const o={};Object.keys(S.best||{}).forEach(k=>{if(k.includes(
 function normP(d){if(d&&Array.isArray(d.own))d.own=d.own.map(o=>Array.isArray(o)?o:o&&typeof o==='object'?[o.e,o.n,o.q,o.p]:o);return d}
 async function pushPlayer(){if(!NET.ok||!NET.id||!S.name||NET.kicked)return;if(NET.busyP){NET.pushAgain=true;return}const c=myCos();
   const body={name:S.name.slice(0,14),av:S.av||'😎',code:S.code||'',coins:Math.floor(S.coins),earned:Math.floor(S.earned),lvl:S.lvl,ach:S.ach.length,spent:ownedValue(),col:ownedValue(),cheat:S.strikes||0,
-    pt:Math.floor(S.playtime||0),cw:st('casinoWon'),clk:st('clicks'),best:bestPub(),cos:{c:c.c,f:c.f,bg:c.bg},img:S.img||'',ti:tiText(),show:cfg('showVit')?showList().map(i=>P[i][0]):[],own:cfg('showVit')?ownPub().map(o=>({e:o[0],n:o[1],q:o[2],p:o[3]})):[],achL:(S.ach||[]).slice(0,80),since:S.since||Date.now(),bw:S.bw||{},gm:st('games'),sp:st('spins'),wn:st('wins'),ord:S.orders||0,gf:st('gifts'),trs:st('sent'),pr:st('pranks'),gold:st('golden'),strk:(S.daily||{}).streak||0,at:curAt(),bl:S.bl||{},cl:st('casinoLost'),blv:bestLvPub(),jp:S.jp||null,exc:(S.exc||[]).slice(0,40)};
+    pt:Math.floor(S.playtime||0),cw:st('casinoWon'),clk:st('clicks'),best:bestPub(),cos:{c:c.c,f:c.f,bg:c.bg},img:S.img||'',ti:tiText(),show:cfg('showVit')?showList().map(i=>P[i][0]):[],own:cfg('showVit')?ownPub().map(o=>({e:o[0],n:o[1],q:o[2],p:o[3]})):[],achL:(S.ach||[]).slice(0,80),since:S.since||Date.now(),bw:S.bw||{},gm:st('games'),sp:st('spins'),wn:st('wins'),ord:S.orders||0,gf:st('gifts'),trs:st('sent'),pr:st('pranks'),gold:st('golden'),strk:(S.daily||{}).streak||0,at:curAt(),bl:S.bl||{},cl:st('casinoLost'),blv:bestLvPub(),jp:S.jp||null,gv:st('gifted'),exc:(S.exc||[]).slice(0,40)};
   const j=JSON.stringify({...body,pt:0});if(j===NET.lastP&&Date.now()-(NET.lastT||0)<60000)return;
   NET.busyP=true;try{await NET.db.collection('players').doc(NET.id).set({...body,t:Date.now()});NET.lastP=j;NET.lastT=Date.now()}
   catch(e){NET.pushErr=String(e&&e.message||e);try{console.warn('pushPlayer',e)}catch(_){}if(e&&e.code==='permission-denied'){NET.ro=true;NET.why='La base de datos no deja guardar. Revisa las reglas de Firebase.';renderRank()}}NET.busyP=false;if(NET.pushAgain){NET.pushAgain=false;setTimeout(pushPlayer,250)}}
@@ -4663,7 +4665,7 @@ function openGift(id){$('#mbox').classList.remove('wide');$('#mbox').onclick=nul
   $('#gfX').onclick=()=>$('#modal').hidden=true;$('#mbox').querySelector('.amt').addEventListener('click',e=>{const b=e.target.closest('[data-gq]');if(b)$('#gfAmt').value=b.dataset.gq});
   $('#gfGo').onclick=async()=>{const n=Math.floor(+String($('#gfAmt').value).replace(/\D/g,'')||0),err=t=>{$('#gfErr').textContent=t;$('#gfErr').hidden=false;sfx('lose')};
     if(n<10)return err('El regalo mínimo es de 10 €.');if(n>10000000)return err('El regalo máximo es de 10 millones.');if(!take(n))return err('No tienes tanto dinero.');
-    $('#gfGo').disabled=true;try{await NET.db.collection('cmds/'+id+'/q').add({type:'gift',from:NET.id,n,t:Date.now()});ev('gifts');$('#modal').hidden=true;sfx('buy');confetti(80);toast('Regalo enviado','−'+short(n)+' € para '+esc(p.name||'tu amigo'),'var(--mint)','🎁');const pp=NET.players.get(id);if(pp)pp.coins=(+pp.coins||0)+n;renderRank();save();NET.lastP='';pushPlayer()}
+    $('#gfGo').disabled=true;try{await NET.db.collection('cmds/'+id+'/q').add({type:'gift',from:NET.id,n,t:Date.now()});ev('gifts');ev('gifted',n);$('#modal').hidden=true;sfx('buy');confetti(80);toast('Regalo enviado','−'+short(n)+' € para '+esc(p.name||'tu amigo'),'var(--mint)','🎁');const pp=NET.players.get(id);if(pp)pp.coins=(+pp.coins||0)+n;renderRank();save();NET.lastP='';pushPlayer()}
     catch(e){S.coins+=n;$('#gfGo').disabled=false;err('No se ha podido enviar. Te devuelvo el dinero.')}}}
 function openTrollPick(id){$('#mbox').classList.remove('wide','notes');$('#mbox').onclick=null;const p=NET.players.get(id);$('#modal').hidden=false;
   const mine=(S.myTrolls||[]).slice(0,6);
@@ -4959,6 +4961,8 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-04-g',t:'Los más generosos',items:[['🎁','Nuevo ranking: Generosos','En Ranking hay una clasificación nueva con quién ha regalado más dinero a sus amigos. Cuenta desde hoy.','new','#14e08a'],['🎡','Números claros','La ruleta del todo o nada pone «1 millón» o «48 mil» en vez de abreviaturas.','fix','#ffd600']]},
+ {v:'2026-10-04-f',t:'Entra con Google',items:[['🔑','Cuenta con Google','Ahora puedes guardar tu partida y entrar desde cualquier sitio con tu cuenta de Google, con un toque.','new','#4aa8ff'],['🎡','Todo o nada renovada','Se gira cada 10 minutos, pierdes mucho menos (2 % de tu dinero) y hay dos huecos verdes con premio además del gordo. Los números ya no se cortan.','new','#ffd600'],['🚀','Dash más justo','Las cajas de choque de la nave, la wave y los pinchos son más pequeñas: ya no mueres sin tocar nada.','fix','#3ff0ff']]},
  {v:'2026-10-04-b',t:'Ruletas sin trampas',items:[['🔒','El gordo bloqueado se ve','Cuando ganas el millón, la ruleta del todo o nada sigue saliendo, pero con candado y la cuenta atrás de las 3 horas.','new','#ffd600'],['🚫','Sin trucos al recargar','Si recargas mientras gira la ruleta, la tirada cuenta igual (lo bueno y lo malo) y la espera también. Ya no se puede tirar dos veces.','fix','#ff3b4f']]},
  {v:'2026-10-03-s',t:'Ranking en el móvil',items:[['📱','Se ve bien','Arreglado que en el móvil el Ranking se viera con zoom y más ancho que la pantalla.','fix','#14e08a']]},
  {v:'2026-10-03-q',t:'Sin sustos',items:[['✋','Borrar partida manteniendo','Para borrar tu partida ahora hay que mantener pulsado el botón 3 segundos. Así no se borra nadie la partida sin querer.','fix','#ff3b4f'],['🚀','Dash como antes','La nave y los niveles del Dash vuelven a ser como antes.','fix','#3ff0ff']]},
@@ -5910,7 +5914,7 @@ let wSegs=null;
 drawWheel=function(){const c=$('#wheel');if(!c)return;const W_=curWheel();wSegs=wWeigh(W_.id,W_.segs());const g=c.getContext('2d'),n=wSegs.length,R=190;g.clearRect(0,0,400,400);
   g.fillStyle='#141a2e';g.beginPath();g.arc(200,200,198,0,7);g.fill();
   wSegs.forEach((p,i)=>{const seg=Math.PI*2/n,a0=i*seg-Math.PI/2;g.beginPath();g.moveTo(200,200);g.arc(200,200,R-6,a0,a0+seg);g.closePath();g.fillStyle=p.col;g.fill();
-    g.save();g.translate(200,200);g.rotate(a0+seg/2);g.fillStyle=p.k==='lose'?'#ff8a96':'#141a2e';const fs=Math.max(14,Math.min(p.emo?40:32,Math.round(seg*R*.62)));g.font=fs+'px '+(p.emo?'sans-serif':'"Anton",sans-serif');g.textAlign='right';g.textBaseline='middle';g.fillText(p.lab,R-20,0);g.restore()});
+    g.save();g.translate(200,200);g.rotate(a0+seg/2);g.fillStyle=p.k==='lose'?'#ff8a96':'#141a2e';let fs=Math.max(14,Math.min(p.emo?40:32,Math.round(seg*R*.62)));const ff=()=>{g.font=fs+'px '+(p.emo?'sans-serif':'"Anton",sans-serif')};ff();while(fs>11&&g.measureText(p.lab).width>R-78){fs--;ff()}g.textAlign='right';g.textBaseline='middle';g.fillText(p.lab,R-20,0);g.restore()});
   for(let i=0;i<n;i++){const a=i*Math.PI*2/n-Math.PI/2;g.strokeStyle='#141a2e';g.lineWidth=5;g.beginPath();g.moveTo(200,200);g.lineTo(200+Math.cos(a)*(R-6),200+Math.sin(a)*(R-6));g.stroke();
     g.fillStyle='#fff';g.beginPath();g.arc(200+Math.cos(a)*(R+1),200+Math.sin(a)*(R+1),5,0,7);g.fill()}
   g.fillStyle='#141a2e';g.beginPath();g.arc(200,200,34,0,7);g.fill();g.fillStyle='#ffc23d';g.beginPath();g.arc(200,200,24,0,7);g.fill();
@@ -5932,7 +5936,7 @@ $('#wheelBtn').addEventListener('click',()=>{if(wBusy||Date.now()-S.wheelAt<WAIT
   wRot=wRot-(wRot%360)+360*6+target;$('#wheel').style.transform=`rotate(${wRot}deg)`;wheelInfo();$('#wheelSkip').disabled=true;
   let tk=0;const iv=setInterval(()=>{sfx('tick');if(++tk>40)clearInterval(iv)},100);
   setTimeout(()=>{wBusy=false;wResolve(false)},4300)});
-function wResolve(late){const P_=S.wPend;if(!P_)return;delete S.wPend;if(+P_.at<=(+S.wDone||0))return;S.wDone=+P_.at;const p=P_.p,W_={t:P_.t,id:P_.id};xp(10);
+function wResolve(late){const P_=S.wPend;if(!P_)return;delete S.wPend;if(+P_.at<=(+S.wDone||0))return;S.wDone=+P_.at;if(P_.id==='risk')S.riskLock=Math.max(+S.riskLock||0,+P_.at+RISK_CD);const p=P_.p,W_={t:P_.t,id:P_.id};xp(10);
     if(late)toast('Tu tirada de antes','Recargaste mientras giraba: aquí tienes lo que te tocó','var(--sun)','🎡');
     if(p.k==='eur'){give(p.v);sfx(p.big?'big':'win');if(p.big){confetti(320);troll('¡¡'+short(p.v).toUpperCase()+' €!!','te ha tocado el hueco bueno','#ffd600',true);try{jpWin(p.v)}catch(e){}}else toast(W_.t,'+'+short(p.v)+' €','var(--coral)','🎡')}
     else if(p.k==='lose'){const t=Math.min(Math.floor(S.coins),p.v);S.coins-=t;sfx('lose');troll('−'+short(t)+' €','la del todo o nada no perdona','#ff3b4f',true)}
@@ -7206,7 +7210,7 @@ if(view==='trading')setTimeout(renderTrading,0);
 const GD=(()=>{
 const B=40,W=520,H=620,FLOOR=520,CEIL=120,PX=150,DT=1/240,BK=160;
 const T_AIR=.44,JH=86,GRAV=8*JH/(T_AIR*T_AIR),JV=4*JH/T_AIR,VMAXF=1150;
-const HS=17,HI=7,HK=12,SNAP=9,OR=30,BUF=.1;
+const HS=17,HI=7,HK=10,SNAP=9,OR=30,BUF=.1;
 const SH_G=1000,SH_UP=1150,SH_VU=400,SH_VD=370,SHW=14,SHH=9,WVH=6,WK=1;
 const PADF=1.42,ORBF=.96;
 const MCOL={cube:'#3dff8a',ship:'#ff4fd8',wave:'#3ff0ff'},MHUE={cube:225,ship:292,wave:190};
@@ -7252,11 +7256,12 @@ function step(P,hold,Wd,v,used,dt){const x0=P.x;P.x+=v*dt;if(P.buf>0)P.buf-=dt;
     if(P.mode==='ship'){const c0=Wd.cor(P.x);if(c0){const j0=Math.max(0,Math.floor((P.x-hw-c0.x0)/c0.st)),j1=Math.min(c0.top.length-1,Math.ceil((P.x+hw-c0.x0)/c0.st));let bm=1e9,tm=-1e9;for(let i=j0;i<=j1;i++){if(c0.bot[i]<bm)bm=c0.bot[i];if(c0.top[i]>tm)tm=c0.top[i]}
       if(P.y+hh>bm&&yPrev+hh<=bm+4){P.y=bm-hh;if(P.vy>0)P.vy=0}if(P.y-hh<tm&&yPrev-hh>=tm-4){P.y=tm+hh;if(P.vy<0)P.vy=0}}}
     Wd.query(P.x-hw-14,P.x+hw+14,o=>{
-      if(o.k==='b'){if(P.x+hw>o.x&&P.x-hw<o.x+o.w&&P.y+hh>o.y&&P.y-hh<o.y+o.h)dead=true}
-      else if(o.k==='s'){if(P.x+hw>o.hx0&&P.x-hw<o.hx1&&P.y+hh>o.hy0&&P.y-hh<o.hy1)dead=true}
+      const ow=hw*.72,oh=hh*.72;
+      if(o.k==='b'){if(P.x+ow>o.x&&P.x-ow<o.x+o.w&&P.y+oh>o.y&&P.y-oh<o.y+o.h)dead=true}
+      else if(o.k==='s'){if(P.x+ow>o.hx0&&P.x-ow<o.hx1&&P.y+oh>o.hy0&&P.y-oh<o.hy1)dead=true}
       else if(o.k==='g'){if(!used.has(o)&&Math.hypot(o.x-P.x,o.y-P.y)<30){used.add(o);P.gems++;(P.ev=P.ev||[]).push(['gem',o])}}});
-    const c=Wd.cor(P.x);if(c){const i0=Math.max(0,Math.floor((P.x-hw-c.x0)/c.st)),i1=Math.min(c.top.length-1,Math.ceil((P.x+hw-c.x0)/c.st));
-      for(let i=i0;i<=i1;i++)if(P.y-hh<c.top[i]||P.y+hh>c.bot[i]){dead=true;break}}}
+    const c=Wd.cor(P.x);if(c){const cw=hw*.55,ch=hh*.75,i0=Math.max(0,Math.floor((P.x-cw-c.x0)/c.st)),i1=Math.min(c.top.length-1,Math.ceil((P.x+cw-c.x0)/c.st));
+      for(let i=i0;i<=i1;i++)if(P.y-ch<c.top[i]||P.y+ch>c.bot[i]){dead=true;break}}}
   P.hot=dead;if(dead&&!(P.shield>0))return'dead';if(P.x>=Wd.end)return'win';return''}
 function mkP0(x,y,mode){return{x,y,vy:0,mode:mode||'cube',gr:mode==='cube'||!mode,buf:0,gems:0,shield:0,rot:0}}
 /* ---------- generador del nivel (cada tramo se comprueba con la física de verdad) ---------- */
@@ -8661,20 +8666,22 @@ const _dwOdds=drawWheel;drawWheel=function(){const r=_dwOdds.apply(this,argument
 try{drawWheel()}catch(e){}
 
 /* ---- Todo o nada: botín, bloqueo y más riesgo para quien ya lo ha ganado ---- */
-function jpWin(v){S.jpN=(S.jpN||0)+1;S.jp={v:Math.floor(v),t:Date.now()};S.riskLock=Date.now()+3*3600e3;save();NET.lastP='';try{pushPlayer()}catch(e){}renderJpBar();
-  setTimeout(()=>toast('Ruleta del todo o nada bloqueada','Durante 3 horas. Y la próxima vez arriesgarás más: '+riskPct()+' % de tu dinero','var(--red)','🔒'),4500)}
-function riskPct(){return 5+5*Math.min(4,S.jpN||0)}
+function jpWin(v){S.jpN=(S.jpN||0)+1;S.jp={v:Math.floor(v),t:Date.now()};S.riskLock=Date.now()+RISK_CD;save();NET.lastP='';try{pushPlayer()}catch(e){}renderJpBar();
+  setTimeout(()=>toast('Ruleta del todo o nada','Vuelve en 10 minutos. La próxima vez arriesgas un poco más: '+riskPct()+' % de tu dinero','var(--red)','🔒'),4500)}
+const RISK_CD=10*60e3;function riskPct(){return 2+Math.min(4,S.jpN||0)}
+const wK=v=>{v=Math.abs(Math.floor(v));if(v>=1e6){const m=v/1e6,r=(m>=10?Math.round(m):Math.round(m*10)/10);return String(r).replace('.',',')+(r===1?' millón':' millones')}if(v>=1e3)return Math.round(v/1e3)+' mil';return fmt(v)};
 (function(){const W=WHEELS.find(w=>w.id==='risk');if(!W)return;
-  const RK=()=>{const c=Math.max(0,Math.floor(S.coins||0)),pc=riskPct()/100;return{L:Math.max(2000,Math.round(c*pc/100)*100),J:Math.max(1000000,Math.round(c*.5/1000)*1000)}};
-  W.segs=()=>{const {L,J}=RK();return Array.from({length:10},(_,i)=>i===0?{lab:short(J),col:'#ffd600',k:'eur',v:J,big:1}:{lab:'−'+short(L),col:i%2?'#3a0f18':'#561622',k:'lose',v:L})};
-  Object.defineProperty(W,'d',{configurable:true,get(){const {L,J}=RK();return'Un solo hueco da '+fmt(J)+' €. Los demás te quitan '+fmt(L)+' € (el '+riskPct()+' % de lo que tienes).'+((S.jpN||0)?' Ya la has ganado '+S.jpN+(S.jpN===1?' vez':' veces')+', así que arriesgas más.':'')}})})();
-const riskLocked=()=>+(S.riskLock||0)>Date.now();
+  const RK=()=>{const c=Math.max(0,Math.floor(S.coins||0)),pc=riskPct()/100;return{L:Math.max(1000,Math.round(c*pc/100)*100),J:Math.max(1000000,Math.round(c*.5/1000)*1000),M:Math.max(50000,Math.round(c*.08/1000)*1000)}};
+  W.segs=()=>{const {L,J,M}=RK();return Array.from({length:10},(_,i)=>i===0?{lab:wK(J),col:'#ffd600',k:'eur',v:J,big:1}:(i===4||i===7)?{lab:'+'+wK(M),col:'#14e08a',k:'eur',v:M}:{lab:'−'+wK(L),col:i%2?'#3a0f18':'#561622',k:'lose',v:L})};
+  Object.defineProperty(W,'d',{configurable:true,get(){const {L,J,M}=RK();return'El hueco dorado da '+fmt(J)+' € y los verdes '+fmt(M)+' €. Los demás te quitan solo '+fmt(L)+' € (el '+riskPct()+' % de lo que tienes). Se puede girar cada 10 minutos.'}})})();
+if(+(S.riskLock||0)>Date.now()+RISK_CD)S.riskLock=Date.now()+RISK_CD;
+const riskLocked=()=>{if(+(S.riskLock||0)>Date.now()+RISK_CD)S.riskLock=Date.now()+RISK_CD;return +(S.riskLock||0)>Date.now()};
 const _wiLk=wheelInfo;wheelInfo=function(){_wiLk.apply(this,arguments);const card=$('.wheelcard'),wrap=$('.wheelwrap');if(!card||!wrap)return;
   const lk=curWheel().id==='risk'&&riskLocked()&&!wBusy;card.classList.toggle('wlocked',lk);let o=wrap.querySelector('.wlock');
-  if(!lk){if(o)o.remove();return}const left=Math.max(0,+S.riskLock-Date.now()),s_=Math.ceil(left/1000),hh=Math.floor(s_/3600),mm=Math.floor(s_%3600/60),ss=s_%60,tx=hh+':'+String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0');
+  if(!lk){if(o)o.remove();return}const left=Math.max(0,+S.riskLock-Date.now()),s_=Math.ceil(left/1000),hh=Math.floor(s_/3600),mm=Math.floor(s_%3600/60),ss=s_%60,tx=(hh?hh+':'+String(mm).padStart(2,'0'):String(mm))+':'+String(ss).padStart(2,'0');
   if(!o){o=document.createElement('div');o.className='wlock';wrap.appendChild(o)}o.innerHTML=`<div><b>🔒</b>Bloqueada<em>${tx}</em></div>`;
-  const b=$('#wheelBtn');if(b)b.disabled=true;const inf=$('#wheelInfo');if(inf)inf.textContent='Te llevaste el gordo. Vuelve en '+tx+' o salta a otra ruleta.'};
-document.addEventListener('click',e=>{if(e.target.closest('#wheelBtn')&&curWheel().id==='risk'&&riskLocked()){e.stopImmediatePropagation();e.preventDefault();toast('Ruleta bloqueada','Ganaste el gordo: espera a que acabe la cuenta atrás','var(--red)','🔒')}},true);
+  const b=$('#wheelBtn');if(b)b.disabled=true;const inf=$('#wheelInfo');if(inf)inf.textContent='La del todo o nada vuelve en '+tx+'. Mientras, salta a otra ruleta.'};
+document.addEventListener('click',e=>{if(e.target.closest('#wheelBtn')&&curWheel().id==='risk'&&riskLocked()){e.stopImmediatePropagation();e.preventDefault();toast('Ruleta bloqueada','Se puede girar cada 10 minutos: espera a que acabe la cuenta atrás','var(--red)','🔒')}},true);
 /* ---- barra de arriba: quién se ha llevado el gordo ---- */
 let jpSeen=new Set(JSON.parse(localStorage.getItem('jpSeen')||'[]')),jpIdx=0;
 function jpList(){const out=[];const now=Date.now();NET.players.forEach((p,id)=>{if(id===NET.id||ADM.bans.has(id))return;const j=p.jp;if(j&&+j.t>now-24*3600e3)out.push({id,name:p.name,v:+j.v,t:+j.t})});
@@ -8768,7 +8775,7 @@ i18nAdd([['Saltar a otra ruleta · 1.000 € ›','Skip to another wheel · €1
 
 /* ===== 2026-10-03-q: borrar partida manteniendo pulsado 3 s ===== */
 (function(){const SEL='#cfWipe,#wipe',HOLD=3000;let tm=null,btn=null;
-  const lab=b=>{if(b&&b.dataset.hl!=='1'){b.dataset.hl='1';b.textContent='Mantén pulsado 3 s para borrar'}};
+  const lab=b=>{if(!b)return;const r=b.closest('.crow');if(r)r.classList.add('wiperow');if(b.dataset.hl!=='1'){b.dataset.hl='1';b.textContent='Mantén pulsado 3 s para borrar'}};
   const stop=()=>{if(tm){clearTimeout(tm);tm=null}if(btn)btn.classList.remove('holding');btn=null};
   document.addEventListener('pointerdown',e=>{const b=e.target.closest(SEL);if(!b||b.disabled)return;stop();btn=b;lab(b);b.classList.add('holding');try{sfx('click')}catch(_){}
     tm=setTimeout(()=>{if(btn!==b)return;b.classList.remove('holding');tm=null;btn=null;try{navigator.vibrate&&navigator.vibrate([60,40,120])}catch(_){}
@@ -8797,6 +8804,47 @@ mvAsk=function(){if(!OLD_SITE||$('#mvBig'))return;const left=Math.max(0,Math.cei
    ${over?'':'<button class="linkb" id="mvLater">Seguir aquí unos días más</button>'}</div>`;
   document.body.appendChild(el);try{sfx('big')}catch(e){}
   $('#mvGo').onclick=mvGo;const l=$('#mvLater');if(l)l.onclick=()=>{el.remove()}};
+
+/* ===== 2026-10-04-f: entrar con Google ===== */
+const G_SVG='<svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>';
+const gBtnH=(t)=>`<button type="button" class="gbtn" data-gsign="1">${G_SVG}<span>${t||'Entrar con Google'}</span></button>`;
+function gProv(){const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});return p}
+function gName(u){const e=(u&&(u.email||(u.providerData||[]).map(x=>x.email).find(Boolean)))||'';return e?e.split('@')[0]:'google'}
+async function gSwitchTo(cred){const oldId=NET.id,wasAnon=NET.isAnon;if(wasAnon&&NET.db){try{await NET.db.collection('players').doc(oldId).delete()}catch(e){}}
+  await NET.auth.signInWithCredential(cred);noSave=true;try{localStorage.removeItem(KEY)}catch(e){}try{closeModal()}catch(e){}toast('Dentro con Google','Cargando tu partida…','var(--mint)','🔓');setTimeout(()=>location.reload(),600)}
+async function googleSignIn(btn){if(!NET.ok||!NET.auth||typeof firebase==='undefined'){toast('Sin conexión','Prueba en un momento','var(--coral)','⚠️');return}
+  const u=NET.auth.currentUser;if(btn)btn.disabled=true;
+  try{if(u){await u.linkWithPopup(gProv());const nu=NET.auth.currentUser;NET.isAnon=false;NET.uname=gName(nu);await cloudSave(true);try{closeModal()}catch(e){}renderMe();sfx('big');confetti(120);
+      toast('Cuenta de Google conectada','Entra con Google desde cualquier móvil u ordenador y tendrás esta partida','var(--mint)','🔐');if(!S.name)openProfile(true);try{if(view==='ajustes')renderAjustes()}catch(e){}}
+    else{await NET.auth.signInWithPopup(gProv());setTimeout(()=>location.reload(),300)}}
+  catch(e){const c=e&&e.code||'';if(btn)btn.disabled=false;
+    if(c==='auth/credential-already-in-use'||c==='auth/email-already-in-use'||c==='auth/account-exists-with-different-credential'){const cred=firebase.auth.GoogleAuthProvider.credentialFromError?firebase.auth.GoogleAuthProvider.credentialFromError(e):e.credential;
+      if(cred&&(NET.isAnon||c==='auth/credential-already-in-use')){if(!NET.isAnon){toast('Esa cuenta de Google ya tiene otra partida','Cierra sesión y entra con Google para usarla','var(--coral)','⚠️');return}try{await gSwitchTo(cred)}catch(e2){toast('No se ha podido entrar',String(e2&&e2.code||''),'var(--coral)','⚠️')}return}}
+    if(c==='auth/provider-already-linked'){toast('Ya tienes Google conectado','Puedes entrar con Google desde cualquier sitio','var(--mint)','🔐');return}
+    if(c==='auth/popup-closed-by-user'||c==='auth/cancelled-popup-request')return;
+    if(c==='auth/popup-blocked'||c==='auth/operation-not-supported-in-this-environment'){try{if(u)await u.linkWithRedirect(gProv());else await NET.auth.signInWithRedirect(gProv())}catch(e3){}return}
+    if(c==='auth/operation-not-allowed'||c==='auth/unauthorized-domain'){toast('Google aún no está activado','El jefe tiene que activarlo en Firebase','var(--coral)','⚙️');return}
+    toast('No se ha podido entrar con Google',c||'Prueba otra vez','var(--coral)','⚠️')}}
+/* si se usó el modo de redirección (móviles que bloquean ventanas) */
+setTimeout(async()=>{try{if(!NET.auth)return;const r=await NET.auth.getRedirectResult();if(r&&r.user&&!r.user.isAnonymous){NET.isAnon=false;NET.uname=gName(r.user);await cloudSave(true);renderMe();toast('Cuenta de Google conectada','Tu partida ya está guardada','var(--mint)','🔐')}}
+  catch(e){const c=e&&e.code||'';if(c==='auth/credential-already-in-use'){const cred=firebase.auth.GoogleAuthProvider.credentialFromError?firebase.auth.GoogleAuthProvider.credentialFromError(e):e.credential;if(cred)try{await gSwitchTo(cred)}catch(_){}}}},2500);
+document.addEventListener('click',e=>{const b=e.target.closest('[data-gsign]');if(b){e.preventDefault();googleSignIn(b)}});
+/* botón de Google en la caja de cuenta y en la ventana de entrar/crear */
+const _accBG=accBlock;accBlock=function(first){const h=_accBG.apply(this,arguments);if(!h)return h;
+  const isG=!!(NET.auth&&NET.auth.currentUser&&(NET.auth.currentUser.providerData||[]).some(p=>p&&p.providerId==='google.com'));
+  if(first)return h.replace('</div>',`<div style="max-width:320px;margin:8px auto 0">${gBtnH('Entrar con Google')}</div></div>`);
+  if(NET.isAnon)return h.replace('<div class="abtns">',`<div style="margin:8px 0">${gBtnH('Guardar mi partida con Google')}</div><div class="gor">o con usuario y contraseña</div><div class="abtns">`);
+  return isG?h.replace('</b>',' · Google ✓</b>'):h.replace('<div class="abtns">',`<div style="margin:8px 0">${gBtnH('Conectar también con Google')}</div><div class="abtns">`)};
+const _oaG=openAccount;openAccount=function(mode){_oaG.apply(this,arguments);const f=$('#mbox .form');if(f&&!f.querySelector('[data-gsign]'))f.insertAdjacentHTML('afterbegin',`${gBtnH(mode==='create'?'Crear cuenta con Google':'Entrar con Google')}<div class="gor">o con usuario y contraseña</div>`)};
+i18nAdd([['Entrar con Google','Sign in with Google','Se connecter avec Google','Entrar com o Google'],['Guardar mi partida con Google','Save my game with Google','Sauvegarder ma partie avec Google','Guardar o meu jogo com o Google'],['Crear cuenta con Google','Create account with Google','Créer un compte avec Google','Criar conta com o Google'],['Conectar también con Google','Also connect Google','Connecter aussi Google','Ligar também o Google'],['o con usuario y contraseña','or with username and password','ou avec identifiant et mot de passe','ou com utilizador e palavra-passe']]);
+
+/* ===== 2026-10-04-g: ranking de los más generosos ===== */
+RKC2.push(['gv','🎁','Generosos','Quién ha regalado más dinero a sus amigos (cuenta desde el 4 de octubre).']);
+(()=>{const _pv=pval;pval=function(p,cat){if(cat==='gv')return p.me?st('gifted'):(+p.gv||0);return _pv(p,cat)};
+  const _fv=fmtVal;fmtVal=function(cat,v){if(cat==='gv')return fmt(v)+' €';return _fv(cat,v)};
+  const _rl=rankList;rankList=function(tab,cat){if(cat!=='gv')return _rl(tab,cat);return _rl(tab,'coins').filter(p=>pval(p,'gv')>0).sort((a,b)=>pval(b,'gv')-pval(a,'gv'))};
+  try{if(view==='ranking')renderRank()}catch(e){}})();
+i18nAdd([['Generosos','Most generous','Généreux','Generosos'],['Quién ha regalado más dinero a sus amigos (cuenta desde el 4 de octubre).','Who has gifted the most money to friends (counting since October 4).','Qui a offert le plus d\'argent à ses amis (depuis le 4 octobre).','Quem ofereceu mais dinheiro aos amigos (conta desde 4 de outubro).']]);
 })();
 </script>
 
