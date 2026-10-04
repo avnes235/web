@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-04-l">
+<meta name="app-version" content="2026-10-04-m">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1555,6 +1555,17 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 [data-delacc]{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
 [data-delacc]::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.28)}
 [data-delacc].holding::after{width:100%;transition:width 2s linear}
+#ssBar{position:fixed;left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));z-index:9990;width:min(560px,calc(100vw - 20px));display:flex;align-items:center;gap:10px;background:#12233f;border:2px solid #3f7cff;border-radius:12px;padding:8px 8px 8px 12px;box-shadow:0 12px 30px rgba(0,0,0,.5);animation:tipin .3s ease-out}
+#ssBar .e{font-size:22px}#ssBar .t{flex:1;min-width:0}#ssBar b{display:block;font-size:13px;color:#cfe0ff}#ssBar small{display:block;font-size:11.5px;font-weight:700;color:var(--muted);line-height:1.3}#ssBar .btn{flex:none;width:auto;margin:0;padding:8px 12px;font-size:12px;min-height:0}
+#shBox{position:fixed;inset:0;z-index:9800;background:rgba(5,6,14,.72);backdrop-filter:blur(4px);display:grid;place-items:end center;padding:12px;animation:tipin .2s ease-out}
+@media (min-width:640px){#shBox{place-items:center}}
+#shBox .sb{width:min(440px,100%);background:#15182a;border:2px solid #000;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6),6px 6px 0 #000;padding:16px;animation:shup .3s cubic-bezier(.2,1.3,.4,1)}
+@keyframes shup{from{transform:translateY(40px);opacity:0}}
+#shBox .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}#shBox h3{font-size:24px;margin:0}#shBox .x{background:none;border:0;color:var(--muted);font-size:20px;cursor:pointer}
+#shBox .pv{display:flex;gap:10px;align-items:center;background:#0d1020;border:1px solid var(--line);border-radius:10px;padding:8px;margin-bottom:12px}#shBox .pv img{width:64px;height:64px;object-fit:cover;border-radius:8px;flex:none}#shBox .pv p{margin:0;font-size:12.5px;font-weight:700;color:var(--muted);line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+#shBox .apps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}#shBox .ap{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;color:#fff;font:800 11.5px var(--f-b);cursor:pointer;padding:6px 2px;border-radius:10px}#shBox .ap:hover{background:rgba(255,255,255,.06)}
+#shBox .ap i{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:22px;color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.35)}
+#shBox .lk{display:flex;gap:8px;margin-top:12px}#shBox .lk input{flex:1;min-width:0;background:#0d1020;border:2px solid var(--line);border-radius:10px;color:var(--sun);font:700 12px var(--f-n);padding:9px 10px}#shBox .lk .btn{width:auto;margin:0;flex:none}
 #jnStack{position:fixed;right:12px;bottom:84px;z-index:9500;display:flex;flex-direction:column;gap:8px;width:min(320px,calc(100vw - 24px));pointer-events:none}
 @media (min-width:881px){#jnStack{bottom:16px}}
 .jn{pointer-events:auto;display:flex;gap:10px;align-items:flex-start;background:#15182a;border:2px solid var(--jc,#3f7cff);border-left-width:6px;border-radius:10px;padding:8px 10px;box-shadow:0 10px 28px rgba(0,0,0,.55);cursor:pointer;animation:jnin .35s cubic-bezier(.2,1.4,.4,1);font-size:13px}
@@ -5013,6 +5024,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-04-m',t:'Compartir y sesiones',items:[['📤','Compartir más fácil','Ventana propia para compartir con WhatsApp, Telegram, X, Facebook, copiar el enlace o guardar la imagen.','new','#25d366'],['📱','Menos avisos de «otro dispositivo»','Ya no sale al recargar. Y si de verdad abres la partida en otro sitio, sale un aviso pequeño arriba y al volver se recupera sola.','fix','#3f7cff']]},
  {v:'2026-10-04-k',t:'Avisos para el jefe',items:[['🔔','El jefe se entera al momento','Cuando alguien escribe al Buzón del jefe (fallos, ideas, cuentas…), al jefe le sale un aviso pequeño en la esquina.','new','#3f7cff']]},
  {v:'2026-10-04-i',t:'Rasca y gana nuevo',items:[['🎟️','Más bonito','Lámina dorada con brillos, virutas y sonido de rascar de verdad, y el premio sale abajo sin tapar los números.','new','#ffc23d'],['🐞','Arreglado','Al ganar ya no se iluminan casillas que no tocan (antes 250.000 brillaba si ganabas 50.000).','fix','#14e08a']]},
  {v:'2026-10-04-g',t:'Los más generosos',items:[['🎁','Nuevo ranking: Generosos','En Ranking hay una clasificación nueva con quién ha regalado más dinero a sus amigos. Cuenta desde hoy.','new','#14e08a'],['🎡','Números claros','La ruleta del todo o nada pone «1 millón» o «48 mil» en vez de abreviaturas.','fix','#ffd600']]},
@@ -5540,12 +5552,18 @@ function topWhyNot(){const near=[];GLIST.forEach(([g,n])=>DIFFS.forEach(([d,dn_]
 /* ---- Una sola sesión por cuenta (evita que dos móviles se pisen el dinero) ---- */
 const SID=Math.random().toString(36).slice(2)+Date.now().toString(36);
 async function sessClaim(){if(!NET.ok||!NET.db||!NET.id)return;try{await NET.db.collection('data/users/'+NET.id).doc('sess').set({sid:SID,t:Date.now(),ua:navigator.userAgent.slice(0,80)})}catch(e){}}
-function sessWatch(){if(!NET.ok||!NET.db||!NET.id||NET.sessOn)return;NET.sessOn=true;sessClaim();
-  NET.db.collection('data/users/'+NET.id).doc('sess').onSnapshot(sn=>{const d=sn.exists?sn.data():null;if(!d||!d.sid||d.sid===SID||NET.kicked)return;
-    NET.kicked=true;$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('wide','notes');mb.onclick=null;
-    mb.innerHTML=`<h2 style="font-size:30px">Tu partida está abierta en otro sitio</h2><p class="muted" style="font-weight:700">Has entrado con tu cuenta en otro móvil, ordenador o pestaña. Para que no se mezcle el dinero, aquí la hemos pausado.</p><div class="form"><button class="btn big" id="ssHere">Jugar aquí</button></div>`;
-    $('#ssHere').onclick=async()=>{$('#ssHere').disabled=true;try{const sv=await NET.db.collection('data/users/'+NET.id).doc('save').get();const c=sv.exists?JSON.parse((sv.data()||{}).json||'null'):null;if(c&&typeof c==='object')applyCloud(c)}catch(e){}
-      NET.kicked=false;await sessClaim();closeModal();NET.lastP='';pushPlayer()}},()=>{})}
+let sessT0=0,sessSeen=false;
+async function sessHere(){const b=$('#ssBar');if(b)b.classList.add('busy');try{const sv=await NET.db.collection('data/users/'+NET.id).doc('save').get();const c=sv.exists?JSON.parse((sv.data()||{}).json||'null'):null;if(c&&typeof c==='object')applyCloud(c)}catch(e){}
+  NET.kicked=false;sessT0=Date.now();sessSeen=false;await sessClaim();if(b)b.remove();NET.lastP='';pushPlayer();try{renderMe()}catch(e){}toast('Jugando aquí','Tu partida se ha cargado en este dispositivo','var(--mint)','✅')}
+function sessWatch(){try{if(OLD_SITE)return}catch(e){}if(!NET.ok||!NET.db||!NET.id||NET.sessOn)return;NET.sessOn=true;sessT0=Date.now();sessClaim();
+  NET.db.collection('data/users/'+NET.id).doc('sess').onSnapshot(sn=>{const d=sn.exists?sn.data():null;if(!d||!d.sid||sn.metadata&&sn.metadata.hasPendingWrites)return;if(d.sid===SID){sessSeen=true;return}if(NET.kicked)return;
+    /* al recargar puede llegar primero la sesión vieja: si aún no hemos visto la nuestra y es anterior a nuestra entrada, no es otro dispositivo */
+    if(!sessSeen&&(+d.t||0)<=sessT0+1500)return;
+    NET.kicked=true;let b=$('#ssBar');if(!b){b=document.createElement('div');b.id='ssBar';document.body.appendChild(b)}
+    b.innerHTML=`<span class="e">📱</span><span class="t"><b>Tu partida se ha abierto en otro dispositivo</b><small>Aquí está en pausa para que no se mezcle el dinero.</small></span><button class="btn sm" id="ssHere">Jugar aquí</button>`;
+    $('#ssHere').onclick=()=>{$('#ssHere').disabled=true;sessHere()}},()=>{})}
+/* si vuelves a esta pestaña o app, se recupera sola */
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&NET.kicked&&$('#ssBar')&&!$('#ssBar').classList.contains('busy'))setTimeout(()=>{if(document.visibilityState==='visible'&&NET.kicked)sessHere()},600)});
 setTimeout(sessWatch,3000);setInterval(()=>{if(NET.ok&&!NET.sessOn)sessWatch()},20000);
 const _svK=save;save=function(){if(NET&&NET.kicked)return;return _svK.apply(this,arguments)};
 
@@ -8662,10 +8680,25 @@ const _agRef=applyGifts;applyGifts=function(list){const refs=[],rest=[];list.for
       const who=(NET.players.get(c.from)||{}).name||'Un colega';sfx('big');confetti(220);troll('¡INVITACIÓN Nº '+S.refN+' COBRADA!',who+' ha llegado a nivel '+REF_LVL+' · +'+fmt(n)+' € para ti','#ffd600',true)});save();NET.lastP='';pushPlayer()}
   if(rest.length)return _agRef(rest)};
 /* compartir: usa el menú del móvil o copia */
-async function shareThing(text,url,file){try{if(file&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],text:text+' '+url});return'shared'}
-    if(navigator.share){await navigator.share({title:'Casinetori',text,url});return'shared'}}catch(e){if(e&&e.name==='AbortError')return'abort'}
-  try{await navigator.clipboard.writeText(text+' '+url);toast('Copiado','Pégalo en WhatsApp, Instagram o donde quieras','var(--mint)','📋');return'copied'}catch(e){}
-  prompt('Copia esto:',text+' '+url);return'prompt'}
+/* ventana propia para compartir (igual en móvil y ordenador) */
+function shareThing(text,url,file){return new Promise(res=>{const old=$('#shBox');if(old)old.remove();const full=text+' '+url,E=encodeURIComponent;let done='abort',img='';if(file){try{img=URL.createObjectURL(file)}catch(e){}}
+  const apps=[['whatsapp','WhatsApp','#25d366','<svg viewBox="0 0 24 24" width="26" height="26" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.5-.3z"/></svg>','https://wa.me/?text='+E(full)],
+    ['telegram','Telegram','#2aa3e0','✈️','https://t.me/share/url?url='+E(url)+'&text='+E(text)],
+    ['x','X','#000','𝕏','https://twitter.com/intent/tweet?text='+E(text)+'&url='+E(url)],
+    ['fb','Facebook','#1877f2','<b style="font:900 26px Arial">f</b>','https://www.facebook.com/sharer/sharer.php?u='+E(url)]];
+  const more=!!navigator.share&&matchMedia('(pointer:coarse)').matches;
+  const el=document.createElement('div');el.id='shBox';el.innerHTML=`<div class="sb" role="dialog" aria-label="Compartir"><div class="sh"><h3>Compartir</h3><button class="x" aria-label="Cerrar">✕</button></div>
+    <div class="pv">${img?`<img src="${img}" alt="">`:'<img src="icon-192.png" alt="">'}<p>${esc(text)}</p></div>
+    <div class="apps">${apps.map(a=>`<button class="ap" data-ap="${a[0]}"><i style="background:${a[2]}">${a[3]}</i>${a[1]}</button>`).join('')}
+      ${file?'<button class="ap" data-ap="dl"><i style="background:#ffd600;color:#111">⬇</i>Imagen</button>':''}${more?'<button class="ap" data-ap="more"><i style="background:#3a3f5c">⋯</i>Más apps</button>':''}</div>
+    <div class="lk"><input readonly value="${esc(url)}" aria-label="Enlace"><button class="btn sm mint" data-ap="copy">Copiar</button></div></div>`;
+  document.body.appendChild(el);
+  const close=()=>{el.remove();if(img)setTimeout(()=>URL.revokeObjectURL(img),3000);res(done)};
+  el.addEventListener('click',async e=>{if(e.target===el||e.target.closest('.x')){close();return}const b=e.target.closest('[data-ap]');if(!b)return;const k=b.dataset.ap;sfx('click');
+    if(k==='copy'){try{await navigator.clipboard.writeText(full)}catch(_){const i=el.querySelector('.lk input');i.value=full;i.select();try{document.execCommand('copy')}catch(__){}}toast('Copiado','Pégalo en WhatsApp, Instagram o donde quieras','var(--mint)','📋');done='copied';return}
+    if(k==='dl'&&file){const a=document.createElement('a');a.href=img||URL.createObjectURL(file);a.download='casinetori.png';document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),1000);done='shared';toast('Imagen guardada','Súbela a tus historias','var(--mint)','🖼️');return}
+    if(k==='more'){try{if(file&&navigator.canShare&&navigator.canShare({files:[file]}))await navigator.share({files:[file],text:full});else await navigator.share({title:'Casinetori',text,url});done='shared';close()}catch(_){}return}
+    const a=apps.find(x=>x[0]===k);if(a){window.open(a[4],'_blank','noopener,width=640,height=600');done='shared';close()}})})}
 function inviteText(){return'Vente a Casinetori, casino y juegos con dinero de mentira. Entra con mi enlace y te llevas '+fmt(REF_NEW)+' € para empezar 🎰'}
 async function shareInvite(){sfx('click');await shareThing(inviteText(),refLink())}
 /* tarjeta de invitar (Inicio y Ranking) */
@@ -8695,7 +8728,7 @@ function cardImage(o){const c=document.createElement('canvas');c.width=1080;c.he
   g.fillStyle='rgba(255,255,255,.55)';g.font='600 30px system-ui,sans-serif';g.fillText('Dinero de mentira · sin apuestas reales',540,1240);
   return new Promise(r=>c.toBlob(b=>r(b?new File([b],'casinetori.png',{type:'image/png'}):null),'image/png'))}
 async function shareBrag(o){sfx('click');const f=await cardImage({...o,who:S.name});const res=await shareThing(o.text||('Mira lo que he hecho en Casinetori: '+o.big+' '+(o.sub||'')),refLink(),f);
-  if(res==='copied'||res==='prompt'){if(f){const a=document.createElement('a');a.href=URL.createObjectURL(f);a.download='casinetori-record.png';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000)}}}
+}
 function bragAsk(o){let el=$('#bragAsk');if(el)el.remove();el=document.createElement('div');el.id='bragAsk';el.className='tipbox brag';
   el.innerHTML=`<span class="emo">📸</span><span class="tt"><b>${esc(o.title||'¡Récord!')}</b> Compártelo y pica a tus colegas</span><button class="tgo">Compartir</button><button class="tx" aria-label="Cerrar">✕</button>`;document.body.appendChild(el);
   const close=()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)};el.querySelector('.tx').onclick=close;el.querySelector('.tgo').onclick=()=>{close();shareBrag(o)};setTimeout(close,10000)}
