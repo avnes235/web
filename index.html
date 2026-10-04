@@ -1908,6 +1908,7 @@ select{background:var(--card);border:1px solid var(--line);color:var(--fg);font:
 .empty{text-align:center;padding:40px 16px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:12px}
 .empty .emo{font-size:56px}
 .ownrow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:10px}
+.ownrow{flex-wrap:wrap}.ownrow .cnt{white-space:nowrap}.ownrow [data-sell]{flex:1 1 100%;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;justify-content:center;text-align:center}
 .cnt{font:15px var(--f-n);color:var(--sun)}
 .cartfab{position:fixed;right:24px;bottom:24px;z-index:55;display:flex;align-items:center;gap:10px;background:var(--sun);color:var(--ink);border-radius:6px;padding:12px 18px 12px 14px;font-weight:800;box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 -4px 0 rgba(0,0,0,.2)}
 .cartfab .n{background:var(--ink);color:var(--sun);border-radius:4px;min-width:26px;height:26px;display:grid;place-items:center;font:13px var(--f-n);padding:0 7px}
@@ -2759,6 +2760,12 @@ body.lite .over,body.lite .scrim,body.lite .modal{backdrop-filter:none!important
 .hrbar .hrt{margin-left:auto;font:18px var(--f-n);background:#000;color:var(--sun);padding:4px 10px}
 .pod .pay{font:900 11px var(--f-b);letter-spacing:.5px;color:#111;background:var(--sun);padding:2px 6px;border-radius:3px}
 .pod.p2 .pay{background:#d9dee9}.pod.p3 .pay{background:#e0a26a}
+/* el podio no hereda .me ni .empty de otras partes (los descolocaba) */
+html body .podium .pod{padding:0;gap:6px}
+/* empates en el podio: el que empata con el 1º se ve igual de grande y dorado */
+html body .pod.tie1 .pav{width:92px;height:92px;font-size:54px}html body .pod.tie1 .step{height:120px;background:linear-gradient(#ffe45c,#ffb300)}html body .pod.tie1 .pay{background:var(--sun)}
+html body .pod.tie2 .step{height:88px;background:linear-gradient(#f2f5fb,#aeb6c8)}html body .pod.tie2 .pay{background:#d9dee9}
+@media (max-width:520px){html body .pod.tie1 .pav{width:68px;height:68px;font-size:40px}html body .pod.tie1 .step{height:96px}html body .pod.tie2 .step{height:70px}}
 .bwrow .where{display:inline-flex;align-items:center;gap:6px;font:800 12px var(--f-b);text-transform:uppercase;letter-spacing:.5px;background:var(--bg2);padding:2px 8px;border-radius:3px;color:var(--fg)}
 .bwrow .x{font:12px var(--f-n);color:var(--sun)}
 .bwcats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
@@ -6577,7 +6584,7 @@ addEventListener('keydown',e=>{if(view!=='arcade'||!G||$('#stage').hidden)return
 
 /* ---- revivir: el pago se retrasa hasta que el jugador decide (nunca se paga dos veces) ---- */
 const _gxGEnd=gEnd;
-gEnd=function(){if(running&&G&&!G.dom&&GX_REV[gid]&&!GX.used&&!GX.pend&&G.gxRevive&&score>0&&gxAd()){
+gEnd=function(){if(running&&G&&!G.dom&&!G.won&&GX_REV[gid]&&!GX.used&&!GX.pend&&G.gxRevive&&score>0&&gxAd()){
     running=false;for(const k in KEYS)KEYS[k]=false;GX.pend={tok:++GX.tok,g:gid};$('#gSave').hidden=true;gxRevBox();return}
   return _gxGEnd.apply(this,arguments)};
 function gxFinish(silent){const p=GX.pend;if(!p)return;GX.pend=null;GX.used=true;if(silent)GX.mute=Date.now()+1500;if(!G||gid!==p.g)return;running=true;_gxGEnd()}
