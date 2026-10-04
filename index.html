@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Casinetori · Casino de mentira y juegos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-04-s">
+<meta name="app-version" content="2026-10-04-u">
 <link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -1555,6 +1555,13 @@ button:focus-visible,[role="button"]:focus-visible,summary:focus-visible,a:focus
 [data-delacc]{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
 [data-delacc]::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,255,255,.28)}
 [data-delacc].holding::after{width:100%;transition:width 2s linear}
+.freebar{display:flex;align-items:center;gap:10px;background:#12233f;border:2px solid #3f7cff;border-radius:12px;padding:8px 10px;margin:-4px 0 14px}.freebar .e{font-size:22px}.freebar .t{flex:1;min-width:0}.freebar b{display:block;font:900 14px var(--f-b);color:#fff}.freebar small{display:block;font:700 12px var(--f-b);color:var(--muted)}.freebar .btn{flex:none;width:auto;margin:0;background:#ffd600;color:#111}.freebar.on{background:rgba(20,224,138,.15);border-color:#14e08a}.freebar.wait{opacity:.75}#v-casino.czhubm .freebar{display:none}
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+input,textarea,select,[contenteditable],[contenteditable] *{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+img{-webkit-user-drag:none;user-drag:none}
+body.ultra *,body.ultra *::before,body.ultra *::after{animation:none!important;transition:none!important;box-shadow:none!important;text-shadow:none!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+body.ultra .rays,body.ultra #fabfx,body.ultra #fx,body.ultra .tkflake,body.ultra #excWin .rays{display:none!important}
+body.ultra .over,body.ultra .scrim,body.ultra .modal{background:rgba(5,6,14,.92)!important}
 .fads{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:420px;margin:10px auto 0;position:relative;z-index:2}
 .fad{display:flex;align-items:center;gap:8px;background:#141a2e;color:#fff;border:2px solid #000;border-radius:12px;padding:8px 10px;box-shadow:3px 3px 0 #000;cursor:pointer;text-align:left}
 .fad .e{font-size:22px}.fad b{display:block;font:900 12.5px var(--f-b)}.fad small{display:block;font:800 11px var(--f-b);color:var(--sun)}.fad.on{background:#14e08a;color:#062}.fad.on small{color:#062}.fad:disabled{opacity:.6}
@@ -3887,7 +3894,7 @@ const rTotal=()=>Object.values(rBets).reduce((a,b)=>a+b,0);
 function renderRB(){$$('#c-rule [data-rb]').forEach(b=>{let c=b.querySelector('.ch');const v=rBets[b.dataset.rb];if(v){if(!c){c=document.createElement('span');c.className='ch';b.appendChild(c)}c.textContent=short(v)}else if(c)c.remove()});
   $('#rTot').textContent=short(rTotal())+' €';$('#rSpin').disabled=rSpin||!rTotal()}
 $('#c-rule').addEventListener('click',e=>{const b=e.target.closest('[data-rb]');if(!b||rSpin)return;const amt=curBet();if(amt<=0){noMoney($('#rMsg'));return}
-  if(rTotal()+amt>S.coins){$('#rMsg').textContent='No te llega para más fichas. Tienes '+short(S.coins)+' €.';sfx('lose');return}
+  if(rTotal()+amt>S.coins+(+S.freeChip||0)){$('#rMsg').textContent='No te llega para más fichas. Tienes '+short(S.coins)+' €.';sfx('lose');return}
   rBets[b.dataset.rb]=(rBets[b.dataset.rb]||0)+amt;sfx('click');$$('.rc.hit').forEach(x=>x.classList.remove('hit'));renderRB()});
 $('#rClear').addEventListener('click',()=>{if(!rSpin){rBets={};renderRB()}});
 $('#rRep').addEventListener('click',()=>{if(rSpin)return;const t=Object.values(rLast).reduce((a,b)=>a+b,0);if(!t)return;if(t>S.coins){noMoney($('#rMsg'));return}rBets={...rLast};renderRB()});
@@ -4925,7 +4932,7 @@ function renderAjustes(){const sw=(k,t,d)=>`<div class="crow"><span class="cl"><
      ${sw('confetti','Confeti','Lluvia de papelitos cuando ganas algo.')}
      ${sw('shake','Temblores','Que la pantalla tiemble con los troleos y golpes.')}
      ${sw('toasts','Avisos de logros','Avisos pequeños de logros, niveles y misiones.')}
-     ${sw('lite','Modo ahorro','Quita animaciones. Útil si el móvil va lento.')}
+     ${sw('lite','Modo ahorro','Quita animaciones. Útil si el móvil va lento.')}${sw('ultra','Modo ultra rendimiento','Para móviles muy lentos: quita animaciones, sombras, brillos, confeti y efectos. El juego se ve más simple pero va mucho más fluido.')}
      <div class="crow"><span class="cl"><b>Pantalla completa</b><small>Quita las barras del navegador.</small></span><button class="btn alt sm" id="cfFs">Activar</button></div></div>
    <div class="panel cfgbox"><h3>Juegos</h3>
      <div class="crow"><span class="cl"><b>Dificultad por defecto</b><small>La que sale marcada en los juegos que no has tocado.</small></span><span class="segs" id="cfDiff">${DIFFS.map(x=>`<button data-dd="${x[0]}" aria-pressed="${cfg('defDiff')===x[0]}">${x[1]}</button>`).join('')}</span></div>
@@ -5057,6 +5064,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-04-t',t:'Más fluido',items:[['⚡','Modo ultra rendimiento','En Ajustes › Pantalla: para móviles muy lentos, quita todos los efectos.','new','#3ff0ff'],['📺','Apuesta gratis en el casino','En cualquier juego del casino: mira un anuncio y tu próxima apuesta va gratis. Cuanto más dinero tienes, más grande. Uno cada 30 minutos.','new','#14e08a']]},
  {v:'2026-10-04-s',t:'Eventos y anuncios en la fábrica',items:[['🎉','Eventos todos los días','Cada día salen eventos al azar: doble o triple dinero, lluvia de dinero para robar entre todos, doble XP, fábrica a tope, ruletas sin espera, casino caliente, fiebre del oro y regalos del jefe.','new','#ffd600'],['📺','Fábrica con anuncios','Mira un anuncio y llévate 1 minuto de autoclick o 1 minuto de energía infinita.','new','#14e08a']]},
  {v:'2026-10-04-q',t:'Bot Casinetori',items:[['🤖','Habla con el bot','La cuenta oficial ahora es el Bot Casinetori: sale fijo arriba en Ranking y al tocarlo puedes preguntarle dudas, pedir consejos o que te cuente un chiste. No se le pueden mandar regalos ni mensajes.','new','#3f7cff']]},
  {v:'2026-10-04-p',t:'Perfil oficial',items:[['✔️','Atajos en la cuenta oficial','Toca el perfil de la cuenta oficial de Casinetori para escribir al equipo, ver novedades, ayuda, invitar amigos o leer las normas.','new','#3f7cff']]},
@@ -9118,6 +9126,26 @@ function fabAutoRun(){if(fabAutoIv)return;fabAutoIv=setInterval(()=>{if(!(+S.fab
 document.addEventListener('click',e=>{const b=e.target.closest('[data-fad]');if(!b)return;const k=b.dataset.fad,key=k==='auto'?'fabAuto':'fabInf';if(+S[key]>Date.now()){toast('Ya lo tienes activo','Aprovéchalo','var(--mint)','⚡');return}
   sfx('click');showRewardAd('fab_'+k,()=>{S[key]=Date.now()+60e3;save();sfx('big');confetti(80);toast(k==='auto'?'🤖 Autoclick 1 minuto':'⚡ Energía infinita 1 minuto','¡A tope!','var(--mint)',k==='auto'?'🤖':'⚡');if(k==='auto')fabAutoRun();fadRender()})});
 setInterval(()=>{if(+S.fabInf>Date.now())S.fabEn=100;if(+S.fabAuto>Date.now())fabAutoRun();if(view==='fabrica')fadRender()},250);
+
+/* ===== 2026-10-04-t: modo ultra rendimiento + tirada gratis en la ruleta ===== */
+CFG_DEF.ultra=false;
+const _apcU=applyCfg;applyCfg=function(){_apcU.apply(this,arguments);const u=!!cfg('ultra');document.body.classList.toggle('ultra',u);if(u)document.body.classList.add('lite')};applyCfg();
+const _cfU=confetti;confetti=function(){if(cfg('ultra'))return;return _cfU.apply(this,arguments)};
+const _buU=burst;burst=function(){if(cfg('ultra'))return;return _buU.apply(this,arguments)};
+document.addEventListener('selectstart',e=>{if(!e.target.closest||!e.target.closest('input,textarea,[contenteditable]'))e.preventDefault()});
+document.addEventListener('contextmenu',e=>{if(e.target.closest&&e.target.closest('canvas,.bigcoin,.tcell,#tkwrap,.rc'))e.preventDefault()});
+/* casino: anuncio = apuesta gratis (1 cada 30 minutos), más grande cuanto más dinero tienes */
+const FREE_CD=30*60e3,freeVal=()=>Math.min(5000000,Math.max(10000,Math.round((S.coins||0)*.01/1000)*1000));
+function freeRender(){let el=$('#freeBar');const bb=$('#betbar');if(!el&&bb){bb.insertAdjacentHTML('afterend','<div class="freebar" id="freeBar"></div>');el=$('#freeBar')}if(!el)return;
+  const f=+S.freeChip||0,left=(+S.freeAdAt||0)+FREE_CD-Date.now();
+  if(f>0){el.className='freebar on';el.innerHTML=`<span class="e">🎁</span><span class="t"><b>Tu próxima apuesta va gratis</b><small>Ya te he puesto la apuesta en ${short(f)} €. Juega en el juego del casino que quieras</small></span>`}
+  else if(left>0){const m=Math.floor(left/60000),sec=Math.floor(left%60000/1000);el.className='freebar wait';el.innerHTML=`<span class="e">⏳</span><span class="t"><b>Apuesta gratis</b><small>Otro anuncio en ${m}:${String(sec).padStart(2,'0')}</small></span>`}
+  else{el.className='freebar';el.innerHTML=`<span class="e">📺</span><span class="t"><b>Apuesta gratis de ${short(freeVal())} €</b><small>Mira un anuncio y tu próxima apuesta no te cuesta nada</small></span><button class="btn sm" id="freeGo">Ver anuncio</button>`;
+    $('#freeGo').onclick=()=>{if(+S.freeChip>0||(+S.freeAdAt||0)+FREE_CD>Date.now())return;sfx('click');const v=freeVal();showRewardAd('casino_gratis',()=>{S.freeChip=v;S.freeAdAt=Date.now();try{betAll=false;betVal=v;setBet()}catch(_){}save();sfx('big');confetti(80);toast('🎁 Apuesta gratis','Tu próxima apuesta (hasta '+short(v)+' €) no te cuesta nada','var(--mint)','🎰');freeRender()})}}}
+const _takeF=take;take=function(n){const f=+S.freeChip||0;n=Math.floor(n);if(f>0&&n>0&&view==='casino'&&czOpen){const use=Math.min(f,n);S.freeChip=0;if(n-use>0&&!_takeF(n-use)){S.freeChip=f;return false}
+    try{toast('🎁 Apuesta gratis',short(use)+' € de regalo en esta','var(--mint)','🎰');freeRender()}catch(_){}save();return true}return _takeF(n)};
+setInterval(()=>{if(view==='casino')freeRender()},1000);freeRender();
+i18nAdd([['Modo ultra rendimiento','Ultra performance mode','Mode ultra performance','Modo ultra desempenho'],['Para móviles muy lentos: quita animaciones, sombras, brillos, confeti y efectos. El juego se ve más simple pero va mucho más fluido.','For very slow phones: removes animations, shadows, glows, confetti and effects. The game looks simpler but runs much smoother.','Pour les téléphones très lents : enlève animations, ombres, brillances, confettis et effets. Le jeu est plus simple mais beaucoup plus fluide.','Para telemóveis muito lentos: tira animações, sombras, brilhos, confetes e efeitos. O jogo fica mais simples mas muito mais fluido.']]);
 })();
 </script>
 
