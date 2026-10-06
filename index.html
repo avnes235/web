@@ -2941,7 +2941,9 @@ html[data-fit="s"]{zoom:.88}html[data-fit="x"]{zoom:.76}
 html body #troll{inset:auto 0 auto 0;top:calc(var(--barh,64px) + 10px + env(safe-area-inset-top,0px));justify-content:flex-start;gap:6px;padding:0 12px;z-index:120}
 html body #troll .tw{font-size:clamp(36px,8vw,72px);-webkit-text-stroke:3px #000;text-shadow:0 5px 0 #000;max-width:min(94vw,880px);background:#0b0e1c;padding:6px 20px 10px;border-radius:16px;border:3px solid var(--tc,#ffd600);box-shadow:0 0 0 3px #000,0 0 28px color-mix(in srgb,var(--tc,#ffd600) 55%,transparent),0 12px 30px rgba(0,0,0,.6)}
 html body #troll .ts{font-size:clamp(16px,3.6vw,22px);padding:7px 16px;background:#fff;color:#111;border:3px solid #000;transform:rotate(-1.5deg)}
-html body #troll.ctr{inset:0 auto 0 auto;top:0;bottom:0;justify-content:center;padding:0 12px}
+html body #troll.ctr{bottom:auto;justify-content:flex-start;padding:0 12px}
+html body #troll .tw{font-size:clamp(28px,6vw,56px)!important;padding:4px 16px 8px!important}
+html body #troll .ts{font-size:clamp(14px,3.2vw,19px)!important}
 html body #troll.go{animation:trIn .3s ease-out}
 @keyframes trIn{from{transform:translateY(-14px);opacity:0}}
 html body #toasts{left:auto;right:16px;bottom:auto;top:calc(var(--barh,64px) + 10px + env(safe-area-inset-top,0px));width:min(340px,calc(100vw - 32px));gap:6px;pointer-events:none}
@@ -5273,6 +5275,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-06-q',t:'Carteles arriba',items:[['⬆️','Los carteles grandes van arriba','Récords, regalos, eventos y mensajes ya no tapan el centro: salen arriba, más pequeños, y puedes seguir jugando.','fix','#ffd600']]},
  {v:'2026-10-06-p',t:'El trono',items:[['👑','¿Quién es el rey?','El número 1 en dinero es el rey: corona en la clasificación, título «Rey de Casinetori» y renta del rey cada hora.','new','#ffd600'],['📈','Cuánto te falta','En Inicio y en Clasificación ves cuánto te falta para adelantar al de arriba y para quitarle el trono.','new','#14e08a'],['🔔','Avisos','Te avisamos cuando adelantas a alguien, cuando te adelantan y cuando te quitan el trono.','new','#ff6b4a'],['🎁','Regalar en la lista','El botón Regalar sale en todos los jugadores, no solo en tus amigos.','new','#14e08a']]},
  {v:'2026-10-06-o',t:'Eventos para todos a la vez',items:[['🌍','Mismo evento, misma hora, en todo el mundo','El horario de eventos ya no depende de la hora de tu móvil: a todos os sale el mismo evento a la vez.','new','#3f7cff'],['🎉','Muchos más eventos','Casi cada 20 minutos hay uno. Arriba en Inicio ves cuál es el próximo y a qué hora.','new','#ffd600'],['🧰','5 eventos nuevos','Quíntuple (x5), Triple XP, Megalluvia de 20 millones, Cofre misterioso y Caza de monedas.','new','#ff2e88']]},
  {v:'2026-10-06-n',t:'Regala a quien quieras',items:[['🎁','Regalar ya no es solo para amigos','Abre el perfil de cualquier jugador de la clasificación y pulsa «Regalar». Los mensajitos siguen siendo solo para amigos.','new','#14e08a'],['🎯','Mensajes del jefe centrados','Los carteles grandes ahora salen en el centro de la pantalla.','fix','#ffd600']]},
