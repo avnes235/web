@@ -1787,6 +1787,57 @@ html body .updmini{background:#14e08a!important;color:#062a1b!important;border-c
 @keyframes updRk{50%{transform:translateY(-5px) rotate(-8deg)}}
 @keyframes updBtn{50%{transform:scale(1.07)}}
 @media (max-width:600px){html body .updbar{flex-wrap:wrap;position:relative!important;padding:14px 40px 14px 12px!important;gap:10px!important}html body .updbar .ui{font-size:32px!important}html body .updbar .ut{flex:1 1 0!important;min-width:0}html body .updbar .btn{flex:1 1 100%;order:5}html body .updbar small{font-size:14px}html body .updbar .iconbtn{position:absolute;top:6px;right:4px}}
+
+/* ===== CLASIFICACIÓN REMASTERIZADA: pestañas, todo más limpio ===== */
+.rk2tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 16px;padding:6px;border-radius:18px;background:#141418;border:2px solid #2a2a33;position:sticky;top:calc(var(--barh,64px) + 4px);z-index:20;box-shadow:0 8px 20px rgba(0,0,0,.45)}
+.rk2tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:10px 4px;border-radius:13px;border:0;background:transparent;color:#9a9aab;font:900 13px var(--f-b);text-transform:uppercase;letter-spacing:.4px;cursor:pointer;min-width:0}
+.rk2tabs button .emo{font-size:24px;line-height:1;filter:grayscale(.6);transition:transform .2s}
+.rk2tabs button[aria-selected=true]{background:linear-gradient(180deg,#ffd600,#ffb300);color:#111;box-shadow:0 3px 0 #000}
+.rk2tabs button[aria-selected=true] .emo{filter:none;transform:scale(1.12)}
+@media (min-width:700px){.rk2tabs button{flex-direction:row;gap:8px;font-size:15px;padding:12px 8px}}
+#v-ranking .sec-h #rkSeg{display:none}
+#v-ranking .sec-h{margin:0 0 6px;min-height:0}
+#v-ranking:not([data-t=amigos]) .rk-top{display:none}
+#v-ranking[data-t=liga] #rkOnline,#v-ranking[data-t=fama] #rkOnline{display:none}
+#v-ranking:not([data-t=top]) #rkCats,#v-ranking:not([data-t=top]) #rkDesc{display:none}
+#v-ranking:not([data-t=top]) #thrRank,#v-ranking[data-c]:not([data-c=coins]) #thrRank{display:none!important}
+#v-ranking .rkgames.inrk{display:none!important}
+#rkCats{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;padding:2px 2px 8px;margin:0 -2px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+#rkCats::-webkit-scrollbar{display:none}
+#rkCats .rkc{flex:none;scroll-snap-align:start;white-space:nowrap}
+#rkCats [data-cat=liga],#rkCats [data-cat=fama]{display:none}
+#rkCats .rkc.gamechip{border-color:#3f7cff;color:#8fb2ff}
+@media (min-width:900px){#rkCats{flex-wrap:wrap;overflow:visible}}
+#v-ranking .rkdesc{font-size:14px;margin:4px 0 12px;opacity:.85}
+#v-ranking[data-t=amigos] .rk-top{display:flex;flex-direction:column;gap:12px}
+#v-ranking .rktabhint{margin:0 0 12px;font-weight:800;font-size:15px;color:#cfcfd8}
+#v-ranking .rktabhint b{color:#ffd600}
+#v-ranking .rkr .acts{display:none!important}
+#v-ranking[data-t=amigos] .rkr .acts{display:flex!important}
+#v-ranking[data-t=liga] .sec-h,#v-ranking[data-t=fama] .sec-h{display:none}
+#thrRank{padding:12px 14px}#thrRank .th-perks{display:none}#thrRank h3{font-size:clamp(18px,4vw,24px)}#thrRank .th-goal{font-size:15px;margin-top:8px}#thrRank .th-cr{font-size:30px}#thrRank .th-av{width:38px;height:38px;font-size:22px}
+#v-ranking[data-t=amigos]:not([hidden]){display:flex;flex-direction:column}
+#v-ranking[data-t=amigos] .rk-top{display:contents!important}
+#v-ranking[data-t=amigos]>*{order:5}
+#v-ranking[data-t=amigos] #rk2Tabs{order:-3}
+#v-ranking[data-t=amigos] .addf{order:-2;margin-bottom:12px}
+#v-ranking[data-t=amigos] #invRank{order:6;margin-top:16px}
+#v-ranking[data-t=amigos] #meCard{order:7;margin-top:16px}
+#v-ranking[data-t=amigos] #v-ranking>div:last-child{order:9}
+.rktaphint{font-weight:800;font-size:14px;color:#9a9aab;margin:-4px 0 10px}
+.lgpts{margin:0 0 14px;padding:12px 14px;border-radius:14px;background:#141418;border:2px solid #2a2a33}
+.lgpts summary{cursor:pointer;font:900 16px var(--f-b);color:#ffd600;list-style:none}.lgpts summary small{color:#9a9aab;font-size:13px}.lgpts[open] summary small{display:none}.lgpts summary::before{content:'❓ '}
+.lgptl{display:grid;grid-template-columns:1fr;gap:6px;margin-top:10px}@media (min-width:700px){.lgptl{grid-template-columns:1fr 1fr}}
+.lgptl div{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:#1d1d22;font-weight:800;font-size:14px}
+.lgptl div .emo{font-size:20px}.lgptl div b{margin-left:auto;color:#14e08a;white-space:nowrap}
+.lgpts p{margin:10px 0 0;font-weight:700;font-size:14px;opacity:.9}.lgpts p b{color:#ffd600}
+/* barra de eventos: grande solo en Inicio; en el resto, finita */
+body:not([data-v=inicio]) #evbar.evnext{display:none!important}
+body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
+body:not([data-v=inicio]) #evbar .evt small{display:none!important}
+body:not([data-v=inicio]) #evbar .evt b{font-size:clamp(16px,3.6vw,20px)!important}
+body:not([data-v=inicio]) #evbar .eve{font-size:22px!important}
+body:not([data-v=inicio]) #evbar .num{font-size:15px!important}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3193,12 +3244,12 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
       <button class="iconbtn" id="mute" aria-label="Sonido"><svg class="ic"><use href="#i-sound"/></svg></button>
     </header>
     <div class="evbar" id="evbar" hidden></div>
-    <div class="throne" id="thrHome" hidden></div>
-    <div class="lgcard" id="lgHome" hidden></div>
     <div class="updbar" id="updBar" hidden role="status"><span class="ui emo">🚀</span><span class="ut"><b>¡Hay una versión nueva del juego!</b><small>Pulsa «Actualizar» para tener lo último. Tu partida y tu dinero no se pierden.</small></span><button class="btn sm" id="updGo">Actualizar</button><button class="iconbtn" id="updX" aria-label="Hacerlo pequeño" title="Más tarde"><svg class="ic"><use href="#i-x"/></svg></button></div>
 
     <!-- ============ INICIO ============ -->
     <section class="view" id="v-inicio">
+      <div class="throne" id="thrHome" hidden></div>
+      <div class="lgcard" id="lgHome" hidden></div>
       <div class="home-top">
         <div class="panel hello">
           <h2>Bienvenido a Casinetori</h2>
@@ -3528,7 +3579,8 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
     </section>
 
     <!-- ============ RANKING ============ -->
-    <section class="view" id="v-ranking" hidden>
+    <section class="view" id="v-ranking" data-t="top" hidden>
+      <div class="rk2tabs" id="rk2Tabs" role="tablist"><button data-t="top"><span class="emo">🏆</span><span>General</span></button><button data-t="liga"><span class="emo">🏅</span><span>Liga</span></button><button data-t="amigos"><span class="emo">🤝</span><span>Amigos</span></button><button data-t="fama"><span class="emo">🏛️</span><span>Fama</span></button></div>
       <div class="rk-top">
         <div class="panel mecard" id="meCard"><span class="bigav emo" id="rkAv">😎</span><div class="mtext" style="min-width:0;flex:1"><h2 id="rkName">Jugador</h2><div class="ptitle" id="rkTitle" hidden></div><div id="rkSub" style="font-weight:700;opacity:.92"></div><div class="vit" id="rkVit"></div><span class="code">Tu código: <b id="rkCode">—</b><button id="copyCode">Copiar</button></span><div><button class="btn sm" id="accNudge" hidden style="margin-top:12px">Crear cuenta para no perder la partida</button></div></div><span class="mbtns2" style="display:flex;flex-direction:column;gap:8px"><button class="btn alt sm" id="editMe">Personalizar</button><button class="btn alt sm" id="seeMe">Ver mi perfil</button></span></div>
         <div class="panel addf"><h3 style="font-size:22px">Amigos</h3><p class="netmsg">Pon el código de tu colega. Le llega una solicitud y tiene que aceptarla.</p><div class="row"><input class="inp" id="fCode" placeholder="Ej: PEPE#4821" autocomplete="off"><button class="btn" id="fAdd">Enviar</button></div><p class="netmsg" id="fMsg"></p><div id="reqs" class="reqs"></div></div>
@@ -4554,7 +4606,7 @@ function _old_onPlayers(){refreshOnline();const arr=rankList((S.friends||[]).len
 async function _old_pushPlayer(){if(!NET.ok||!NET.id||!S.name||NET.busyP)return;
   const body={name:S.name.slice(0,14),av:S.av||'😎',code:S.code||'',coins:Math.floor(S.coins),earned:Math.floor(S.earned),lvl:S.lvl,ach:S.ach.length,spent:ownedValue(),cheat:S.strikes||0};const j=JSON.stringify(body);
   if(j===NET.lastP&&Date.now()-(NET.lastT||0)<60000)return;
-  NET.busyP=true;try{await NET.db.collection('players').doc(NET.id).set({...body,t:Date.now()});NET.lastP=j;NET.lastT=Date.now()}
+  NET.busyP=true;try{await NET.db.collection('players').doc(NET.id).set({...body,...pubX(),t:Date.now()});NET.lastP=j;NET.lastT=Date.now()}
   catch(e){if(e&&e.code==='permission-denied'){NET.ro=true;NET.why='La base de datos no deja guardar. Revisa las reglas de Firebase.';renderRank()}}NET.busyP=false}
 async function cloudSave(force){if(!NET.ok||NET.ro||!NET.id||NET.kicked||(NET.busyS&&!force))return;const k=JSON.stringify({...S,seen:0});if(!force&&k===NET.lastS)return;NET.busyS=true;
   try{S.seen=Date.now();await NET.db.collection('data/users/'+NET.id).doc('save').set({json:JSON.stringify(S),t:Date.now()});NET.lastS=k}catch(e){}NET.busyS=false}
@@ -4926,7 +4978,7 @@ async function pushPlayer(){if(!NET.ok||!NET.id||!S.name||NET.kicked)return;if(N
   const body={name:S.name.slice(0,14),av:S.av||'😎',code:S.code||'',coins:Math.floor(S.coins),earned:Math.floor(S.earned),lvl:S.lvl,ach:S.ach.length,spent:ownedValue(),col:ownedValue(),cheat:S.strikes||0,
     pt:Math.floor(S.playtime||0),cw:st('casinoWon'),clk:st('clicks'),best:bestPub(),cos:{c:c.c,f:c.f,bg:c.bg},img:S.img||'',ti:tiText(),show:cfg('showVit')?showList().map(i=>P[i][0]):[],own:cfg('showVit')?ownPub().map(o=>({e:o[0],n:o[1],q:o[2],p:o[3]})):[],achL:(S.ach||[]).slice(0,80),since:S.since||Date.now(),bw:S.bw||{},gm:st('games'),sp:st('spins'),wn:st('wins'),ord:S.orders||0,gf:st('gifts'),trs:st('sent'),pr:st('pranks'),gold:st('golden'),strk:(S.daily||{}).streak||0,at:curAt(),bl:S.bl||{},cl:st('casinoLost'),blv:bestLvPub(),jp:S.jp||null,gv:st('gifted'),rain:S.rainG||null,exc:(S.exc||[]).slice(0,40)};
   const j=JSON.stringify({...body,pt:0});if(j===NET.lastP&&Date.now()-(NET.lastT||0)<60000)return;
-  NET.busyP=true;try{await NET.db.collection('players').doc(NET.id).set({...body,t:Date.now()});NET.lastP=j;NET.lastT=Date.now()}
+  NET.busyP=true;try{await NET.db.collection('players').doc(NET.id).set({...body,...pubX(),t:Date.now()});NET.lastP=j;NET.lastT=Date.now()}
   catch(e){NET.pushErr=String(e&&e.message||e);try{console.warn('pushPlayer',e)}catch(_){}if(e&&e.code==='permission-denied'){NET.ro=true;NET.why='La base de datos no deja guardar. Revisa las reglas de Firebase.';renderRank()}}NET.busyP=false;if(NET.pushAgain){NET.pushAgain=false;setTimeout(pushPlayer,250)}}
 
 /* ---- Clasificaciones ---- */
@@ -5304,6 +5356,8 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-b',t:'Más fluido y puntos claros',items:[['⚡','La clasificación ya no parpadea','Antes se redibujaba entera cada vez que alguien jugaba y la gente desaparecía un momento. Ahora solo cambia lo que cambia.','fix','#14e08a'],['🏅','Puntos de liga claros','Cada cosa da sus puntos: partida +10, misión +30, ganar en el casino +4, duelo online +40, torneo +100… Lo ves en Clasificación › Liga.','new','#e0914a']]},
+ {v:'2026-10-07-a',t:'Clasificación más clara',items:[['🧹','Clasificación por pestañas','Ahora tiene 4 pestañas: Clasificación, Liga, Amigos y Fama. Cada cosa en su sitio, sin tanto lío.','new','#ffd600'],['👉','Categorías deslizando','En el móvil las categorías van en una sola fila: desliza con el dedo para ver más.','new','#3f7cff'],['📌','Menos cosas encima','La tarjeta del rey y la de la liga solo salen en Inicio, y la barra de eventos es más finita fuera de Inicio.','fix','#14e08a']]},
  {v:'2026-10-06-s',t:'Ligas y temporadas',items:[['🏅','Ligas semanales','5 ligas: Bronce, Plata, Oro, Diamante y Maestro. Compites con los de tu liga; cada lunes los 3 primeros suben y todos cobran.','new','#e0914a'],['📅','Temporada del mes','Cada mes hay un campeón: se lleva el título «🏆 Campeón del mes» para siempre.','new','#ffd600'],['🏛️','Salón de la fama','Los campeones de cada mes y los reinados más largos como rey.','new','#ff4fd8']]},
  {v:'2026-10-06-r',t:'Aviso de versión nueva',items:[['🚀','Se ve mucho mejor','El aviso de «versión nueva» ahora es verde, más grande y con el botón Actualizar bien visible, para que no se confunda con los eventos.','fix','#14e08a']]},
  {v:'2026-10-06-q',t:'Carteles arriba',items:[['⬆️','Los carteles grandes van arriba','Récords, regalos, eventos y mensajes ya no tapan el centro: salen arriba, más pequeños, y puedes seguir jugando.','fix','#ffd600']]},
@@ -9966,7 +10020,7 @@ function lgRoll(){const w=WK(),m=MO();
   if(S.wk!==w){if(S.wk){S.pwk=S.wk;S.pwP=S.wkP||0;S.plg=S.lg||0;S.lgPend=S.wk}S.wk=w;S.wkP=0}
   if(S.mo!==m){if(S.mo){S.pmo=S.mo;S.pmP=S.moP||0;S.moPend=S.mo}S.mo=m;S.moP=0}}
 lgRoll();
-{const _xpLg=xp;xp=function(n){try{lgRoll();const v=Math.max(0,+n||0);S.wkP=(S.wkP||0)+v;S.moP=(S.moP||0)+v}catch(e){}return _xpLg.apply(this,arguments)}}
+
 /* puntos de otro jugador en una semana/mes concretos */
 function ptsW(p,w,lg){if(+p.wk===w&&(+p.lg||0)===lg)return+p.wp||0;if(+p.pwk===w&&(+p.plg||0)===lg)return+p.pwp||0;return 0}
 function ptsM(p,m){if(+p.mo===m)return+p.mp||0;if(+p.pmo===m)return+p.pmp||0;return 0}
@@ -9997,23 +10051,66 @@ function lgCard(){const el=$('#lgHome');if(!el)return;if(!NET.ok||!S.name||(NET.
   el.hidden=false;el.style.setProperty('--lc',L[2]);const h=`<span class="lgb">${L[1]}</span><div style="min-width:0"><h3>Liga ${L[0]}</h3><div class="lgs">Vas el <span class="lgh">${pos}º de ${n}</span> esta semana con ${fmt(Math.floor(S.wkP||0))} puntos. ${(S.lg||0)<4?'Los 3 primeros suben de liga.':'Estás en la liga más alta.'}</div></div><span class="lgt">Acaba en<br>${leftTxt(wkEnd())}</span>`;
   if(el._h!==h){el._h=h;el.innerHTML=h}el.onclick=()=>{rkCat='liga';go('ranking')}}
 /* categorías nuevas en Clasificación */
-RKC2.splice(1,0,['liga','🏅','Liga semanal','Solo los de tu liga. Cada cosa que haces da puntos (los mismos que la experiencia). El lunes a las 2:00 los 3 primeros suben de liga y todos cobran según su puesto.'],['mes','📅','Temporada','La temporada dura un mes. Puntos = experiencia ganada este mes. El campeón se lleva el título «🏆 Campeón del mes» para siempre y entra en el Salón de la fama.'],['fama','🏛️','Salón de la fama','Los campeones de cada mes y los reinados más largos como rey de Casinetori.']);
+RKC2.splice(1,0,['liga','🏅','Liga semanal','Solo los de tu liga. Ganas puntos jugando partidas, completando misiones, ganando en el casino y online. El lunes a las 2:00 los 3 primeros suben de liga y todos cobran según su puesto.'],['mes','📅','Temporada','La temporada dura un mes y cuenta los mismos puntos que la liga. El campeón se lleva el título «🏆 Campeón del mes» para siempre y entra en el Salón de la fama.'],['fama','🏛️','Salón de la fama','Los campeones de cada mes y los reinados más largos como rey de Casinetori.']);
 {const _pvL=pval;pval=function(p,cat){if(cat==='liga')return p.me?Math.floor(S.wkP||0):(+p.wk===WK()?+p.wp||0:0);if(cat==='mes')return p.me?Math.floor(S.moP||0):(+p.mo===MO()?+p.mp||0:0);
   if(cat==='fama'){const c=p.me?(S.chm||[]).length:(p.chm||[]).length,k=p.me?(S.kingMs||0):(+p.kt||0);return c*1e13+Math.floor(k/1000)}return _pvL.apply(this,arguments)}}
 {const _rlL=rankList;rankList=function(tab,cat){if(cat!=='liga'&&cat!=='mes'&&cat!=='fama')return _rlL.apply(this,arguments);const arr=_rlL(tab,'coins');
-  const keep=cat==='liga'?(p=>p.me||(+p.wk===WK()&&(+p.lg||0)===(S.lg||0)&&+p.wp>0)):(p=>p.me||pval(p,cat)>0);return arr.filter(keep).sort((a,b)=>pval(b,cat)-pval(a,cat))}}
+  const keep=cat==='liga'?(p=>p.me||(+p.wk===WK()&&(+p.lg||0)===(S.lg||0)&&+p.wp>0)):cat==='fama'?(p=>pval(p,cat)>0):(p=>p.me||pval(p,cat)>0);return arr.filter(keep).sort((a,b)=>pval(b,cat)-pval(a,cat))}}
 {const _fvL=fmtVal;fmtVal=function(cat,v){if(cat==='liga'||cat==='mes')return fmt(v)+' pts';if(cat==='fama'){const c=Math.floor(v/1e13),k=v%1e13;return(c?'🏆×'+c+' · ':'')+'👑 '+(k>=3600?Math.floor(k/3600)+' h':Math.floor(k/60)+' min')}return _fvL.apply(this,arguments)}}
-{const _rrL=renderRank;renderRank=function(){_rrL.apply(this,arguments);try{const old=$('#lgBox');if(old)old.remove();if(view!=='ranking')return;let h='';
+{const _rrL=renderRank;renderRank=function(){_rrL.apply(this,arguments);try{const old=$('#lgBox');if(view!=='ranking'){if(old)old.remove();return}let h='';
   if(rkCat==='liga'){const L=LG[S.lg||0];h=`<div class="lgbox" id="lgBox" style="--lc:${L[2]}"><span class="lgh">${L[1]} Estás en la Liga ${L[0]}.</span> Termina en <span class="lgh">${leftTxt(wkEnd())}</span> (lunes a las 2:00). Los 3 primeros suben, los 3 últimos bajan (si sois 6 o más) y quien no juega en toda la semana baja.<div class="lgtiers">${LG.map((x,i)=>`<span style="--c:${x[2]}" class="${i===(S.lg||0)?'on':''}">${x[1]} ${x[0]}</span>`).join('')}</div></div>`}
   if(rkCat==='mes')h=`<div class="lgbox" id="lgBox" style="--lc:#ffd600">📅 Temporada de <span class="lgh">${moName(MO())}</span>. Termina en <span class="lgh">${leftTxt(moEnd())}</span>. El 1º se lleva el título «🏆 Campeón del mes» para siempre; los 3 primeros cobran un premio gordo.</div>`;
   if(rkCat==='fama'){const rows=[];const all=[...others(),{name:S.name||'Tú',chm:S.chm||[],me:1}];all.forEach(p=>(p.chm||[]).forEach(m=>rows.push([m,p.name])));
     h=`<div class="lgbox" id="lgBox" style="--lc:#ffd600">🏛️ <span class="lgh">Campeones de cada temporada</span>${rows.length?`<div class="fame">${rows.map(r=>`<div><span class="fm">${esc(r[0])}</span>🏆 ${esc(r[1]||'')}</div>`).join('')}</div>`:'<div style="margin-top:6px">Todavía no hay campeones. El primero saldrá cuando acabe este mes. ¡Puedes ser tú!</div>'}<div style="margin-top:10px">Abajo: quién tiene más títulos de campeón y más tiempo como rey 👑.</div></div>`}
-  if(h)$('#rkDesc').insertAdjacentHTML('afterend',h);if(rkCat==='fama')$('#rkMyPos').innerHTML=''}catch(e){}}}
+  if(!(old&&h&&old._h===h)){if(old)old.remove();if(h){$('#rkDesc').insertAdjacentHTML('afterend',h);$('#lgBox')._h=h}}if(rkCat==='fama')$('#rkMyPos').innerHTML=''}catch(e){}}}
 /* logros */
 ACH.push(['📈','Ascenso','Sube de liga',()=>(S.lgMax||0)>=1],['💎','Diamante','Llega a la Liga Diamante',()=>(S.lgMax||0)>=3],['🔱','Maestro','Llega a la Liga Maestro, la más alta',()=>(S.lgMax||0)>=4],
   ['🏅','Campeón de liga','Queda 1º en tu liga una semana',()=>(S.lgWins||0)>=1],['🏆','Campeón del mes','Gana una temporada',()=>(S.chm||[]).length>=1]);
-(()=>{try{if(!TUTOS.some(x=>x[1]==='Ligas y temporadas'))TUTOS.splice(3,0,['🏅','Ligas y temporadas','Competir cada semana y cada mes','#e0914a',[['Hay 5 ligas: <b>Bronce, Plata, Oro, Diamante y Maestro</b>. Todos empiezan en Bronce.'],['Todo lo que haces da <b>puntos de liga</b> (los mismos que la experiencia). Solo compites con los de tu liga.'],['Cada <b>lunes a las 2:00</b> acaba la semana: los 3 primeros <b>suben</b>, los 3 últimos bajan y todos cobran según su puesto.'],['La <b>temporada</b> dura un mes. El 1º se lleva el título «🏆 Campeón del mes» para siempre y entra en el <b>Salón de la fama</b>.'],['Lo ves todo en Clasificación › Liga semanal, Temporada y Salón de la fama.']],'Si no juegas en toda la semana, bajas de liga.','ranking']);
-  if(!FAQ.some(q=>/liga/.test(q[0])))FAQ.unshift(['¿Cómo subo de liga?','Juega durante la semana: todo da puntos de liga. El lunes a las 2:00, los 3 primeros de tu liga suben. Lo ves en Clasificación › Liga semanal o en la tarjeta de liga de Inicio.'])}catch(e){}})();
+(()=>{try{if(!TUTOS.some(x=>x[1]==='Ligas y temporadas'))TUTOS.splice(3,0,['🏅','Ligas y temporadas','Competir cada semana y cada mes','#e0914a',[['Hay 5 ligas: <b>Bronce, Plata, Oro, Diamante y Maestro</b>. Todos empiezan en Bronce.'],['Ganas <b>puntos de liga</b> jugando: partida en Juegos +10, misión +30, ganar en el casino +4, duelo online ganado +40, torneo ganado +100… La lista entera está en Clasificación › Liga. Solo compites con los de tu liga.'],['Cada <b>lunes a las 2:00</b> acaba la semana: los 3 primeros <b>suben</b>, los 3 últimos bajan y todos cobran según su puesto.'],['La <b>temporada</b> dura un mes. El 1º se lleva el título «🏆 Campeón del mes» para siempre y entra en el <b>Salón de la fama</b>.'],['Lo ves todo en Clasificación › Liga semanal, Temporada y Salón de la fama.']],'Si no juegas en toda la semana, bajas de liga.','ranking']);
+  if(!FAQ.some(q=>/liga/.test(q[0])))FAQ.unshift(['¿Cómo subo de liga?','Juega durante la semana: cada partida da 10 puntos, cada misión 30, ganar en el casino 4, un duelo online 40… (la lista está en Clasificación › Liga). El lunes a las 2:00, los 3 primeros de tu liga suben. Lo ves en Clasificación › Liga semanal o en la tarjeta de liga de Inicio.'])}catch(e){}})();
+
+/* ================= CLASIFICACIÓN REMASTERIZADA (pestañas) ================= */
+let RK2=(S.rk2&&['top','liga','amigos','fama'].includes(S.rk2))?S.rk2:'top';
+const RK2_HINT={liga:'Compites solo con los de <b>tu liga</b>. El lunes a las 2:00 los 3 primeros suben.',amigos:'Tus amigos ordenados por dinero. Añade amigos con su código o invítalos con tu enlace.',fama:'Los campeones de cada mes y quién ha sido <b>rey</b> más tiempo.'};
+function rkTabSet(t,noRender){RK2=t;S.rk2=t;const v=$('#v-ranking');if(v)v.dataset.t=t;
+  if(t==='top'){rkTab='todos';if(rkCat==='liga'||rkCat==='fama')rkCat='coins'}else if(t==='liga'){rkTab='todos';rkCat='liga'}else if(t==='amigos'){rkTab='amigos';rkCat='coins'}else if(t==='fama'){rkTab='todos';rkCat='fama'}
+  $$('#rk2Tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));if(!noRender)renderRank()}
+window.rkTabGo=t=>{rkTabSet(t,true);go('ranking')};
+document.addEventListener('click',e=>{const b=e.target.closest('#rk2Tabs [data-t]');if(!b)return;sfx('click');rkTabSet(b.dataset.t);window.scrollTo({top:0,behavior:'smooth'})});
+{const _rrT=renderRank;renderRank=function(){if(view==='ranking'){const v=$('#v-ranking');if(v&&v.dataset.t!==RK2)rkTabSet(RK2,true);
+    if(RK2==='top'&&(rkCat==='liga'||rkCat==='fama'))rkCat='coins';if(RK2==='liga')rkCat='liga';if(RK2==='fama')rkCat='fama';if(RK2==='amigos'){rkTab='amigos'}else rkTab='todos'}
+  const r=_rrT.apply(this,arguments);try{const v=$('#v-ranking');if(v)v.dataset.c=rkCat;let hh=$('#rkTabHint');const txt=RK2_HINT[RK2]||'';
+    if(txt){if(!hh){$('#rkPodium').insertAdjacentHTML('beforebegin','<p class="rktabhint" id="rkTabHint"></p>');hh=$('#rkTabHint')}hh.innerHTML=txt;hh.hidden=false}else if(hh)hh.hidden=true;let th=$('#rkTapHint');if(!th){$('#rkList').insertAdjacentHTML('beforebegin','<p class="rktaphint" id="rkTapHint">👆 Pulsa a cualquiera para ver su perfil, regalarle dinero o agregarlo.</p>');th=$('#rkTapHint')}th.hidden=RK2==='amigos';
+    const lb=$('#lgBox');if(lb&&RK2!=='top'){const pd=$('#rkPodium');if(pd&&lb.nextElementSibling!==pd)pd.before(lb)}}catch(e){}return r}}
+{const _rcT=renderRkCats;renderRkCats=function(){_rcT.apply(this,arguments);const c=$('#rkCats');if(c&&!c.querySelector('.gamechip'))c.insertAdjacentHTML('beforeend','<button class="rkc gamechip" id="rkGameChip"><span class="emo">🎮</span>Minijuegos</button>')}}
+document.addEventListener('click',e=>{if(e.target.closest('#rkGameChip')){sfx('click');try{goGameRank()}catch(_){}}});
+/* la tarjeta de liga de Inicio abre la pestaña Liga */
+{const _lgC=lgCard;lgCard=function(){_lgC();const el=$('#lgHome');if(el)el.onclick=()=>rkTabGo('liga')}}
+/* saber en qué sala estás (para la barra de eventos finita) */
+{const _goV=go;go=function(){const r=_goV.apply(this,arguments);try{document.body.dataset.v=view}catch(e){}return r}}
+try{document.body.dataset.v=view}catch(e){}
+
+/* ================= OPTIMIZACIÓN: la clasificación no parpadea ================= */
+function pubX(){const x={};try{x.acc=NET.isAnon?'a':(isGoogleUser()?'g':'u');if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(S.refBy){x.rb=S.refBy;x.rbd=S.refDone?1:0}x.ks=S.kSince||0;if(window.lgPub)Object.assign(x,lgPub())}catch(e){}return x}
+(function(){const D=Object.getOwnPropertyDescriptor(Element.prototype,'innerHTML');
+  window.guardHTML=function(el){if(!el||el._g)return;el._g=1;Object.defineProperty(el,'innerHTML',{configurable:true,get(){return D.get.call(this)},set(v){v=String(v);if(v===this._lastH&&this.childNodes.length)return;this._lastH=v;D.set.call(this,v)}})};
+  ['#rkList','#rkPodium','#rkMyPos','#rkCats','#rkOnline','#reqs','#thrRank','#thrHome','#lgHome','#arBoard'].forEach(sel=>{try{guardHTML($(sel))}catch(e){}})})();
+{const _rrO=renderRank;let last=0,q=null;renderRank=function(){if(view!=='ranking')return;const now=Date.now(),w=900-(now-last);
+  if(w>0){if(!q)q=setTimeout(()=>{q=null;renderRank()},w);return}last=now;return _rrO.apply(this,arguments)}}
+/* ================= PUNTOS DE LIGA: por lo que haces, claros ================= */
+const LGPTS={games:[10,'🎮','Jugar una partida en Juegos'],missions:[30,'📋','Completar una misión'],wins:[4,'🎰','Ganar una apuesta en el casino'],spins:[1,'🍒','Girar la tragaperras'],
+  duelWins:[40,'⚔️','Ganar un duelo online'],potWins:[40,'💰','Ganar un bote online'],tnWins:[100,'🏆','Ganar un torneo'],golden:[5,'✨','Pillar una moneda dorada'],gifts:[5,'🎁','Regalar dinero a alguien'],buys:[5,'🛍️','Comprar en la Tienda'],clicks:[.02,'🏭','Pulsar la moneda de la fábrica']};
+{const _evLg=ev;ev=function(k,n=1){const r=_evLg.apply(this,arguments);try{const d=LGPTS[k];if(d){lgRoll();let v=d[0]*Math.max(0,+n||0);
+  if(k==='clicks'){if(S.wkClkW!==S.wk){S.wkClkW=S.wk;S.wkClk=0}v=Math.max(0,Math.min(v,300-(S.wkClk||0)));S.wkClk=(S.wkClk||0)+v}
+  if(v>0){S.wkP=(S.wkP||0)+v;S.moP=(S.moP||0)+v}}}catch(e){}return r}}
+function lgPtsHTML(){return`<details class="lgpts"><summary>¿Cómo se consiguen puntos de liga? <small>(pulsa para verlo)</small></summary><div class="lgptl">${Object.values(LGPTS).map(d=>`<div><span class="emo">${d[1]}</span><span>${esc(d[2])}</span><b>${d[0]<1?'+1 cada 50 clics':'+'+d[0]}</b></div>`).join('')}</div><p>La fábrica da como mucho 300 puntos por semana. Los mismos puntos cuentan para la <b>Temporada</b> del mes. ¡Juega un poco de todo!</p></details>`}
+{const _rrP=renderRank;renderRank=function(){const r=_rrP.apply(this,arguments);try{let el=$('#lgPts');if(view==='ranking'&&RK2==='liga'){if(!el){$('#rkPodium').insertAdjacentHTML('beforebegin','<div id="lgPts"></div>');el=$('#lgPts')}if(!el._h){el._h=1;el.innerHTML=lgPtsHTML()}el.hidden=false;const lb=$('#lgBox');if(lb&&lb.nextElementSibling!==el)lb.after(el)}else if(el)el.hidden=true}catch(e){}return r}}
+
+/* guía de la Clasificación con las pestañas nuevas */
+try{GU_T.ranking=[[null,'Hace falta cuenta','Solo salen en la clasificación los que tienen cuenta (Google o usuario y contraseña). Sin cuenta, tu puesto solo lo ves tú.'],
+  ['#rk2Tabs','4 pestañas','General: la clasificación de todos. Liga: tu liga de la semana. Amigos: tus amigos, añadir amigos e invitar. Fama: campeones y reyes.'],
+  ['#rkCats','Categorías','Dinero, temporada, nivel, logros… Desliza con el dedo para ver todas.'],
+  ['#rkPodium','El podio','Los 3 mejores de la categoría que tengas elegida. Pulsa a cualquiera para ver su perfil o regalarle dinero.']]}catch(e){}
 })();
 </script>
 
