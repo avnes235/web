@@ -819,6 +819,14 @@ html body .dchip.x[aria-pressed="true"] small{color:#fff}
 .pa-cbtns .btn{width:100%}
 /* --- Rarezas: Hasbiri (m) y Hasbirinino (x) --- */
 .r-m{--rc:#ff3b4f;--rg:#5c0f1a}
+.r-z{--rc:#7fe7ff;--rg:#06142e}
+.r-z{border:2px solid transparent!important;background:radial-gradient(1px 1px at 20% 30%,#fff,transparent),radial-gradient(1px 1px at 70% 60%,#fff,transparent),radial-gradient(1.5px 1.5px at 40% 80%,#bdf,transparent),radial-gradient(1px 1px at 85% 20%,#fff,transparent),radial-gradient(ellipse at 50% 30%,#1b2a6b 0,#050816 75%) padding-box,linear-gradient(90deg,#7fe7ff,#9d5cff,#ffffff,#7fe7ff) border-box!important;background-size:100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,300% 100%!important;animation:paHx 4s linear infinite;box-shadow:0 0 22px rgba(127,231,255,.45)}
+.r-z .pimg{background:radial-gradient(circle at 50% 45%,#7fe7ff 0,#3a1b8c 40%,#050816 100%)}
+.r-z .pimg .emo{animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 16px rgba(127,231,255,.9))}
+.r-z .pbody h3,.r-z .pbody p{color:#e8f6ff}
+.r-z .price,.r-z .pr{color:#7fe7ff}
+.r-z .rar,.r-z.rar{background:linear-gradient(90deg,#7fe7ff,#9d5cff,#fff,#7fe7ff)!important;background-size:300% 100%!important;color:#06142e!important;animation:paHxT 3s linear infinite;box-shadow:0 0 12px rgba(127,231,255,.8)}
+.wopt span:not(.lk):not(.sw){color:#ffd600}
 .r-x{--rc:#ff2e88;--rg:#3a0d5c}
 @keyframes paHx{to{background-position:0 0,300% 0}}
 @keyframes paHxT{to{background-position:300% 0}}
@@ -3578,9 +3586,10 @@ window.FIREBASE_CONFIG = {
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const fmt=n=>{n=Math.floor(+n||0);return(n<0?'-':'')+String(Math.abs(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')};
 const short=n=>{n=Math.floor(n);const a=Math.abs(n),f=(v,u)=>v.toFixed(v<10?2:1).replace('.',',')+u;
-  if(a>=1e15)return f(n/1e12,' billones');return fmt(n)};
+  if(a>=1e18)return f(n/1e18,a>=2e18?' trillones':' trillón');if(a>=1e15)return f(n/1e15,' mil billones');return fmt(n)};
 const eur=n=>fmt(n)+' €';
 const eurS=n=>short(n)+' €';
+const walShort=n=>{n=Math.floor(n);const a=Math.abs(n),d=(v)=>v.toFixed(v<10?2:v<100?1:0).replace('.',',');if(a>=1e18)return d(n/1e18)+' trill.';if(a>=1e15)return fmt(n/1e12)+' bill.';if(a>=1e12)return d(n/1e12)+' bill.';if(a>=1e10)return fmt(n/1e6)+' M';return fmt(n)};
 const rnd=(a,b)=>a+Math.random()*(b-a), ri=(a,b)=>Math.floor(rnd(a,b+1)), clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const ICON=n=>`<svg class="ic"><use href="#i-${n}"/></svg>`;
 const LOWEND=innerWidth<760||matchMedia('(hover:none)').matches;
@@ -3667,7 +3676,7 @@ function renderLevelBase(){$('#wLvl').textContent=S.lvl;$('#wXp').style.width=(S
 function ev(k,n=1){S.st[k]=(S.st[k]||0)+n;misTick(k,n)}
 let shownCoins=S.coins;
 let walTxt='',walEl=null;
-function tickWallet(){const d=S.coins-shownCoins;shownCoins=Math.abs(d)<1?S.coins:shownCoins+d*.22;const t=fakeZero?'0':short(shownCoins);if(t!==walTxt){walTxt=t;(walEl||(walEl=$('#wCoins'))).textContent=t}}
+function tickWallet(){const d=S.coins-shownCoins;shownCoins=Math.abs(d)<1?S.coins:shownCoins+d*.22;const t=fakeZero?'0':walShort(shownCoins);if(t!==walTxt){walTxt=t;(walEl||(walEl=$('#wCoins'))).textContent=t}}
 
 /* ================= NAVEGACIÓN ================= */
 const TITLES={inicio:'Inicio',rico:'Tienda',fabrica:'Fábrica',casino:'Casino',arcade:'Juegos',ranking:'Clasificación',logros:'Logros',admin:'Admin',ayuda:'Ayuda',online:'Online'};
@@ -3783,7 +3792,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('.gcard');if(b)go
 function renderHome(){renderLevel();renderMis();renderDaily();renderForbid();drawWheel();wheelInfo();$('#homeGames').innerHTML=gcards()}
 
 /* ================= MILLONARIO ================= */
-const CATS={cap:['Caprichos','#ffc23d','🛍️'],mot:['Motor','#ff6b4a','🏎️'],cas:['Casas','#2fd6a3','🏠'],via:['Viajes','#4aa8ff','✈️'],dep:['Deporte','#ff5fa8','⚽'],loc:['Locuras','#9a6bff','🦖']};
+const CATS={cap:['Caprichos','#ffc23d','🛍️'],mot:['Motor','#ff6b4a','🏎️'],cas:['Casas','#2fd6a3','🏠'],via:['Viajes','#4aa8ff','✈️'],dep:['Deporte','#ff5fa8','⚽'],loc:['Locuras','#9a6bff','🦖']};CATS.cos=['Cosmos','#7fe7ff','🌌'];
 const P=[
  ['🍔','Menú gigante',15,'cap','Doble de todo y helado de postre'],['🎮','Consola nueva',549,'cap','Con dos mandos y tres juegos'],['🎧','Auriculares de estudio',899,'cap','Los mismos que usan los DJ'],
  ['📱','Móvil tope de gama',1499,'cap','El último, con 1 TB'],['👟','Zapatillas edición limitada',2200,'cap','Solo hay 500 pares en el mundo'],['💻','PC gamer bestia',6500,'cap','Va a 300 FPS en todo'],
@@ -4769,6 +4778,16 @@ function bjEnd(r){BJ.on=false;BJ.busy=false;BJ.hide=false;bjRender();const b=BJ.
 /* ---- Tienda con tu dinero ---- */
 const nice=v=>{const e=Math.pow(10,Math.max(0,Math.floor(Math.log10(v))-1));return Math.round(v/e)*e};
 P.forEach(p=>{p[2]=Math.max(20,nice(Math.pow(p[2],.6)))});
+/* Cosmos: precios finales (ya sin curva) */
+{  const ZN=[['🌌','Galaxia de bolsillo',5e10,'Cabe en el bolsillo, pero pesa un poco'],['☀️','El Sol',1.2e11,'Con garantía de 5.000 millones de años'],
+   ['🛰️','Red de satélites propia',3e11,'Wifi gratis en todo el planeta'],['🗺️','Continente nuevo',8e11,'Recién salido del mar, sin estrenar'],
+   ['🌍','La Tierra',2e12,'De segunda mano, con algún arañazo'],['🚀','Flota interestelar',5e12,'Mil naves con aparcamiento incluido'],
+   ['✨','Constelación con tu nombre',1.2e13,'Se ve desde cualquier sitio de noche'],['🪐','Sistema solar entero',3e13,'Ocho planetas y un Plutón de regalo'],
+   ['🌠','Lluvia de estrellas privada',8e13,'Cuando tú quieras, todas las noches'],['🌀','La Vía Láctea',2e14,'Unos 200.000 millones de estrellas'],
+   ['🧬','Universo paralelo',6e14,'Donde siempre ganas a la ruleta'],['♾️','El Multiverso',1e15,'Todo. Absolutamente todo.']];
+  ZN.forEach(z=>{if(!P.some(p=>p[1]===z[1]))P.push([z[0],z[1],z[2],'cos',z[3]])});
+}
+
 const ITEM_TITLES={'Megayate':'Capitán','Coche de Fórmula 1':'Piloto','Isla privada':'Dueño de una isla','Equipo de Primera':'Presidente del club','Equipo de la NBA':'Dueño de la NBA',
   'Portaaviones':'Almirante','Volcán dormido':'Villano','Castillo en Escocia':'Rey del castillo','Jirafa de mascota':'Domador','Esqueleto de T-Rex':'Paleontólogo','Peli de Hollywood':'Estrella de cine',
   'Rascacielos':'Magnate','Jet privado':'Jet set','Viaje al espacio':'Astronauta','Diamante del tamaño de un huevo':'Joyero','PC gamer bestia':'Gamer','Menú gigante':'Glotón',
@@ -4822,7 +4841,7 @@ function openProfile(first){if(!first){go('perfil');return}let av=S.av||AVS[ri(0
     sfx('big');confetti(120);troll('QUE PASA, '+S.name.toUpperCase(),'a ver cuánto dinero haces',null,true)};
   $('#pSave').onclick=doSave;$('#pName').addEventListener('keydown',e=>{if(e.key==='Enter')doSave()})}
 function renderPerfil(){const c=myCos(),L=S.lvl,t=tiText();
-  const opt=(k,x,inner)=>{const xe=x[4]==='x';if(xe&&!hasExc(k,x[0])&&!cfg('showExc'))return'';const locked=xe?!hasExc(k,x[0]):L<x[2];return`<button class="opt${xe?' xopt':''}" data-set="${k}" data-val="${x[0]}" aria-pressed="${c[k]===x[0]}" ${locked?'disabled':''}>${inner}<span>${x[1]}</span>${locked?`<span class="lk">${xe?'Exclusivo':'Nivel '+x[2]}</span>`:xe?'<span class="lk xk">Exclusivo</span>':''}</button>`};
+  const opt=(k,x,inner)=>{const xe=x[4]==='x';if(xe&&!hasExc(k,x[0])&&!cfg('showExc'))return'';const we=x[4]==='w';const locked=xe?!hasExc(k,x[0]):we?(window.peakW?peakW():0)<x[2]:L<x[2];return`<button class="opt${xe?' xopt':''}${we?' wopt':''}" data-set="${k}" data-val="${x[0]}" aria-pressed="${c[k]===x[0]}" ${locked?'disabled':''}>${inner}<span>${x[1]}</span>${locked?`<span class="lk">${xe?'Exclusivo':we?'Ten '+(x[5]||short(x[2]))+' €':'Nivel '+x[2]}</span>`:xe?'<span class="lk xk">Exclusivo</span>':''}</button>`};
   const avs=[...AVS.map(a=>[a,1]),...AVX,...AVW.map(a=>[a,(S.avWon||[]).includes(a)?1:999]),...EXAV.filter(a=>hasExc('av',a)).map(a=>[a,1])];
   $('#pfBody').innerHTML=`<div class="pf">
     <div class="panel mecard bg-${c.bg}"><span class="bigav emo ${frCls(c)}">${avH({av:S.av,img:S.img},'😎')}</span><div class="mtext" style="min-width:0;flex:1"><h2 class="${ncCls(c)}">${esc(S.name||'Sin nombre')}</h2>${t?`<div class="ptitle">${esc(t)}</div>`:''}
@@ -4832,7 +4851,7 @@ function renderPerfil(){const c=myCos(),L=S.lvl,t=tiText();
    <div class="pfsec"><h3>Color del nombre</h3><p>Se ve en la clasificación y en tu perfil.</p><div class="opts">${COS.c.map(x=>opt('c',x,`<span class="nm ${x[3]}">${esc(S.name||'Nombre')}</span>`)).join('')}</div></div>
    <div class="pfsec"><h3>Marco</h3><div class="opts">${COS.f.map(x=>opt('f',x,`<span class="sw emo ${x[3]}">${avH({av:S.av,img:S.img},'😎')}</span>`)).join('')}</div></div>
    <div class="pfsec"><h3>Fondo de tu tarjeta</h3><div class="opts">${COS.bg.map(x=>opt('bg',x,`<span class="sw big" style="background:${BGSW[x[0]]}"></span>`)).join('')}</div></div>
-   <div class="pfsec"><h3>Título</h3><p>Los de nivel se desbloquean jugando. Los de objetos los consigues comprando cosas en la Tienda.</p><div class="opts">${COS.ti.map(x=>opt('ti',x,'')).join('')}${itemTitles().map(([i,tt])=>`<button class="opt" data-set="ti" data-val="it:${i}" aria-pressed="${c.ti==='it:'+i}"><span class="sw emo">${P[i][0]}</span><span>${esc(tt)}</span></button>`).join('')}</div></div>
+   <div class="pfsec"><h3>Título</h3><p>Los de nivel se desbloquean jugando. Los de <b>riqueza</b> (Millonario, Billonario…) se consiguen al llegar a ese dinero, y ya no se pierden aunque gastes. Los de objetos los consigues comprando cosas en la Tienda.</p><div class="opts">${COS.ti.map(x=>opt('ti',x,'')).join('')}${itemTitles().map(([i,tt])=>`<button class="opt" data-set="ti" data-val="it:${i}" aria-pressed="${c.ti==='it:'+i}"><span class="sw emo">${P[i][0]}</span><span>${esc(tt)}</span></button>`).join('')}</div></div>
    <div class="pfsec"><h3>Vitrina</h3><p>Elige hasta 3 cosas de tu colección para presumir al lado de tu nombre.</p><div class="opts">${Object.keys(S.owned).length?Object.keys(S.owned).map(Number).sort((a,b)=>P[b][2]-P[a][2]).map(i=>`<button class="opt" data-show="${i}" aria-pressed="${(S.show||[]).includes(i)}"><span class="sw emo">${P[i][0]}</span><span>${esc(P[i][1])}</span></button>`).join(''):'<p class="muted" style="font-weight:700">Todavía no tienes nada. Cómpralo en la Tienda con tu dinero.</p>'}</div></div>
    <div class="pfsec"><h3>Cuenta</h3>${accBlock(false)||'<p>Sin conexión.</p>'}</div>`;
   const pa=$('#pAcc');if(pa)pa.addEventListener('click',e=>{const b=e.target.closest('[data-acc]');if(!b)return;b.dataset.acc==='logout'?logout():openAccount(b.dataset.acc)})}
@@ -5234,6 +5253,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-06-m',t:'Para los más ricos',items:[['🌌','Nueva categoría: Cosmos','12 objetos cósmicos en la Tienda: desde una galaxia de bolsillo hasta El Multiverso (1.000 billones). Algunos te dan título.','new','#7fe7ff'],['💎','Títulos de riqueza','Millonario, Multimillonario, Billonario, Megabillonario, Archibillonario y Trillonario. Se consiguen al llegar a ese dinero y no se pierden.','new','#ffd600'],['🏛️','10 logros muy difíciles','Billonario, Museo (una de cada cosa), Racha de hierro, Nivel 50, Maratón y más.','new','#ff5fa8']]},
  {v:'2026-10-06-l',t:'Textos al día',items:[['📝','Todo dice «Clasificación»','Hemos cambiado los textos antiguos que aún decían «ranking».','fix','#3f7cff'],['🎪','Logro Turista','Ahora pide jugar a los 8 juegos (Dash incluido).','fix','#ffc23d'],['💬','Logro Mensajero','El antiguo logro de trolear ahora es mandar 10 mensajitos.','fix','#ff5fa8']]},
  {v:'2026-10-06-k',t:'Invitaciones y rachas',items:[['🎁','Invita hasta 20 amigos','La primera invitación paga 500.000 € y cada una más que la anterior. Si tienes mucho dinero, se paga según lo que tengas. Tu colega tiene que crearse cuenta y llegar a nivel 3.','new','#ffd600'],['👥','Ve cómo van tus invitados','En la tarjeta de invitar sale en qué nivel va cada uno y cuánto le falta.','new','#14e08a'],['🔥','Racha en el perfil','Tu racha de días sale en tu perfil y en la clasificación.','new','#ff6b4a'],['📮','Regalos más claros','Si regalas a alguien que no está conectado, te explica por qué todavía no le sube el dinero.','fix','#3f7cff']]},
  {v:'2026-10-06-j',t:'Premios a tu medida',items:[['📅','Premio diario según tu dinero','Ahora el premio diario es un porcentaje de lo que tienes, y cuanto más larga la racha, más porcentaje. Cada 7 días, doble.','new','#ffd600'],['🎯','Misiones, ruleta gratis y anuncio del día','También crecen con tu dinero: ya no da igual ser rico.','new','#14e08a'],['🔒','Online solo con cuenta','Para jugar duelos, botes y torneos hace falta cuenta. Los invitados no salen conectados.','new','#ff6b4a']]},
@@ -5340,10 +5360,10 @@ const TUTOS=[
    ['Con amigos puedes <b>regalar</b> dinero (de 10 € a 10 millones).'],['Un <b>mensajito</b> cuesta 100 €: elige una frase o escribe la tuya. Le sale en grande en la pantalla.'],
    ['Pulsa a cualquiera de la clasificación para ver su <b>perfil</b> completo.']],'Si no quieres avisos de solicitudes, quítalos en Ajustes.','ranking'],
  ['🛍️','Tienda','Comprar y presumir','#ffb300',[
-   ['Compra cosas con tu dinero del juego: añádelas a la <b>cesta</b> y paga.'],['Cada cosa tiene <b>rareza</b>: común, raro, épico, legendario, hasbiri o el nivel dios, <b>hasbirinino</b>.'],
+   ['Compra cosas con tu dinero del juego: añádelas a la <b>cesta</b> y paga.'],['Cada cosa tiene <b>rareza</b>: común, raro, épico, legendario, hasbiri, <b>hasbirinino</b> y lo más alto: <b>cósmico</b> (categoría Cosmos, de 50.000 millones hasta 1.000 billones).'],
    ['Muchas cosas te dan un <b>título</b> para tu perfil (el yate te hace «Capitán»).'],['Pon hasta 3 en tu <b>vitrina</b> para que salgan al lado de tu nombre.'],['Si vendes algo, recuperas el 70 %.']],'La colección cuenta para la clasificación de Colección.','rico'],
  ['🎨','Tu perfil','Personalizar','#ff2e88',[
-   ['Pulsa tu nombre arriba o «Personalizar».'],['Sube una <b>foto</b> o elige una cara.'],['Elige color de nombre, <b>marco</b>, fondo y <b>título</b>. Los mejores se desbloquean subiendo de nivel.'],
+   ['Pulsa tu nombre arriba o «Personalizar».'],['Sube una <b>foto</b> o elige una cara.'],['Elige color de nombre, <b>marco</b>, fondo y <b>título</b>. Los mejores se desbloquean subiendo de nivel.'],['Los títulos de <b>riqueza</b> (Millonario, Billonario, Trillonario…) salen al llegar a ese dinero y no se pierden aunque gastes.'],
    ['Cambiar el nombre cuesta <b>1.000 €</b>.']],'En Inicio te dice qué desbloqueas en el siguiente nivel.','perfil'],
  ['🔐','Cuentas','Jugar en varios dispositivos','#9d5cff',[
    ['En Clasificación o Ajustes pulsa <b>Crear cuenta</b>: elige usuario y contraseña.'],['En otro móvil, al entrar pulsa <b>«¿Ya tienes cuenta? Entra aquí»</b>.'],['Tu partida aparece igual: dinero, nivel, cosas y amigos.'],['Apúntate la contraseña y tu <b>nombre con el código</b>, tipo <b>PEPE#4821</b>. Lo ves en Clasificación y en Ajustes.'],['Apunta también tu <b>código de recuperación</b> (Ajustes › Cuenta). Si un día pierdes la cuenta, en <b>Ayuda › Buzón del jefe</b> pides «Recuperar cuenta» con tu nombre antiguo y ese código.']],'Sin cuenta, tu partida solo está en ese navegador.','ajustes'],
@@ -9758,6 +9778,33 @@ const _tGift=toast;toast=function(title){const r=_tGift.apply(this,arguments);if
 /* tutoriales: invitaciones */
 (()=>{try{const am=TUTOS.find(t=>t[1]==='Amigos');if(am&&!am[4].some(x=>/Invita/.test(x[0])))am[4].push(['<b>Invita</b> con tu enlace (Inicio o Clasificación): hasta 20 amigos. Tu colega se crea cuenta, se lleva 50.000 € y, cuando llega a <b>nivel 3</b>, cobras tú (desde 500.000 €, o según tu dinero).']);
   if(!FAQ.some(q=>/nivel 3/.test(q[0])))FAQ.unshift(['¿Cuándo cobro por invitar a un amigo?','Cuando tu amigo, que entró con tu enlace, se crea una cuenta y llega a nivel 3 jugando. En la tarjeta de invitar ves en qué nivel va cada uno. Puedes cobrar hasta 20 invitaciones.'])}catch(e){}})();
+
+/* ================= TANDA A: objetos Cósmicos, títulos de riqueza y logros muy difíciles ================= */
+try{
+  const Z0=P.findIndex(p=>p[3]==='cos');
+  Object.assign(ITEM_TITLES,{'El Sol':'Dueño del Sol','La Tierra':'Dueño de la Tierra','Sistema solar entero':'Señor del sistema solar','La Vía Láctea':'Señor de la galaxia','El Multiverso':'Dueño del multiverso'});
+  P.forEach((p,i)=>{if(Z0>=0&&i>=Z0){const t=ITEM_TITLES[p[1]];if(t)p[4]+=' · Te da el título «'+t+'»'}});
+  const _rarZ=rarity;rarity=function(price){return(+price||0)>=2e10?['z','Cósmico']:_rarZ(price)};
+}catch(e){console.warn('cos',e)}
+/* riqueza máxima alcanzada: dinero + colección (no baja aunque gastes) */
+window.peakW=function(){const w=Math.max(0,Math.floor(+S.coins||0))+ownedValue();if(!(S.peakW>=w))S.peakW=w;return S.peakW};
+COS.ti.push(['wmil','Millonario',1e6,'','w','1 millón de'],['wmmil','Multimillonario',1e9,'','w','1.000 millones de'],['wbil','Billonario',1e12,'','w','1 billón de'],['wcbil','Megabillonario',1e14,'','w','100 billones de'],['wmbil','Archibillonario',1e15,'','w','1.000 billones de'],['wtril','Trillonario',1e18,'','w','1 trillón de']);
+let _wtSeen=null;
+function wtTick(){try{const pw=peakW(),got=COS.ti.filter(x=>x[4]==='w'&&pw>=x[2]).map(x=>x[0]);
+  if(_wtSeen===null){_wtSeen=new Set(S.wtSeen||got);S.wtSeen=[..._wtSeen];return}
+  got.forEach(id=>{if(!_wtSeen.has(id)){_wtSeen.add(id);S.wtSeen=[..._wtSeen];const x=COS.ti.find(y=>y[0]===id);toast('Título nuevo: «'+x[1]+'»','Póntelo en Perfil › Título','var(--sun)','💎');sfx('win');save()}})}catch(e){}}
+setTimeout(wtTick,2500);setInterval(wtTick,5000);
+/* logros muy difíciles */
+ACH.push(['💎','Billonario','Llega a tener 1 billón de euros (dinero + colección)',()=>peakW()>=1e12],
+  ['🌌','Cósmico','Compra algo de la categoría Cosmos',()=>P.some((p,i)=>p[3]==='cos'&&S.owned[i])],
+  ['♾️','Dueño de todo','Compra El Multiverso',()=>P.some((p,i)=>p[1]==='El Multiverso'&&S.owned[i])],
+  ['🏛️','Museo','Ten una de cada cosa de la Tienda',()=>P.every((p,i)=>S.owned[i])],
+  ['👑','Trillonario','Llega a 1 trillón de euros. Suerte.',()=>peakW()>=1e18],
+  ['🗓️','Racha de hierro','Racha diaria de 30 días',()=>((S.daily||{}).streak||0)>=30],
+  ['🌟','Nivel 50','Llega al nivel 50',()=>S.lvl>=50],
+  ['🦾','Dedo biónico','100.000 clics en la fábrica',()=>st('clicks')>=1e5],
+  ['🗂️','Adicto a las misiones','Completa 100 misiones',()=>st('missions')>=100],
+  ['🎮','Maratón','Juega 1.000 partidas',()=>st('games')>=1000]);
 })();
 </script>
 
