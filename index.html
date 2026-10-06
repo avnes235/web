@@ -3464,7 +3464,11 @@ let S=fresh();
 try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&typeof d==='object')S={...fresh(),...d,st:{...(d.st||{})},best:{...(d.best||{})},upg:{...(d.upg||{})},owned:{...(d.owned||{})},cart:{...(d.cart||{})}};}catch(e){}
 const prevSeen=S.seen;
 let noSave=false;
-function save(){if(noSave)return;S.seen=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+/* red de seguridad: el dinero nunca se guarda roto (NaN, infinito o negativo) */
+let _goodCoins=null,_goodEarned=null;
+function sanity(){if(!S)return;if(!Number.isFinite(+S.coins))S.coins=_goodCoins!=null?_goodCoins:0;else{S.coins=+S.coins;if(S.coins<0)S.coins=0}
+  if(!Number.isFinite(+S.earned))S.earned=_goodEarned!=null?_goodEarned:0;_goodCoins=S.coins;_goodEarned=+S.earned}
+function save(){if(noSave)return;try{sanity()}catch(e){}S.seen=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 setInterval(()=>save(),4000);addEventListener('pagehide',()=>save());
 const st=k=>S.st[k]||0;
 
@@ -4786,7 +4790,7 @@ function openGift(id){$('#mbox').classList.remove('wide');$('#mbox').onclick=nul
   $('#gfX').onclick=()=>$('#modal').hidden=true;$('#mbox').querySelector('.amt').addEventListener('click',e=>{const b=e.target.closest('[data-gq]');if(b)$('#gfAmt').value=b.dataset.gq});
   $('#gfGo').onclick=async()=>{const n=Math.floor(+String($('#gfAmt').value).replace(/\D/g,'')||0),err=t=>{$('#gfErr').textContent=t;$('#gfErr').hidden=false;sfx('lose')};
     if(n<10)return err('El regalo mínimo es de 10 €.');if(n>10000000)return err('El regalo máximo es de 10 millones.');if(!take(n))return err('No tienes tanto dinero.');
-    $('#gfGo').disabled=true;try{await NET.db.collection('cmds/'+id+'/q').add({type:'gift',from:NET.id,n,t:Date.now()});ev('gifts');ev('gifted',n);$('#modal').hidden=true;sfx('buy');confetti(80);toast('Regalo enviado','−'+short(n)+' € para '+esc(p.name||'tu amigo'),'var(--mint)','🎁');const pp=NET.players.get(id);if(pp)pp.coins=(+pp.coins||0)+n;renderRank();save();NET.lastP='';pushPlayer()}
+    $('#gfGo').disabled=true;try{await NET.db.collection('cmds/'+id+'/q').add({type:'gift',from:NET.id,n,t:Date.now()});ev('gifts');ev('gifted',n);$('#modal').hidden=true;sfx('buy');confetti(80);toast('Regalo enviado','−'+short(n)+' € para '+esc(p.name||'tu amigo'),'var(--mint)','🎁');const pp=NET.players.get(id);if(pp)admPend(id,{coins:Math.floor(+pp.coins||0)+n},!ADM.on);renderRank();save();NET.lastP='';pushPlayer()}
     catch(e){S.coins+=n;$('#gfGo').disabled=false;err('No se ha podido enviar. Te devuelvo el dinero.')}}}
 function openTrollPick(id){$('#mbox').classList.remove('wide','notes');$('#mbox').onclick=null;const p=NET.players.get(id);$('#modal').hidden=false;
   const mine=(S.myTrolls||[]).slice(0,6);
@@ -8915,11 +8919,11 @@ function admPatch(id,type,n,text){const p=NET.players.get(id)||{},c=Math.floor(+
 const ADM_PK='cas-admpend';
 function admPendLoad(){if(ADM.pend)return ADM.pend;ADM.pend=new Map();try{const o=JSON.parse(localStorage.getItem(ADM_PK)||'{}');for(const id in o){const x=o[id];if(x&&x.patch&&Date.now()-(+x.t||0)<14*86400e3)ADM.pend.set(id,x)}}catch(e){}return ADM.pend}
 function admPendSave(){try{if(!ADM.pend||!ADM.pend.size)localStorage.removeItem(ADM_PK);else localStorage.setItem(ADM_PK,JSON.stringify(Object.fromEntries(ADM.pend)))}catch(e){}}
-function admPend(id,patch){if(!id||!patch||!Object.keys(patch).length)return;admPendLoad();const cur=ADM.pend.get(id);
+function admPend(id,patch,noWrite){if(!id||!patch||!Object.keys(patch).length)return;admPendLoad();const cur=ADM.pend.get(id);
   ADM.pend.set(id,{patch:{...(cur?cur.patch:{}),...patch},t:Date.now()});admPendSave();const q=NET.players.get(id);if(q)Object.assign(q,patch);
   /* también en su ficha del ranking, para que todos lo vean ya aunque no esté conectado */
   const w={};for(const k of ADM_FS)if(k in patch)w[k]=k==='own'?(patch.own||[]).map(o=>Array.isArray(o)?{e:o[0],n:o[1],q:o[2],p:o[3]}:o):patch[k];
-  if(NET.db&&Object.keys(w).length)NET.db.collection('players').doc(id).set(w,{merge:true}).catch(()=>{});
+  if(!noWrite&&ADM.on&&NET.db&&Object.keys(w).length)NET.db.collection('players').doc(id).set(w,{merge:true}).catch(()=>{});
   try{renderRank()}catch(e){}try{renderAdmin()}catch(e){}try{if(ADM.sel===id)renderAdmSide()}catch(e){}}
 function admPendApply(){admPendLoad();if(!ADM.pend.size)return;const now=Date.now(),n0=ADM.pend.size;
   for(const [id,x] of ADM.pend){const q=NET.players.get(id);if(!q){if(now-x.t>14*86400e3)ADM.pend.delete(id);continue}
