@@ -3030,6 +3030,12 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 .olgate{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;max-width:520px;margin:30px auto;padding:22px;border-radius:16px;border:2px solid #ffd600;background:linear-gradient(135deg,rgba(255,214,0,.1),rgba(63,124,255,.1))}
 .olgate .e{font-size:46px}.olgate h3{font-size:24px;margin:0}.olgate p{color:var(--muted);font-weight:700;font-size:15.5px;line-height:1.45;margin:0}.olg-b{display:flex;flex-direction:column;gap:8px;width:100%;max-width:340px}.olg-b .gbtn{width:100%;justify-content:center}.olgate small{color:#ffd600;font-weight:800}
 .acctag{display:inline-block;font:900 10px var(--f-b);letter-spacing:.4px;text-transform:uppercase;color:#111;background:var(--t);border-radius:5px;padding:1px 6px;margin-right:6px;vertical-align:middle}
+
+.invsteps .hl,.invcard .ih small .hl{color:#ffd600;font-weight:900}.ipt{font-weight:900;font-size:14px;color:#fff}
+.invsteps{margin:8px 0;padding-left:22px;font-weight:700;font-size:14.5px;line-height:1.5}.invsteps li::marker{color:#ffd600;font-weight:900}.invsteps em{color:var(--mint);font-style:normal;font-weight:900}
+.invppl{display:flex;flex-direction:column;gap:4px;margin:8px 0;padding:8px 10px;border-radius:10px;background:var(--card2)}.invppl .ip{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:13.5px}.invppl .ip.ok span:last-child{color:var(--mint)}
+.strk{display:inline-block;background:rgba(255,107,74,.18);color:#ff9a6b;border-radius:6px;padding:0 6px;font-weight:900}.strk.sm{font-size:11px;padding:0 4px}
+.giftwhy{text-align:center}.giftwhy .e{font-size:46px}.giftwhy h2{font-size:26px;margin:4px 0}.giftwhy .gw{display:flex;flex-direction:column;gap:6px;text-align:left;background:rgba(63,124,255,.12);border:2px solid #3f7cff;border-radius:12px;padding:12px;margin:10px 0;font-size:15.5px;line-height:1.45}.giftwhy .gw b{color:#ffd600}.giftwhy .gwn{color:var(--muted);font-weight:700}#gwOk{width:100%}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -5228,6 +5234,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-06-k',t:'Invitaciones y rachas',items:[['🎁','Invita hasta 20 amigos','La primera invitación paga 500.000 € y cada una más que la anterior. Si tienes mucho dinero, se paga según lo que tengas. Tu colega tiene que crearse cuenta y llegar a nivel 3.','new','#ffd600'],['👥','Ve cómo van tus invitados','En la tarjeta de invitar sale en qué nivel va cada uno y cuánto le falta.','new','#14e08a'],['🔥','Racha en el perfil','Tu racha de días sale en tu perfil y en la clasificación.','new','#ff6b4a'],['📮','Regalos más claros','Si regalas a alguien que no está conectado, te explica por qué todavía no le sube el dinero.','fix','#3f7cff']]},
  {v:'2026-10-06-j',t:'Premios a tu medida',items:[['📅','Premio diario según tu dinero','Ahora el premio diario es un porcentaje de lo que tienes, y cuanto más larga la racha, más porcentaje. Cada 7 días, doble.','new','#ffd600'],['🎯','Misiones, ruleta gratis y anuncio del día','También crecen con tu dinero: ya no da igual ser rico.','new','#14e08a'],['🔒','Online solo con cuenta','Para jugar duelos, botes y torneos hace falta cuenta. Los invitados no salen conectados.','new','#ff6b4a']]},
  {v:'2026-10-06-i',t:'Arreglos',items:[['🛍️','El Millonario ahora se llama «Tienda»','Mismo sitio, mismo nombre en el móvil y en el ordenador.','new','#2fd6a3'],['📈','Trading: el gráfico se ve entero','La barra de tu operación con el botón Cerrar sale encima del gráfico, ya no lo tapa.','fix','#3ff0ff'],['🎮','Clasificación de los juegos más a mano','En Clasificación y arriba de Juegos tienes un botón para ir directo.','new','#4aa8ff'],['💰','Mismo dinero en todos los dispositivos','La clasificación enseña siempre el dato real.','fix','#14e08a']]},
  {v:'2026-10-06-h',t:'Menú ordenado',items:[['🧭','Menú por grupos','Jugar (Casino, Juegos, Trading, Online), Dinero (Fábrica, Tienda), Competir (Clasificación, Logros) y Más. Cada sección con su color.','new','#3f7cff'],['🔺','Dash: la onda se ve mejor','Las paredes de la flecha ya son sólidas: se ve claro por dónde se puede pasar.','fix','#3ff0ff']]},
@@ -8880,7 +8887,7 @@ const _trCl=trClose;trClose=function(P,px,why){const h=_trCl.apply(this,argument
   document.addEventListener('pointerup',end,true);document.addEventListener('pointercancel',end,true)})();
 
 /* ================= INVITACIONES Y COMPARTIR ================= */
-const REF_ME=50000,REF_NEW=50000,REF_LVL=3,REF_MAX=30;
+const REF_ME=50000,REF_NEW=50000,REF_LVL=3,REF_MAX=20;
 function refPrize(k){if(k<1)k=1;const v=100000*Math.pow(1.17,k-1);const r=v>=1e6?Math.round(v/50000)*50000:Math.round(v/10000)*10000;return Math.min(2000000,r)}
 const siteURL=()=>location.origin+location.pathname;
 const refLink=()=>NET.id?siteURL()+'?ref='+encodeURIComponent(NET.id):siteURL();
@@ -8891,7 +8898,7 @@ const refLink=()=>NET.id?siteURL()+'?ref='+encodeURIComponent(NET.id):siteURL();
 function refTick(){if(!S.refBy||S.refDone||!NET.ok||!NET.db||!NET.id||!S.name)return;if(S.refBy===NET.id){S.refBy=null;save();return}
   if(!S.refWelcome){S.refWelcome=1;S.coins+=REF_NEW;save();const p=NET.players.get(S.refBy);sfx('big');confetti(160);
     troll('¡BIENVENIDO!','+'+fmt(REF_NEW)+' € por venir invitado'+(p&&p.name?' por '+p.name:''),'#14e08a',true);try{if(!(S.friends||[]).includes(S.refBy))sendReq(S.refBy)}catch(e){}}
-  if((S.lvl||1)>=REF_LVL){S.refDone=1;save();NET.db.collection('cmds/'+S.refBy+'/q').add({type:'gift',from:NET.id,n:REF_ME,ref:1,t:Date.now()}).catch(()=>{S.refDone=0;save()})}}
+  if((S.lvl||1)>=REF_LVL&&!NET.isAnon){S.refDone=1;save();NET.db.collection('cmds/'+S.refBy+'/q').add({type:'gift',from:NET.id,n:REF_ME,ref:1,t:Date.now()}).catch(()=>{S.refDone=0;save()})}}
 setInterval(refTick,5000);setTimeout(refTick,6000);
 /* quien invita: el regalo llega como "gift" con ref:1 */
 const _agRef=applyGifts;applyGifts=function(list){const refs=[],rest=[];list.forEach(x=>(x[1]&&x[1].ref?refs:rest).push(x));
@@ -9236,7 +9243,7 @@ document.addEventListener('click',e=>{const id=ofiId();if(!id||id===NET.id)retur
 ['sendReq','acceptReq'].forEach(fn=>{try{const o=eval(fn);if(typeof o==='function'){const w=function(id){if(isOfiId(id)){toast('Es el bot oficial','No se puede agregar de amigo','#3f7cff','🤖');return}return o.apply(this,arguments)};eval(fn+'=w')}}catch(e){}});
 /* el perfil del bot: chat con respuestas rápidas */
 const BOT_Q=[['💰','¿Cómo gano dinero?',()=>['Gira las ruletas de Inicio cada poco, cobra el premio diario, haz las misiones y juega en el Casino y en Juegos. En la Fábrica ganas dinero pulsando la moneda y mejorándola.',['🎡 Ir a Inicio',()=>go('inicio')]]],
-  ['🎁','¿Cómo invito amigos?',()=>['Pásale tu enlace a un colega: él empieza con '+fmt(REF_NEW)+' € y tú cobras cuando llegue a nivel 3. Cada invitación paga más que la anterior, hasta 2 millones.',['📤 Invitar ahora',()=>{closeModal();shareInvite()}]]],
+  ['🎁','¿Cómo invito amigos?',()=>['Pásale tu enlace a un colega: él empieza con '+fmt(REF_NEW)+' € y tú cobras cuando llegue a nivel 3. Hasta 20 amigos: el primero paga 500.000 € y cada uno más (o según tu dinero si tienes mucho).',['📤 Invitar ahora',()=>{closeModal();shareInvite()}]]],
   ['💾','¿Cómo guardo mi partida?',()=>['Crea una cuenta en Ajustes, con Google o con usuario y contraseña. Así tu partida se guarda en la nube y la tienes en cualquier móvil u ordenador.',['⚙️ Ir a Ajustes',()=>{closeModal();go('ajustes')}]]],
   ['🎡','Las ruletas',()=>['En Inicio hay varias ruletas que van rotando: dinero, XP, multiplicadora del casino y la del todo o nada (1 millón o pierdes un poquito). Si la que sale no te gusta, sáltala por 1.000 €.']],
   ['🤝','Amigos y regalos',()=>['En Clasificación › Amigos pones el código de tu colega. A tus amigos les puedes regalar dinero, mandar mensajitos troll y retar a duelos online.']],
@@ -9722,6 +9729,34 @@ const _dAmtW=dailyAmt;dailyAmt=function(k){const base=_dAmtW(k),pct=.003+.0004*M
 const _misW=misReward;misReward=function(){return Math.max(_misW(),niceN(wealth()*.002))};
 /* anuncio del día: los premios se multiplican según tu dinero */
 const GU_DW0=GU_DW.map(x=>x[0]);function guDwScale(){const m=Math.max(1,wealth()*.0006/1000);GU_DW.forEach((x,i)=>x[0]=niceN(GU_DW0[i]*m));document.querySelectorAll('.gu-max').forEach(e=>{const t=short(Math.max(...GU_DW.map(x=>x[0])))+' €';if(e.textContent!==t)e.textContent=t})}guDwScale();setInterval(guDwScale,5000);
+/* ===== 2026-10-06-k: invitaciones claras (hasta 20) y que suban con tu dinero ===== */
+refPrize=function(k){if(k<1)k=1;const base=500000*Math.pow(1.2,k-1),w=wealth()*(.005+.001*(k-1));return niceN(Math.max(base,w))};
+/* quien te invitó solo cobra si tienes cuenta (así nadie se inventa invitados) */
+/* tu ficha dice quién te invitó, para que él vea cómo vas */
+setInterval(()=>{try{if(!NET.ok||!NET.db||!NET.id||!S.refBy||NET.rbSent===S.refBy+(S.refDone?1:0))return;NET.rbSent=S.refBy+(S.refDone?1:0);NET.db.collection('players').doc(NET.id).set({rb:S.refBy,rbd:S.refDone?1:0},{merge:true}).catch(()=>{NET.rbSent=null})}catch(e){}},8000);
+function myInvitees(){return[...NET.players.entries()].filter(([id,p])=>p&&p.rb===NET.id).map(([id,p])=>({id,name:p.name||'Alguien',lvl:+p.lvl||1,done:!!p.rbd||(+p.lvl||1)>=REF_LVL,acc:p.acc}))}
+invHTML=function(){const max=20,n=Math.min(S.refN||0,max),nx=n+1,steps=[1,2,3,5,10,15,20],inv=myInvitees();
+  const list=inv.length?`<div class="invppl"><span class="ipt">Tus invitados</span>${inv.slice(0,10).map(x=>`<div class="ip ${x.done?'ok':''}"><span>${esc(x.name)}</span><span>${x.done?'✅ cobrado':x.acc==='a'?'👻 sin cuenta (tiene que crearla)':'Nivel '+x.lvl+' de '+REF_LVL+' · le '+(REF_LVL-x.lvl===1?'falta 1 nivel':'faltan '+(REF_LVL-x.lvl)+' niveles')}</span></div>`).join('')}</div>`:'';
+  return`<div class="panel invcard"><div class="ih"><span class="emo">🎁</span><div><b>Invita a tus colegas y cobra</b><small>Hasta <span class="hl">${max} amigos</span>. Cada uno paga más que el anterior y sube con tu dinero.</small></div></div>
+  <ol class="invsteps"><li><span class="hl">Pásale tu enlace</span> (botones de abajo).</li><li>Entra con él y <span class="hl">se crea una cuenta</span>: se lleva <em>${fmt(REF_NEW)} €</em> de regalo.</li><li>Cuando <span class="hl">llegue a nivel ${REF_LVL}</span> (jugando un rato), <span class="hl">cobras tú</span> lo que pone abajo.</li></ol>
+  ${n<max?`<div class="invnext"><small>Tu próxima invitación (la nº ${nx}) te da</small><b>${fmt(refPrize(nx))} €</b></div>`:'<div class="invnext"><b>¡Has llegado al máximo de 20!</b></div>'}
+  <div class="invlad">${steps.map(k=>`<span class="${k<=n?'got':k===nx?'nx':''}"><i>${k}º</i>${short(refPrize(k))} €</span>`).join('')}</div>${list}
+  <div class="invlink" data-noi18n>${esc(refLink().replace(/^https?:\/\//,''))}</div><div class="invbtns"><button class="btn mint" data-inv="share">📤 Compartir enlace</button><button class="btn alt" data-inv="copy">📋 Copiar</button></div>
+  <small class="invn">${n?'Has cobrado '+n+(n===1?' invitación':' invitaciones')+' · '+fmt(st('refEarned'))+' € en total':'Todavía no has cobrado ninguna invitación'}</small></div>`};
+/* ===== racha visible: en el perfil y en la clasificación ===== */
+const _opStr=openPlayer;openPlayer=function(id){const r=_opStr.apply(this,arguments);try{const me=id===NET.id||id==='me',p=me?{strk:(S.daily||{}).streak||0}:(NET.players.get(id)||{}),k=+p.strk||0;const meta=document.querySelector('#mbox .pp-head .meta');
+  if(meta&&k>0&&!meta.querySelector('.strk'))meta.insertAdjacentHTML('afterbegin',`<span class="strk">🔥 ${k} ${k===1?'día':'días'} de racha</span> `)}catch(e){}return r};
+const _rowStr=rowHTML;rowHTML=function(p,i,cat,top,withActs){let h=_rowStr.apply(this,arguments);try{const k=p.me?((S.daily||{}).streak||0):(+p.strk||0);if(k>=2)h=h.replace('<small>',`<small><span class="strk sm">🔥${k}</span> `)}catch(e){}return h};
+/* ===== regalos: si el otro no está conectado, explicar por qué no sube su dinero ===== */
+let giftTo=null;document.addEventListener('click',e=>{if(e.target.closest('#gfGo')){const h=document.querySelector('#mbox h2');giftTo={name:(h&&h.textContent||'').replace(/^Regalar a /,''),t:Date.now()}}},true);
+const _tGift=toast;toast=function(title){const r=_tGift.apply(this,arguments);if(title==='Regalo enviado'&&giftTo&&Date.now()-giftTo.t<15000){const nm=giftTo.name;giftTo=null;
+  const p=[...NET.players.entries()].find(([id,q])=>q&&q.name===nm),on=p&&NET.online.has(p[0]);
+  setTimeout(()=>{if(on){toast('Le llega al momento',esc(nm)+' está conectado','var(--mint)','⚡');return}$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('wide','notes');mb.onclick=null;
+    mb.innerHTML=`<div class="giftwhy"><div class="e">🎁</div><h2>Regalo enviado</h2><p><b>${esc(nm)}</b> no está conectado ahora.</p><div class="gw"><b>¿Por qué no sube su dinero?</b><span>El regalo se queda guardado y <b>le llega cuando abra el juego</b>. Hasta entonces, en la clasificación sigue saliendo con su dinero de antes. No se pierde nada.</span></div><p class="gwn">A ti ya se te ha descontado. Cuando entre, le saldrá un aviso con tu regalo.</p><button class="btn big" id="gwOk">Entendido</button></div>`;
+    $('#gwOk').onclick=closeModal},350)}return r};
+/* tutoriales: invitaciones */
+(()=>{try{const am=TUTOS.find(t=>t[1]==='Amigos');if(am&&!am[4].some(x=>/Invita/.test(x[0])))am[4].push(['<b>Invita</b> con tu enlace (Inicio o Clasificación): hasta 20 amigos. Tu colega se crea cuenta, se lleva 50.000 € y, cuando llega a <b>nivel 3</b>, cobras tú (desde 500.000 €, o según tu dinero).']);
+  if(!FAQ.some(q=>/nivel 3/.test(q[0])))FAQ.unshift(['¿Cuándo cobro por invitar a un amigo?','Cuando tu amigo, que entró con tu enlace, se crea una cuenta y llega a nivel 3 jugando. En la tarjeta de invitar ves en qué nivel va cada uno. Puedes cobrar hasta 20 invitaciones.'])}catch(e){}})();
 })();
 </script>
 
