@@ -1585,6 +1585,21 @@ body.ultra .over,body.ultra .scrim,body.ultra .modal{background:rgba(5,6,14,.92)
 #evbar.evnext{opacity:.92}#evbar.evnext .eve{filter:grayscale(.3)}
 .hunt{position:fixed;z-index:130;width:64px;height:64px;border-radius:50%;border:4px solid #a8740a;background:radial-gradient(circle at 35% 30%,#fff6b0,#ffd600 45%,#c99a1a);box-shadow:0 5px 0 #8a5d00,0 0 24px rgba(255,214,0,.9);font:900 28px/56px var(--f-b);color:#7a4e00;text-align:center;cursor:pointer;animation:huntIn .25s ease-out,huntP .6s .25s ease-in-out infinite alternate}
 @keyframes huntIn{from{transform:scale(0)}}@keyframes huntP{to{transform:scale(1.12)}}
+.throne{position:relative;overflow:hidden;margin:0 0 14px;padding:16px 18px;border-radius:16px;border:3px solid #ffd600;background:linear-gradient(135deg,#2a1f00,#14100a 55%,#2a1f00);box-shadow:0 0 0 3px #000,0 0 26px rgba(255,214,0,.25);color:#fff6d6}
+.throne .th-top{display:flex;align-items:center;gap:12px}
+.throne .th-cr{font-size:40px;filter:drop-shadow(0 0 10px rgba(255,214,0,.8));animation:float 2.6s ease-in-out infinite}
+.throne .th-av{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:28px;background:#000;overflow:hidden;flex:none}
+.throne .th-av img{width:100%;height:100%;object-fit:cover}
+.throne h3{margin:0;font:400 clamp(22px,4.6vw,30px)/1 var(--f-d);color:#ffd600;text-transform:uppercase;letter-spacing:.5px}
+.throne .th-sub{font-weight:800;font-size:16px;opacity:.95;margin-top:3px}
+.throne .th-goal{margin-top:12px;font-weight:800;font-size:17px;line-height:1.35}
+.throne .th-goal .thb{color:#ffd600;font-weight:900}
+.throne .th-bar{height:12px;border-radius:99px;background:#000;margin-top:8px;overflow:hidden;border:2px solid #4a3a00}
+.throne .th-bar i{display:block;height:100%;background:linear-gradient(90deg,#ff9d00,#ffd600);border-radius:99px;transition:width .6s}
+.throne .th-perks{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+.throne .th-perks span{font-weight:800;font-size:13px;padding:4px 9px;border-radius:99px;background:rgba(255,214,0,.14);border:1px solid rgba(255,214,0,.4);color:#ffe680}
+.throne.thking{background:linear-gradient(135deg,#5a4200,#2a1f00 50%,#5a4200);animation:paHxG 2.4s ease-in-out infinite}
+.crown{margin-right:4px;filter:drop-shadow(0 0 6px rgba(255,214,0,.9))}
 .frcoin{position:absolute;top:-60px;width:46px;height:46px;border-radius:50%;pointer-events:auto;cursor:pointer;border:3px solid #a8740a;background:radial-gradient(circle at 35% 30%,#fff6b0,#ffd600 45%,#c99a1a);box-shadow:0 4px 0 #8a5d00,0 0 14px rgba(255,214,0,.7);font:900 20px/40px var(--f-b);color:#8a5d00;text-align:center;animation:rcfall linear forwards;touch-action:manipulation}
 @keyframes rcfall{to{transform:translateY(calc(100vh + 120px)) rotate(var(--rr,360deg))}}
 .rpop{position:fixed;pointer-events:none;z-index:9301;font:900 18px var(--f-b);color:#14e08a;text-shadow:0 2px 0 #000;animation:rpop .8s ease-out forwards}@keyframes rpop{to{transform:translateY(-50px);opacity:0}}
@@ -3148,6 +3163,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
       <button class="iconbtn" id="mute" aria-label="Sonido"><svg class="ic"><use href="#i-sound"/></svg></button>
     </header>
     <div class="evbar" id="evbar" hidden></div>
+    <div class="throne" id="thrHome" hidden></div>
     <div class="updbar" id="updBar" hidden role="status"><span class="ui emo">🚀</span><span class="ut"><b>Nueva actualización</b><small>Hay cosas nuevas. Recarga para tenerlas, tu partida no se pierde.</small></span><button class="btn sm" id="updGo">Actualizar</button><button class="iconbtn" id="updX" aria-label="Hacerlo pequeño" title="Más tarde"><svg class="ic"><use href="#i-x"/></svg></button></div>
 
     <!-- ============ INICIO ============ -->
@@ -3487,7 +3503,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
         <div class="panel addf"><h3 style="font-size:22px">Amigos</h3><p class="netmsg">Pon el código de tu colega. Le llega una solicitud y tiene que aceptarla.</p><div class="row"><input class="inp" id="fCode" placeholder="Ej: PEPE#4821" autocomplete="off"><button class="btn" id="fAdd">Enviar</button></div><p class="netmsg" id="fMsg"></p><div id="reqs" class="reqs"></div></div>
       </div>
       <div class="sec-h"><div class="seg" id="rkSeg"><button data-rk="todos" aria-pressed="true">Todos</button><button data-rk="amigos" aria-pressed="false">Mis amigos</button></div><span id="netState"></span></div>
-      <div id="rkOnline"></div><div class="rkcats" id="rkCats"></div><p class="rkdesc" id="rkDesc"></p><div id="rkPodium"></div><div id="rkMyPos"></div>
+      <div id="rkOnline"></div><div class="throne" id="thrRank" hidden></div><div class="rkcats" id="rkCats"></div><p class="rkdesc" id="rkDesc"></p><div id="rkPodium"></div><div id="rkMyPos"></div>
       <div class="rklist" id="rkList"></div>
       <div style="text-align:center;margin-top:28px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap"><button class="linkb" data-bzopen="1">📮 Escribir al jefe</button><button class="linkb" id="bossBtn">Acceso del jefe</button></div>
     </section>
@@ -5044,7 +5060,7 @@ function myPosHTML(arr,cat,unitWord){const i0=arr.findIndex(p=>p.me);if(i0<0||ar
     const diff=mn?b-a:a-b;t='Te faltan '+(cat==='game'?(fmt(diff)+' puntos'):fmtVal(cat,diff))+' para pasar a '+(o.name||'el de arriba')+'.'}
   return`<div class="mypos"><span class="big">${i+1}º</span><span class="t"><b>Tu posición de ${arr.length}</b><span>${esc(t)}</span></span></div>`}
 function rowHTML(p,i,cat,top,withActs){if(RK_ARR&&RK_ARR[i]===p)i=rkIdx(RK_ARR,i,cat);const on=!p.me&&NET.online.has(p.id),fr=(S.friends||[]).includes(p.id),pend=(S.outReq||[]).includes(p.id),v=pval(p,cat);
-  const acts=!withActs||p.me||!NET.ok?'':(fr?`<button class="btn mint sm" data-gift="${esc(p.id)}">Regalar</button><button class="btn pink sm" data-tr="${esc(p.id)}">💬 Mensajito · 100 €</button>`:'')+
+  const acts=!withActs||p.me||!NET.ok?'':`<button class="btn mint sm" data-gift="${esc(p.id)}">🎁 Regalar</button>`+(fr?`<button class="btn pink sm" data-tr="${esc(p.id)}">💬 Mensajito · 100 €</button>`:'')+
     (!fr?(pend?'<button class="btn alt sm" disabled>Pendiente</button>':`<button class="btn alt sm" data-req="${esc(p.id)}">+ Amigo</button>`):'')+(rkTab==='amigos'&&fr?`<button class="btn dark sm unf" data-rmid="${esc(p.id)}">✕ Quitar amigo</button>`:'');
   const sh=(p.show||[]).slice(0,3).map(x=>esc(x)).join('');const mn=cat==='game'&&gameMin(rkG);
   const pct=v==null||!top?0:mn?Math.max(6,Math.min(100,top/v*100)):Math.max(3,Math.min(100,v/top*100));
@@ -5257,6 +5273,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-06-p',t:'El trono',items:[['👑','¿Quién es el rey?','El número 1 en dinero es el rey: corona en la clasificación, título «Rey de Casinetori» y renta del rey cada hora.','new','#ffd600'],['📈','Cuánto te falta','En Inicio y en Clasificación ves cuánto te falta para adelantar al de arriba y para quitarle el trono.','new','#14e08a'],['🔔','Avisos','Te avisamos cuando adelantas a alguien, cuando te adelantan y cuando te quitan el trono.','new','#ff6b4a'],['🎁','Regalar en la lista','El botón Regalar sale en todos los jugadores, no solo en tus amigos.','new','#14e08a']]},
  {v:'2026-10-06-o',t:'Eventos para todos a la vez',items:[['🌍','Mismo evento, misma hora, en todo el mundo','El horario de eventos ya no depende de la hora de tu móvil: a todos os sale el mismo evento a la vez.','new','#3f7cff'],['🎉','Muchos más eventos','Casi cada 20 minutos hay uno. Arriba en Inicio ves cuál es el próximo y a qué hora.','new','#ffd600'],['🧰','5 eventos nuevos','Quíntuple (x5), Triple XP, Megalluvia de 20 millones, Cofre misterioso y Caza de monedas.','new','#ff2e88']]},
  {v:'2026-10-06-n',t:'Regala a quien quieras',items:[['🎁','Regalar ya no es solo para amigos','Abre el perfil de cualquier jugador de la clasificación y pulsa «Regalar». Los mensajitos siguen siendo solo para amigos.','new','#14e08a'],['🎯','Mensajes del jefe centrados','Los carteles grandes ahora salen en el centro de la pantalla.','fix','#ffd600']]},
  {v:'2026-10-06-m',t:'Para los más ricos',items:[['🌌','Nueva categoría: Cosmos','12 objetos cósmicos en la Tienda: desde una galaxia de bolsillo hasta El Multiverso (1.000 billones). Algunos te dan título.','new','#7fe7ff'],['💎','Títulos de riqueza','Millonario, Multimillonario, Billonario, Megabillonario, Archibillonario y Trillonario. Se consiguen al llegar a ese dinero y no se pierden.','new','#ffd600'],['🏛️','10 logros muy difíciles','Billonario, Museo (una de cada cosa), Racha de hierro, Nivel 50, Maratón y más.','new','#ff5fa8']]},
@@ -9504,7 +9521,7 @@ if(!S.recKey){S.recKey=recGen();S.rkh='';save()}
 (async()=>{if(!S.rkh){S.rkh=await recHash(S.recKey);save()}})();
 /* los campos extra van aparte (con merge) para no tocar la ficha principal */
 const _ppX=pushPlayer;pushPlayer=async function(){const t0=NET.lastT;const r=await _ppX.apply(this,arguments);
-  if(NET.ok&&NET.db&&NET.id&&!NET.kicked&&NET.lastT!==t0){const x={acc:NET.isAnon?'a':(isGoogleUser()?'g':'u')};if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(Object.keys(x).length)NET.db.collection('players').doc(NET.id).set(x,{merge:true}).catch(()=>{})}return r};
+  if(NET.ok&&NET.db&&NET.id&&!NET.kicked&&NET.lastT!==t0){const x={acc:NET.isAnon?'a':(isGoogleUser()?'g':'u')};if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(S.refBy){x.rb=S.refBy;x.rbd=S.refDone?1:0}x.ks=S.kSince||0;if(Object.keys(x).length)NET.db.collection('players').doc(NET.id).set(x,{merge:true}).catch(()=>{})}return r};
 /* en Ajustes: tu código */
 const _accRK=accBlock;accBlock=function(first){const h=_accRK.apply(this,arguments);if(first||!h||!S.recKey)return h;
   return h+`<div class="reckey"><b>🔑 Tu código de recuperación</b><span>Apúntalo y no se lo enseñes a nadie. Si pierdes la cuenta, el jefe solo te la devuelve con este código.</span><div class="rkrow"><code id="rkCode" data-on="0">••••-••••-••••</code><button type="button" class="btn alt sm" id="rkShow" onclick="window.rkToggle&&rkToggle()">Ver</button><button type="button" class="btn alt sm" id="rkCopy" onclick="window.rkCopy&&rkCopy()">Copiar</button></div><p class="rkwarn">⚠️ Si lo pierdes y pierdes la cuenta, adiós a tu partida: nadie te la puede devolver.</p></div>`};
@@ -9863,6 +9880,44 @@ setInterval(()=>{const e=curEv();if(!e||e.type!=='hunt'||document.hidden)return;
 /* tutorial y preguntas: eventos */
 (()=>{try{const ini=TUTOS.find(t=>t[1]==='Primeros pasos')||TUTOS[0];if(ini&&!ini[4].some(x=>/eventos/.test(x[0])))ini[4].push(['Casi cada 20 minutos hay un <b>evento</b> para todo el mundo a la vez (doble dinero, lluvia de dinero, cofre misterioso, caza de monedas…). En Inicio ves cuál es el <b>próximo</b> y a qué hora.']);
   if(!FAQ.some(q=>/eventos/.test(q[0])))FAQ.unshift(['¿Cuándo hay eventos?','Casi cada 20 minutos, a la vez para todos. Arriba en Inicio pone el próximo evento y a qué hora empieza. El jefe también puede lanzar eventos especiales cuando quiera.'])}catch(e){}})();
+
+/* ================= EL TRONO: motivación para llegar al Top 1 ================= */
+const KING_MIN=3;let THR={id:null,rank:0,above:null,names:{}};
+function thrState(){if(!NET.ok||!S.name||(NET.isAnon&&!ADM.on))return null;let arr;try{arr=rankList('todos','coins')}catch(e){return null}if(arr.length<KING_MIN)return null;const i=arr.findIndex(p=>p.me);if(i<0)return null;return{arr,i,top:arr[0],me:arr[i],above:i>0?arr[i-1]:null,below:arr[i+1]||null}}
+function amKing(){const t=thrState();return!!(t&&t.i===0)}
+const _tiK=tiText;tiText=function(){return amKing()?'👑 Rey de Casinetori':_tiK()};
+function thrAgo(t){const m=Math.max(1,Math.floor((NOWS()-t)/60e3));return m<60?m+' min':m<1440?Math.floor(m/60)+' h':Math.floor(m/1440)+' días'}
+function thrHTML(t){const nm=p=>esc(p.name||'Alguien'),av=p=>p.img?`<img src="${esc(p.img)}" alt="">`:esc(p.av||'😎'),rent=short(niceN(Math.max(20000,(+t.top.coins||0)*.001)));
+  const perks=`<div class="th-perks"><span>👑 Corona en la clasificación</span><span>🏷️ Título «Rey de Casinetori»</span><span>💰 Renta del rey cada hora (${rent} €)</span></div>`;
+  if(t.i===0){const b=t.below,gap=b?Math.max(0,(+t.me.coins||0)-(+b.coins||0)):0;
+    return`<div class="th-top"><span class="th-cr">👑</span><div><h3>Eres el rey de Casinetori</h3><div class="th-sub">${S.kSince?'Llevas '+thrAgo(S.kSince)+' en el trono':'Acabas de subir al trono'}</div></div></div>
+      ${b?`<div class="th-goal">${nm(b)} (2º) está a <span class="thb">${short(gap)} €</span>. ¡Que no te pille!</div><div class="th-bar"><i style="width:${Math.max(4,Math.min(100,(+b.coins||0)/Math.max(1,+t.me.coins||1)*100))}%"></i></div>`:''}${perks}`}
+  const top=t.top,gapTop=Math.max(0,(+top.coins||0)-(+t.me.coins||0)),a=t.above,gapA=a?Math.max(0,(+a.coins||0)-(+t.me.coins||0)):0;
+  return`<div class="th-top"><span class="th-av emo">${av(top)}</span><div style="min-width:0"><h3>👑 El rey: ${nm(top)}</h3><div class="th-sub">${short(+top.coins||0)} €${+top.ks>0&&+top.ks<NOWS()?' · lleva '+thrAgo(+top.ks)+' en el trono':''}</div></div></div>
+    <div class="th-goal">Vas el <span class="thb">${t.i+1}º</span>.${a&&t.i>1?` Para adelantar a ${nm(a)} (${t.i}º) te faltan <span class="thb">${short(gapA)} €</span>.`:''} Para quitarle el trono te faltan <span class="thb">${short(gapTop)} €</span>.</div>
+    <div class="th-bar"><i style="width:${Math.max(3,Math.min(100,(+t.me.coins||0)/Math.max(1,+top.coins||1)*100))}%"></i></div>${perks}`}
+function thrRender(){const t=thrState();['#thrHome','#thrRank'].forEach(sel=>{const el=$(sel);if(!el)return;if(!t||(S.rkTab2&&0)){el.hidden=true;return}el.hidden=false;el.classList.toggle('thking',t.i===0);const h=thrHTML(t);if(el._h!==h){el._h=h;el.innerHTML=h}})}
+/* avisos al adelantar o ser adelantado, y renta del rey */
+function thrTick(){const t=thrState();if(!t){thrRender();return}const r=t.i+1;
+  if(THR.rank&&r!==THR.rank&&r<=50){
+    if(r<THR.rank){if(r===1){sfx('big');confetti(220);troll('👑 ERES EL NUEVO REY','Has adelantado a '+(THR.above||'todos')+'. ¡Que no te lo quiten!','#ffd600',true)}
+      else toast('¡Has subido al '+r+'º!','Has adelantado a '+(THR.names[t.below&&t.below.id]||(t.below&&t.below.name)||'alguien'),'var(--sun)','📈')}
+    else{const who=t.above&&t.above.name||'Alguien';if(THR.rank===1){sfx('lose');troll('TE HAN QUITADO EL TRONO',who+' es el nuevo rey. ¡Recupéralo!','#ff3b4f',true)}
+      else toast(who+' te ha adelantado','Ahora vas el '+r+'º. ¡A por él!','var(--coral)','📉')}}
+  THR.rank=r;THR.above=t.above?t.above.name:null;t.arr.slice(0,60).forEach(p=>THR.names[p.id]=p.name);
+  if(r===1){if(!S.kSince){S.kSince=NOWS();NET.lastP='';pushPlayer()}const now=NOWS();S.kingMs=(S.kingMs||0)+(S.kLast&&now-S.kLast<120e3?now-S.kLast:0);S.kLast=now;
+    if(!S.kingPaid||now-S.kingPaid>=3600e3){if(S.kingPaid){const v=niceN(Math.max(20000,wealth()*.001));give(v);toast('Renta del rey','+'+short(v)+' € por seguir en el trono','var(--sun)','👑');sfx('win')}S.kingPaid=now;save()}}
+  else if(S.kSince){S.kSince=0;S.kLast=0;S.kingPaid=0;NET.lastP='';pushPlayer()}
+  thrRender()}
+setTimeout(()=>{thrTick();setInterval(thrTick,5000)},4000);
+{const _goT=go;go=function(){const r=_goT.apply(this,arguments);try{thrRender()}catch(e){}return r}}
+/* corona al rey en las filas de la clasificación */
+{const _rowK=rowHTML;rowHTML=function(p,i,cat){let h=_rowK.apply(this,arguments);try{const t=thrState();if(t&&p&&(cat==='coins')&&t.top&&(p.id===t.top.id||(p.me&&t.i===0)))h=h.replace('<span class="thb"><span class=','<span class="thb"><span class="crown">👑</span><span class=')}catch(e){}return h}}
+/* logros del trono */
+ACH.push(['👑','Rey de Casinetori','Sé el número 1 de la clasificación de dinero',()=>!!S.kSince||(S.kingMs||0)>0],
+  ['🏰','Reinado largo','Pasa 24 horas en total como rey',()=>(S.kingMs||0)>=864e5]);
+(()=>{try{if(!TUTOS.some(x=>x[1]==='El trono'))TUTOS.splice(2,0,['👑','El trono','Llegar al número 1','#ffd600',[['El número 1 de la clasificación de <b>dinero</b> es el <b>rey</b>.'],['El rey lleva <b>corona 👑</b> y el título «Rey de Casinetori».'],['Mientras siga arriba cobra la <b>renta del rey</b> cada hora.'],['En Inicio ves <b>cuánto te falta</b> para adelantar al de arriba y para quitarle el trono.'],['Te avisamos cuando adelantas a alguien y cuando te adelantan. Si te quitan el trono, lo pierdes todo al momento.']],'Hace falta cuenta y al menos 3 jugadores en la clasificación.','ranking']);
+  if(!FAQ.some(q=>/rey/.test(q[0])))FAQ.unshift(['¿Qué gana el rey (el número 1)?','Corona 👑 en la clasificación, el título «Rey de Casinetori» y la renta del rey: dinero gratis cada hora mientras siga siendo el número 1 en dinero. Si alguien le adelanta, lo pierde todo al momento.'])}catch(e){}})();
 })();
 </script>
 
