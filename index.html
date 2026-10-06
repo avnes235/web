@@ -2913,8 +2913,8 @@ html[data-fit="s"]{zoom:.88}html[data-fit="x"]{zoom:.76}
 
 /* ===== avisos que no molestan: arriba, más pequeños y sin tapar el juego ===== */
 html body #troll{inset:auto 0 auto 0;top:calc(var(--barh,64px) + 10px + env(safe-area-inset-top,0px));justify-content:flex-start;gap:6px;padding:0 12px;z-index:120}
-html body #troll .tw{font-size:clamp(26px,5.2vw,52px);-webkit-text-stroke:3px #000;text-shadow:0 4px 0 #000,0 0 18px rgba(0,0,0,.55);max-width:min(92vw,820px)}
-html body #troll .ts{font-size:clamp(13px,2.6vw,17px);padding:5px 12px}
+html body #troll .tw{font-size:clamp(36px,8vw,72px);-webkit-text-stroke:3px #000;text-shadow:0 5px 0 #000;max-width:min(94vw,880px);background:#0b0e1c;padding:6px 20px 10px;border-radius:16px;border:3px solid var(--tc,#ffd600);box-shadow:0 0 0 3px #000,0 0 28px color-mix(in srgb,var(--tc,#ffd600) 55%,transparent),0 12px 30px rgba(0,0,0,.6)}
+html body #troll .ts{font-size:clamp(16px,3.6vw,22px);padding:7px 16px;background:#fff;color:#111;border:3px solid #000;transform:rotate(-1.5deg)}
 html body #troll.go{animation:trIn .3s ease-out}
 @keyframes trIn{from{transform:translateY(-14px);opacity:0}}
 html body #toasts{left:auto;right:16px;bottom:auto;top:calc(var(--barh,64px) + 10px + env(safe-area-inset-top,0px));width:min(340px,calc(100vw - 32px));gap:6px;pointer-events:none}
@@ -2948,8 +2948,18 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="Mano derecha del jefe"]{background:lin
 @media (prefers-reduced-motion:reduce){html body .xtt[data-xt]{animation:none!important}}
 
 .reckey{margin-top:10px;padding:10px;border:2px dashed #ffd600;border-radius:10px;display:flex;flex-direction:column;gap:4px}.reckey span{color:var(--muted);font-weight:700;font-size:12.5px}
-.rkrow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.rkrow code{font:700 16px var(--f-n);letter-spacing:1px;background:#000;color:#ffd600;padding:5px 9px;border-radius:6px}.rkrow code.rkhide{color:transparent;text-shadow:0 0 9px rgba(255,214,0,.8);user-select:none}
+.rkrow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.rkrow code{font:700 16px var(--f-n);letter-spacing:1px;background:#000;color:#ffd600;padding:5px 9px;border-radius:6px}html body .rkrow code{color:#ffd600!important;background:#000!important;user-select:all}.rkwarn{margin:4px 0 0;color:#ff8a95;font-weight:800;font-size:12.5px}
 .rkv{margin-top:6px;font-weight:800;font-size:13px;padding:5px 8px;border-radius:6px}.rk-ok{background:rgba(20,224,138,.15);color:#14e08a}.rk-no,.rk-none{background:rgba(255,59,79,.15);color:#ff6b7a}.rk-old{background:rgba(255,214,0,.12);color:#ffd600}
+
+.rkgate{text-align:center}.rkg-ic{font-size:44px}.rkgate h2{font-size:26px;margin:4px 0 8px}.rkgate p{color:var(--muted);font-weight:700;line-height:1.4;margin:0 0 10px}
+.rkg-code{font:800 28px var(--f-n);letter-spacing:2px;background:#000;color:#ffd600;border:2px dashed #ffd600;border-radius:12px;padding:12px;margin:6px 0;user-select:all}
+.rkg-btns{display:flex;justify-content:center;gap:8px;margin-bottom:8px}
+.rkg-tips{text-align:left;margin:6px 0 10px;padding-left:4px;list-style:none;font-weight:700;font-size:14px;line-height:1.5}
+.rkg-warn{background:rgba(255,59,79,.14);border:2px solid #ff3b4f;color:#ffb3bb;border-radius:10px;padding:9px;font-size:14px;margin-bottom:10px;line-height:1.35}.rkg-warn b{color:#fff}
+.rkg-chk{display:flex;align-items:center;justify-content:center;gap:8px;font-weight:800;margin:6px 0}.rkg-chk input{width:20px;height:20px}
+.rkg-lab{display:block;font-weight:700;color:var(--muted);font-size:13px;margin:6px 0 4px}#rkgIn{text-align:center;font:800 22px var(--f-n);letter-spacing:4px;width:140px;margin:0 auto 10px;display:block}
+#rkgGo{width:100%}#rkgGo:disabled{opacity:.45}
+.admacc{border:2px solid #ffd600;border-radius:10px;padding:8px 10px;margin-bottom:10px;display:flex;flex-direction:column;gap:6px}.aarow{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:3px 0}.aarow small{color:var(--muted);font-weight:700}.aarow b{text-align:right;overflow-wrap:anywhere}.aarow code{color:#ffd600;background:#000;padding:2px 6px;border-radius:5px}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -3553,7 +3563,7 @@ function troll(text,sub='',col=null,force=false){const now=Date.now();if(!force&
   el.innerHTML=`<div class="tw" style="--tc:${col||cols[ri(0,5)]}"></div>${sub?'<div class="ts"></div>':''}`;el.querySelector('.tw').textContent=text;if(sub)el.querySelector('.ts').textContent=sub;
   el.hidden=false;el.classList.remove('go');void el.offsetWidth;el.classList.add('go');
   [0,.1].forEach(d=>tone(660,.08,'sine',.04,0,d));
-  const a=$('.app');a.classList.remove('shake');clearTimeout(troll.t);troll.t=setTimeout(()=>{el.hidden=true},2800)}
+  const a=$('.app');a.classList.remove('shake');clearTimeout(troll.t);troll.t=setTimeout(()=>{el.hidden=true},3800)}
 const TR={
   lose:[['¡UY!','esta vez no ha habido suerte'],['CASI…','la próxima cae'],['MALA RACHA','respira y vuelve a intentarlo'],['¡OTRA!','que la suerte cambia'],['LA BANCA GANA','esta vez']],
   bigwin:[['¡QUÉ SUERTE!','¿pero cómo lo haces?'],['¡BOMBAZO!','menudo premio'],['¡LEYENDA!','deja algo para los demás'],['¡MILLONARIO!','así se juega']],
@@ -5141,6 +5151,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-06-b',t:'Protege tu cuenta',items:[['🔑','Código de recuperación','Te lo enseñamos una vez y tienes que apuntarlo. Si lo pierdes y pierdes la cuenta, adiós a tu partida. Siempre lo ves en Ajustes › Cuenta.','new','#ffd600'],['📢','Mensajes más visibles','Los avisos grandes se leen mejor, sin tapar el juego.','fix','#ff5fa8'],['🎓','Tutoriales al día','Primeros pasos, Cuentas y Amigos explican lo nuevo.','new','#3f7cff']]},
  {v:'2026-10-06-a',t:'Más claro y más limpio',items:[['🐐','OG y VIP con Google','Los 100 primeros que entren con Google se llevan los títulos exclusivos OG y VIP.','new','#ffd600'],['🔑','Código de recuperación','En Ajustes › Cuenta tienes un código secreto. Apúntalo: con él te devolvemos la cuenta si la pierdes.','new','#14e08a'],['🤝','Mensajitos y regalos entre amigos','Ahora solo se pueden mandar a tus amigos, y sin palabras feas.','fix','#3f7cff'],['🔔','Avisos que no molestan','Salen arriba, más pequeños y duran menos. Los consejos salen mucho menos.','fix','#ff5fa8'],['🎨','Títulos con su propio color','OG, VIP, Fundador, Leyenda… cada uno se ve distinto.','new','#b06bff']]},
  {v:'2026-10-04-v',t:'Juega con el bot',items:[['🤖','Perfil del bot nuevo','El bot ya no enseña dinero ni estadísticas de jugador. Ahora ves cuántas veces habéis hablado, cuántas le has ganado y lo que te ha devuelto.','new','#3f7cff'],['🎁','Regálale dinero al bot','Puede quedárselo… o devolvértelo x2, x3, x5 y hasta x10.','new','#14e08a'],['🎲','Minijuegos con el bot','Cara o cruz, adivina su número, piedra papel o tijera y dados. Entra en su perfil desde Ranking.','new','#ffd600']]},
  {v:'2026-10-04-u',t:'Arreglos',items:[['🎡','Ruleta en el móvil','La mesa de la ruleta ya se ve bien en el móvil: los números no se montan encima de lo demás.','fix','#3f7cff'],['📺','Anuncios sin límite','Ya no hay que esperar: puedes ver todos los anuncios con premio que quieras.','new','#14e08a'],['🔥','Hasbirinino se ve mejor','El botón de Hasbirinino ahora parece un modo más. Solo brilla cuando lo eliges.','fix','#ff2bd6']]},
@@ -9375,9 +9386,9 @@ const _ppX=pushPlayer;pushPlayer=async function(){const t0=NET.lastT;const r=awa
   if(NET.ok&&NET.db&&NET.id&&!NET.kicked&&NET.lastT!==t0){const x={};if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(Object.keys(x).length)NET.db.collection('players').doc(NET.id).set(x,{merge:true}).catch(()=>{})}return r};
 /* en Ajustes: tu código */
 const _accRK=accBlock;accBlock=function(first){const h=_accRK.apply(this,arguments);if(first||!h||!S.recKey)return h;
-  return h+`<div class="reckey"><b>🔑 Tu código de recuperación</b><span>Apúntalo y no se lo enseñes a nadie. Si pierdes la cuenta, el jefe solo te la devuelve con este código.</span><div class="rkrow"><code id="rkCode" class="rkhide">${esc(S.recKey)}</code><button type="button" class="btn alt sm" id="rkShow">Ver</button><button type="button" class="btn alt sm" id="rkCopy">Copiar</button></div></div>`};
-document.addEventListener('click',e=>{if(e.target.closest('#rkShow')){const c=$('#rkCode');if(c){c.classList.toggle('rkhide');e.target.closest('#rkShow').textContent=c.classList.contains('rkhide')?'Ver':'Ocultar'}return}
-  if(e.target.closest('#rkCopy')){try{navigator.clipboard.writeText(S.recKey);toast('Código copiado','Guárdalo en un sitio seguro','var(--mint)','🔑')}catch(_){toast('Cópialo a mano',S.recKey,'var(--sky)','🔑')}}});
+  return h+`<div class="reckey"><b>🔑 Tu código de recuperación</b><span>Apúntalo y no se lo enseñes a nadie. Si pierdes la cuenta, el jefe solo te la devuelve con este código.</span><div class="rkrow"><code id="rkCode" data-on="0">••••-••••-••••</code><button type="button" class="btn alt sm" id="rkShow" onclick="window.rkToggle&&rkToggle()">Ver</button><button type="button" class="btn alt sm" id="rkCopy" onclick="window.rkCopy&&rkCopy()">Copiar</button></div><p class="rkwarn">⚠️ Si lo pierdes y pierdes la cuenta, adiós a tu partida: nadie te la puede devolver.</p></div>`};
+window.rkToggle=function(){document.querySelectorAll('#rkCode').forEach(c=>{const on=c.dataset.on!=='1';c.dataset.on=on?'1':'0';c.textContent=on?S.recKey:'••••-••••-••••'});document.querySelectorAll('#rkShow').forEach(b=>b.textContent=document.querySelector('#rkCode').dataset.on==='1'?'Ocultar':'Ver');sfx('click')};
+window.rkCopy=function(){const k=S.recKey;const ok=()=>toast('Código copiado','Guárdalo en un sitio seguro (notas, foto…)','var(--mint)','🔑');try{navigator.clipboard.writeText(k).then(ok,()=>toast('Cópialo a mano',k,'var(--sky)','🔑'))}catch(_){toast('Cópialo a mano',k,'var(--sky)','🔑')}};
 /* en el Buzón: para recuperar una cuenta hay que poner su código */
 const RK_TAG='\n#rk:';
 const _rbRK=renderBuzon;renderBuzon=function(){const r=_rbRK.apply(this,arguments);try{if(BZ.type==='rec'){const old=$('#bzOld');if(old&&!$('#bzKey')){old.insertAdjacentHTML('afterend',`<label for="bzKey" style="font-weight:800;display:block">El código de recuperación de esa cuenta</label><input class="inp" id="bzKey" maxlength="20" placeholder="Ej: K7QF-2M9X-PL4D" autocomplete="off" autocapitalize="characters" spellcheck="false" style="width:100%;margin:6px 0 4px"><small class="muted" style="display:block;font-weight:700;margin-bottom:10px">Lo tenías en Ajustes › Cuenta. Sin él el jefe no puede saber que la cuenta es tuya.</small>`)}
@@ -9395,6 +9406,48 @@ const _raiRK=renderAdmInbox;renderAdmInbox=function(){const r=_raiRK.apply(this,
 document.addEventListener('click',e=>{const ok=e.target.closest('[data-bzok]');if(!ok)return;const m=BZ.all.get(ok.dataset.bzok);if(!m||m.type!=='rec')return;const c=recCheck(m);if(c.st==='no'||c.st==='none'){e.stopImmediatePropagation();e.preventDefault();toast('No se puede aprobar',c.t,'var(--coral)','🔑')}},true);
 /* el texto que ve la gente no enseña la huella */
 const _bzTxtClean=t=>String(t||'').replace(/\n#rk:[0-9a-f]+$/,'');
+/* ===== 2026-10-06-b: tutorial obligatorio del código de recuperación ===== */
+function rkGateOpen(){if(S.rkOk||!S.name||!S.recKey)return;const m=$('#modal');if(!m.hidden||document.querySelector('#guTour:not([hidden])'))return;if(typeof running!=='undefined'&&running)return;
+  m.hidden=false;const mb=$('#mbox');mb.classList.remove('wide','notes');mb.onclick=null;mb.dataset.lock='1';
+  mb.innerHTML=`<div class="rkgate"><div class="rkg-ic">🔑</div><h2>Tu código de recuperación</h2>
+    <p>Es la <b>llave de tu cuenta</b>. Si un día pierdes la cuenta (cambias de móvil, borras el navegador, olvidas la contraseña…), solo te la podemos devolver con este código.</p>
+    <div class="rkg-code" id="rkgCode">${esc(S.recKey)}</div>
+    <div class="rkg-btns"><button type="button" class="btn alt sm" id="rkgCopy">📋 Copiar</button></div>
+    <ul class="rkg-tips"><li>📝 Apúntalo en las notas del móvil o hazle una captura.</li><li>🤫 No se lo enseñes a nadie: quien lo tenga puede pedir tu cuenta.</li><li>⚙️ Siempre lo puedes volver a ver en <b>Ajustes › Cuenta</b>.</li></ul>
+    <div class="rkg-warn">⚠️ <b>Si lo pierdes y pierdes la cuenta, adiós a tu partida.</b> Nadie, ni el jefe, te la puede devolver sin él.</div>
+    <label class="rkg-chk"><input type="checkbox" id="rkgChk"> Lo he apuntado en un sitio seguro</label>
+    <label for="rkgIn" class="rkg-lab">Para comprobarlo, escribe las <b>4 últimas letras</b> de tu código</label>
+    <input class="inp" id="rkgIn" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="····">
+    <button type="button" class="btn big" id="rkgGo" disabled>Ya lo tengo guardado</button></div>`;
+  const go_=$('#rkgGo'),chk=$('#rkgChk'),inp=$('#rkgIn'),last=S.recKey.slice(-4);
+  const upd=()=>{go_.disabled=!(chk.checked&&inp.value.trim().toUpperCase()===last)};chk.onchange=upd;inp.oninput=upd;
+  $('#rkgCopy').onclick=()=>{try{navigator.clipboard.writeText(S.recKey).then(()=>toast('Código copiado','Pégalo en tus notas','var(--mint)','🔑'),()=>{})}catch(e){}};
+  go_.onclick=()=>{S.rkOk=Date.now();save();try{cloudSave&&cloudSave(true)}catch(e){}delete mb.dataset.lock;closeModal();sfx('big');toast('¡Bien guardado!','Tu cuenta está protegida','var(--mint)','🔑')}}
+setInterval(()=>{try{rkGateOpen()}catch(e){}},4000);
+/* ===== tutoriales al día ===== */
+(()=>{const T=n=>TUTOS.find(t=>t[1]===n);
+  const p=T('Primeros pasos');if(p)p[4]=[['Ponte un <b>nombre</b> y una cara al entrar. Así sales en el ranking.'],['Entra con <b>Google</b> para no perder nunca la partida y jugar en cualquier móvil u ordenador. Los <b>100 primeros</b> se llevan los títulos <b>OG</b> y <b>VIP</b>.'],['Apunta tu <b>código de recuperación</b> (Ajustes › Cuenta). Si lo pierdes y pierdes la cuenta, adiós a tu partida.'],['Cobra el <b>premio diario</b> y gira la <b>ruleta gratis</b> en Inicio.'],['Haz las <b>misiones</b> de Inicio: dan dinero y XP.'],['Juega, sube de nivel y desbloquea cosas para tu perfil.']];
+  const c=T('Cuentas');if(c)c[4]=[['Lo más fácil: <b>Entrar con Google</b> (en la bienvenida o en Ajustes › Cuenta). Tu partida se guarda en la nube.'],['Los <b>100 primeros</b> que entran con Google se llevan los títulos exclusivos <b>OG</b> y <b>VIP</b>.'],['También puedes usar <b>usuario y contraseña</b>. En otro móvil, al entrar, pulsa «¿Ya tienes cuenta? Entra aquí».'],['En Ajustes › Cuenta tienes tu <b>código de recuperación</b>. Apúntalo y no se lo enseñes a nadie.'],['Si pierdes la cuenta: crea una nueva y en <b>Ayuda › Buzón del jefe</b> pide «Recuperar cuenta» con tu nombre antiguo (tipo PEPE#4821) y ese código.'],['<b>Sin el código no se puede demostrar que la cuenta es tuya.</b> Si lo pierdes, adiós a la cuenta.']];
+  const am=T('Amigos');if(am){am[4]=am[4].map(x=>[String(x[0]).replace('Le sale en grande en la pantalla.','Le sale arriba en la pantalla.')]);if(!am[4].some(x=>/solo se pueden mandar/.test(x[0])))am[4].splice(2,0,['Los regalos y mensajitos <b>solo se pueden mandar a amigos</b>, y sin insultos ni palabras feas.'])}
+  const f=FAQ.find(q=>/trolleado/.test(q[0]));if(f){f[0]='Me mandan muchos mensajitos, ¿lo puedo quitar?';f[1]='Solo te los pueden mandar tus amigos. Si alguien te molesta, quítalo de amigos desde su perfil.'}
+  if(!FAQ.some(q=>/código de recuperación/.test(q[0])))FAQ.unshift(['¿Qué es el código de recuperación?','Es la llave de tu cuenta. Lo ves en Ajustes › Cuenta. Si pierdes la cuenta, el jefe solo te la devuelve si le das ese código en el Buzón. Si lo pierdes, adiós a la cuenta.'],['¿Cómo consigo los títulos OG y VIP?','Entrando con Google. Solo para los 100 primeros que lo hagan.']);
+  const add=(v,step,at)=>{if(!GU_T[v])return;if(GU_T[v].some(s=>s[1]===step[1]))return;if(at!=null)GU_T[v].splice(at,0,step);else GU_T[v].push(step)};
+  add('ajustes',['.reckey','Tu código de recuperación','La llave de tu cuenta. Apúntalo y no se lo enseñes a nadie. Si lo pierdes y pierdes la cuenta, adiós a tu partida.'],1);
+  add('inicio',[null,'Guarda tu partida','Entra con Google (Ajustes › Cuenta) y no la perderás nunca. Los 100 primeros se llevan los títulos OG y VIP.']);
+  add('ranking',['.panel.addf','Mensajitos y regalos','Solo se pueden mandar a tus amigos. Agrégalos aquí con su código.']);
+  try{GU_Q.ajustes=GU_Q.ajustes||[];if(!GU_Q.ajustes.some(s=>s[0]==='.reckey'))GU_Q.ajustes.push(['.reckey','Código de recuperación','Apúntalo. Si pierdes la cuenta, el jefe solo te la devuelve con este código.'])}catch(e){}})();
+/* ===== panel del jefe: ver la cuenta de cada jugador (tipo, correo, código) ===== */
+function acctSync(){try{const u=NET.auth&&NET.auth.currentUser;if(!u)return;const g=(u.providerData||[]).find(p=>p&&p.providerId==='google.com');
+  const a={t:u.isAnonymous?'anon':g?'google':'user',mail:(g&&g.email)||u.email||'',uid:u.uid};const k=JSON.stringify(a);if(JSON.stringify(S.acct||{})!==k){S.acct=a;save()}}catch(e){}}
+setInterval(acctSync,15000);setTimeout(acctSync,4000);
+const _rasAcc=renderAdmSide;renderAdmSide=function(){_rasAcc.apply(this,arguments);try{const el=$('#admSide'),id=ADM.sel;if(!el||!id||el.querySelector('#admAcc'))return;
+  el.insertAdjacentHTML('afterbegin',`<div id="admAcc" class="admacc"><span class="alab">🔐 Cuenta privada</span><div id="admAccB" class="netmsg" style="margin:0">Tipo de cuenta, correo de Google, código de recuperación y su partida guardada.</div><button class="btn alt sm" id="admAccGo">Ver sus datos privados</button></div>`)}catch(e){}};
+document.addEventListener('click',async e=>{if(!e.target.closest('#admAccGo')||!ADM.on||!NET.db)return;const id=ADM.sel,b=$('#admAccB');if(!id||!b)return;b.textContent='Cargando…';
+  try{const sv=await NET.db.collection('data/users/'+id).doc('save').get();if(!sv.exists){b.innerHTML='No tiene partida guardada en la nube (juega sin conexión o es muy antigua).';return}
+    const d=(sv.data()||{});let o={};try{o=JSON.parse(d.json||'{}')}catch(_){}const a=o.acct||{};const tp={google:'Google',user:'Usuario y contraseña',anon:'Sin cuenta'}[a.t]||'Desconocido (aún no ha entrado con esta versión)';
+    const row=(k,v)=>`<div class="aarow"><small>${k}</small><b>${v}</b></div>`;
+    b.innerHTML=row('Tipo de cuenta',esc(tp))+(a.mail?row('Correo',esc(a.mail)):'')+row('Código de recuperación',o.recKey?`<code>${esc(o.recKey)}</code>`:'No tiene (versión antigua)')+row('Lo ha apuntado',o.rkOk?'Sí, '+esc(fmtDate(o.rkOk)):'Todavía no')+row('OG',o.ogN?'Nº '+o.ogN:'No')+row('Dinero en su partida',short(+o.coins||0)+' €')+row('Nivel',String(+o.lvl||1))+row('Guardado',d.t?esc(ago(+d.t)):'–')}
+  catch(err){b.textContent='No se ha podido leer: '+(err&&err.code||'error')}});
 })();
 </script>
 
