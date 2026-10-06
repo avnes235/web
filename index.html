@@ -1863,6 +1863,28 @@ html body .updmini{background:#14e08a!important;color:#062a1b!important;border-c
 #evbar.evnext .eve{font-size:22px!important}
 #evbar.evnext .num{font-size:14px!important;white-space:nowrap}
 @media (max-width:600px){#days{gap:4px!important}#days>*{padding:6px 2px!important;min-width:0}#days>* *{white-space:nowrap;font-size:10.5px!important;letter-spacing:-.3px}}
+
+/* ===== BÓVEDA DE COLECCIONES ===== */
+#vault{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:14px;margin-top:6px}
+#v-rico[data-st=boveda] #cats,#v-rico[data-st=boveda] .toolbar>*:not(.seg){display:none!important}
+.vhead{grid-column:1/-1;padding:16px 18px;border-radius:16px;border:3px solid #ffd600;background:linear-gradient(135deg,#2a1f00,#141418 70%);box-shadow:0 0 0 3px #000}
+.vhead h3{margin:0;font:400 clamp(24px,5vw,34px)/1 var(--f-d);color:#ffd600;text-transform:uppercase}
+.vhead p{margin:6px 0 0;font-weight:800;font-size:15px;line-height:1.4}
+.vhead .vbar{height:12px;border-radius:99px;background:#000;margin-top:10px;overflow:hidden;border:2px solid #4a3a00}.vhead .vbar i{display:block;height:100%;background:linear-gradient(90deg,#ff9d00,#ffd600)}
+.vset{position:relative;padding:16px;border-radius:16px;background:#18181d;border:3px solid color-mix(in srgb,var(--vc) 55%,#2a2a33);box-shadow:0 0 0 2px #000;display:flex;flex-direction:column;gap:10px}
+.vset.done{background:linear-gradient(135deg,color-mix(in srgb,var(--vc) 25%,#18181d),#18181d 70%);border-color:var(--vc)}
+.vset .vt{display:flex;align-items:center;gap:12px}.vset .vt .emo{font-size:34px}
+.vset h4{margin:0;font:400 22px/1 var(--f-d);text-transform:uppercase;color:var(--vc)}
+.vset small{font-weight:800;font-size:14px;color:#cfcfd8}
+.vset .vits{display:flex;flex-wrap:wrap;gap:5px}
+.vset .vits span{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;background:#000;font-size:22px;border:2px solid #2a2a33}
+.vset .vits span.no{filter:grayscale(1) brightness(.45);opacity:.6}
+.vset .vits span.ok{border-color:var(--vc);box-shadow:0 0 8px color-mix(in srgb,var(--vc) 60%,transparent)}
+.vset .vp{height:10px;border-radius:99px;background:#000;overflow:hidden}.vset .vp i{display:block;height:100%;background:var(--vc)}
+.vset .vrw{display:flex;align-items:center;gap:10px;justify-content:space-between;font-weight:900;font-size:15px}
+.vset .vrw b{color:#14e08a}
+.vset .vok{color:var(--vc);font-weight:900}
+.vset .btn{animation:updBtn 1.2s ease-in-out infinite}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -3345,7 +3367,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
         <div class="panel facts" id="facts"></div>
       </div>
       <div class="toolbar">
-        <div class="seg" role="group" aria-label="Vista"><button data-st="tienda" aria-pressed="true">Tienda</button><button data-st="mias" aria-pressed="false">Mis cosas <span id="ownCount"></span></button></div>
+        <div class="seg" role="group" aria-label="Vista"><button data-st="tienda" aria-pressed="true">Tienda</button><button data-st="mias" aria-pressed="false">Mis cosas <span id="ownCount"></span></button><button data-st="boveda" aria-pressed="false">🏛️ Bóveda <span id="vaultCount"></span></button></div>
         <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="q" type="search" placeholder="Buscar: yate, isla, Ferrari…" autocomplete="off"></label>
         <select id="sort" aria-label="Ordenar"><option value="asc">Más barato primero</option><option value="desc">Más caro primero</option></select>
       </div>
@@ -5388,6 +5410,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-d',t:'La Bóveda',items:[['🏛️','Bóveda de colecciones','En Tienda › Bóveda: 10 colecciones. Ten uno de cada objeto de un grupo y reclama premio y medalla.','new','#ffd600'],['🏅','Título nuevo','Completa todas y llévate «🏛️ Coleccionista legendario».','new','#ff4fd8']]},
  {v:'2026-10-07-c',t:'Inicio más ordenado',items:[['🧹','Inicio por pestañas','Hoy (premio diario, misiones, botón rojo), Ruletas, Competir (rey, liga, invitar) y Jugar (salas y juegos). Mucho menos scroll.','new','#ffd600'],['🔴','Puntitos rojos','La pestaña te avisa con un número cuando tienes algo para cobrar.','new','#ff3b4f']]},
  {v:'2026-10-07-b',t:'Más fluido y puntos claros',items:[['⚡','La clasificación ya no parpadea','Antes se redibujaba entera cada vez que alguien jugaba y la gente desaparecía un momento. Ahora solo cambia lo que cambia.','fix','#14e08a'],['🏅','Puntos de liga claros','Cada cosa da sus puntos: partida +10, misión +30, ganar en el casino +4, duelo online +40, torneo +100… Lo ves en Clasificación › Liga.','new','#e0914a']]},
  {v:'2026-10-07-a',t:'Clasificación más clara',items:[['🧹','Clasificación por pestañas','Ahora tiene 4 pestañas: Clasificación, Liga, Amigos y Fama. Cada cosa en su sitio, sin tanto lío.','new','#ffd600'],['👉','Categorías deslizando','En el móvil las categorías van en una sola fila: desliza con el dedo para ver más.','new','#3f7cff'],['📌','Menos cosas encima','La tarjeta del rey y la de la liga solo salen en Inicio, y la barra de eventos es más finita fuera de Inicio.','fix','#14e08a']]},
@@ -10124,7 +10147,7 @@ document.addEventListener('click',e=>{if(e.target.closest('#rkGameChip')){sfx('c
 try{document.body.dataset.v=view}catch(e){}
 
 /* ================= OPTIMIZACIÓN: la clasificación no parpadea ================= */
-function pubX(){const x={};try{x.acc=NET.isAnon?'a':(isGoogleUser()?'g':'u');if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(S.refBy){x.rb=S.refBy;x.rbd=S.refDone?1:0}x.ks=S.kSince||0;if(window.lgPub)Object.assign(x,lgPub())}catch(e){}return x}
+function pubX(){const x={};try{x.acc=NET.isAnon?'a':(isGoogleUser()?'g':'u');if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(S.refBy){x.rb=S.refBy;x.rbd=S.refDone?1:0}x.ks=S.kSince||0;x.vc=Object.keys(S.vault||{}).length;if(window.lgPub)Object.assign(x,lgPub())}catch(e){}return x}
 (function(){const D=Object.getOwnPropertyDescriptor(Element.prototype,'innerHTML');
   window.guardHTML=function(el){if(!el||el._g)return;el._g=1;Object.defineProperty(el,'innerHTML',{configurable:true,get(){return D.get.call(this)},set(v){v=String(v);if(v===this._lastH&&this.childNodes.length)return;this._lastH=v;D.set.call(this,v)}})};
   ['#rkList','#rkPodium','#rkMyPos','#rkCats','#rkOnline','#reqs','#thrRank','#thrHome','#lgHome','#arBoard'].forEach(sel=>{try{guardHTML($(sel))}catch(e){}})})();
@@ -10172,6 +10195,37 @@ try{GU_T.inicio=[[null,'¡Bienvenido!','Te enseño cómo va todo en un momento. 
   ['.panel.daily','Premio diario','Cóbralo una vez al día. Si entras todos los días seguidos, la racha sube y el premio también.'],
   ['.panel.missions','Misiones','Retos pequeños. Cuando completas uno, cobras lo que pone y sale otro nuevo.'],
   ['#nav','El menú','Desde aquí vas a todas las salas: Casino, Juegos, Clasificación, Online… Toca cualquiera para entrar.']]}catch(e){}
+
+/* ================= BÓVEDA DE COLECCIONES ================= */
+function vaultSets(){const out=[];Object.entries(CATS).forEach(([k,[n,c,e]])=>{const ids=P.map((p,i)=>i).filter(i=>P[i][3]===k);if(ids.length)out.push({k:'cat_'+k,n:'Colección '+n,e,c,ids})});
+  const normal=P.map((p,i)=>i).filter(i=>P[i][3]!=='cos').sort((a,b)=>P[a][2]-P[b][2]);
+  out.unshift({k:'starter',n:'Primeros caprichos',e:'🛍️',c:'#14e08a',ids:normal.slice(0,5)});
+  out.push({k:'lujo',n:'Lo más caro de la Tierra',e:'💎',c:'#ff4fd8',ids:normal.slice(-5)});
+  return out}
+const vaultPrize=st=>niceN(Math.max(20000,st.ids.reduce((a,i)=>a+P[i][2],0)*.25));
+function vaultDone(st){return st.ids.every(i=>(S.owned[i]||0)>0)}
+function vaultCount(){return Object.keys(S.vault||{}).length}
+function renderVault(){const box=$('#vault');if(!box)return;const sets=vaultSets(),got=vaultCount(),tot=sets.length;
+  box.innerHTML=`<div class="vhead"><h3>🏛️ La Bóveda</h3><p>Completa colecciones teniendo <b>al menos uno de cada objeto</b> del grupo. Cada colección completa te da un premio y una medalla para siempre (aunque luego vendas cosas). Si las completas todas: título «🏛️ Coleccionista legendario».</p><p>Llevas <b style="color:#ffd600">${got} de ${tot}</b> colecciones.</p><div class="vbar"><i style="width:${got/tot*100}%"></i></div></div>`+
+  sets.map(st=>{const have=st.ids.filter(i=>(S.owned[i]||0)>0).length,n=st.ids.length,claimed=!!(S.vault||{})[st.k],ready=have===n&&!claimed;
+    return`<div class="vset ${claimed?'done':''}" style="--vc:${st.c}"><div class="vt"><span class="emo">${claimed?'🏅':st.e}</span><div><h4>${esc(st.n)}</h4><small>${have} de ${n} objetos</small></div></div>
+      <div class="vits">${st.ids.map(i=>`<span class="${(S.owned[i]||0)>0?'ok':'no'}" title="${esc(P[i][1])} · ${eurS(P[i][2])}">${P[i][0]}</span>`).join('')}</div>
+      <div class="vp"><i style="width:${have/n*100}%"></i></div>
+      <div class="vrw">${claimed?'<span class="vok">✔ Completada · medalla conseguida</span>':ready?`<span>Premio: <b>${short(vaultPrize(st))} €</b></span><button class="btn mint sm" data-vclaim="${st.k}">🏅 Reclamar</button>`:`<span>Premio: <b>${short(vaultPrize(st))} €</b></span><span style="color:#9a9aab">Te faltan ${n-have}</span>`}</div></div>`}).join('');
+  const vc=$('#vaultCount');if(vc)vc.textContent=got?'('+got+')':''}
+document.addEventListener('pointerdown',e=>{const b=e.target.closest('[data-vclaim]');if(!b)return;e.preventDefault();const st=vaultSets().find(x=>x.k===b.dataset.vclaim);if(!st||!vaultDone(st)||(S.vault||{})[st.k])return;
+  S.vault=S.vault||{};S.vault[st.k]=Date.now();const v=vaultPrize(st);give(v);
+  const all=vaultSets().every(x=>S.vault[x.k]);if(all){S.exc=S.exc||[];if(!S.exc.includes('ti:vault'))S.exc.push('ti:vault')}
+  save();NET.lastP='';pushPlayer();sfx('big');confetti(220);troll(all?'🏛️ BÓVEDA COMPLETA':'🏅 COLECCIÓN COMPLETA',st.n+' · +'+short(v)+' €'+(all?' y el título «Coleccionista legendario»':''),st.c,true);renderVault()});
+COS.ti.push(['vault','🏛️ Coleccionista legendario',999,'','x']);
+{const _rsV=renderShop;renderShop=function(){const v=$('#v-rico');if(v)v.dataset.st=shopTab;if(shopTab==='boveda'){$('#prods').hidden=true;$('#mine').hidden=true;let b=$('#vault');if(!b){$('#mine').insertAdjacentHTML('afterend','<div id="vault"></div>');b=$('#vault');try{guardHTML(b)}catch(_){}}b.hidden=false;renderVault();try{updMoney()}catch(e){}return}
+  const b=$('#vault');if(b)b.hidden=true;return _rsV.apply(this,arguments)}}
+/* aviso cuando una colección queda lista para reclamar */
+let vReadySeen=null;setInterval(()=>{try{const r=vaultSets().filter(st=>vaultDone(st)&&!(S.vault||{})[st.k]).map(st=>st.k);const key=r.join(',');if(vReadySeen===null){vReadySeen=key;return}
+  if(key&&key!==vReadySeen&&r.some(k=>!vReadySeen.split(',').includes(k))){toast('¡Colección completa!','Ve a Tienda › Bóveda y reclama tu premio','var(--sun)','🏅');sfx('win')}vReadySeen=key;const vc=$('#vaultCount');if(vc)vc.textContent=(vaultCount()?'('+vaultCount()+')':'')+(r.length?' 🔴':'')}catch(e){}},3000);
+ACH.push(['🏅','Coleccionista','Completa tu primera colección de la Bóveda',()=>vaultCount()>=1],['🗄️','Archivero','Completa 5 colecciones',()=>vaultCount()>=5],['🏛️','Bóveda llena','Completa todas las colecciones',()=>vaultSets().every(x=>(S.vault||{})[x.k])]);
+(()=>{try{const t=TUTOS.find(x=>x[1]==='Tienda');if(t&&!t[4].some(x=>/Bóveda/.test(x[0])))t[4].push(['En la pestaña <b>🏛️ Bóveda</b> hay colecciones: ten uno de cada objeto de un grupo y reclama un premio y una medalla. Si las completas todas, título «Coleccionista legendario».']);
+  if(!FAQ.some(q=>/Bóveda/.test(q[0])))FAQ.unshift(['¿Qué es la Bóveda?','Está en Tienda › Bóveda. Son colecciones de objetos: si tienes al menos uno de cada objeto de un grupo, pulsas «Reclamar» y te llevas un premio y una medalla para siempre, aunque después vendas cosas.'])}catch(e){}})();
 })();
 </script>
 
