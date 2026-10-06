@@ -3025,6 +3025,11 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 @media (min-width:881px){html body #nav{overflow-y:auto;max-height:100vh;overscroll-behavior:contain;scrollbar-width:thin}}
 .rkgames{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:10px 12px;border-radius:12px;border:2px solid #4aa8ff;background:rgba(74,168,255,.1);font-weight:800;cursor:pointer;width:100%;text-align:left;color:var(--fg)}.rkgames .e{font-size:24px}.rkgames small{display:block;color:var(--muted);font-weight:700}.rkgames .go{margin-left:auto;background:#4aa8ff;color:#06122e;border-radius:8px;padding:5px 10px;font-weight:900}
 .aapend{font:900 11px var(--f-b);color:#ffd600;margin-left:6px}
+
+#v-online.ol-locked > *:not(#olGate){display:none!important}
+.olgate{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;max-width:520px;margin:30px auto;padding:22px;border-radius:16px;border:2px solid #ffd600;background:linear-gradient(135deg,rgba(255,214,0,.1),rgba(63,124,255,.1))}
+.olgate .e{font-size:46px}.olgate h3{font-size:24px;margin:0}.olgate p{color:var(--muted);font-weight:700;font-size:15.5px;line-height:1.45;margin:0}.olg-b{display:flex;flex-direction:column;gap:8px;width:100%;max-width:340px}.olg-b .gbtn{width:100%;justify-content:center}.olgate small{color:#ffd600;font-weight:800}
+.acctag{display:inline-block;font:900 10px var(--f-b);letter-spacing:.4px;text-transform:uppercase;color:#111;background:var(--t);border-radius:5px;padding:1px 6px;margin-right:6px;vertical-align:middle}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -3672,7 +3677,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-go]');if(t
 
 /* ================= INICIO: ruleta y misiones ================= */
 const WPRIZE=[100,500,200,2000,150,1000,300,5000],WCOL=['#ff6b4a','#ffc23d','#2fd6a3','#4aa8ff','#9a6bff','#ff5fa8','#2fd6a3','#ffc23d'],WAIT=120000;
-const wMult=()=>Math.max(1,Math.ceil(S.lvl/2));
+const wMult=()=>Math.max(Math.ceil(S.lvl/2),Math.floor(Math.max(0,+S.coins||0)*.0004/1000),1);
 let wRot=0,wBusy=false;
 function drawWheel(){const c=$('#wheel'),g=c.getContext('2d'),n=WPRIZE.length,R=190,seg=Math.PI*2/n;g.clearRect(0,0,400,400);
   g.fillStyle='#141a2e';g.beginPath();g.arc(200,200,198,0,7);g.fill();
@@ -3691,7 +3696,7 @@ $('#wheelBtn').addEventListener('click',()=>{if(wBusy||Date.now()-S.wheelAt<WAIT
 const MIS=[['clicks',150,'Pulsa la moneda 150 veces'],['apples',12,'Come 12 manzanas en Snake'],['spins',10,'Gira 10 veces la tragaperras'],['pipes',8,'Pasa 8 tuberías en Pájaro Loco'],
   ['bricks',40,'Rompe 40 ladrillos'],['buys',5,'Compra 5 cosas en la tienda'],['hits',40,'Acierta 40 dianas'],['scratch',3,'Rasca 3 tarjetas'],['races',3,'Apuesta en 3 carreras'],
   ['memory',1,'Termina una partida de Memoria'],['golden',1,'Atrapa una moneda dorada'],['reflex',1,'Completa un test de Reflejos'],['wins',3,'Gana 3 veces en el casino']];
-const misReward=()=>Math.round(300*Math.pow(S.lvl,1.3)/50)*50;
+let misReward=()=>Math.round(300*Math.pow(S.lvl,1.3)/50)*50;
 function newMis(){const used=S.mis.map(m=>m.i);let i;do{i=ri(0,MIS.length-1)}while(used.includes(i));return{i,p:0,done:false}}
 while(S.mis.length<3)S.mis.push(newMis());
 function misTick(k,n){let ch=false;S.mis.forEach(m=>{if(m.done||MIS[m.i][0]!==k)return;m.p=Math.min(MIS[m.i][1],m.p+n);ch=true;if(m.p>=MIS[m.i][1]){m.done=true;toast('Misión completada','Ve a Inicio a cobrarla','var(--mint)','✅');sfx('win')}});if(ch&&view==='inicio')renderMis()}
@@ -3702,7 +3707,7 @@ $('#misList').addEventListener('click',e=>{const b=e.target.closest('[data-claim
 
 /* Premio diario */
 const dayKey=(d=new Date())=>d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
-const dailyAmt=k=>Math.round(250*k*Math.max(1,S.lvl/2)/10)*10*(k%7===0?2:1);
+let dailyAmt=k=>Math.round(250*k*Math.max(1,S.lvl/2)/10)*10*(k%7===0?2:1);
 function dailyInfo(){const d=S.daily||{last:'',streak:0},t=dayKey(),y=dayKey(new Date(Date.now()-864e5));return{ready:d.last!==t,streak:(d.last===t||d.last===y)?d.streak:0}}
 function renderDaily(){const{ready,streak}=dailyInfo(),base=ready?streak:streak-1,cur=((base%7)+7)%7,start=base-cur;
   $('#days').innerHTML=Array.from({length:7},(_,i)=>`<div class="${i<cur||(!ready&&i===cur)?'got':''} ${ready&&i===cur?'now':''}">Día ${i+1}<b>${short(dailyAmt(start+i+1))}</b></div>`).join('');
@@ -5223,6 +5228,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-06-j',t:'Premios a tu medida',items:[['📅','Premio diario según tu dinero','Ahora el premio diario es un porcentaje de lo que tienes, y cuanto más larga la racha, más porcentaje. Cada 7 días, doble.','new','#ffd600'],['🎯','Misiones, ruleta gratis y anuncio del día','También crecen con tu dinero: ya no da igual ser rico.','new','#14e08a'],['🔒','Online solo con cuenta','Para jugar duelos, botes y torneos hace falta cuenta. Los invitados no salen conectados.','new','#ff6b4a']]},
  {v:'2026-10-06-i',t:'Arreglos',items:[['🛍️','El Millonario ahora se llama «Tienda»','Mismo sitio, mismo nombre en el móvil y en el ordenador.','new','#2fd6a3'],['📈','Trading: el gráfico se ve entero','La barra de tu operación con el botón Cerrar sale encima del gráfico, ya no lo tapa.','fix','#3ff0ff'],['🎮','Clasificación de los juegos más a mano','En Clasificación y arriba de Juegos tienes un botón para ir directo.','new','#4aa8ff'],['💰','Mismo dinero en todos los dispositivos','La clasificación enseña siempre el dato real.','fix','#14e08a']]},
  {v:'2026-10-06-h',t:'Menú ordenado',items:[['🧭','Menú por grupos','Jugar (Casino, Juegos, Trading, Online), Dinero (Fábrica, Tienda), Competir (Clasificación, Logros) y Más. Cada sección con su color.','new','#3f7cff'],['🔺','Dash: la onda se ve mejor','Las paredes de la flecha ya son sólidas: se ve claro por dónde se puede pasar.','fix','#3ff0ff']]},
  {v:'2026-10-06-g',t:'Clasificación',items:[['🏆','El Ranking ahora se llama «Clasificación»','Mismo sitio de siempre, en el menú (abajo en el móvil, a la izquierda en el ordenador).','new','#b06bff'],['🗑️','Borrar historial de torneos','En Online › Torneos, junto a «Terminados», puedes limpiar los que ya acabaron. Los premios sin cobrar no se borran.','new','#3f7cff'],['🐐','Cuántos OG quedan','Al entrar o crear tu cuenta ves cuántos títulos OG y VIP quedan de los 100.','new','#ffd600']]},
@@ -8649,7 +8655,7 @@ function guDwDraw(){const c=$('#guDayCv');if(!c)return;const g=c.getContext('2d'
   g.beginPath();g.arc(R,R,R-2,0,Math.PI*2);g.lineWidth=5;g.strokeStyle='#000';g.stroke()}
 function guDayToday(){return typeof dayKey==='function'?dayKey():new Date().toDateString()}
 function guDayHTML(){return `<div class="gu-dw"><span class="ptr"></span><canvas id="guDayCv" width="300" height="300" aria-hidden="true"></canvas><span class="hub emo">🎬</span></div>
-  <div class="gu-dt"><h3>Anuncio del día</h3><p class="gu-dd">Mira un anuncio y gira esta ruleta especial. Premio máximo: <b>10.000 €</b>.</p>
+  <div class="gu-dt"><h3>Anuncio del día</h3><p class="gu-dd">Mira un anuncio y gira esta ruleta especial. Premio máximo: <b class="gu-max">10.000 €</b> <small style="opacity:.8">(sube con tu dinero)</small>.</p>
    <button class="btn big mint" id="guDayBtn" type="button">Ver anuncio y girar</button><small class="gu-di" id="guDayInfo">Una vez al día</small>
    <details><summary>Probabilidades</summary><div>${GU_DW.slice().sort((a,b)=>a[0]-b[0]).map(s=>`<span><b>${guN(s[0])} €</b> ${String(s[1]).replace('.',',')} %</span>`).join('')}</div></details></div>`}
 function guDayMount(){if($('#guDay'))return;const home=$('#v-inicio');if(!home)return;const d=document.createElement('div');d.className='panel';d.id='guDay';d.innerHTML=guDayHTML();
@@ -9692,6 +9698,30 @@ function goGameRank(){go('arcade');setTimeout(()=>{const h=$('#arRankH');if(h)h.
 const _rrGR=renderRank;renderRank=function(){const r=_rrGR.apply(this,arguments);try{const c=$('#rkCats');if(c&&!document.querySelector('.rkgames.inrk'))c.insertAdjacentHTML('beforebegin','<button type="button" class="rkgames inrk" id="rkGamesGo"><span class="e">🎮</span><span>Clasificación de cada minijuego<small>Snake, Dash, Pájaro, Memoria… por dificultad</small></span><span class="go">Ver ›</span></button>')}catch(e){}return r};
 document.addEventListener('click',e=>{if(e.target.closest('#rkGamesGo,#arGamesGo')){sfx('click');if(e.target.closest('#arGamesGo')){const h=$('#arRankH');if(h)h.scrollIntoView({behavior:'smooth',block:'start'})}else goGameRank()}});
 setInterval(()=>{if(view!=='arcade'||$('#arGamesGo')||document.querySelector('#v-arcade .gwrap:not([hidden])'))return;const v=$('#v-arcade');if(!v)return;const first=v.querySelector('.hub,.tiles,.ggrid,section,div');if(first)first.insertAdjacentHTML('beforebegin','<button type="button" class="rkgames" id="arGamesGo"><span class="e">🏆</span><span>Clasificación de los juegos<small>Mira quién va primero en cada minijuego</small></span><span class="go">Ver ↓</span></button>')},800);
+/* ===== 2026-10-06-j: los invitados (sin cuenta) se quedan fuera de todo lo online ===== */
+const isGuestP=p=>!!p&&p.acc==='a';
+refreshOnline=function(){const now=Date.now();NET.online=new Set([...NET.players.entries()].filter(([id,d])=>id!==NET.id&&now-(+d.t||0)<150000&&!isGuestP(d)).map(([id])=>id))};
+function olGate(){const v=$('#v-online');if(!v)return;const guest=NET.ok&&NET.auth&&NET.isAnon;let g=$('#olGate');v.classList.toggle('ol-locked',!!guest);
+  if(!guest){if(g)g.remove();return}
+  if(!g){v.insertAdjacentHTML('afterbegin',`<div id="olGate" class="olgate"><span class="e">🔒</span><h3>Para jugar online necesitas una cuenta</h3><p>Duelos, botes y torneos son contra gente de verdad, así que solo pueden jugar los que tienen cuenta. Como invitado no apareces conectado ni en la clasificación.</p><div class="olg-b">${gBtnH('Entrar con Google')}<button type="button" class="btn alt" data-acc="create">Usuario y contraseña</button></div><small>Con Google, los 100 primeros se llevan los títulos OG y VIP.</small></div>`);g=$('#olGate');g.querySelector('[data-acc]').onclick=()=>openAccount('create')}}
+const _roGate=renderOnline;renderOnline=function(){const r=_roGate.apply(this,arguments);try{olGate()}catch(e){}return r};
+setInterval(()=>{try{if(view==='online')olGate()}catch(e){}},1500);
+/* no se pueden crear ni aceptar duelos, botes o torneos siendo invitado */
+document.addEventListener('click',e=>{if(!(NET.ok&&NET.isAnon))return;const t=e.target.closest('#v-online button, #v-online [data-ol2], [data-olch], [data-pot], [data-jpot], [data-to]');if(!t||t.closest('#olGate'))return;
+  e.stopImmediatePropagation();e.preventDefault();toast('Necesitas una cuenta','Para jugar online entra con Google o crea una cuenta','var(--coral)','🔒')},true);
+/* ===== panel del jefe: quién tiene cuenta y quién no ===== */
+const _raAcc=renderAdmin;renderAdmin=function(){const r=_raAcc.apply(this,arguments);try{if(view!=='admin')return r;document.querySelectorAll('#admList .arow').forEach(row=>{if(row.querySelector('.acctag'))return;const p=NET.players.get(row.dataset.sel)||{};
+  const t=p.acc==='g'?['G','Google','#14e08a']:p.acc==='u'?['U','Usuario','#3f7cff']:p.acc==='a'?['👻','Invitado','#ff6b4a']:['?','Sin saber (no ha entrado con la versión nueva)','#777'];
+  const b=row.querySelector('b');if(b)b.insertAdjacentHTML('afterbegin',`<span class="acctag" style="--t:${t[2]}" title="${t[1]}">${t[0]==='G'||t[0]==='U'?t[1]:t[0]+' '+t[1].split(' ')[0]}</span>`)})}catch(e){}return r};
+/* ===== premios que crecen con tu dinero ===== */
+const wealth=()=>Math.max(0,Math.floor(+S.coins||0));
+const niceN=n=>{n=Math.max(0,Math.round(n));if(n<1000)return Math.round(n/10)*10;const p=Math.pow(10,Math.floor(Math.log10(n))-1);return Math.round(n/p)*p};
+/* premio diario: lo de siempre o un % de tu dinero (más % cuanto más larga la racha), lo que sea mayor */
+const _dAmtW=dailyAmt;dailyAmt=function(k){const base=_dAmtW(k),pct=.003+.0004*Math.min(k,30),w=niceN(wealth()*pct)*(k%7===0?2:1);return Math.max(base,w)};
+/* misiones */
+const _misW=misReward;misReward=function(){return Math.max(_misW(),niceN(wealth()*.002))};
+/* anuncio del día: los premios se multiplican según tu dinero */
+const GU_DW0=GU_DW.map(x=>x[0]);function guDwScale(){const m=Math.max(1,wealth()*.0006/1000);GU_DW.forEach((x,i)=>x[0]=niceN(GU_DW0[i]*m));document.querySelectorAll('.gu-max').forEach(e=>{const t=short(Math.max(...GU_DW.map(x=>x[0])))+' €';if(e.textContent!==t)e.textContent=t})}guDwScale();setInterval(guDwScale,5000);
 })();
 </script>
 
