@@ -1759,6 +1759,20 @@ body.ultra .over,body.ultra .scrim,body.ultra .modal{background:rgba(5,6,14,.92)
 #jpBar .jpgo{background:#ffd600;color:#111;border:0;border-radius:6px;padding:6px 10px;font-weight:900;font-size:12px;cursor:pointer;white-space:nowrap}#jpBar .jpx{background:none;border:0;color:var(--muted);cursor:pointer;font-size:15px}
 @keyframes jpglow{50%{box-shadow:0 0 18px rgba(255,214,0,.35)}}
 @media (max-width:520px){#jpBar{font-size:12px}#jpBar .jpgo{display:none}}
+
+/* ===== aviso de actualización: que se distinga de los eventos ===== */
+html body .updbar{background:linear-gradient(135deg,#0a3d2a,#0d5c3d 50%,#0a3d2a)!important;color:#eafff4!important;border:3px solid #14e08a!important;border-radius:16px;box-shadow:0 0 0 3px #000,0 0 26px rgba(20,224,138,.55)!important;padding:14px 16px!important;gap:14px!important;justify-content:flex-start!important;animation:updGlow 1.6s ease-in-out infinite!important}
+html body .updbar .ui{font-size:40px!important;animation:updRk 1.2s ease-in-out infinite}
+html body .updbar .ut{flex:1 1 auto!important}
+html body .updbar b{font:400 clamp(22px,4vw,32px)/1 var(--f-d)!important;color:#14e08a!important;white-space:normal!important;letter-spacing:.5px}
+html body .updbar small{display:block!important;font-weight:800;font-size:15px;opacity:.95;margin-top:4px;color:#eafff4}
+html body .updbar .btn{background:#14e08a!important;color:#062a1b!important;border:3px solid #000!important;font-size:18px!important;padding:12px 20px!important;box-shadow:0 4px 0 #000;animation:updBtn 1.2s ease-in-out infinite}
+html body .updbar .iconbtn{color:#eafff4!important}
+html body .updmini{background:#14e08a!important;color:#062a1b!important;border-color:#000!important;animation:updBtn 1.2s ease-in-out infinite}
+@keyframes updGlow{50%{box-shadow:0 0 0 3px #000,0 0 44px rgba(20,224,138,.9)}}
+@keyframes updRk{50%{transform:translateY(-5px) rotate(-8deg)}}
+@keyframes updBtn{50%{transform:scale(1.07)}}
+@media (max-width:600px){html body .updbar{flex-wrap:wrap;position:relative!important;padding:14px 40px 14px 12px!important;gap:10px!important}html body .updbar .ui{font-size:32px!important}html body .updbar .ut{flex:1 1 0!important;min-width:0}html body .updbar .btn{flex:1 1 100%;order:5}html body .updbar small{font-size:14px}html body .updbar .iconbtn{position:absolute;top:6px;right:4px}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3166,7 +3180,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
     </header>
     <div class="evbar" id="evbar" hidden></div>
     <div class="throne" id="thrHome" hidden></div>
-    <div class="updbar" id="updBar" hidden role="status"><span class="ui emo">🚀</span><span class="ut"><b>Nueva actualización</b><small>Hay cosas nuevas. Recarga para tenerlas, tu partida no se pierde.</small></span><button class="btn sm" id="updGo">Actualizar</button><button class="iconbtn" id="updX" aria-label="Hacerlo pequeño" title="Más tarde"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="updbar" id="updBar" hidden role="status"><span class="ui emo">🚀</span><span class="ut"><b>¡Hay una versión nueva del juego!</b><small>Pulsa «Actualizar» para tener lo último. Tu partida y tu dinero no se pierden.</small></span><button class="btn sm" id="updGo">Actualizar</button><button class="iconbtn" id="updX" aria-label="Hacerlo pequeño" title="Más tarde"><svg class="ic"><use href="#i-x"/></svg></button></div>
 
     <!-- ============ INICIO ============ -->
     <section class="view" id="v-inicio">
@@ -5275,6 +5289,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-06-r',t:'Aviso de versión nueva',items:[['🚀','Se ve mucho mejor','El aviso de «versión nueva» ahora es verde, más grande y con el botón Actualizar bien visible, para que no se confunda con los eventos.','fix','#14e08a']]},
  {v:'2026-10-06-q',t:'Carteles arriba',items:[['⬆️','Los carteles grandes van arriba','Récords, regalos, eventos y mensajes ya no tapan el centro: salen arriba, más pequeños, y puedes seguir jugando.','fix','#ffd600']]},
  {v:'2026-10-06-p',t:'El trono',items:[['👑','¿Quién es el rey?','El número 1 en dinero es el rey: corona en la clasificación, título «Rey de Casinetori» y renta del rey cada hora.','new','#ffd600'],['📈','Cuánto te falta','En Inicio y en Clasificación ves cuánto te falta para adelantar al de arriba y para quitarle el trono.','new','#14e08a'],['🔔','Avisos','Te avisamos cuando adelantas a alguien, cuando te adelantan y cuando te quitan el trono.','new','#ff6b4a'],['🎁','Regalar en la lista','El botón Regalar sale en todos los jugadores, no solo en tus amigos.','new','#14e08a']]},
  {v:'2026-10-06-o',t:'Eventos para todos a la vez',items:[['🌍','Mismo evento, misma hora, en todo el mundo','El horario de eventos ya no depende de la hora de tu móvil: a todos os sale el mismo evento a la vez.','new','#3f7cff'],['🎉','Muchos más eventos','Casi cada 20 minutos hay uno. Arriba en Inicio ves cuál es el próximo y a qué hora.','new','#ffd600'],['🧰','5 eventos nuevos','Quíntuple (x5), Triple XP, Megalluvia de 20 millones, Cofre misterioso y Caza de monedas.','new','#ff2e88']]},
