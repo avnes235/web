@@ -1600,6 +1600,20 @@ body.ultra .over,body.ultra .scrim,body.ultra .modal{background:rgba(5,6,14,.92)
 .throne .th-perks span{font-weight:800;font-size:13px;padding:4px 9px;border-radius:99px;background:rgba(255,214,0,.14);border:1px solid rgba(255,214,0,.4);color:#ffe680}
 .throne.thking{background:linear-gradient(135deg,#5a4200,#2a1f00 50%,#5a4200);animation:paHxG 2.4s ease-in-out infinite}
 .crown{margin-right:4px;filter:drop-shadow(0 0 6px rgba(255,214,0,.9))}
+.lgcard{display:flex;align-items:center;gap:14px;margin:0 0 14px;padding:14px 16px;border-radius:16px;border:3px solid var(--lc,#cd7f32);background:linear-gradient(135deg,color-mix(in srgb,var(--lc,#cd7f32) 22%,#111),#141418 70%);box-shadow:0 0 0 3px #000;cursor:pointer;color:#fff}
+.lgcard .lgb{font-size:42px;line-height:1;filter:drop-shadow(0 0 10px var(--lc))}
+.lgcard h3{margin:0;font:400 clamp(20px,4vw,28px)/1 var(--f-d);color:var(--lc);text-transform:uppercase}
+.lgcard .lgs{font-weight:800;font-size:15px;margin-top:4px;line-height:1.35}
+.lgcard .lgs .lgh{color:var(--lc);font-weight:900}
+.lgcard .lgt{margin-left:auto;text-align:right;font:900 14px var(--f-b);opacity:.9;white-space:nowrap}
+.lgbox{margin:8px 0 14px;padding:14px 16px;border-radius:14px;border:2px solid var(--lc,#cd7f32);background:#141418;font-weight:700;font-size:15px;line-height:1.45}
+.lgbox .lgh{color:var(--lc,#ffd600);font-weight:900}
+.lgbox .lgtiers{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.lgbox .lgtiers span{padding:4px 10px;border-radius:99px;border:2px solid var(--c);color:var(--c);font-weight:900;font-size:13px}
+.lgbox .lgtiers span.on{background:var(--c);color:#111}
+.fame{display:grid;gap:8px;margin-top:8px}
+.fame div{display:flex;gap:10px;align-items:center;padding:8px 12px;border-radius:10px;background:#1d1d22;font-weight:800}
+.fame .fm{color:#ffd600;min-width:140px}
 .frcoin{position:absolute;top:-60px;width:46px;height:46px;border-radius:50%;pointer-events:auto;cursor:pointer;border:3px solid #a8740a;background:radial-gradient(circle at 35% 30%,#fff6b0,#ffd600 45%,#c99a1a);box-shadow:0 4px 0 #8a5d00,0 0 14px rgba(255,214,0,.7);font:900 20px/40px var(--f-b);color:#8a5d00;text-align:center;animation:rcfall linear forwards;touch-action:manipulation}
 @keyframes rcfall{to{transform:translateY(calc(100vh + 120px)) rotate(var(--rr,360deg))}}
 .rpop{position:fixed;pointer-events:none;z-index:9301;font:900 18px var(--f-b);color:#14e08a;text-shadow:0 2px 0 #000;animation:rpop .8s ease-out forwards}@keyframes rpop{to{transform:translateY(-50px);opacity:0}}
@@ -3180,6 +3194,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
     </header>
     <div class="evbar" id="evbar" hidden></div>
     <div class="throne" id="thrHome" hidden></div>
+    <div class="lgcard" id="lgHome" hidden></div>
     <div class="updbar" id="updBar" hidden role="status"><span class="ui emo">🚀</span><span class="ut"><b>¡Hay una versión nueva del juego!</b><small>Pulsa «Actualizar» para tener lo último. Tu partida y tu dinero no se pierden.</small></span><button class="btn sm" id="updGo">Actualizar</button><button class="iconbtn" id="updX" aria-label="Hacerlo pequeño" title="Más tarde"><svg class="ic"><use href="#i-x"/></svg></button></div>
 
     <!-- ============ INICIO ============ -->
@@ -5289,6 +5304,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-06-s',t:'Ligas y temporadas',items:[['🏅','Ligas semanales','5 ligas: Bronce, Plata, Oro, Diamante y Maestro. Compites con los de tu liga; cada lunes los 3 primeros suben y todos cobran.','new','#e0914a'],['📅','Temporada del mes','Cada mes hay un campeón: se lleva el título «🏆 Campeón del mes» para siempre.','new','#ffd600'],['🏛️','Salón de la fama','Los campeones de cada mes y los reinados más largos como rey.','new','#ff4fd8']]},
  {v:'2026-10-06-r',t:'Aviso de versión nueva',items:[['🚀','Se ve mucho mejor','El aviso de «versión nueva» ahora es verde, más grande y con el botón Actualizar bien visible, para que no se confunda con los eventos.','fix','#14e08a']]},
  {v:'2026-10-06-q',t:'Carteles arriba',items:[['⬆️','Los carteles grandes van arriba','Récords, regalos, eventos y mensajes ya no tapan el centro: salen arriba, más pequeños, y puedes seguir jugando.','fix','#ffd600']]},
  {v:'2026-10-06-p',t:'El trono',items:[['👑','¿Quién es el rey?','El número 1 en dinero es el rey: corona en la clasificación, título «Rey de Casinetori» y renta del rey cada hora.','new','#ffd600'],['📈','Cuánto te falta','En Inicio y en Clasificación ves cuánto te falta para adelantar al de arriba y para quitarle el trono.','new','#14e08a'],['🔔','Avisos','Te avisamos cuando adelantas a alguien, cuando te adelantan y cuando te quitan el trono.','new','#ff6b4a'],['🎁','Regalar en la lista','El botón Regalar sale en todos los jugadores, no solo en tus amigos.','new','#14e08a']]},
@@ -9539,7 +9555,7 @@ if(!S.recKey){S.recKey=recGen();S.rkh='';save()}
 (async()=>{if(!S.rkh){S.rkh=await recHash(S.recKey);save()}})();
 /* los campos extra van aparte (con merge) para no tocar la ficha principal */
 const _ppX=pushPlayer;pushPlayer=async function(){const t0=NET.lastT;const r=await _ppX.apply(this,arguments);
-  if(NET.ok&&NET.db&&NET.id&&!NET.kicked&&NET.lastT!==t0){const x={acc:NET.isAnon?'a':(isGoogleUser()?'g':'u')};if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(S.refBy){x.rb=S.refBy;x.rbd=S.refDone?1:0}x.ks=S.kSince||0;if(Object.keys(x).length)NET.db.collection('players').doc(NET.id).set(x,{merge:true}).catch(()=>{})}return r};
+  if(NET.ok&&NET.db&&NET.id&&!NET.kicked&&NET.lastT!==t0){const x={acc:NET.isAnon?'a':(isGoogleUser()?'g':'u')};if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(S.refBy){x.rb=S.refBy;x.rbd=S.refDone?1:0}x.ks=S.kSince||0;try{if(window.lgPub)Object.assign(x,lgPub())}catch(_){}if(Object.keys(x).length)NET.db.collection('players').doc(NET.id).set(x,{merge:true}).catch(()=>{})}return r};
 /* en Ajustes: tu código */
 const _accRK=accBlock;accBlock=function(first){const h=_accRK.apply(this,arguments);if(first||!h||!S.recKey)return h;
   return h+`<div class="reckey"><b>🔑 Tu código de recuperación</b><span>Apúntalo y no se lo enseñes a nadie. Si pierdes la cuenta, el jefe solo te la devuelve con este código.</span><div class="rkrow"><code id="rkCode" data-on="0">••••-••••-••••</code><button type="button" class="btn alt sm" id="rkShow" onclick="window.rkToggle&&rkToggle()">Ver</button><button type="button" class="btn alt sm" id="rkCopy" onclick="window.rkCopy&&rkCopy()">Copiar</button></div><p class="rkwarn">⚠️ Si lo pierdes y pierdes la cuenta, adiós a tu partida: nadie te la puede devolver.</p></div>`};
@@ -9936,6 +9952,68 @@ ACH.push(['👑','Rey de Casinetori','Sé el número 1 de la clasificación de d
   ['🏰','Reinado largo','Pasa 24 horas en total como rey',()=>(S.kingMs||0)>=864e5]);
 (()=>{try{if(!TUTOS.some(x=>x[1]==='El trono'))TUTOS.splice(2,0,['👑','El trono','Llegar al número 1','#ffd600',[['El número 1 de la clasificación de <b>dinero</b> es el <b>rey</b>.'],['El rey lleva <b>corona 👑</b> y el título «Rey de Casinetori».'],['Mientras siga arriba cobra la <b>renta del rey</b> cada hora.'],['En Inicio ves <b>cuánto te falta</b> para adelantar al de arriba y para quitarle el trono.'],['Te avisamos cuando adelantas a alguien y cuando te adelantan. Si te quitan el trono, lo pierdes todo al momento.']],'Hace falta cuenta y al menos 3 jugadores en la clasificación.','ranking']);
   if(!FAQ.some(q=>/rey/.test(q[0])))FAQ.unshift(['¿Qué gana el rey (el número 1)?','Corona 👑 en la clasificación, el título «Rey de Casinetori» y la renta del rey: dinero gratis cada hora mientras siga siendo el número 1 en dinero. Si alguien le adelanta, lo pierde todo al momento.'])}catch(e){}})();
+
+/* ================= LIGAS SEMANALES, TEMPORADA DEL MES Y SALÓN DE LA FAMA ================= */
+const LG=[['Bronce','🥉','#e0914a'],['Plata','🥈','#c9d1dc'],['Oro','🥇','#ffd600'],['Diamante','💎','#7fe7ff'],['Maestro','🔱','#ff4fd8']];
+const WK=t=>Math.floor(((t||NOWS())-4*864e5)/(7*864e5));
+const MO=t=>{const d=new Date(t||NOWS());return d.getUTCFullYear()*12+d.getUTCMonth()};
+const moName=m=>{const t=new Date(Date.UTC(Math.floor(m/12),m%12,15)).toLocaleDateString('es-ES',{month:'long',year:'numeric'});return t.charAt(0).toUpperCase()+t.slice(1)};
+const wkEnd=()=>(WK()+1)*7*864e5+4*864e5;
+const moEnd=()=>{const m=MO()+1;return Date.UTC(Math.floor(m/12),m%12,1)};
+function leftTxt(t){const s=Math.max(0,t-NOWS()),d=Math.floor(s/864e5),h=Math.floor(s%864e5/3600e3),m=Math.floor(s%3600e3/60e3);return d?d+' d '+h+' h':h?h+' h '+m+' min':m+' min'}
+window.lgPub=function(){return{lg:S.lg||0,wk:S.wk||0,wp:Math.floor(S.wkP||0),pwk:S.pwk||0,pwp:Math.floor(S.pwP||0),plg:S.plg||0,mo:S.mo||0,mp:Math.floor(S.moP||0),pmo:S.pmo||0,pmp:Math.floor(S.pmP||0),chm:(S.chm||[]).slice(-24),kt:Math.floor(S.kingMs||0)}};
+function lgRoll(){const w=WK(),m=MO();
+  if(S.wk!==w){if(S.wk){S.pwk=S.wk;S.pwP=S.wkP||0;S.plg=S.lg||0;S.lgPend=S.wk}S.wk=w;S.wkP=0}
+  if(S.mo!==m){if(S.mo){S.pmo=S.mo;S.pmP=S.moP||0;S.moPend=S.mo}S.mo=m;S.moP=0}}
+lgRoll();
+{const _xpLg=xp;xp=function(n){try{lgRoll();const v=Math.max(0,+n||0);S.wkP=(S.wkP||0)+v;S.moP=(S.moP||0)+v}catch(e){}return _xpLg.apply(this,arguments)}}
+/* puntos de otro jugador en una semana/mes concretos */
+function ptsW(p,w,lg){if(+p.wk===w&&(+p.lg||0)===lg)return+p.wp||0;if(+p.pwk===w&&(+p.plg||0)===lg)return+p.pwp||0;return 0}
+function ptsM(p,m){if(+p.mo===m)return+p.mp||0;if(+p.pmo===m)return+p.pmp||0;return 0}
+function others(){return[...NET.players.entries()].filter(([id,p])=>id!==NET.id&&!hideId(id)&&p.acc!=='a'&&!(typeof isOfi==='function'&&isOfi(p))).map(([id,p])=>({...p,id}))}
+const lgPrize=(lg,mul)=>niceN(Math.max(50000*(lg+1),wealth()*.004*(lg+1))*mul);
+let lgReadyAt=Date.now()+25000;
+function lgSettle(){if(Date.now()<lgReadyAt||!NET.ok||NET.isAnon||!NET.players.size)return;
+  if(S.lgPend){const w=S.lgPend,lg=S.plg||0,mine=S.pwP||0;S.lgPend=null;
+    const g=others().map(p=>({n:p.name,v:ptsW(p,w,lg)})).filter(x=>x.v>0);g.push({n:S.name||'Tú',v:mine,me:1});g.sort((a,b)=>b.v-a.v);
+    const n=g.filter(x=>x.v>0).length,pos=g.findIndex(x=>x.me)+1;let nl=lg,msg='',mul=0;
+    if(mine<=0){if(lg>0){nl=lg-1;msg='No jugaste la semana pasada y bajas a '+LG[nl][0]+'.'}}
+    else{const up=Math.max(1,Math.min(3,Math.floor(n/2)));mul=pos===1?3:pos===2?2:pos===3?1.5:pos<=Math.ceil(n/2)?1:.5;
+      if(lg<4&&((n>=2&&pos<=up)||(n===1&&mine>=500)))nl=lg+1;else if(lg>0&&n>=6&&pos>n-3&&pos>Math.ceil(n/2))nl=lg-1;
+      const v=lgPrize(lg,mul);give(v);S.lgWins=(S.lgWins||0)+(pos===1&&n>=2?1:0);if(nl>lg)S.lgUps=(S.lgUps||0)+1;
+      msg='Quedaste '+pos+'º de '+n+' en la Liga '+LG[lg][0]+' y ganas '+short(v)+' €. '+(nl>lg?'¡SUBES a la Liga '+LG[nl][0]+'!':nl<lg?'Bajas a la Liga '+LG[nl][0]+'.':'Sigues en la Liga '+LG[nl][0]+'.')}
+    S.lg=nl;S.lgMax=Math.max(S.lgMax||0,nl);save();NET.lastP='';pushPlayer();
+    if(msg)setTimeout(()=>{sfx(nl>lg?'big':'win');if(nl>lg)confetti(200);troll(LG[nl][1]+' LIGA '+LG[nl][0].toUpperCase(),msg,LG[nl][2],true);toast('Fin de la liga semanal',msg,'var(--sun)',LG[nl][1])},1500)}
+  if(S.moPend){const m=S.moPend,mine=S.pmP||0;S.moPend=null;if(mine>0){
+    const g=others().map(p=>({v:ptsM(p,m)})).filter(x=>x.v>0);g.push({v:mine,me:1});g.sort((a,b)=>b.v-a.v);const n=g.length,pos=g.findIndex(x=>x.me)+1,nm=moName(m);
+    if(pos<=3&&n>=3){const v=niceN(Math.max(1e6,wealth()*.02)*(pos===1?3:pos===2?2:1));give(v);
+      if(pos===1){S.chm=[...(S.chm||[]),nm];S.exc=S.exc||[];if(!S.exc.includes('ti:champ'))S.exc.push('ti:champ');}
+      save();NET.lastP='';pushPlayer();setTimeout(()=>{sfx('big');confetti(260);troll(pos===1?'🏆 CAMPEÓN DE '+nm.toUpperCase():'🏅 '+pos+'º DE '+nm.toUpperCase(),'+'+short(v)+' €'+(pos===1?' y el título «Campeón del mes» para siempre':''),'#ffd600',true)},4500)}}}}
+setInterval(()=>{try{lgRoll();lgSettle();lgCard()}catch(e){}},5000);
+COS.ti.push(['champ','🏆 Campeón del mes',999,'','x']);
+/* tarjeta de liga en Inicio */
+function myLgList(){const w=WK(),lg=S.lg||0;const g=others().filter(p=>+p.wk===w&&(+p.lg||0)===lg&&+p.wp>0).map(p=>({n:p.name,v:+p.wp}));g.push({n:S.name||'Tú',v:Math.floor(S.wkP||0),me:1});return g.sort((a,b)=>b.v-a.v)}
+function lgCard(){const el=$('#lgHome');if(!el)return;if(!NET.ok||!S.name||(NET.isAnon&&!ADM.on)){el.hidden=true;return}const L=LG[S.lg||0],g=myLgList(),pos=g.findIndex(x=>x.me)+1,n=g.length;
+  el.hidden=false;el.style.setProperty('--lc',L[2]);const h=`<span class="lgb">${L[1]}</span><div style="min-width:0"><h3>Liga ${L[0]}</h3><div class="lgs">Vas el <span class="lgh">${pos}º de ${n}</span> esta semana con ${fmt(Math.floor(S.wkP||0))} puntos. ${(S.lg||0)<4?'Los 3 primeros suben de liga.':'Estás en la liga más alta.'}</div></div><span class="lgt">Acaba en<br>${leftTxt(wkEnd())}</span>`;
+  if(el._h!==h){el._h=h;el.innerHTML=h}el.onclick=()=>{rkCat='liga';go('ranking')}}
+/* categorías nuevas en Clasificación */
+RKC2.splice(1,0,['liga','🏅','Liga semanal','Solo los de tu liga. Cada cosa que haces da puntos (los mismos que la experiencia). El lunes a las 2:00 los 3 primeros suben de liga y todos cobran según su puesto.'],['mes','📅','Temporada','La temporada dura un mes. Puntos = experiencia ganada este mes. El campeón se lleva el título «🏆 Campeón del mes» para siempre y entra en el Salón de la fama.'],['fama','🏛️','Salón de la fama','Los campeones de cada mes y los reinados más largos como rey de Casinetori.']);
+{const _pvL=pval;pval=function(p,cat){if(cat==='liga')return p.me?Math.floor(S.wkP||0):(+p.wk===WK()?+p.wp||0:0);if(cat==='mes')return p.me?Math.floor(S.moP||0):(+p.mo===MO()?+p.mp||0:0);
+  if(cat==='fama'){const c=p.me?(S.chm||[]).length:(p.chm||[]).length,k=p.me?(S.kingMs||0):(+p.kt||0);return c*1e13+Math.floor(k/1000)}return _pvL.apply(this,arguments)}}
+{const _rlL=rankList;rankList=function(tab,cat){if(cat!=='liga'&&cat!=='mes'&&cat!=='fama')return _rlL.apply(this,arguments);const arr=_rlL(tab,'coins');
+  const keep=cat==='liga'?(p=>p.me||(+p.wk===WK()&&(+p.lg||0)===(S.lg||0)&&+p.wp>0)):(p=>p.me||pval(p,cat)>0);return arr.filter(keep).sort((a,b)=>pval(b,cat)-pval(a,cat))}}
+{const _fvL=fmtVal;fmtVal=function(cat,v){if(cat==='liga'||cat==='mes')return fmt(v)+' pts';if(cat==='fama'){const c=Math.floor(v/1e13),k=v%1e13;return(c?'🏆×'+c+' · ':'')+'👑 '+(k>=3600?Math.floor(k/3600)+' h':Math.floor(k/60)+' min')}return _fvL.apply(this,arguments)}}
+{const _rrL=renderRank;renderRank=function(){_rrL.apply(this,arguments);try{const old=$('#lgBox');if(old)old.remove();if(view!=='ranking')return;let h='';
+  if(rkCat==='liga'){const L=LG[S.lg||0];h=`<div class="lgbox" id="lgBox" style="--lc:${L[2]}"><span class="lgh">${L[1]} Estás en la Liga ${L[0]}.</span> Termina en <span class="lgh">${leftTxt(wkEnd())}</span> (lunes a las 2:00). Los 3 primeros suben, los 3 últimos bajan (si sois 6 o más) y quien no juega en toda la semana baja.<div class="lgtiers">${LG.map((x,i)=>`<span style="--c:${x[2]}" class="${i===(S.lg||0)?'on':''}">${x[1]} ${x[0]}</span>`).join('')}</div></div>`}
+  if(rkCat==='mes')h=`<div class="lgbox" id="lgBox" style="--lc:#ffd600">📅 Temporada de <span class="lgh">${moName(MO())}</span>. Termina en <span class="lgh">${leftTxt(moEnd())}</span>. El 1º se lleva el título «🏆 Campeón del mes» para siempre; los 3 primeros cobran un premio gordo.</div>`;
+  if(rkCat==='fama'){const rows=[];const all=[...others(),{name:S.name||'Tú',chm:S.chm||[],me:1}];all.forEach(p=>(p.chm||[]).forEach(m=>rows.push([m,p.name])));
+    h=`<div class="lgbox" id="lgBox" style="--lc:#ffd600">🏛️ <span class="lgh">Campeones de cada temporada</span>${rows.length?`<div class="fame">${rows.map(r=>`<div><span class="fm">${esc(r[0])}</span>🏆 ${esc(r[1]||'')}</div>`).join('')}</div>`:'<div style="margin-top:6px">Todavía no hay campeones. El primero saldrá cuando acabe este mes. ¡Puedes ser tú!</div>'}<div style="margin-top:10px">Abajo: quién tiene más títulos de campeón y más tiempo como rey 👑.</div></div>`}
+  if(h)$('#rkDesc').insertAdjacentHTML('afterend',h);if(rkCat==='fama')$('#rkMyPos').innerHTML=''}catch(e){}}}
+/* logros */
+ACH.push(['📈','Ascenso','Sube de liga',()=>(S.lgMax||0)>=1],['💎','Diamante','Llega a la Liga Diamante',()=>(S.lgMax||0)>=3],['🔱','Maestro','Llega a la Liga Maestro, la más alta',()=>(S.lgMax||0)>=4],
+  ['🏅','Campeón de liga','Queda 1º en tu liga una semana',()=>(S.lgWins||0)>=1],['🏆','Campeón del mes','Gana una temporada',()=>(S.chm||[]).length>=1]);
+(()=>{try{if(!TUTOS.some(x=>x[1]==='Ligas y temporadas'))TUTOS.splice(3,0,['🏅','Ligas y temporadas','Competir cada semana y cada mes','#e0914a',[['Hay 5 ligas: <b>Bronce, Plata, Oro, Diamante y Maestro</b>. Todos empiezan en Bronce.'],['Todo lo que haces da <b>puntos de liga</b> (los mismos que la experiencia). Solo compites con los de tu liga.'],['Cada <b>lunes a las 2:00</b> acaba la semana: los 3 primeros <b>suben</b>, los 3 últimos bajan y todos cobran según su puesto.'],['La <b>temporada</b> dura un mes. El 1º se lleva el título «🏆 Campeón del mes» para siempre y entra en el <b>Salón de la fama</b>.'],['Lo ves todo en Clasificación › Liga semanal, Temporada y Salón de la fama.']],'Si no juegas en toda la semana, bajas de liga.','ranking']);
+  if(!FAQ.some(q=>/liga/.test(q[0])))FAQ.unshift(['¿Cómo subo de liga?','Juega durante la semana: todo da puntos de liga. El lunes a las 2:00, los 3 primeros de tu liga suben. Lo ves en Clasificación › Liga semanal o en la tarjeta de liga de Inicio.'])}catch(e){}})();
 })();
 </script>
 
