@@ -2960,6 +2960,11 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="Mano derecha del jefe"]{background:lin
 .rkg-lab{display:block;font-weight:700;color:var(--muted);font-size:13px;margin:6px 0 4px}#rkgIn{text-align:center;font:800 22px var(--f-n);letter-spacing:4px;width:140px;margin:0 auto 10px;display:block}
 #rkgGo{width:100%}#rkgGo:disabled{opacity:.45}
 .admacc{border:2px solid #ffd600;border-radius:10px;padding:8px 10px;margin-bottom:10px;display:flex;flex-direction:column;gap:6px}.aarow{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:3px 0}.aarow small{color:var(--muted);font-weight:700}.aarow b{text-align:right;overflow-wrap:anywhere}.aarow code{color:#ffd600;background:#000;padding:2px 6px;border-radius:5px}
+
+#noAccBar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 12px;padding:9px 12px;border-radius:12px;background:linear-gradient(90deg,rgba(255,59,79,.16),rgba(255,214,0,.12));border:2px solid #ffb300}
+#noAccBar .na-ic{font-size:22px}#noAccBar .na-t{flex:1 1 260px;font-weight:700;font-size:13.5px;line-height:1.35}#noAccBar .na-t b{color:#ffd600}
+#noAccBar .na-b{display:flex;gap:6px;flex-wrap:wrap;align-items:center}#noAccBar .gbtn{padding:7px 12px;font-size:13px;width:auto}#noAccBar .gbtn svg{width:16px;height:16px}
+.rk-noacc{display:flex;flex-direction:column;gap:6px;align-items:flex-start;margin:0 0 12px;padding:12px;border-radius:12px;border:2px dashed #ffd600;background:rgba(255,214,0,.08)}.rk-noacc span{color:var(--muted);font-weight:700;font-size:13.5px}.rk-noacc .gbtn{width:auto}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -4452,6 +4457,9 @@ async function initNet(){
 
 /* ================= PANEL DEL JEFE ================= */
 const ADM={on:false,sel:null,q:'',bans:new Set(),confirm:null};
+/* fuera de los rankings públicos: baneados y los que juegan sin cuenta */
+function hideId(id){if(ADM.bans.has(id))return true;const p=NET.players&&NET.players.get(id);return!!(p&&p.acc==='a')}
+const meHidden=()=>!!(NET.ok&&NET.isAnon);
 let admPrank=false;
 NET.event=null;
 function evMult(){const e=NET.event;return e&&+e.until>Date.now()&&+e.until-Date.now()<3*3600e3?Math.max(1,Math.min(5,+e.mult||1)):1}
@@ -4782,7 +4790,7 @@ let rkCat='coins',rkG='snake',rkD='n';
 function meRow(){const c=myCos();return{id:NET.id||'me',name:S.name||'Tú',av:S.av||'😎',img:S.img||'',code:S.code||'',coins:Math.floor(S.coins),lvl:S.lvl,pt:S.playtime||0,ach:S.ach.length,col:ownedValue(),cw:st('casinoWon'),clk:st('clicks'),best:bestPub(),cos:c,img:S.img||'',ti:tiText(),show:cfg('showVit')?showList().map(i=>P[i][0]):[],me:true}}
 function pval(p,cat){if(cat==='game'){const v=(p.best||{})[rkG+'_'+rkD];return v==null?null:+v}return +p[cat]||0}
 const gameMin=g=>g==='memoria'||g==='reflejos';
-function rankList(tab,cat){cat=cat||'coins';let arr=[...NET.players.entries()].filter(([id])=>id!==NET.id&&!ADM.bans.has(id)).map(([id,d])=>({...d,id}));
+function rankList(tab,cat){cat=cat||'coins';let arr=[...NET.players.entries()].filter(([id])=>id!==NET.id&&!hideId(id)).map(([id,d])=>({...d,id}));
   if(tab==='amigos'){const f=new Set(S.friends||[]);arr=arr.filter(p=>f.has(p.id))}if(S.name)arr.push(meRow());
   if(cat==='game'){arr=arr.filter(p=>pval(p,'game')!=null&&pval(p,'game')>0);const mn=gameMin(rkG);return arr.sort((a,b)=>mn?pval(a,'game')-pval(b,'game'):pval(b,'game')-pval(a,'game'))}
   return arr.sort((a,b)=>pval(b,cat)-pval(a,cat))}
@@ -5151,6 +5159,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-06-c',t:'Ranking solo con cuenta',items:[['🏆','Hace falta cuenta para salir en el ranking','Entra con Google o crea una cuenta con usuario y contraseña. Sin cuenta, tu puesto solo lo ves tú y no cobras los premios de los rankings.','new','#ffd600'],['🐐','Con Google, OG y VIP','Los 100 primeros que entren con Google se llevan los dos títulos exclusivos.','new','#b06bff']]},
  {v:'2026-10-06-b',t:'Protege tu cuenta',items:[['🔑','Código de recuperación','Te lo enseñamos una vez y tienes que apuntarlo. Si lo pierdes y pierdes la cuenta, adiós a tu partida. Siempre lo ves en Ajustes › Cuenta.','new','#ffd600'],['📢','Mensajes más visibles','Los avisos grandes se leen mejor, sin tapar el juego.','fix','#ff5fa8'],['🎓','Tutoriales al día','Primeros pasos, Cuentas y Amigos explican lo nuevo.','new','#3f7cff']]},
  {v:'2026-10-06-a',t:'Más claro y más limpio',items:[['🐐','OG y VIP con Google','Los 100 primeros que entren con Google se llevan los títulos exclusivos OG y VIP.','new','#ffd600'],['🔑','Código de recuperación','En Ajustes › Cuenta tienes un código secreto. Apúntalo: con él te devolvemos la cuenta si la pierdes.','new','#14e08a'],['🤝','Mensajitos y regalos entre amigos','Ahora solo se pueden mandar a tus amigos, y sin palabras feas.','fix','#3f7cff'],['🔔','Avisos que no molestan','Salen arriba, más pequeños y duran menos. Los consejos salen mucho menos.','fix','#ff5fa8'],['🎨','Títulos con su propio color','OG, VIP, Fundador, Leyenda… cada uno se ve distinto.','new','#b06bff']]},
  {v:'2026-10-04-v',t:'Juega con el bot',items:[['🤖','Perfil del bot nuevo','El bot ya no enseña dinero ni estadísticas de jugador. Ahora ves cuántas veces habéis hablado, cuántas le has ganado y lo que te ha devuelto.','new','#3f7cff'],['🎁','Regálale dinero al bot','Puede quedárselo… o devolvértelo x2, x3, x5 y hasta x10.','new','#14e08a'],['🎲','Minijuegos con el bot','Cara o cruz, adivina su número, piedra papel o tijera y dados. Entra en su perfil desde Ranking.','new','#ffd600']]},
@@ -5432,8 +5441,8 @@ document.addEventListener('click',e=>{if(!e.target.closest('#cfPw'))return;$('#m
 
 /* ================= PREMIOS POR HORA DE LOS RANKINGS ================= */
 const TOPPAY=[200,100,50],TDMUL={f:.5,n:1,d:2,h:3,x:5},TOP_MIN=2,TOP_BACK=6;
-function boardList(g,d){const key=g+'_'+d,arr=[...NET.players.entries()].filter(([id])=>id!==NET.id&&!ADM.bans.has(id)).map(([id,p])=>({id,name:p.name,v:+((p.best||{})[key])})).filter(x=>x.v>0);
-  const mv=S.best&&S.best[g+'.'+d];if(mv>0&&S.name)arr.push({id:NET.id||'me',name:S.name,v:+mv,me:true});const mn=gameMin(g);return arr.sort((a,b)=>mn?a.v-b.v:b.v-a.v)}
+function boardList(g,d){const key=g+'_'+d,arr=[...NET.players.entries()].filter(([id])=>id!==NET.id&&!hideId(id)).map(([id,p])=>({id,name:p.name,v:+((p.best||{})[key])})).filter(x=>x.v>0);
+  const mv=S.best&&S.best[g+'.'+d];if(mv>0&&S.name&&!meHidden())arr.push({id:NET.id||'me',name:S.name,v:+mv,me:true});const mn=gameMin(g);return arr.sort((a,b)=>mn?a.v-b.v:b.v-a.v)}
 function topPayFor(len,pos){const paid=Math.min(3,len-1);return len>=TOP_MIN&&pos<paid?TOPPAY[pos]:0}
 function topEarn(){const items=[];let total=0;if(!NET.ok)return{total,items};
   GLIST.forEach(([g,n])=>DIFFS.forEach(([d,dn])=>{const L=boardList(g,d),i0=L.findIndex(x=>x.me);if(i0<0)return;let i=i0;while(i>0&&L[i-1].v===L[i0].v)i--;const base=topPayFor(L.length,i);if(!base)return;const amt=Math.round(base*TDMUL[d]);total+=amt;items.push({g,n,d,dn,pos:i+1,amt})}));
@@ -5624,7 +5633,7 @@ const dn=p=>(p&&!p.me&&S.nick&&S.nick[p.id])||(p&&p.name)||'Sin nombre';
 /* ---- Pérdidas del casino ---- */
 function casinoLose(n,g){n=Math.floor(+n||0);if(n<=0)return;S.st.casinoLost=(S.st.casinoLost||0)+n;S.bl=S.bl||{};const cur=S.bl[g];if(!cur||n>cur[0])S.bl[g]=[n,n,Date.now()];setTimeout(()=>{renderKing();renderCasRec()},60)}
 (function backfill(){const w=Object.values(S.bw||{}).reduce((a,x)=>a+(+x[0]||0),0);if(w>(S.st.casinoWon||0)){S.st.casinoWon=w;save()}})();
-renderKing=function(){const el=$('#casKing');if(!el)return;const map=new Map([...NET.players.entries()].filter(([id])=>!ADM.bans.has(id)).map(([id,d])=>[id,{...d,id}]));
+renderKing=function(){const el=$('#casKing');if(!el)return;const map=new Map([...NET.players.entries()].filter(([id])=>!hideId(id)).map(([id,d])=>[id,{...d,id}]));
   if(S.name){const me={...(map.get(NET.id)||{}),id:NET.id||'me',name:S.name,av:S.av,img:S.img,cos:myCos(),cw:st('casinoWon'),cl:st('casinoLost'),me:true};map.set(me.id,me)}
   const all=[...map.values()],kw=all.filter(p=>+p.cw>0).sort((a,b)=>b.cw-a.cw)[0],kl=all.filter(p=>+p.cl>0).sort((a,b)=>b.cl-a.cl)[0];
   const card=(k,cls,emo,lab,key,verb)=>`<div class="kcard ${cls}"><span class="crown emo">${emo}</span><span class="kt"><small>${lab}</small>${k?`<b class="${ncCls(k.cos)}">${esc(dn(k))}${k.me?' (tú)':''}</b><span class="me">${verb} ${fmt(+k[key])} € · tú llevas ${fmt(key==='cw'?st('casinoWon'):st('casinoLost'))} €</span>`:`<b>Nadie todavía</b><span class="me">${key==='cw'?'El primero que gane algo se lleva la corona.':'Aquí sale quien más dinero ha palmado.'}</span>`}</span></div>`;
@@ -8641,7 +8650,7 @@ curAt=function(){return''};atTxt=function(){return'conectado'};
 /* ---- Récord personal o mundial ---- */
 let _recSnap=null;const _sgR=startGame;startGame=function(){const r=_sgR.apply(this,arguments);try{_recSnap=gid?{k:gid+'.'+curDiff(),v:S.best[gid+'.'+curDiff()]}:null}catch(e){}return r};
 const _ovR=overlay;overlay=function(mode,d){const r=_ovR.apply(this,arguments);if(mode==='over'&&_recSnap){const k=_recSnap.k,now=S.best&&S.best[k];if(now!=null&&now!==_recSnap.v){const g=k.split('.')[0],df=k.split('.')[1];_recSnap.v=now;
-    setTimeout(()=>{const mn=typeof gameMin==='function'&&gameMin(g);const others=[...NET.players.entries()].filter(([id])=>id!==NET.id).map(([,p])=>+((p.best||{})[g+'_'+df])).filter(v=>v>0);
+    setTimeout(()=>{const mn=typeof gameMin==='function'&&gameMin(g);const others=[...NET.players.entries()].filter(([id])=>id!==NET.id&&!hideId(id)).map(([,p])=>+((p.best||{})[g+'_'+df])).filter(v=>v>0);
       const world=NET.ok&&(!others.length||(mn?now<Math.min(...others):now>Math.max(...others)));
       if(world){sfx('big');confetti(260);troll('¡NUEVO RÉCORD MUNDIAL!','nadie lo ha hecho mejor. A ver quién te lo quita','#ffd600',true)}else{sfx('win');troll('NUEVO RÉCORD PERSONAL','te has superado a ti mismo','#14e08a',true)}},700)}}return r};
 
@@ -9383,7 +9392,7 @@ if(!S.recKey){S.recKey=recGen();S.rkh='';save()}
 (async()=>{if(!S.rkh){S.rkh=await recHash(S.recKey);save()}})();
 /* los campos extra van aparte (con merge) para no tocar la ficha principal */
 const _ppX=pushPlayer;pushPlayer=async function(){const t0=NET.lastT;const r=await _ppX.apply(this,arguments);
-  if(NET.ok&&NET.db&&NET.id&&!NET.kicked&&NET.lastT!==t0){const x={};if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(Object.keys(x).length)NET.db.collection('players').doc(NET.id).set(x,{merge:true}).catch(()=>{})}return r};
+  if(NET.ok&&NET.db&&NET.id&&!NET.kicked&&NET.lastT!==t0){const x={acc:NET.isAnon?'a':(isGoogleUser()?'g':'u')};if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(Object.keys(x).length)NET.db.collection('players').doc(NET.id).set(x,{merge:true}).catch(()=>{})}return r};
 /* en Ajustes: tu código */
 const _accRK=accBlock;accBlock=function(first){const h=_accRK.apply(this,arguments);if(first||!h||!S.recKey)return h;
   return h+`<div class="reckey"><b>🔑 Tu código de recuperación</b><span>Apúntalo y no se lo enseñes a nadie. Si pierdes la cuenta, el jefe solo te la devuelve con este código.</span><div class="rkrow"><code id="rkCode" data-on="0">••••-••••-••••</code><button type="button" class="btn alt sm" id="rkShow" onclick="window.rkToggle&&rkToggle()">Ver</button><button type="button" class="btn alt sm" id="rkCopy" onclick="window.rkCopy&&rkCopy()">Copiar</button></div><p class="rkwarn">⚠️ Si lo pierdes y pierdes la cuenta, adiós a tu partida: nadie te la puede devolver.</p></div>`};
@@ -9448,6 +9457,26 @@ document.addEventListener('click',async e=>{if(!e.target.closest('#admAccGo')||!
     const row=(k,v)=>`<div class="aarow"><small>${k}</small><b>${v}</b></div>`;
     b.innerHTML=row('Tipo de cuenta',esc(tp))+(a.mail?row('Correo',esc(a.mail)):'')+row('Código de recuperación',o.recKey?`<code>${esc(o.recKey)}</code>`:'No tiene (versión antigua)')+row('Lo ha apuntado',o.rkOk?'Sí, '+esc(fmtDate(o.rkOk)):'Todavía no')+row('OG',o.ogN?'Nº '+o.ogN:'No')+row('Dinero en su partida',short(+o.coins||0)+' €')+row('Nivel',String(+o.lvl||1))+row('Guardado',d.t?esc(ago(+d.t)):'–')}
   catch(err){b.textContent='No se ha podido leer: '+(err&&err.code||'error')}});
+/* ===== 2026-10-06-c: sin cuenta no sales en el ranking (aviso siempre visible) ===== */
+function accType(){return!NET.ok||!NET.auth?'?':NET.isAnon?'a':(isGoogleUser()?'g':'u')}
+setInterval(()=>{try{const a=accType();if(a==='?'||!NET.db||!NET.id||NET.kicked||NET.accSent===a)return;NET.accSent=a;NET.db.collection('players').doc(NET.id).set({acc:a},{merge:true}).catch(()=>{NET.accSent=null})}catch(e){}},5000);
+function noAccRender(){let b=$('#noAccBar');const show=NET.ok&&NET.auth&&NET.isAnon&&!!S.name;
+  if(!show){if(b)b.remove();return}
+  if(!b){b=document.createElement('div');b.id='noAccBar';const hd=document.querySelector('.main > header.bar');if(hd)hd.insertAdjacentElement('afterend',b);else return}
+  const og=!S.ogN;const h=`<span class="na-ic">⚠️</span><span class="na-t"><b>Sin cuenta no sales en el ranking</b> ni cobras los premios de los rankings.${og?' Entra con Google y llévate los títulos exclusivos <b>OG</b> y <b>VIP</b> (100 primeros).':''}</span><span class="na-b">${gBtnH('Entrar con Google')}<button type="button" class="btn alt sm" data-acc="create">Usuario y contraseña</button></span>`;
+  if(b.dataset.h!==h){b.dataset.h=h;b.innerHTML=h}}
+setInterval(()=>{try{noAccRender()}catch(e){}},2000);
+document.addEventListener('click',e=>{const b=e.target.closest('#noAccBar [data-acc]');if(b){e.preventDefault();openAccount(b.dataset.acc)}});
+/* en el ranking, aviso grande si no tienes cuenta */
+const _rrNA=renderRank;renderRank=function(){const r=_rrNA.apply(this,arguments);try{const L=$('#rkList');if(L&&meHidden()&&!L.parentElement.querySelector('.rk-noacc')){L.insertAdjacentHTML('beforebegin',`<div class="rk-noacc"><b>👻 Los demás no te ven en el ranking</b><span>Juegas sin cuenta. Tu posición solo la ves tú. Crea una cuenta (mejor con Google) para aparecer, competir y cobrar los premios cada hora.</span>${gBtnH('Entrar con Google')}</div>`)}else if(!meHidden()){const x=document.querySelector('.rk-noacc');if(x)x.remove()}}catch(e){}return r};
+/* tutorial y preguntas */
+(()=>{try{const c=TUTOS.find(t=>t[1]==='Cuentas');if(c&&!c[4].some(x=>/no sales en el ranking/.test(x[0])))c[4].unshift(['<b>Sin cuenta no sales en el ranking</b> ni cobras los premios de los rankings. Crea una (mejor con Google) para competir.']);
+  const p=TUTOS.find(t=>t[1]==='Primeros pasos');if(p&&!p[4].some(x=>/no sales en el ranking/.test(x[0])))p[4].splice(1,0,['Para <b>salir en el ranking</b> necesitas cuenta: con Google o con usuario y contraseña.']);
+  if(!FAQ.some(q=>/no salgo en el ranking/.test(q[0])))FAQ.unshift(['¿Por qué no salgo en el ranking?','Porque juegas sin cuenta. Para salir en los rankings y cobrar sus premios tienes que entrar con Google o crear una cuenta con usuario y contraseña (Ajustes › Cuenta).']);
+  if(GU_T.ranking&&!GU_T.ranking.some(s=>s[1]==='Hace falta cuenta'))GU_T.ranking.unshift([null,'Hace falta cuenta','Solo salen en el ranking los que tienen cuenta (Google o usuario y contraseña). Sin cuenta, tu puesto solo lo ves tú.'])}catch(e){}})();
+/* panel del jefe: cerrar los datos privados */
+document.addEventListener('click',e=>{if(!e.target.closest('#admAccX'))return;const b=$('#admAccB');if(b)b.innerHTML='Tipo de cuenta, correo de Google, código de recuperación y su partida guardada.';const x=$('#admAccX');if(x)x.remove();const g=$('#admAccGo');if(g)g.hidden=false});
+document.addEventListener('click',e=>{if(!e.target.closest('#admAccGo'))return;setTimeout(()=>{const g=$('#admAccGo');if(g&&!$('#admAccX')){g.hidden=true;g.insertAdjacentHTML('afterend','<button class="btn dark sm" id="admAccX">🔒 Cerrar datos privados</button>')}},0)});
 })();
 </script>
 
