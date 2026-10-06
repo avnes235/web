@@ -1831,6 +1831,38 @@ html body .updmini{background:#14e08a!important;color:#062a1b!important;border-c
 .lgptl div{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:#1d1d22;font-weight:800;font-size:14px}
 .lgptl div .emo{font-size:20px}.lgptl div b{margin-left:auto;color:#14e08a;white-space:nowrap}
 .lgpts p{margin:10px 0 0;font-weight:700;font-size:14px;opacity:.9}.lgpts p b{color:#ffd600}
+
+/* ===== INICIO REMASTERIZADO: pestañas Hoy / Ruletas / Competir / Jugar ===== */
+#v-inicio:not([hidden]){display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));gap:16px;align-items:start}
+#v-inicio .home-top,#v-inicio .funrow{display:contents!important}
+#v-inicio>*,#v-inicio .home-top>*,#v-inicio .funrow>*{margin:0!important;min-width:0}
+#v-inicio .panel.hello,#hoTabs,#v-inicio .sec-h,#v-inicio .tiles,#v-inicio #homeGames,#v-inicio .legalf,#v-inicio #invHome,#v-inicio #thrHome,#v-inicio #lgHome,#v-inicio .hotip{grid-column:1/-1}
+#v-inicio .panel.hello{order:-3}
+#hoTabs{order:-2}
+#v-inicio [data-ht]{order:5}
+#v-inicio .legalf{order:99;margin-top:20px!important}
+#v-inicio:not([data-t=hoy]) [data-ht=hoy],#v-inicio:not([data-t=ruletas]) [data-ht=ruletas],#v-inicio:not([data-t=competir]) [data-ht=competir],#v-inicio:not([data-t=jugar]) [data-ht=jugar]{display:none!important}
+#hoTabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:6px;border-radius:18px;background:#141418;border:2px solid #2a2a33;position:sticky;top:calc(var(--barh,64px) + 4px);z-index:20;box-shadow:0 8px 20px rgba(0,0,0,.45)}
+#hoTabs button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:10px 4px;border-radius:13px;border:0;background:transparent;color:#9a9aab;font:900 13px var(--f-b);text-transform:uppercase;letter-spacing:.4px;cursor:pointer;min-width:0}
+#hoTabs button .emo{font-size:24px;line-height:1;filter:grayscale(.6)}
+#hoTabs button[aria-selected=true]{background:linear-gradient(180deg,#ffd600,#ffb300);color:#111;box-shadow:0 3px 0 #000}
+#hoTabs button[aria-selected=true] .emo{filter:none;transform:scale(1.12)}
+#hoTabs button .dot{position:absolute;top:6px;right:calc(50% - 22px);min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:#ff3b4f;color:#fff;font:900 11px/18px var(--f-b);box-shadow:0 0 0 2px #141418;animation:updBtn 1.2s ease-in-out infinite}
+@media (min-width:700px){#hoTabs button{flex-direction:row;gap:8px;font-size:15px;padding:12px 8px}#hoTabs button .dot{position:static}}
+#v-inicio .panel.hello #hHint{display:none}
+@media (max-width:700px){#v-inicio .panel.hello{padding:16px!important}#v-inicio .panel.hello h2{font-size:26px!important}}
+#v-inicio .tiles .tile h3{overflow-wrap:normal!important;word-break:normal!important;hyphens:none}
+@media (max-width:600px){#v-inicio .tiles .tile h3{font-size:24px!important}}
+#v-inicio .hotip{font-weight:800;font-size:14px;color:#9a9aab;margin:-4px 0 0!important}
+#v-inicio .panel.daily{order:4!important}
+#v-inicio .panel.hello .deco{display:none}
+@media (max-width:700px){#v-inicio .panel.hello h2{display:none}#v-inicio .panel.hello{display:flex;flex-direction:column;gap:10px}#v-inicio .newsbtn{font-size:14px!important;padding:8px 10px!important}}
+#evbar.evnext{padding:8px 12px!important;min-height:0!important;gap:10px!important}
+#evbar.evnext .evt small{display:none!important}
+#evbar.evnext .evt b{font-size:clamp(15px,3.6vw,20px)!important;line-height:1.1}
+#evbar.evnext .eve{font-size:22px!important}
+#evbar.evnext .num{font-size:14px!important;white-space:nowrap}
+@media (max-width:600px){#days{gap:4px!important}#days>*{padding:6px 2px!important;min-width:0}#days>* *{white-space:nowrap;font-size:10.5px!important;letter-spacing:-.3px}}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5356,6 +5388,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-c',t:'Inicio más ordenado',items:[['🧹','Inicio por pestañas','Hoy (premio diario, misiones, botón rojo), Ruletas, Competir (rey, liga, invitar) y Jugar (salas y juegos). Mucho menos scroll.','new','#ffd600'],['🔴','Puntitos rojos','La pestaña te avisa con un número cuando tienes algo para cobrar.','new','#ff3b4f']]},
  {v:'2026-10-07-b',t:'Más fluido y puntos claros',items:[['⚡','La clasificación ya no parpadea','Antes se redibujaba entera cada vez que alguien jugaba y la gente desaparecía un momento. Ahora solo cambia lo que cambia.','fix','#14e08a'],['🏅','Puntos de liga claros','Cada cosa da sus puntos: partida +10, misión +30, ganar en el casino +4, duelo online +40, torneo +100… Lo ves en Clasificación › Liga.','new','#e0914a']]},
  {v:'2026-10-07-a',t:'Clasificación más clara',items:[['🧹','Clasificación por pestañas','Ahora tiene 4 pestañas: Clasificación, Liga, Amigos y Fama. Cada cosa en su sitio, sin tanto lío.','new','#ffd600'],['👉','Categorías deslizando','En el móvil las categorías van en una sola fila: desliza con el dedo para ver más.','new','#3f7cff'],['📌','Menos cosas encima','La tarjeta del rey y la de la liga solo salen en Inicio, y la barra de eventos es más finita fuera de Inicio.','fix','#14e08a']]},
  {v:'2026-10-06-s',t:'Ligas y temporadas',items:[['🏅','Ligas semanales','5 ligas: Bronce, Plata, Oro, Diamante y Maestro. Compites con los de tu liga; cada lunes los 3 primeros suben y todos cobran.','new','#e0914a'],['📅','Temporada del mes','Cada mes hay un campeón: se lleva el título «🏆 Campeón del mes» para siempre.','new','#ffd600'],['🏛️','Salón de la fama','Los campeones de cada mes y los reinados más largos como rey.','new','#ff4fd8']]},
@@ -9946,7 +9979,7 @@ evMult=function(){const e=curEv();return e?(e.type==='x5'?5:e.type==='x3'?3:e.ty
 const evPrize=()=>niceN(Math.max(5000,(S.lvl||1)*5000,wealth()*.003));
 {const _evR=evRender;evRender=function(){_evR();const el=$('#evbar');if(!el)return;const e=curEv();
   if(!e){const n=evNext();if(n){const T=EVT[n.type],mins=Math.max(1,Math.round((n.start-NOWS())/60e3)),hm=new Date(n.start).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-      el.hidden=false;el.classList.add('ev2','evnext');el.style.setProperty('--evc',T[4]);el.innerHTML=`<span class="eve">${T[0]}</span><span class="evt"><b>Próximo evento: ${esc(T[1])}</b><small>A las ${hm} para todo el mundo a la vez · ${esc(T[2])}</small></span><span class="num">${mins<60?'en '+mins+' min':hm}</span>`}return}
+      el.hidden=false;el.classList.add('ev2','evnext');el.style.setProperty('--evc',T[4]);el.innerHTML=`<span class="eve">${T[0]}</span><span class="evt"><b>Próximo: ${esc(T[1])} · ${hm}</b><small>Para todo el mundo a la vez · ${esc(T[2])}</small></span><span class="num">${mins<60?'en '+mins+' min':hm}</span>`}return}
   el.classList.remove('evnext');
   const g=$('#evGift');if(g)g.onclick=null;
   if(e.type==='box'){const num=el.querySelector('.num');const h=(S.evBox===e.id)?`<small>Ya lo has abierto ✔</small>`:`<button class="evbtn" id="evBox">🧰 Abrir</button>`;if(num)num.insertAdjacentHTML('beforebegin',h);
@@ -10111,6 +10144,34 @@ try{GU_T.ranking=[[null,'Hace falta cuenta','Solo salen en la clasificación los
   ['#rk2Tabs','4 pestañas','General: la clasificación de todos. Liga: tu liga de la semana. Amigos: tus amigos, añadir amigos e invitar. Fama: campeones y reyes.'],
   ['#rkCats','Categorías','Dinero, temporada, nivel, logros… Desliza con el dedo para ver todas.'],
   ['#rkPodium','El podio','Los 3 mejores de la categoría que tengas elegida. Pulsa a cualquiera para ver su perfil o regalarle dinero.']]}catch(e){}
+
+/* ================= INICIO REMASTERIZADO (pestañas) ================= */
+const HO_T=[['hoy','🎁','Hoy'],['ruletas','🎡','Ruletas'],['competir','🏆','Competir'],['jugar','🕹️','Jugar']];
+let HO=['hoy','ruletas','competir','jugar'].includes(S.ho)?S.ho:'hoy';
+function hoMark(){const v=$('#v-inicio');if(!v)return;const M=[['.panel.daily','hoy'],['.panel.missions','hoy'],['#forbid','hoy'],['#homeMail','hoy'],['.wheelcard','ruletas'],['#guDay','ruletas'],
+    ['#thrHome','competir'],['#lgHome','competir'],['#invHome','competir'],['#homeGames','jugar'],['#v-inicio .tiles','jugar']];
+  M.forEach(([sel,t])=>{const e=v.querySelector(sel)||$(sel);if(e&&e.dataset.ht!==t)e.dataset.ht=t});
+  v.querySelectorAll(':scope>.sec-h').forEach(e=>{if(!e.dataset.ht)e.dataset.ht='jugar'});
+  if(!$('#hoTabs')){const h=v.querySelector('.panel.hello');const html=`<div id="hoTabs" role="tablist">${HO_T.map(([k,e,n])=>`<button data-ho="${k}"><span class="emo">${e}</span><span>${n}</span></button>`).join('')}</div>`;
+    if(h)h.closest('.home-top')?h.closest('.home-top').insertAdjacentHTML('beforebegin',html):v.insertAdjacentHTML('afterbegin',html);else v.insertAdjacentHTML('afterbegin',html)}
+  if(!$('#hoCompTip')){v.insertAdjacentHTML('beforeend','<p class="hotip" id="hoCompTip" data-ht="competir">Gana puestos en la clasificación, sube de liga e invita a tus amigos para cobrar más.</p>')}
+  if(!$('#hoJugTip')){v.insertAdjacentHTML('beforeend','<p class="hotip" id="hoJugTip" data-ht="jugar">Elige sala o juego. También los tienes siempre en el menú.</p>')}}
+function hoSet(t){HO=t;S.ho=t;const v=$('#v-inicio');if(v)v.dataset.t=t;$$('#hoTabs [data-ho]').forEach(b=>b.setAttribute('aria-selected',b.dataset.ho===t))}
+/* puntitos rojos: lo que puedes cobrar */
+function hoDots(){try{const n={hoy:0,ruletas:0,competir:0,jugar:0};const dc=$('#dClaim');if(dc&&!dc.disabled)n.hoy++;
+  n.hoy+=$$('#misList button').filter(b=>!b.disabled&&/cobrar/i.test(b.textContent)).length;
+  const wb=$('#wheelBtn');if(wb&&!wb.disabled&&/gratis|girar/i.test(wb.textContent))n.ruletas++;const gd=$('#guDayBtn');if(gd&&!gd.disabled)n.ruletas++;
+  $$('#hoTabs [data-ho]').forEach(b=>{const k=b.dataset.ho;let d=b.querySelector('.dot');if(n[k]>0){if(!d){b.insertAdjacentHTML('beforeend','<span class="dot"></span>');d=b.querySelector('.dot')}if(d.textContent!==String(n[k]))d.textContent=n[k]}else if(d)d.remove()})}catch(e){}}
+document.addEventListener('click',e=>{const b=e.target.closest('#hoTabs [data-ho]');if(!b)return;sfx('click');hoSet(b.dataset.ho);hoDots();const tb=$('#hoTabs');if(tb&&tb.getBoundingClientRect().top<70)tb.scrollIntoView({behavior:'smooth',block:'start'})});
+hoMark();hoSet(HO);setInterval(()=>{if(view==='inicio'){hoMark();hoDots()}},1000);
+{const _goH=go;go=function(v){const r=_goH.apply(this,arguments);try{if(view==='inicio'){hoMark();hoSet(HO);hoDots()}}catch(e){}return r}}
+/* la guía de Inicio con las pestañas */
+try{GU_T.inicio=[[null,'¡Bienvenido!','Te enseño cómo va todo en un momento. Aquí todo el dinero es de mentira: no se apuesta ni se gana dinero de verdad.'],
+  ['.panel.hello','Tu nivel','Cuanto más juegas, más experiencia (XP) ganas. Cada vez que subes de nivel te llevas un regalo en dinero.'],
+  ['#hoTabs','Todo en 4 pestañas','Hoy: premio diario, misiones y el botón rojo. Ruletas: la ruleta gratis y la del anuncio. Competir: el rey, tu liga e invitar amigos. Jugar: salas y juegos. El puntito rojo te avisa de lo que puedes cobrar.'],
+  ['.panel.daily','Premio diario','Cóbralo una vez al día. Si entras todos los días seguidos, la racha sube y el premio también.'],
+  ['.panel.missions','Misiones','Retos pequeños. Cuando completas uno, cobras lo que pone y sale otro nuevo.'],
+  ['#nav','El menú','Desde aquí vas a todas las salas: Casino, Juegos, Clasificación, Online… Toca cualquiera para entrar.']]}catch(e){}
 })();
 </script>
 
