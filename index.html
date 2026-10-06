@@ -2988,6 +2988,26 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="Mano derecha del jefe"]{background:lin
 .mhud{display:flex;align-items:center;gap:10px;margin:0 auto 10px;width:100%;max-width:620px;font-weight:900;box-sizing:border-box;padding:0 4px}.mhud #mT{font:16px var(--f-n);min-width:46px;text-align:right}
 .mtbar{flex:1;height:10px;background:var(--card2);border-radius:99px;overflow:hidden}.mtbar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#14e08a,#ffd600);transition:width .1s linear}.mtbar i.low{background:#ff3b4f}
 .rhud{display:flex;justify-content:space-between;width:100%;box-sizing:border-box;padding:0 6px;font-weight:900;margin:10px 0 6px;font-size:18px}#rslots div.bad{color:#ff3b4f}
+
+.wl-step{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#ffd600;color:#111;font:900 15px var(--f-b);margin:0 auto -2px}
+.wl-u{display:flex;flex-direction:column;gap:6px;border:2px solid #3f7cff;border-radius:12px;padding:10px;background:rgba(63,124,255,.08)}.wl-ut{text-align:center;font-size:15px}
+.wl-u .facc{margin:0;padding:0;border:0;background:none}.wl-u #pSave{width:100%}
+
+/* ===== textos más grandes y fáciles de leer ===== */
+html body small{font-size:max(12.5px,.86em)}
+html body #mbox p,html body #mbox li,html body #mbox label{font-size:max(15px,1em);line-height:1.45}
+html body #mbox small{font-size:max(13.5px,.9em)}
+html body .crow .cl small,html body .netmsg,html body .pp-note,html body .muted{font-size:max(13.5px,.95em)}
+html body .toast b{font-size:14.5px}html body .toast small{font-size:13.5px}
+html body .tipbox .tt{font-size:14px}
+html body #noAccBar .na-t{font-size:14.5px}
+html body .wl-hero{font-size:16px}html body .wl-g small,html body .wl-note{font-size:13.5px}
+.rkg-code u{text-decoration:none;background:#ffd600;color:#000;border-radius:6px;padding:0 4px}
+.rkg-steps{display:flex;flex-direction:column;gap:4px;text-align:left;background:rgba(63,124,255,.12);border:2px solid #3f7cff;border-radius:10px;padding:10px 12px;margin:0 0 10px;font-weight:800;font-size:16px;line-height:1.35}.rkg-steps b{color:#ffd600}.rkg-steps u{text-decoration:none;background:#ffd600;color:#000;border-radius:4px;padding:0 3px}
+html body .rkg-lab{font-size:17px;color:#fff;font-weight:800}html body .rkg-chk{font-size:17px}html body .rkg-chk input{width:24px;height:24px}
+html body .rkgate p,html body .rkg-tips{font-size:15px}html body .rkg-warn{font-size:15.5px}
+html body #rkgIn{font-size:28px;width:170px;border:3px solid #ffd600}
+html body #rkgGo{font-size:20px;white-space:normal;line-height:1.15}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -3119,7 +3139,7 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="Mano derecha del jefe"]{background:lin
       <div class="tiles">
         <button class="tile" data-go="rico" style="--c:var(--mint)">
           <svg class="art" viewBox="0 0 200 160"><g transform="rotate(-12 120 70)"><rect x="60" y="30" width="120" height="64" rx="8" fill="#141a2e" opacity=".22"/><rect x="50" y="44" width="120" height="64" rx="8" fill="#fff" opacity=".9"/><circle cx="110" cy="76" r="18" fill="none" stroke="#2fd6a3" stroke-width="6"/><text x="110" y="85" text-anchor="middle" font-family="Anton" font-size="24" fill="#1f9d64">€</text></g><polygon points="150,96 176,96 188,112 163,140 138,112" fill="#141a2e" opacity=".85"/><polygon points="150,96 176,96 170,112 156,112" fill="#fff" opacity=".5"/></svg>
-          <h3>Millonario</h3><p>100.000 millones para fundirte</p>
+          <h3>Millonario</h3><p>Gasta tu dinero en caprichos</p>
         </button>
         <button class="tile" data-go="fabrica" style="--c:var(--sun)">
           <svg class="art" viewBox="0 0 200 160"><circle cx="130" cy="70" r="48" fill="#fff" opacity=".85"/><circle cx="130" cy="70" r="36" fill="none" stroke="#141a2e" stroke-width="5" stroke-dasharray="6 6" opacity=".35"/><text x="130" y="88" text-anchor="middle" font-family="Anton" font-size="52" fill="#d99400">€</text><circle cx="62" cy="40" r="18" fill="#141a2e" opacity=".18"/><circle cx="180" cy="130" r="14" fill="#141a2e" opacity=".18"/></svg>
@@ -3127,11 +3147,11 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="Mano derecha del jefe"]{background:lin
         </button>
         <button class="tile" data-go="casino" style="--c:var(--coral)">
           <svg class="art" viewBox="0 0 200 160"><rect x="58" y="14" width="124" height="120" rx="18" fill="#141a2e" opacity=".85"/><rect x="70" y="40" width="30" height="44" rx="6" fill="#fff"/><rect x="105" y="40" width="30" height="44" rx="6" fill="#fff"/><rect x="140" y="40" width="30" height="44" rx="6" fill="#fff"/><text x="85" y="74" text-anchor="middle" font-family="Anton" font-size="28" fill="#ff4d63">7</text><text x="120" y="74" text-anchor="middle" font-family="Anton" font-size="28" fill="#ff4d63">7</text><text x="155" y="74" text-anchor="middle" font-family="Anton" font-size="28" fill="#ff4d63">7</text><rect x="186" y="40" width="6" height="50" rx="3" fill="#141a2e" opacity=".85"/><circle cx="189" cy="36" r="9" fill="#ffc23d"/><rect x="88" y="98" width="64" height="16" rx="8" fill="#ffc23d"/></svg>
-          <h3>Casino</h3><p>Ruleta, cohete y tragaperras</p>
+          <h3>Casino</h3><p>13 juegos con dinero ficticio</p>
         </button>
         <button class="tile" data-go="arcade" style="--c:var(--sky)">
           <svg class="art" viewBox="0 0 200 160"><path d="M80 40h80a34 34 0 0 1 34 34v10a22 22 0 0 1-39 14l-9-10h-52l-9 10a22 22 0 0 1-39-14V74a34 34 0 0 1 34-34z" fill="#141a2e" opacity=".85"/><path d="M80 58v26M67 71h26" stroke="#fff" stroke-width="8" stroke-linecap="round"/><circle cx="150" cy="64" r="8" fill="#ffc23d"/><circle cx="168" cy="80" r="8" fill="#ff5fa8"/></svg>
-          <h3>Juegos</h3><p>7 juegos para picarte</p>
+          <h3>Juegos</h3><p>Minijuegos sin límite de puntos</p>
         </button>
       </div>
       <div class="sec-h"><h2>Juegos</h2><span>Cada partida da dinero y XP</span></div>
@@ -5182,6 +5202,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-06-f',t:'Más claro y más fácil',items:[['🔐','Crear cuenta, de primeras','Al entrar por primera vez ya puedes elegir: Google (con OG y VIP para los 100 primeros) o usuario y contraseña. Jugar como invitado sigue existiendo, pero sin ranking.','new','#ffd600'],['🔠','Letras más grandes','Los textos pequeños ahora se leen mejor.','fix','#3f7cff'],['📢','Mensajes en fila','Si te llegan varios a la vez, salen uno detrás de otro y se leen todos.','fix','#ff5fa8'],['💰','Dinero al día','Cuando tu dinero cambia mucho, los demás lo ven en segundos.','fix','#14e08a']]},
  {v:'2026-10-06-d',t:'Fábrica y juegos sin límite',items:[['🪙','Monedas voladoras','En la Fábrica cruzan monedas de plata, oro, rubíes, diamantes, arcoíris (clics x2), rayos (energía), tréboles (x5) y cofres sorpresa. ¡Cógelas seguidas para hacer combo!','new','#ffd600'],['♾️','Puntos sin techo','Memoria es contrarreloj con niveles infinitos, Reflejos tiene 3 vidas y rondas sin fin, Penaltis sigue mientras no vayas perdiendo y Dash encadena vueltas. Los récords viejos de Memoria y Reflejos se han reiniciado.','new','#14e08a'],['🔺','Dash más justo','Ya no hay paredes casi invisibles pegadas al suelo y los pinchos se ven mucho mejor.','fix','#3ff0ff'],['🛡️','Tu partida, a salvo','Se ha quitado el botón de borrar la partida.','fix','#3f7cff']]},
  {v:'2026-10-06-c',t:'Ranking solo con cuenta',items:[['🏆','Hace falta cuenta para salir en el ranking','Entra con Google o crea una cuenta con usuario y contraseña. Sin cuenta, tu puesto solo lo ves tú y no cobras los premios de los rankings.','new','#ffd600'],['🐐','Con Google, OG y VIP','Los 100 primeros que entren con Google se llevan los dos títulos exclusivos.','new','#b06bff']]},
  {v:'2026-10-06-b',t:'Protege tu cuenta',items:[['🔑','Código de recuperación','Te lo enseñamos una vez y tienes que apuntarlo. Si lo pierdes y pierdes la cuenta, adiós a tu partida. Siempre lo ves en Ajustes › Cuenta.','new','#ffd600'],['📢','Mensajes más visibles','Los avisos grandes se leen mejor, sin tapar el juego.','fix','#ff5fa8'],['🎓','Tutoriales al día','Primeros pasos, Cuentas y Amigos explican lo nuevo.','new','#3f7cff']]},
@@ -9389,14 +9410,16 @@ const _opW=openProfile;openProfile=function(first){const r=_opW.apply(this,argum
   const nameOk=()=>{const nm=$('#pName').value.trim().replace(/\s+/g,' ');if(nm.length<2){err('Ponte un nombre de 2 a 14 letras.');return false}if(badTxt(nm)){err('Ese nombre no está permitido. Elige otro.');return false}return true};
   const enter=()=>{if(skip)skip.click();else save_.click()};
   const box=document.createElement('div');box.className='wl-box';
-  box.innerHTML=(net?`<div class="wl-g"><span class="wl-badge" id="wlBadge">🎁 Regalo: títulos <b>OG</b> y <b>VIP</b> para los 100 primeros</span>${gBtnH('Entrar con Google')}<small>Tu partida se guarda y la tienes en cualquier móvil u ordenador.</small></div><div class="gor">o</div>`:'')+
-    `<button type="button" class="btn big wl-play" id="wlPlay">▶ Jugar sin cuenta</button><small class="wl-note">Puedes crear la cuenta luego en Ajustes. Sin cuenta, la partida solo está en este dispositivo.</small>`+
-    (net&&facc?`<button type="button" class="linkb" id="wlUser">Prefiero usuario y contraseña</button>`:'');
-  save_.hidden=true;save_.insertAdjacentElement('beforebegin',box);
+  const full=net&&facc;
+  box.innerHTML=(net?`<div class="wl-g"><span class="wl-step">1</span><span class="wl-badge" id="wlBadge">🎁 Regalo: títulos <b>OG</b> y <b>VIP</b> para los 100 primeros</span>${gBtnH('Entrar con Google')}<small>La forma más fácil: tu partida se guarda sola y nunca la pierdes.</small></div>`:'')+
+    (full?`<div class="gor">o</div><div class="wl-u"><span class="wl-step">2</span><b class="wl-ut">Crea tu cuenta con usuario y contraseña</b><div id="wlAccSlot"></div></div>`:'')+
+    `<div class="gor">${full?'o, si solo quieres probar':'o'}</div><button type="button" class="btn ${full?'alt':'big'} wl-play" id="wlPlay">${full?'Jugar como invitado':'▶ Jugar sin cuenta'}</button><small class="wl-note">${full?'⚠️ Como invitado <b>no sales en el ranking</b> y tu partida solo está en este dispositivo.':'Puedes crear la cuenta luego en Ajustes. Sin cuenta, la partida solo está en este dispositivo.'}</small>`;
+  save_.insertAdjacentElement('beforebegin',box);
+  if(full){const slot=$('#wlAccSlot');facc.hidden=false;const fb=facc.querySelector(':scope > b'),fs=facc.querySelector(':scope > small');if(fb)fb.remove();if(fs)fs.remove();slot.appendChild(facc);slot.appendChild(save_);save_.hidden=false;save_.textContent='Crear cuenta y entrar';save_.classList.add('big')}
+  else save_.hidden=true;
   $('#wlPlay').onclick=()=>{if(!nameOk())return;enter()};
   const gb=box.querySelector('[data-gsign]');if(gb)gb.addEventListener('click',e=>{const nm=$('#pName').value.trim();if(nm.length>=2&&!badTxt(nm)){/* guarda el nombre y luego Google */enter()}},true);
-  const wu=$('#wlUser');if(wu)wu.onclick=()=>{facc.hidden=false;save_.hidden=false;box.hidden=true;$('#faU').focus()};
-  $('#pName').onkeydown=e=>{if(e.key==='Enter')$('#wlPlay').click()};
+  $('#pName').onkeydown=e=>{if(e.key==='Enter'){const f=$('#faU');if(f&&!f.closest('[hidden]'))f.focus();else $('#wlPlay').click()}};
   if(net)ogLeft().then(n=>{const b=$('#wlBadge');if(!b||n==null)return;b.innerHTML=n>0?`🎁 Entra con Google y llévate los títulos <b>OG</b> y <b>VIP</b> · quedan <b>${n}</b> de 100`:'🔐 Entra con Google y no pierdas nunca tu partida'});
   return r};
 /* dentro del juego, si no has entrado con Google: aviso pequeño con el premio */
@@ -9581,6 +9604,32 @@ Object.assign(GAMES.reflejos,{unit:'Puntos',best:'max',fmt:v=>fmt(v),low:[80,'¡
 gameMin=g=>false;
 /* los récords viejos de Memoria (movimientos) y Reflejos (milisegundos) no valen con el sistema nuevo */
 if(!S.scoreV2){S.scoreV2=1;for(const k of Object.keys(S.best||{}))if(/^(memoria|reflejos)\./.test(k))delete S.best[k];save()}
+/* ===== 2026-10-06-f: panel del jefe sin saltos ===== */
+(()=>{const _ra=renderAdmin;let tA=0,pend=null;
+  renderAdmin=function(){if(view!=='admin'||!ADM.on)return _ra.apply(this,arguments);const now=Date.now();
+    if(now-tA<2500){if(!pend)pend=setTimeout(()=>{pend=null;renderAdmin()},2500-(now-tA));return}tA=now;
+    const y=scrollY,ls=[...document.querySelectorAll('#v-admin *')].filter(e=>e.scrollTop>0).map(e=>[e.id?'#'+e.id:null,e,e.scrollTop]);
+    ADM._auto=true;let r;try{r=_ra.apply(this,arguments)}finally{ADM._auto=false}
+    ls.forEach(([sel,e,t])=>{const el=e.isConnected?e:(sel&&document.querySelector(sel));if(el)el.scrollTop=t});if(Math.abs(scrollY-y)>2)scrollTo({top:y,behavior:'instant'});return r};
+  const _rs=renderAdmSide;let lastKey='';
+  renderAdmSide=function(){const p=ADM.sel&&NET.players.get(ADM.sel);const key=ADM.sel+'|'+(p?JSON.stringify({...p,t:0,at:0}):'');
+    if(ADM._auto&&key===lastKey&&document.querySelector('#admSide .who'))return;lastKey=key;const y=scrollY;const r=_rs.apply(this,arguments);if(ADM._auto&&Math.abs(scrollY-y)>2)scrollTo({top:y,behavior:'instant'});return r}})();
+/* ===== que todos vean tu dinero casi al momento: si cambia mucho, se sube enseguida ===== */
+let _pcLast=null;
+setInterval(()=>{try{if(!NET.ok||!NET.id||!S.name||NET.kicked)return;const c=Math.floor(S.coins);if(_pcLast==null){_pcLast=c;return}const d=Math.abs(c-_pcLast);
+  if(d>=Math.max(1000,Math.abs(_pcLast)*.02)&&Date.now()-(NET.lastT||0)>6000){_pcLast=c;NET.lastP='';pushPlayer()}}catch(e){}},3000);
+/* ===== mensajes grandes en fila: si llegan varios a la vez (duelos, regalos…), salen uno detrás de otro ===== */
+(()=>{const _tq=troll,Q=[];let busy=0;
+  troll=function(text,sub,col,force){if(!force&&Date.now()<trollUntil)return;if(Date.now()<busy){if(Q.length<6&&!Q.some(x=>x[0]===text&&x[1]===sub))Q.push([text,sub,col]);return}busy=Date.now()+2600;return _tq.call(this,text,sub,col,true)};
+  setInterval(()=>{if(Q.length&&Date.now()>=busy){const[a,b,c]=Q.shift();busy=Date.now()+2600;_tq(a,b,c,true)}},200)})();
+/* ===== el código de recuperación: instrucciones grandes y claras ===== */
+const _rkgO=rkGateOpen;rkGateOpen=function(){const was=$('#rkgCode');_rkgO.apply(this,arguments);const mb=$('#mbox');if(was||!mb||!mb.querySelector('.rkgate')||mb.querySelector('.rkg-steps'))return;
+  const k=S.recKey,last=k.slice(-4),code=$('#rkgCode');if(code)code.innerHTML=esc(k.slice(0,-4))+'<u>'+esc(last)+'</u>';
+  const chk=mb.querySelector('.rkg-chk'),lab=mb.querySelector('.rkg-lab');
+  if(chk)chk.insertAdjacentHTML('beforebegin','<div class="rkg-steps"><b>Para cerrar esta ventana:</b><span>① Apunta el código o hazle captura</span><span>② Marca la casilla de abajo</span><span>③ Escribe las <b>4 últimas letras</b> (las <u>subrayadas</u>)</span></div>');
+  if(lab)lab.innerHTML='③ Escribe aquí las <b>4 últimas letras</b> de tu código ↓';
+  const go_=$('#rkgGo'),inp=$('#rkgIn'),ck=$('#rkgChk');const upd=()=>{const okC=ck.checked,okI=inp.value.trim().toUpperCase()===last;go_.textContent=!okC?'② Marca la casilla':!okI?'③ Escribe las 4 letras':'✅ Ya lo tengo guardado'};
+  ck.addEventListener('change',upd);inp.addEventListener('input',upd);upd()};
 })();
 </script>
 
