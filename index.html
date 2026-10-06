@@ -1885,6 +1885,34 @@ html body .updmini{background:#14e08a!important;color:#062a1b!important;border-c
 .vset .vrw b{color:#14e08a}
 .vset .vok{color:var(--vc);font-weight:900}
 .vset .btn{animation:updBtn 1.2s ease-in-out infinite}
+/* ===== BOLSA DE JUGADORES ===== */
+.bx-hero{padding:18px;border-radius:18px;border:3px solid #14e08a;background:linear-gradient(135deg,#06331f,#141418 70%);box-shadow:0 0 0 3px #000,0 0 26px rgba(20,224,138,.25);margin-bottom:14px}
+.bx-hero h2{margin:0;font:400 clamp(28px,6vw,42px)/1 var(--f-d);color:#14e08a;text-transform:uppercase}
+.bx-hero p{margin:8px 0 0;font-weight:700;font-size:15px;line-height:1.45}.bx-hero p b{color:#ffd600}
+.bx-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}@media (max-width:600px){.bx-sum{grid-template-columns:1fr 1fr}}
+.bx-sum div{background:#000;border-radius:12px;padding:10px 12px;border:2px solid #1f3a2c}.bx-sum small{display:block;font-weight:800;font-size:12px;color:#9a9aab;text-transform:uppercase;letter-spacing:.5px}.bx-sum b{font:900 18px var(--f-b)}
+.bx-up{color:#14e08a!important;background:none!important;border:0!important;padding:0!important}.bx-dn{color:#ff3b4f!important;background:none!important;border:0!important;padding:0!important}
+.bx-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:6px;border-radius:18px;background:#141418;border:2px solid #2a2a33;margin-bottom:12px;position:sticky;top:calc(var(--barh,64px) + 4px);z-index:20}
+.bx-tabs button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:13px;border:0;background:transparent;color:#9a9aab;font:900 12px var(--f-b);text-transform:uppercase;cursor:pointer;min-width:0}
+.bx-tabs button .emo{font-size:22px}.bx-tabs button[aria-selected=true]{background:linear-gradient(180deg,#14e08a,#0fb871);color:#062a1b;box-shadow:0 3px 0 #000}
+@media (min-width:700px){.bx-tabs button{flex-direction:row;justify-content:center;gap:8px;font-size:14px}}
+.bx-how{margin:0 0 12px;padding:12px 14px;border-radius:14px;background:#141418;border:2px solid #2a2a33}.bx-how summary{cursor:pointer;font:900 16px var(--f-b);color:#ffd600;list-style:none}
+.bx-how ul{margin:10px 0 0;padding-left:20px;font-weight:700;font-size:14px;line-height:1.5}.bx-how b{color:#14e08a}
+.bx-list{display:flex;flex-direction:column;gap:8px}
+.bx-row{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:14px;background:#18181d;border:2px solid #2a2a33;color:#fff;text-align:left;cursor:pointer;font:inherit}
+.bx-row:hover{border-color:#14e08a}.bx-row.mine{border-color:#ffd600}
+.bx-av{width:44px;height:44px;flex:none;border-radius:12px;background:#000;display:grid;place-items:center;font-size:26px;overflow:hidden}.bx-av img{width:100%;height:100%;object-fit:cover}.bx-av.big{width:64px;height:64px;font-size:38px}
+.bx-nm{flex:1;min-width:0}.bx-nm b{display:block;font-weight:900;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bx-nm small{font-weight:700;font-size:13px;color:#9a9aab}.bx-own{color:#ffd600;font-weight:900}
+.bx-sp{flex:none}@media (max-width:420px){.bx-sp{display:none}}
+.bx-pr{text-align:right;flex:none}.bx-pr b{display:block;font:900 16px var(--f-b)}.bx-pr small{font-weight:900;font-size:13px}
+.bx-pos{font:400 24px var(--f-d);color:#ffd600;width:26px;text-align:center}
+.bx-me{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:#141418;border:2px solid #ffd600;margin-bottom:10px}.bx-me b{display:block;font-size:18px;color:#ffd600}.bx-me small{font-weight:700;font-size:14px;color:#cfcfd8}
+.bx-note{font-weight:800;font-size:14px;color:#9a9aab;margin:0 0 8px}
+.bx-tr h2{margin:0;font:400 30px/1 var(--f-d)}.bx-trh{display:flex;align-items:center;gap:14px}.bx-big{font:900 24px var(--f-b);color:#14e08a}.bx-big small{font-size:15px}
+.bx-chart{margin:12px 0;padding:8px;border-radius:12px;background:#000;display:flex;justify-content:center}.bx-chart svg{width:100%;height:90px}
+.bx-why{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.bx-why span{font-weight:800;font-size:13px;padding:5px 10px;border-radius:99px;background:#1d1d22;border:1px solid #2a2a33}
+.bx-have{font-weight:700;font-size:15px}.bx-cost{font-weight:800;font-size:15px}.bx-cost b{color:#ffd600}
+.bx-btns{display:flex;gap:10px;flex-wrap:wrap}.bx-btns .btn{flex:1}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -3245,6 +3273,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.6-3.4 8-8 9-4.6-1-8-4.4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
   <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
   <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-bolsa" viewBox="0 0 24 24"><path d="M3 17.5l6-6 4 4 8-8"/><path d="M15 7.5h6v6"/></symbol>
   <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 20.5h18"/><path d="M6 6v11M6 8.5h0"/><rect x="4.6" y="9" width="2.8" height="5" rx=".4"/><path d="M12 4v13"/><rect x="10.6" y="6" width="2.8" height="7" rx=".4"/><path d="M18 9v8"/><rect x="16.6" y="11" width="2.8" height="4" rx=".4"/></symbol>
   <symbol id="i-swords" viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5 14 2h3v3l-4.5 4.5M5 14l4 4M7 17l-3 3M3 19l2 2"/></symbol>
   <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.6 2.6 0 0 1 5 .9c0 1.7-2.5 2.3-2.5 3.9"/><circle cx="12" cy="17" r=".9" fill="currentColor"/></symbol>
@@ -3276,6 +3305,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
     <div class="navg">Dinero</div>
     <button class="nb" data-v="fabrica" style="--c:#ffb020"><span class="ico"><svg class="ic"><use href="#i-factory"/></svg></span>Fábrica</button>
     <button class="nb" data-v="rico" style="--c:#2fd6a3"><span class="ico"><svg class="ic"><use href="#i-bag"/></svg></span><span class="lf">Tienda</span><span class="ls">Tienda</span></button>
+    <button class="nb" data-v="bolsa" style="--c:#14e08a"><span class="ico"><svg class="ic"><use href="#i-bolsa"/></svg></span>Bolsa</button>
     <div class="navg">Competir</div>
     <button class="nb" data-v="ranking" style="--c:#b06bff"><span class="ico"><svg class="ic"><use href="#i-crown"/></svg></span>Clasificación</button>
     <button class="nb" data-v="logros" style="--c:#ffe066"><span class="ico"><svg class="ic"><use href="#i-trophy"/></svg></span>Logros</button>
@@ -3647,6 +3677,9 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 
     <!-- ============ TRADING ============ -->
     <section class="view" id="v-trading" hidden><div id="trRoot"></div></section>
+
+    <!-- ============ BOLSA DE JUGADORES ============ -->
+    <section class="view" id="v-bolsa" hidden><div id="bxRoot"></div></section>
 
     <!-- ============ ONLINE ============ -->
     <section class="view" id="v-online" hidden>
@@ -5410,6 +5443,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-e',t:'Bolsa de Jugadores',items:[['📈','¡Invierte en otros jugadores!','Nueva sala Bolsa: cada jugador es una acción. Si juega mucho y le va bien, su precio sube. Compra barato y vende caro.','new','#14e08a'],['🤝','Tus inversores','Mira quién ha apostado por ti y no les falles.','new','#ffd600'],['🏆','Mejores inversores','Clasificación de quién gana más invirtiendo.','new','#ff4fd8']]},
  {v:'2026-10-07-d',t:'La Bóveda',items:[['🏛️','Bóveda de colecciones','En Tienda › Bóveda: 10 colecciones. Ten uno de cada objeto de un grupo y reclama premio y medalla.','new','#ffd600'],['🏅','Título nuevo','Completa todas y llévate «🏛️ Coleccionista legendario».','new','#ff4fd8']]},
  {v:'2026-10-07-c',t:'Inicio más ordenado',items:[['🧹','Inicio por pestañas','Hoy (premio diario, misiones, botón rojo), Ruletas, Competir (rey, liga, invitar) y Jugar (salas y juegos). Mucho menos scroll.','new','#ffd600'],['🔴','Puntitos rojos','La pestaña te avisa con un número cuando tienes algo para cobrar.','new','#ff3b4f']]},
  {v:'2026-10-07-b',t:'Más fluido y puntos claros',items:[['⚡','La clasificación ya no parpadea','Antes se redibujaba entera cada vez que alguien jugaba y la gente desaparecía un momento. Ahora solo cambia lo que cambia.','fix','#14e08a'],['🏅','Puntos de liga claros','Cada cosa da sus puntos: partida +10, misión +30, ganar en el casino +4, duelo online +40, torneo +100… Lo ves en Clasificación › Liga.','new','#e0914a']]},
@@ -10226,6 +10260,86 @@ let vReadySeen=null;setInterval(()=>{try{const r=vaultSets().filter(st=>vaultDon
 ACH.push(['🏅','Coleccionista','Completa tu primera colección de la Bóveda',()=>vaultCount()>=1],['🗄️','Archivero','Completa 5 colecciones',()=>vaultCount()>=5],['🏛️','Bóveda llena','Completa todas las colecciones',()=>vaultSets().every(x=>(S.vault||{})[x.k])]);
 (()=>{try{const t=TUTOS.find(x=>x[1]==='Tienda');if(t&&!t[4].some(x=>/Bóveda/.test(x[0])))t[4].push(['En la pestaña <b>🏛️ Bóveda</b> hay colecciones: ten uno de cada objeto de un grupo y reclama un premio y una medalla. Si las completas todas, título «Coleccionista legendario».']);
   if(!FAQ.some(q=>/Bóveda/.test(q[0])))FAQ.unshift(['¿Qué es la Bóveda?','Está en Tienda › Bóveda. Son colecciones de objetos: si tienes al menos uno de cada objeto de un grupo, pulsas «Reclamar» y te llevas un premio y una medalla para siempre, aunque después vendas cosas.'])}catch(e){}})();
+
+/* ================= BOLSA DE JUGADORES: invierte en otros jugadores ================= */
+TITLES.bolsa='Bolsa';
+const BX_MAX=10000,BX_FEE=.02;
+let bxTab='mercado';
+/* precio de un jugador: sube si juega (nivel, actividad de la semana) y si tiene dinero; baja si deja de jugar o pierde dinero */
+function bxPrice(p){const lvl=Math.max(1,+p.lvl||1),c=Math.max(0,+p.coins||0),w=WK();
+  const wp=+p.wk===w?(+p.wp||0):0,pw=+p.pwk===w-1?(+p.pwp||0):(+p.wk===w-1?(+p.wp||0):0);
+  const prog=Math.min(1,Math.max(0,(NOWS()-(w*7*864e5+4*864e5))/(7*864e5))),act=wp+pw*(1-prog);
+  const af=.5+Math.min(1.5,act/1000),idle=Math.max(0,(NOWS()-(+p.t||NOWS()))/864e5-2),decay=Math.pow(.85,Math.min(idle,20));
+  return Math.max(1,Math.round(20*Math.pow(lvl,.7)*(1+Math.log10(1+c))*af*decay))}
+function bxMeP(){return{lvl:S.lvl,coins:S.coins,wk:S.wk,wp:S.wkP,pwk:S.pwk,pwp:S.pwP,t:Date.now()}}
+function bxPlayers(){return others().filter(p=>p.name)}
+function bxGet(id){return NET.players.get(id)}
+function bxHold(){S.stk=S.stk||{};return S.stk}
+/* historial de precios (lo apunta tu juego cada hora) */
+function bxRec(){try{const H=Math.floor(NOWS()/3600e3);S.pxH=S.pxH||{};bxPlayers().forEach(p=>{const a=S.pxH[p.id]||(S.pxH[p.id]=[]),pr=bxPrice(p);if(!a.length||a[a.length-1][0]!==H)a.push([H,pr]);else a[a.length-1][1]=pr;if(a.length>48)a.splice(0,a.length-48)});
+  Object.keys(S.pxH).forEach(id=>{if(!NET.players.has(id)&&!bxHold()[id])delete S.pxH[id]})}catch(e){}}
+function bxChg(id,now){const a=(S.pxH||{})[id];if(!a||a.length<2)return 0;const H=Math.floor(NOWS()/3600e3);const ref=a.find(x=>x[0]>=H-24)||a[0];return ref[1]?(now-ref[1])/ref[1]:0}
+function bxSpark(id,w=90,h=28){const a=((S.pxH||{})[id]||[]).map(x=>x[1]);if(a.length<2)return`<svg width="${w}" height="${h}"></svg>`;const mn=Math.min(...a),mx=Math.max(...a),r=mx-mn||1;
+  const pts=a.map((v,i)=>(i/(a.length-1)*w).toFixed(1)+','+(h-2-(v-mn)/r*(h-4)).toFixed(1)).join(' '),up=a[a.length-1]>=a[0];
+  return`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline points="${pts}" fill="none" stroke="${up?'#14e08a':'#ff3b4f'}" stroke-width="2.2" stroke-linejoin="round"/></svg>`}
+function bxPort(){let inv=0,val=0;Object.entries(bxHold()).forEach(([id,h])=>{const p=bxGet(id);const pr=p?bxPrice(p):(h.last||h.avg);inv+=h.q*h.avg;val+=h.q*pr});return{inv,val,pl:val-inv+(S.bxReal||0)}}
+const pct=x=>(x>=0?'+':'')+(x*100).toFixed(1).replace('.',',')+' %';
+function bxInvestors(){return others().filter(p=>p.stk&&+p.stk[NET.id]>0).map(p=>({n:p.name,av:p.av,img:p.img,q:+p.stk[NET.id]})).sort((a,b)=>b.q-a.q)}
+function bxAv(p){return p.img?`<img src="${esc(p.img)}" alt="">`:esc(p.av||'😎')}
+function renderBolsa(){const root=$('#bxRoot');if(!root||view!=='bolsa')return;bxRec();
+  if(!NET.ok||(NET.isAnon&&!ADM.on)){root.innerHTML=`<div class="bx-hero"><h2>📈 Bolsa de Jugadores</h2><p>Invierte en otros jugadores como si fueran acciones. <b>Hace falta cuenta</b> (Google o usuario y contraseña) para usar la Bolsa.</p></div>`;return}
+  const P0=bxPort(),hold=bxHold(),inv=bxInvestors();
+  let h=`<div class="bx-hero"><h2>📈 Bolsa de Jugadores</h2><p>Cada jugador es una <b>acción</b>. Si juega mucho y le va bien, su precio sube; si deja de jugar, baja. Compra acciones de quien creas que va a petarlo.</p>
+   <div class="bx-sum"><div><small>Invertido</small><b>${short(P0.inv)} €</b></div><div><small>Vale ahora</small><b>${short(P0.val)} €</b></div><div><small>Ganancia</small><b class="${P0.pl>=0?'bx-up':'bx-dn'}">${P0.pl>=0?'+':''}${short(P0.pl)} €</b></div><div><small>Tus inversores</small><b>${inv.length}</b></div></div></div>
+   <div class="bx-tabs">${[['mercado','🏪','Mercado'],['cartera','💼','Mi cartera'],['inversores','🤝','Mis inversores'],['ranking','🏆','Mejores']].map(([k,e,n])=>`<button data-bx="${k}" aria-selected="${bxTab===k}"><span class="emo">${e}</span><span>${n}</span></button>`).join('')}</div>
+   <details class="bx-how"><summary>❓ ¿Cómo funciona la Bolsa?</summary><ul>
+    <li>El precio de cada jugador sale de su <b>nivel</b>, su <b>dinero</b> y lo que ha <b>jugado esta semana</b> (sus puntos de liga). Si lleva más de 2 días sin entrar, baja cada día.</li>
+    <li>Compras al precio de ahora. Cuando vendes, cobras el precio de ese momento menos un 2 % de comisión.</li>
+    <li>Como mucho ${fmt(BX_MAX)} acciones de cada jugador. No puedes comprar acciones tuyas.</li>
+    <li>En «Mis inversores» ves quién ha apostado por ti. ¡No les falles!</li></ul></details>`;
+  if(bxTab==='mercado'){const L=bxPlayers().map(p=>({p,pr:bxPrice(p)})).sort((a,b)=>b.pr-a.pr);
+    h+=L.length?`<div class="bx-list">${L.map(({p,pr})=>{const c=bxChg(p.id,pr),q=(hold[p.id]||{}).q||0;return`<button class="bx-row" data-bxp="${esc(p.id)}"><span class="bx-av emo">${bxAv(p)}</span><span class="bx-nm"><b>${esc(p.name)}</b><small>Nv ${+p.lvl||1}${q?` · <span class="bx-own">tienes ${fmt(q)}</span>`:''}</small></span><span class="bx-sp">${bxSpark(p.id)}</span><span class="bx-pr"><b>${fmt(pr)} €</b><small class="${c>=0?'bx-up':'bx-dn'}">${pct(c)}</small></span></button>`}).join('')}</div>`:`<div class="empty"><span class="emo">📉</span><b>Todavía no hay jugadores en la Bolsa</b></div>`}
+  if(bxTab==='cartera'){const ids=Object.keys(hold);h+=ids.length?`<div class="bx-list">${ids.map(id=>{const hd=hold[id],p=bxGet(id),pr=p?bxPrice(p):(hd.last||hd.avg),pl=(pr-hd.avg)*hd.q;return`<button class="bx-row" data-bxp="${esc(id)}"><span class="bx-av emo">${p?bxAv(p):'❔'}</span><span class="bx-nm"><b>${esc(p?p.name:(hd.n||'Jugador'))}</b><small>${fmt(hd.q)} acciones · compradas a ${fmt(Math.round(hd.avg))} €</small></span><span class="bx-sp">${bxSpark(id)}</span><span class="bx-pr"><b>${short(pr*hd.q)} €</b><small class="${pl>=0?'bx-up':'bx-dn'}">${pl>=0?'+':''}${short(pl)} €</small></span></button>`}).join('')}</div>`
+     :`<div class="empty"><span class="emo">💼</span><b>Aún no tienes acciones</b><span>Ve a «Mercado» y compra acciones de quien creas que va a subir.</span></div>`}
+  if(bxTab==='inversores'){const me=bxPrice(bxMeP());h+=`<div class="bx-me"><span class="bx-av emo">${bxAv({av:S.av,img:S.img})}</span><div><b>Tu acción vale ${fmt(me)} €</b><small>Juega, sube de nivel y gana puntos de liga para que suba. Si dejas de entrar, baja.</small></div></div>`+
+     (inv.length?`<div class="bx-list">${inv.map(x=>`<div class="bx-row"><span class="bx-av emo">${bxAv(x)}</span><span class="bx-nm"><b>${esc(x.n)}</b><small>ha invertido en ti</small></span><span class="bx-pr"><b>${fmt(x.q)}</b><small>acciones</small></span></div>`).join('')}</div>`:`<div class="empty"><span class="emo">🤝</span><b>Todavía nadie ha invertido en ti</b><span>Juega mucho esta semana: si tu precio sube, la gente querrá tus acciones.</span></div>`)}
+  if(bxTab==='ranking'){const R=others().filter(p=>p.bxp!=null&&(+p.bxv>0||+p.bxp!==0)).map(p=>({n:p.name,av:p.av,img:p.img,pl:+p.bxp||0,v:+p.bxv||0}));R.push({n:(S.name||'Tú')+' (tú)',av:S.av,img:S.img,pl:P0.pl,v:P0.val,me:1});R.sort((a,b)=>b.pl-a.pl);
+    h+=`<p class="bx-note">Quién ha ganado más dinero invirtiendo en otros jugadores.</p><div class="bx-list">${R.map((x,i)=>`<div class="bx-row ${x.me?'mine':''}"><span class="bx-pos">${i+1}</span><span class="bx-av emo">${bxAv(x)}</span><span class="bx-nm"><b>${esc(x.n)}</b><small>cartera de ${short(x.v)} €</small></span><span class="bx-pr"><b class="${x.pl>=0?'bx-up':'bx-dn'}">${x.pl>=0?'+':''}${short(x.pl)} €</b></span></div>`).join('')}</div>`}
+  root.innerHTML=h}
+/* ventana para comprar / vender */
+function bxOpen(id){const p=bxGet(id);if(!p)return;const pr=bxPrice(p),hd=bxHold()[id]||{q:0,avg:0},c=bxChg(id,pr);
+  const lvl=Math.max(1,+p.lvl||1),w=WK(),wp=+p.wk===w?(+p.wp||0):0,idle=Math.max(0,Math.floor((NOWS()-(+p.t||NOWS()))/864e5));
+  $('#mbox').classList.remove('wide');$('#mbox').onclick=null;$('#modal').hidden=false;
+  $('#mbox').innerHTML=`<div class="bx-tr"><div class="bx-trh"><span class="bx-av emo big">${bxAv(p)}</span><div><h2>${esc(p.name)}</h2><b class="bx-big">${fmt(pr)} € <small class="${c>=0?'bx-up':'bx-dn'}">${pct(c)}</small></b></div></div>
+   <div class="bx-chart">${bxSpark(id,300,90)}</div>
+   <div class="bx-why"><span>⭐ Nivel ${lvl}</span><span>💰 ${short(+p.coins||0)} €</span><span>🏅 ${fmt(wp)} pts esta semana</span><span>${idle>=2?'😴 '+idle+' días sin entrar':'🟢 Activo'}</span></div>
+   ${hd.q?`<p class="bx-have">Tienes <b>${fmt(hd.q)}</b> acciones (compradas a ${fmt(Math.round(hd.avg))} €). Ganancia: <b class="${pr>=hd.avg?'bx-up':'bx-dn'}">${pr>=hd.avg?'+':''}${short((pr-hd.avg)*hd.q)} €</b></p>`:''}
+   <label for="bxQ">¿Cuántas acciones?</label><input class="inp num" id="bxQ" inputmode="numeric" value="10">
+   <div class="amt"><button class="qa" data-bq="1">1</button><button class="qa" data-bq="10">10</button><button class="qa" data-bq="100">100</button><button class="qa" data-bq="1000">1.000</button><button class="qa" data-bq="max">Máx</button></div>
+   <p class="bx-cost" id="bxCost"></p><p class="warn" id="bxErr" hidden></p>
+   <div class="bx-btns"><button class="btn big mint" id="bxBuy">Comprar</button>${hd.q?'<button class="btn big coral" id="bxSell">Vender</button>':''}</div><button class="linkb" id="bxX">Cerrar</button></div>`;
+  const q=()=>Math.max(0,Math.floor(+String($('#bxQ').value).replace(/\D/g,'')||0)),err=t=>{const e=$('#bxErr');e.textContent=t;e.hidden=false;sfx('lose')};
+  const upd=()=>{const n=q();$('#bxCost').innerHTML=`Comprar ${fmt(n)} cuesta <b>${short(n*pr)} €</b>`+(hd.q?` · Vender ${fmt(Math.min(n,hd.q))} te da <b>${short(Math.floor(Math.min(n,hd.q)*pr*(1-BX_FEE)))} €</b>`:'')};upd();
+  $('#bxQ').oninput=upd;$('#mbox .amt').onclick=e=>{const b=e.target.closest('[data-bq]');if(!b)return;$('#bxQ').value=b.dataset.bq==='max'?Math.max(1,Math.min(BX_MAX-hd.q,Math.floor(S.coins/pr))):b.dataset.bq;upd()};
+  $('#bxX').onclick=()=>$('#modal').hidden=true;
+  $('#bxBuy').onclick=()=>{const n=q();if(n<1)return err('Pon cuántas acciones quieres.');if(hd.q+n>BX_MAX)return err('Como mucho '+fmt(BX_MAX)+' acciones de cada jugador.');const cost=n*pr;if(!take(cost))return err('No tienes tanto dinero.');
+    const H=bxHold(),o=H[id]||{q:0,avg:0};H[id]={q:o.q+n,avg:(o.q*o.avg+cost)/(o.q+n),n:p.name,last:pr};S.bxBuys=(S.bxBuys||0)+1;save();NET.lastP='';pushPlayer();sfx('buy');confetti(60);toast('Acciones compradas',fmt(n)+' de '+p.name+' · −'+short(cost)+' €','var(--mint)','📈');$('#modal').hidden=true;renderBolsa()};
+  const sb=$('#bxSell');if(sb)sb.onclick=()=>{const n=Math.min(q(),hd.q);if(n<1)return err('Pon cuántas acciones quieres vender.');const get=Math.floor(n*pr*(1-BX_FEE)),H=bxHold();
+    S.bxReal=(S.bxReal||0)+(get-n*hd.avg);if(get>n*hd.avg)S.bxWon=(S.bxWon||0)+(get-n*hd.avg);H[id].q-=n;if(H[id].q<=0)delete H[id];S.coins+=get;save();NET.lastP='';pushPlayer();sfx('win');toast('Acciones vendidas','+'+short(get)+' €','var(--sun)','💸');$('#modal').hidden=true;renderBolsa()}}
+document.addEventListener('click',e=>{const t=e.target.closest('#bxRoot [data-bx]');if(t){bxTab=t.dataset.bx;sfx('click');renderBolsa();return}const r=e.target.closest('#bxRoot [data-bxp]');if(r){sfx('click');bxOpen(r.dataset.bxp)}});
+try{guardHTML($('#bxRoot'))}catch(e){}
+{const _goB=go;go=function(v){const r=_goB.apply(this,arguments);if(view==='bolsa')renderBolsa();return r}}
+setInterval(()=>{try{bxRec();if(view==='bolsa'&&$('#modal').hidden)renderBolsa();
+  /* avisos: tus acciones suben o bajan mucho, y alguien nuevo invierte en ti */
+  S.bxN=S.bxN||{};Object.entries(bxHold()).forEach(([id,hd])=>{const p=bxGet(id);if(!p)return;const pr=bxPrice(p);hd.last=pr;const r=pr/hd.avg-1,b=Math.floor(r/.25);if(S.bxN[id]==null){S.bxN[id]=b;return}
+    if(b>S.bxN[id]){toast('📈 '+p.name+' sube '+pct(r),'Tus acciones valen '+short(pr*hd.q)+' €','var(--mint)','📈');sfx('win')}else if(b<S.bxN[id]&&r<0){toast('📉 '+p.name+' baja '+pct(r),'Mira tu cartera en la Bolsa','var(--coral)','📉')}S.bxN[id]=b});
+  const ids=bxInvestors().map(x=>x.n);S.bxSeenInv=S.bxSeenInv||null;if(S.bxSeenInv){ids.filter(n=>!S.bxSeenInv.includes(n)).forEach(n=>{toast('🤝 '+n+' ha invertido en ti','¡Juega para que tu acción suba!','var(--sun)','🤝');sfx('win')})}S.bxSeenInv=ids}catch(e){}},15000);
+/* datos públicos para «Mis inversores» y el ranking de inversores */
+{const _pubB=pubX;pubX=function(){const x=_pubB();try{const H=bxHold(),top=Object.entries(H).sort((a,b)=>b[1].q-a[1].q).slice(0,30);x.stk=Object.fromEntries(top.map(([id,h])=>[id,h.q]));const P0=bxPort();x.bxv=Math.floor(P0.val);x.bxp=Math.floor(P0.pl)}catch(e){}return x}}
+ACH.push(['📈','Inversor','Compra tus primeras acciones en la Bolsa',()=>(S.bxBuys||0)>=1],['🐺','Lobo de la Bolsa','Gana 1 millón vendiendo acciones',()=>(S.bxWon||0)>=1e6],['🤝','Tienes fans','Que alguien invierta en ti',()=>{try{return bxInvestors().length>0}catch(e){return false}}]);
+(()=>{try{if(!TUTOS.some(x=>x[1]==='Bolsa de Jugadores'))TUTOS.splice(4,0,['📈','Bolsa de Jugadores','Invertir en otros jugadores','#14e08a',[['Cada jugador es una <b>acción</b> con su precio.'],['El precio sube si juega mucho, sube de nivel y tiene dinero. Si deja de entrar, baja.'],['Compra acciones de quien creas que va a subir y véndelas cuando valgan más (hay un 2 % de comisión al vender).'],['En <b>Mis inversores</b> ves quién ha apostado por ti, y en <b>Mejores</b> quién gana más invirtiendo.']],'Como mucho 10.000 acciones de cada jugador. Hace falta cuenta.','bolsa']);
+  if(!FAQ.some(q=>/Bolsa/.test(q[0])))FAQ.unshift(['¿Cómo funciona la Bolsa de Jugadores?','En el menú › Bolsa. Cada jugador tiene un precio que sube si juega mucho, sube de nivel y tiene dinero, y baja si deja de entrar. Compras acciones de quien quieras y las vendes cuando valgan más.'])}catch(e){}})();
+try{GU_T.bolsa=[[null,'Bolsa de Jugadores','Aquí inviertes en otros jugadores como si fueran acciones. Si juegan mucho y les va bien, su precio sube y tú ganas.'],['.bx-tabs','4 pestañas','Mercado: todos los jugadores y su precio. Mi cartera: lo que tienes. Mis inversores: quién ha apostado por ti. Mejores: quién gana más invirtiendo.'],['.bx-how','Cómo funciona','Si tienes dudas, pulsa aquí y te lo explica.']]}catch(e){}
 })();
 </script>
 
