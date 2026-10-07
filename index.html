@@ -1996,6 +1996,16 @@ html body .updmini{background:#14e08a!important;color:#062a1b!important;border-c
 .cmgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .cmi{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px;border-radius:14px;background:#18181d;border:2px solid #2a2a33;text-align:center}
 .cmi.own{border-color:#ffd600}.cmi b{font-weight:900}.cmp{min-height:58px;display:grid;place-items:center;width:100%}.cmon{font-weight:900;color:#ffd600}
+/* ===== pestañas grandes reutilizables ===== */
+.seg.bigtabs{display:grid!important;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px;padding:6px;border-radius:18px;background:#141418;border:2px solid #2a2a33;width:100%;margin:0 0 14px}
+.seg.bigtabs button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:10px 4px!important;border-radius:13px!important;border:0!important;background:transparent!important;color:#9a9aab!important;font:900 12px var(--f-b)!important;text-transform:uppercase;letter-spacing:.3px;min-width:0;box-shadow:none!important}
+.seg.bigtabs button .emo{font-size:22px;line-height:1;filter:grayscale(.6)}
+.seg.bigtabs button[aria-pressed=true]{background:linear-gradient(180deg,#ffd600,#ffb300)!important;color:#111!important;box-shadow:0 3px 0 #000!important}
+.seg.bigtabs button[aria-pressed=true] .emo{filter:none}
+.seg.bigtabs .bcnt{position:absolute;top:4px;right:6px;font-size:10px;opacity:.8}
+@media (min-width:700px){.seg.bigtabs button{flex-direction:row;gap:8px;font-size:14px!important;padding:12px 8px!important}}
+#v-rico>.seg.bigtabs{position:sticky;top:calc(var(--barh,64px) + 4px);z-index:20;box-shadow:0 8px 20px rgba(0,0,0,.45)}
+@media (max-width:700px){#v-rico #facts{display:none}#v-rico .money{margin-bottom:10px}}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5529,6 +5539,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-m',t:'Más claro en el móvil',items:[['📱','Pestañas grandes','La Tienda, Online y Ayuda tienen pestañas grandes con icono, como Inicio y Clasificación.','fix','#ffd600'],['🎡','Botón rojo y ruleta','Si te recarga la ruleta y ya la tenías lista, ahora te da 2 tiradas seguidas.','fix','#ff6b4a'],['🐐','Pack OG y VIP completo','Quien lo tenga con cuenta recibe todo: título, marco, color, fondo y cara.','fix','#ffd600']]},
  {v:'2026-10-07-l',t:'Tienda de cosméticos',items:[['✨','Cosméticos','En Tienda › Cosméticos: 6 colores de nombre, 4 marcos y 4 fondos que solo se consiguen comprándolos. Desde 50.000 € hasta 1 billón.','new','#ff4fd8']]},
  {v:'2026-10-07-k',t:'Caja fuerte y tu mes',items:[['🔐','Caja fuerte','En Inicio › Hoy: guarda dinero que no se puede perder y que crece un 0,5 % al día.','new','#6b8bff'],['📊','Tu mes en Casinetori','En Logros: tu resumen del mes. Y al empezar cada mes, te sale el del mes anterior.','new','#ff4fd8'],['🚀','Hora del Crash','Evento nuevo: el Cohete del casino paga el triple.','new','#ff6b4a'],['👑','Corona por juego','El número 1 de cada minijuego lleva corona en su clasificación.','new','#ffd600'],['📋','10 misiones nuevas','Goles, blackjack, carreras, regalos, el botón rojo…','new','#14e08a']]},
  {v:'2026-10-07-j',t:'Ruleta y Trading más cómodos',items:[['🎡','Apuesta rápida en la ruleta','Arriba del todo: Rojo, Negro o Verde y Girar, sin tener que bajar hasta la mesa.','new','#14e08a'],['📊','Comprar y vender sin bajar','En el móvil, en Trading hay una barra abajo con Comprar y Vender, con lo que tengas elegido.','new','#3ff0ff']]},
@@ -9749,8 +9760,8 @@ async function ogLeft(){if(!NET.db)return null;try{const q=await NET.db.collecti
 async function ogClaim(){if(S.ogN||!NET.ok||!NET.db||!isGoogleUser()||S.ogTry===NET.id)return;S.ogTry=NET.id;save();
   let n=null;try{const q=await NET.db.collection('players').where('og','>',0).get();n=q.size}catch(e){S.ogTry=null;return}
   if(n>=OG_MAX){toast('Los 100 OG ya están repartidos','Gracias por entrar con Google: tu partida queda guardada','var(--sky)','🔐');return}
-  S.ogN=n+1;S.exc=S.exc||[];const keys=['ti:xog','ti:xvip','f:xog','bg:xvip'];keys.forEach(k=>{if(!S.exc.includes(k))S.exc.push(k)});save();NET.lastP='';pushPlayer();
-  try{excShow(['ti:xog','ti:xvip'])}catch(e){}confetti(220);sfx('big');troll('¡ERES OG Nº '+S.ogN+'!','y también VIP: de los 100 primeros con Google','#ffd600',true)}
+  S.ogN=n+1;S.exc=S.exc||[];const keys=[...EXC_PACKS.og,...EXC_PACKS.vip];keys.forEach(k=>{if(!S.exc.includes(k))S.exc.push(k)});save();NET.lastP='';pushPlayer();
+  try{excShow(keys)}catch(e){}confetti(220);sfx('big');troll('¡ERES OG Nº '+S.ogN+'!','y también VIP: de los 100 primeros con Google','#ffd600',true)}
 setInterval(()=>{try{ogClaim()}catch(e){}},20000);setTimeout(()=>{try{ogClaim()}catch(e){}},6000);
 const _gsOG=googleSignIn;googleSignIn=async function(){const r=await _gsOG.apply(this,arguments);setTimeout(()=>{try{ogClaim()}catch(e){}},1500);return r};
 /* la ventana de la primera vez: Google o jugar sin cuenta, bien claro */
@@ -10703,6 +10714,29 @@ try{const _rb=$('[data-st=boveda]');if(_rb&&!$('[data-st=cosmo]'))_rb.insertAdja
 {const _rsC=renderShop;renderShop=function(){const v=$('#v-rico');if(v)v.dataset.st=shopTab;let c=$('#cosmo');if(shopTab==='cosmo'){$('#prods').hidden=true;$('#mine').hidden=true;const vb=$('#vault');if(vb)vb.hidden=true;if(!c){$('#mine').insertAdjacentHTML('afterend','<div id="cosmo"></div>');c=$('#cosmo')}c.hidden=false;renderCosmo();try{updMoney()}catch(e){}return}if(c)c.hidden=true;return _rsC.apply(this,arguments)}}
 ACH.push(['✨','Presumido','Compra un cosmético',()=>(S.cosOwn||[]).length>=1],['🌈','Coleccionista de estilo','Compra todos los cosméticos',()=>Object.entries(COSMO).every(([k,L])=>L.every(x=>cosHas(k,x[0])))]);
 (()=>{try{const t=TUTOS.find(x=>x[1]==='Tu perfil');if(t&&!t[4].some(x=>/Cosméticos/.test(x[0])))t[4].push(['En la Tienda › <b>✨ Cosméticos</b> hay colores, marcos y fondos que solo se consiguen comprándolos.'])}catch(e){}})();
+
+/* ================= TIENDA: pestañas grandes y claras (móvil) ================= */
+(function(){const seg=$('#v-rico .toolbar .seg');if(!seg)return;seg.classList.add('bigtabs');
+  const ic={tienda:'🛍️',mias:'📦',boveda:'🏛️',cosmo:'✨'},nm={tienda:'Tienda',mias:'Mis cosas',boveda:'Bóveda',cosmo:'Cosméticos'};
+  seg.querySelectorAll('[data-st]').forEach(b=>{const k=b.dataset.st,cnt=b.querySelector('span[id]');b.innerHTML=`<span class="emo">${ic[k]||''}</span><span class="bt">${nm[k]||b.textContent}</span>`;if(cnt){cnt.classList.add('bcnt');b.appendChild(cnt)}});
+  const v=$('#v-rico');if(v)v.insertBefore(seg,v.firstChild)})();
+/* Online y Ayuda: mismas pestañas grandes */
+['#olSeg','#hlSeg'].forEach(s=>{const e=$(s);if(e)e.classList.add('bigtabs')});
+
+/* ================= RULETA: si ya estaba recargada, el botón rojo te da 2 tiradas seguidas ================= */
+{const i=PRANKS.findIndex(f=>/te he recargado la ruleta/.test(String(f)));if(i>=0)PRANKS[i]=()=>{const ready=Date.now()-(S.wheelAt||0)>=WAIT||!S.wheelAt;
+  if(ready){S.wBonus=(S.wBonus||0)+1;save();wheelInfo();troll('¡2 TIRADAS SEGUIDAS!','ya tenías la ruleta lista: te regalo otra más','#ff6b4a',true)}
+  else{S.wheelAt=0;save();wheelInfo();troll('RULETA GRATIS YA','te he recargado la ruleta, corre','#ff6b4a',true)}}}
+{const _wrB=wResolve;wResolve=function(late){const had=!!S.wPend;const r=_wrB.apply(this,arguments);try{if(had&&(S.wBonus||0)>0){S.wBonus--;S.wheelAt=0;save();setTimeout(()=>{wheelInfo();toast('Tirada extra','Puedes volver a girar ahora mismo'+(S.wBonus?' (te quedan '+S.wBonus+' más)':''),'var(--coral)','🎡')},1800)}}catch(e){}return r}}
+{const _wiB=wheelInfo;wheelInfo=function(){_wiB.apply(this,arguments);const el=$('#wheelInfo');if(el&&(S.wBonus||0)>0&&!wBusy&&!/tirada/.test(el.textContent))el.textContent+=' · +'+S.wBonus+' tirada'+(S.wBonus>1?'s':'')+' extra'}}
+
+/* ================= OG y VIP: pack completo para los que tienen cuenta; fuera para invitados ================= */
+const OGVIP=[...EXC_PACKS.og,...EXC_PACKS.vip];
+function ogvipFix(){try{if(!NET.ok||!NET.auth||!NET.auth.currentUser||!S.name)return;const ex=S.exc=S.exc||[];const has=OGVIP.filter(k=>ex.includes(k));if(!has.length)return;
+  if(NET.isAnon){S.exc=ex.filter(k=>!OGVIP.includes(k));const c=myCos();['c','f','bg','ti'].forEach(k=>{if(String(c[k]||'').startsWith('x')&&OGVIP.includes(k+':'+c[k]))c[k]=COS[k][0][0]});if(OGVIP.includes('av:'+S.av))S.av='😎';save();NET.lastP='';pushPlayer();
+    toast('OG y VIP solo con cuenta','Entra con Google o crea una cuenta para tenerlos','var(--sky)','🔐');return}
+  const miss=OGVIP.filter(k=>!ex.includes(k));if(miss.length){miss.forEach(k=>ex.push(k));save();NET.lastP='';pushPlayer();try{excShow(miss)}catch(e){}toast('Pack OG y VIP completo','Título, marco, color, fondo y cara: póntelos en Perfil','var(--sun)','🐐')}}catch(e){}}
+setInterval(ogvipFix,8000);setTimeout(ogvipFix,5000);
 })();
 </script>
 
