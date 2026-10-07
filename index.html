@@ -1951,6 +1951,18 @@ html body .updmini{background:#14e08a!important;color:#062a1b!important;border-c
 .smallbar{flex-wrap:wrap}.smallbar .emo{font-size:24px}.smallbar span:nth-child(2){flex:1 1 calc(100% - 90px);min-width:0}.smallbar .btn{flex:1 1 auto}.smallbar b{display:block;font-weight:900}.smallbar small{font-weight:700;font-size:13px;color:#cfcfd8}
 .trad{display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,#06331f,#141418 70%);border:2px solid #14e08a}
 .trad{flex-wrap:wrap}.trad .emo{font-size:28px}.trad span:nth-child(2){flex:1 1 calc(100% - 60px);min-width:0}.trad .btn{flex:1 1 auto}.trad b{display:block;font-weight:900}.trad small{font-weight:700;font-size:13px;color:#cfcfd8}.trad small b{display:inline;color:#ffd600}
+/* ===== ruleta: apuesta rápida ===== */
+.rquick{margin:0 0 14px;padding:12px;border-radius:16px;background:linear-gradient(180deg,#0f3d26,#0b2a1b);border:3px solid #14e08a;box-shadow:0 0 0 3px #000}
+.rqh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}.rqh b{font:400 20px var(--f-d);text-transform:uppercase;color:#fff}.rqh small{font-weight:800;font-size:12px;color:#bfe9d2}
+.rqbtns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.rq{padding:14px 4px;border-radius:12px;border:3px solid #000;color:#fff;font:900 18px var(--f-b);cursor:pointer;box-shadow:0 4px 0 #000;display:flex;flex-direction:column;align-items:center;gap:2px}
+.rq small{font-size:12px;opacity:.85}.rq.red{background:#e0303c}.rq.black{background:#1d1d22}.rq.green{background:#14a35a}.rq:active{transform:translateY(3px);box-shadow:0 1px 0 #000}
+.rqfoot{display:flex;align-items:center;gap:8px;margin-top:10px}.rqfoot span{flex:1;font-weight:800;color:#e8fff2}.rqfoot b{color:#ffd600}.rqfoot #rqSpin{min-width:110px}
+/* ===== trading: barra fija ===== */
+.trquick{position:fixed;left:8px;right:8px;bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:115;display:flex;gap:8px;align-items:stretch;padding:8px;border-radius:16px;background:#101014;border:2px solid #2a2a33;box-shadow:0 10px 26px rgba(0,0,0,.6)}
+.trquick .tq{flex:1;border:3px solid #000;border-radius:12px;color:#fff;font:900 17px var(--f-b);padding:10px 4px;display:flex;flex-direction:column;align-items:center;cursor:pointer;box-shadow:0 3px 0 #000}
+.trquick .tq small{font-size:11px;opacity:.85}.trquick .buy{background:#0fb871}.trquick .sell{background:#e0303c}
+.tqmid{display:flex;flex-direction:column;justify-content:center;text-align:center;font:900 14px var(--f-b);color:#ffd600;min-width:76px}.tqmid small{color:#9a9aab;font-size:11px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5484,6 +5496,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-j',t:'Ruleta y Trading más cómodos',items:[['🎡','Apuesta rápida en la ruleta','Arriba del todo: Rojo, Negro o Verde y Girar, sin tener que bajar hasta la mesa.','new','#14e08a'],['📊','Comprar y vender sin bajar','En el móvil, en Trading hay una barra abajo con Comprar y Vender, con lo que tengas elegido.','new','#3ff0ff']]},
  {v:'2026-10-07-i',t:'Más claro y funciona en más sitios',items:[['🏫','Arreglado «Sin conexión» en algunas redes','En algunas redes (por ejemplo, de institutos) la web decía que no había internet aunque sí lo había. Ya no.','fix','#14e08a'],['📈','Bolsa más clara','Si el precio cambia mientras tienes la ventana abierta, te avisa antes de comprar o vender. Y el % dice de cuántas horas es.','fix','#14e08a']]},
  {v:'2026-10-07-h',t:'Buscador y ruletas nuevas',items:[['🔍','Buscador de juegos','En Juegos, Casino e Inicio › Jugar: escribe «snake», «ruleta», «bolsa»… y entra directo.','new','#6b8bff'],['🎡','3 ruletas nuevas','Millonaria (premios según lo que tienes), de la Liga (puntos) y de la Fábrica (energía, doradas y clics x5).','new','#ffd600'],['📖','Elige tu ruleta','Debajo de la ruleta: «Ver todas las ruletas» y elige la que quieras para la próxima tirada.','new','#ff4fd8'],['⚔️','Online sin tope','Ya no hay máximo por duelo, ni «la mitad de tu cartera», ni límite diario. Si quieres ponerte un límite, lo eliges tú en Ajustes › Online.','new','#ff2e88'],['📺','Capital extra en Trading','Mira un anuncio y llévate dinero para invertir, cada 30 minutos.','new','#14e08a']]},
  {v:'2026-10-07-g',t:'20 objetos nuevos y más sorpresas',items:[['🦆','20 objetos nuevos en la Tienda','Desde unos calcetines con capa hasta el Archivo de deseos estelares. Algunos dan título.','new','#ffd600'],['☁️','3 colecciones nuevas en la Bóveda','Vida en las nubes, Héroe de sofá y Escritorio absurdo.','new','#8fd3ff'],['🔴','11 sorpresas nuevas en el botón rojo','El pato inspector, el diploma de curiosidad, la encuesta del siglo…','new','#ff3b4f'],['🧭','4 logros nuevos','Explorador de salas, Colección presentada, Primer deseo y Vida en las nubes.','new','#14e08a'],['🌍','Traducciones mejoradas','Inglés, francés y portugués revisados.','fix','#3f7cff']]},
@@ -10550,6 +10563,36 @@ document.addEventListener('click',e=>{if(!e.target.closest('#trAdGo'))return;if(
   showRewardAd('trading',()=>{S.trAdAt=Date.now();const v=tradAdAmt();give(v);save();sfx('big');confetti(100);toast('Capital extra','+'+short(v)+' € para invertir','var(--mint)','📺');tradAdCard()})});
 setInterval(()=>{if(view==='trading')tradAdCard()},15000);{const _goT2=go;go=function(){const r=_goT2.apply(this,arguments);try{if(view==='trading')tradAdCard()}catch(e){}return r}}
 (()=>{try{if(!FAQ.some(q=>/ruleta en concreto/.test(q[0])))FAQ.unshift(['¿Puedo elegir qué ruleta girar?','Sí. Debajo de la ruleta de Inicio pulsa «📖 Ver todas las ruletas» y elige la que quieras para la próxima tirada (cuesta un poco). Hay 9: dinero, caras, todo o nada, experiencia, cajas sorpresa, multiplicadora, millonaria, de la liga y de la fábrica.'])}catch(e){}})();
+
+/* ================= RULETA: apuesta rápida arriba (rojo, negro, verde) ================= */
+function rqMount(){const box=$('#c-rule');if(!box||$('#rQuick'))return;const w=box.querySelector('.rwheel');
+  const h=`<div class="rquick" id="rQuick"><div class="rqh"><b>Apuesta rápida</b><small>Elige ficha arriba y toca un color</small></div>
+   <div class="rqbtns"><button class="rq red" data-rq="red">Rojo<small>x2</small></button><button class="rq black" data-rq="black">Negro<small>x2</small></button><button class="rq green" data-rq="green">Verde · 0<small>x36</small></button></div>
+   <div class="rqfoot"><span>En la mesa: <b id="rqTot">0 €</b></span><button class="btn alt sm" id="rqClear">Quitar</button><button class="btn" id="rqSpin">Girar</button></div></div>`;
+  const bb=$('#betbar');if(bb)bb.insertAdjacentHTML('afterend',h);else if(w)w.insertAdjacentHTML('beforebegin',h);else box.insertAdjacentHTML('afterbegin',h)}
+document.addEventListener('click',e=>{const q=e.target.closest('[data-rq]');if(q){const b=$('#c-rule .routs [data-rb="'+q.dataset.rq+'"]');if(b)b.click();rqSync();return}
+  if(e.target.closest('#rqClear')){const b=$('#rClear');if(b)b.click();rqSync();return}
+  if(e.target.closest('#rqSpin')){const b=$('#rSpin');if(b&&!b.disabled){b.click();const w=$('#c-rule .rwheel');if(w&&innerWidth<900)w.scrollIntoView({behavior:'smooth',block:'center'})}else toast('Pon fichas primero','Toca Rojo, Negro o Verde','var(--coral)','🎡');rqSync()}});
+function rqSync(){const rq=$('#rQuick'),cr=$('#c-rule');if(rq&&cr){const on=!cr.hidden&&cr.offsetParent!==null;if(rq.hidden===on)rq.hidden=!on}const t=$('#rTot'),o=$('#rqTot');if(t&&o&&o.textContent!==t.textContent)o.textContent=t.textContent;const s=$('#rSpin'),q=$('#rqSpin');if(s&&q)q.disabled=s.disabled}
+setInterval(()=>{if(view==='casino'){rqMount();rqSync()}},500);
+
+/* ================= TRADING: comprar y vender sin bajar (barra fija en el móvil) ================= */
+function tqMount(){if($('#trQuick'))return;document.body.insertAdjacentHTML('beforeend',`<div class="trquick" id="trQuick" hidden><button class="tq buy" data-tq="buy">▲ Comprar<small>gana si sube</small></button><span class="tqmid" id="tqMid"></span><button class="tq sell" data-tq="sell">▼ Vender<small>gana si baja</small></button></div>`)}
+function tqSync(){const bar=$('#trQuick');if(!bar)return;const go_=$('#trGo');const tut=$('#trTut');let show=view==='trading'&&innerWidth<900&&!!go_&&$('#modal').hidden&&!$('#guTour')&&!(tut&&tut.offsetHeight);
+  if(show&&go_){const r=go_.getBoundingClientRect();if(r.top<innerHeight-60&&r.bottom>0)show=false;const tk=$('.tr-buy');if(tk){const r2=tk.getBoundingClientRect();if(r2.top<innerHeight-120&&r2.bottom>80)show=false}}
+  bar.hidden=!show;if(!show)return;const inp=$('#trRoot .tr-amtw input')||[...$$('#trRoot input')].find(i=>i.offsetParent);const amt=inp?inp.value:'';const m=$('#tqMid');const t=(amt?amt+' €':'')+'<br><small>'+esc((go_.textContent||'').replace(/^(comprar|vender)\s*/i,''))+'</small>';if(m&&m.innerHTML!==t)m.innerHTML=t}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-tq]');if(!b)return;const side=$(b.dataset.tq==='buy'?'.tr-buy':'.tr-sell');if(side)side.click();
+  setTimeout(()=>{const g=$('#trGo');if(g&&!g.disabled){g.click();sfx('click')}else{const tk=$('.tr-buy');if(tk)tk.scrollIntoView({behavior:'smooth',block:'center'})}tqSync()},60)});
+tqMount();setInterval(tqSync,400);addEventListener('scroll',()=>{try{tqSync()}catch(e){}},{passive:true});
+
+/* ================= TEXTOS QUE SE ACTUALIZAN SOLOS (número de juegos, últimas novedades) ================= */
+function infoAuto(){try{const nG=GLIST.length,nC=Object.keys(CZ).length;
+  const hn=$('#homeNews');if(hn&&NOTES&&NOTES[0]){const t='Novedades: '+NOTES[0].t;const sp=hn.querySelector('.dot');if(!hn.dataset.auto||hn.textContent!==t){hn.dataset.auto=1;hn.innerHTML='<span class="dot"></span>'+esc(t)}}
+  $$('#v-inicio .tile p').forEach(p=>{if(/juegos con dinero ficticio/.test(p.textContent))p.textContent=nC+' juegos de mentira y más';});
+  const tu=ACH.find(a=>a[1]==='Turista');if(tu){tu[2]='Juega a todos los minijuegos ('+nG+')';tu[3]=()=>GLIST.every(g=>(S.played||{})[g[0]])}
+  const tj=TUTOS.find(t=>t[1]==='Juegos');if(tj)tj[2]=nG+' minijuegos y subiendo';
+  const tc=TUTOS.find(t=>t[1]==='Casino');if(tc&&/\d+ juegos/.test(tc[2]))tc[2]=tc[2].replace(/\d+ juegos/,nC+' juegos')}catch(e){}}
+infoAuto();setTimeout(infoAuto,2000);
 })();
 </script>
 
