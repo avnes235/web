@@ -5563,6 +5563,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-o',t:'Correcciones de seguridad y textos',items:[['🛡️','Más seguro','Arreglados varios fallos que podían dar dinero raro, intereses infinitos o regalos falsos.','fix','#14e08a'],['🏆','Ligas más claras','La hora del cierre sale en tu hora y el texto de subidas cuadra con tu liga.','fix','#ffd600'],['📱','Móvil','Precios de la Bolsa más cortos y barras que ya no se tapan.','fix','#3f7cff']]},
  {v:'2026-10-07-n',t:'Tienda más cómoda en el móvil',items:[['🛍️','Objetos más pequeños','En el móvil la Tienda enseña 2 objetos por fila: ves mucho más sin bajar.','fix','#14e08a'],['🔴','Cuenta atrás arreglada','El 3, 2, 1 del botón rojo va a la vez que el sonido.','fix','#ff3b4f']]},
  {v:'2026-10-07-m',t:'Más claro en el móvil',items:[['📱','Pestañas grandes','La Tienda, Online y Ayuda tienen pestañas grandes con icono, como Inicio y Clasificación.','fix','#ffd600'],['🎡','Botón rojo y ruleta','Si te recarga la ruleta y ya la tenías lista, ahora te da 2 tiradas seguidas.','fix','#ff6b4a'],['🐐','Pack OG y VIP completo','Quien lo tenga con cuenta recibe todo: título, marco, color, fondo y cara.','fix','#ffd600']]},
  {v:'2026-10-07-l',t:'Tienda de cosméticos',items:[['✨','Cosméticos','En Tienda › Cosméticos: 6 colores de nombre, 4 marcos y 4 fondos que solo se consiguen comprándolos. Desde 50.000 € hasta 1 billón.','new','#ff4fd8']]},
@@ -9116,7 +9117,7 @@ async function newHomeOk(){try{const r=await fetch(NEW_HOME+'manifest.json?ck='+
 async function mvGo(){const b=$('#mvGo');if(b){b.disabled=true;b.textContent='Preparando tu partida…'}
   if(!(await newHomeOk())){if(b){b.disabled=false;b.textContent='Llevarme mi partida'}toast('La web nueva aún no está lista','Sigue jugando aquí, no pierdes nada','var(--sun)','🏗️');const mb=$('#mbox');if(mb)delete mb.dataset.lock;closeModal();return}
   if(!NET.isAnon){location.href=NEW_HOME;return}
-  try{if(!NET.ok||!NET.db)throw 0;const id=mvCode();await NET.db.collection('moves').doc(id).set({json:JSON.stringify(S),t:Date.now()});
+  try{if(!NET.ok||!NET.db)throw 0;const id=mvCode();await NET.db.collection('moves').doc(id).set({json:JSON.stringify({...S,recKey:undefined,rkh:undefined}),t:Date.now()});
     try{await NET.db.collection('players').doc(NET.id).delete()}catch(e){}NET.kicked=true;location.href=NEW_HOME+'#mv='+id}
   catch(e){if(b){b.disabled=false;b.textContent='Llevarme mi partida'}const w=$('#mvErr');if(w){w.hidden=false}}}
 function mvAsk(){if(!OLD_SITE)return;$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('wide','notes');mb.onclick=null;mb.dataset.lock='1';
@@ -9829,7 +9830,7 @@ if(!S.recKey){S.recKey=recGen();S.rkh='';save()}
 (async()=>{if(!S.rkh){S.rkh=await recHash(S.recKey);save()}})();
 /* los campos extra van aparte (con merge) para no tocar la ficha principal */
 const _ppX=pushPlayer;pushPlayer=async function(){const t0=NET.lastT;const r=await _ppX.apply(this,arguments);
-  if(NET.ok&&NET.db&&NET.id&&!NET.kicked&&NET.lastT!==t0){const x={acc:NET.isAnon?'a':(isGoogleUser()?'g':'u')};if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(S.refBy){x.rb=S.refBy;x.rbd=S.refDone?1:0}x.ks=S.kSince||0;try{if(window.lgPub)Object.assign(x,lgPub())}catch(_){}if(Object.keys(x).length)NET.db.collection('players').doc(NET.id).set(x,{merge:true}).catch(()=>{})}return r};
+  if(NET.ok&&NET.db&&NET.id&&!NET.kicked&&NET.lastT!==t0){const x={acc:NET.isAnon?'a':(isGoogleUser()?'g':'u')};if(S.ogN)x.og=S.ogN;if(S.refBy){x.rb=S.refBy;x.rbd=S.refDone?1:0}x.ks=S.kSince||0;try{if(window.lgPub)Object.assign(x,lgPub())}catch(_){}if(Object.keys(x).length)NET.db.collection('players').doc(NET.id).set(x,{merge:true}).catch(()=>{})}return r};
 /* en Ajustes: tu código */
 const _accRK=accBlock;accBlock=function(first){const h=_accRK.apply(this,arguments);if(first||!h||!S.recKey)return h;
   return h+`<div class="reckey"><b>🔑 Tu código de recuperación</b><span>Apúntalo y no se lo enseñes a nadie. Si pierdes la cuenta, el jefe solo te la devuelve con este código.</span><div class="rkrow"><code id="rkCode" data-on="0">••••-••••-••••</code><button type="button" class="btn alt sm" id="rkShow" onclick="window.rkToggle&&rkToggle()">Ver</button><button type="button" class="btn alt sm" id="rkCopy" onclick="window.rkCopy&&rkCopy()">Copiar</button></div><p class="rkwarn">⚠️ Si lo pierdes y pierdes la cuenta, adiós a tu partida: nadie te la puede devolver.</p></div>`};
@@ -10311,7 +10312,7 @@ document.addEventListener('click',e=>{if(e.target.closest('#rkGameChip')){sfx('c
 try{document.body.dataset.v=view}catch(e){}
 
 /* ================= OPTIMIZACIÓN: la clasificación no parpadea ================= */
-function pubX(){const x={};try{x.acc=NET.isAnon?'a':(isGoogleUser()?'g':'u');if(S.ogN)x.og=S.ogN;if(S.rkh)x.rkh=S.rkh;if(S.refBy){x.rb=S.refBy;x.rbd=S.refDone?1:0}x.ks=S.kSince||0;x.vc=Object.keys(S.vault||{}).length;if(window.lgPub)Object.assign(x,lgPub())}catch(e){}return x}
+function pubX(){const x={};try{x.acc=NET.isAnon?'a':(isGoogleUser()?'g':'u');if(S.ogN)x.og=S.ogN;if(S.refBy){x.rb=S.refBy;x.rbd=S.refDone?1:0}x.ks=S.kSince||0;x.vc=Object.keys(S.vault||{}).length;if(window.lgPub)Object.assign(x,lgPub())}catch(e){}return x}
 (function(){const D=Object.getOwnPropertyDescriptor(Element.prototype,'innerHTML');
   window.guardHTML=function(el){if(!el||el._g)return;el._g=1;Object.defineProperty(el,'innerHTML',{configurable:true,get(){return D.get.call(this)},set(v){v=String(v);if(v===this._lastH&&this.childNodes.length)return;this._lastH=v;D.set.call(this,v)}})};
   ['#rkList','#rkPodium','#rkMyPos','#rkCats','#rkOnline','#reqs','#thrRank','#thrHome','#lgHome','#arBoard'].forEach(sel=>{try{guardHTML($(sel))}catch(e){}})})();
@@ -10808,6 +10809,60 @@ setTimeout(function netWatch(){try{if(NET.ok){try{sessionStorage.removeItem('net
   NET.why='No se ha podido conectar. Pulsa «Reintentar» o recarga la página.';toast('Sin conexión','Pulsa aquí para reintentar','var(--coral)','📡');
   const t=document.querySelector('#toasts .toast:last-child');if(t){t.style.cursor='pointer';t.onclick=()=>location.reload()}}catch(e){}},14000);
 setTimeout(()=>{if(NET.ok){try{sessionStorage.removeItem('netRetry')}catch(e){}}},20000);
+
+/* ================= ARREGLOS DE LA AUDITORÍA (7 oct) ================= */
+/* L11: give/take solo con números válidos */
+{const _gF=give,_tF=take;give=function(n){if(!Number.isFinite(+n)||+n<=0)return;return _gF.call(this,+n)};
+take=function(n){if(!Number.isFinite(+n)||Math.floor(+n)<=0||!Number.isFinite(+S.coins))return false;return _tF.call(this,+n)}}
+setInterval(()=>{try{['coins','earned','safe'].forEach(k=>{if(S[k]!=null&&!Number.isFinite(+S[k]))S[k]=0})}catch(e){}},5000);
+/* L03: intereses de la caja fuerte con la hora del servidor y como mucho 7 días seguidos sin entrar */
+safeAccrue=function(){const now=NOWS();if(!S.safe||!Number.isFinite(+S.safe)||S.safe<=0){S.safe=Math.max(0,+S.safe||0);S.safeT=now;return 0}
+  let d=(now-(+S.safeT||now))/864e5;if(!Number.isFinite(d)||d<=0){if(d<0)S.safeT=now;return 0}d=Math.min(d,7);
+  const add=S.safe*(Math.pow(1+SAFE_RATE,d)-1);if(!Number.isFinite(add)||add<0){S.safeT=now;return 0}S.safe+=add;S.safeT=now;S.safeInt=(S.safeInt||0)+add;return add};
+/* L04: regalar ya no da puntos de liga (dos amigos se podían pasar el mismo dinero sin parar) */
+try{delete LGPTS.gifts}catch(e){}
+/* L02: el premio por invitar solo vale si de verdad le invitaste, tiene cuenta, llegó a nivel 3 y no lo has cobrado ya */
+{const _agV=applyGifts;applyGifts=function(list){try{const ok=[];S.refFrom=S.refFrom||[];list.forEach(x=>{const c=x[1]||{};if(!c.ref){ok.push(x);return}const p=NET.players.get(c.from);
+    if(!p)return; /* aún no se ha cargado: se mira en el siguiente aviso */
+    const valid=p.rb===NET.id&&(+p.lvl||1)>=REF_LVL&&p.acc!=='a'&&c.from!==NET.id&&!S.refFrom.includes(c.from);
+    if(valid){S.refFrom.push(c.from);ok.push(x)}else{try{NET.db.collection('cmds/'+NET.id+'/q').doc(x[0]).delete().catch(()=>{})}catch(e){}}});
+  if(ok.length)return _agV(ok)}catch(e){}}}
+/* S01: la huella del código de recuperación ya no es pública; el jefe la mira en la partida privada */
+{const _pubR=pubX;pubX=function(){const x=_pubR();delete x.rkh;return x}}
+const RKP={};
+async function rkhPriv(id){if(RKP[id]!==undefined)return;RKP[id]=null;try{const sn=await NET.db.collection('data/users/'+id).doc('save').get();const c=sn.exists?JSON.parse((sn.data()||{}).json||'null'):null;RKP[id]=(c&&c.rkh)||'';}catch(e){RKP[id]='err'}try{renderAdmInbox()}catch(e){}}
+recCheck=function(m){const mt=String(m.text||'').match(/#rk:([0-9a-f]{24})$/);const code=String(m.old||'').toUpperCase();const ent=[...NET.players.entries()].find(([id,d])=>String(d.code||'').toUpperCase()===code);
+  if(!ent)return{st:'none',t:'No encuentro esa cuenta'};const id=ent[0];if(!mt)return{st:'no',t:'No ha puesto el código de recuperación'};
+  if(RKP[id]===undefined){rkhPriv(id);return{st:'wait',t:'Comprobando el código…'}}if(RKP[id]===null)return{st:'wait',t:'Comprobando el código…'};
+  if(RKP[id]==='err')return{st:'old',t:'No he podido leer esa cuenta. Revisa las reglas de Firebase.'};if(!RKP[id])return{st:'old',t:'Esa cuenta es antigua y no tiene código: no se puede comprobar. Ojo.'};
+  return mt[1]===RKP[id]?{st:'ok',t:'✅ Código correcto: la cuenta es suya'}:{st:'no',t:'❌ El código NO coincide: no es suya'}};
+document.addEventListener('click',e=>{const ok=e.target.closest('[data-bzok]');if(!ok)return;const m=BZ.all.get(ok.dataset.bzok);if(!m||m.type!=='rec')return;const c=recCheck(m);if(c.st==='wait'){e.stopImmediatePropagation();e.preventDefault();toast('Espera un segundo','Estoy comprobando el código','var(--sky)','🔑')}},true);
+/* S11: en el buzón no se envía hasta tener la huella */
+document.addEventListener('click',e=>{if(!e.target.closest('#bzGo')||BZ.type!=='rec')return;const tx=$('#bzTxt');if(tx&&!/#rk:[0-9a-f]{24}$/.test(tx.value||'')){const b=e.target.closest('#bzGo');if(b.dataset.w)return;b.dataset.w=1;e.stopImmediatePropagation();e.preventDefault();setTimeout(()=>{delete b.dataset.w;if(/#rk:[0-9a-f]{24}$/.test(($('#bzTxt')||{}).value||''))b.click()},400)}},false);
+/* S02: la mudanza no se lleva el código secreto */
+try{const _mvS=JSON.stringify;}catch(e){}
+/* M01: la barra de Trading solo se esconde si la guía está abierta de verdad */
+{const _tqS=tqSync;tqSync=function(){const g=$('#guTour');if(g&&(g.hidden||!g.offsetHeight)){g.id='guTourOff';try{return _tqS.apply(this,arguments)}finally{g.id='guTour'}}return _tqS.apply(this,arguments)}}
+/* M03: no mostrar el aviso de pantalla pequeña a la vez que la barra de Trading */
+setInterval(()=>{const a=$('.smallbar'),t=$('#trQuick');if(a&&t)a.style.display=t.hidden?'':'none'},800);
+/* M02/M04: números largos en la Bolsa y en la barra de Trading, abreviados en el móvil */
+{const _rbM=renderBolsa;renderBolsa=function(){const r=_rbM.apply(this,arguments);try{if(innerWidth<480)$$('#bxRoot .bx-pr b').forEach(b=>{const n=+String(b.textContent).replace(/[^\d]/g,'');if(n>=1e7&&/€/.test(b.textContent)&&!b.dataset.s){b.dataset.s=1;b.title=b.textContent;b.textContent=short(n)+' €'}})}catch(e){}return r}}
+{const _tqM=tqSync;tqSync=function(){const r=_tqM.apply(this,arguments);try{const m=$('#tqMid');if(m){const t=m.innerHTML.replace(/^([\d.]+) €/,(a,x)=>{const n=+x.replace(/\./g,'');return n>=1e6?short(n)+' €':a});if(t!==m.innerHTML)m.innerHTML=t}}catch(e){}return r}}
+/* T02/T03: texto de la liga exacto y con tu hora local */
+function lgUps(n){return Math.max(1,Math.min(3,Math.floor(n/2)))}
+function wkEndTxt(){try{return new Date(wkEnd()).toLocaleString('es-ES',{weekday:'long',hour:'2-digit',minute:'2-digit'})}catch(e){return'el lunes'}}
+{const _lgCT=lgCard;lgCard=function(){_lgCT();const el=$('#lgHome');if(!el||el.hidden)return;const s=el.querySelector('.lgs');if(s&&/Los 3 primeros suben/.test(s.innerHTML)){const n=myLgList().length;s.innerHTML=s.innerHTML.replace('Los 3 primeros suben de liga.',n<2?'Si eres el único, subes con 500 puntos.':(lgUps(n)===1?'El 1º sube de liga.':'Los '+lgUps(n)+' primeros suben de liga.'))}}}
+{const _rrT2=renderRank;renderRank=function(){const r=_rrT2.apply(this,arguments);try{const lb=$('#lgBox');if(lb&&rkCat==='liga'&&!lb.dataset.fx){lb.dataset.fx=1;lb.innerHTML=lb.innerHTML.replace(' (lunes a las 2:00)',' ('+wkEndTxt()+', tu hora)').replace('Los 3 primeros suben','Suben los primeros (1 si sois 2 o 3; 2 si sois 4 o 5; 3 si sois 6 o más)')}}catch(e){}return r}}
+(()=>{try{RKC2.forEach(x=>{if(x[0]==='liga')x[3]=x[3].replace('El lunes a las 2:00 los 3 primeros suben de liga','Cada lunes (de madrugada) suben los primeros de tu liga')});
+  const t=TUTOS.find(x=>x[1]==='Ligas y temporadas');if(t)t[4]=t[4].map(s=>[String(s[0]).replace('Cada <b>lunes a las 2:00</b> acaba la semana: los 3 primeros <b>suben</b>','Cada <b>lunes de madrugada</b> acaba la semana: los primeros <b>suben</b> (hasta 3, según cuántos jugáis)')]);
+  FAQ.forEach(q=>{q[1]=String(q[1]).replace('El lunes a las 2:00, los 3 primeros de tu liga suben.','El lunes de madrugada suben los primeros de tu liga (hasta 3, según cuántos jugáis).')})}catch(e){}})();
+/* T05: invitaciones sin «hasta 2.000.000 €» */
+(()=>{const fx=s=>String(s).replace(/premios de hasta 2\.000\.000 € por cada uno/g,'premios que crecen con cada amigo').replace(/hasta 2\.000\.000 € por cada uno/g,'premios que crecen con cada amigo');
+  try{Object.values(GU_T).forEach(L=>L.forEach(st=>{if(st[2])st[2]=fx(st[2])}))}catch(e){}try{TUTOS.forEach(t=>t[4].forEach(s=>{s[0]=fx(s[0])}))}catch(e){}try{FAQ.forEach(q=>{q[1]=fx(q[1])})}catch(e){}})();
+/* T04: Trading, sin «dinero de verdad» */
+(()=>{try{if(typeof TR_TUT!=='undefined')TR_TUT.forEach(st=>{for(const k in st)if(typeof st[k]==='string')st[k]=st[k].replace(/tu dinero de verdad/g,'tu dinero del juego').replace(/dinero de verdad/g,'dinero del juego')})}catch(e){}})();
+/* I01: traducciones de lo nuevo */
+try{i18nAdd([["Bolsa de Jugadores","Player Stock Market","Bourse des joueurs","Bolsa de Jogadores"],["Mi cartera","My portfolio","Mon portefeuille","A minha carteira"],["Mis inversores","My investors","Mes investisseurs","Os meus investidores"],["Grupos","Groups","Groupes","Grupos"],["Puntos semana","Weekly points","Points de la semaine","Pontos da semana"],["Crear un grupo","Create a group","Créer un groupe","Criar um grupo"],["Unirme con un código","Join with a code","Rejoindre avec un code","Entrar com um código"],["Entrar al grupo","Join group","Rejoindre le groupe","Entrar no grupo"],["Bóveda","Collection vault","Coffre des collections","Cofre de coleções"],["Liga semanal","Weekly league","Ligue hebdomadaire","Liga semanal"],["Temporada","Season","Saison","Temporada"],["Salón de la fama","Hall of Fame","Panthéon","Galeria da fama"],["Caja fuerte","Savings vault","Coffre-fort","Caixa-forte"],["Guardar en la caja fuerte","Deposit in the savings vault","Déposer dans le coffre-fort","Depositar na caixa-forte"],["Sacar de la caja fuerte","Withdraw from the savings vault","Retirer du coffre-fort","Retirar da caixa-forte"],["No tienes tanto en la cartera.","You don’t have that much in your wallet.","Tu n’as pas autant dans ton portefeuille.","Não tens esse valor na carteira."],["No hay tanto en la caja.","There isn’t that much in the savings vault.","Il n’y a pas autant dans le coffre-fort.","Não há esse valor na caixa-forte."],["Tu mes en Casinetori","Your month in Casinetori","Ton mois sur Casinetori","O teu mês no Casinetori"],["Ruleta millonaria","Millionaire wheel","Roue millionnaire","Roda milionária"],["Ruleta de la liga","League wheel","Roue de la ligue","Roda da liga"],["Ruleta de la fábrica","Factory wheel","Roue de l’usine","Roda da fábrica"],["Todas las ruletas","All wheels","Toutes les roues","Todas as rodas"],["Ver todas las ruletas","View all wheels","Voir toutes les roues","Ver todas as rodas"],["Es la que toca ahora","This is the current wheel","C’est la roue actuelle","Esta é a roda atual"],["Tirada extra","Extra spin","Tour supplémentaire","Jogada extra"],["Capital extra","Extra in-game funds","Fonds supplémentaires dans le jeu","Saldo extra do jogo"],["Hora del Crash","Crash hour","Heure du Crash","Hora do Crash"],["Gira el móvil","Rotate your phone","Tourne ton téléphone","Roda o telemóvel"],["Apuesta rápida","Quick bet","Mise rapide","Aposta rápida"],["Moderador","Moderator","Modérateur","Moderador"],["Administradores","Administrators","Administrateurs","Administradores"],["Hacer moderador","Make moderator","Nommer modérateur","Tornar moderador"],["Hacer jefe","Grant full admin access","Accorder les droits d’administration complets","Dar acesso completo de administrador"],["Cosméticos","Cosmetics","Objets cosmétiques","Cosméticos"],["OG y VIP solo con cuenta","OG and VIP require an account","Un compte est nécessaire pour OG et VIP","OG e VIP só com conta"],["Pon cuántas acciones quieres.","Enter how many shares you want.","Indique le nombre d’actions souhaité.","Indica quantas ações queres."],["Pon cuántas acciones quieres vender.","Enter how many shares you want to sell.","Indique combien d’actions tu veux vendre.","Indica quantas ações queres vender."],["No hay ningún grupo con ese código. Revisa que esté bien escrito.","No group was found with that code. Check that you entered it correctly.","Aucun groupe ne correspond à ce code. Vérifie que tu l’as bien saisi.","Não há nenhum grupo com esse código. Confirma que o escreveste corretamente."],["Crea una cuenta y luego entra otra vez con el enlace","Create an account, then open the invitation link again.","Crée un compte, puis ouvre à nouveau le lien d’invitation.","Cria uma conta e depois abre novamente o link de convite."],["El juego se ve mejor en vertical.","The game displays better in portrait mode.","Le jeu s’affiche mieux en mode portrait.","O jogo apresenta-se melhor na vertical."]])}catch(e){}
 })();
 </script>
 
