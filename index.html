@@ -1973,6 +1973,29 @@ html body .updmini{background:#14e08a!important;color:#062a1b!important;border-c
 .wrap{text-align:center}.wrap h2{font-size:clamp(26px,5vw,36px);margin:0}.wrgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin:14px 0}
 .wrc{padding:14px 10px;border-radius:14px;background:linear-gradient(160deg,#2a1b4a,#18181d);border:2px solid #3a2a5a;display:flex;flex-direction:column;gap:4px;animation:wrIn .5s both;animation-delay:var(--d)}
 .wrc .emo{font-size:30px}.wrc b{font:900 22px var(--f-b);color:#ffd600}.wrc small{font-weight:800;color:#cfcfd8;font-size:13px}@keyframes wrIn{from{opacity:0;transform:translateY(12px) scale(.95)}}
+/* ===== cosméticos de tienda ===== */
+.nc-sneon,.nc-soro,.nc-shielo,.nc-slava,.nc-sgal,.nc-sholo{-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+.nc-sneon{background:linear-gradient(90deg,#3ff0ff,#9dfcff);text-shadow:0 0 12px rgba(63,240,255,.6)}
+.nc-soro{background:linear-gradient(90deg,#b8860b,#fff3a0,#ffd600,#b8860b);background-size:200% 100%;animation:rgbmove 2.5s linear infinite}
+.nc-shielo{background:linear-gradient(90deg,#e8fbff,#7fe7ff,#ffffff)}
+.nc-slava{background:linear-gradient(0deg,#7a0000,#ff3b00 40%,#ffb300);background-size:100% 200%;animation:rgbmove 2s linear infinite}
+.nc-sgal{background:linear-gradient(90deg,#5b2bd6,#ff2e88,#7fe7ff,#5b2bd6);background-size:200% 100%;animation:rgbmove 4s linear infinite}
+.nc-sholo{background:linear-gradient(90deg,#ff9df0,#9dfcff,#fff3a0,#b8ffcf,#ff9df0);background-size:300% 100%;animation:rgbmove 2s linear infinite}
+.fr-sesm{box-shadow:0 0 0 3px #14e08a,0 0 0 6px #06331f,0 0 14px #14e08a!important}
+.fr-srubi{box-shadow:0 0 0 3px #ff3b4f,0 0 0 6px #5c0f1a,0 0 16px #ff3b4f!important}
+.fr-sazul{box-shadow:0 0 0 3px #3f7cff,0 0 18px 4px #3ff0ff!important;animation:paHxG 1.6s ease-in-out infinite}
+.fr-scos{box-shadow:0 0 0 3px #fff,0 0 0 6px #9d5cff,0 0 24px 6px #7fe7ff!important;animation:paHxG 2s ease-in-out infinite}
+.bg-satar{background:linear-gradient(160deg,#ff7a18,#ff2e88 55%,#3a0d5c)!important}
+.bg-sselva{background:radial-gradient(circle at 30% 30%,#2fd6a3,transparent 50%),linear-gradient(160deg,#0b3d1f,#0a2214)!important}
+.bg-smatrix{background:repeating-linear-gradient(90deg,#001a07 0 6px,#00330f 6px 7px),#000!important}
+.bg-saurora{background:linear-gradient(160deg,#0a0620,#14e08a 40%,#7fe7ff 60%,#9d5cff 80%,#0a0620)!important}
+#v-rico[data-st=cosmo] #cats,#v-rico[data-st=cosmo] .toolbar>*:not(.seg){display:none!important}
+.cmhead{padding:16px 18px;border-radius:16px;border:3px solid #ff4fd8;background:linear-gradient(135deg,#3a0d3a,#141418 70%);box-shadow:0 0 0 3px #000;margin-bottom:12px}
+.cmhead h3{margin:0;font:400 clamp(24px,5vw,34px)/1 var(--f-d);color:#ff9df0;text-transform:uppercase}.cmhead p{margin:6px 0 0;font-weight:700;font-size:15px}.cmhead b{color:#ffd600}
+.cmk{font:400 22px var(--f-d);text-transform:uppercase;margin:16px 0 8px}
+.cmgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.cmi{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px;border-radius:14px;background:#18181d;border:2px solid #2a2a33;text-align:center}
+.cmi.own{border-color:#ffd600}.cmi b{font-weight:900}.cmp{min-height:58px;display:grid;place-items:center;width:100%}.cmon{font-weight:900;color:#ffd600}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5094,7 +5117,7 @@ function openProfile(first){if(!first){go('perfil');return}let av=S.av||AVS[ri(0
     sfx('big');confetti(120);troll('QUE PASA, '+S.name.toUpperCase(),'a ver cuánto dinero haces',null,true)};
   $('#pSave').onclick=doSave;$('#pName').addEventListener('keydown',e=>{if(e.key==='Enter')doSave()})}
 function renderPerfil(){const c=myCos(),L=S.lvl,t=tiText();
-  const opt=(k,x,inner)=>{const xe=x[4]==='x';if(xe&&!hasExc(k,x[0])&&!cfg('showExc'))return'';const we=x[4]==='w';const locked=xe?!hasExc(k,x[0]):we?(window.peakW?peakW():0)<x[2]:L<x[2];return`<button class="opt${xe?' xopt':''}${we?' wopt':''}" data-set="${k}" data-val="${x[0]}" aria-pressed="${c[k]===x[0]}" ${locked?'disabled':''}>${inner}<span>${x[1]}</span>${locked?`<span class="lk">${xe?'Exclusivo':we?'Ten '+(x[5]||short(x[2]))+' €':'Nivel '+x[2]}</span>`:xe?'<span class="lk xk">Exclusivo</span>':''}</button>`};
+  const opt=(k,x,inner)=>{const xe=x[4]==='x';if(xe&&!hasExc(k,x[0])&&!cfg('showExc'))return'';const we=x[4]==='w',sh=x[4]==='s';const locked=xe?!hasExc(k,x[0]):sh?!(S.cosOwn||[]).includes(k+':'+x[0]):we?(window.peakW?peakW():0)<x[2]:L<x[2];return`<button class="opt${xe?' xopt':''}${we?' wopt':''}" data-set="${k}" data-val="${x[0]}" aria-pressed="${c[k]===x[0]}" ${locked?'disabled':''}>${inner}<span>${x[1]}</span>${locked?`<span class="lk">${xe?'Exclusivo':sh?'🛒 Tienda':we?'Ten '+(x[5]||short(x[2]))+' €':'Nivel '+x[2]}</span>`:xe?'<span class="lk xk">Exclusivo</span>':''}</button>`};
   const avs=[...AVS.map(a=>[a,1]),...AVX,...AVW.map(a=>[a,(S.avWon||[]).includes(a)?1:999]),...EXAV.filter(a=>hasExc('av',a)).map(a=>[a,1])];
   $('#pfBody').innerHTML=`<div class="pf">
     <div class="panel mecard bg-${c.bg}"><span class="bigav emo ${frCls(c)}">${avH({av:S.av,img:S.img},'😎')}</span><div class="mtext" style="min-width:0;flex:1"><h2 class="${ncCls(c)}">${esc(S.name||'Sin nombre')}</h2>${t?`<div class="ptitle">${esc(t)}</div>`:''}
@@ -5506,6 +5529,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-l',t:'Tienda de cosméticos',items:[['✨','Cosméticos','En Tienda › Cosméticos: 6 colores de nombre, 4 marcos y 4 fondos que solo se consiguen comprándolos. Desde 50.000 € hasta 1 billón.','new','#ff4fd8']]},
  {v:'2026-10-07-k',t:'Caja fuerte y tu mes',items:[['🔐','Caja fuerte','En Inicio › Hoy: guarda dinero que no se puede perder y que crece un 0,5 % al día.','new','#6b8bff'],['📊','Tu mes en Casinetori','En Logros: tu resumen del mes. Y al empezar cada mes, te sale el del mes anterior.','new','#ff4fd8'],['🚀','Hora del Crash','Evento nuevo: el Cohete del casino paga el triple.','new','#ff6b4a'],['👑','Corona por juego','El número 1 de cada minijuego lleva corona en su clasificación.','new','#ffd600'],['📋','10 misiones nuevas','Goles, blackjack, carreras, regalos, el botón rojo…','new','#14e08a']]},
  {v:'2026-10-07-j',t:'Ruleta y Trading más cómodos',items:[['🎡','Apuesta rápida en la ruleta','Arriba del todo: Rojo, Negro o Verde y Girar, sin tener que bajar hasta la mesa.','new','#14e08a'],['📊','Comprar y vender sin bajar','En el móvil, en Trading hay una barra abajo con Comprar y Vender, con lo que tengas elegido.','new','#3ff0ff']]},
  {v:'2026-10-07-i',t:'Más claro y funciona en más sitios',items:[['🏫','Arreglado «Sin conexión» en algunas redes','En algunas redes (por ejemplo, de institutos) la web decía que no había internet aunque sí lo había. Ya no.','fix','#14e08a'],['📈','Bolsa más clara','Si el precio cambia mientras tienes la ventana abierta, te avisa antes de comprar o vender. Y el % dice de cuántas horas es.','fix','#14e08a']]},
@@ -10657,6 +10681,28 @@ wrBtn();{const _goW=go;go=function(){const r=_goW.apply(this,arguments);try{wrBt
 ACH.push(['🔐','Ahorrador','Guarda dinero en la caja fuerte',()=>(S.safe||0)>0],['🏦','Banquero','Gana 1 millón en intereses de la caja fuerte',()=>(S.safeInt||0)>=1e6]);
 (()=>{try{const t=TUTOS.find(x=>x[1]==='Cómo ganar dinero');if(t&&!t[4].some(x=>/Caja fuerte/i.test(x[0])))t[4].push(['<b>Caja fuerte</b> (Inicio › Hoy): guarda dinero que no se puede perder en el casino ni online y da un 0,5 % al día.']);
   if(!FAQ.some(q=>/caja fuerte/.test(q[0])))FAQ.unshift(['¿Para qué sirve la caja fuerte?','Está en Inicio › Hoy. Lo que guardas ahí no se puede perder en el casino, ni en la ruleta del todo o nada, ni online, y crece un 0,5 % cada día. Cuenta como tu dinero en la clasificación. Puedes sacarlo cuando quieras.'])}catch(e){}})();
+
+/* ================= TIENDA DE COSMÉTICOS: colores, marcos y fondos que se compran ================= */
+const COSMO={c:[['sneon','Neón',5e4,'nc-sneon'],['soro','Oro líquido',5e5,'nc-soro'],['shielo','Hielo',2e6,'nc-shielo'],['slava','Lava',2e7,'nc-slava'],['sgal','Galaxia',5e8,'nc-sgal'],['sholo','Holograma',5e10,'nc-sholo']],
+  f:[['sesm','Esmeralda',1e5,'fr-sesm'],['srubi','Rubí',1e6,'fr-srubi'],['sazul','Fuego azul',5e7,'fr-sazul'],['scos','Cósmico',1e12,'fr-scos']],
+  bg:[['satar','Atardecer',2e5,'bg-satar'],['sselva','Selva',2e6,'bg-sselva'],['smatrix','Matrix',1e8,'bg-smatrix'],['saurora','Aurora',1e10,'bg-saurora']]};
+Object.assign(BGSW,{satar:'linear-gradient(160deg,#ff7a18,#ff2e88 55%,#3a0d5c)',sselva:'radial-gradient(circle at 30% 30%,#2fd6a3,transparent 50%),linear-gradient(160deg,#0b3d1f,#0a2214)',smatrix:'repeating-linear-gradient(90deg,#001a07 0 6px,#00330f 6px 7px),#000',saurora:'linear-gradient(160deg,#0a0620,#14e08a 40%,#7fe7ff 60%,#9d5cff 80%,#0a0620)'});
+Object.entries(COSMO).forEach(([k,L])=>L.forEach(x=>{if(!COS[k].some(y=>y[0]===x[0]))COS[k].push([x[0],x[1],x[2],x[3],'s'])}));
+const cosHas=(k,id)=>(S.cosOwn||[]).includes(k+':'+id);
+const COSK={c:'Color de nombre',f:'Marco',bg:'Fondo de tarjeta'};
+function cosPrev(k,x){if(k==='c')return`<span class="nm ${x[3]}" style="font:900 22px var(--f-b)">${esc(S.name||'Tu nombre')}</span>`;if(k==='f')return`<span class="sw emo ${x[3]}" style="width:54px;height:54px;font-size:30px">${avH({av:S.av,img:S.img},'😎')}</span>`;return`<span class="sw big" style="background:${BGSW[x[0]]};width:100%;height:54px;border-radius:10px;display:block"></span>`}
+function renderCosmo(){const box=$('#cosmo');if(!box)return;const c=myCos();
+  box.innerHTML=`<div class="cmhead"><h3>✨ Cosméticos</h3><p>Colores de nombre, marcos y fondos que <b>solo se consiguen aquí</b>. Se ven en la clasificación y en tu perfil. Una vez comprados son tuyos para siempre.</p></div>`+
+  Object.entries(COSMO).map(([k,L])=>`<h4 class="cmk">${COSK[k]}</h4><div class="cmgrid">${L.map(x=>{const own=cosHas(k,x[0]),on=c[k]===x[0];return`<div class="cmi ${own?'own':''}"><div class="cmp">${cosPrev(k,x)}</div><b>${esc(x[1])}</b>${own?(on?'<span class="cmon">✔ Puesto</span>':`<button class="btn sm" data-cmuse="${k}:${x[0]}">Ponérmelo</button>`):`<button class="btn sm mint" data-cmbuy="${k}:${x[0]}">${short(x[2])} €</button>`}</div>`}).join('')}</div>`).join('')}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-cmbuy],[data-cmuse]');if(!b)return;const key=b.dataset.cmbuy||b.dataset.cmuse,[k,id]=key.split(':'),x=(COSMO[k]||[]).find(y=>y[0]===id);if(!x)return;
+  if(b.dataset.cmbuy){if(cosHas(k,id))return;if(!take(x[2])){toast('No te llega','Cuesta '+short(x[2])+' €','var(--coral)','💸');sfx('lose');return}S.cosOwn=[...(S.cosOwn||[]),key];sfx('big');confetti(120);toast('¡Comprado!',COSK[k]+' «'+x[1]+'» · ya te lo he puesto','var(--sun)','✨')}
+  myCos()[k]=id;save();NET.lastP='';pushPlayer();try{renderMe()}catch(_){}renderCosmo()});
+/* en Perfil: los de tienda salen bloqueados hasta comprarlos */
+(function(){const re=/const we=x\[4\]==='w';/;})();
+try{const _rb=$('[data-st=boveda]');if(_rb&&!$('[data-st=cosmo]'))_rb.insertAdjacentHTML('afterend','<button data-st="cosmo" aria-pressed="false">✨ Cosméticos</button>');const nb=$('[data-st=cosmo]');if(nb)nb.addEventListener('click',()=>{shopTab='cosmo';$$('[data-st]').forEach(x=>x.setAttribute('aria-pressed',x===nb));renderShop()})}catch(e){}
+{const _rsC=renderShop;renderShop=function(){const v=$('#v-rico');if(v)v.dataset.st=shopTab;let c=$('#cosmo');if(shopTab==='cosmo'){$('#prods').hidden=true;$('#mine').hidden=true;const vb=$('#vault');if(vb)vb.hidden=true;if(!c){$('#mine').insertAdjacentHTML('afterend','<div id="cosmo"></div>');c=$('#cosmo')}c.hidden=false;renderCosmo();try{updMoney()}catch(e){}return}if(c)c.hidden=true;return _rsC.apply(this,arguments)}}
+ACH.push(['✨','Presumido','Compra un cosmético',()=>(S.cosOwn||[]).length>=1],['🌈','Coleccionista de estilo','Compra todos los cosméticos',()=>Object.entries(COSMO).every(([k,L])=>L.every(x=>cosHas(k,x[0])))]);
+(()=>{try{const t=TUTOS.find(x=>x[1]==='Tu perfil');if(t&&!t[4].some(x=>/Cosméticos/.test(x[0])))t[4].push(['En la Tienda › <b>✨ Cosméticos</b> hay colores, marcos y fondos que solo se consiguen comprándolos.'])}catch(e){}})();
 })();
 </script>
 
