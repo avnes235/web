@@ -4759,7 +4759,7 @@ function meRow(){return{id:NET.id||'me',name:S.name||'Tú',av:S.av||'😎',img:S
 function _old_rankList(tab){let arr=[...NET.players.entries()].filter(([id])=>id!==NET.id&&!ADM.bans.has(id)).map(([id,d])=>({...d,id}));
   if(tab==='amigos'){const f=new Set(S.friends||[]);arr=arr.filter(p=>f.has(p.id))}if(S.name)arr.push(meRow());return arr.sort((a,b)=>(+b.coins||0)-(+a.coins||0))}
 function _old_renderRank(){if(view!=='ranking')return;renderMe();
-  $('#netState').textContent=!NET.ok?'Sin conexión':NET.ro?'Solo puedes mirar':'En línea · '+NET.online.size+' conectados ahora';
+  $('#netState').textContent=!NET.ok?(/^Conectando/.test(NET.why||'')?'Conectando…':'Sin conexión · toca para reintentar'):NET.ro?'Solo puedes mirar':'En línea · '+NET.online.size+' conectados ahora';
   const arr=NET.ok?rankList(rkTab):[meRow()];
   let h=arr.map((p,i)=>{const on=!p.me&&NET.online.has(p.id),fr=(S.friends||[]).includes(p.id);
     const acts=p.me?'':(NET.ok?`<button class="btn pink sm" data-tr="${esc(p.id)}">💬 Mensajito · 100 €</button>`:'')+(rkTab==='todos'&&!fr?`<button class="btn alt sm" data-addid="${esc(p.id)}">+ Amigo</button>`:'')+(rkTab==='amigos'?`<button class="btn alt sm" data-rmid="${esc(p.id)}" aria-label="Quitar de amigos">${ICON('x')}</button>`:'');
@@ -4818,16 +4818,20 @@ function applyCloudBase(c){S={...fresh(),...c,st:{...(c.st||{})},best:{...(c.bes
   while(S.mis.length<3)S.mis.push(newMis());shownCoins=S.coins;save();renderLevel();renderUpg(true);renderMute();go(view);toast('Partida recuperada','Hemos cargado tu progreso guardado','var(--sky)','☁️')}
 function ofiStrip(){for(const [id,p] of NET.players){if(id!==NET.id&&p&&Array.isArray(p.exc)&&p.exc.includes('ti:xofi')){NET.ofiId=id;NET.ofiP=p;NET.players.delete(id)}}}
 async function initNet(){
-  try{if(typeof firebase==='undefined')throw'nolib';
+  if(NET.ok||NET.initBusy)return;NET.initBusy=true;NET.tries=(NET.tries||0)+1;if(NET.tries>1){NET.why='Conectando… (intento '+NET.tries+')';try{renderRank()}catch(e){}}
+  try{if(typeof firebase==='undefined'||!firebase.auth||!firebase.firestore){const B='https://www.gstatic.com/firebasejs/10.12.2/firebase-';
+      const ld=u=>new Promise(r=>{const x=document.createElement('script');x.src=B+u+'-compat.js?r='+Date.now();x.onload=r;x.onerror=r;document.head.appendChild(x);setTimeout(r,10000)});
+      if(typeof firebase==='undefined')await ld('app');if(typeof firebase!=='undefined'){if(!firebase.auth)await ld('auth');if(!firebase.firestore)await ld('firestore')}}
+    if(typeof firebase==='undefined'||!firebase.auth||!firebase.firestore)throw'nolib';
     if(!FIREBASE_CONFIG.apiKey||/PEGA/.test(FIREBASE_CONFIG.apiKey))throw'nocfg';
     if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
     const auth=firebase.auth(),db=firebase.firestore();
-    const user=await new Promise(res=>{setTimeout(()=>res(null),12000);const un=auth.onAuthStateChanged(u=>{un();if(u)res(u);else auth.signInAnonymously().then(c=>res(c.user)).catch(err=>{NET.authErr=(err&&err.code)||'';res(null)})})});
+    const user=await new Promise(res=>{setTimeout(()=>{res(null);NET.authLate=1},20000);const un=auth.onAuthStateChanged(u=>{un();if(u)res(u);else auth.signInAnonymously().then(c=>res(c.user)).catch(err=>{NET.authErr=(err&&err.code)||'';res(null)})})});
     if(!user)throw'auth';const id=user.uid;NET.db=db;NET.id=id;NET.auth=auth;NET.isAnon=!!user.isAnonymous;NET.uname=user.email?user.email.split('@')[0]:'';
     try{const sn=await Promise.race([db.collection('data/users/'+id).doc('save').get(),new Promise((_,rj)=>setTimeout(()=>rj('timeout'),8000))]);if(sn.exists){const c=JSON.parse((sn.data()||{}).json||'null');if(c&&typeof c==='object'&&((+c.earned||0)>(S.earned||0)||(!S.name&&c.name)))applyCloud(c)}}catch(e){}
-    NET.ok=true;
+    NET.ok=true;NET.why='';NET.tries=0;clearTimeout(NET.rt);
     try{const ad=await Promise.race([db.collection('admins').doc(id).get(),new Promise((_,rj)=>setTimeout(()=>rj('timeout'),8000))]);if(ad.exists){ADM.on=true;$('#navAdmin').hidden=false;$('#bossBtn').textContent='Ir al panel del jefe'}}catch(e){}
-    db.collection('players').orderBy('coins','desc').limit(300).onSnapshot(sn=>{NET.players=new Map(sn.docs.filter(d=>d.exists).map(d=>[d.id,normP(d.data())]));try{ofiStrip()}catch(e){}onPlayers()},()=>{NET.ok=false;NET.why='Se ha cortado la conexión con la clasificación. Recarga la página.';renderRank()});
+    NET.lp=()=>db.collection('players').orderBy('coins','desc').limit(300).onSnapshot(sn=>{if(!NET.ok){NET.ok=true;NET.why=''}NET.players=new Map(sn.docs.filter(d=>d.exists).map(d=>[d.id,normP(d.data())]));try{ofiStrip()}catch(e){}onPlayers()},err=>{NET.ok=false;NET.why='Conectando… (se ha cortado, volviendo a conectar)';renderRank();if(!(err&&err.code==='permission-denied'))setTimeout(()=>{try{NET.lp()}catch(e){}},5000)});NET.lp();
     db.collection('freq/'+id+'/q').onSnapshot(sn=>{NET.inReq=sn.docs.filter(d=>d.exists).map(d=>({...d.data(),id:d.id}));NET.inReqN=NET.inReq.length;handleReqs();renderReqs()},()=>{});
     db.collection('freq/'+id+'/acc').onSnapshot(sn=>{let ch=false;NET.accIds=NET.accIds||new Set();sn.docChanges().forEach(x=>{const fid=x.doc.id;S.friends=S.friends||[];
       if(x.type==='removed'){NET.accIds.delete(fid);if(S.friends.includes(fid)){S.friends=S.friends.filter(y=>y!==fid);ch=true}return}
@@ -4842,7 +4846,9 @@ async function initNet(){
     db.collection('meta').doc('event').onSnapshot(sn=>{const before=evMult();NET.event=sn.exists?sn.data():null;renderEvent();const m=evMult();
       if(m>1&&before===1)troll(String(NET.event.name||'Evento').toUpperCase()+' X'+m,'todo lo que ganes vale '+(m===2?'el doble':'el triple')+', corre','#ffd600',true)},()=>{});
   }catch(e){NET.ok=false;NET.why={nolib:'No se ha podido cargar la conexión. Revisa tu internet y recarga.',nocfg:'Falta conectar la base de datos. Tu partida se guarda en este navegador.',auth:/api-key/.test(NET.authErr||'')?'La clave de Firebase no es válida. Revisa la configuración del juego.':/operation-not-allowed|admin-restricted/.test(NET.authErr||'')?'Falta activar el acceso Anónimo en Firebase (Authentication).':'No se ha podido entrar a la clasificación ('+(NET.authErr||'sin conexión')+').'}[e]||'No hay conexión con la clasificación ahora mismo.'}
-  renderMe();renderRank();if(!S.name)openProfile(true);
+  NET.initBusy=false;
+  if(!NET.ok&&!/Falta conectar|reglas|clave de Firebase|Anónimo/.test(String(NET.why||''))){const w=[3,5,8,12,20,30][Math.min(NET.tries-1,5)];if(NET.tries<12){NET.why='Conectando… (vuelvo a probar en '+w+' s)';clearTimeout(NET.rt);NET.rt=setTimeout(initNet,w*1000)}else NET.why='No se ha podido conectar. Pulsa «Reintentar».'}
+  renderMe();renderRank();if(!S.name&&!NET.profAsked){NET.profAsked=1;openProfile(true)}
   if(NET.ok){pushPlayer();setInterval(pushPlayer,30000);setInterval(cloudSave,40000);setInterval(()=>{refreshOnline();renderRank();renderAdmin()},30000);
     addEventListener('pagehide',()=>{pushPlayer();cloudSave()});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')cloudSave()});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')pushPlayer()})}}
 
@@ -5206,7 +5212,7 @@ function renderRkCats(){$('#rkCats').innerHTML=RKC.map(([k,n])=>`<button class="
 document.addEventListener('click',e=>{const c=e.target.closest('#rkCats [data-cat]');if(c){rkCat=c.dataset.cat;sfx('click');renderRank();return}
   const g=e.target.closest('#rkGames [data-g]');if(g){rkG=g.dataset.g;renderRank();return}const d=e.target.closest('#rkDiffs [data-d]');if(d){rkD=d.dataset.d;renderRank()}});
 function renderRank(){if(view!=='ranking')return;renderMe();renderRkCats();renderReqs();
-  $('#netState').textContent=!NET.ok?'Sin conexión':NET.ro?'Solo puedes mirar':'En línea · '+NET.online.size+' conectados ahora';
+  $('#netState').textContent=!NET.ok?(/^Conectando/.test(NET.why||'')?'Conectando…':'Sin conexión · toca para reintentar'):NET.ro?'Solo puedes mirar':'En línea · '+NET.online.size+' conectados ahora';
   const arr=NET.ok?rankList(rkTab,rkCat):(S.name?[meRow()]:[]);
   let h=arr.map((p,i)=>{const on=!p.me&&NET.online.has(p.id),fr=(S.friends||[]).includes(p.id),pend=(S.outReq||[]).includes(p.id),v=pval(p,rkCat);
     const acts=p.me||!NET.ok?'':(fr?`<button class="btn mint sm" data-gift="${esc(p.id)}">Regalar</button>`:'')+`<button class="btn pink sm" data-tr="${esc(p.id)}">💬 Mensajito · 100 €</button>`+
@@ -5358,7 +5364,7 @@ function rowHTML(p,i,cat,top,withActs){if(RK_ARR&&RK_ARR[i]===p)i=rkIdx(RK_ARR,i
     <span style="min-width:0"><b><span class="${ncCls(p.cos)}">${esc(p.name||'Sin nombre')}</span>${p.rn?`<i class="rn">${esc(p.rn)}</i>`:''}${p.me?' (tú)':''}${sh?`<span class="shw emo">${sh}</span>`:''}</b><small>${p.ti?`<em class="tt">${esc(p.ti)}</em> · `:''}Nv ${+p.lvl||1}${on?` · <span class="onat">● ${esc(atTxt(p))}</span>`:''}</small><div class="rbar"><i style="width:${pct}%"></i></div></span>
     <span class="val">${v==null?'–':fmtValP(cat,p)}</span><span class="acts">${acts}</span></div>`}
 function renderRank(){if(view!=='ranking')return;renderMe();renderRkCats();renderReqs();
-  $('#netState').textContent=!NET.ok?'Sin conexión':NET.ro?'Solo puedes mirar':'En línea · '+NET.online.size+' conectados ahora';
+  $('#netState').textContent=!NET.ok?(/^Conectando/.test(NET.why||'')?'Conectando…':'Sin conexión · toca para reintentar'):NET.ro?'Solo puedes mirar':'En línea · '+NET.online.size+' conectados ahora';
   const arr=NET.ok?rankList(rkTab,rkCat):(S.name?[meRow()]:[]);const top=arr.length?pval(arr[0],rkCat):0;
   $('#rkPodium').innerHTML=arr.length?podiumHTML(arr,rkCat):'';$('#rkMyPos').innerHTML=myPosHTML(arr,rkCat);
   let h=arr.length?`<p class="lsth">Clasificación completa</p>`+arr.map((p,i)=>rowHTML(p,i,rkCat,top,true)).join(''):'';
@@ -5563,6 +5569,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-p',t:'Conexión que se arregla sola',items:[['📡','Adiós al «Sin conexión» al recargar','Si al entrar o al actualizar la conexión tarda, el juego ya no se rinde: vuelve a probar solo cada pocos segundos, sin recargar la página.','fix','#14e08a'],['👆','Toca para reintentar','Si aun así sale «Sin conexión», tócalo y vuelve a intentarlo al momento.','fix','#3f7cff']]},
  {v:'2026-10-07-o',t:'Correcciones de seguridad y textos',items:[['🛡️','Más seguro','Arreglados varios fallos que podían dar dinero raro, intereses infinitos o regalos falsos.','fix','#14e08a'],['🏆','Ligas más claras','La hora del cierre sale en tu hora y el texto de subidas cuadra con tu liga.','fix','#ffd600'],['📱','Móvil','Precios de la Bolsa más cortos y barras que ya no se tapan.','fix','#3f7cff']]},
  {v:'2026-10-07-n',t:'Tienda más cómoda en el móvil',items:[['🛍️','Objetos más pequeños','En el móvil la Tienda enseña 2 objetos por fila: ves mucho más sin bajar.','fix','#14e08a'],['🔴','Cuenta atrás arreglada','El 3, 2, 1 del botón rojo va a la vez que el sonido.','fix','#ff3b4f']]},
  {v:'2026-10-07-m',t:'Más claro en el móvil',items:[['📱','Pestañas grandes','La Tienda, Online y Ayuda tienen pestañas grandes con icono, como Inicio y Clasificación.','fix','#ffd600'],['🎡','Botón rojo y ruleta','Si te recarga la ruleta y ya la tenías lista, ahora te da 2 tiradas seguidas.','fix','#ff6b4a'],['🐐','Pack OG y VIP completo','Quien lo tenga con cuenta recibe todo: título, marco, color, fondo y cara.','fix','#ffd600']]},
@@ -10802,13 +10809,12 @@ function confirm2(b){if(b.dataset.ok)return true;b.dataset.ok=1;b.textContent='�
 {const _goA=go;go=function(v){const r=_goA.apply(this,arguments);if(view==='admin'&&ADM.on&&!ADM.mod){if(ADML===null)admLoad();else admBox()}return r}}
 
 /* ================= si la conexión se queda colgada (p. ej. justo después de Actualizar), se reintenta sola ================= */
-setTimeout(function netWatch(){try{if(NET.ok){try{sessionStorage.removeItem('netRetry')}catch(e){}return}
-  let n=0;try{n=+sessionStorage.getItem('netRetry')||0}catch(e){}
-  if(!/Conectando/.test(String(NET.why||'')))return;
-  if(n<2&&navigator.onLine!==false){try{sessionStorage.setItem('netRetry',n+1)}catch(e){}try{save()}catch(e){}location.reload();return}
-  NET.why='No se ha podido conectar. Pulsa «Reintentar» o recarga la página.';toast('Sin conexión','Pulsa aquí para reintentar','var(--coral)','📡');
-  const t=document.querySelector('#toasts .toast:last-child');if(t){t.style.cursor='pointer';t.onclick=()=>location.reload()}}catch(e){}},14000);
-setTimeout(()=>{if(NET.ok){try{sessionStorage.removeItem('netRetry')}catch(e){}}},20000);
+/* sin recargar: si vuelve internet o vuelves a la pestaña, se reintenta al momento */
+addEventListener('online',()=>{if(!NET.ok){NET.tries=0;clearTimeout(NET.rt);initNet()}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&!NET.ok&&!NET.initBusy){clearTimeout(NET.rt);initNet()}});
+try{sessionStorage.removeItem('netRetry')}catch(e){}
+NET.retryNow=()=>{if(NET.ok)return;NET.tries=0;clearTimeout(NET.rt);initNet()};
+document.addEventListener('click',e=>{if(e.target.closest('#netState')&&!NET.ok)NET.retryNow()});
 
 /* ================= ARREGLOS DE LA AUDITORÍA (7 oct) ================= */
 /* L11: give/take solo con números válidos */
