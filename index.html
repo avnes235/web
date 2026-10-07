@@ -9307,7 +9307,7 @@ function shareThing(text,url,file){return new Promise(res=>{const old=$('#shBox'
     ['fb','Facebook','#1877f2','<b style="font:900 26px Arial">f</b>','https://www.facebook.com/sharer/sharer.php?u='+E(url)]];
   const more=!!navigator.share&&matchMedia('(pointer:coarse)').matches;
   const el=document.createElement('div');el.id='shBox';el.innerHTML=`<div class="sb" role="dialog" aria-label="Compartir"><div class="sh"><h3>Compartir</h3><button class="x" aria-label="Cerrar">✕</button></div>
-    <div class="pv">${img?`<img src="${img}" alt="">`:'<img src="icon-192.png" alt="">'}<p>${esc(text)}</p></div>
+    <div class="pv">${img?`<img src="${img}" alt="">`:'<img src="icon-192.png?v=4" alt="">'}<p>${esc(text)}</p></div>
     <div class="apps">${apps.map(a=>`<button class="ap" data-ap="${a[0]}"><i style="background:${a[2]}">${a[3]}</i>${a[1]}</button>`).join('')}
       ${file?'<button class="ap" data-ap="dl"><i style="background:#ffd600;color:#111">⬇</i>Imagen</button>':''}${more?'<button class="ap" data-ap="more"><i style="background:#3a3f5c">⋯</i>Más apps</button>':''}</div>
     <div class="lk"><input readonly value="${esc(url)}" aria-label="Enlace"><button class="btn sm mint" data-ap="copy">Copiar</button></div></div>`;
