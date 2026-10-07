@@ -1,11 +1,6 @@
-// Casinetori: service worker mínimo para que se pueda instalar como app.
-// No guarda nada en caché: así cada actualización llega al momento.
+// Casinetori: service worker mínimo para que se pueda instalar como app (v2).
+// No intercepta nada: la web siempre se carga normal desde internet.
+// (Antes interceptaba la carga y en algunas redes, como las de institutos, mostraba «Sin conexión» por error.)
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
-self.addEventListener('fetch', e => {
-  if (e.request.mode !== 'navigate') return;
-  // cache:'no-store' para no coger una versión vieja guardada por el navegador
-  e.respondWith(fetch(e.request.url, {cache: 'no-store', credentials: 'same-origin'}).catch(() => new Response(
-    '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><body style="background:#0d1020;color:#fff;font:18px system-ui;display:grid;place-items:center;height:100vh;margin:0;text-align:center"><div><h1>Sin conexión</h1><p>Casinetori necesita internet. Vuelve a intentarlo en un momento.</p></div>',
-    {headers: {'Content-Type': 'text/html; charset=utf-8'}})));
-});
+self.addEventListener('fetch', () => {});

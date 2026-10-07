@@ -1,7 +1,7 @@
 {
-  "name": "Casinetori · Casino y juegos con amigos",
+  "name": "Casinetori · Minijuegos y retos con amigos",
   "short_name": "Casinetori",
-  "description": "Casino virtual, trading simulado y minijuegos con dinero ficticio. Gratis, sin dinero real y para competir con amigos.",
+  "description": "Minijuegos, ligas semanales y retos con tus amigos. Gratis y con dinero de mentira, sin apuestas reales.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
