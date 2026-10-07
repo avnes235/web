@@ -3,6 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>
+/* red de seguridad: si algo rompe la carga, avisa y deja volver a empezar desde Inicio */
+window.__casErr=[];addEventListener('error',function(e){try{__casErr.push((e.message||'error')+' ('+(e.lineno||'?')+')')}catch(_){}});
+setTimeout(function(){if(window.__casOK)return;try{var d=document.createElement('div');d.style.cssText='position:fixed;left:8px;right:8px;top:8px;z-index:99999;background:#ff3b4f;color:#fff;font:700 14px/1.4 system-ui,sans-serif;padding:12px 14px;border-radius:12px;box-shadow:0 6px 20px #0008;cursor:pointer';
+d.textContent='⚠️ El juego no ha cargado bien. Toca aquí para arreglarlo y recargar. (Error: '+(window.__casErr.slice(0,2).join(' · ')||'tarda demasiado')+')';
+d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catch(_){}location.reload()};document.body.appendChild(d)}catch(_){}},12000);
+</script>
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
@@ -5571,6 +5578,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-r',t:'Arreglado: se quedaba «Conectando…» al recargar',items:[['🛠️','Encontrado el fallo','Si recargabas o actualizabas estando en Tu perfil, el juego se rompía al arrancar y no llegaba a conectarse. Arreglado.','fix','#14e08a'],['🛟','Red de seguridad','Si algún día algo no carga bien, sale un aviso rojo: lo tocas y se arregla solo.','fix','#ff3b4f']]},
  {v:'2026-10-07-q',t:'Ligas más justas y vigilancia de trampas',items:[['🏆','Cierre de liga igual para todos','El lunes el servidor congela la clasificación de cada liga, así a todos os sale el mismo puesto.','new','#ffd600'],['🚨','Vigilante','El servidor revisa cada hora que nadie suba de forma imposible. Los tramposos no cuentan en la liga.','new','#ff3b4f'],['📡','Estado de la conexión','En Ajustes (o tocando «Sin conexión») ves qué está fallando.','new','#3f7cff']]},
  {v:'2026-10-07-p',t:'Conexión que se arregla sola',items:[['📡','Adiós al «Sin conexión» al recargar','Si al entrar o al actualizar la conexión tarda, el juego ya no se rinde: vuelve a probar solo cada pocos segundos, sin recargar la página.','fix','#14e08a'],['👆','Toca para reintentar','Si aun así sale «Sin conexión», tócalo y vuelve a intentarlo al momento.','fix','#3f7cff']]},
  {v:'2026-10-07-o',t:'Correcciones de seguridad y textos',items:[['🛡️','Más seguro','Arreglados varios fallos que podían dar dinero raro, intereses infinitos o regalos falsos.','fix','#14e08a'],['🏆','Ligas más claras','La hora del cierre sale en tu hora y el texto de subidas cuadra con tu liga.','fix','#ffd600'],['📱','Móvil','Precios de la Bolsa más cortos y barras que ya no se tapan.','fix','#3f7cff']]},
@@ -5981,7 +5989,7 @@ const away=Math.min(7200,(Date.now()-prevSeen)/1000),offline=Math.floor(perSec()
 if(offline>0&&away>30){give(offline);setTimeout(()=>toast('Mientras no estabas','Tu fábrica ha hecho '+short(offline)+' €','var(--sun)','🏭'),600)}
 TITLES.trading='Trading';let startV='inicio';try{startV=localStorage.getItem(KEY+'-v')||'inicio'}catch(e){}
 const h=(location.hash||'').slice(1);if(TITLES[h])startV=h;
-go(startV);requestAnimationFrame(frame);initNet();
+try{go(startV)}catch(e){try{go('inicio')}catch(_){}}requestAnimationFrame(frame);initNet();
 document.fonts&&document.fonts.ready.then(()=>{drawWheel();drawRW();if(!rk)drawRocket();if(view==='casino')drawTrack();if(!tk||!tk.live)coverTk()});
 
 /* ================= BUZÓN DEL JEFE ================= */
@@ -10916,6 +10924,10 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-vigb
     vigLoad()}catch(err){toast('No se ha podido','Revisa que has pegado las reglas nuevas','var(--coral)','⚠️')}});
 {const _goV=go;go=function(v){const r=_goV.apply(this,arguments);if(view==='admin'&&ADM.on&&!ADM.mod){if(VIG===null)vigLoad();else vigBox()}return r}}
 try{i18nAdd([["Estado de la conexión","Connection status","État de la connexion","Estado da ligação"],["Ver estado","View status","Voir l’état","Ver estado"],["Reintentar","Retry","Réessayer","Tentar de novo"],["Si sale «Sin conexión», aquí ves por qué.","If it says “Offline”, see why here.","Si « Hors ligne » s’affiche, voyez pourquoi ici.","Se aparecer «Sem ligação», vê aqui porquê."],["Si falla, haz una captura de esto y mándasela al jefe.","If it fails, take a screenshot of this and send it to the boss.","En cas d’échec, faites une capture et envoyez-la au chef.","Se falhar, tira uma captura e envia-a ao chefe."],["Copiar","Copy","Copier","Copiar"],["Cerrar","Close","Fermer","Fechar"]])}catch(e){}
+
+/* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
+try{if(typeof startV!=='undefined'&&view!==startV)go(startV)}catch(e){try{go('inicio')}catch(_){}}
+window.__casOK=1;
 })();
 </script>
 
