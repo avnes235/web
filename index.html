@@ -1937,6 +1937,20 @@ html body .updmini{background:#14e08a!important;color:#062a1b!important;border-c
 .rbparade{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom,0px));left:-200px;z-index:130;display:flex;gap:10px;align-items:center;font-size:34px;pointer-events:none;animation:rbWalk 5s linear forwards}.rbparade small{font:900 14px var(--f-b);color:#ffd600;background:#000;padding:4px 8px;border-radius:8px}
 .rbparade span{animation:bob .4s ease-in-out infinite alternate}@keyframes rbWalk{to{left:110vw}}
 @media (prefers-reduced-motion:reduce){.rbparade{animation-duration:.01s}.rbcard{animation:none}}
+/* ===== TANDA C ===== */
+.gsbox{position:relative;margin:0 0 14px}.gsbox .gsi{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none}
+.gsbox .gsin{width:100%;padding-left:44px!important;font-size:16px!important;min-height:50px}
+.gsres{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:60;background:#18181d;border:2px solid #3a3a45;border-radius:14px;box-shadow:0 14px 30px rgba(0,0,0,.6);padding:6px;display:flex;flex-direction:column;gap:4px;max-height:60vh;overflow:auto}
+.gsr{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:0;background:transparent;color:#fff;font:inherit;text-align:left;cursor:pointer;border-left:4px solid var(--c)}
+.gsr:hover,.gsr:focus{background:#24242c}.gsr .emo{font-size:20px}.gsr b{font-weight:900}.gsr small{margin-left:auto;color:#9a9aab;font-weight:800;font-size:12px;text-transform:uppercase}
+.gsnone{padding:12px;font-weight:800;color:#9a9aab}
+#v-inicio .gsbox{grid-column:1/-1;order:5}
+.wcat{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:10px;margin:12px 0}
+.wci{padding:12px;border-radius:12px;background:#1d1d22;border:2px solid #2a2a33;display:flex;flex-direction:column;gap:6px}.wci.on{border-color:#ffd600}.wci b{font-weight:900;font-size:16px}.wci small{font-weight:700;color:#cfcfd8;font-size:13px;flex:1}.wcnow{font-weight:900;color:#ffd600;font-size:13px}
+.smallbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:125;width:min(440px,calc(100vw - 20px));display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:#141d3d;border:2px solid #6b8bff;box-shadow:0 10px 24px rgba(0,0,0,.5);color:#fff}
+.smallbar{flex-wrap:wrap}.smallbar .emo{font-size:24px}.smallbar span:nth-child(2){flex:1 1 calc(100% - 90px);min-width:0}.smallbar .btn{flex:1 1 auto}.smallbar b{display:block;font-weight:900}.smallbar small{font-weight:700;font-size:13px;color:#cfcfd8}
+.trad{display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,#06331f,#141418 70%);border:2px solid #14e08a}
+.trad{flex-wrap:wrap}.trad .emo{font-size:28px}.trad span:nth-child(2){flex:1 1 calc(100% - 60px);min-width:0}.trad .btn{flex:1 1 auto}.trad b{display:block;font-weight:900}.trad small{font-weight:700;font-size:13px;color:#cfcfd8}.trad small b{display:inline;color:#ffd600}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5470,6 +5484,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-h',t:'Buscador y ruletas nuevas',items:[['🔍','Buscador de juegos','En Juegos, Casino e Inicio › Jugar: escribe «snake», «ruleta», «bolsa»… y entra directo.','new','#6b8bff'],['🎡','3 ruletas nuevas','Millonaria (premios según lo que tienes), de la Liga (puntos) y de la Fábrica (energía, doradas y clics x5).','new','#ffd600'],['📖','Elige tu ruleta','Debajo de la ruleta: «Ver todas las ruletas» y elige la que quieras para la próxima tirada.','new','#ff4fd8'],['⚔️','Online sin tope','Ya no hay máximo por duelo, ni «la mitad de tu cartera», ni límite diario. Si quieres ponerte un límite, lo eliges tú en Ajustes › Online.','new','#ff2e88'],['📺','Capital extra en Trading','Mira un anuncio y llévate dinero para invertir, cada 30 minutos.','new','#14e08a']]},
  {v:'2026-10-07-g',t:'20 objetos nuevos y más sorpresas',items:[['🦆','20 objetos nuevos en la Tienda','Desde unos calcetines con capa hasta el Archivo de deseos estelares. Algunos dan título.','new','#ffd600'],['☁️','3 colecciones nuevas en la Bóveda','Vida en las nubes, Héroe de sofá y Escritorio absurdo.','new','#8fd3ff'],['🔴','11 sorpresas nuevas en el botón rojo','El pato inspector, el diploma de curiosidad, la encuesta del siglo…','new','#ff3b4f'],['🧭','4 logros nuevos','Explorador de salas, Colección presentada, Primer deseo y Vida en las nubes.','new','#14e08a'],['🌍','Traducciones mejoradas','Inglés, francés y portugués revisados.','fix','#3f7cff']]},
  {v:'2026-10-07-f',t:'Grupos de amigos',items:[['👥','Crea tu grupo','En Clasificación › Grupos: crea un grupo con tu pandilla o tu clase y tened vuestra propia clasificación.','new','#6b8bff'],['📤','Invita con un enlace','Pulsa «Invitar», mándalo por WhatsApp y quien lo abra entra al grupo. Hasta 3 grupos por persona.','new','#14e08a']]},
  {v:'2026-10-07-e',t:'Bolsa de Jugadores',items:[['📈','¡Invierte en otros jugadores!','Nueva sala Bolsa: cada jugador es una acción. Si juega mucho y le va bien, su precio sube. Compra barato y vende caro.','new','#14e08a'],['🤝','Tus inversores','Mira quién ha apostado por ti y no les falles.','new','#ffd600'],['🏆','Mejores inversores','Clasificación de quién gana más invirtiendo.','new','#ff4fd8']]},
@@ -8170,7 +8185,7 @@ L_.load=function(d){_gdLLoad.apply(this,arguments);const s=this;s.bricks.forEach
 const _gdSetGTitle=setGTitle;setGTitle=function(){const r=_gdSetGTitle.apply(this,arguments);const t=document.querySelector('#gTitle .dtag');if(t)t.dataset.dif=curDiff();return r};
 
 /* ================= ONLINE 3 (_tn): avisos, protección, historial completo y TORNEOS ================= */
-CFG_DEF.olNotif=true;CFG_DEF.olLim=100000;
+CFG_DEF.olNotif=true;CFG_DEF.olLim=0;
 const TNMAX=25000,TNPCT=.5,TNWARN=.2,TNTRIES=3;
 const TN={known:new Set(),q:[],next:0,rate:[],t0:0,started:false,subs:{},docs:new Map(),ins:new Map(),toOpen:new Map(),hf:'all',bossOpen:false,
   bf:{name:'',game:'gold',fee:1000,prize:50000,dur:60},run:null,busy:{},wins:{},fin:{},showDone:false};
@@ -10468,6 +10483,69 @@ PRANKS.push(
   ()=>{troll('🔴','espera…','#ff3b4f',true);setTimeout(()=>troll('🟡','casi…','#ffd600',true),1100);setTimeout(()=>troll('🟢','vale, ya puedes seguir','#14e08a',true),2200)},
   ()=>{sfx('win');troll('👏 BUEN CLIC','aplauso diminuto','#ffd600',true)},
   ()=>{troll('HE HABLADO CON EL OTRO BOTÓN','también te ha visto','#ff4fd8',true)});
+
+/* ================= TANDA C ================= */
+/* ---- 1. Buscador de juegos y salas ---- */
+function gsItems(){const out=[];try{GLIST.forEach(([id,n,c])=>out.push({t:n,s:'Minijuego',e:'🕹️',c,go:()=>go('arcade',id)}))}catch(e){}
+  try{Object.entries(CZ).forEach(([id,g])=>out.push({t:g.name||g.n||id,s:'Casino',e:'🎰',c:'#ff4d63',go:()=>go('casino',id)}))}catch(e){}
+  [['Tienda','Comprar objetos','🛍️','rico'],['Bóveda','Colecciones con premio','🏛️','rico','boveda'],['Fábrica','Pulsar la moneda','🏭','fabrica'],['Trading','Simulador de bolsa','📊','trading'],['Bolsa de Jugadores','Invertir en jugadores','📈','bolsa'],
+   ['Online','Duelos, botes y torneos','⚔️','online'],['Clasificación','Quién va primero','👑','ranking'],['Liga semanal','Tu liga','🏅','ranking','liga'],['Grupos','Clasificación con tu pandilla','👥','ranking','grupos'],['Logros','Medallas','🏆','logros'],['Ayuda','Tutoriales y preguntas','❓','ayuda'],['Ajustes','Sonido, idioma, cuenta','⚙️','ajustes']]
+   .forEach(([t,s,e,v,sub])=>out.push({t,s,e,c:'#6b8bff',go:()=>{if(v==='ranking'&&sub){rkTabGo(sub);return}go(v);if(sub==='boveda')setTimeout(()=>{const b=$('[data-st=boveda]');if(b)b.click()},50)}}));return out}
+const gsNorm=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function gsBox(id){return`<div class="gsbox" id="${id}"><span class="gsi">🔍</span><input class="inp gsin" type="search" placeholder="Buscar juego o sala: snake, ruleta, bolsa…" autocomplete="off" aria-label="Buscar juego o sala"><div class="gsres" hidden></div></div>`}
+function gsMount(){[['#hub','gsArc'],['#czHub','gsCz'],['#v-inicio .tiles','gsIni']].forEach(([sel,id])=>{const host=$(sel);if(!host||$('#'+id))return;if(id==='gsIni'){host.insertAdjacentHTML('beforebegin',gsBox(id));const b=$('#'+id);if(b)b.dataset.ht='jugar'}else host.insertAdjacentHTML('afterbegin',gsBox(id))})}
+document.addEventListener('input',e=>{const inp=e.target.closest('.gsin');if(!inp)return;const box=inp.closest('.gsbox'),res=box.querySelector('.gsres'),q=gsNorm(inp.value.trim());
+  if(!q){res.hidden=true;res.innerHTML='';return}const L=gsItems().filter(x=>gsNorm(x.t+' '+x.s).includes(q)).slice(0,8);box._L=L;
+  res.innerHTML=L.length?L.map((x,i)=>`<button class="gsr" data-gsi="${i}" style="--c:${x.c}"><span class="emo">${x.e}</span><b>${esc(x.t)}</b><small>${esc(x.s)}</small></button>`).join(''):'<div class="gsnone">No hay nada con ese nombre</div>';res.hidden=false});
+document.addEventListener('click',e=>{const b=e.target.closest('.gsr');if(b){const box=b.closest('.gsbox'),x=(box._L||[])[+b.dataset.gsi];if(x){sfx('click');const inp=box.querySelector('.gsin');inp.value='';box.querySelector('.gsres').hidden=true;x.go()}return}
+  $$('.gsres').forEach(r=>{if(!r.closest('.gsbox').contains(e.target))r.hidden=true})});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.closest&&e.target.closest('.gsin')){const b=e.target.closest('.gsbox').querySelector('.gsr');if(b)b.click()}});
+gsMount();setTimeout(gsMount,1500);{const _goS=go;go=function(){const r=_goS.apply(this,arguments);try{gsMount()}catch(e){}return r}}
+
+/* ---- 2. Ruletas nuevas y catálogo ---- */
+WHEELS.push(
+ {id:'rich',t:'Ruleta millonaria',d:'Premios que crecen con lo que tienes. Para los que ya no se impresionan con poco.',segs:()=>[.001,.003,.0015,.008,.002,.004,.0012,.015].map((f,i)=>{const v=niceN(Math.max(2000*(i+1),wealth()*f));return{lab:short(v),col:WCOL[i],k:'eur',v,big:f>=.015?1:0}})},
+ {id:'pts',t:'Ruleta de la liga',d:'Puntos de liga gratis para subir en tu liga esta semana.',segs:()=>[20,50,30,120,40,80,25,200].map((v,i)=>({lab:'+'+v+' pts',col:WCOL[i],k:'pts',v}))},
+ {id:'fab',t:'Ruleta de la fábrica',d:'Energía, monedas doradas y clics que valen más un rato.',segs:()=>[['⚡ Energía','en'],['✨ Doradas','gold'],['x2 clics','f2'],['⚡ Energía','en'],['x3 clics','f3'],['✨ Doradas','gold'],['x2 clics','f2'],['x5 clics','f5']].map((x,i)=>({lab:x[0],col:WCOL[i],k:'fab',v:x[1]}))});
+{const _wrC=wResolve;wResolve=function(late){const P_=S.wPend;try{if(P_&&P_.p&&!(+P_.at<=(+S.wDone||0))){const p=P_.p;
+    if(p.k==='pts'){lgRoll();S.wkP=(S.wkP||0)+p.v;S.moP=(S.moP||0)+p.v;sfx('win');toast('Ruleta de la liga','+'+p.v+' puntos de liga','var(--sun)','🏅')}
+    if(p.k==='fab'){if(p.v==='en'){S.fabEn=100;toast('Energía a tope','La fábrica está llena de energía','var(--sun)','⚡')}else if(p.v==='gold'){goldNext=Date.now()+1500;S.goldRush=Date.now()+120000;toast('Fiebre del oro personal','2 minutos de monedas doradas en la fábrica','var(--sun)','✨')}
+      else{const m=+p.v.slice(1);S.fabX={m,until:Date.now()+180000};toast('Clics x'+m,'Durante 3 minutos en la fábrica','var(--sun)','🏭')}sfx('win')}}}catch(e){}return _wrC.apply(this,arguments)}}
+{const _fgX=fabGive;fabGive=function(v){const x=S.fabX;if(x&&+x.until>Date.now())v=v*x.m;return _fgX.call(this,v)}}
+setInterval(()=>{try{if(S.goldRush&&S.goldRush>Date.now()&&goldNext>Date.now()+6000)goldNext=Date.now()+rnd(2500,5000)}catch(e){}},1000);
+const wChoosePrice=()=>niceN(Math.max(5000,wealth()*.0005));
+function wCatalog(){$('#mbox').classList.add('wide');$('#mbox').onclick=null;$('#modal').hidden=false;const cur=curWheel().id,pr=wChoosePrice();
+  $('#mbox').innerHTML=`<h2 style="font-size:28px">🎡 Todas las ruletas</h2><p class="muted" style="font-weight:700">Después de cada tirada sale otra ruleta. Si quieres una en concreto para la próxima tirada, elígela aquí por ${short(pr)} €.</p>
+   <div class="wcat">${WHEELS.map((w,i)=>`<div class="wci ${w.id===cur?'on':''}"><b>${esc(w.t)}</b><small>${esc(w.d)}</small>${w.id===cur?'<span class="wcnow">Es la que toca ahora</span>':`<button class="btn sm" data-wpick="${i}">Elegir · ${short(pr)} €</button>`}</div>`).join('')}</div>
+   <button class="linkb" id="wcX">Cerrar</button>`;$('#wcX').onclick=()=>$('#modal').hidden=true}
+document.addEventListener('click',e=>{const o=e.target.closest('#wCatBtn');if(o){sfx('click');wCatalog();return}const b=e.target.closest('[data-wpick]');if(!b)return;
+  if(wBusy){toast('Espera','La ruleta está girando','var(--coral)','🎡');return}const pr=wChoosePrice();if(!take(pr)){toast('No te llega','Elegir ruleta cuesta '+short(pr)+' €','var(--coral)','💸');sfx('lose');return}
+  S.wheelIdx=+b.dataset.wpick;save();const c=$('#wheel');if(c){c.style.transition='none';wRot=0;c.style.transform='rotate(0deg)';void c.offsetWidth;c.style.transition=''}drawWheel();wheelInfo();$('#modal').hidden=true;sfx('buy');toast('Ruleta elegida',curWheel().t,'var(--sun)','🎡')});
+(function(){const sk=$('#wheelSkip');if(sk&&!$('#wCatBtn'))sk.insertAdjacentHTML('afterend','<button class="linkb wskip" id="wCatBtn">📖 Ver todas las ruletas</button>')})();
+
+/* ---- 3. Aviso de pantalla pequeña ---- */
+let smallShown=false;
+function smallCheck(){try{if(smallShown||S.smallNo||!S.name||!$('#modal').hidden)return;const w=innerWidth,h=innerHeight,f=cfg('fit')||'n';
+  const tiny=w<360&&f==='n',veryTiny=w<330&&f!=='x',land=h<460&&w>h&&w<1000;if(!tiny&&!veryTiny&&!land)return;smallShown=true;
+  const d=document.createElement('div');d.className='smallbar';d.innerHTML=land?`<span class="emo">📱</span><span><b>Gira el móvil</b><small>El juego se ve mejor en vertical.</small></span><button class="iconbtn" data-small="x" aria-label="Cerrar">✕</button>`
+    :`<span class="emo">🔍</span><span><b>Tu pantalla es pequeña</b><small>¿Lo ajustamos para que quepa todo?</small></span><button class="btn sm" data-small="fit">Ajustar</button><button class="iconbtn" data-small="no" aria-label="No">✕</button>`;
+  document.body.appendChild(d)}catch(e){}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-small]');if(!b)return;const bar=b.closest('.smallbar');if(b.dataset.small==='fit'){setCfg('fit',innerWidth<330?'x':'s');toast('Pantalla ajustada','Lo puedes cambiar en Ajustes › Pantalla','var(--sky)','🔍')}else if(b.dataset.small==='no'){S.smallNo=1;save()}if(bar)bar.remove()});
+setTimeout(smallCheck,6000);addEventListener('resize',()=>{clearTimeout(smallCheck.t);smallCheck.t=setTimeout(smallCheck,800)});
+
+/* ---- 4. Online: sin tope por duelo ni «mitad de la cartera» (solo el límite diario que elija cada uno) ---- */
+tnGate=function(amt,kind){amt=Math.floor(amt||0);if(amt>Math.floor(S.coins))return{t:'No tienes tanto dinero',s:'Tienes '+short(S.coins)+' €'};
+  const lim=tnLim();if(lim>0){const used=tnLoss()+tnRisk();if(used+amt>lim)return{t:'Límite diario de pérdidas',s:used>=lim?'Hoy ya has llegado a '+short(lim)+' €. Mañana más (lo puedes cambiar en Ajustes › Online).':'Hoy solo puedes arriesgar '+short(lim-used)+' € más online'}}return null};
+
+/* ---- 5. Trading: anuncio útil (capital extra) ---- */
+const TRAD_WAIT=30*60e3,tradAdAmt=()=>niceN(Math.max(5000,wealth()*.003));
+function tradAdCard(){const v=$('#v-trading');if(!v)return;let c=$('#trAd');if(!c){v.insertAdjacentHTML('afterbegin','<div class="trad" id="trAd"></div>');c=$('#trAd')}
+  const left=(S.trAdAt||0)+TRAD_WAIT-Date.now(),h=left>0?`<span class="emo">📺</span><span><b>Capital extra del bróker</b><small>Vuelve en ${Math.ceil(left/60e3)} min a por más.</small></span>`
+   :`<span class="emo">📺</span><span><b>Capital extra del bróker</b><small>Mira un anuncio corto y te damos <b>${short(tradAdAmt())} €</b> para invertir.</small></span><button class="btn sm mint" id="trAdGo">Ver anuncio</button>`;if(c._h!==h){c._h=h;c.innerHTML=h}}
+document.addEventListener('click',e=>{if(!e.target.closest('#trAdGo'))return;if((S.trAdAt||0)+TRAD_WAIT>Date.now())return;
+  showRewardAd('trading',()=>{S.trAdAt=Date.now();const v=tradAdAmt();give(v);save();sfx('big');confetti(100);toast('Capital extra','+'+short(v)+' € para invertir','var(--mint)','📺');tradAdCard()})});
+setInterval(()=>{if(view==='trading')tradAdCard()},15000);{const _goT2=go;go=function(){const r=_goT2.apply(this,arguments);try{if(view==='trading')tradAdCard()}catch(e){}return r}}
+(()=>{try{if(!FAQ.some(q=>/ruleta en concreto/.test(q[0])))FAQ.unshift(['¿Puedo elegir qué ruleta girar?','Sí. Debajo de la ruleta de Inicio pulsa «📖 Ver todas las ruletas» y elige la que quieras para la próxima tirada (cuesta un poco). Hay 9: dinero, caras, todo o nada, experiencia, cajas sorpresa, multiplicadora, millonaria, de la liga y de la fábrica.'])}catch(e){}})();
 })();
 </script>
 
