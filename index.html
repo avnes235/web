@@ -2044,6 +2044,10 @@ body.admmod #admGlobal,body.admmod #admInbox,body.admmod #admMgr{display:none!im
 .lgptl small{display:block;color:#9a9aa6;font-weight:600;font-size:12px}
 .wkn{margin:0 0 10px;padding:10px 12px;border-radius:12px;background:#141418;border:2px solid #2a2a33;font-weight:700;font-size:13.5px;line-height:1.45}.wkn span{display:block;color:#9a9aa6;margin-top:2px}.wkn b{color:#ffd600}
 .wci.wci2{flex-direction:row;align-items:center;gap:12px}.wci2 .wcb{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}.wmini{width:92px;height:92px;flex:none;filter:drop-shadow(0 3px 0 #000)}
+#v-inicio .startcard{grid-column:1/-1;order:-2;padding:14px!important;border:2px solid #ffd600!important;background:linear-gradient(180deg,#22220f,#141418)!important}
+.startcard .sc-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.startcard .sc-h b{font-size:18px;font-weight:900}.startcard .sc-h .linkb{font-size:13px}
+.startcard .sc-b{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.startcard .sc-b button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 6px;border-radius:14px;background:#ffd600;color:#111;border:2px solid #111;box-shadow:0 4px 0 #000;font:inherit;cursor:pointer}
+.startcard .sc-b button:active{transform:translateY(3px);box-shadow:0 1px 0 #000}.startcard .sc-b .emo{font-size:30px;line-height:1}.startcard .sc-b b{font-weight:900;font-size:15px}.startcard .sc-b small{font-weight:700;font-size:11.5px;opacity:.75}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5584,6 +5588,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-y',t:'Empezar es más rápido',items:[['👋','¿Por dónde empiezo?','Si eres nuevo, en Inicio tienes 3 botones para empezar a jugar ya: ruleta gratis, tragaperras y Snake.','new','#ffd600'],['🚀','Directo a jugar','Los nuevos ya no tienen que apuntar el código de recuperación nada más entrar: se pide más tarde, cuando ya has jugado un rato. Con Google no hace falta nunca.','fix','#14e08a'],['🌍','Idioma automático','El juego sale en el idioma de tu móvil. Lo puedes cambiar en Ajustes.','fix','#3f7cff']]},
  {v:'2026-10-07-x',t:'Icono nuevo',items:[['👑','La corona de Casinetori','Nuevo icono: la corona del rey en vez de la ficha de casino. Lo verás en la pestaña, al instalar la app y al compartir el enlace.','new','#ffd600']]},
  {v:'2026-10-07-w',t:'Clasificaciones semanales y buscador listo',items:[['📅','Juegos: clasificación semanal','La clasificación de cada juego se reinicia cada lunes: todos tienen opciones. Tu récord de siempre se queda en tu perfil.','new','#ffd600'],['💰','Más jugadores, más premio','El podio de cada juego cobra más cada hora cuantos más jugadores haya: con 6 el doble, con 10 el triple (hasta x5).','new','#14e08a'],['🔍','Buscador listo','Ya entiende otros nombres y fallos: «serpiente» o «snak» te lleva a Snake, «buscaminas» a Minas, «flappy» a Pájaro Loco…','new','#3f7cff'],['🎡','Mira la ruleta antes de elegir','En el catálogo de ruletas cada una sale con su dibujo y sus premios.','new','#ff4fd8']]},
  {v:'2026-10-07-v',t:'Dash más fluido',items:[['🔺','Sin tirones','Los pinchos de Dash se pintan de forma mucho más ligera: va más fluido, sobre todo en móviles y cuando salen muchos pinchos juntos.','fix','#00e5ff']]},
@@ -11042,6 +11047,25 @@ function wMini(w){let sg=[];try{sg=w.segs()}catch(e){}if(!sg.length)return'';con
     const tx=String(x.lab||'').slice(0,7),deg=mid*180/Math.PI;h+=`<text transform="rotate(${deg.toFixed(1)}) translate(29 0) rotate(90)" font-size="${tx.length>5?6.5:8}" font-weight="900" text-anchor="middle" dominant-baseline="middle" fill="${wTxtCol(x.col)}">${esc(tx)}</text>`});
   return`<svg class="wmini" viewBox="-52 -56 104 108" aria-hidden="true"><circle r="50" fill="#111"/>${h}<circle r="9" fill="#ffd600" stroke="#111" stroke-width="2"/><path d="M-7 -55L7 -55L0 -43Z" fill="#fff" stroke="#111" stroke-width="1.5"/></svg>`}
 {const _wcM=wCatalog;wCatalog=function(){_wcM.apply(this,arguments);try{$$('#mbox .wci').forEach((el,i)=>{const w=WHEELS[i];if(!w||el.querySelector('.wmini'))return;const body=document.createElement('div');body.className='wcb';while(el.firstChild)body.appendChild(el.firstChild);el.classList.add('wci2');el.insertAdjacentHTML('afterbegin',wMini(w));el.appendChild(body)})}catch(e){}}}
+
+/* ================= PRIMEROS SEGUNDOS MÁS FÁCILES PARA LOS NUEVOS ================= */
+/* el código de recuperación no bloquea al empezar: con Google nunca hace falta; al resto se le pide tras 10 min o nivel 3 */
+{const _rkgL=rkGateOpen;rkGateOpen=function(){try{if(typeof isGoogleUser==='function'&&isGoogleUser())return;if((S.playtime||0)<600&&(S.lvl||1)<3)return}catch(e){}return _rkgL.apply(this,arguments)}}
+/* la pregunta del zoom solo sale si de verdad parece que la pantalla está ampliada (menos de 360 px de ancho) */
+{const _afz=askFit;askFit=function(){try{if(!(window.innerWidth<360)){if(!S.fitAsked){S.fitAsked=true;save()}return}}catch(e){}return _afz.apply(this,arguments)}}
+/* idioma: se coge el del móvil si es uno de los nuestros (se puede cambiar en Ajustes) */
+try{if(!S.langAsked&&!(S.cfg&&S.cfg.lang)){const l=String(navigator.language||'').slice(0,2).toLowerCase();if(['es','en','fr','pt'].includes(l)){S.langAsked=true;setCfg('lang',l);_i18nApply(l);save()}}}catch(e){}
+
+/* ================= «¿POR DÓNDE EMPIEZO?» PARA LOS NUEVOS (primeros 15 min) ================= */
+function startCard(){const v=$('#v-inicio'),t=$('#hoTabs');if(!v||!t)return;let c=$('#startCard');const show=S.name&&!S.startHide&&(S.playtime||0)<900&&(S.lvl||1)<4;
+  if(!show){if(c)c.remove();return}if(c)return;
+  t.insertAdjacentHTML('beforebegin',`<div class="panel startcard" id="startCard"><div class="sc-h"><b>👋 ¿Por dónde empiezo?</b><button class="linkb" id="scX" aria-label="Cerrar">✕</button></div>
+   <div class="sc-b"><button data-sc="wheel"><span class="emo">🎡</span><b>Ruleta gratis</b><small>Gira y gana dinero</small></button>
+   <button data-sc="slots"><span class="emo">🎰</span><b>Tragaperras</b><small>Prueba suerte</small></button>
+   <button data-sc="snake"><span class="emo">🐍</span><b>Snake</b><small>Bate tu récord</small></button></div></div>`)}
+document.addEventListener('click',e=>{if(e.target.closest('#scX')){S.startHide=1;save();sfx('click');startCard();return}const b=e.target.closest('[data-sc]');if(!b)return;sfx('click');const k=b.dataset.sc;
+  if(k==='wheel'){try{hoSet('ruletas')}catch(_){}scrollTo({top:0,behavior:'smooth'})}else if(k==='slots')go('casino','slots');else go('arcade','snake')});
+setInterval(()=>{try{if(view==='inicio')startCard()}catch(e){}},2000);setTimeout(()=>{try{startCard()}catch(e){}},1200);
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
