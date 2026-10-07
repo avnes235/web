@@ -2006,6 +2006,25 @@ html body .updmini{background:#14e08a!important;color:#062a1b!important;border-c
 @media (min-width:700px){.seg.bigtabs button{flex-direction:row;gap:8px;font-size:14px!important;padding:12px 8px!important}}
 #v-rico>.seg.bigtabs{position:sticky;top:calc(var(--barh,64px) + 4px);z-index:20;box-shadow:0 8px 20px rgba(0,0,0,.45)}
 @media (max-width:700px){#v-rico #facts{display:none}#v-rico .money{margin-bottom:10px}}
+/* ===== cuenta atrás, moderadores, tienda móvil ===== */
+#rbCount{position:fixed;left:50%;top:calc(var(--barh,64px) + 16px);transform:translateX(-50%);z-index:150;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
+#rbCount b{font:400 72px/1 var(--f-d);color:#ff3b4f;background:#0b0e1c;border:4px solid #ff3b4f;border-radius:18px;padding:4px 26px;box-shadow:0 0 0 3px #000,0 0 30px rgba(255,59,79,.6)}
+#rbCount small{font:900 16px var(--f-b);background:#fff;color:#111;padding:6px 14px;border:3px solid #000;transform:rotate(-2deg)}
+#rbCount.pop b{animation:tin2 .35s cubic-bezier(.3,1.6,.5,1)}
+body.admmod #admGlobal,body.admmod #admInbox,body.admmod #admMgr{display:none!important}
+.admmgr{margin-top:16px}.admmgr h3{margin:0 0 8px}.admml{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.admmr{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;border-radius:10px;background:#1d1d22}.admmr>span:first-child{flex:1;font-weight:800;min-width:0}
+@media (max-width:700px){
+  #prods,#mine .prods{grid-template-columns:1fr 1fr!important;gap:10px!important}
+  #prods .pimg,#mine .pimg{aspect-ratio:5/3}
+  #prods .pimg .emo,#mine .pimg .emo{font-size:44px}
+  #prods .pbody,#mine .pbody{padding:10px!important}
+  #prods .pbody h3,#mine .pbody h3{font-size:15px!important;line-height:1.1}
+  #prods .pbody p,#mine .pbody p{font-size:12px!important;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  #prods .price{font-size:14px!important}#prods .addb{width:38px!important;height:38px!important}
+  #prods .ptag,#prods .rar{font-size:9px!important;padding:2px 5px!important}
+  #mine .ownrow{flex-wrap:wrap;gap:6px}#mine .ownrow .btn{width:100%}
+}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5539,6 +5558,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-n',t:'Tienda más cómoda en el móvil',items:[['🛍️','Objetos más pequeños','En el móvil la Tienda enseña 2 objetos por fila: ves mucho más sin bajar.','fix','#14e08a'],['🔴','Cuenta atrás arreglada','El 3, 2, 1 del botón rojo va a la vez que el sonido.','fix','#ff3b4f']]},
  {v:'2026-10-07-m',t:'Más claro en el móvil',items:[['📱','Pestañas grandes','La Tienda, Online y Ayuda tienen pestañas grandes con icono, como Inicio y Clasificación.','fix','#ffd600'],['🎡','Botón rojo y ruleta','Si te recarga la ruleta y ya la tenías lista, ahora te da 2 tiradas seguidas.','fix','#ff6b4a'],['🐐','Pack OG y VIP completo','Quien lo tenga con cuenta recibe todo: título, marco, color, fondo y cara.','fix','#ffd600']]},
  {v:'2026-10-07-l',t:'Tienda de cosméticos',items:[['✨','Cosméticos','En Tienda › Cosméticos: 6 colores de nombre, 4 marcos y 4 fondos que solo se consiguen comprándolos. Desde 50.000 € hasta 1 billón.','new','#ff4fd8']]},
  {v:'2026-10-07-k',t:'Caja fuerte y tu mes',items:[['🔐','Caja fuerte','En Inicio › Hoy: guarda dinero que no se puede perder y que crece un 0,5 % al día.','new','#6b8bff'],['📊','Tu mes en Casinetori','En Logros: tu resumen del mes. Y al empezar cada mes, te sale el del mes anterior.','new','#ff4fd8'],['🚀','Hora del Crash','Evento nuevo: el Cohete del casino paga el triple.','new','#ff6b4a'],['👑','Corona por juego','El número 1 de cada minijuego lleva corona en su clasificación.','new','#ffd600'],['📋','10 misiones nuevas','Goles, blackjack, carreras, regalos, el botón rojo…','new','#14e08a']]},
@@ -10467,7 +10487,7 @@ function grpJoin(code){code=String(code||'').toUpperCase().replace(/[^A-Z0-9]/g,
 function grpLeave(code){S.grp=myGrps().filter(g=>g.c!==code);if(S.grpSel===code)S.grpSel=(S.grp[0]||{}).c;grpPush();toast('Has salido del grupo','','var(--sky)','👋')}
 const GRP_CATS=[['coins','💰','Dinero'],['sem','🏅','Puntos semana'],['mes','📅','Temporada'],['lvl','⭐','Nivel']];
 function grpBoxHTML(){const gs=myGrps(),g=grpSel();
-  const form=`<div class="grp-new"><div><b>➕ Crear un grupo</b><div class="row"><input class="inp" id="grpName" maxlength="20" placeholder="Ej: Los de 1º SMR" autocomplete="off"><button class="btn" id="grpMk">Crear</button></div></div>
+  const form=`<div class="grp-new"><div><b>➕ Crear un grupo</b><div class="row"><input class="inp" id="grpName" maxlength="20" placeholder="Ej: La pandilla" autocomplete="off"><button class="btn" id="grpMk">Crear</button></div></div>
     <div><b>🔑 Unirme con un código</b><div class="row"><input class="inp" id="grpCode" maxlength="8" placeholder="Ej: K7P2QX" autocomplete="off" style="text-transform:uppercase"><button class="btn alt" id="grpJn">Unirme</button></div></div><p class="warn" id="grpErr" hidden></p></div>`;
   if(!g)return`<div class="grp-box" id="grpBox"><h3>👥 Grupos</h3><p>Crea un grupo con tu pandilla, tu clase o tu equipo y tened <b>vuestra propia clasificación</b>, solo para vosotros. Puedes estar en hasta ${GRP_MAX} grupos.</p>${form}</div>`;
   const mem=grpMembers(g.c).length+1,gc=S.grpCat||'coins';
@@ -10737,6 +10757,42 @@ function ogvipFix(){try{if(!NET.ok||!NET.auth||!NET.auth.currentUser||!S.name)re
     toast('OG y VIP solo con cuenta','Entra con Google o crea una cuenta para tenerlos','var(--sky)','🔐');return}
   const miss=OGVIP.filter(k=>!ex.includes(k));if(miss.length){miss.forEach(k=>ex.push(k));save();NET.lastP='';pushPlayer();try{excShow(miss)}catch(e){}toast('Pack OG y VIP completo','Título, marco, color, fondo y cara: póntelos en Perfil','var(--sun)','🐐')}}catch(e){}}
 setInterval(ogvipFix,8000);setTimeout(ogvipFix,5000);
+
+/* ================= CUENTA ATRÁS DEL BOTÓN ROJO: número y sonido a la vez ================= */
+{const i=PRANKS.findIndex(f=>/el botón va a explotar/.test(String(f)));if(i>=0)PRANKS[i]=()=>{let o=$('#rbCount');if(!o){o=document.createElement('div');o.id='rbCount';document.body.appendChild(o)}
+  o.hidden=false;['3','2','1'].forEach((t,k)=>setTimeout(()=>{o.innerHTML=`<b>${t}</b><small>el botón va a explotar</small>`;o.classList.remove('pop');void o.offsetWidth;o.classList.add('pop');tone(440+k*120,.15,'square',.06)},k*1000));
+  setTimeout(()=>{o.hidden=true;confetti(300);sfx('big');troll('¡BOOM!','era confeti','#ffd600',true)},3000)}}
+
+/* ================= ADMINS: dueño, jefes y moderadores ================= */
+ADM.mod=false;
+/* nadie nuevo puede hacerse jefe con contraseña: el botón solo lo ven los que ya son admins */
+function bossBtnVis(){const b=$('#bossBtn');if(b)b.hidden=!ADM.on}
+setInterval(bossBtnVis,2000);bossBtnVis();
+async function admRole(){try{if(!NET.db||!NET.id)return;const d=await NET.db.collection('admins').doc(NET.id).get();if(!d.exists)return;const r=(d.data()||{}).role||'jefe';ADM.role=r;ADM.mod=r==='mod';document.body.classList.toggle('admmod',ADM.mod);bossBtnVis()}catch(e){}}
+setTimeout(admRole,4000);setInterval(()=>{if(ADM.on&&!ADM.role)admRole()},10000);
+/* moderadores: solo dinero (dar o quitar), bromas y mensaje */
+{const _rsM=renderAdmSide;renderAdmSide=function(){const r=_rsM.apply(this,arguments);try{if(!ADM.mod)return r;const el=$('#admSide');if(!el)return r;
+  const pane=el.querySelector('.pa-pane');[...el.children].forEach(c=>{if(!(c.classList.contains('who')||c.classList.contains('kv')||c.classList.contains('modnote')||c===pane))c.remove()});
+  const box=pane||el;if(pane){pane.hidden=false;pane.style.display=''}const keep=new Set();[...box.children].forEach(c=>{if(c.classList.contains('alab')&&/^(Dinero|Bromas|Mensaje en grande)$/i.test(c.textContent.trim())){keep.add(c);let n=c.nextElementSibling;while(n&&!n.classList.contains('alab')){if(n.classList.contains('amt')||n.classList.contains('abtns'))keep.add(n);n=n.nextElementSibling}}});
+  if(pane)[...box.children].forEach(c=>{if(!keep.has(c))c.remove()});el.querySelectorAll('[data-a]').forEach(b=>{if(!['give','take','msg','bsod','flip','fake'].includes(b.dataset.a))b.remove()});
+  if(!el.querySelector('.modnote'))el.insertAdjacentHTML('beforeend','<p class="netmsg modnote">Eres moderador: puedes dar o quitar dinero (hasta 1.000 millones cada vez), gastar bromas y mandar mensajes.</p>')}catch(e){}return r}}
+/* el dueño gestiona los admins */
+let ADML=null;
+async function admLoad(){try{const q=await NET.db.collection('admins').get();ADML=q.docs.map(d=>({id:d.id,...d.data()}))}catch(e){ADML='err'}admBox()}
+function admBox(){if(!ADM.on||ADM.mod||view!=='admin')return;let box=$('#admMgr');const host=$('#v-admin');if(!host)return;if(!box){host.insertAdjacentHTML('beforeend','<div class="panel admmgr" id="admMgr"></div>');box=$('#admMgr')}
+  const nm=id=>{const p=NET.players.get(id);return p?esc(p.name||'?')+' <small class="num">'+esc(p.code||'')+'</small>':'<small class="num">'+esc(id.slice(0,10))+'…</small>'};
+  box.innerHTML=`<h3>🛡️ Administradores</h3><p class="netmsg">Tu ID (para las reglas de Firebase): <b class="num" style="user-select:all">${esc(NET.id||'')}</b> <button class="btn sm alt" id="admIdCp">Copiar</button></p>
+   <p class="netmsg"><b>Jefe</b> = todo. <b>Moderador</b> = solo dar o quitar dinero, bromas y mensajes. Para hacer moderador a alguien: elígelo en la lista y pulsa «🛡️ Hacer moderador». Solo el dueño puede añadir o quitar.</p>
+   ${ADML===null?'<p class="netmsg">Cargando…</p>':ADML==='err'?'<p class="warn">No se puede leer la lista. ¿Has pegado las reglas nuevas de Firebase?</p>':`<div class="admml">${ADML.map(a=>`<div class="admmr"><span>${nm(a.id)}${a.id===NET.id?' (tú)':''}</span><span class="tag">${(a.role||'jefe')==='mod'?'Moderador':'Jefe'}</span>${a.id===NET.id?'':`<button class="btn sm alt" data-admrole="${esc(a.id)}">${(a.role||'jefe')==='mod'?'Hacer jefe':'Hacer moderador'}</button><button class="btn sm red" data-admdel="${esc(a.id)}">Quitar</button>`}</div>`).join('')}</div>`}`}
+document.addEventListener('click',async e=>{if(e.target.closest('#admIdCp')){try{navigator.clipboard.writeText(NET.id)}catch(_){}toast('ID copiado','','var(--sky)','📋');return}
+  const r=e.target.closest('[data-admrole]'),d=e.target.closest('[data-admdel]'),mk=e.target.closest('#admMkMod');if(!r&&!d&&!mk)return;
+  try{if(mk){if(!ADM.sel)return;await NET.db.collection('admins').doc(ADM.sel).set({role:'mod',t:Date.now(),by:NET.id});toast('Moderador añadido',(NET.players.get(ADM.sel)||{}).name||'','var(--mint)','🛡️')}
+    if(r){const a=(ADML||[]).find(x=>x.id===r.dataset.admrole);await NET.db.collection('admins').doc(r.dataset.admrole).set({role:(a&&(a.role||'jefe')==='mod')?'jefe':'mod'},{merge:true});toast('Rol cambiado','','var(--sun)','🛡️')}
+    if(d){if(!confirm2(d))return;await NET.db.collection('admins').doc(d.dataset.admdel).delete();toast('Admin quitado','','var(--coral)','🛡️')}
+    admLoad()}catch(err){toast('No se ha podido','Solo el dueño puede cambiar los admins (y hacen falta las reglas nuevas)','var(--coral)','⚠️')}});
+function confirm2(b){if(b.dataset.ok)return true;b.dataset.ok=1;b.textContent='¿Seguro?';setTimeout(()=>{b.dataset.ok='';b.textContent='Quitar'},3000);return false}
+{const _rsO=renderAdmSide;renderAdmSide=function(){const r=_rsO.apply(this,arguments);try{if(ADM.mod||!ADM.sel||ADM.sel===NET.id)return r;const el=$('#admSide');if(el&&!el.querySelector('#admMkMod'))el.insertAdjacentHTML('beforeend','<span class="alab">Administración</span><div class="abtns"><button class="btn alt" id="admMkMod">🛡️ Hacer moderador</button></div>')}catch(e){}return r}}
+{const _goA=go;go=function(v){const r=_goA.apply(this,arguments);if(view==='admin'&&ADM.on&&!ADM.mod){if(ADML===null)admLoad();else admBox()}return r}}
 })();
 </script>
 
