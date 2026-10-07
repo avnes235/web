@@ -2048,6 +2048,7 @@ body.admmod #admGlobal,body.admmod #admInbox,body.admmod #admMgr{display:none!im
 .startcard .sc-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.startcard .sc-h b{font-size:18px;font-weight:900}.startcard .sc-h .linkb{font-size:13px}
 .startcard .sc-b{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.startcard .sc-b button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 6px;border-radius:14px;background:#ffd600;color:#111;border:2px solid #111;box-shadow:0 4px 0 #000;font:inherit;cursor:pointer}
 .startcard .sc-b button:active{transform:translateY(3px);box-shadow:0 1px 0 #000}.startcard .sc-b .emo{font-size:30px;line-height:1}.startcard .sc-b b{font-weight:900;font-size:15px}.startcard .sc-b small{font-weight:700;font-size:11.5px;opacity:.75}
+#v-inicio #invHome{order:9}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5589,6 +5590,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-z',t:'Invitar, siempre a mano',items:[['🎁','Invita a tus colegas','La tarjeta para invitar amigos y cobrar sale ahora en todas las pestañas de Inicio y ya no desaparece al entrar.','fix','#ffd600']]},
  {v:'2026-10-07-y',t:'Empezar es más rápido',items:[['👋','¿Por dónde empiezo?','Si eres nuevo, en Inicio tienes 3 botones para empezar a jugar ya: ruleta gratis, tragaperras y Snake.','new','#ffd600'],['🚀','Directo a jugar','Los nuevos ya no tienen que apuntar el código de recuperación nada más entrar: se pide más tarde, cuando ya has jugado un rato. Con Google no hace falta nunca.','fix','#14e08a'],['🌍','Idioma automático','El juego sale en el idioma de tu móvil. Lo puedes cambiar en Ajustes.','fix','#3f7cff']]},
  {v:'2026-10-07-x',t:'Icono nuevo',items:[['👑','La corona de Casinetori','Nuevo icono: la corona del rey en vez de la ficha de casino. Lo verás en la pestaña, al instalar la app y al compartir el enlace.','new','#ffd600']]},
  {v:'2026-10-07-w',t:'Clasificaciones semanales y buscador listo',items:[['📅','Juegos: clasificación semanal','La clasificación de cada juego se reinicia cada lunes: todos tienen opciones. Tu récord de siempre se queda en tu perfil.','new','#ffd600'],['💰','Más jugadores, más premio','El podio de cada juego cobra más cada hora cuantos más jugadores haya: con 6 el doble, con 10 el triple (hasta x5).','new','#14e08a'],['🔍','Buscador listo','Ya entiende otros nombres y fallos: «serpiente» o «snak» te lleva a Snake, «buscaminas» a Minas, «flappy» a Pájaro Loco…','new','#3f7cff'],['🎡','Mira la ruleta antes de elegir','En el catálogo de ruletas cada una sale con su dibujo y sus premios.','new','#ff4fd8']]},
@@ -10376,7 +10378,7 @@ try{GU_T.ranking=[[null,'Hace falta cuenta','Solo salen en la clasificación los
 const HO_T=[['hoy','🎁','Hoy'],['ruletas','🎡','Ruletas'],['competir','🏆','Competir'],['jugar','🕹️','Jugar']];
 let HO=['hoy','ruletas','competir','jugar'].includes(S.ho)?S.ho:'hoy';
 function hoMark(){const v=$('#v-inicio');if(!v)return;const M=[['.panel.daily','hoy'],['.panel.missions','hoy'],['#forbid','hoy'],['#homeMail','hoy'],['.wheelcard','ruletas'],['#guDay','ruletas'],
-    ['#thrHome','competir'],['#lgHome','competir'],['#invHome','competir'],['#homeGames','jugar'],['#v-inicio .tiles','jugar']];
+    ['#thrHome','competir'],['#lgHome','competir'],['#homeGames','jugar'],['#v-inicio .tiles','jugar']];
   M.forEach(([sel,t])=>{const e=v.querySelector(sel)||$(sel);if(e&&e.dataset.ht!==t)e.dataset.ht=t});
   v.querySelectorAll(':scope>.sec-h').forEach(e=>{if(!e.dataset.ht)e.dataset.ht='jugar'});
   if(!$('#hoTabs')){const h=v.querySelector('.panel.hello');const html=`<div id="hoTabs" role="tablist">${HO_T.map(([k,e,n])=>`<button data-ho="${k}"><span class="emo">${e}</span><span>${n}</span></button>`).join('')}</div>`;
