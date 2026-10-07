@@ -1913,6 +1913,23 @@ html body .updmini{background:#14e08a!important;color:#062a1b!important;border-c
 .bx-why{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.bx-why span{font-weight:800;font-size:13px;padding:5px 10px;border-radius:99px;background:#1d1d22;border:1px solid #2a2a33}
 .bx-have{font-weight:700;font-size:15px}.bx-cost{font-weight:800;font-size:15px}.bx-cost b{color:#ffd600}
 .bx-btns{display:flex;gap:10px;flex-wrap:wrap}.bx-btns .btn{flex:1}
+/* ===== GRUPOS ===== */
+#rk2Tabs{grid-template-columns:repeat(5,1fr)!important}
+@media (max-width:420px){#rk2Tabs button{font-size:11px!important;letter-spacing:0!important;padding:9px 2px!important}#rk2Tabs button .emo{font-size:21px!important}}
+#v-ranking[data-t=grupos] #rkOnline,#v-ranking[data-t=grupos] .sec-h{display:none}
+#v-ranking[data-t=grupos][data-g=none] #rkPodium,#v-ranking[data-t=grupos][data-g=none] #rkMyPos,#v-ranking[data-t=grupos][data-g=none] #rkList,#v-ranking[data-t=grupos][data-g=none] #rkTapHint,#v-ranking[data-t=grupos][data-g=none] .lsth{display:none!important}
+.grp-box{margin:0 0 14px;padding:16px;border-radius:16px;border:3px solid #6b8bff;background:linear-gradient(135deg,#141d3d,#141418 70%);box-shadow:0 0 0 3px #000}
+.grp-box h3{margin:0;font:400 clamp(24px,5vw,32px)/1 var(--f-d);color:#8fb2ff;text-transform:uppercase}
+.grp-box>p{font-weight:700;font-size:15px;line-height:1.45;margin:8px 0 0}.grp-box>p b{color:#ffd600}
+.grp-new{display:grid;gap:12px;margin-top:12px}.grp-new b{display:block;font-weight:900;margin-bottom:6px}.grp-new .row{display:flex;gap:8px}.grp-new .inp{flex:1;min-width:0}
+.grp-chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px;margin-bottom:10px}.grp-chips::-webkit-scrollbar{display:none}
+.grp-chips button{flex:none;padding:8px 14px;border-radius:99px;border:2px solid #2a2a33;background:#1d1d22;color:#cfcfd8;font:900 14px var(--f-b);cursor:pointer;white-space:nowrap}
+.grp-chips button[aria-pressed=true]{background:#6b8bff;border-color:#6b8bff;color:#0b1230}.grp-chips .grp-add{border-style:dashed}
+.grp-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}.grp-head small{font-weight:800;font-size:14px;color:#cfcfd8}.grp-code{color:#ffd600;letter-spacing:2px}
+.grp-acts{display:flex;gap:6px;flex-wrap:wrap}
+.grp-tip{margin:10px 0 0;padding:10px 12px;border-radius:10px;background:rgba(255,214,0,.08);border:2px dashed #ffd600;font-weight:800;font-size:14px}.grp-tip b{color:#ffd600}
+.grp-cats{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.grp-cats button{padding:7px 12px;border-radius:99px;border:2px solid #2a2a33;background:#1d1d22;color:#cfcfd8;font:900 13px var(--f-b);cursor:pointer}
+.grp-cats button[aria-pressed=true]{background:#ffd600;border-color:#ffd600;color:#111}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5443,6 +5460,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-f',t:'Grupos de amigos',items:[['👥','Crea tu grupo','En Clasificación › Grupos: crea un grupo con tu pandilla o tu clase y tened vuestra propia clasificación.','new','#6b8bff'],['📤','Invita con un enlace','Pulsa «Invitar», mándalo por WhatsApp y quien lo abra entra al grupo. Hasta 3 grupos por persona.','new','#14e08a']]},
  {v:'2026-10-07-e',t:'Bolsa de Jugadores',items:[['📈','¡Invierte en otros jugadores!','Nueva sala Bolsa: cada jugador es una acción. Si juega mucho y le va bien, su precio sube. Compra barato y vende caro.','new','#14e08a'],['🤝','Tus inversores','Mira quién ha apostado por ti y no les falles.','new','#ffd600'],['🏆','Mejores inversores','Clasificación de quién gana más invirtiendo.','new','#ff4fd8']]},
  {v:'2026-10-07-d',t:'La Bóveda',items:[['🏛️','Bóveda de colecciones','En Tienda › Bóveda: 10 colecciones. Ten uno de cada objeto de un grupo y reclama premio y medalla.','new','#ffd600'],['🏅','Título nuevo','Completa todas y llévate «🏛️ Coleccionista legendario».','new','#ff4fd8']]},
  {v:'2026-10-07-c',t:'Inicio más ordenado',items:[['🧹','Inicio por pestañas','Hoy (premio diario, misiones, botón rojo), Ruletas, Competir (rey, liga, invitar) y Jugar (salas y juegos). Mucho menos scroll.','new','#ffd600'],['🔴','Puntitos rojos','La pestaña te avisa con un número cuando tienes algo para cobrar.','new','#ff3b4f']]},
@@ -10160,7 +10178,7 @@ ACH.push(['📈','Ascenso','Sube de liga',()=>(S.lgMax||0)>=1],['💎','Diamante
   if(!FAQ.some(q=>/liga/.test(q[0])))FAQ.unshift(['¿Cómo subo de liga?','Juega durante la semana: cada partida da 10 puntos, cada misión 30, ganar en el casino 4, un duelo online 40… (la lista está en Clasificación › Liga). El lunes a las 2:00, los 3 primeros de tu liga suben. Lo ves en Clasificación › Liga semanal o en la tarjeta de liga de Inicio.'])}catch(e){}})();
 
 /* ================= CLASIFICACIÓN REMASTERIZADA (pestañas) ================= */
-let RK2=(S.rk2&&['top','liga','amigos','fama'].includes(S.rk2))?S.rk2:'top';
+let RK2=(S.rk2&&['top','liga','amigos','fama','grupos'].includes(S.rk2))?S.rk2:'top';
 const RK2_HINT={liga:'Compites solo con los de <b>tu liga</b>. El lunes a las 2:00 los 3 primeros suben.',amigos:'Tus amigos ordenados por dinero. Añade amigos con su código o invítalos con tu enlace.',fama:'Los campeones de cada mes y quién ha sido <b>rey</b> más tiempo.'};
 function rkTabSet(t,noRender){RK2=t;S.rk2=t;const v=$('#v-ranking');if(v)v.dataset.t=t;
   if(t==='top'){rkTab='todos';if(rkCat==='liga'||rkCat==='fama')rkCat='coins'}else if(t==='liga'){rkTab='todos';rkCat='liga'}else if(t==='amigos'){rkTab='amigos';rkCat='coins'}else if(t==='fama'){rkTab='todos';rkCat='fama'}
@@ -10168,7 +10186,7 @@ function rkTabSet(t,noRender){RK2=t;S.rk2=t;const v=$('#v-ranking');if(v)v.datas
 window.rkTabGo=t=>{rkTabSet(t,true);go('ranking')};
 document.addEventListener('click',e=>{const b=e.target.closest('#rk2Tabs [data-t]');if(!b)return;sfx('click');rkTabSet(b.dataset.t);window.scrollTo({top:0,behavior:'smooth'})});
 {const _rrT=renderRank;renderRank=function(){if(view==='ranking'){const v=$('#v-ranking');if(v&&v.dataset.t!==RK2)rkTabSet(RK2,true);
-    if(RK2==='top'&&(rkCat==='liga'||rkCat==='fama'))rkCat='coins';if(RK2==='liga')rkCat='liga';if(RK2==='fama')rkCat='fama';if(RK2==='amigos'){rkTab='amigos'}else rkTab='todos'}
+    if(RK2==='top'&&(rkCat==='liga'||rkCat==='fama'))rkCat='coins';if(RK2==='liga')rkCat='liga';if(RK2==='fama')rkCat='fama';if(RK2==='amigos'){rkTab='amigos'}else if(RK2==='grupos'){rkTab='grupo'}else rkTab='todos'}
   const r=_rrT.apply(this,arguments);try{const v=$('#v-ranking');if(v)v.dataset.c=rkCat;let hh=$('#rkTabHint');const txt=RK2_HINT[RK2]||'';
     if(txt){if(!hh){$('#rkPodium').insertAdjacentHTML('beforebegin','<p class="rktabhint" id="rkTabHint"></p>');hh=$('#rkTabHint')}hh.innerHTML=txt;hh.hidden=false}else if(hh)hh.hidden=true;let th=$('#rkTapHint');if(!th){$('#rkList').insertAdjacentHTML('beforebegin','<p class="rktaphint" id="rkTapHint">👆 Pulsa a cualquiera para ver su perfil, regalarle dinero o agregarlo.</p>');th=$('#rkTapHint')}th.hidden=RK2==='amigos';
     const lb=$('#lgBox');if(lb&&RK2!=='top'){const pd=$('#rkPodium');if(pd&&lb.nextElementSibling!==pd)pd.before(lb)}}catch(e){}return r}}
@@ -10340,6 +10358,74 @@ ACH.push(['📈','Inversor','Compra tus primeras acciones en la Bolsa',()=>(S.bx
 (()=>{try{if(!TUTOS.some(x=>x[1]==='Bolsa de Jugadores'))TUTOS.splice(4,0,['📈','Bolsa de Jugadores','Invertir en otros jugadores','#14e08a',[['Cada jugador es una <b>acción</b> con su precio.'],['El precio sube si juega mucho, sube de nivel y tiene dinero. Si deja de entrar, baja.'],['Compra acciones de quien creas que va a subir y véndelas cuando valgan más (hay un 2 % de comisión al vender).'],['En <b>Mis inversores</b> ves quién ha apostado por ti, y en <b>Mejores</b> quién gana más invirtiendo.']],'Como mucho 10.000 acciones de cada jugador. Hace falta cuenta.','bolsa']);
   if(!FAQ.some(q=>/Bolsa/.test(q[0])))FAQ.unshift(['¿Cómo funciona la Bolsa de Jugadores?','En el menú › Bolsa. Cada jugador tiene un precio que sube si juega mucho, sube de nivel y tiene dinero, y baja si deja de entrar. Compras acciones de quien quieras y las vendes cuando valgan más.'])}catch(e){}})();
 try{GU_T.bolsa=[[null,'Bolsa de Jugadores','Aquí inviertes en otros jugadores como si fueran acciones. Si juegan mucho y les va bien, su precio sube y tú ganas.'],['.bx-tabs','4 pestañas','Mercado: todos los jugadores y su precio. Mi cartera: lo que tienes. Mis inversores: quién ha apostado por ti. Mejores: quién gana más invirtiendo.'],['.bx-how','Cómo funciona','Si tienes dudas, pulsa aquí y te lo explica.']]}catch(e){}
+
+/* ================= GRUPOS DE AMIGOS: vuestra propia clasificación ================= */
+const GRP_MAX=3;
+function myGrps(){S.grp=(S.grp||[]).filter(g=>g&&g.c).slice(0,GRP_MAX);return S.grp}
+function grpMembers(code){return others().filter(p=>Array.isArray(p.grp)&&p.grp.some(g=>g&&g.c===code))}
+function grpNameOf(code){const m=others().find(p=>Array.isArray(p.grp)&&p.grp.some(g=>g&&g.c===code));return m?(m.grp.find(g=>g.c===code)||{}).n:null}
+function grpCode(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let c='';for(let i=0;i<6;i++)c+=A[Math.floor(Math.random()*A.length)];return c}
+const grpClean=t=>String(t||'').replace(/[<>"'`]/g,'').replace(/\s+/g,' ').trim().slice(0,20);
+function grpSel(){const g=myGrps();if(!g.length)return null;if(!g.some(x=>x.c===S.grpSel))S.grpSel=g[0].c;return g.find(x=>x.c===S.grpSel)}
+function grpLink(c){return location.origin+location.pathname+'?grupo='+c}
+function grpPush(){save();NET.lastP='';pushPlayer()}
+function grpCreate(name){name=grpClean(name);if(name.length<2)return'Ponle un nombre de al menos 2 letras.';if(myGrps().length>=GRP_MAX)return'Como mucho puedes estar en '+GRP_MAX+' grupos.';
+  const g={c:grpCode(),n:name};S.grp.push(g);S.grpSel=g.c;S.grpMade=(S.grpMade||0)+1;grpPush();sfx('big');confetti(120);toast('Grupo creado','«'+name+'» · código '+g.c,'var(--sun)','👥');return''}
+function grpJoin(code){code=String(code||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);if(code.length!==6)return'El código tiene 6 letras y números.';
+  if(myGrps().some(g=>g.c===code)){S.grpSel=code;return''}if(myGrps().length>=GRP_MAX)return'Como mucho puedes estar en '+GRP_MAX+' grupos. Sal de uno primero.';
+  const n=grpNameOf(code);if(!n)return'No hay ningún grupo con ese código. Revisa que esté bien escrito.';
+  S.grp.push({c:code,n:grpClean(n)});S.grpSel=code;grpPush();sfx('big');confetti(120);toast('¡Dentro del grupo!','«'+n+'»','var(--sun)','👥');return''}
+function grpLeave(code){S.grp=myGrps().filter(g=>g.c!==code);if(S.grpSel===code)S.grpSel=(S.grp[0]||{}).c;grpPush();toast('Has salido del grupo','','var(--sky)','👋')}
+const GRP_CATS=[['coins','💰','Dinero'],['sem','🏅','Puntos semana'],['mes','📅','Temporada'],['lvl','⭐','Nivel']];
+function grpBoxHTML(){const gs=myGrps(),g=grpSel();
+  const form=`<div class="grp-new"><div><b>➕ Crear un grupo</b><div class="row"><input class="inp" id="grpName" maxlength="20" placeholder="Ej: Los de 1º SMR" autocomplete="off"><button class="btn" id="grpMk">Crear</button></div></div>
+    <div><b>🔑 Unirme con un código</b><div class="row"><input class="inp" id="grpCode" maxlength="8" placeholder="Ej: K7P2QX" autocomplete="off" style="text-transform:uppercase"><button class="btn alt" id="grpJn">Unirme</button></div></div><p class="warn" id="grpErr" hidden></p></div>`;
+  if(!g)return`<div class="grp-box" id="grpBox"><h3>👥 Grupos</h3><p>Crea un grupo con tu pandilla, tu clase o tu equipo y tened <b>vuestra propia clasificación</b>, solo para vosotros. Puedes estar en hasta ${GRP_MAX} grupos.</p>${form}</div>`;
+  const mem=grpMembers(g.c).length+1,gc=S.grpCat||'coins';
+  return`<div class="grp-box" id="grpBox"><div class="grp-chips">${gs.map(x=>`<button data-gsel="${x.c}" aria-pressed="${x.c===g.c}">👥 ${esc(x.n)}</button>`).join('')}${gs.length<GRP_MAX?'<button data-gsel="+" class="grp-add">➕ Nuevo</button>':''}</div>
+   <div class="grp-head"><div><h3>${esc(g.n)}</h3><small>${mem} ${mem===1?'miembro':'miembros'} · código <b class="grp-code">${g.c}</b></small></div>
+   <div class="grp-acts"><button class="btn sm mint" data-gshare="${g.c}">📤 Invitar</button><button class="btn sm alt" data-gcopy="${g.c}">📋 Copiar código</button><button class="btn sm dark" data-gleave="${g.c}">Salir</button></div></div>
+   ${mem<2?'<p class="grp-tip">Aún estás tú solo. Pulsa <b>Invitar</b> y mándale el enlace a tus colegas: al abrirlo se unen al grupo.</p>':''}
+   <div class="grp-cats">${GRP_CATS.map(([k,e,n])=>`<button data-gcat="${k}" aria-pressed="${gc===k}">${e} ${n}</button>`).join('')}</div>
+   ${S.grpAdd?form:''}</div>`}
+/* pestaña nueva en Clasificación */
+try{const tb=$('#rk2Tabs');if(tb&&!tb.querySelector('[data-t=grupos]')){tb.querySelector('[data-t=fama]').insertAdjacentHTML('beforebegin','<button data-t="grupos"><span class="emo">👥</span><span>Grupos</span></button>')}}catch(e){}
+if(['grupos'].includes(S.rk2))RK2='grupos';
+RK2_HINT.grupos='';
+{const _rtG=rkTabSet;rkTabSet=function(t,noRender){if(t!=='grupos')return _rtG.apply(this,arguments);RK2=t;S.rk2=t;const v=$('#v-ranking');if(v)v.dataset.t=t;rkTab='grupo';rkCat=S.grpCat||'coins';
+  $$('#rk2Tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));if(!noRender)renderRank()}}
+{const _pvG=pval;pval=function(p,cat){if(cat==='sem')return p.me?Math.floor(S.wkP||0):(+p.wk===WK()?+p.wp||0:0);return _pvG.apply(this,arguments)}}
+{const _fvG=fmtVal;fmtVal=function(cat,v){if(cat==='sem')return fmt(v)+' pts';return _fvG.apply(this,arguments)}}
+{const _rlG=rankList;rankList=function(tab,cat){if(tab!=='grupo')return _rlG.apply(this,arguments);const g=grpSel();if(!g)return[];const mem=new Set(grpMembers(g.c).map(p=>p.id));
+  const base=cat==='liga'||cat==='fama'?'coins':cat;return _rlG('todos',base).filter(p=>p.me||mem.has(p.id)).sort((a,b)=>pval(b,base)-pval(a,base))}}
+{const _rrG=renderRank;renderRank=function(){if(view==='ranking'&&RK2==='grupos'){rkCat=S.grpCat||'coins'}const r=_rrG.apply(this,arguments);try{const v=$('#v-ranking');if(view!=='ranking')return r;let b=$('#grpBox');
+    if(RK2!=='grupos'){if(b)b.remove();if(v)delete v.dataset.g;return r}if(v)v.dataset.g=grpSel()?'on':'none';rkTab='grupo';
+    const h=grpBoxHTML();if(!b||b._h!==h){const focus=document.activeElement&&b&&b.contains(document.activeElement)&&/INPUT/.test(document.activeElement.tagName);const keepForm=focus&&/grp-new/.test(h)&&/grp-new/.test(b._h||'')&&(h.match(/data-gsel/g)||[]).length===((b._h||'').match(/data-gsel/g)||[]).length;if(keepForm)return r;if(b)b.remove();$('#rkPodium').insertAdjacentHTML('beforebegin',h);b=$('#grpBox');b._h=h}}catch(e){}return r}}
+document.addEventListener('click',e=>{const t=e.target;const err=m=>{const x=$('#grpErr');if(x){x.textContent=m;x.hidden=!m}if(m)sfx('lose')};
+  if(t.closest('#grpMk')){const m=grpCreate($('#grpName').value);err(m);if(!m){S.grpAdd=0;rkCat=S.grpCat||'coins';renderRank()}return}
+  if(t.closest('#grpJn')){const m=grpJoin($('#grpCode').value);err(m);if(!m){S.grpAdd=0;renderRank()}return}
+  const s=t.closest('[data-gsel]');if(s){sfx('click');if(s.dataset.gsel==='+'){S.grpAdd=S.grpAdd?0:1}else{S.grpSel=s.dataset.gsel;S.grpAdd=0}renderRank();return}
+  const c=t.closest('[data-gcat]');if(c){sfx('click');S.grpCat=c.dataset.gcat;rkCat=S.grpCat;renderRank();return}
+  const cp=t.closest('[data-gcopy]');if(cp){try{navigator.clipboard.writeText(cp.dataset.gcopy)}catch(_){}toast('Código copiado',cp.dataset.gcopy,'var(--sky)','📋');return}
+  const sh=t.closest('[data-gshare]');if(sh){const g=myGrps().find(x=>x.c===sh.dataset.gshare);const url=grpLink(sh.dataset.gshare),txt='Únete a mi grupo «'+(g?g.n:'')+'» en Casinetori y compite conmigo:';
+    if(navigator.share)navigator.share({title:'Casinetori',text:txt,url}).catch(()=>{});else{try{navigator.clipboard.writeText(txt+' '+url)}catch(_){}toast('Enlace copiado','Pégalo en WhatsApp a tus colegas','var(--sky)','📤')}return}
+  const lv=t.closest('[data-gleave]');if(lv){const g=myGrps().find(x=>x.c===lv.dataset.gleave);if(!g)return;$('#mbox').classList.remove('wide');$('#mbox').onclick=null;$('#modal').hidden=false;
+    $('#mbox').innerHTML=`<h2 style="font-size:26px">¿Salir de «${esc(g.n)}»?</h2><p class="muted" style="font-weight:700">Dejarás de ver su clasificación. Puedes volver a entrar con el código ${g.c}.</p><div class="row" style="gap:10px;margin-top:14px"><button class="btn coral" id="grpLvY">Sí, salir</button><button class="btn alt" id="grpLvN">Cancelar</button></div>`;
+    $('#grpLvY').onclick=()=>{$('#modal').hidden=true;grpLeave(g.c);renderRank()};$('#grpLvN').onclick=()=>$('#modal').hidden=true}});
+/* enlace de invitación ?grupo=CODIGO */
+(function(){const m=/[?&]grupo=([A-Za-z0-9]{6})/.exec(location.search);if(!m)return;const code=m[1].toUpperCase();try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}
+  let tries=0;const go2=()=>{tries++;if(!NET.ok||!NET.players.size){if(tries<40)setTimeout(go2,1500);return}
+    if(NET.isAnon){toast('Te han invitado a un grupo','Crea una cuenta y luego entra otra vez con el enlace','var(--sky)','👥');return}
+    if(myGrps().some(g=>g.c===code)){rkTabGo('grupos');return}const n=grpNameOf(code)||'un grupo';
+    $('#mbox').classList.remove('wide');$('#mbox').onclick=null;$('#modal').hidden=false;
+    $('#mbox').innerHTML=`<div style="text-align:center"><div style="font-size:54px">👥</div><h2 style="font-size:28px">Te han invitado a «${esc(n)}»</h2><p class="muted" style="font-weight:700">Es un grupo con su propia clasificación. ¿Quieres entrar?</p><p class="warn" id="grpErr2" hidden></p><button class="btn big mint" id="grpJY">Entrar al grupo</button><button class="linkb" id="grpJN">Ahora no</button></div>`;
+    $('#grpJY').onclick=()=>{const e=grpJoin(code);if(e){const x=$('#grpErr2');x.textContent=e;x.hidden=false;return}$('#modal').hidden=true;rkTabGo('grupos')};$('#grpJN').onclick=()=>$('#modal').hidden=true};setTimeout(go2,2500)})();
+/* público: tus grupos */
+{const _pubG=pubX;pubX=function(){const x=_pubG();try{x.grp=myGrps().map(g=>({c:g.c,n:g.n}))}catch(e){}return x}}
+ACH.push(['👥','Pandilla','Crea un grupo o únete a uno',()=>myGrps().length>0],['🥇','Líder del grupo','Sé el 1º en dinero de un grupo de 3 o más',()=>{try{return myGrps().some(g=>{const m=grpMembers(g.c);return m.length>=2&&m.every(p=>(+p.coins||0)<=S.coins)})}catch(e){return false}}]);
+(()=>{try{const t=TUTOS.find(x=>x[1]==='Amigos');if(t&&!t[4].some(x=>/Grupos/.test(x[0])))t[4].push(['En Clasificación › <b>Grupos</b> creas un grupo con tu pandilla o tu clase y tenéis vuestra propia clasificación. Invita con el enlace o pasa el código de 6 letras.']);
+  if(!FAQ.some(q=>/grupo/.test(q[0])))FAQ.unshift(['¿Cómo creo un grupo con mis amigos?','Ve a Clasificación › Grupos, ponle un nombre y pulsa Crear. Luego pulsa «Invitar» y manda el enlace: quien lo abra entra al grupo. Podéis ver la clasificación solo entre vosotros por dinero, puntos de la semana, temporada o nivel.'])}catch(e){}})();
+try{if(GU_T.ranking&&GU_T.ranking[1])GU_T.ranking[1][2]='General: la clasificación de todos. Liga: tu liga de la semana. Amigos: tus amigos e invitar. Grupos: grupos con tu pandilla. Fama: campeones y reyes.'}catch(e){}
 })();
 </script>
 
