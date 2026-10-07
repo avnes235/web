@@ -2042,6 +2042,8 @@ body.admmod #admGlobal,body.admmod #admInbox,body.admmod #admMgr{display:none!im
 .lgch{margin:0 0 10px;padding:12px;border-radius:14px;background:#141418;border:2px solid #2a2a33}.lgch h4{margin:0 0 8px;font-size:16px}.lgch h4 small{color:#9a9aa6;font-weight:700;font-size:12px;margin-left:6px}
 .lgchr{display:grid;grid-template-columns:28px 1fr auto auto;gap:8px;align-items:center;padding:7px 0;border-top:1px solid #23232b;font-weight:700;font-size:14px}.lgchr .emo{font-size:20px;text-align:center}.lgchr .t{position:relative;padding-bottom:7px}.lgchr .t i{position:absolute;left:0;bottom:0;height:4px;width:var(--w);max-width:100%;border-radius:4px;background:#ffd600}.lgchr b{font-size:13px;color:#cfcfd8}.lgchr em{font-style:normal;color:#14e08a;font-weight:900;font-size:13px}.lgchr.ok{opacity:.65}.lgchr.ok .t i{background:#14e08a}
 .lgptl small{display:block;color:#9a9aa6;font-weight:600;font-size:12px}
+.wkn{margin:0 0 10px;padding:10px 12px;border-radius:12px;background:#141418;border:2px solid #2a2a33;font-weight:700;font-size:13.5px;line-height:1.45}.wkn span{display:block;color:#9a9aa6;margin-top:2px}.wkn b{color:#ffd600}
+.wci.wci2{flex-direction:row;align-items:center;gap:12px}.wci2 .wcb{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}.wmini{width:92px;height:92px;flex:none;filter:drop-shadow(0 3px 0 #000)}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5211,7 +5213,7 @@ async function pushPlayer(){if(!NET.ok||!NET.id||!S.name||NET.kicked)return;if(N
 const RKC=[['coins','Dinero'],['lvl','Nivel'],['pt','Tiempo jugado'],['ach','Logros'],['col','Colección'],['cw','Casino'],['clk','Clics'],['game','Por juego']];
 let rkCat='coins',rkG='snake',rkD='n';
 function meRow(){const c=myCos();return{id:NET.id||'me',name:S.name||'Tú',av:S.av||'😎',img:S.img||'',code:S.code||'',coins:Math.floor(S.coins),lvl:S.lvl,pt:S.playtime||0,ach:S.ach.length,col:ownedValue(),cw:st('casinoWon'),clk:st('clicks'),best:bestPub(),cos:c,img:S.img||'',ti:tiText(),show:cfg('showVit')?showList().map(i=>P[i][0]):[],me:true}}
-function pval(p,cat){if(cat==='game'){const v=(p.best||{})[rkG+'_'+rkD];return v==null?null:+v}return +p[cat]||0}
+function pval(p,cat){if(cat==='game'){const k=rkG+'_'+rkD,v=p.me?wbMine()[k]:((p.wb&&+p.wb.w===WK()&&p.wb.b)||{})[k];return v==null?null:+v}return +p[cat]||0}
 let gameMin=g=>g==='memoria'||g==='reflejos';
 function rankList(tab,cat){cat=cat||'coins';let arr=[...NET.players.entries()].filter(([id])=>id!==NET.id&&!hideId(id)).map(([id,d])=>({...d,id}));
   if(tab==='amigos'){const f=new Set(S.friends||[]);arr=arr.filter(p=>f.has(p.id))}if(S.name)arr.push(meRow());
@@ -5582,6 +5584,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-w',t:'Clasificaciones semanales y buscador listo',items:[['📅','Juegos: clasificación semanal','La clasificación de cada juego se reinicia cada lunes: todos tienen opciones. Tu récord de siempre se queda en tu perfil.','new','#ffd600'],['💰','Más jugadores, más premio','El podio de cada juego cobra más cada hora cuantos más jugadores haya: con 6 el doble, con 10 el triple (hasta x5).','new','#14e08a'],['🔍','Buscador listo','Ya entiende otros nombres y fallos: «serpiente» o «snak» te lleva a Snake, «buscaminas» a Minas, «flappy» a Pájaro Loco…','new','#3f7cff'],['🎡','Mira la ruleta antes de elegir','En el catálogo de ruletas cada una sale con su dibujo y sus premios.','new','#ff4fd8']]},
  {v:'2026-10-07-v',t:'Dash más fluido',items:[['🔺','Sin tirones','Los pinchos de Dash se pintan de forma mucho más ligera: va más fluido, sobre todo en móviles y cuando salen muchos pinchos juntos.','fix','#00e5ff']]},
  {v:'2026-10-07-u',t:'Liga 2.0: más habilidad y menos repetir',items:[['🎯','Retos de la semana','Cada semana hay 4 retos de liga iguales para todos que dan entre 150 y 300 puntos.','new','#ffd600'],['🏅','Habilidad','Batir tu récord en un juego da +40 puntos, y en las dificultades altas las partidas y los récords valen más.','new','#ff6b4a'],['📈','Hazte rico','Si tu dinero crece en la semana sumas puntos: +2 por cada 1 %. Cuenta el %, así es justo para todos.','new','#14e08a'],['⏱️','Topes por día','Cada actividad tiene un máximo de puntos al día: ya no gana quien solo repite lo mismo.','new','#3f7cff']]},
  {v:'2026-10-07-t',t:'Ligas: suben más abajo y sabes cuánto te falta',items:[['🥉','Subir según la liga','En Bronce sube la mitad de los que juegan, en Plata el 40 %, en Oro el 30 % y en Diamante el 20 %. Cuantos más jugáis, más suben. Desde Plata, los últimos pueden bajar.','new','#e0914a'],['⬆️','Cuánto te falta','En tu liga ves cuántos puntos te faltan para adelantar al de arriba y para entrar en la zona de subida (o salir de la de bajada).','new','#ffd600']]},
@@ -5900,10 +5903,11 @@ document.addEventListener('click',e=>{if(!e.target.closest('#cfPw'))return;$('#m
 
 
 /* ================= PREMIOS POR HORA DE LAS CLASIFICACIONES ================= */
-const TOPPAY=[200,100,50],TDMUL={f:.5,n:1,d:2,h:3,x:5},TOP_MIN=2,TOP_BACK=6;
-function boardList(g,d){const key=g+'_'+d,arr=[...NET.players.entries()].filter(([id])=>id!==NET.id&&!hideId(id)).map(([id,p])=>({id,name:p.name,v:+((p.best||{})[key])})).filter(x=>x.v>0);
-  const mv=S.best&&S.best[g+'.'+d];if(mv>0&&S.name&&!meHidden())arr.push({id:NET.id||'me',name:S.name,v:+mv,me:true});const mn=gameMin(g);return arr.sort((a,b)=>mn?a.v-b.v:b.v-a.v)}
-function topPayFor(len,pos){const paid=Math.min(3,len-1);return len>=TOP_MIN&&pos<paid?TOPPAY[pos]:0}
+const TOPPAY=[500,250,120],TDMUL={f:.5,n:1,d:2,h:3,x:5},TOP_MIN=2,TOP_BACK=6;
+const topMul=n=>Math.min(5,1+Math.max(0,n-2)*.25);
+function boardList(g,d){const key=g+'_'+d,w=WK(),arr=[...NET.players.entries()].filter(([id])=>id!==NET.id&&!hideId(id)).map(([id,p])=>({id,name:p.name,v:+((p.wb&&+p.wb.w===w&&p.wb.b)||{})[key]})).filter(x=>x.v>0);
+  const mv=wbMine()[key];if(mv>0&&S.name&&!meHidden())arr.push({id:NET.id||'me',name:S.name,v:+mv,me:true});const mn=gameMin(g);return arr.sort((a,b)=>mn?a.v-b.v:b.v-a.v)}
+function topPayFor(len,pos){const paid=Math.min(3,len-1);return len>=TOP_MIN&&pos<paid?Math.round(TOPPAY[pos]*topMul(len)):0}
 function topEarn(){const items=[];let total=0;if(!NET.ok)return{total,items};
   GLIST.forEach(([g,n])=>DIFFS.forEach(([d,dn])=>{const L=boardList(g,d),i0=L.findIndex(x=>x.me);if(i0<0)return;let i=i0;while(i>0&&L[i-1].v===L[i0].v)i--;const base=topPayFor(L.length,i);if(!base)return;const amt=Math.round(base*TDMUL[d]);total+=amt;items.push({g,n,d,dn,pos:i+1,amt})}));
   return{total,items}}
@@ -10994,6 +10998,49 @@ function lgPtsHTML(){const c=lgChS(),hoy=(S.lgD&&S.lgD.d===lgDay())?S.lgD.c:{},c
 /* en la tarjeta de Inicio: cuántos retos llevas */
 {const _lgC3=lgCard;lgCard=function(){_lgC3.apply(this,arguments);try{const el=$('#lgHome');if(!el||el.hidden)return;const g=el.querySelector('.lggap');const c=lgChS();const t='🎯 Retos de la semana: <b>'+c.done.length+'/4</b>';
   if(g&&!g.innerHTML.includes('Retos de la semana'))g.insertAdjacentHTML('beforeend',(g.innerHTML?'<br>':'')+t)}catch(e){}}}
+
+/* ================= RÉCORDS SEMANALES DE LOS JUEGOS ================= */
+/* el récord de siempre se queda en tu perfil; la clasificación de cada juego (y sus premios) cuenta solo esta semana */
+function wbMine(){const w=WK();if(!S.wb||S.wb.w!==w)S.wb={w,b:{}};return S.wb.b}
+{const _gEW=gEnd;gEnd=function(){try{if(running&&G&&gid){const sc=score,k=gid+'_'+curDiff(),mn=G.best==='min',ok=mn?sc>0:sc>0,b=wbMine(),pv=b[k];
+  if(ok&&(pv==null||(mn?sc<pv:sc>pv))){b[k]=sc;if(pv!=null||1)NET.lastP=''}}}catch(e){}return _gEW.apply(this,arguments)}}
+{const _pxW=pubX;pubX=function(){const x=_pxW.apply(this,arguments);try{const b=wbMine();if(Object.keys(b).length)x.wb={w:S.wb.w,b}}catch(e){}return x}}
+{const _rarW=renderArcadeRank;renderArcadeRank=function(){_rarW.apply(this,arguments);try{const bd=$('#arBoard');if(!bd||bd.querySelector('.wkn'))return;
+  const left=leftTxt((WK()+1)*7*864e5+4*864e5),allT=(S.best||{})[arG+'.'+arD];
+  bd.insertAdjacentHTML('afterbegin',`<div class="wkn">📅 <b>Clasificación de esta semana</b> · se reinicia en ${left}. Cuantos más jugáis, más cobra el podio cada hora.${allT!=null?` <span>Tu récord de siempre: <b>${fmt(allT)}</b></span>`:''}</div>`);
+  const em=bd.querySelector('.empty b');if(em)em.textContent=em.textContent.replace('Nadie tiene récord','Nadie tiene récord esta semana')}catch(e){}}}
+/* textos */
+(()=>{try{const t=[['Los 3 primeros de cada clasificación de Juegos cobran cada hora.','Los 3 primeros de cada juego cobran cada hora. Se reinicia cada semana y cuantos más jugáis, más cobran.']];
+  if(typeof HINTS!=='undefined'&&Array.isArray(HINTS))HINTS.forEach(h=>{t.forEach(([a,b])=>{if(h[1]===a)h[1]=b})})}catch(e){}})();
+{const _rtpW=renderTopPay;renderTopPay=function(){_rtpW.apply(this,arguments);try{const p=$('#topPay p');if(p&&!p.dataset.w){p.dataset.w=1;p.innerHTML='Cada hora cobran los 3 primeros de cada juego <b>de esta semana</b> (la clasificación se reinicia cada lunes). <b>Cuantos más jugadores haya en esa clasificación, más cobran</b>: con 6 jugadores el doble, con 10 el triple (hasta x5). En Fácil la mitad, en Difícil el doble, en Hasbiri el triple y en Hasbirinino x5.'}
+  const tr=$('#topPay .tiers');if(tr&&!tr.dataset.w){tr.dataset.w=1;tr.querySelectorAll('.tier small').forEach((s,i)=>{s.textContent='Top '+(i+1)+' desde'})}}catch(e){}}}
+
+/* ================= BUSCADOR QUE ENTIENDE OTROS NOMBRES ================= */
+const GS_ALIAS={dash:'geometry geometria cubo saltar pinchos ritmo',snake:'serpiente culebra gusano vibora',pajaro:'flappy bird pajaro loco tuberias volar',diana:'dardos tiro apuntar punteria disparar',
+  ladrillos:'breakout arkanoid bloques pelota pala romper',memoria:'cartas parejas memory recordar',reflejos:'reaccion rapidez reflex velocidad',penaltis:'futbol porteria goles penalti portero',
+  slots:'tragaperras maquinita 777 slot cerezas',rasca:'rasca boleto loteria cupon',race:'caballos carreras hipica apostar caballo',rule:'ruleta rojo negro verde numeros',bj:'blackjack 21 veintiuno cartas',
+  rocket:'cohete crash aviator avion multiplicador',pollo:'chicken gallina cruzar carretera coches',minas:'buscaminas mines bombas diamantes',plinko:'bolas pachinko caida',dados:'dice dado',
+  keno:'numeros bingo loteria',hilo:'mayor menor hilo cartas higher lower',torre:'tower pisos subir escalar'};
+const GS_SEC={'Tienda':'comprar objetos coches yate casas','Trading':'acciones grafica invertir bitcoin bolsa','Fábrica':'clicker moneda pulsar clics','Online':'duelo retar amigos botes torneo multijugador',
+  'Clasificación':'ranking top lista quien gana','Liga semanal':'liga puntos semana','Bolsa de Jugadores':'acciones amigos invertir','Logros':'medallas trofeos','Ajustes':'sonido idioma cuenta contraseña','Bóveda':'colecciones'};
+function gsLev(a,b){if(Math.abs(a.length-b.length)>1)return 9;const m=a.length,n=b.length;let pr=Array.from({length:n+1},(_,j)=>j);for(let i=1;i<=m;i++){const cu=[i];for(let j=1;j<=n;j++)cu[j]=Math.min(pr[j]+1,cu[j-1]+1,pr[j-1]+(a[i-1]===b[j-1]?0:1));pr=cu}return pr[n]}
+function gsScore(q,hay){const ws=gsNorm(hay).split(/[^a-z0-9ñ]+/).filter(Boolean),qs=q.split(/\s+/).filter(Boolean);let sc=0;
+  for(const w of qs){let best=0;for(const h of ws){if(h===w)best=Math.max(best,3);else if(h.startsWith(w))best=Math.max(best,2);else if(w.length>=4&&h.includes(w))best=Math.max(best,1.5);else if(w.length>=4&&gsLev(w,h.slice(0,w.length+1))<=1)best=Math.max(best,1)}if(!best)return 0;sc+=best}return sc}
+(()=>{const _gsI=gsItems;gsItems=function(){const L=_gsI.apply(this,arguments);try{L.forEach(x=>{const gm=GLIST.find(g=>g[1]===x.t),cz=Object.values(CZ).find(g=>(g.name||g.n)===x.t);
+    x.k=(gm&&GS_ALIAS[gm[0]])||(cz&&GS_ALIAS[cz.id])||GS_SEC[x.t]||''});
+    L.push({t:'Ruletas gratis',s:'La ruleta del día',e:'🎡',c:'#ffd600',k:'ruleta diaria gratis girar premio',go:()=>{go('inicio');try{hoSet('ruletas')}catch(e){}}})}catch(e){}return L}})();
+document.addEventListener('input',e=>{const inp=e.target.closest('.gsin');if(!inp)return;const box=inp.closest('.gsbox'),res=box.querySelector('.gsres'),q=gsNorm(inp.value.trim());if(!q)return;
+  const L=gsItems().map(x=>({x,sc:gsScore(q,x.t+' '+x.s+' '+(x.k||''))*(gsNorm(x.t).startsWith(q)?2:1)})).filter(o=>o.sc>0).sort((a,b)=>b.sc-a.sc).slice(0,8).map(o=>o.x);box._L=L;
+  res.innerHTML=L.length?L.map((x,i)=>`<button class="gsr" data-gsi="${i}" style="--c:${x.c}"><span class="emo">${x.e}</span><b>${esc(x.t)}</b><small>${esc(x.s)}</small></button>`).join(''):'<div class="gsnone">No hay nada con ese nombre</div>';res.hidden=false});
+
+/* ================= MINIATURA DE CADA RULETA EN EL CATÁLOGO ================= */
+function wTxtCol(c){const m=/^#([0-9a-f]{6})$/i.exec(String(c||''));if(!m)return'#111';const n=parseInt(m[1],16),l=(.299*(n>>16&255)+.587*(n>>8&255)+.114*(n&255))/255;return l<.5?'#fff':'#111'}
+function wMini(w){let sg=[];try{sg=w.segs()}catch(e){}if(!sg.length)return'';const n=sg.length,R=46,P=Math.PI*2/n;let h='';
+  sg.forEach((x,i)=>{const a0=-Math.PI/2+i*P-P/2,a1=a0+P,lg=P>Math.PI?1:0,mid=a0+P/2;
+    h+=`<path d="M0 0L${(R*Math.cos(a0)).toFixed(2)} ${(R*Math.sin(a0)).toFixed(2)}A${R} ${R} 0 ${lg} 1 ${(R*Math.cos(a1)).toFixed(2)} ${(R*Math.sin(a1)).toFixed(2)}Z" fill="${x.col}" stroke="#111" stroke-width="1.2"/>`;
+    const tx=String(x.lab||'').slice(0,7),deg=mid*180/Math.PI;h+=`<text transform="rotate(${deg.toFixed(1)}) translate(29 0) rotate(90)" font-size="${tx.length>5?6.5:8}" font-weight="900" text-anchor="middle" dominant-baseline="middle" fill="${wTxtCol(x.col)}">${esc(tx)}</text>`});
+  return`<svg class="wmini" viewBox="-52 -56 104 108" aria-hidden="true"><circle r="50" fill="#111"/>${h}<circle r="9" fill="#ffd600" stroke="#111" stroke-width="2"/><path d="M-7 -55L7 -55L0 -43Z" fill="#fff" stroke="#111" stroke-width="1.5"/></svg>`}
+{const _wcM=wCatalog;wCatalog=function(){_wcM.apply(this,arguments);try{$$('#mbox .wci').forEach((el,i)=>{const w=WHEELS[i];if(!w||el.querySelector('.wmini'))return;const body=document.createElement('div');body.className='wcb';while(el.firstChild)body.appendChild(el.firstChild);el.classList.add('wci2');el.insertAdjacentHTML('afterbegin',wMini(w));el.appendChild(body)})}catch(e){}}}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
