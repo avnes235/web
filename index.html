@@ -2039,6 +2039,9 @@ body.admmod #admGlobal,body.admmod #admInbox,body.admmod #admMgr{display:none!im
 @media (max-width:1000px){#v-admin .admtable{max-height:70vh!important;max-height:70dvh!important;min-height:300px}}
 #netDiag{position:fixed;inset:0;z-index:9999;background:#000a;display:grid;place-items:center;padding:16px}#netDiag[hidden]{display:none}.nd-box{background:#17171c;border:1px solid #333;border-radius:16px;padding:16px;max-width:520px;width:100%}.nd-box h3{margin:0 0 8px}.nd-box pre{white-space:pre-wrap;font:600 12px/1.45 ui-monospace,monospace;background:#0e0e12;border-radius:10px;padding:10px;max-height:50vh;overflow:auto;margin:0 0 8px}.nd-btns{display:flex;gap:8px;flex-wrap:wrap}
 .lggap{margin-top:8px;padding:8px 10px;border-radius:10px;background:#0e0e12;font-size:13.5px;line-height:1.5;font-weight:700}.lggap b{color:var(--lc,#ffd600)}#lgHome .lggap{font-size:12.5px;margin-top:6px}
+.lgch{margin:0 0 10px;padding:12px;border-radius:14px;background:#141418;border:2px solid #2a2a33}.lgch h4{margin:0 0 8px;font-size:16px}.lgch h4 small{color:#9a9aa6;font-weight:700;font-size:12px;margin-left:6px}
+.lgchr{display:grid;grid-template-columns:28px 1fr auto auto;gap:8px;align-items:center;padding:7px 0;border-top:1px solid #23232b;font-weight:700;font-size:14px}.lgchr .emo{font-size:20px;text-align:center}.lgchr .t{position:relative;padding-bottom:7px}.lgchr .t i{position:absolute;left:0;bottom:0;height:4px;width:var(--w);max-width:100%;border-radius:4px;background:#ffd600}.lgchr b{font-size:13px;color:#cfcfd8}.lgchr em{font-style:normal;color:#14e08a;font-weight:900;font-size:13px}.lgchr.ok{opacity:.65}.lgchr.ok .t i{background:#14e08a}
+.lgptl small{display:block;color:#9a9aa6;font-weight:600;font-size:12px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5052,7 +5055,7 @@ $('#over').addEventListener('click',e=>{const b=e.target.closest('[data-dif]');i
     if(G.dom)G.mount($('#gdom'));else G.reset();overlay('start');return}
   if(e.target.closest('[data-o="diff"]'))overlay('start')});
 function gEnd(){if(!running)return;running=false;$('#gSave').hidden=true;if(S.saved)delete S.saved[gid];const sc=score,dk=gid+'.'+curDiff(),prev=S.best[dk];const valid=G.best==='min'?sc>0:true;
-  const better=valid&&(prev==null||(G.best==='min'?sc<prev:sc>prev));if(better&&(G.best==='min'||sc>0)){S.best[dk]=sc;if(gid==='ladrillos'&&G.level){S.bestLv=S.bestLv||{};S.bestLv[dk]=G.level}}
+  const better=valid&&(prev==null||(G.best==='min'?sc<prev:sc>prev));if(better&&(G.best==='min'||sc>0)){S.best[dk]=sc;if(gid==='ladrillos'&&G.level){S.bestLv=S.bestLv||{};S.bestLv[dk]=G.level}if(prev!=null){try{lgRecord()}catch(e){}}}
   const coins=Math.max(0,Math.round(G.reward(sc)*dmul()));give(coins);S.played[gid]=1;ev('games');xp((12+Math.min(150,coins/15))*Math.min(2,Math.max(1,dmul())));
   const lw=G.low;setTimeout(()=>{if(!G||gid==null)return;overlay('over',{sc,coins,better:better&&prev!=null});
     if(better&&prev!=null){sfx('big');confetti(120);trollPick('record')}else{sfx(coins>0?'win':'lose');if(lw&&(G.best==='min'?sc>=lw[0]:sc<=lw[0]))troll(lw[1],lw[2])}},450);
@@ -5579,6 +5582,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-u',t:'Liga 2.0: más habilidad y menos repetir',items:[['🎯','Retos de la semana','Cada semana hay 4 retos de liga iguales para todos que dan entre 150 y 300 puntos.','new','#ffd600'],['🏅','Habilidad','Batir tu récord en un juego da +40 puntos, y en las dificultades altas las partidas y los récords valen más.','new','#ff6b4a'],['📈','Hazte rico','Si tu dinero crece en la semana sumas puntos: +2 por cada 1 %. Cuenta el %, así es justo para todos.','new','#14e08a'],['⏱️','Topes por día','Cada actividad tiene un máximo de puntos al día: ya no gana quien solo repite lo mismo.','new','#3f7cff']]},
  {v:'2026-10-07-t',t:'Ligas: suben más abajo y sabes cuánto te falta',items:[['🥉','Subir según la liga','En Bronce sube la mitad de los que juegan, en Plata el 40 %, en Oro el 30 % y en Diamante el 20 %. Cuantos más jugáis, más suben. Desde Plata, los últimos pueden bajar.','new','#e0914a'],['⬆️','Cuánto te falta','En tu liga ves cuántos puntos te faltan para adelantar al de arriba y para entrar en la zona de subida (o salir de la de bajada).','new','#ffd600']]},
  {v:'2026-10-07-s',t:'Misiones y premio diario arreglados',items:[['📋','Misiones','Si te había tocado una de las misiones nuevas, el panel de Misiones y el del Premio diario salían vacíos. Arreglado.','fix','#14e08a']]},
  {v:'2026-10-07-r',t:'Arreglado: se quedaba «Conectando…» al recargar',items:[['🛠️','Encontrado el fallo','Si recargabas o actualizabas estando en Tu perfil, el juego se rompía al arrancar y no llegaba a conectarse. Arreglado.','fix','#14e08a'],['🛟','Red de seguridad','Si algún día algo no carga bien, sale un aviso rojo: lo tocas y se arregla solo.','fix','#ff3b4f']]},
@@ -10293,7 +10297,7 @@ function lgCard(){const el=$('#lgHome');if(!el)return;if(!NET.ok||!S.name||(NET.
   el.hidden=false;el.style.setProperty('--lc',L[2]);const h=`<span class="lgb">${L[1]}</span><div style="min-width:0"><h3>Liga ${L[0]}</h3><div class="lgs">Vas el <span class="lgh">${pos}º de ${n}</span> esta semana con ${fmt(Math.floor(S.wkP||0))} puntos. </div><div class="lggap">${lgGapHTML()}</div></div><span class="lgt">Acaba en<br>${leftTxt(wkEnd())}</span>`;
   if(el._h!==h){el._h=h;el.innerHTML=h}el.onclick=()=>{rkCat='liga';go('ranking')}}
 /* categorías nuevas en Clasificación */
-RKC2.splice(1,0,['liga','🏅','Liga semanal','Solo los de tu liga. Ganas puntos jugando partidas, completando misiones, ganando en el casino y online. El lunes a las 2:00 los 3 primeros suben de liga y todos cobran según su puesto.'],['mes','📅','Temporada','La temporada dura un mes y cuenta los mismos puntos que la liga. El campeón se lleva el título «🏆 Campeón del mes» para siempre y entra en el Salón de la fama.'],['fama','🏛️','Salón de la fama','Los campeones de cada mes y los reinados más largos como rey de Casinetori.']);
+RKC2.splice(1,0,['liga','🏅','Liga semanal','Solo los de tu liga. Ganas puntos con los 4 retos de la semana, batiendo tus récords, haciendo crecer tu dinero y jugando un poco de todo (cada cosa tiene un tope por día). El lunes a las 2:00 los 3 primeros suben de liga y todos cobran según su puesto.'],['mes','📅','Temporada','La temporada dura un mes y cuenta los mismos puntos que la liga. El campeón se lleva el título «🏆 Campeón del mes» para siempre y entra en el Salón de la fama.'],['fama','🏛️','Salón de la fama','Los campeones de cada mes y los reinados más largos como rey de Casinetori.']);
 {const _pvL=pval;pval=function(p,cat){if(cat==='liga')return p.me?Math.floor(S.wkP||0):(+p.wk===WK()?+p.wp||0:0);if(cat==='mes')return p.me?Math.floor(S.moP||0):(+p.mo===MO()?+p.mp||0:0);
   if(cat==='fama'){const c=p.me?(S.chm||[]).length:(p.chm||[]).length,k=p.me?(S.kingMs||0):(+p.kt||0);return c*1e13+Math.floor(k/1000)}return _pvL.apply(this,arguments)}}
 {const _rlL=rankList;rankList=function(tab,cat){if(cat!=='liga'&&cat!=='mes'&&cat!=='fama')return _rlL.apply(this,arguments);const arr=_rlL(tab,'coins');
@@ -10308,7 +10312,7 @@ RKC2.splice(1,0,['liga','🏅','Liga semanal','Solo los de tu liga. Ganas puntos
 /* logros */
 ACH.push(['📈','Ascenso','Sube de liga',()=>(S.lgMax||0)>=1],['💎','Diamante','Llega a la Liga Diamante',()=>(S.lgMax||0)>=3],['🔱','Maestro','Llega a la Liga Maestro, la más alta',()=>(S.lgMax||0)>=4],
   ['🏅','Campeón de liga','Queda 1º en tu liga una semana',()=>(S.lgWins||0)>=1],['🏆','Campeón del mes','Gana una temporada',()=>(S.chm||[]).length>=1]);
-(()=>{try{if(!TUTOS.some(x=>x[1]==='Ligas y temporadas'))TUTOS.splice(3,0,['🏅','Ligas y temporadas','Competir cada semana y cada mes','#e0914a',[['Hay 5 ligas: <b>Bronce, Plata, Oro, Diamante y Maestro</b>. Todos empiezan en Bronce.'],['Ganas <b>puntos de liga</b> jugando: partida en Juegos +10, misión +30, ganar en el casino +4, duelo online ganado +40, torneo ganado +100… La lista entera está en Clasificación › Liga. Solo compites con los de tu liga.'],['Cada <b>lunes a las 2:00</b> acaba la semana: los 3 primeros <b>suben</b>, los 3 últimos bajan y todos cobran según su puesto.'],['La <b>temporada</b> dura un mes. El 1º se lleva el título «🏆 Campeón del mes» para siempre y entra en el <b>Salón de la fama</b>.'],['Lo ves todo en Clasificación › Liga semanal, Temporada y Salón de la fama.']],'Si no juegas en toda la semana, bajas de liga.','ranking']);
+(()=>{try{if(!TUTOS.some(x=>x[1]==='Ligas y temporadas'))TUTOS.splice(3,0,['🏅','Ligas y temporadas','Competir cada semana y cada mes','#e0914a',[['Hay 5 ligas: <b>Bronce, Plata, Oro, Diamante y Maestro</b>. Todos empiezan en Bronce.'],['Ganas <b>puntos de liga</b> jugando: partida en Juegos +10 (más en difícil), <b>batir tu récord</b> +40, misión +30, duelo ganado +40, torneo ganado +100… Cada cosa tiene un <b>tope por día</b>: hay que jugar un poco de todo.'],['Cada semana hay <b>4 retos de liga</b> iguales para todos que dan muchos puntos, y también sumas si tu dinero <b>crece</b> (cuenta el %, no la cantidad). Todo está en Clasificación › Liga. Solo compites con los de tu liga.'],['Cada <b>lunes a las 2:00</b> acaba la semana: los 3 primeros <b>suben</b>, los 3 últimos bajan y todos cobran según su puesto.'],['La <b>temporada</b> dura un mes. El 1º se lleva el título «🏆 Campeón del mes» para siempre y entra en el <b>Salón de la fama</b>.'],['Lo ves todo en Clasificación › Liga semanal, Temporada y Salón de la fama.']],'Si no juegas en toda la semana, bajas de liga.','ranking']);
   if(!FAQ.some(q=>/liga/.test(q[0])))FAQ.unshift(['¿Cómo subo de liga?','Juega durante la semana: cada partida da 10 puntos, cada misión 30, ganar en el casino 4, un duelo online 40… (la lista está en Clasificación › Liga). El lunes a las 2:00, los 3 primeros de tu liga suben. Lo ves en Clasificación › Liga semanal o en la tarjeta de liga de Inicio.'])}catch(e){}})();
 
 /* ================= CLASIFICACIÓN REMASTERIZADA (pestañas) ================= */
@@ -10342,11 +10346,11 @@ function pubX(){const x={};try{x.acc=NET.isAnon?'a':(isGoogleUser()?'g':'u');if(
 /* ================= PUNTOS DE LIGA: por lo que haces, claros ================= */
 const LGPTS={games:[10,'🎮','Jugar una partida en Juegos'],missions:[30,'📋','Completar una misión'],wins:[4,'🎰','Ganar una apuesta en el casino'],spins:[1,'🍒','Girar la tragaperras'],
   duelWins:[40,'⚔️','Ganar un duelo online'],potWins:[40,'💰','Ganar un bote online'],tnWins:[100,'🏆','Ganar un torneo'],golden:[5,'✨','Pillar una moneda dorada'],gifts:[5,'🎁','Regalar dinero a alguien'],buys:[5,'🛍️','Comprar en la Tienda'],clicks:[.02,'🏭','Pulsar la moneda de la fábrica']};
-{const _evLg=ev;ev=function(k,n=1){const r=_evLg.apply(this,arguments);try{const d=LGPTS[k];if(d){lgRoll();let v=d[0]*Math.max(0,+n||0);
+{const _evLg=ev;ev=function(k,n=1){const r=_evLg.apply(this,arguments);try{const d=LGPTS[k];if(d){lgRoll();let v=d[0]*Math.max(0,+n||0);if(k==='games')v*=lgDm();
   if(k==='clicks'){if(S.wkClkW!==S.wk){S.wkClkW=S.wk;S.wkClk=0}v=Math.max(0,Math.min(v,300-(S.wkClk||0)));S.wkClk=(S.wkClk||0)+v}
-  if(v>0){S.wkP=(S.wkP||0)+v;S.moP=(S.moP||0)+v}}}catch(e){}return r}}
-function lgPtsHTML(){return`<details class="lgpts"><summary>¿Cómo se consiguen puntos de liga? <small>(pulsa para verlo)</small></summary><div class="lgptl">${Object.values(LGPTS).map(d=>`<div><span class="emo">${d[1]}</span><span>${esc(d[2])}</span><b>${d[0]<1?'+1 cada 50 clics':'+'+d[0]}</b></div>`).join('')}</div><p>La fábrica da como mucho 300 puntos por semana. Los mismos puntos cuentan para la <b>Temporada</b> del mes. ¡Juega un poco de todo!</p></details>`}
-{const _rrP=renderRank;renderRank=function(){const r=_rrP.apply(this,arguments);try{let el=$('#lgPts');if(view==='ranking'&&RK2==='liga'){if(!el){$('#rkPodium').insertAdjacentHTML('beforebegin','<div id="lgPts"></div>');el=$('#lgPts')}if(!el._h){el._h=1;el.innerHTML=lgPtsHTML()}el.hidden=false;const lb=$('#lgBox');if(lb&&lb.nextElementSibling!==el)lb.after(el)}else if(el)el.hidden=true}catch(e){}return r}}
+  if(v>0)lgAdd(k,v)}lgChTick(k,+n||0)}catch(e){}return r}}
+function lgPtsHTML_old(){return`<details class="lgpts"><summary>¿Cómo se consiguen puntos de liga? <small>(pulsa para verlo)</small></summary><div class="lgptl">${Object.values(LGPTS).map(d=>`<div><span class="emo">${d[1]}</span><span>${esc(d[2])}</span><b>${d[0]<1?'+1 cada 50 clics':'+'+d[0]}</b></div>`).join('')}</div><p>La fábrica da como mucho 300 puntos por semana. Los mismos puntos cuentan para la <b>Temporada</b> del mes. ¡Juega un poco de todo!</p></details>`}
+{const _rrP=renderRank;renderRank=function(){const r=_rrP.apply(this,arguments);try{let el=$('#lgPts');if(view==='ranking'&&RK2==='liga'){if(!el){$('#rkPodium').insertAdjacentHTML('beforebegin','<div id="lgPts"></div>');el=$('#lgPts')}{const h=lgPtsHTML();if(el._h!==h){const op=!!(el.querySelector('details')||{}).open;el._h=h;el.innerHTML=h;if(op){const d=el.querySelector('details');if(d)d.open=true}}}el.hidden=false;const lb=$('#lgBox');if(lb&&lb.nextElementSibling!==el)lb.after(el)}else if(el)el.hidden=true}catch(e){}return r}}
 
 /* guía de la Clasificación con las pestañas nuevas */
 try{GU_T.ranking=[[null,'Hace falta cuenta','Solo salen en la clasificación los que tienen cuenta (Google o usuario y contraseña). Sin cuenta, tu puesto solo lo ves tú.'],
@@ -10945,6 +10949,48 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-vigb
     vigLoad()}catch(err){toast('No se ha podido','Revisa que has pegado las reglas nuevas','var(--coral)','⚠️')}});
 {const _goV=go;go=function(v){const r=_goV.apply(this,arguments);if(view==='admin'&&ADM.on&&!ADM.mod){if(VIG===null)vigLoad();else vigBox()}return r}}
 try{i18nAdd([["Estado de la conexión","Connection status","État de la connexion","Estado da ligação"],["Ver estado","View status","Voir l’état","Ver estado"],["Reintentar","Retry","Réessayer","Tentar de novo"],["Si sale «Sin conexión», aquí ves por qué.","If it says “Offline”, see why here.","Si « Hors ligne » s’affiche, voyez pourquoi ici.","Se aparecer «Sem ligação», vê aqui porquê."],["Si falla, haz una captura de esto y mándasela al jefe.","If it fails, take a screenshot of this and send it to the boss.","En cas d’échec, faites une capture et envoyez-la au chef.","Se falhar, tira uma captura e envia-a ao chefe."],["Copiar","Copy","Copier","Copiar"],["Cerrar","Close","Fermer","Fechar"]])}catch(e){}
+
+/* ================= LIGA 2.0: topes diarios, habilidad, retos semanales y crecimiento ================= */
+const LG_CAP={spins:60,wins:80,games:200,golden:50,buys:25,clicks:60,missions:180,duelWins:200,potWins:160,record:200};
+const LG_DM={f:.6,n:1,d:1.4,h:1.8,x:2.2};
+function lgDm(){try{return LG_DM[curDiff()]||1}catch(e){return 1}}
+const lgDay=()=>Math.floor(NOWS()/864e5);
+function lgAdd(k,v){if(!(v>0))return 0;lgRoll();const d=lgDay();if(!S.lgD||S.lgD.d!==d)S.lgD={d,c:{}};const cap=LG_CAP[k];
+  if(cap){v=Math.max(0,Math.min(v,cap-(S.lgD.c[k]||0)));S.lgD.c[k]=(S.lgD.c[k]||0)+v}
+  if(v>0){S.wkP=(S.wkP||0)+v;S.moP=(S.moP||0)+v}return v}
+function lgRecord(){const v=Math.round(40*lgDm());const got=lgAdd('record',v);lgChTick('record',1);
+  if(got>0)setTimeout(()=>toast('¡Nuevo récord!','+'+fmt(got)+' puntos de liga','var(--sun)','🏅'),900)}
+/* retos de la semana: los mismos para todos (salen de la semana) */
+const LG_CH=[['p15','games',15,200,'🎮','Juega 15 partidas en Juegos'],['m8','missions',8,250,'📋','Completa 8 misiones'],['w30','wins',30,150,'🎰','Gana 30 apuestas en el casino'],
+  ['d3','duelWins',3,250,'⚔️','Gana 3 duelos online'],['b2','potWins',2,200,'💰','Gana 2 botes online'],['g10','golden',10,150,'✨','Pilla 10 monedas doradas'],
+  ['r3','record',3,300,'🏅','Bate 3 de tus récords en Juegos'],['h2','raceWins',2,150,'🏇','Acierta 2 carreras de caballos'],['bj','bj',15,150,'🃏','Juega 15 manos de Blackjack'],
+  ['gl','goals',20,150,'⚽','Mete 20 goles en Penaltis'],['cr','growth',25,300,'📈','Haz crecer tu dinero un 25 % esta semana'],['tn','tnWins',1,300,'🏆','Gana un torneo']];
+function lgWeekCh(w){w=w==null?WK():w;let x=(w*2654435761)>>>0;const a=LG_CH.slice();for(let i=a.length-1;i>0;i--){x=(x*1103515245+12345)>>>0;const j=x%(i+1);[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,4)}
+function lgChS(){const w=S.wk||WK();if(!S.lgCh||S.lgCh.w!==w)S.lgCh={w,p:{},done:[]};return S.lgCh}
+function lgChTick(k,n){if(!(n>0))return;const c=lgChS();lgWeekCh(c.w).forEach(([id,key,goal,pts,emo,txt])=>{if(key!==k||c.done.includes(id))return;
+  c.p[id]=key==='growth'?Math.max(c.p[id]||0,n):(c.p[id]||0)+n;
+  if(c.p[id]>=goal){c.p[id]=goal;c.done.push(id);lgAdd('reto',pts);save();
+    setTimeout(()=>{sfx('big');confetti(120);toast('🎯 Reto de liga completado',esc(txt)+' · +'+fmt(pts)+' puntos','var(--sun)',emo)},600)}})}
+/* crecimiento: puntos por cuánto sube tu dinero en % durante la semana (2 pts por cada 1 %, máx. 300) */
+function lgGrowth(){try{if(!S.name)return;lgRoll();if(S.wkW0w!==S.wk){S.wkW0w=S.wk;S.wkW0=Math.max(1e4,wealth());S.wkG=0}
+  const pct=(wealth()/Math.max(1e4,S.wkW0||1e4)-1)*100;if(!Number.isFinite(pct))return;const g=Math.min(300,Math.floor(Math.max(0,pct)*2));
+  if(g>(S.wkG||0)){const d=g-(S.wkG||0);S.wkG=g;S.wkP=(S.wkP||0)+d;S.moP=(S.moP||0)+d}
+  if(pct>0)lgChTick('growth',Math.floor(pct))}catch(e){}}
+setInterval(lgGrowth,5000);setTimeout(lgGrowth,3000);
+/* cuadro «cómo se consiguen puntos» nuevo, con lo que llevas hoy */
+const LG_ROWS=[['games','🎮','Jugar una partida en Juegos','+10 (en Difícil +14, Hasbiri +18, Hasbirinino +22; en Fácil +6)'],['record','🏅','Batir tu récord en un juego','+40 (más en difícil)'],
+  ['missions','📋','Completar una misión','+30'],['wins','🎰','Ganar una apuesta en el casino','+4'],['spins','🍒','Girar la tragaperras','+1'],['duelWins','⚔️','Ganar un duelo online','+40'],
+  ['potWins','💰','Ganar un bote online','+40'],['tnWins','🏆','Ganar un torneo','+100'],['golden','✨','Pillar una moneda dorada','+5'],['buys','🛍️','Comprar en la Tienda','+5'],['clicks','🏭','Pulsar la moneda de la fábrica','+1 cada 50 clics']];
+function lgPtsHTML(){const c=lgChS(),hoy=(S.lgD&&S.lgD.d===lgDay())?S.lgD.c:{},ch=lgWeekCh(c.w);
+  const retos=`<div class="lgch"><h4>🎯 Retos de la semana <small>${c.done.length}/4 · iguales para todos</small></h4>${ch.map(([id,key,goal,pts,emo,txt])=>{const v=Math.min(goal,c.p[id]||0),ok=c.done.includes(id);
+    return`<div class="lgchr${ok?' ok':''}"><span class="emo">${emo}</span><span class="t">${esc(txt)}<i style="--w:${Math.round(v/goal*100)}%"></i></span><b>${ok?'✅':fmt(v)+'/'+fmt(goal)}</b><em>+${pts}</em></div>`}).join('')}</div>`;
+  const rows=LG_ROWS.map(([k,e,t,p])=>{const cap=LG_CAP[k];return`<div><span class="emo">${e}</span><span>${esc(t)}<small>${esc(p)}</small></span><b>${cap?fmt(Math.floor(hoy[k]||0))+'/'+cap+' hoy':'sin tope'}</b></div>`}).join('');
+  const gr=Math.floor(S.wkG||0);
+  return retos+`<details class="lgpts"><summary>¿Cómo se consiguen puntos de liga? <small>(pulsa para verlo)</small></summary><div class="lgptl">${rows}<div><span class="emo">📈</span><span>Hacer crecer tu dinero esta semana<small>+2 por cada 1 % que crece (cuenta el %, no la cantidad)</small></span><b>${gr}/300</b></div></div>
+   <p>Cada cosa tiene un <b>tope por día</b> (se reinicia cada noche): no vale con repetir lo mismo, hay que jugar un poco de todo. Los <b>retos</b> y los <b>récords</b> son lo que más puntos da. Los mismos puntos cuentan para la <b>Temporada</b> del mes.</p></details>`}
+/* en la tarjeta de Inicio: cuántos retos llevas */
+{const _lgC3=lgCard;lgCard=function(){_lgC3.apply(this,arguments);try{const el=$('#lgHome');if(!el||el.hidden)return;const g=el.querySelector('.lggap');const c=lgChS();const t='🎯 Retos de la semana: <b>'+c.done.length+'/4</b>';
+  if(g&&!g.innerHTML.includes('Retos de la semana'))g.insertAdjacentHTML('beforeend',(g.innerHTML?'<br>':'')+t)}catch(e){}}}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
