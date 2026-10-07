@@ -4029,8 +4029,8 @@ const MIS=[['clicks',150,'Pulsa la moneda 150 veces'],['apples',12,'Come 12 manz
 let misReward=()=>Math.round(300*Math.pow(S.lvl,1.3)/50)*50;
 function newMis(){const used=S.mis.map(m=>m.i);let i;do{i=ri(0,MIS.length-1)}while(used.includes(i));return{i,p:0,done:false}}
 while(S.mis.length<3)S.mis.push(newMis());
-function misTick(k,n){let ch=false;S.mis.forEach(m=>{if(m.done||MIS[m.i][0]!==k)return;m.p=Math.min(MIS[m.i][1],m.p+n);ch=true;if(m.p>=MIS[m.i][1]){m.done=true;toast('Misión completada','Ve a Inicio a cobrarla','var(--mint)','✅');sfx('win')}});if(ch&&view==='inicio')renderMis()}
-function renderMis(){$('#misList').innerHTML=S.mis.map((m,j)=>{const[,goal,txt]=MIS[m.i];return`<div class="mis"><b>${txt}</b><div class="rw">${m.done?`<button class="btn mint sm" data-claim="${j}">Cobrar</button>`:`<span class="num">${fmt(m.p)}/${fmt(goal)}</span>`}<span>+${short(misReward())}</span></div><div class="pb"><i style="width:${m.p/goal*100}%"></i></div></div>`}).join('')}
+function misTick(k,n){let ch=false;S.mis.forEach(m=>{if(m.done||!MIS[m.i]||MIS[m.i][0]!==k)return;m.p=Math.min(MIS[m.i][1],m.p+n);ch=true;if(m.p>=MIS[m.i][1]){m.done=true;toast('Misión completada','Ve a Inicio a cobrarla','var(--mint)','✅');sfx('win')}});if(ch&&view==='inicio')renderMis()}
+function renderMis(){$('#misList').innerHTML=S.mis.map((m,j)=>{if(!MIS[m.i])return'';const[,goal,txt]=MIS[m.i];return`<div class="mis"><b>${txt}</b><div class="rw">${m.done?`<button class="btn mint sm" data-claim="${j}">Cobrar</button>`:`<span class="num">${fmt(m.p)}/${fmt(goal)}</span>`}<span>+${short(misReward())}</span></div><div class="pb"><i style="width:${m.p/goal*100}%"></i></div></div>`}).join('')}
 $('#misList').addEventListener('click',e=>{const b=e.target.closest('[data-claim]');if(!b)return;const j=+b.dataset.claim;if(!S.mis[j]||!S.mis[j].done)return;
   const r=misReward();give(r);xp(40);ev('missions');sfx('buy');confetti(60);toast('Premio cobrado','+'+short(r)+' €','var(--mint)','🎁');S.mis[j]=newMis();renderMis();save()});
 
@@ -5578,6 +5578,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-s',t:'Misiones y premio diario arreglados',items:[['📋','Misiones','Si te había tocado una de las misiones nuevas, el panel de Misiones y el del Premio diario salían vacíos. Arreglado.','fix','#14e08a']]},
  {v:'2026-10-07-r',t:'Arreglado: se quedaba «Conectando…» al recargar',items:[['🛠️','Encontrado el fallo','Si recargabas o actualizabas estando en Tu perfil, el juego se rompía al arrancar y no llegaba a conectarse. Arreglado.','fix','#14e08a'],['🛟','Red de seguridad','Si algún día algo no carga bien, sale un aviso rojo: lo tocas y se arregla solo.','fix','#ff3b4f']]},
  {v:'2026-10-07-q',t:'Ligas más justas y vigilancia de trampas',items:[['🏆','Cierre de liga igual para todos','El lunes el servidor congela la clasificación de cada liga, así a todos os sale el mismo puesto.','new','#ffd600'],['🚨','Vigilante','El servidor revisa cada hora que nadie suba de forma imposible. Los tramposos no cuentan en la liga.','new','#ff3b4f'],['📡','Estado de la conexión','En Ajustes (o tocando «Sin conexión») ves qué está fallando.','new','#3f7cff']]},
  {v:'2026-10-07-p',t:'Conexión que se arregla sola',items:[['📡','Adiós al «Sin conexión» al recargar','Si al entrar o al actualizar la conexión tarda, el juego ya no se rinde: vuelve a probar solo cada pocos segundos, sin recargar la página.','fix','#14e08a'],['👆','Toca para reintentar','Si aun así sale «Sin conexión», tócalo y vuelve a intentarlo al momento.','fix','#3f7cff']]},
@@ -10926,7 +10927,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-vigb
 try{i18nAdd([["Estado de la conexión","Connection status","État de la connexion","Estado da ligação"],["Ver estado","View status","Voir l’état","Ver estado"],["Reintentar","Retry","Réessayer","Tentar de novo"],["Si sale «Sin conexión», aquí ves por qué.","If it says “Offline”, see why here.","Si « Hors ligne » s’affiche, voyez pourquoi ici.","Se aparecer «Sem ligação», vê aqui porquê."],["Si falla, haz una captura de esto y mándasela al jefe.","If it fails, take a screenshot of this and send it to the boss.","En cas d’échec, faites une capture et envoyez-la au chef.","Se falhar, tira uma captura e envia-a ao chefe."],["Copiar","Copy","Copier","Copiar"],["Cerrar","Close","Fermer","Fechar"]])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
-try{if(typeof startV!=='undefined'&&view!==startV)go(startV)}catch(e){try{go('inicio')}catch(_){}}
+try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
 })();
 </script>
