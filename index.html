@@ -1963,6 +1963,16 @@ html body .updmini{background:#14e08a!important;color:#062a1b!important;border-c
 .trquick .tq{flex:1;border:3px solid #000;border-radius:12px;color:#fff;font:900 17px var(--f-b);padding:10px 4px;display:flex;flex-direction:column;align-items:center;cursor:pointer;box-shadow:0 3px 0 #000}
 .trquick .tq small{font-size:11px;opacity:.85}.trquick .buy{background:#0fb871}.trquick .sell{background:#e0303c}
 .tqmid{display:flex;flex-direction:column;justify-content:center;text-align:center;font:900 14px var(--f-b);color:#ffd600;min-width:76px}.tqmid small{color:#9a9aab;font-size:11px}
+/* ===== caja fuerte y resumen del mes ===== */
+.safecard{display:flex;flex-direction:column;gap:12px;border:3px solid #6b8bff!important;background:linear-gradient(135deg,#141d3d,#141418 70%)!important}
+.safecard .sfh{display:flex;gap:12px;align-items:center}.safecard .sfh .emo{font-size:38px}.safecard h3{margin:0;font:400 24px var(--f-d);text-transform:uppercase;color:#8fb2ff}.safecard small{font-weight:700;color:#cfcfd8;font-size:14px}.safecard small b{color:#ffd600}
+.safecard .sfv b{display:block;font:900 28px var(--f-b);color:#fff}.safecard .sfb{display:flex;gap:8px}.safecard .sfb .btn{flex:1}
+#v-inicio .safecard{order:5}#v-inicio #forbid,#v-inicio #homeMail{order:7}
+.wrbtn{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 14px;padding:14px 16px;border-radius:16px;border:3px solid #ff4fd8;background:linear-gradient(135deg,#3a0d3a,#141418 70%);color:#fff;font:inherit;text-align:left;cursor:pointer;box-shadow:0 0 0 3px #000}
+.wrbtn .emo{font-size:32px}.wrbtn span:nth-child(2){flex:1}.wrbtn b{display:block;font:400 22px var(--f-d);text-transform:uppercase;color:#ff9df0}.wrbtn small{font-weight:700;color:#cfcfd8}.wrbtn .go{font-weight:900;color:#ffd600}
+.wrap{text-align:center}.wrap h2{font-size:clamp(26px,5vw,36px);margin:0}.wrgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin:14px 0}
+.wrc{padding:14px 10px;border-radius:14px;background:linear-gradient(160deg,#2a1b4a,#18181d);border:2px solid #3a2a5a;display:flex;flex-direction:column;gap:4px;animation:wrIn .5s both;animation-delay:var(--d)}
+.wrc .emo{font-size:30px}.wrc b{font:900 22px var(--f-b);color:#ffd600}.wrc small{font-weight:800;color:#cfcfd8;font-size:13px}@keyframes wrIn{from{opacity:0;transform:translateY(12px) scale(.95)}}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5496,6 +5506,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-k',t:'Caja fuerte y tu mes',items:[['🔐','Caja fuerte','En Inicio › Hoy: guarda dinero que no se puede perder y que crece un 0,5 % al día.','new','#6b8bff'],['📊','Tu mes en Casinetori','En Logros: tu resumen del mes. Y al empezar cada mes, te sale el del mes anterior.','new','#ff4fd8'],['🚀','Hora del Crash','Evento nuevo: el Cohete del casino paga el triple.','new','#ff6b4a'],['👑','Corona por juego','El número 1 de cada minijuego lleva corona en su clasificación.','new','#ffd600'],['📋','10 misiones nuevas','Goles, blackjack, carreras, regalos, el botón rojo…','new','#14e08a']]},
  {v:'2026-10-07-j',t:'Ruleta y Trading más cómodos',items:[['🎡','Apuesta rápida en la ruleta','Arriba del todo: Rojo, Negro o Verde y Girar, sin tener que bajar hasta la mesa.','new','#14e08a'],['📊','Comprar y vender sin bajar','En el móvil, en Trading hay una barra abajo con Comprar y Vender, con lo que tengas elegido.','new','#3ff0ff']]},
  {v:'2026-10-07-i',t:'Más claro y funciona en más sitios',items:[['🏫','Arreglado «Sin conexión» en algunas redes','En algunas redes (por ejemplo, de institutos) la web decía que no había internet aunque sí lo había. Ya no.','fix','#14e08a'],['📈','Bolsa más clara','Si el precio cambia mientras tienes la ventana abierta, te avisa antes de comprar o vender. Y el % dice de cuántas horas es.','fix','#14e08a']]},
  {v:'2026-10-07-h',t:'Buscador y ruletas nuevas',items:[['🔍','Buscador de juegos','En Juegos, Casino e Inicio › Jugar: escribe «snake», «ruleta», «bolsa»… y entra directo.','new','#6b8bff'],['🎡','3 ruletas nuevas','Millonaria (premios según lo que tienes), de la Liga (puntos) y de la Fábrica (energía, doradas y clics x5).','new','#ffd600'],['📖','Elige tu ruleta','Debajo de la ruleta: «Ver todas las ruletas» y elige la que quieras para la próxima tirada.','new','#ff4fd8'],['⚔️','Online sin tope','Ya no hay máximo por duelo, ni «la mitad de tu cartera», ni límite diario. Si quieres ponerte un límite, lo eliges tú en Ajustes › Online.','new','#ff2e88'],['📺','Capital extra en Trading','Mira un anuncio y llévate dinero para invertir, cada 30 minutos.','new','#14e08a']]},
@@ -10593,6 +10604,59 @@ function infoAuto(){try{const nG=GLIST.length,nC=Object.keys(CZ).length;
   const tj=TUTOS.find(t=>t[1]==='Juegos');if(tj)tj[2]=nG+' minijuegos y subiendo';
   const tc=TUTOS.find(t=>t[1]==='Casino');if(tc&&/\d+ juegos/.test(tc[2]))tc[2]=tc[2].replace(/\d+ juegos/,nC+' juegos')}catch(e){}}
 infoAuto();setTimeout(infoAuto,2000);
+
+/* ================= TANDA D ================= */
+/* ---- misiones más variadas (se añaden al final para no romper las que ya tienes) ---- */
+MIS.push(['games',5,'Juega 5 partidas en Juegos'],['goals',5,'Mete 5 goles en Penaltis'],['bj',3,'Juega 3 manos de Blackjack'],['raceWins',1,'Acierta una carrera de caballos'],
+  ['gifts',1,'Regala dinero a alguien'],['pranks',2,'Pulsa el botón rojo 2 veces'],['bigWin',1,'Saca tres iguales en la tragaperras'],['spins',30,'Gira 30 veces la tragaperras'],['games',15,'Juega 15 partidas en Juegos'],['wins',10,'Gana 10 veces en el casino']);
+
+/* ---- corona para el número 1 de cada juego ---- */
+{const _rowJ=rowHTML;rowHTML=function(p,i,cat){let h=_rowJ.apply(this,arguments);try{if(cat==='game'&&i===0&&!/class="crown"/.test(h))h=h.replace('<b><span class=','<b><span class="crown" title="Número 1 de este juego">👑</span><span class=')}catch(e){}return h}}
+
+/* ---- Hora del Crash: evento donde el Cohete paga el triple ---- */
+EVT.crash=['🚀','Hora del Crash','El Cohete del casino paga el triple de lo que ganes. ¡Retírate a tiempo!',10,'#ff6b4a'];EV_W.push(['crash',6]);
+{const _cwCr=casinoWin;casinoWin=function(n,g,bet){const r=_cwCr.apply(this,arguments);try{const e=curEv();if(e&&e.type==='crash'&&g==='rocket'&&n>(bet||0)){const extra=Math.floor((n-(bet||0))*2);if(extra>0){give(extra);toast('Hora del Crash','+'+short(extra)+' € extra por el Cohete','var(--coral)','🚀')}}}catch(_){}return r}}
+
+/* ---- caja fuerte: dinero a salvo que da intereses ---- */
+const SAFE_RATE=.005;
+function safeAccrue(){const now=Date.now();if(!S.safe){S.safeT=now;return 0}const d=(now-(S.safeT||now))/864e5;if(d<=0)return 0;const add=S.safe*(Math.pow(1+SAFE_RATE,d)-1);S.safe+=add;S.safeT=now;S.safeInt=(S.safeInt||0)+add;return add}
+function safeCardHTML(){safeAccrue();const v=Math.floor(S.safe||0),day=Math.floor(v*SAFE_RATE);
+  return`<div class="sfh"><span class="emo">🔐</span><div><h3>Caja fuerte</h3><small>Lo que guardas aquí no se puede perder en el casino ni online, y da un <b>0,5 % al día</b>.</small></div></div>
+   <div class="sfv"><b>${short(v)} €</b><small>${v?'≈ +'+short(day)+' € al día · llevas '+short(Math.floor(S.safeInt||0))+' € de intereses':'Aún no has guardado nada'}</small></div>
+   <div class="sfb"><button class="btn mint" data-safe="in">Guardar</button><button class="btn alt" data-safe="out" ${v?'':'disabled'}>Sacar</button></div>`}
+function safeMount(){const v=$('#v-inicio');if(!v)return;let c=$('#safeCard');if(!c){v.insertAdjacentHTML('beforeend','<div class="panel safecard" id="safeCard" data-ht="hoy"></div>');c=$('#safeCard')}const h=safeCardHTML();if(c._h!==h){c._h=h;c.innerHTML=h}}
+function safeModal(dir){const max=dir==='in'?Math.floor(S.coins):Math.floor(S.safe||0);$('#mbox').classList.remove('wide');$('#mbox').onclick=null;$('#modal').hidden=false;
+  $('#mbox').innerHTML=`<h2 style="font-size:28px">${dir==='in'?'🔐 Guardar en la caja fuerte':'💸 Sacar de la caja fuerte'}</h2><p class="muted" style="font-weight:700">${dir==='in'?'Tienes '+short(S.coins)+' € en la cartera.':'Hay '+short(S.safe)+' € en la caja.'}</p>
+   <div class="form"><input class="inp num" id="sfAmt" inputmode="numeric" value="${Math.floor(max/2)}"><div class="amt"><button class="qa" data-sq=".1">10 %</button><button class="qa" data-sq=".25">25 %</button><button class="qa" data-sq=".5">50 %</button><button class="qa" data-sq="1">Todo</button></div>
+   <p class="warn" id="sfErr" hidden></p><button class="btn big mint" id="sfGo">${dir==='in'?'Guardar':'Sacar'}</button><button class="linkb" id="sfX">Cancelar</button></div>`;
+  $('#mbox .amt').onclick=e=>{const b=e.target.closest('[data-sq]');if(b)$('#sfAmt').value=Math.floor(max*+b.dataset.sq)};$('#sfX').onclick=()=>$('#modal').hidden=true;
+  $('#sfGo').onclick=()=>{safeAccrue();const n=Math.floor(+String($('#sfAmt').value).replace(/\D/g,'')||0),err=t=>{const x=$('#sfErr');x.textContent=t;x.hidden=false;sfx('lose')};if(n<1)return err('Pon una cantidad.');
+    if(dir==='in'){if(n>Math.floor(S.coins))return err('No tienes tanto en la cartera.');S.coins-=n;S.safe=(S.safe||0)+n;S.safeT=Date.now();toast('Guardado','+'+short(n)+' € en la caja fuerte','var(--mint)','🔐')}
+    else{if(n>Math.floor(S.safe||0))return err('No hay tanto en la caja.');S.safe-=n;S.coins+=n;toast('Sacado','+'+short(n)+' € a tu cartera','var(--sun)','💸')}
+    sfx('coin');save();NET.lastP='';pushPlayer();$('#modal').hidden=true;safeMount()}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-safe]');if(b&&!b.disabled){sfx('click');safeModal(b.dataset.safe)}});
+/* lo de la caja fuerte cuenta como tu dinero en la clasificación */
+{const _pubS=pubX;pubX=function(){const x=_pubS();try{safeAccrue();x.coins=Math.floor((+S.coins||0)+(+S.safe||0));x.safe=Math.floor(+S.safe||0)}catch(e){}return x}}
+{const _meS=meRow;meRow=function(){const r=_meS.apply(this,arguments);try{r.coins=Math.floor((+S.coins||0)+(+S.safe||0))}catch(e){}return r}}
+safeMount();setInterval(()=>{if(view==='inicio')safeMount()},5000);{const _goSf=go;go=function(){const r=_goSf.apply(this,arguments);try{if(view==='inicio')safeMount()}catch(e){}return r}}
+
+/* ---- Tu mes en Casinetori (resumen tipo «Wrapped») ---- */
+function wrSnap(){return{mo:MO(),games:st('games'),spins:st('spins'),wins:st('wins'),missions:st('missions'),clicks:st('clicks'),buys:st('buys'),gifts:st('gifts'),earned:Math.floor(S.earned||0),lvl:S.lvl,ach:(S.ach||[]).length,king:Math.floor(S.kingMs||0)}}
+function wrDiff(a,b){const d={};Object.keys(b).forEach(k=>{if(k!=='mo')d[k]=Math.max(0,(+b[k]||0)-(+a[k]||0))});return d}
+function wrShow(mo,d,pts,live){const cards=[['🎮','Partidas jugadas',fmt(d.games)],['💰','Dinero ganado',short(d.earned)+' €'],['⭐','Niveles subidos','+'+fmt(d.lvl)],['🏆','Logros nuevos','+'+fmt(d.ach)],['📋','Misiones cumplidas',fmt(d.missions)],['🍒','Tiradas de tragaperras',fmt(d.spins)],['🎰','Veces que ganaste en el casino',fmt(d.wins)],['🏭','Clics en la fábrica',fmt(d.clicks)],['👑','Tiempo como rey',d.king>=3600e3?Math.floor(d.king/3600e3)+' h':Math.floor(d.king/60e3)+' min'],['📅','Puntos de temporada',fmt(Math.floor(pts||0))]].filter(c=>c[2]!=='0'&&c[2]!=='0 min'&&c[2]!=='+0'&&c[2]!=='0 €');
+  $('#mbox').classList.add('wide');$('#mbox').onclick=null;$('#modal').hidden=false;
+  $('#mbox').innerHTML=`<div class="wrap"><h2>${live?'📊 Tu mes hasta ahora':'🎉 Tu '+esc(moName(mo).toLowerCase())+' en Casinetori'}</h2><p class="muted">${live?esc(moName(mo))+' · se cierra a final de mes':'Así ha ido tu mes. ¡A por el siguiente!'}</p>
+   <div class="wrgrid">${(cards.length?cards:[['😴','Este mes','Aún no has jugado nada']]).map((c,i)=>`<div class="wrc" style="--d:${i*80}ms"><span class="emo">${c[0]}</span><b>${c[2]}</b><small>${c[1]}</small></div>`).join('')}</div>
+   <button class="btn big" id="wrX">${live?'Cerrar':'¡Vamos!'}</button></div>`;$('#wrX').onclick=()=>$('#modal').hidden=true;if(!live){confetti(200);sfx('big')}}
+function wrTick(){try{const m=MO();if(!S.wrB){S.wrB=wrSnap();save();return}if(S.wrB.mo!==m){const cur=wrSnap();S.wrapLast={mo:S.wrB.mo,d:wrDiff(S.wrB,cur),pts:S.pmP||0};S.wrB=cur;save()}
+  if(S.wrapLast&&S.wrapSeen!==S.wrapLast.mo&&$('#modal').hidden&&S.name){S.wrapSeen=S.wrapLast.mo;save();wrShow(S.wrapLast.mo,S.wrapLast.d,S.wrapLast.pts,false)}}catch(e){}}
+setTimeout(wrTick,9000);setInterval(wrTick,60000);
+function wrBtn(){const v=$('#v-logros');if(!v||$('#wrBtn'))return;v.insertAdjacentHTML('afterbegin','<button class="wrbtn" id="wrBtn"><span class="emo">📊</span><span><b>Tu mes en Casinetori</b><small>Partidas, dinero, logros… de este mes</small></span><span class="go">Ver ›</span></button>')}
+document.addEventListener('click',e=>{if(e.target.closest('#wrBtn')){sfx('click');if(!S.wrB)S.wrB=wrSnap();wrShow(MO(),wrDiff(S.wrB,wrSnap()),S.moP||0,true)}});
+wrBtn();{const _goW=go;go=function(){const r=_goW.apply(this,arguments);try{wrBtn()}catch(e){}return r}}
+ACH.push(['🔐','Ahorrador','Guarda dinero en la caja fuerte',()=>(S.safe||0)>0],['🏦','Banquero','Gana 1 millón en intereses de la caja fuerte',()=>(S.safeInt||0)>=1e6]);
+(()=>{try{const t=TUTOS.find(x=>x[1]==='Cómo ganar dinero');if(t&&!t[4].some(x=>/Caja fuerte/i.test(x[0])))t[4].push(['<b>Caja fuerte</b> (Inicio › Hoy): guarda dinero que no se puede perder en el casino ni online y da un 0,5 % al día.']);
+  if(!FAQ.some(q=>/caja fuerte/.test(q[0])))FAQ.unshift(['¿Para qué sirve la caja fuerte?','Está en Inicio › Hoy. Lo que guardas ahí no se puede perder en el casino, ni en la ruleta del todo o nada, ni online, y crece un 0,5 % cada día. Cuenta como tu dinero en la clasificación. Puedes sacarlo cuando quieras.'])}catch(e){}})();
 })();
 </script>
 
