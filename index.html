@@ -2026,6 +2026,10 @@ body.admmod #admGlobal,body.admmod #admInbox,body.admmod #admMgr{display:none!im
   #prods .ptag,#prods .rar{font-size:9px!important;padding:2px 5px!important}
   #mine .ownrow{flex-wrap:wrap;gap:6px}#mine .ownrow .btn{width:100%}
 }
+/* panel del jefe: la lista de jugadores usa toda la altura de la pantalla */
+#v-admin .admtable{max-height:calc(100vh - 230px)!important;max-height:calc(100dvh - 230px)!important;min-height:420px}
+@media (min-width:1001px){#v-admin .adm>.panel:first-child{position:sticky;top:calc(var(--barh,64px) + 8px)}}
+@media (max-width:1000px){#v-admin .admtable{max-height:70vh!important;max-height:70dvh!important;min-height:300px}}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
