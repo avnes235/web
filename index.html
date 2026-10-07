@@ -2038,6 +2038,7 @@ body.admmod #admGlobal,body.admmod #admInbox,body.admmod #admMgr{display:none!im
 @media (min-width:1001px){#v-admin .adm>.panel:first-child{position:sticky;top:calc(var(--barh,64px) + 8px)}}
 @media (max-width:1000px){#v-admin .admtable{max-height:70vh!important;max-height:70dvh!important;min-height:300px}}
 #netDiag{position:fixed;inset:0;z-index:9999;background:#000a;display:grid;place-items:center;padding:16px}#netDiag[hidden]{display:none}.nd-box{background:#17171c;border:1px solid #333;border-radius:16px;padding:16px;max-width:520px;width:100%}.nd-box h3{margin:0 0 8px}.nd-box pre{white-space:pre-wrap;font:600 12px/1.45 ui-monospace,monospace;background:#0e0e12;border-radius:10px;padding:10px;max-height:50vh;overflow:auto;margin:0 0 8px}.nd-btns{display:flex;gap:8px;flex-wrap:wrap}
+.lggap{margin-top:8px;padding:8px 10px;border-radius:10px;background:#0e0e12;font-size:13.5px;line-height:1.5;font-weight:700}.lggap b{color:var(--lc,#ffd600)}#lgHome .lggap{font-size:12.5px;margin-top:6px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5578,6 +5579,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-t',t:'Ligas: suben más abajo y sabes cuánto te falta',items:[['🥉','Subir según la liga','En Bronce sube la mitad de los que juegan, en Plata el 40 %, en Oro el 30 % y en Diamante el 20 %. Cuantos más jugáis, más suben. Desde Plata, los últimos pueden bajar.','new','#e0914a'],['⬆️','Cuánto te falta','En tu liga ves cuántos puntos te faltan para adelantar al de arriba y para entrar en la zona de subida (o salir de la de bajada).','new','#ffd600']]},
  {v:'2026-10-07-s',t:'Misiones y premio diario arreglados',items:[['📋','Misiones','Si te había tocado una de las misiones nuevas, el panel de Misiones y el del Premio diario salían vacíos. Arreglado.','fix','#14e08a']]},
  {v:'2026-10-07-r',t:'Arreglado: se quedaba «Conectando…» al recargar',items:[['🛠️','Encontrado el fallo','Si recargabas o actualizabas estando en Tu perfil, el juego se rompía al arrancar y no llegaba a conectarse. Arreglado.','fix','#14e08a'],['🛟','Red de seguridad','Si algún día algo no carga bien, sale un aviso rojo: lo tocas y se arregla solo.','fix','#ff3b4f']]},
  {v:'2026-10-07-q',t:'Ligas más justas y vigilancia de trampas',items:[['🏆','Cierre de liga igual para todos','El lunes el servidor congela la clasificación de cada liga, así a todos os sale el mismo puesto.','new','#ffd600'],['🚨','Vigilante','El servidor revisa cada hora que nadie suba de forma imposible. Los tramposos no cuentan en la liga.','new','#ff3b4f'],['📡','Estado de la conexión','En Ajustes (o tocando «Sin conexión») ves qué está fallando.','new','#3f7cff']]},
@@ -10272,8 +10274,8 @@ function lgSettle(){if(Date.now()<lgReadyAt||!NET.ok||NET.isAnon||!NET.players.s
     const g=others().map(p=>({n:p.name,v:ptsW(p,w,lg)})).filter(x=>x.v>0);g.push({n:S.name||'Tú',v:mine,me:1});g.sort((a,b)=>b.v-a.v);
     const n=g.filter(x=>x.v>0).length,pos=g.findIndex(x=>x.me)+1;let nl=lg,msg='',mul=0;
     if(mine<=0){if(lg>0){nl=lg-1;msg='No jugaste la semana pasada y bajas a '+LG[nl][0]+'.'}}
-    else{const up=Math.max(1,Math.min(3,Math.floor(n/2)));mul=pos===1?3:pos===2?2:pos===3?1.5:pos<=Math.ceil(n/2)?1:.5;
-      if(lg<4&&((n>=2&&pos<=up)||(n===1&&mine>=500)))nl=lg+1;else if(lg>0&&n>=6&&pos>n-3&&pos>Math.ceil(n/2))nl=lg-1;
+    else{const up=lgUps(n,lg),dn=lgDowns(n,lg);mul=pos===1?3:pos===2?2:pos===3?1.5:pos<=Math.ceil(n/2)?1:.5;
+      if(lg<4&&((n>=2&&pos<=up)||(n===1&&mine>=LG_SOLO[lg])))nl=lg+1;else if(dn&&pos>n-dn)nl=lg-1;
       const v=lgPrize(lg,mul);give(v);S.lgWins=(S.lgWins||0)+(pos===1&&n>=2?1:0);if(nl>lg)S.lgUps=(S.lgUps||0)+1;
       msg='Quedaste '+pos+'º de '+n+' en la Liga '+LG[lg][0]+' y ganas '+short(v)+' €. '+(nl>lg?'¡SUBES a la Liga '+LG[nl][0]+'!':nl<lg?'Bajas a la Liga '+LG[nl][0]+'.':'Sigues en la Liga '+LG[nl][0]+'.')}
     S.lg=nl;S.lgMax=Math.max(S.lgMax||0,nl);save();NET.lastP='';pushPlayer();
@@ -10288,7 +10290,7 @@ COS.ti.push(['champ','🏆 Campeón del mes',999,'','x']);
 /* tarjeta de liga en Inicio */
 function myLgList(){const w=WK(),lg=S.lg||0;const g=others().filter(p=>+p.wk===w&&(+p.lg||0)===lg&&+p.wp>0).map(p=>({n:p.name,v:+p.wp}));g.push({n:S.name||'Tú',v:Math.floor(S.wkP||0),me:1});return g.sort((a,b)=>b.v-a.v)}
 function lgCard(){const el=$('#lgHome');if(!el)return;if(!NET.ok||!S.name||(NET.isAnon&&!ADM.on)){el.hidden=true;return}const L=LG[S.lg||0],g=myLgList(),pos=g.findIndex(x=>x.me)+1,n=g.length;
-  el.hidden=false;el.style.setProperty('--lc',L[2]);const h=`<span class="lgb">${L[1]}</span><div style="min-width:0"><h3>Liga ${L[0]}</h3><div class="lgs">Vas el <span class="lgh">${pos}º de ${n}</span> esta semana con ${fmt(Math.floor(S.wkP||0))} puntos. ${(S.lg||0)<4?'Los 3 primeros suben de liga.':'Estás en la liga más alta.'}</div></div><span class="lgt">Acaba en<br>${leftTxt(wkEnd())}</span>`;
+  el.hidden=false;el.style.setProperty('--lc',L[2]);const h=`<span class="lgb">${L[1]}</span><div style="min-width:0"><h3>Liga ${L[0]}</h3><div class="lgs">Vas el <span class="lgh">${pos}º de ${n}</span> esta semana con ${fmt(Math.floor(S.wkP||0))} puntos. </div><div class="lggap">${lgGapHTML()}</div></div><span class="lgt">Acaba en<br>${leftTxt(wkEnd())}</span>`;
   if(el._h!==h){el._h=h;el.innerHTML=h}el.onclick=()=>{rkCat='liga';go('ranking')}}
 /* categorías nuevas en Clasificación */
 RKC2.splice(1,0,['liga','🏅','Liga semanal','Solo los de tu liga. Ganas puntos jugando partidas, completando misiones, ganando en el casino y online. El lunes a las 2:00 los 3 primeros suben de liga y todos cobran según su puesto.'],['mes','📅','Temporada','La temporada dura un mes y cuenta los mismos puntos que la liga. El campeón se lleva el título «🏆 Campeón del mes» para siempre y entra en el Salón de la fama.'],['fama','🏛️','Salón de la fama','Los campeones de cada mes y los reinados más largos como rey de Casinetori.']);
@@ -10298,7 +10300,7 @@ RKC2.splice(1,0,['liga','🏅','Liga semanal','Solo los de tu liga. Ganas puntos
   const keep=cat==='liga'?(p=>p.me||(+p.wk===WK()&&(+p.lg||0)===(S.lg||0)&&+p.wp>0)):cat==='fama'?(p=>pval(p,cat)>0):(p=>p.me||pval(p,cat)>0);return arr.filter(keep).sort((a,b)=>pval(b,cat)-pval(a,cat))}}
 {const _fvL=fmtVal;fmtVal=function(cat,v){if(cat==='liga'||cat==='mes')return fmt(v)+' pts';if(cat==='fama'){const c=Math.floor(v/1e13),k=v%1e13;return(c?'🏆×'+c+' · ':'')+'👑 '+(k>=3600?Math.floor(k/3600)+' h':Math.floor(k/60)+' min')}return _fvL.apply(this,arguments)}}
 {const _rrL=renderRank;renderRank=function(){_rrL.apply(this,arguments);try{const old=$('#lgBox');if(view!=='ranking'){if(old)old.remove();return}let h='';
-  if(rkCat==='liga'){const L=LG[S.lg||0];h=`<div class="lgbox" id="lgBox" style="--lc:${L[2]}"><span class="lgh">${L[1]} Estás en la Liga ${L[0]}.</span> Termina en <span class="lgh">${leftTxt(wkEnd())}</span> (lunes a las 2:00). Los 3 primeros suben, los 3 últimos bajan (si sois 6 o más) y quien no juega en toda la semana baja.<div class="lgtiers">${LG.map((x,i)=>`<span style="--c:${x[2]}" class="${i===(S.lg||0)?'on':''}">${x[1]} ${x[0]}</span>`).join('')}</div></div>`}
+  if(rkCat==='liga'){const L=LG[S.lg||0];h=`<div class="lgbox" id="lgBox" style="--lc:${L[2]}"><span class="lgh">${L[1]} Estás en la Liga ${L[0]}.</span> Termina en <span class="lgh">${leftTxt(wkEnd())}</span> (${wkEndTxt()}, tu hora). ${lgRuleTxt()} Quien no juega en toda la semana baja.<div class="lggap">${lgGapHTML()}</div><div class="lgtiers">${LG.map((x,i)=>`<span style="--c:${x[2]}" class="${i===(S.lg||0)?'on':''}">${x[1]} ${x[0]}</span>`).join('')}</div></div>`}
   if(rkCat==='mes')h=`<div class="lgbox" id="lgBox" style="--lc:#ffd600">📅 Temporada de <span class="lgh">${moName(MO())}</span>. Termina en <span class="lgh">${leftTxt(moEnd())}</span>. El 1º se lleva el título «🏆 Campeón del mes» para siempre; los 3 primeros cobran un premio gordo.</div>`;
   if(rkCat==='fama'){const rows=[];const all=[...others(),{name:S.name||'Tú',chm:S.chm||[],me:1}];all.forEach(p=>(p.chm||[]).forEach(m=>rows.push([m,p.name])));
     h=`<div class="lgbox" id="lgBox" style="--lc:#ffd600">🏛️ <span class="lgh">Campeones de cada temporada</span>${rows.length?`<div class="fame">${rows.map(r=>`<div><span class="fm">${esc(r[0])}</span>🏆 ${esc(r[1]||'')}</div>`).join('')}</div>`:'<div style="margin-top:6px">Todavía no hay campeones. El primero saldrá cuando acabe este mes. ¡Puedes ser tú!</div>'}<div style="margin-top:10px">Abajo: quién tiene más títulos de campeón y más tiempo como rey 👑.</div></div>`}
@@ -10867,13 +10869,31 @@ setInterval(()=>{const a=$('.smallbar'),t=$('#trQuick');if(a&&t)a.style.display=
 {const _rbM=renderBolsa;renderBolsa=function(){const r=_rbM.apply(this,arguments);try{if(innerWidth<480)$$('#bxRoot .bx-pr b').forEach(b=>{const n=+String(b.textContent).replace(/[^\d]/g,'');if(n>=1e7&&/€/.test(b.textContent)&&!b.dataset.s){b.dataset.s=1;b.title=b.textContent;b.textContent=short(n)+' €'}})}catch(e){}return r}}
 {const _tqM=tqSync;tqSync=function(){const r=_tqM.apply(this,arguments);try{const m=$('#tqMid');if(m){const t=m.innerHTML.replace(/^([\d.]+) €/,(a,x)=>{const n=+x.replace(/\./g,'');return n>=1e6?short(n)+' €':a});if(t!==m.innerHTML)m.innerHTML=t}}catch(e){}return r}}
 /* T02/T03: texto de la liga exacto y con tu hora local */
-function lgUps(n){return Math.max(1,Math.min(3,Math.floor(n/2)))}
+/* cuántos suben y bajan según la liga: abajo suben más, arriba cuesta más */
+const LG_UP=[.5,.4,.3,.2,0],LG_DN=[0,.1,.15,.2,.25],LG_SOLO=[500,1000,1500,2000,0];
+function lgUps(n,lg){lg=lg==null?(S.lg||0):lg;if(lg>=4||n<2)return 0;return Math.max(1,Math.min(n-1,Math.round(n*LG_UP[lg])))}
+function lgDowns(n,lg){lg=lg==null?(S.lg||0):lg;if(lg<=0||n<5)return 0;return Math.max(1,Math.min(n-lgUps(n,lg)-1,Math.floor(n*LG_DN[lg])))}
+function lgInfo(){const lg=S.lg||0,g=myLgList(),n=g.length,pos=g.findIndex(x=>x.me)+1,mine=Math.floor(S.wkP||0),up=lgUps(n,lg),dn=lgDowns(n,lg);
+  const r={lg,g,n,pos,mine,up,dn,zone:pos<=up?'up':(dn&&pos>n-dn)?'down':'mid'};
+  if(pos>1){const a=g[pos-2];r.next=a.n;r.gapNext=Math.max(1,a.v-mine+1)}
+  if(up&&pos>up)r.gapUp=Math.max(1,g[up-1].v-mine+1);
+  if(n<2&&lg<4)r.gapSolo=Math.max(0,LG_SOLO[lg]-mine);
+  if(dn&&r.zone==='down'){const s2=g[n-dn-1];r.gapSafe=Math.max(1,s2.v-mine+1)}
+  return r}
+function lgRuleTxt(lg){lg=lg==null?(S.lg||0):lg;if(lg>=4)return'Es la liga más alta: aquí se compite por el premio y por no bajar.';
+  return'En esta liga sube el <b>'+Math.round(LG_UP[lg]*100)+' %</b> de los que juegan'+(LG_DN[lg]?' y baja el '+Math.round(LG_DN[lg]*100)+' % de abajo (si sois 5 o más)':' y nadie baja')+'.'}
+function lgGapHTML(){const i=lgInfo(),bits=[];
+  if(i.n<2){if(i.lg<4)bits.push(i.gapSolo>0?'Estás solo en tu liga: te faltan <b>'+fmt(i.gapSolo)+' pts</b> para subir igualmente.':'✅ Estás solo y ya tienes los puntos para subir.')}
+  else{if(i.gapNext)bits.push('⬆️ Te faltan <b>'+fmt(i.gapNext)+' pts</b> para pasar a '+esc(i.next||'el de arriba')+' ('+(i.pos-1)+'º).');else bits.push('👑 Vas <b>1º</b> de tu liga.');
+    if(i.zone==='up')bits.push('🔼 Estás en <b>zona de subida</b>.');else if(i.gapUp)bits.push('🔼 Te faltan <b>'+fmt(i.gapUp)+' pts</b> para entrar en zona de subida (top '+i.up+').');
+    if(i.zone==='down')bits.push('🔽 Estás en <b>zona de bajada</b>: te faltan <b>'+fmt(i.gapSafe)+' pts</b> para salvarte.')}
+  return bits.join('<br>')}
 function wkEndTxt(){try{return new Date(wkEnd()).toLocaleString('es-ES',{weekday:'long',hour:'2-digit',minute:'2-digit'})}catch(e){return'el lunes'}}
 {const _lgCT=lgCard;lgCard=function(){_lgCT();const el=$('#lgHome');if(!el||el.hidden)return;const s=el.querySelector('.lgs');if(s&&/Los 3 primeros suben/.test(s.innerHTML)){const n=myLgList().length;s.innerHTML=s.innerHTML.replace('Los 3 primeros suben de liga.',n<2?'Si eres el único, subes con 500 puntos.':(lgUps(n)===1?'El 1º sube de liga.':'Los '+lgUps(n)+' primeros suben de liga.'))}}}
 {const _rrT2=renderRank;renderRank=function(){const r=_rrT2.apply(this,arguments);try{const lb=$('#lgBox');if(lb&&rkCat==='liga'&&!lb.dataset.fx){lb.dataset.fx=1;lb.innerHTML=lb.innerHTML.replace(' (lunes a las 2:00)',' ('+wkEndTxt()+', tu hora)').replace('Los 3 primeros suben','Suben los primeros (1 si sois 2 o 3; 2 si sois 4 o 5; 3 si sois 6 o más)')}}catch(e){}return r}}
-(()=>{try{RKC2.forEach(x=>{if(x[0]==='liga')x[3]=x[3].replace('El lunes a las 2:00 los 3 primeros suben de liga','Cada lunes (de madrugada) suben los primeros de tu liga')});
-  const t=TUTOS.find(x=>x[1]==='Ligas y temporadas');if(t)t[4]=t[4].map(s=>[String(s[0]).replace('Cada <b>lunes a las 2:00</b> acaba la semana: los 3 primeros <b>suben</b>','Cada <b>lunes de madrugada</b> acaba la semana: los primeros <b>suben</b> (hasta 3, según cuántos jugáis)')]);
-  FAQ.forEach(q=>{q[1]=String(q[1]).replace('El lunes a las 2:00, los 3 primeros de tu liga suben.','El lunes de madrugada suben los primeros de tu liga (hasta 3, según cuántos jugáis).')})}catch(e){}})();
+(()=>{try{RKC2.forEach(x=>{if(x[0]==='liga')x[3]=x[3].replace('El lunes a las 2:00 los 3 primeros suben de liga','Cada lunes (de madrugada) suben los primeros de tu liga: en Bronce sube la mitad y cuanto más alta es la liga, menos suben')});
+  const t=TUTOS.find(x=>x[1]==='Ligas y temporadas');if(t)t[4]=t[4].map(s=>[String(s[0]).replace('Cada <b>lunes a las 2:00</b> acaba la semana: los 3 primeros <b>suben</b>','Cada <b>lunes de madrugada</b> acaba la semana: los primeros <b>suben</b>. En Bronce sube la mitad, en Plata el 40 %, en Oro el 30 % y en Diamante el 20 %').replace(', los 3 últimos bajan',', desde Plata los últimos pueden bajar')]);
+  FAQ.forEach(q=>{q[1]=String(q[1]).replace('El lunes a las 2:00, los 3 primeros de tu liga suben.','El lunes de madrugada suben los primeros de tu liga: en Bronce la mitad, en Plata el 40 %, en Oro el 30 % y en Diamante el 20 %. Cuantos más jugáis, más suben.')})}catch(e){}})();
 /* T05: invitaciones sin «hasta 2.000.000 €» */
 (()=>{const fx=s=>String(s).replace(/premios de hasta 2\.000\.000 € por cada uno/g,'premios que crecen con cada amigo').replace(/hasta 2\.000\.000 € por cada uno/g,'premios que crecen con cada amigo');
   try{Object.values(GU_T).forEach(L=>L.forEach(st=>{if(st[2])st[2]=fx(st[2])}))}catch(e){}try{TUTOS.forEach(t=>t[4].forEach(s=>{s[0]=fx(s[0])}))}catch(e){}try{FAQ.forEach(q=>{q[1]=fx(q[1])})}catch(e){}})();
