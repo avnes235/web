@@ -2030,6 +2030,7 @@ body.admmod #admGlobal,body.admmod #admInbox,body.admmod #admMgr{display:none!im
 #v-admin .admtable{max-height:calc(100vh - 230px)!important;max-height:calc(100dvh - 230px)!important;min-height:420px}
 @media (min-width:1001px){#v-admin .adm>.panel:first-child{position:sticky;top:calc(var(--barh,64px) + 8px)}}
 @media (max-width:1000px){#v-admin .admtable{max-height:70vh!important;max-height:70dvh!important;min-height:300px}}
+#netDiag{position:fixed;inset:0;z-index:9999;background:#000a;display:grid;place-items:center;padding:16px}#netDiag[hidden]{display:none}.nd-box{background:#17171c;border:1px solid #333;border-radius:16px;padding:16px;max-width:520px;width:100%}.nd-box h3{margin:0 0 8px}.nd-box pre{white-space:pre-wrap;font:600 12px/1.45 ui-monospace,monospace;background:#0e0e12;border-radius:10px;padding:10px;max-height:50vh;overflow:auto;margin:0 0 8px}.nd-btns{display:flex;gap:8px;flex-wrap:wrap}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -4817,21 +4818,22 @@ async function cloudSave(force){if(!NET.ok||NET.ro||!NET.id||NET.kicked||(NET.bu
 function applyCloudBase(c){S={...fresh(),...c,st:{...(c.st||{})},best:{...(c.best||{})},upg:{...(c.upg||{})},upg2:{...(c.upg2||{})},owned:{...(c.owned||{})},cart:{...(c.cart||{})},friends:[...(c.friends||[])]};
   while(S.mis.length<3)S.mis.push(newMis());shownCoins=S.coins;save();renderLevel();renderUpg(true);renderMute();go(view);toast('Partida recuperada','Hemos cargado tu progreso guardado','var(--sky)','☁️')}
 function ofiStrip(){for(const [id,p] of NET.players){if(id!==NET.id&&p&&Array.isArray(p.exc)&&p.exc.includes('ti:xofi')){NET.ofiId=id;NET.ofiP=p;NET.players.delete(id)}}}
+const NLOG=[],NT0=Date.now();function nlog(m){NLOG.push('['+((Date.now()-NT0)/1000).toFixed(1)+' s] '+m);if(NLOG.length>30)NLOG.shift()}
 async function initNet(){
-  if(NET.ok||NET.initBusy)return;NET.initBusy=true;NET.tries=(NET.tries||0)+1;if(NET.tries>1){NET.why='Conectando… (intento '+NET.tries+')';try{renderRank()}catch(e){}}
+  if(NET.ok||NET.initBusy)return;NET.initBusy=true;NET.tries=(NET.tries||0)+1;nlog('Intento '+NET.tries+(navigator.onLine===false?' (el navegador dice que no hay internet)':''));if(NET.tries>1){NET.why='Conectando… (intento '+NET.tries+')';try{renderRank()}catch(e){}}
   try{if(typeof firebase==='undefined'||!firebase.auth||!firebase.firestore){const B='https://www.gstatic.com/firebasejs/10.12.2/firebase-';
       const ld=u=>new Promise(r=>{const x=document.createElement('script');x.src=B+u+'-compat.js?r='+Date.now();x.onload=r;x.onerror=r;document.head.appendChild(x);setTimeout(r,10000)});
       if(typeof firebase==='undefined')await ld('app');if(typeof firebase!=='undefined'){if(!firebase.auth)await ld('auth');if(!firebase.firestore)await ld('firestore')}}
-    if(typeof firebase==='undefined'||!firebase.auth||!firebase.firestore)throw'nolib';
+    if(typeof firebase==='undefined'||!firebase.auth||!firebase.firestore)throw'nolib';nlog('Librería de Firebase cargada');
     if(!FIREBASE_CONFIG.apiKey||/PEGA/.test(FIREBASE_CONFIG.apiKey))throw'nocfg';
     if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
     const auth=firebase.auth(),db=firebase.firestore();
     const user=await new Promise(res=>{setTimeout(()=>{res(null);NET.authLate=1},20000);const un=auth.onAuthStateChanged(u=>{un();if(u)res(u);else auth.signInAnonymously().then(c=>res(c.user)).catch(err=>{NET.authErr=(err&&err.code)||'';res(null)})})});
-    if(!user)throw'auth';const id=user.uid;NET.db=db;NET.id=id;NET.auth=auth;NET.isAnon=!!user.isAnonymous;NET.uname=user.email?user.email.split('@')[0]:'';
+    nlog(user?'Sesión iniciada ('+(user.isAnonymous?'invitado':'con cuenta')+')':'No se ha podido iniciar sesión: '+(NET.authErr||'tarda demasiado (20 s)'));if(!user)throw'auth';const id=user.uid;NET.db=db;NET.id=id;NET.auth=auth;NET.isAnon=!!user.isAnonymous;NET.uname=user.email?user.email.split('@')[0]:'';
     try{const sn=await Promise.race([db.collection('data/users/'+id).doc('save').get(),new Promise((_,rj)=>setTimeout(()=>rj('timeout'),8000))]);if(sn.exists){const c=JSON.parse((sn.data()||{}).json||'null');if(c&&typeof c==='object'&&((+c.earned||0)>(S.earned||0)||(!S.name&&c.name)))applyCloud(c)}}catch(e){}
-    NET.ok=true;NET.why='';NET.tries=0;clearTimeout(NET.rt);
+    NET.ok=true;NET.why='';NET.tries=0;clearTimeout(NET.rt);nlog('Conectado ✔');
     try{const ad=await Promise.race([db.collection('admins').doc(id).get(),new Promise((_,rj)=>setTimeout(()=>rj('timeout'),8000))]);if(ad.exists){ADM.on=true;$('#navAdmin').hidden=false;$('#bossBtn').textContent='Ir al panel del jefe'}}catch(e){}
-    NET.lp=()=>db.collection('players').orderBy('coins','desc').limit(300).onSnapshot(sn=>{if(!NET.ok){NET.ok=true;NET.why=''}NET.players=new Map(sn.docs.filter(d=>d.exists).map(d=>[d.id,normP(d.data())]));try{ofiStrip()}catch(e){}onPlayers()},err=>{NET.ok=false;NET.why='Conectando… (se ha cortado, volviendo a conectar)';renderRank();if(!(err&&err.code==='permission-denied'))setTimeout(()=>{try{NET.lp()}catch(e){}},5000)});NET.lp();
+    NET.lp=()=>db.collection('players').orderBy('coins','desc').limit(300).onSnapshot(sn=>{if(!NET.ok){NET.ok=true;NET.why=''}NET.players=new Map(sn.docs.filter(d=>d.exists).map(d=>[d.id,normP(d.data())]));try{ofiStrip()}catch(e){}onPlayers()},err=>{nlog('Se ha cortado la clasificación: '+((err&&err.code)||'?'));NET.ok=false;NET.why='Conectando… (se ha cortado, volviendo a conectar)';renderRank();if(!(err&&err.code==='permission-denied'))setTimeout(()=>{try{NET.lp()}catch(e){}},5000)});NET.lp();
     db.collection('freq/'+id+'/q').onSnapshot(sn=>{NET.inReq=sn.docs.filter(d=>d.exists).map(d=>({...d.data(),id:d.id}));NET.inReqN=NET.inReq.length;handleReqs();renderReqs()},()=>{});
     db.collection('freq/'+id+'/acc').onSnapshot(sn=>{let ch=false;NET.accIds=NET.accIds||new Set();sn.docChanges().forEach(x=>{const fid=x.doc.id;S.friends=S.friends||[];
       if(x.type==='removed'){NET.accIds.delete(fid);if(S.friends.includes(fid)){S.friends=S.friends.filter(y=>y!==fid);ch=true}return}
@@ -4845,7 +4847,7 @@ async function initNet(){
     db.collection('meta').doc('bans').onSnapshot(sn=>{ADM.bans=new Set((sn.exists&&(sn.data()||{}).ids)||[]);NET.rank=null;onPlayers()},()=>{});
     db.collection('meta').doc('event').onSnapshot(sn=>{const before=evMult();NET.event=sn.exists?sn.data():null;renderEvent();const m=evMult();
       if(m>1&&before===1)troll(String(NET.event.name||'Evento').toUpperCase()+' X'+m,'todo lo que ganes vale '+(m===2?'el doble':'el triple')+', corre','#ffd600',true)},()=>{});
-  }catch(e){NET.ok=false;NET.why={nolib:'No se ha podido cargar la conexión. Revisa tu internet y recarga.',nocfg:'Falta conectar la base de datos. Tu partida se guarda en este navegador.',auth:/api-key/.test(NET.authErr||'')?'La clave de Firebase no es válida. Revisa la configuración del juego.':/operation-not-allowed|admin-restricted/.test(NET.authErr||'')?'Falta activar el acceso Anónimo en Firebase (Authentication).':'No se ha podido entrar a la clasificación ('+(NET.authErr||'sin conexión')+').'}[e]||'No hay conexión con la clasificación ahora mismo.'}
+  }catch(e){nlog('Fallo: '+(typeof e==='string'?e:(e&&(e.code||e.message))||e));NET.ok=false;NET.why={nolib:'No se ha podido cargar la conexión. Revisa tu internet y recarga.',nocfg:'Falta conectar la base de datos. Tu partida se guarda en este navegador.',auth:/api-key/.test(NET.authErr||'')?'La clave de Firebase no es válida. Revisa la configuración del juego.':/operation-not-allowed|admin-restricted/.test(NET.authErr||'')?'Falta activar el acceso Anónimo en Firebase (Authentication).':'No se ha podido entrar a la clasificación ('+(NET.authErr||'sin conexión')+').'}[e]||'No hay conexión con la clasificación ahora mismo.'}
   NET.initBusy=false;
   if(!NET.ok&&!/Falta conectar|reglas|clave de Firebase|Anónimo/.test(String(NET.why||''))){const w=[3,5,8,12,20,30][Math.min(NET.tries-1,5)];if(NET.tries<12){NET.why='Conectando… (vuelvo a probar en '+w+' s)';clearTimeout(NET.rt);NET.rt=setTimeout(initNet,w*1000)}else NET.why='No se ha podido conectar. Pulsa «Reintentar».'}
   renderMe();renderRank();if(!S.name&&!NET.profAsked){NET.profAsked=1;openProfile(true)}
@@ -5569,6 +5571,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-q',t:'Ligas más justas y vigilancia de trampas',items:[['🏆','Cierre de liga igual para todos','El lunes el servidor congela la clasificación de cada liga, así a todos os sale el mismo puesto.','new','#ffd600'],['🚨','Vigilante','El servidor revisa cada hora que nadie suba de forma imposible. Los tramposos no cuentan en la liga.','new','#ff3b4f'],['📡','Estado de la conexión','En Ajustes (o tocando «Sin conexión») ves qué está fallando.','new','#3f7cff']]},
  {v:'2026-10-07-p',t:'Conexión que se arregla sola',items:[['📡','Adiós al «Sin conexión» al recargar','Si al entrar o al actualizar la conexión tarda, el juego ya no se rinde: vuelve a probar solo cada pocos segundos, sin recargar la página.','fix','#14e08a'],['👆','Toca para reintentar','Si aun así sale «Sin conexión», tócalo y vuelve a intentarlo al momento.','fix','#3f7cff']]},
  {v:'2026-10-07-o',t:'Correcciones de seguridad y textos',items:[['🛡️','Más seguro','Arreglados varios fallos que podían dar dinero raro, intereses infinitos o regalos falsos.','fix','#14e08a'],['🏆','Ligas más claras','La hora del cierre sale en tu hora y el texto de subidas cuadra con tu liga.','fix','#ffd600'],['📱','Móvil','Precios de la Bolsa más cortos y barras que ya no se tapan.','fix','#3f7cff']]},
  {v:'2026-10-07-n',t:'Tienda más cómoda en el móvil',items:[['🛍️','Objetos más pequeños','En el móvil la Tienda enseña 2 objetos por fila: ves mucho más sin bajar.','fix','#14e08a'],['🔴','Cuenta atrás arreglada','El 3, 2, 1 del botón rojo va a la vez que el sonido.','fix','#ff3b4f']]},
@@ -10814,7 +10817,7 @@ addEventListener('online',()=>{if(!NET.ok){NET.tries=0;clearTimeout(NET.rt);init
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&!NET.ok&&!NET.initBusy){clearTimeout(NET.rt);initNet()}});
 try{sessionStorage.removeItem('netRetry')}catch(e){}
 NET.retryNow=()=>{if(NET.ok)return;NET.tries=0;clearTimeout(NET.rt);initNet()};
-document.addEventListener('click',e=>{if(e.target.closest('#netState')&&!NET.ok)NET.retryNow()});
+document.addEventListener('click',e=>{if(e.target.closest('#netState')&&!NET.ok){netDiag();NET.retryNow()}});
 
 /* ================= ARREGLOS DE LA AUDITORÍA (7 oct) ================= */
 /* L11: give/take solo con números válidos */
@@ -10869,6 +10872,50 @@ function wkEndTxt(){try{return new Date(wkEnd()).toLocaleString('es-ES',{weekday
 (()=>{try{if(typeof TR_TUT!=='undefined')TR_TUT.forEach(st=>{for(const k in st)if(typeof st[k]==='string')st[k]=st[k].replace(/tu dinero de verdad/g,'tu dinero del juego').replace(/dinero de verdad/g,'dinero del juego')})}catch(e){}})();
 /* I01: traducciones de lo nuevo */
 try{i18nAdd([["Bolsa de Jugadores","Player Stock Market","Bourse des joueurs","Bolsa de Jogadores"],["Mi cartera","My portfolio","Mon portefeuille","A minha carteira"],["Mis inversores","My investors","Mes investisseurs","Os meus investidores"],["Grupos","Groups","Groupes","Grupos"],["Puntos semana","Weekly points","Points de la semaine","Pontos da semana"],["Crear un grupo","Create a group","Créer un groupe","Criar um grupo"],["Unirme con un código","Join with a code","Rejoindre avec un code","Entrar com um código"],["Entrar al grupo","Join group","Rejoindre le groupe","Entrar no grupo"],["Bóveda","Collection vault","Coffre des collections","Cofre de coleções"],["Liga semanal","Weekly league","Ligue hebdomadaire","Liga semanal"],["Temporada","Season","Saison","Temporada"],["Salón de la fama","Hall of Fame","Panthéon","Galeria da fama"],["Caja fuerte","Savings vault","Coffre-fort","Caixa-forte"],["Guardar en la caja fuerte","Deposit in the savings vault","Déposer dans le coffre-fort","Depositar na caixa-forte"],["Sacar de la caja fuerte","Withdraw from the savings vault","Retirer du coffre-fort","Retirar da caixa-forte"],["No tienes tanto en la cartera.","You don’t have that much in your wallet.","Tu n’as pas autant dans ton portefeuille.","Não tens esse valor na carteira."],["No hay tanto en la caja.","There isn’t that much in the savings vault.","Il n’y a pas autant dans le coffre-fort.","Não há esse valor na caixa-forte."],["Tu mes en Casinetori","Your month in Casinetori","Ton mois sur Casinetori","O teu mês no Casinetori"],["Ruleta millonaria","Millionaire wheel","Roue millionnaire","Roda milionária"],["Ruleta de la liga","League wheel","Roue de la ligue","Roda da liga"],["Ruleta de la fábrica","Factory wheel","Roue de l’usine","Roda da fábrica"],["Todas las ruletas","All wheels","Toutes les roues","Todas as rodas"],["Ver todas las ruletas","View all wheels","Voir toutes les roues","Ver todas as rodas"],["Es la que toca ahora","This is the current wheel","C’est la roue actuelle","Esta é a roda atual"],["Tirada extra","Extra spin","Tour supplémentaire","Jogada extra"],["Capital extra","Extra in-game funds","Fonds supplémentaires dans le jeu","Saldo extra do jogo"],["Hora del Crash","Crash hour","Heure du Crash","Hora do Crash"],["Gira el móvil","Rotate your phone","Tourne ton téléphone","Roda o telemóvel"],["Apuesta rápida","Quick bet","Mise rapide","Aposta rápida"],["Moderador","Moderator","Modérateur","Moderador"],["Administradores","Administrators","Administrateurs","Administradores"],["Hacer moderador","Make moderator","Nommer modérateur","Tornar moderador"],["Hacer jefe","Grant full admin access","Accorder les droits d’administration complets","Dar acesso completo de administrador"],["Cosméticos","Cosmetics","Objets cosmétiques","Cosméticos"],["OG y VIP solo con cuenta","OG and VIP require an account","Un compte est nécessaire pour OG et VIP","OG e VIP só com conta"],["Pon cuántas acciones quieres.","Enter how many shares you want.","Indique le nombre d’actions souhaité.","Indica quantas ações queres."],["Pon cuántas acciones quieres vender.","Enter how many shares you want to sell.","Indique combien d’actions tu veux vendre.","Indica quantas ações queres vender."],["No hay ningún grupo con ese código. Revisa que esté bien escrito.","No group was found with that code. Check that you entered it correctly.","Aucun groupe ne correspond à ce code. Vérifie que tu l’as bien saisi.","Não há nenhum grupo com esse código. Confirma que o escreveste corretamente."],["Crea una cuenta y luego entra otra vez con el enlace","Create an account, then open the invitation link again.","Crée un compte, puis ouvre à nouveau le lien d’invitation.","Cria uma conta e depois abre novamente o link de convite."],["El juego se ve mejor en vertical.","The game displays better in portrait mode.","Le jeu s’affiche mieux en mode portrait.","O jogo apresenta-se melhor na vertical."]])}catch(e){}
+
+/* ================= estado de la conexión (para saber qué falla) ================= */
+function netDiag(){const ua=navigator.userAgent,dev=/iPhone|iPad/.test(ua)?'iPhone/iPad':/Android/.test(ua)?'Android':/Windows/.test(ua)?'Windows':/Mac/.test(ua)?'Mac':'Otro';
+  const br=/Edg\//.test(ua)?'Edge':/OPR\//.test(ua)?'Opera':/Chrome\//.test(ua)?'Chrome':/Firefox\//.test(ua)?'Firefox':/Safari\//.test(ua)?'Safari':'otro';
+  const txt=['Estado: '+(NET.ok?'En línea':'Sin conexión'),NET.ok?'':'Motivo: '+(NET.why||'?'),'Dispositivo: '+dev+' · '+br,'Internet según el navegador: '+(navigator.onLine===false?'NO':'sí'),...NLOG.slice(-8)].filter(Boolean).join('\n');
+  let el=$('#netDiag');if(!el){el=document.createElement('div');el.id='netDiag';document.body.appendChild(el)}
+  el.innerHTML='<div class="nd-box"><h3>📡 Estado de la conexión</h3><pre>'+esc(txt)+'</pre><p class="netmsg">Si falla, haz una captura de esto y mándasela al jefe.</p><div class="nd-btns"><button class="btn sm" id="ndCopy">Copiar</button><button class="btn sm alt" id="ndRetry">Reintentar</button><button class="btn sm alt" id="ndX">Cerrar</button></div></div>';
+  el.hidden=false;$('#ndX').onclick=()=>{el.hidden=true};$('#ndRetry').onclick=()=>{el.hidden=true;NET.retryNow&&NET.retryNow()};
+  $('#ndCopy').onclick=()=>{try{navigator.clipboard.writeText(txt);toast('Copiado','','var(--mint)','📋')}catch(e){}}}
+{const _rjN=renderAjustes;renderAjustes=function(){_rjN.apply(this,arguments);try{const box=[...document.querySelectorAll('#cfgBody .cfgbox')].pop();if(box&&!box.querySelector('#cfNet'))box.insertAdjacentHTML('beforeend','<div class="crow"><span class="cl"><b>Estado de la conexión</b><small>Si sale «Sin conexión», aquí ves por qué.</small></span><button class="btn sm" id="cfNet">Ver estado</button></div>')}catch(e){}}}
+document.addEventListener('click',e=>{if(e.target.closest('#cfNet'))netDiag()});
+
+/* ================= ligas: el resultado lo congela el servidor (si está activado) ================= */
+const LGR={};let LGUSE=null;
+{const _oth=others;others=function(){return LGUSE||_oth.apply(this,arguments)}}
+{const _lsS=lgSettle;lgSettle=function(){
+  if(!S.lgPend||!NET.ok||NET.isAnon||!NET.db||Date.now()<lgReadyAt)return _lsS.apply(this,arguments);
+  const w=S.lgPend,r=LGR[w],ini=(w+1)*7*864e5+4*864e5;
+  if(!r||(r.v===null&&Date.now()-r.at>180000&&NOWS()<ini+40*60e3)){if(r&&r.busy)return;LGR[w]={busy:1,at:Date.now()};
+    NET.db.collection('lgres').doc(String(w)).get().then(d=>{LGR[w]={v:d.exists?d.data():null,at:Date.now()}}).catch(()=>{LGR[w]={v:null,at:Date.now()}});return}
+  if(r.busy)return;
+  if(r.v===null&&NOWS()<ini+40*60e3)return; /* el servidor cierra la liga a las 00:10 (UTC); esperamos un poco */
+  if(!r.v)return _lsS.apply(this,arguments); /* sin servidor: como antes */
+  const lg=S.plg||0,lst=((r.v.L||{})[lg]||[]).filter(x=>x[0]!==NET.id);
+  const mp=S.moPend;S.moPend=null;LGUSE=lst.map(([id,v])=>({id,name:'',wk:w,lg,wp:v}));
+  try{_lsS.apply(this,arguments)}finally{LGUSE=null;if(mp&&!S.moPend)S.moPend=mp}
+  if(S.moPend)_lsS.apply(this,arguments)}}
+
+/* ================= 🚨 Vigilante (panel del jefe) ================= */
+let VIG=null;
+async function vigLoad(){try{const q=await NET.db.collection('audit').where('flag','==',true).limit(40).get();VIG=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.ft||0)-(a.ft||0))}catch(e){VIG='err'}vigBox()}
+function vigBox(){if(!ADM.on||ADM.mod||view!=='admin')return;const host=$('#v-admin');if(!host)return;let box=$('#admVig');
+  if(!box){host.insertAdjacentHTML('beforeend','<div class="panel admmgr" id="admVig"></div>');box=$('#admVig')}
+  const when=t=>t?new Date(t).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'';
+  box.innerHTML=`<h3>🚨 Vigilante</h3><p class="netmsg">El servidor revisa a todos cada hora y apunta aquí a quien sube de forma imposible. <b>No banea a nadie solo</b>: tú decides. Los apuntados no cuentan en el cierre de la liga.</p>
+   ${VIG===null?'<p class="netmsg">Cargando…</p>':VIG==='err'?'<p class="warn">No se puede leer. Hace falta subir el código del servidor y pegar las reglas nuevas.</p>':!VIG.length?'<p class="netmsg">✅ Nadie sospechoso ahora mismo.</p>':`<div class="admml">${VIG.map(a=>`<div class="admmr"><span>${esc(a.name||'?')} <small class="num">${esc(a.code||'')}</small><br><small style="font-weight:600;color:var(--coral)">${esc(a.why||'')}</small> <small class="muted">${when(a.ft)}</small></span>${ADM.bans.has(a.id)?'<span class="tag">Oculto</span>':`<button class="btn sm red" data-vigban="${esc(a.id)}">Ocultar de la clasificación</button>`}<button class="btn sm alt" data-vigok="${esc(a.id)}">Está bien</button></div>`).join('')}</div>`}
+   <button class="btn sm alt" id="vigRe" style="margin-top:8px">↻ Actualizar</button>`}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-vigban],[data-vigok],#vigRe');if(!b||!ADM.on||ADM.mod)return;
+  try{if(b.id==='vigRe'){VIG=null;vigBox();return vigLoad()}
+    if(b.dataset.vigok){await NET.db.collection('audit').doc(b.dataset.vigok).update({flag:false,ok:Date.now()});toast('Marcado como legal','','var(--mint)','✅')}
+    if(b.dataset.vigban){const id=b.dataset.vigban;ADM.bans.add(id);await NET.db.collection('meta').doc('bans').set({ids:[...ADM.bans]});toast('Oculto de la clasificación','','var(--red)','🔨')}
+    vigLoad()}catch(err){toast('No se ha podido','Revisa que has pegado las reglas nuevas','var(--coral)','⚠️')}});
+{const _goV=go;go=function(v){const r=_goV.apply(this,arguments);if(view==='admin'&&ADM.on&&!ADM.mod){if(VIG===null)vigLoad();else vigBox()}return r}}
+try{i18nAdd([["Estado de la conexión","Connection status","État de la connexion","Estado da ligação"],["Ver estado","View status","Voir l’état","Ver estado"],["Reintentar","Retry","Réessayer","Tentar de novo"],["Si sale «Sin conexión», aquí ves por qué.","If it says “Offline”, see why here.","Si « Hors ligne » s’affiche, voyez pourquoi ici.","Se aparecer «Sem ligação», vê aqui porquê."],["Si falla, haz una captura de esto y mándasela al jefe.","If it fails, take a screenshot of this and send it to the boss.","En cas d’échec, faites une capture et envoyez-la au chef.","Se falhar, tira uma captura e envia-a ao chefe."],["Copiar","Copy","Copier","Copiar"],["Cerrar","Close","Fermer","Fechar"]])}catch(e){}
 })();
 </script>
 
