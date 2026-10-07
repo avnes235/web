@@ -14,7 +14,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
 <meta name="app-version" content="2026-10-04-u">
-<link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="favicon.png?v=2"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
 @media (max-width:880px){.nav .nb{font-size:9px;letter-spacing:0;min-width:0;overflow:hidden}.nav .nb .ico{width:36px}}
@@ -3370,8 +3370,8 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 <link rel="canonical" href="https://casinetori.com/">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7676884795750639" crossorigin="anonymous"></script>
 <meta property="og:url" content="https://casinetori.com/">
-<meta property="og:image" content="https://casinetori.com/og.png">
-<meta name="twitter:image" content="https://casinetori.com/og.png">
+<meta property="og:image" content="https://casinetori.com/og.png?v=2">
+<meta name="twitter:image" content="https://casinetori.com/og.png?v=2">
 <!-- Cuando Google Search Console te dé el código, quita el comentario y pégalo aquí:
 <meta name="google-site-verification" content="CODIGO_DE_SEARCH_CONSOLE">
 -->
@@ -5584,6 +5584,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-07-x',t:'Icono nuevo',items:[['👑','La corona de Casinetori','Nuevo icono: la corona del rey en vez de la ficha de casino. Lo verás en la pestaña, al instalar la app y al compartir el enlace.','new','#ffd600']]},
  {v:'2026-10-07-w',t:'Clasificaciones semanales y buscador listo',items:[['📅','Juegos: clasificación semanal','La clasificación de cada juego se reinicia cada lunes: todos tienen opciones. Tu récord de siempre se queda en tu perfil.','new','#ffd600'],['💰','Más jugadores, más premio','El podio de cada juego cobra más cada hora cuantos más jugadores haya: con 6 el doble, con 10 el triple (hasta x5).','new','#14e08a'],['🔍','Buscador listo','Ya entiende otros nombres y fallos: «serpiente» o «snak» te lleva a Snake, «buscaminas» a Minas, «flappy» a Pájaro Loco…','new','#3f7cff'],['🎡','Mira la ruleta antes de elegir','En el catálogo de ruletas cada una sale con su dibujo y sus premios.','new','#ff4fd8']]},
  {v:'2026-10-07-v',t:'Dash más fluido',items:[['🔺','Sin tirones','Los pinchos de Dash se pintan de forma mucho más ligera: va más fluido, sobre todo en móviles y cuando salen muchos pinchos juntos.','fix','#00e5ff']]},
  {v:'2026-10-07-u',t:'Liga 2.0: más habilidad y menos repetir',items:[['🎯','Retos de la semana','Cada semana hay 4 retos de liga iguales para todos que dan entre 150 y 300 puntos.','new','#ffd600'],['🏅','Habilidad','Batir tu récord en un juego da +40 puntos, y en las dificultades altas las partidas y los récords valen más.','new','#ff6b4a'],['📈','Hazte rico','Si tu dinero crece en la semana sumas puntos: +2 por cada 1 %. Cuenta el %, así es justo para todos.','new','#14e08a'],['⏱️','Topes por día','Cada actividad tiene un máximo de puntos al día: ya no gana quien solo repite lo mismo.','new','#3f7cff']]},
