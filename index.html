@@ -4822,11 +4822,11 @@ async function initNet(){
     if(!FIREBASE_CONFIG.apiKey||/PEGA/.test(FIREBASE_CONFIG.apiKey))throw'nocfg';
     if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
     const auth=firebase.auth(),db=firebase.firestore();
-    const user=await new Promise(res=>{const un=auth.onAuthStateChanged(u=>{un();if(u)res(u);else auth.signInAnonymously().then(c=>res(c.user)).catch(err=>{NET.authErr=(err&&err.code)||'';res(null)})})});
+    const user=await new Promise(res=>{setTimeout(()=>res(null),12000);const un=auth.onAuthStateChanged(u=>{un();if(u)res(u);else auth.signInAnonymously().then(c=>res(c.user)).catch(err=>{NET.authErr=(err&&err.code)||'';res(null)})})});
     if(!user)throw'auth';const id=user.uid;NET.db=db;NET.id=id;NET.auth=auth;NET.isAnon=!!user.isAnonymous;NET.uname=user.email?user.email.split('@')[0]:'';
-    try{const sn=await db.collection('data/users/'+id).doc('save').get();if(sn.exists){const c=JSON.parse((sn.data()||{}).json||'null');if(c&&typeof c==='object'&&((+c.earned||0)>(S.earned||0)||(!S.name&&c.name)))applyCloud(c)}}catch(e){}
+    try{const sn=await Promise.race([db.collection('data/users/'+id).doc('save').get(),new Promise((_,rj)=>setTimeout(()=>rj('timeout'),8000))]);if(sn.exists){const c=JSON.parse((sn.data()||{}).json||'null');if(c&&typeof c==='object'&&((+c.earned||0)>(S.earned||0)||(!S.name&&c.name)))applyCloud(c)}}catch(e){}
     NET.ok=true;
-    try{const ad=await db.collection('admins').doc(id).get();if(ad.exists){ADM.on=true;$('#navAdmin').hidden=false;$('#bossBtn').textContent='Ir al panel del jefe'}}catch(e){}
+    try{const ad=await Promise.race([db.collection('admins').doc(id).get(),new Promise((_,rj)=>setTimeout(()=>rj('timeout'),8000))]);if(ad.exists){ADM.on=true;$('#navAdmin').hidden=false;$('#bossBtn').textContent='Ir al panel del jefe'}}catch(e){}
     db.collection('players').orderBy('coins','desc').limit(300).onSnapshot(sn=>{NET.players=new Map(sn.docs.filter(d=>d.exists).map(d=>[d.id,normP(d.data())]));try{ofiStrip()}catch(e){}onPlayers()},()=>{NET.ok=false;NET.why='Se ha cortado la conexión con la clasificación. Recarga la página.';renderRank()});
     db.collection('freq/'+id+'/q').onSnapshot(sn=>{NET.inReq=sn.docs.filter(d=>d.exists).map(d=>({...d.data(),id:d.id}));NET.inReqN=NET.inReq.length;handleReqs();renderReqs()},()=>{});
     db.collection('freq/'+id+'/acc').onSnapshot(sn=>{let ch=false;NET.accIds=NET.accIds||new Set();sn.docChanges().forEach(x=>{const fid=x.doc.id;S.friends=S.friends||[];
@@ -9194,6 +9194,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){try{save()
 (function(){if(/[?&]v=/.test(location.search)){try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}}})();
 async function hardUpdate(btn){if(btn){btn.disabled=true;btn.textContent='Guardando tu partida…'}try{save()}catch(e){}try{await Promise.race([cloudSave(true),new Promise(r=>setTimeout(r,2500))])}catch(e){}
   try{if('caches' in window){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}}catch(e){}
+  try{if(window.firebase&&firebase.apps.length){await Promise.race([firebase.firestore().terminate(),new Promise(r=>setTimeout(r,1500))])}}catch(e){}
   location.replace(location.pathname+'?v='+Date.now()+location.hash)}
 let impShown='';
 function showImportant(v,msg){if(impShown===v)return;impShown=v;$('#updBar').hidden=true;
@@ -10798,6 +10799,15 @@ document.addEventListener('click',async e=>{if(e.target.closest('#admIdCp')){try
 function confirm2(b){if(b.dataset.ok)return true;b.dataset.ok=1;b.textContent='¿Seguro?';setTimeout(()=>{b.dataset.ok='';b.textContent='Quitar'},3000);return false}
 {const _rsO=renderAdmSide;renderAdmSide=function(){const r=_rsO.apply(this,arguments);try{if(ADM.mod||!ADM.sel||ADM.sel===NET.id)return r;const el=$('#admSide');if(el&&!el.querySelector('#admMkMod'))el.insertAdjacentHTML('beforeend','<span class="alab">Administración</span><div class="abtns"><button class="btn alt" id="admMkMod">🛡️ Hacer moderador</button></div>')}catch(e){}return r}}
 {const _goA=go;go=function(v){const r=_goA.apply(this,arguments);if(view==='admin'&&ADM.on&&!ADM.mod){if(ADML===null)admLoad();else admBox()}return r}}
+
+/* ================= si la conexión se queda colgada (p. ej. justo después de Actualizar), se reintenta sola ================= */
+setTimeout(function netWatch(){try{if(NET.ok){try{sessionStorage.removeItem('netRetry')}catch(e){}return}
+  let n=0;try{n=+sessionStorage.getItem('netRetry')||0}catch(e){}
+  if(!/Conectando/.test(String(NET.why||'')))return;
+  if(n<2&&navigator.onLine!==false){try{sessionStorage.setItem('netRetry',n+1)}catch(e){}try{save()}catch(e){}location.reload();return}
+  NET.why='No se ha podido conectar. Pulsa «Reintentar» o recarga la página.';toast('Sin conexión','Pulsa aquí para reintentar','var(--coral)','📡');
+  const t=document.querySelector('#toasts .toast:last-child');if(t){t.style.cursor='pointer';t.onclick=()=>location.reload()}}catch(e){}},14000);
+setTimeout(()=>{if(NET.ok){try{sessionStorage.removeItem('netRetry')}catch(e){}}},20000);
 })();
 </script>
 
