@@ -2317,6 +2317,9 @@ h1,h2,h3,h4,.btn,button,b,strong,small,p,span,td,th,label{overflow-wrap:break-wo
 #mbox .wci2 .wcb{gap:8px!important}#mbox .wci2 .wcb b{font-size:17px;line-height:1.2}#mbox .wci2 .wcb small{line-height:1.35}
 #mbox .wci2 .wcb .btn{width:100%;white-space:normal;height:auto;min-height:42px;line-height:1.2;margin-top:auto}
 #mbox .wci.hwc{border-color:#ff7a00;background:linear-gradient(160deg,#2a1240,#1d1d22)}
+/* lluvia de monedas en móvil: no se pueden «escapar» del dedo */
+.frcoin,.rcoin{touch-action:none;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+.frcoin::before,.rcoin::before{content:'';position:absolute;inset:-18px;border-radius:50%}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -3479,7 +3482,7 @@ html[data-fit="s"]{zoom:.88}html[data-fit="x"]{zoom:.76}
 .wheelcard[data-w="risk"] #wheelTitle{color:var(--red)}
 .mailcard{display:flex;align-items:center;gap:14px;width:100%;text-align:left;margin-top:16px;cursor:pointer;color:inherit;border:2px solid color-mix(in srgb,var(--pink) 55%,var(--line))}
 .mailcard>.emo{font-size:38px}.mailcard b{display:block;font:22px var(--f-d)}.mailcard small{display:block;color:var(--muted);font-weight:700}.mailcard .go{margin-left:auto;font-weight:900;color:var(--pink);white-space:nowrap}
-.coinrain{position:fixed;inset:0;pointer-events:none;z-index:90;overflow:hidden}
+.coinrain{position:fixed;inset:0;pointer-events:none;z-index:9300;overflow:hidden}
 .rcoin{position:absolute;top:-60px;width:52px;height:52px;border-radius:50%;border:3px solid #b8860b;background:radial-gradient(circle at 35% 30%,#fff3a8,#ffd600 45%,#e0a800);font:900 24px var(--f-d);color:#7a5200;pointer-events:auto;cursor:pointer;animation:rfall 2s linear forwards}
 .rcoin.got{animation:none;transform:scale(1.6);opacity:0;transition:.2s}
 @keyframes rfall{to{transform:translateY(calc(100vh + 120px)) rotate(540deg)}}
@@ -5859,6 +5862,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-09-b',t:'Lluvia de monedas en el móvil',items:[['🪙','Monedas más fáciles de coger','En el móvil a veces tocabas una moneda de la lluvia y no la cogía. Ahora basta con tocar cerca y funciona aunque haya un anuncio o una ventana abierta debajo.','fix','#ffd600']]},
  {v:'2026-10-09-a',t:'Cantidades más claras',items:[['🔢','Puntos en las cantidades','Al escribir cuánto apuestas, regalas o guardas, se ponen solos los puntos: 5000 → 5.000.','fix','#ffd600']]},
  {v:'2026-10-08-j',t:'Ruletas con estilo',items:[['🎡','Cada ruleta, su estilo','La del dinero en verde, la de caras en morado y rosa, la del todo o nada en negro y rojo, la millonaria en negro y oro… Y en el catálogo ya no se amontonan los textos.','new','#ffd600']]},
  {v:'2026-10-08-i',t:'Halloween a tope y caras nuevas',items:[['🎡','Ruleta de Halloween','Una ruleta especial que da caramelos (o un susto). Está en el evento de Inicio y desaparece cuando acaba Halloween.','new','#ff7a00'],['🦇','Ambiente de miedo','Luna, niebla, fantasmas, murciélagos y arañas por toda la web mientras dura el evento. Se puede quitar en Ajustes.','new','#9a6bff'],['🎨','Caras dibujadas','Las caras del perfil ya no son emoticonos: ahora son dibujos propios. Hemos quitado las que no pegaban.','new','#14e08a'],['🛡️','Fotos seguras','Las fotos de perfil pasan un filtro automático y se pueden denunciar desde el perfil de cada jugador.','new','#3f7cff'],['📏','Textos arreglados','Ya no se parten palabras ni precios largos en ninguna pantalla.','fix','#ffd600']]},
@@ -6925,7 +6929,7 @@ const _wiOld=wheelInfo;wheelInfo=function(){_wiOld();const m=S.casMult&&+S.casMu
 function catchCoins(){troll('¡LLUVIA DE MONEDAS!','toca todas las que puedas','#ffd600',true);let got=0;const v=Math.max(20,Math.round(15*S.lvl));const layer=document.createElement('div');layer.className='coinrain';document.body.appendChild(layer);
   const end=Date.now()+7000;const iv=setInterval(()=>{if(Date.now()>end){clearInterval(iv);setTimeout(()=>{layer.remove();if(got)toast('Monedas atrapadas',got+' monedas · +'+short(got*v)+' €','var(--sun)','🪙');else toast('Ni una','Eran fáciles, eh','var(--coral)','🪙')},1600);return}
     const c=document.createElement('button');c.className='rcoin';c.textContent='€';c.style.left=rnd(4,90)+'vw';c.style.animationDuration=rnd(1.6,2.6)+'s';layer.appendChild(c);
-    c.addEventListener('pointerdown',()=>{got++;give(v);sfx('coin');c.classList.add('got');setTimeout(()=>c.remove(),200)});setTimeout(()=>c.remove(),2800)},260)}
+    c.onpointerdown=()=>{if(c.classList.contains('got'))return;got++;give(v);sfx('coin');c.classList.add('got');setTimeout(()=>c.remove(),200)};setTimeout(()=>c.remove(),2800)},260)}
 function chestPick(){$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('wide','notes');mb.onclick=null;const m=wMult();
   const prizes=[ri(2,6)*1000*m,ri(200,600)*m,0].sort(()=>Math.random()-.5);
   mb.innerHTML=`<h2 style="font-size:30px">Elige un cofre</h2><p class="muted" style="font-weight:700">Uno tiene premio gordo, otro uno pequeño y otro está vacío.</p><div class="chests">${[0,1,2].map(i=>`<button class="chest" data-ch="${i}"><span class="emo">🧰</span></button>`).join('')}</div>`;
@@ -12073,6 +12077,18 @@ function nfAttach(el){if(el._nf)return;el._nf=1;
   el.addEventListener('input',()=>{const raw=ND.get.call(el),pos=el.selectionStart==null?raw.length:el.selectionStart,fromEnd=raw.length-pos,f=nfDots(raw);if(f!==raw){ND.set.call(el,f);const p=Math.max(0,f.length-fromEnd);try{el.setSelectionRange(p,p)}catch(_){}}},true)}
 function nfScan(root){try{(root.matches&&root.matches(NF_SEL)?[root]:[]).concat([...(root.querySelectorAll?root.querySelectorAll(NF_SEL):[])]).forEach(nfAttach)}catch(_){}}
 nfScan(document.body);new MutationObserver(ms=>{for(const m of ms)m.addedNodes.forEach(n=>{if(n.nodeType===1)nfScan(n)})}).observe(document.body,{childList:true,subtree:true})}
+
+/* ===== lluvia de monedas: toque «con imán» (en móvil la moneda se movía y el dedo no la pillaba) ===== */
+{const COINS='.frcoin:not([data-got]),.rcoin:not(.got)';
+  const grab=(x,y)=>{const L=document.querySelectorAll(COINS);if(!L.length)return false;let best=null,bd=1e9;
+    L.forEach(c=>{const r=c.getBoundingClientRect();if(!r.width)return;const cx=r.left+r.width/2,cy=r.top+r.height/2,d=Math.hypot(x-cx,y-cy)-r.width/2;if(d<bd){bd=d;best=c}});
+    const tol=matchMedia('(pointer:coarse)').matches?34:18;if(!best||bd>tol)return false;
+    const fe={clientX:x,clientY:y,preventDefault(){},stopPropagation(){}};try{best.onpointerdown&&best.onpointerdown(fe)}catch(e){}return true};
+  let lastT=0,lastX=-99,lastY=-99;
+  const hit=(x,y)=>{const n=performance.now();if(n-lastT<350&&Math.hypot(x-lastX,y-lastY)<12)return true;if(!grab(x,y))return false;lastT=n;lastX=x;lastY=y;return true};
+  window.addEventListener('pointerdown',e=>{if(!document.querySelector(COINS))return;if(hit(e.clientX,e.clientY)){e.preventDefault();e.stopImmediatePropagation()}},{capture:true,passive:false});
+  /* por si el navegador del móvil no manda pointerdown (algunos lo cancelan si el dedo se mueve un poco) */
+  window.addEventListener('touchstart',e=>{if(!document.querySelector(COINS))return;let any=false;for(const t of e.changedTouches)if(hit(t.clientX,t.clientY))any=true;if(any&&e.cancelable)e.preventDefault()},{capture:true,passive:false});}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
