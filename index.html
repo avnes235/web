@@ -5859,6 +5859,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-09-a',t:'Cantidades más claras',items:[['🔢','Puntos en las cantidades','Al escribir cuánto apuestas, regalas o guardas, se ponen solos los puntos: 5000 → 5.000.','fix','#ffd600']]},
  {v:'2026-10-08-j',t:'Ruletas con estilo',items:[['🎡','Cada ruleta, su estilo','La del dinero en verde, la de caras en morado y rosa, la del todo o nada en negro y rojo, la millonaria en negro y oro… Y en el catálogo ya no se amontonan los textos.','new','#ffd600']]},
  {v:'2026-10-08-i',t:'Halloween a tope y caras nuevas',items:[['🎡','Ruleta de Halloween','Una ruleta especial que da caramelos (o un susto). Está en el evento de Inicio y desaparece cuando acaba Halloween.','new','#ff7a00'],['🦇','Ambiente de miedo','Luna, niebla, fantasmas, murciélagos y arañas por toda la web mientras dura el evento. Se puede quitar en Ajustes.','new','#9a6bff'],['🎨','Caras dibujadas','Las caras del perfil ya no son emoticonos: ahora son dibujos propios. Hemos quitado las que no pegaban.','new','#14e08a'],['🛡️','Fotos seguras','Las fotos de perfil pasan un filtro automático y se pueden denunciar desde el perfil de cada jugador.','new','#3f7cff'],['📏','Textos arreglados','Ya no se parten palabras ni precios largos en ninguna pantalla.','fix','#ffd600']]},
  {v:'2026-10-08-h',t:'🎃 ¡Llega Halloween!',items:[['🎃','Evento de Halloween','Hasta el 1 de noviembre. Junta caramelos 🍬 con misiones del evento, el «truco o trato» diario y las calabazas que salen volando por la pantalla.','new','#ff7a00'],['🦇','Recompensas exclusivas','Caras, colores de nombre, marcos, fondos y títulos de Halloween 2026. Cuando acabe el evento no se podrán conseguir nunca más.','new','#9a6bff'],['👑','Rey Calabaza 2026','Quien más caramelos junte se lleva un título único.','new','#ffd600'],['🧟','Sustos nuevos','El botón rojo tiene zombis y una calabaza gigante… solo durante Halloween.','new','#7bd64a']]},
@@ -12061,6 +12062,17 @@ wMini=function(w){let sg=[];try{sg=wPaint(w.id,w.segs())}catch(e){}if(!sg.length
     h+=`<circle cx="${(48*Math.cos(a0)).toFixed(2)}" cy="${(48*Math.sin(a0)).toFixed(2)}" r="1.8" fill="${st.dot}"/>`});
   return`<svg class="wmini" viewBox="-54 -58 108 112" aria-hidden="true"><circle r="52" fill="${st.rim}" stroke="#000" stroke-width="2"/>${h}<circle r="15" fill="#111"/><circle r="12" fill="${st.hub}"/>${st.em?`<text y="1" font-size="${st.em.length>1&&!/\p{Emoji_Presentation}/u.test(st.em)?11:14}" font-weight="900" font-family="Anton,sans-serif" text-anchor="middle" dominant-baseline="middle" fill="${wTxtCol(st.hub)}">${esc(st.em)}</text>`:''}<path d="M-7 -57L7 -57L0 -45Z" fill="#fff" stroke="#111" stroke-width="1.5"/></svg>`};
 try{drawWheel()}catch(_){}
+
+/* ================= CANTIDADES CON PUNTOS (5000 → 5.000) MIENTRAS ESCRIBES ================= */
+{const ND=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value');
+const NF_SEL='#betInp,#trAmt,#gfAmt,#sfAmt,#gAmt,#admAmt,#evPool,input[data-amt],input[data-tnb]';
+const nfDots=v=>{let s=String(v==null?'':v);const neg=/^\s*-/.test(s);s=s.replace(/\D/g,'').replace(/^0+(?=\d)/,'');if(!s)return neg?'-':'';return(neg?'-':'')+s.replace(/\B(?=(\d{3})+(?!\d))/g,'.')};
+function nfAttach(el){if(el._nf)return;el._nf=1;
+  Object.defineProperty(el,'value',{configurable:true,get(){return String(ND.get.call(this)).replace(/[^\d-]/g,'')},set(v){ND.set.call(this,nfDots(v))}});
+  ND.set.call(el,nfDots(ND.get.call(el)));
+  el.addEventListener('input',()=>{const raw=ND.get.call(el),pos=el.selectionStart==null?raw.length:el.selectionStart,fromEnd=raw.length-pos,f=nfDots(raw);if(f!==raw){ND.set.call(el,f);const p=Math.max(0,f.length-fromEnd);try{el.setSelectionRange(p,p)}catch(_){}}},true)}
+function nfScan(root){try{(root.matches&&root.matches(NF_SEL)?[root]:[]).concat([...(root.querySelectorAll?root.querySelectorAll(NF_SEL):[])]).forEach(nfAttach)}catch(_){}}
+nfScan(document.body);new MutationObserver(ms=>{for(const m of ms)m.addedNodes.forEach(n=>{if(n.nodeType===1)nfScan(n)})}).observe(document.body,{childList:true,subtree:true})}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
