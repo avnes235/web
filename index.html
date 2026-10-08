@@ -2068,6 +2068,109 @@ body.admmod #admGlobal,body.admmod #admInbox,body.admmod #admMgr{display:none!im
 .chmm{display:flex;flex-direction:column;gap:4px;padding:8px 12px;background:#1f1f26;border-bottom:2px solid #2a2a33}.chmm[hidden]{display:none}.chmm button{text-align:left;background:none;border:0;color:inherit;font:800 14px Archivo,system-ui,sans-serif;padding:8px 4px;cursor:pointer}
 @media (max-width:520px){.chbox{border-left:0}.bar #chatBtn{width:38px;height:38px}}
 .nmmine{margin:6px 0 10px;padding:10px 12px;border-radius:12px;background:#141418;border:2px solid #3f7cff;display:flex;flex-direction:column;gap:6px;text-align:left}.nmmine b{font-weight:900}.nmmine span{font-weight:700;font-size:13px;opacity:.9}
+/* botón rojo: sorpresas a lo grande */
+.rbx{position:fixed;inset:0;z-index:115;pointer-events:none;overflow:hidden}
+.rbx.rbxout{opacity:0;transition:opacity .45s}
+.rbcv{position:absolute;inset:0;width:100%;height:100%}
+.rbflash{position:absolute;inset:0;background:#fff;animation:rbFlash .6s forwards}
+@keyframes rbFlash{from{opacity:1}to{opacity:0}}
+@keyframes rbFadeIn{from{opacity:0}}
+@keyframes rbOut{to{opacity:0}}
+@keyframes rbSpin{to{transform:rotate(360deg)}}
+@keyframes rbPopIn{from{transform:scale(.3);opacity:0}}
+.rbcrack{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:#fff;stroke-width:2.2;stroke-linejoin:round;filter:drop-shadow(0 0 2px #000) drop-shadow(0 0 6px #fff8);stroke-dasharray:3000;stroke-dashoffset:3000;animation:rbDraw .35s forwards}
+.rbcrack .ring{stroke-width:1.4;opacity:.8}
+.rbcrack.fall{stroke-dashoffset:0;animation:rbOut .5s forwards}
+@keyframes rbDraw{to{stroke-dashoffset:0}}
+.rb-hole{display:grid;place-items:center;background:radial-gradient(circle,#0000 30%,#000b 100%);animation:rbFadeIn .6s both}
+.rb-hole .bh{width:8vmin;height:8vmin;border-radius:50%;background:#000;box-shadow:0 0 0 2vmin #000,0 0 60px 20px #9a6bff,0 0 140px 50px #ff5fa855;animation:rbGrow 2.6s cubic-bezier(.5,0,.5,1) forwards;position:relative}
+.rb-hole .bh i{position:absolute;inset:-60%;border-radius:50%;background:conic-gradient(from 0deg,#0000,#ffd60099,#ff5fa8cc,#9a6bff99,#0000 60%,#4aa8ff88,#0000);-webkit-mask:radial-gradient(circle,#0000 34%,#000 36%,#000 60%,#0000 70%);mask:radial-gradient(circle,#0000 34%,#000 36%,#000 60%,#0000 70%);animation:rbSpin .8s linear infinite}
+.rb-hole.boom .bh{animation:rbPop .5s forwards}
+@keyframes rbGrow{to{transform:scale(5)}}
+@keyframes rbPop{from{transform:scale(5)}50%{transform:scale(6);filter:brightness(3)}to{transform:scale(0)}}
+.rb-met{background:radial-gradient(circle at 80% 0,#ff6b4a33,#0000 60%)}
+.rb-glass .shard{position:absolute;background:linear-gradient(135deg,#ffffff66,#bfe6ff22 60%,#ffffffaa);animation:rbShard 1.6s cubic-bezier(.4,0,1,1) both}
+@keyframes rbShard{to{transform:translate(var(--dx),110vh) rotate(var(--r));opacity:.5}}
+.rb-ufo{background:radial-gradient(ellipse at 50% 20%,#0b2a2ecc,#000d);animation:rbFadeIn .5s both}
+.rb-ufo .ufo{position:absolute;left:50%;top:-40vh;transform:translateX(-50%);animation:ufoIn 1.3s cubic-bezier(.2,1.2,.4,1) forwards}
+.rb-ufo .ufo .emo{font-size:min(38vw,220px);display:block;line-height:1;animation:ufoWob 1.2s ease-in-out infinite;filter:drop-shadow(0 0 30px #2fd6a3)}
+.rb-ufo .beam{position:absolute;left:50%;top:70%;width:min(60vw,340px);height:85vh;transform:translateX(-50%) scaleY(0);transform-origin:top;background:linear-gradient(#b6fff0cc,#2fd6a322 80%,#0000);clip-path:polygon(35% 0,65% 0,100% 100%,0 100%);transition:transform .4s;z-index:-1}
+.rb-ufo.on .beam{transform:translateX(-50%) scaleY(1);animation:beamPulse .3s infinite alternate}
+.rb-ufo .abd{position:absolute;bottom:-60px;font-size:34px;animation:abd 1.6s cubic-bezier(.5,0,.8,.6) both}
+.rb-ufo.bye .ufo{animation:ufoOut .8s cubic-bezier(.6,0,1,.4) forwards}
+.rb-ufo.bye .beam{transform:translateX(-50%) scaleY(0);animation:none}
+.rb-ufo .ufogift{position:absolute;left:50%;top:-100px;font-size:90px;transform:translateX(-50%);animation:giftFall 1s cubic-bezier(.3,0,.6,1.3) forwards}
+@keyframes ufoIn{to{top:10vh}}
+@keyframes ufoOut{from{top:10vh}to{top:-60vh;transform:translateX(30vw) scale(.2)}}
+@keyframes ufoWob{50%{transform:rotate(6deg) translateY(10px)}}
+@keyframes beamPulse{to{opacity:.7}}
+@keyframes abd{to{transform:translateY(-72vh) rotate(540deg) scale(.3);opacity:0}}
+@keyframes giftFall{to{top:45vh}}
+.rb-matrix{background:#000;opacity:.93;animation:rbFadeIn .3s both}
+.app.rb-glitch{animation:rbGlitch .25s steps(2) infinite}
+@keyframes rbGlitch{0%{transform:translate(0)}25%{transform:translate(-4px,2px) skewX(3deg);filter:hue-rotate(90deg) saturate(3)}50%{transform:translate(3px,-2px)}75%{transform:translate(-2px,-3px) skewX(-4deg);filter:hue-rotate(-90deg) contrast(2)}}
+.rb-wave .sea{position:absolute;left:0;right:0;bottom:0;height:0;animation:seaUp 1.8s cubic-bezier(.3,0,.2,1) forwards}
+.rb-wave.down .sea{animation:seaDown 1.4s ease-in forwards}
+.rb-wave .water{position:absolute;left:0;right:0;top:60px;bottom:0;background:linear-gradient(#2a8fe6ee,#0a3e7af5)}
+.rb-wave svg{position:absolute;left:0;top:0;width:200%;height:80px;animation:waveX 1.6s linear infinite}
+.rb-wave svg path{fill:#2a8fe6ee}
+.rb-wave .w2{top:-14px;animation-duration:2.4s;animation-direction:reverse}.rb-wave .w2 path{fill:#8fd3ffaa}
+.rb-wave .fish{position:absolute;z-index:2;transform:scaleX(calc(var(--d) * -1));animation:swim 3s linear both}
+@keyframes seaUp{0%{height:0}70%{height:118vh}100%{height:108vh}}
+@keyframes seaDown{from{height:108vh}to{height:0}}
+@keyframes waveX{to{transform:translateX(-50%)}}
+@keyframes swim{from{transform:translateX(0) scaleX(calc(var(--d) * -1))}to{transform:translateX(calc(var(--d) * (100vw + 180px))) scaleX(calc(var(--d) * -1))}}
+.rb-fw{background:#020414c4;animation:rbFadeIn .5s both}
+.rb-dark{background:#000}
+.rb-dark.lit{background:#000a}
+.rb-dark .eyes{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);display:flex;gap:44px;opacity:0;transition:opacity 1.2s}
+.rb-dark .eyes i{width:46px;height:22px;border-radius:50%;background:radial-gradient(circle,#fff 0 12%,#ff2b2b 22%,#8a0000 60%,#0000 70%);box-shadow:0 0 30px 8px #ff000088}
+.rb-dark.eye .eyes{opacity:1}
+.rb-dark.blink .eyes i{animation:rbBlink .9s 2}
+@keyframes rbBlink{45%,55%{transform:scaleY(.08)}}
+.rb-dark .dtxt{position:absolute;left:16px;right:16px;bottom:22%;text-align:center;color:#8a8a8a;font:800 18px var(--f-b);opacity:0;transition:opacity 1s}
+.rb-dark.eye .dtxt{opacity:1}
+.rb-dark .boo{position:absolute;left:50%;top:50%;font-size:60px;line-height:1;transform:translate(-50%,-50%) scale(0);opacity:0}
+.rb-dark.bu .boo{animation:rbBoo .9s cubic-bezier(.2,1.5,.4,1) forwards}
+.rb-dark.bu .eyes,.rb-dark.bu .dtxt{opacity:0;transition:none}
+.rb-dark.on{background:#0000;transition:background .5s}
+.rb-dark.on .boo{animation:rbBooOut .6s forwards}
+@keyframes rbBoo{0%{transform:translate(-50%,-50%) scale(.2);opacity:1}100%{transform:translate(-50%,-50%) scale(7);opacity:1}}
+@keyframes rbBooOut{from{transform:translate(-50%,-50%) scale(7);opacity:1}to{transform:translate(-50%,-50%) scale(12);opacity:0}}
+.rb-torn{background:radial-gradient(circle,#0000 40%,#3a3f4a99)}
+.rb-torn .rbtw{position:absolute;top:50%;left:-40%;font-size:min(50vw,280px);line-height:1;animation:rbTw 4.6s ease-in-out forwards;filter:drop-shadow(0 10px 20px #000)}
+@keyframes rbTw{0%{left:-40%;transform:translateY(-50%)}50%{left:30%;transform:translateY(-55%) rotate(-8deg) scale(1.15)}100%{left:110%;transform:translateY(-50%) rotate(6deg)}}
+.rb-slot{display:grid;place-items:center;background:#000b;animation:rbFadeIn .3s both;padding:16px}
+.slotbox{--sh:min(24vw,110px);background:linear-gradient(#ff4fd8,#9a1b8a);padding:16px;border-radius:24px;border:4px solid #ffd600;box-shadow:0 0 0 6px #141a2e,0 20px 60px #000,0 0 80px #ff4fd8aa;text-align:center;animation:rbPopIn .5s cubic-bezier(.2,1.5,.4,1) both}
+.sltop{font:clamp(22px,6vw,36px)/1 var(--f-d);color:#ffd600;-webkit-text-stroke:2px #141a2e;paint-order:stroke fill;margin-bottom:12px;letter-spacing:1px}
+.rbreels{display:flex;gap:10px;background:#141a2e;padding:10px;border-radius:14px}
+.rbreel{width:var(--sh);height:var(--sh);overflow:hidden;background:#fff;border-radius:10px;box-shadow:inset 0 10px 14px #0005,inset 0 -10px 14px #0005}
+.rbstrip b{display:grid;place-items:center;height:var(--sh);font-size:calc(var(--sh) * .6);line-height:1;font-weight:400}
+.slmsg{margin-top:12px;font:900 20px var(--f-b);color:#fff}
+.rb-slot.jack .slotbox{animation:rbJack .25s 8 alternate}
+@keyframes rbJack{to{box-shadow:0 0 0 6px #141a2e,0 0 120px 40px #ffd600;transform:scale(1.04)}}
+.rb-warp{background:#020614}
+.rb-heist .siren{position:absolute;inset:0;animation:rbSiren .7s steps(1) infinite}
+@keyframes rbSiren{0%{box-shadow:inset 0 0 120px 30px #ff1f3dcc}50%{box-shadow:inset 0 0 120px 30px #2f6bffcc}}
+.rb-heist .thief,.rb-heist .bag,.rb-heist .cop{position:absolute;bottom:18%;left:-45vw;font-size:min(30vw,160px);line-height:1}
+.rb-heist .thief{animation:rbRun 2.4s linear .2s both}
+.rb-heist .bag{font-size:min(16vw,80px);bottom:calc(18% + 24px);animation:rbRun 2.4s linear .38s both}
+.rb-heist.chase .thief{animation:rbRun2 1.8s linear both}
+.rb-heist.chase .bag{animation:rbRun2 1.8s linear .1s both}
+.rb-heist .cop{animation:rbRun2 1.8s linear .55s both}
+@keyframes rbRun{from{left:-45vw}to{left:110vw}}
+@keyframes rbRun2{from{left:-45vw}to{left:110vw}}
+.rb-storm{background:#060a18d0;animation:rbFadeIn .6s both}
+.rb-storm.fl::after{content:'';position:absolute;inset:0;background:#fff;animation:rbFlash2 .5s forwards}
+@keyframes rbFlash2{0%{opacity:.9}20%{opacity:.1}30%{opacity:.7}100%{opacity:0}}
+.rb-dice{display:grid;place-items:center;background:radial-gradient(circle,#2a1f4acc,#000d);animation:rbFadeIn .3s both}
+.dscene{--ds:min(46vw,200px);width:var(--ds);height:var(--ds);perspective:900px}
+.rbcube{width:100%;height:100%;position:relative;transform-style:preserve-3d}
+.rbcube .rbface{position:absolute;inset:0;background:linear-gradient(145deg,#fff,#e4e4ee);border-radius:18%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:14%;gap:6%;box-shadow:inset 0 0 0 3px #141a2e22,inset -8px -8px 20px #0002;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.rbcube .rbface i{border-radius:50%}.rbcube .rbface i.on{background:radial-gradient(circle at 35% 35%,#ff5a6e,#c00018)}
+.rbcube .rbf1{transform:translateZ(calc(var(--ds) / 2))}.rbcube .rbf2{transform:rotateY(90deg) translateZ(calc(var(--ds) / 2))}.rbcube .rbf3{transform:rotateX(90deg) translateZ(calc(var(--ds) / 2))}
+.rbcube .rbf4{transform:rotateX(-90deg) translateZ(calc(var(--ds) / 2))}.rbcube .rbf5{transform:rotateY(-90deg) translateZ(calc(var(--ds) / 2))}.rbcube .rbf6{transform:rotateY(180deg) translateZ(calc(var(--ds) / 2))}
+.rb-dice .dmsg{position:absolute;bottom:16%;left:16px;right:16px;text-align:center;font:900 22px var(--f-b);color:#fff}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5610,6 +5713,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-08-d',t:'Botón rojo: modo locura',items:[['🕳️','15 sorpresas nuevas','Agujero negro que se traga la pantalla, meteorito, pantalla rota, OVNI, Matrix, tsunami, fuegos artificiales, apagón de miedo, tornado, gravedad rota, mega tragaperras, hiperespacio, atraco, tormenta y dado gigante.','new','#ff3b4f'],['🗑️','Fuera las aburridas','Adiós al modo Comic Sans, blanco y negro, pato inspector y compañía.','fix','#9aa3b5'],['🔀','Sin repetir','No vuelve a salir ninguna hasta que hayas visto todas. Las nuevas salen primero.','new','#ffd600']]},
  {v:'2026-10-08-c',t:'Chats más claros',items:[['👥','Solo amigos con cuenta','En los chats ya no salen invitados ni «Jugador»: salen tus amigos con cuenta, con su nombre de verdad.','fix','#3f7cff'],['🖼️','Con su foto','Si tu amigo tiene foto de perfil, la verás en el chat en lugar de la carita.','new','#ffd600']]},
  {v:'2026-10-08-b',t:'Chats con tus amigos',items:[['💬','Chats','Pulsa 💬 arriba y habla con tus amigos. Te sale un aviso y un número rojo cuando te escriben.','new','#3f7cff'],['🗑️','Borra mensajes','Toca un mensaje tuyo para borrarlo (se borra para los dos). También puedes vaciar el chat o bloquear a alguien.','new','#ff3b4f']]},
  {v:'2026-10-08-a',t:'Cuentas más seguras',items:[['🏷️','Nombres únicos','Ya no puede haber dos jugadores con el mismo nombre, ni invitados ni con cuenta. Si está cogido, te avisa para que elijas otro.','new','#ffd600'],['🔑','Guarda tu contraseña','Al crear la cuenta con usuario y contraseña, tu navegador te ofrece guardarla para no olvidarla.','new','#3f7cff'],['🛟','Más formas de recuperar tu cuenta','Vincula tu Google a tu cuenta, usa la contraseña guardada, el código de recuperación o, si no lo tienes, responde unas preguntas y el jefe comprueba que la cuenta es tuya.','new','#14e08a']]},
@@ -11256,6 +11360,168 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-chgo]');if
 /* desbloquear en Ajustes */
 {const _rjC=renderAjustes;renderAjustes=function(){_rjC.apply(this,arguments);try{const bl=(S.chBlock||[]);if(!bl.length)return;const box=[...document.querySelectorAll('#cfgBody .cfgbox')].pop();if(box&&!box.querySelector('#cfUnb'))box.insertAdjacentHTML('beforeend',`<div class="crow" id="cfUnb"><span class="cl"><b>Bloqueados en el chat</b><small>${bl.map(id=>esc(chName(id))).join(', ')}</small></span><button class="btn sm alt" data-unb>Desbloquear a todos</button></div>`)}catch(e){}}}
 document.addEventListener('click',e=>{if(e.target.closest('[data-unb]')){S.chBlock=[];save();toast('Desbloqueados','','var(--mint)','✅');renderAjustes()}});
+
+/* ================= BOTÓN ROJO: SORPRESAS A LO GRANDE ================= */
+function rbLayer(cls,ms){const d=document.createElement('div');d.className='rbx '+(cls||'');document.body.appendChild(d);if(ms)setTimeout(()=>rbKill(d),ms);return d}
+function rbKill(d){if(!d||!d.isConnected)return;d.classList.add('rbxout');setTimeout(()=>d.remove(),460)}
+function rbCv(d){const c=document.createElement('canvas'),r=Math.min(LOWEND?1:1.5,devicePixelRatio||1),W=innerWidth,H=innerHeight;c.width=Math.round(W*r);c.height=Math.round(H*r);c.className='rbcv';d.appendChild(c);const g=c.getContext('2d');g.scale(r,r);g.W=W;g.H=H;return g}
+function rbRun(ms,fn,done){const t0=performance.now();const st=t=>{const e=Math.max(0,t-t0);if(e>=ms){try{done&&done()}catch(_){}return}try{fn(e/1000,e/ms)}catch(err){try{done&&done()}catch(_){}return}requestAnimationFrame(st)};requestAnimationFrame(st)}
+const rbN=n=>Math.max(1,Math.ceil(n*(cfg('lite')?.35:LOWEND?.6:1)));
+function rbPay(k,t,s,col){const r=Math.round(k*Math.max(1,S.lvl));give(r);xp(10);save();sfx('big');confetti(120);troll(t,(s?s+' ':'')+'+'+short(r)+' €',col||'#14e08a',true);return r}
+function rbNoise(d,v,hp){if(S.muted)return;const a=ac();if(!a)return;try{const len=Math.floor(a.sampleRate*d),b=a.createBuffer(1,len,a.sampleRate),x=b.getChannelData(0);for(let i=0;i<len;i++)x[i]=(Math.random()*2-1)*Math.pow(1-i/len,2);
+  const s=a.createBufferSource(),g=a.createGain(),f=a.createBiquadFilter();f.type=hp?'highpass':'lowpass';f.frequency.value=hp||600;s.buffer=b;g.gain.value=(v||.1)*cfg('vol');s.connect(f).connect(g).connect(a.destination);s.start()}catch(e){}}
+function rbShake(px,ms){try{$('.app').animate([{transform:'none'},{transform:`translate(${-px}px,${px*.6}px) rotate(-.6deg)`},{transform:`translate(${px*.9}px,${-px*.6}px) rotate(.6deg)`},{transform:`translate(${-px*.5}px,${px*.4}px)`},{transform:`translate(${px*.3}px,${-px*.2}px)`},{transform:'none'}],{duration:ms||500})}catch(e){}}
+/* trozos visibles de la pantalla (para tornado y gravedad) */
+function rbVis(max){const out=[],H=innerHeight;const walk=(els,dep)=>{for(const el of els){if(out.length>=max)return;if(el.id==='troll'||el.classList.contains('rbx'))continue;const r=el.getBoundingClientRect();if(r.bottom<0||r.top>H||r.width<30||r.height<16)continue;
+    if(r.height>H*.55&&dep<4&&el.children.length)walk([...el.children],dep+1);else out.push(el)}};
+  walk([...$$('.view:not([hidden])')].flatMap(v=>[...v.children]),0);const bar=$('.bar');if(bar)out.push(bar);return out}
+function rbCrackSVG(x,y,W,H){let s='';const n=ri(9,13),M=Math.max(W,H);for(let i=0;i<n;i++){let a=i/n*6.283+rnd(-.2,.2),px=x,py=y;const pts=[px.toFixed(0)+','+py.toFixed(0)],L=rnd(M*.35,M*.8);let l=0;
+    while(l<L){const st=rnd(25,70);a+=rnd(-.35,.35);px+=Math.cos(a)*st;py+=Math.sin(a)*st;l+=st;pts.push(px.toFixed(0)+','+py.toFixed(0))}s+=`<polyline points="${pts.join(' ')}"/>`}
+  for(let k=1;k<=3;k++){const r=k*rnd(35,55),m=ri(8,12),pts=[];for(let i=0;i<=m;i++){const a=i/m*6.283,rr=r*rnd(.8,1.2);pts.push((x+Math.cos(a)*rr).toFixed(0)+','+(y+Math.sin(a)*rr).toFixed(0))}s+=`<polyline class="ring" points="${pts.join(' ')}"/>`}
+  return`<svg class="rbcrack" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${s}</svg>`}
+function rbFire(g,P){g.save();g.globalCompositeOperation='lighter';for(let i=P.length-1;i>=0;i--){const p=P[i];p.x+=p.vx;p.y+=p.vy;if(p.g)p.vy+=.25;p.l-=.022;p.r*=.985;if(p.l<=0){P.splice(i,1);continue}
+  g.fillStyle=`hsla(${20+p.l*30},100%,${45+p.l*25}%,${p.l})`;g.beginPath();g.arc(p.x,p.y,p.r,0,7);g.fill()}g.restore()}
+
+/* 1. Agujero negro: se traga la pantalla y la escupe */
+function rbHole(){const d=rbLayer('rb-hole',6200);d.innerHTML='<div class="bh"><i></i></div>';troll('AGUJERO NEGRO','se lo está tragando todo','#9a6bff',true);
+  tone(220,2.6,'sine',.07,-180);rbNoise(2.4,.06);const a=$('.app');a.style.transformOrigin='50% '+Math.round(scrollY+innerHeight/2)+'px';
+  const an=a.animate([{transform:'none',filter:'none'},{transform:'scale(.04) rotate(720deg)',filter:'blur(6px) brightness(.4)'}],{duration:2600,easing:'cubic-bezier(.6,0,.9,.4)',fill:'forwards'});
+  setTimeout(()=>{d.classList.add('boom');tone(80,.6,'sawtooth',.09,400);rbNoise(.8,.2);
+    const b=a.animate([{transform:'scale(.04) rotate(720deg)',filter:'blur(6px)'},{transform:'scale(1.1) rotate(-8deg)',filter:'none',offset:.7},{transform:'none',filter:'none'}],{duration:900,easing:'cubic-bezier(.2,1.3,.4,1)'});an.cancel();
+    let paid=false;const pay=()=>{if(paid)return;paid=true;a.style.transformOrigin='';rbPay(250,'¡TE HA ESCUPIDO!','y con regalo:','#9a6bff')};b.onfinish=pay;setTimeout(pay,1300)},3600)}
+
+/* 2. Meteorito */
+function rbMeteor(){const d=rbLayer('rb-met',5600),g=rbCv(d),W=g.W,H=g.H,tx=W/2,ty=H*.55,sx=W+80,sy=-80,P=[];troll('¡¡METEORITO!!','¡a cubierto!','#ff6b4a',true);tone(900,1.3,'sawtooth',.04,-800);
+  rbRun(1300,(t,p)=>{const e=p*p,x=sx+(tx-sx)*e,y=sy+(ty-sy)*e;for(let i=0;i<rbN(6);i++)P.push({x:x+rnd(-8,8),y:y+rnd(-8,8),vx:rnd(-1,1)+(sx-tx)*.004,vy:rnd(-1,1)-(ty-sy)*.003,l:1,r:rnd(4,12)});
+    g.clearRect(0,0,W,H);rbFire(g,P);g.save();g.fillStyle='#3a2a20';g.shadowColor='#ffb347';g.shadowBlur=40;g.beginPath();g.arc(x,y,26+p*14,0,7);g.fill();g.restore()},impact);
+  function impact(){rbNoise(1.4,.25);tone(55,1,'sine',.12,-20);d.insertAdjacentHTML('beforeend','<div class="rbflash"></div>'+rbCrackSVG(tx,ty,W,H));rbShake(14,700);confetti(140,tx,ty);
+    for(let i=0;i<rbN(90);i++){const an=rnd(0,6.28),v=rnd(3,13);P.push({x:tx,y:ty,vx:Math.cos(an)*v,vy:Math.sin(an)*v-3,l:1,r:rnd(3,9),g:1})}
+    rbRun(2400,()=>{g.clearRect(0,0,W,H);rbFire(g,P);g.save();const gr=g.createRadialGradient(tx,ty,0,tx,ty,90);gr.addColorStop(0,'#ffcf5acc');gr.addColorStop(1,'#ff6b4a00');g.fillStyle=gr;g.beginPath();g.arc(tx,ty,90,0,7);g.fill();g.restore()});
+    setTimeout(()=>rbPay(300,'¡IMPACTO!','dentro había oro:','#ff6b4a'),1500)}}
+
+/* 3. Pantalla rota */
+function rbGlass(){const bt=$('#redbtn'),b=bt?bt.getBoundingClientRect():{left:innerWidth/2,top:innerHeight/2,width:0,height:0},W=innerWidth,H=innerHeight;
+  const x=Math.min(W-20,Math.max(20,b.left+b.width/2)),y=Math.min(H-20,Math.max(20,b.top+b.height/2));const d=rbLayer('rb-glass',5400);d.innerHTML=rbCrackSVG(x,y,W,H);
+  rbNoise(.35,.3,2500);rbNoise(.8,.12);tone(1800,.08,'square',.05);rbShake(6,300);troll('HAS ROTO LA PANTALLA','¿y ahora qué?','#4aa8ff',true);
+  setTimeout(()=>{const c=d.querySelector('.rbcrack');if(c)c.classList.add('fall');rbNoise(1.2,.15,1800);
+    for(let i=0;i<rbN(26);i++){const s=document.createElement('i');s.className='shard';const sz=rnd(30,110);
+      s.style.cssText=`left:${x+rnd(-W*.4,W*.4)}px;top:${y+rnd(-H*.35,H*.35)}px;width:${sz}px;height:${sz}px;--r:${rnd(-260,260)}deg;--dx:${rnd(-80,80)}px;animation-delay:${rnd(0,.5).toFixed(2)}s;clip-path:polygon(${ri(0,40)}% 0,100% ${ri(10,60)}%,${ri(20,80)}% 100%)`;d.appendChild(s)}},2300);
+  setTimeout(()=>rbPay(180,'ERA BROMA','la pantalla está bien. Toma','#4aa8ff'),3900)}
+
+/* 4. OVNI que abduce tus monedas */
+function rbUfo(){const d=rbLayer('rb-ufo',7600);d.innerHTML='<div class="ufo"><span class="emo">🛸</span><div class="beam"></div></div>';troll('¡OVNI!','te están abduciendo las monedas','#2fd6a3',true);
+  let k=0;const iv=setInterval(()=>{tone(300+Math.sin(k)*120,.12,'sine',.05);if(++k>45)clearInterval(iv)},120);
+  setTimeout(()=>{d.classList.add('on');fakeZero=true;for(let i=0;i<rbN(22);i++){const c=document.createElement('span');c.className='abd emo';c.textContent=i%9===4?'🐄':['🪙','💶','💎'][ri(0,2)];
+    c.style.cssText=`left:calc(50% + ${rnd(-80,80).toFixed(0)}px);animation-delay:${(i*.09).toFixed(2)}s`;d.appendChild(c)}},1300);
+  setTimeout(()=>{d.classList.add('bye');tone(400,.7,'sine',.06,1400)},4200);
+  setTimeout(()=>{fakeZero=false;const gf=document.createElement('span');gf.className='ufogift emo';gf.textContent='🎁';d.appendChild(gf);sfx('pop')},5000);
+  setTimeout(()=>rbPay(400,'LOS ALIENS TE LO DEVUELVEN','con intereses:','#2fd6a3'),6000)}
+
+/* 5. Matrix */
+function rbMatrix(){const d=rbLayer('rb-matrix',5600),g=rbCv(d),W=g.W,H=g.H,fs=16,cols=Math.ceil(W/fs),y=Array.from({length:cols},()=>rnd(-H,0)),ch='アイウエオカキクケコサシスセソタチツテト0123456789€$¥';
+  troll('ENTRANDO EN MATRIX','nada es real… ni tu dinero','#14e08a',true);const a=$('.app');a.classList.add('rb-glitch');
+  let k=0;const iv=setInterval(()=>{tone(rnd(1200,3000),.03,'square',.02);if(++k>40)clearInterval(iv)},110);
+  rbRun(4600,()=>{g.fillStyle='rgba(0,0,0,.09)';g.fillRect(0,0,W,H);g.font=fs+'px monospace';for(let i=0;i<cols;i++){g.fillStyle=Math.random()<.04?'#e0ffe8':'#14e08a';g.fillText(ch[ri(0,ch.length-1)],i*fs,y[i]);y[i]+=fs*(.5+((i*7)%5)*.15);if(y[i]>H+rnd(0,400))y[i]=0}},
+    ()=>a.classList.remove('rb-glitch'));
+  setTimeout(()=>{a.classList.remove('rb-glitch');rbPay(220,'PASTILLA ROJA','has salido de Matrix:','#14e08a')},4700)}
+
+/* 6. Tsunami */
+function rbWave(){const d=rbLayer('rb-wave',6600),wv='<path d="M0 60 Q150 0 300 60 T600 60 T900 60 T1200 60 V120 H0Z"/>';
+  d.innerHTML=`<div class="sea"><svg class="w2" viewBox="0 0 1200 120" preserveAspectRatio="none">${wv}</svg><svg class="w1" viewBox="0 0 1200 120" preserveAspectRatio="none">${wv}</svg><div class="water"></div></div>`;
+  const sea=d.querySelector('.sea');for(let i=0;i<rbN(11);i++){const f=document.createElement('span');f.className='fish emo';f.textContent=['🐟','🐠','🐡','🦈','🐙','🐬'][ri(0,5)];const r=Math.random()<.5;
+    f.style.cssText=`top:${rnd(25,85).toFixed(0)}%;font-size:${ri(28,64)}px;--d:${r?1:-1};animation-delay:${rnd(1.4,2.6).toFixed(2)}s;animation-duration:${rnd(2.4,3.8).toFixed(2)}s;${r?'left:-90px':'right:-90px'}`;sea.appendChild(f)}
+  troll('¡TSUNAMI!','sube a lo alto','#4aa8ff',true);rbNoise(3,.1);setTimeout(()=>rbNoise(2.5,.07),2500);
+  setTimeout(()=>d.classList.add('down'),4400);setTimeout(()=>rbPay(260,'EL MAR TE TRAE UN COFRE','','#4aa8ff'),5400)}
+
+/* 7. Fuegos artificiales */
+function rbFireworks(){const d=rbLayer('rb-fw',6800),g=rbCv(d),W=g.W,H=g.H,R=[],P=[];troll('FUEGOS ARTIFICIALES','todo esto por ti','#ffd600',true);
+  const N=rbN(12);for(let i=0;i<N;i++)setTimeout(()=>{R.push({x:rnd(W*.15,W*.85),y:H+10,vy:-rnd(H*.016,H*.022),h:ri(0,360),ty:rnd(H*.12,H*.45)});tone(rnd(300,500),.4,'sine',.03,600)},i*360+ri(0,150));
+  rbRun(6200,()=>{g.globalCompositeOperation='destination-out';g.fillStyle='rgba(0,0,0,.22)';g.fillRect(0,0,W,H);g.globalCompositeOperation='lighter';
+    for(let i=R.length-1;i>=0;i--){const r=R[i];r.y+=r.vy;r.vy*=.985;g.fillStyle=`hsl(${r.h},100%,75%)`;g.beginPath();g.arc(r.x,r.y,3,0,7);g.fill();
+      if(r.y<=r.ty||r.vy>-2){R.splice(i,1);rbNoise(.7,.12);const n=rbN(90),big=Math.random()<.4;for(let k=0;k<n;k++){const a=k/n*6.283,v=rnd(1.5,big?7:5);P.push({x:r.x,y:r.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:1,h:r.h+rnd(-20,20)})}}}
+    for(let i=P.length-1;i>=0;i--){const p=P[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.vx*=.985;p.vy*=.985;p.l-=.012;if(p.l<=0){P.splice(i,1);continue}g.fillStyle=`hsla(${p.h},100%,${55+p.l*25}%,${p.l})`;g.fillRect(p.x,p.y,2.6,2.6)}
+    g.globalCompositeOperation='source-over'});
+  setTimeout(()=>rbPay(220,'¡QUÉ ESPECTÁCULO!','','#ffd600'),5200)}
+
+/* 8. Apagón (de miedo) */
+function rbDark(){const d=rbLayer('rb-dark',7000);d.innerHTML='<div class="eyes"><i></i><i></i></div><div class="dtxt">algo se mueve en la oscuridad…</div><span class="boo emo">👻</span>';
+  tone(60,.25,'square',.05);rbNoise(.15,.12,3000);[300,450,700,820,1100].forEach(t=>setTimeout(()=>d.classList.toggle('lit'),t));
+  setTimeout(()=>d.classList.remove('lit'),1300);setTimeout(()=>{d.classList.add('eye');tone(110,1.6,'sine',.05,-40)},2000);setTimeout(()=>d.classList.add('blink'),3000);
+  setTimeout(()=>{d.classList.add('bu');tone(900,.7,'sawtooth',.08,-650);rbNoise(.8,.18,800);rbShake(10,350)},4300);
+  setTimeout(()=>{d.classList.add('on');rbPay(300,'¡BUUUU!','¿te has asustado? Toma','#ff3b4f')},5300)}
+
+/* 9. Tornado */
+function rbTornado(){const els=rbVis(16),d=rbLayer('rb-torn',5600),W=innerWidth,H=innerHeight;d.innerHTML='<span class="rbtw emo">🌪️</span>';troll('¡TORNADO!','agarra lo que puedas','#c9d1e0',true);rbNoise(4,.12);
+  setTimeout(()=>{els.forEach((el,i)=>{try{const r=el.getBoundingClientRect(),cx=W/2-(r.left+r.width/2),cy=H/2-(r.top+r.height/2);
+    el.animate([{transform:'none'},{transform:`translate(${(cx*.5+rnd(-W*.3,W*.3)).toFixed(0)}px,${(cy*.5+rnd(-H*.3,H*.3)).toFixed(0)}px) rotate(${rnd(-200,200).toFixed(0)}deg) scale(.7)`,offset:.35},
+      {transform:`translate(${(cx+rnd(-W*.4,W*.4)).toFixed(0)}px,${(cy+rnd(-H*.4,H*.4)).toFixed(0)}px) rotate(${rnd(-540,540).toFixed(0)}deg) scale(.45)`,offset:.7},{transform:'none'}],{duration:3600,delay:i*40,easing:'ease-in-out'})}catch(e){}})},500);
+  setTimeout(()=>rbPay(200,'SE HA IDO EL VIENTO','y se ha dejado esto:','#c9d1e0'),4400)}
+
+/* 10. Gravedad rota */
+function rbGravity(){const els=rbVis(18),H=innerHeight;troll('SE HA ROTO LA GRAVEDAD','todo se cae','#ff9f1c',true);
+  setTimeout(()=>{els.forEach((el,i)=>{try{const r=el.getBoundingClientRect(),dy=Math.max(0,H-r.bottom)+rnd(-10,30),rot=rnd(-25,25);
+    el.animate([{transform:'none',easing:'cubic-bezier(.5,0,1,.6)'},{transform:`translateY(${dy}px) rotate(${rot}deg)`,offset:.22,easing:'ease-out'},{transform:`translateY(${dy-40}px) rotate(${rot*.7}deg)`,offset:.3,easing:'ease-in'},
+      {transform:`translateY(${dy}px) rotate(${rot}deg)`,offset:.38},{transform:`translateY(${dy}px) rotate(${rot}deg)`,offset:.75,easing:'cubic-bezier(.3,1.4,.5,1)'},{transform:'none'}],{duration:4200,delay:i*60});
+    if(i%3===0)setTimeout(()=>tone(rnd(90,160),.15,'sine',.08),i*60+900)}catch(e){}})},600);
+  setTimeout(()=>rbPay(180,'GRAVEDAD ARREGLADA','por las molestias:','#ff9f1c'),4800)}
+
+/* 11. Mega tragaperras */
+function rbSlot(){const d=rbLayer('rb-slot',8000),SY=['🍒','🍋','🔔','💎','⭐','7️⃣'],r=Math.random();let res;
+  if(r<.12)res=['7️⃣','7️⃣','7️⃣'];else if(r<.45){const s=SY[ri(0,4)];let x=SY[ri(0,5)];if(x===s)x=s==='🍋'?'🔔':'🍋';res=[s,s,x].sort(()=>Math.random()-.5)}
+  else if(r<.62)res=['7️⃣','7️⃣',SY[ri(0,4)]];else{res=SY.slice().sort(()=>Math.random()-.5).slice(0,3)}
+  d.innerHTML='<div class="slotbox"><div class="sltop">MEGA TRAGAPERRAS</div><div class="rbreels">'+res.map(f=>'<div class="rbreel"><div class="rbstrip emo">'+Array.from({length:24},()=>`<b>${SY[ri(0,5)]}</b>`).join('')+`<b>${f}</b></div></div>`).join('')+'</div><div class="slmsg">Girando…</div></div>';
+  troll('MEGA TRAGAPERRAS','¿saldrán tres 7?','#ff4fd8',true);let k=0;const iv=setInterval(()=>{sfx('tick');if(++k>32)clearInterval(iv)},90);
+  [...d.querySelectorAll('.rbstrip')].forEach((s,i)=>{const h=s.firstElementChild.offsetHeight||100,n=s.children.length;
+    s.animate([{transform:'translateY(0)'},{transform:`translateY(${-(n-1)*h}px)`}],{duration:1600+i*700,easing:'cubic-bezier(.15,.6,.25,1)',fill:'forwards',delay:200});setTimeout(()=>tone(220+i*110,.12,'square',.06),1800+i*700)});
+  setTimeout(()=>{const m=d.querySelector('.slmsg');let k2,t,s2;if(res[0]===res[1]&&res[1]===res[2]){k2=2000;d.classList.add('jack');t='¡¡JACKPOT!!';s2='tres sietes:'}
+    else if(res[0]===res[1]||res[1]===res[2]||res[0]===res[2]){k2=350;t='¡PAREJA!';s2='no está mal:'}else{k2=60;t='NADA…';s2='premio de consolación:'}
+    if(m)m.textContent=t;rbPay(k2,t,s2,'#ff4fd8');if(k2>=2000)setTimeout(()=>confetti(300),600)},3700)}
+
+/* 12. Hiperespacio */
+function rbWarp(){const d=rbLayer('rb-warp',5000),g=rbCv(d),W=g.W,H=g.H,cx=W/2,cy=H/2,M=Math.max(W,H),St=Array.from({length:rbN(260)},()=>({a:rnd(0,6.283),r:rnd(2,M*.6),z:rnd(.2,1)}));
+  troll('HIPERESPACIO','abróchate el cinturón','#7fe7ff',true);tone(80,3.5,'sawtooth',.04,900);rbNoise(3.5,.06);
+  rbRun(4000,(t,p)=>{const sp=1+p*p*40;g.fillStyle=`rgba(2,6,20,${.35-p*.25})`;g.fillRect(0,0,W,H);g.lineCap='round';
+    for(const s of St){const r0=s.r;s.r+=s.z*sp*1.4;if(s.r>M)s.r=rnd(2,40);const c=Math.cos(s.a),si=Math.sin(s.a);g.strokeStyle=`hsla(${190+s.z*40},100%,${70+s.z*25}%,${Math.min(1,.3+p)})`;g.lineWidth=s.z*2.2;g.beginPath();g.moveTo(cx+c*r0,cy+si*r0);g.lineTo(cx+c*s.r,cy+si*s.r);g.stroke()}},
+    ()=>{d.insertAdjacentHTML('beforeend','<div class="rbflash"></div>');rbPay(260,'OTRA GALAXIA','aquí te pagan en oro:','#7fe7ff')})}
+
+/* 13. Atraco */
+function rbHeist(){const d=rbLayer('rb-heist',7400);d.innerHTML='<div class="siren"></div><span class="thief emo">🦹</span><span class="bag emo">💰</span>';troll('¡ATRACO!','se lleva todo tu dinero','#ff3b4f',true);fakeZero=true;sfx('lose');
+  let k=0;const iv=setInterval(()=>{tone(k%2?660:880,.32,'sawtooth',.035);if(++k>18)clearInterval(iv)},350);
+  setTimeout(()=>{d.insertAdjacentHTML('beforeend','<span class="cop emo">🚓</span>');d.classList.add('chase');troll('¡POLICÍA!','a por él','#4aa8ff',true)},2600);
+  setTimeout(()=>{fakeZero=false;rbPay(250,'¡PILLADO!','te lo devuelven + recompensa:','#4aa8ff')},5600)}
+
+/* 14. Tormenta eléctrica */
+function rbBolt(x,y){const pts=[[x+rnd(-60,60),-10]];let cx=pts[0][0],cy=-10;while(cy<y){cy+=rnd(25,55);cx+=rnd(-35,35)+(x-cx)*.15;pts.push([cx,Math.min(cy,y)])}return pts}
+function rbStorm(){const d=rbLayer('rb-storm',6800),g=rbCv(d),W=g.W,H=g.H,drops=Array.from({length:rbN(220)},()=>({x:rnd(0,W*1.2),y:rnd(-H,H),v:rnd(12,22)}));let bolt=null;
+  troll('TORMENTA ELÉCTRICA','no toques nada metálico','#c9d6ff',true);rbNoise(6,.06,400);
+  [900,2300,3900,5000].forEach((t,i)=>setTimeout(()=>{const last=i===3;bolt={pts:rbBolt(last?W/2:rnd(W*.1,W*.9),last?H*.6:rnd(H*.4,H*.9)),l:1};d.classList.remove('fl');void d.offsetWidth;d.classList.add('fl');
+    setTimeout(()=>rbNoise(1.6,.28),150+ri(0,300));if(last){confetti(200,W/2,H*.6);rbShake(9,320)}},t));
+  rbRun(6200,()=>{g.clearRect(0,0,W,H);g.strokeStyle='rgba(169,196,255,.55)';g.lineWidth=1.3;g.beginPath();for(const p of drops){p.y+=p.v;p.x-=p.v*.18;if(p.y>H){p.y=-20;p.x=rnd(0,W*1.2)}g.moveTo(p.x,p.y);g.lineTo(p.x+p.v*.18,p.y-p.v*1.1)}g.stroke();
+    if(bolt&&bolt.l>0){g.save();g.strokeStyle=`rgba(255,255,255,${bolt.l})`;g.shadowColor='#9cc0ff';g.shadowBlur=30;g.lineWidth=4*bolt.l+1;g.beginPath();bolt.pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.stroke();g.restore();bolt.l-=.04}});
+  setTimeout(()=>rbPay(280,'TE HA CAÍDO UN RAYO','de suerte:','#c9d6ff'),5400)}
+
+/* 15. Dado gigante 3D */
+function rbDice(){const d=rbLayer('rb-dice',6000),n=ri(1,6),PIP={1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
+  const face=v=>'<div class="rbface rbf'+v+'">'+Array.from({length:9},(_,i)=>`<i${PIP[v].includes(i+1)?' class="on"':''}></i>`).join('')+'</div>';
+  d.innerHTML='<div class="dscene"><div class="rbcube">'+[1,2,3,4,5,6].map(face).join('')+'</div></div><div class="dmsg">Tirando el dado gigante…</div>';
+  troll('DADO GIGANTE','el número multiplica tu premio','#ffd600',true);const R={1:[0,0],2:[0,-90],3:[-90,0],4:[90,0],5:[0,90],6:[0,180]}[n];
+  d.querySelector('.rbcube').animate([{transform:'rotateX(0deg) rotateY(0deg) scale(.3)'},{transform:`rotateX(${R[0]+1080}deg) rotateY(${R[1]+1440}deg) scale(1)`}],{duration:2600,easing:'cubic-bezier(.15,.7,.3,1)',fill:'forwards'});
+  let c=0;const iv=setInterval(()=>{tone(rnd(200,400),.05,'square',.04);if(++c>18)clearInterval(iv)},120);
+  setTimeout(()=>{tone(150,.25,'sine',.1);rbShake(5,220);const m=d.querySelector('.dmsg');if(m)m.textContent='¡Ha salido un '+n+'!';
+    rbPay(n*90*(n===6?3:1),n===6?'¡¡UN SEIS!!':'HA SALIDO UN '+n,n===6?'premio triple:':'','#ffd600')},2800)}
+
+/* fuera las aburridas (se quedan las 3 primeras: las usa el panel de admin) */
+(function(){const bad=[/NO PULSES, HE DICHO/,/MODO ABUELO/,/COMIC SANS/,/QUÉ LE PASA A TU PANTALLA/,/ALGO ESTÁ TORCIDO/,/TE HAS ENCOGIDO/,/'TERREMOTO'/,/'PERDÓN'/,/MODO ESPEJO/,/que hoy estoy bueno/,
+  /INSPECCIÓN DEL PATO/,/Diploma de curiosidad/,/rbparade/,/Vuelvo en 3 s/,/CONFETI ORDENADO/,/tampoco sabe qué hace/,/encuesta del siglo/,/Tu recibo/,/vale, ya puedes seguir/,/BUEN CLIC/,/HE HABLADO CON EL OTRO BOTÓN/];
+  for(let i=PRANKS.length-1;i>=3;i--){const s=String(PRANKS[i]);if(bad.some(r=>r.test(s)))PRANKS.splice(i,1)}
+  const n0=PRANKS.length;PRANKS.push(rbHole,rbMeteor,rbGlass,rbUfo,rbMatrix,rbWave,rbFireworks,rbDark,rbTornado,rbGravity,rbSlot,rbWarp,rbHeist,rbStorm,rbDice);
+  const mix=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  if(S.prankV!==3){S.prankV=3;S.prankDeck=mix(PRANKS.map((_,i)=>i).slice(n0)).concat(mix(PRANKS.map((_,i)=>i).slice(0,n0)));try{save()}catch(e){}}
+  else S.prankDeck=(S.prankDeck||[]).filter(i=>i<PRANKS.length);
+  /* baraja nueva: nunca repite hasta haber salido todas, y la primera nunca es la última que salió */
+  nextPrank=function(){let d=Array.isArray(S.prankDeck)?S.prankDeck.filter(i=>i<PRANKS.length):[];
+    if(!d.length){d=mix(PRANKS.map((_,i)=>i));if(d[0]===S.lastPrank)d.push(d.shift())}const i=d.shift();S.prankDeck=d;S.lastPrank=i;return i};
+  try{renderForbid()}catch(e){}})();
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
