@@ -5859,6 +5859,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-08-j',t:'Ruletas con estilo',items:[['🎡','Cada ruleta, su estilo','La del dinero en verde, la de caras en morado y rosa, la del todo o nada en negro y rojo, la millonaria en negro y oro… Y en el catálogo ya no se amontonan los textos.','new','#ffd600']]},
  {v:'2026-10-08-i',t:'Halloween a tope y caras nuevas',items:[['🎡','Ruleta de Halloween','Una ruleta especial que da caramelos (o un susto). Está en el evento de Inicio y desaparece cuando acaba Halloween.','new','#ff7a00'],['🦇','Ambiente de miedo','Luna, niebla, fantasmas, murciélagos y arañas por toda la web mientras dura el evento. Se puede quitar en Ajustes.','new','#9a6bff'],['🎨','Caras dibujadas','Las caras del perfil ya no son emoticonos: ahora son dibujos propios. Hemos quitado las que no pegaban.','new','#14e08a'],['🛡️','Fotos seguras','Las fotos de perfil pasan un filtro automático y se pueden denunciar desde el perfil de cada jugador.','new','#3f7cff'],['📏','Textos arreglados','Ya no se parten palabras ni precios largos en ninguna pantalla.','fix','#ffd600']]},
  {v:'2026-10-08-h',t:'🎃 ¡Llega Halloween!',items:[['🎃','Evento de Halloween','Hasta el 1 de noviembre. Junta caramelos 🍬 con misiones del evento, el «truco o trato» diario y las calabazas que salen volando por la pantalla.','new','#ff7a00'],['🦇','Recompensas exclusivas','Caras, colores de nombre, marcos, fondos y títulos de Halloween 2026. Cuando acabe el evento no se podrán conseguir nunca más.','new','#9a6bff'],['👑','Rey Calabaza 2026','Quien más caramelos junte se lleva un título único.','new','#ffd600'],['🧟','Sustos nuevos','El botón rojo tiene zombis y una calabaza gigante… solo durante Halloween.','new','#7bd64a']]},
  {v:'2026-10-08-g',t:'Arreglos pequeños',items:[['🧭','Guías completas','En Ajustes › Guía ya sale el botón de la Bolsa (antes había un hueco en blanco).','fix','#3f7cff']]},
@@ -12034,6 +12035,32 @@ document.addEventListener('click',e=>{if(e.target.closest('[data-sedeco]'))setTi
 {const _wcHw=wCatalog;wCatalog=function(){_wcHw.apply(this,arguments);try{const i=WHEELS.findIndex(w=>w.id==='hw');if(i<0)return;const b=$(`#mbox [data-wpick="${i}"]`);if(b){b.textContent='🎃 Elegir · Gratis';b.classList.add('mint')}const card=b?b.closest('.wci'):$$('#mbox .wci')[i];if(card)card.classList.add('hwc')}catch(_){}}}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-wpick]');if(!b)return;const w=WHEELS[+b.dataset.wpick];if(!w||w.id!=='hw')return;e.stopImmediatePropagation();e.preventDefault();
   if(wBusy){toast('Espera','La ruleta está girando','var(--coral)','🎡');return}closeModal();sfx('buy');hwWheelGo();toast('Ruleta de Halloween','Elegida gratis','#ff7a00','🎃')},true);
+
+/* ================= RULETAS CON ESTILO PROPIO ================= */
+const WSTY={money:{c:['#14e08a','#0fa864'],rim:'#0b3d26',dot:'#ffd600',hub:'#ffd600',em:'€'},faces:{c:['#9a6bff','#ff5fa8','#c86bff'],rim:'#2a0b4a',dot:'#fff',hub:'#ff5fa8',em:'☺'},
+  risk:{c:['#3a0f18','#561622'],rim:'#000',dot:'#ff3b4f',hub:'#ffd600',em:'!'},xp:{c:['#4a6bff','#7a5cff','#3fa0ff'],rim:'#0f1a4a',dot:'#7fe7ff',hub:'#7fe7ff',em:'XP'},
+  box:{c:['#ff3b6b','#ffcc00'],rim:'#4a0b1a',dot:'#ffd600',hub:'#ff3b6b',em:'?'},mult:{c:['#ff7a00','#ff3b00','#ffb000'],rim:'#3a1000',dot:'#ffd600',hub:'#ff3b00',em:'×'},
+  rich:{c:['#1d1d1d','#c9a227'],rim:'#c9a227',dot:'#fff3c0',hub:'#c9a227',em:'$'},pts:{c:['#cd7f32','#b8c2cc','#ffd600'],rim:'#2a2a33',dot:'#ffd600',hub:'#ffd600',em:'★'},
+  fab:{c:['#ffd600','#2a2a33'],rim:'#111',dot:'#ffd600',hub:'#ffd600',em:'⚙'},hw:{c:null,rim:'#1b0638',dot:'#ff7a00',hub:'#ff7a00',em:'🎃'}};
+const wSty=id=>WSTY[id]||{c:null,rim:'#141a2e',dot:'#fff',hub:'#ffc23d',em:''};
+function wPaint(id,segs){const st=wSty(id);if(!st.c)return segs;return segs.map((s_,i)=>s_.big||s_.k==='lose'&&id!=='risk'?s_:{...s_,col:st.c[i%st.c.length]})}
+{const _wwS=wWeigh;wWeigh=function(id,segs){return _wwS.call(this,id,wPaint(id,segs))}}
+{const _dwS=drawWheel;drawWheel=function(){const r=_dwS.apply(this,arguments);try{const c=$('#wheel');if(!c||!wSegs)return r;const W_=curWheel(),st=wSty(W_.id),g=c.getContext('2d'),n=wSegs.length,R=184;g.clearRect(0,0,400,400);
+  g.fillStyle=st.rim;g.beginPath();g.arc(200,200,199,0,7);g.fill();g.strokeStyle='#000';g.lineWidth=3;g.stroke();
+  wSegs.forEach((p,i)=>{const seg=Math.PI*2/n,a0=i*seg-Math.PI/2;g.beginPath();g.moveTo(200,200);g.arc(200,200,R,a0,a0+seg);g.closePath();g.fillStyle=p.col;g.fill();
+    const mid=a0+seg/2,flip=Math.cos(mid)<-0.01;g.save();g.translate(200,200);g.rotate(flip?mid+Math.PI:mid);g.fillStyle=p.k==='lose'?'#ff8a96':wTxtCol(p.col);
+    let fs=Math.max(14,Math.min(p.emo?38:30,Math.round(seg*R*.55)));const ff=()=>{g.font=fs+'px '+(p.emo?'sans-serif':'"Anton",sans-serif')};ff();while(fs>11&&g.measureText(p.lab).width>R-80){fs--;ff()}
+    g.textAlign=flip?'left':'right';g.textBaseline='middle';g.fillText(p.lab,flip?-(R-16):R-16,0);g.restore()});
+  for(let i=0;i<n;i++){const a=i*Math.PI*2/n-Math.PI/2;g.strokeStyle='rgba(0,0,0,.55)';g.lineWidth=3;g.beginPath();g.moveTo(200,200);g.lineTo(200+Math.cos(a)*R,200+Math.sin(a)*R);g.stroke();
+    g.fillStyle=st.dot;g.beginPath();g.arc(200+Math.cos(a)*(R+8),200+Math.sin(a)*(R+8),5,0,7);g.fill()}
+  g.fillStyle='#111';g.beginPath();g.arc(200,200,38,0,7);g.fill();g.fillStyle=st.hub;g.beginPath();g.arc(200,200,30,0,7);g.fill();
+  if(st.em){g.fillStyle=wTxtCol(st.hub);g.font=(st.em.length>1&&!/\p{Emoji_Presentation}/u.test(st.em)?'24':'30')+'px "Anton",sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText(st.em,200,202)}}catch(_){}return r}}
+/* miniaturas del catálogo: sin letras, colores y centro de cada ruleta */
+wMini=function(w){let sg=[];try{sg=wPaint(w.id,w.segs())}catch(e){}if(!sg.length)return'';const st=wSty(w.id),n=sg.length,R=44,P=Math.PI*2/n;let h='';
+  sg.forEach((x,i)=>{const a0=-Math.PI/2+i*P-P/2,a1=a0+P,lg=P>Math.PI?1:0;h+=`<path d="M0 0L${(R*Math.cos(a0)).toFixed(2)} ${(R*Math.sin(a0)).toFixed(2)}A${R} ${R} 0 ${lg} 1 ${(R*Math.cos(a1)).toFixed(2)} ${(R*Math.sin(a1)).toFixed(2)}Z" fill="${x.col}" stroke="rgba(0,0,0,.5)" stroke-width="1"/>`;
+    h+=`<circle cx="${(48*Math.cos(a0)).toFixed(2)}" cy="${(48*Math.sin(a0)).toFixed(2)}" r="1.8" fill="${st.dot}"/>`});
+  return`<svg class="wmini" viewBox="-54 -58 108 112" aria-hidden="true"><circle r="52" fill="${st.rim}" stroke="#000" stroke-width="2"/>${h}<circle r="15" fill="#111"/><circle r="12" fill="${st.hub}"/>${st.em?`<text y="1" font-size="${st.em.length>1&&!/\p{Emoji_Presentation}/u.test(st.em)?11:14}" font-weight="900" font-family="Anton,sans-serif" text-anchor="middle" dominant-baseline="middle" fill="${wTxtCol(st.hub)}">${esc(st.em)}</text>`:''}<path d="M-7 -57L7 -57L0 -45Z" fill="#fff" stroke="#111" stroke-width="1.5"/></svg>`};
+try{drawWheel()}catch(_){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
