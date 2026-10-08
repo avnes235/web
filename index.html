@@ -5713,6 +5713,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-08-e',t:'Palabra secreta',items:[['🔐','Protege tu cuenta','Pon una palabra secreta en Ajustes › Cuenta. Si pierdes el código de recuperación, con ella demuestras que la cuenta es tuya. Solo la sabes tú: no sale en ningún sitio.','new','#14e08a'],['🛡️','Recuperar es más seguro','Ya no vale con decir tu nivel o tu dinero, porque eso lo ve cualquiera en la clasificación.','fix','#3f7cff']]},
  {v:'2026-10-08-d',t:'Botón rojo: modo locura',items:[['🕳️','15 sorpresas nuevas','Agujero negro que se traga la pantalla, meteorito, pantalla rota, OVNI, Matrix, tsunami, fuegos artificiales, apagón de miedo, tornado, gravedad rota, mega tragaperras, hiperespacio, atraco, tormenta y dado gigante.','new','#ff3b4f'],['🗑️','Fuera las aburridas','Adiós al modo Comic Sans, blanco y negro, pato inspector y compañía.','fix','#9aa3b5'],['🔀','Sin repetir','No vuelve a salir ninguna hasta que hayas visto todas. Las nuevas salen primero.','new','#ffd600']]},
  {v:'2026-10-08-c',t:'Chats más claros',items:[['👥','Solo amigos con cuenta','En los chats ya no salen invitados ni «Jugador»: salen tus amigos con cuenta, con su nombre de verdad.','fix','#3f7cff'],['🖼️','Con su foto','Si tu amigo tiene foto de perfil, la verás en el chat en lugar de la carita.','new','#ffd600']]},
  {v:'2026-10-08-b',t:'Chats con tus amigos',items:[['💬','Chats','Pulsa 💬 arriba y habla con tus amigos. Te sale un aviso y un número rojo cuando te escriben.','new','#3f7cff'],['🗑️','Borra mensajes','Toca un mensaje tuyo para borrarlo (se borra para los dos). También puedes vaciar el chat o bloquear a alguien.','new','#ff3b4f']]},
@@ -11244,7 +11245,7 @@ function lostHelp(){$('#modal').hidden=false;const mb=$('#mbox');mb.classList.re
     <button type="button" class="lostb" data-lost="g"><span class="emo">🔵</span><b>Entrar con Google</b><small>Si vinculaste tu Google a la cuenta, entra con él y ya está.</small></button>
     <button type="button" class="lostb" data-lost="pw"><span class="emo">🔑</span><b>Contraseña guardada en el navegador</b><small>Toca el campo de la contraseña: tu móvil u ordenador te puede sugerir la que guardaste.</small></button>
     <button type="button" class="lostb" data-lost="code"><span class="emo">🧾</span><b>Tengo el código de recuperación</b><small>El de Ajustes › Cuenta. El jefe comprueba que es tuyo y te pasa tu partida.</small></button>
-    <button type="button" class="lostb" data-lost="nocode"><span class="emo">🕵️</span><b>No tengo el código</b><small>Responde unas preguntas sobre tu cuenta. El jefe las compara con tu partida y, si cuadran, te la devuelve.</small></button>
+    <button type="button" class="lostb" data-lost="nocode"><span class="emo">🕵️</span><b>No tengo el código</b><small>Escribe tu palabra secreta (la de Ajustes › Cuenta). El jefe comprueba que coincide sin verla y te devuelve la partida.</small></button>
    </div><button type="button" class="linkb" id="lostX">Cerrar</button>`;$('#lostX').onclick=closeModal}
 document.addEventListener('click',e=>{if(e.target.closest('#aLost')){e.preventDefault();lostHelp();return}const b=e.target.closest('[data-lost]');if(!b)return;const k=b.dataset.lost;sfx('click');
   if(k==='g'){closeModal();googleSignIn();return}if(k==='pw'){openAccount('login');setTimeout(()=>{const p=$('#aPass');if(p)p.focus()},200);return}
@@ -11261,7 +11262,7 @@ document.addEventListener('click',e=>{if(e.target.closest('#aLost')){e.preventDe
    <select class="inp nkq" id="nkH"><option value="">¿Cómo entrabas?</option><option>Con Google</option><option>Con usuario y contraseña</option><option>Como invitado</option></select></div>`);
   const sync=()=>{const on=$('#bzNoKey').checked;BZ.nokey=on;$('#bzNkQ').hidden=!on;k.style.display=on?'none':'';const lb=document.querySelector('label[for="bzKey"]');if(lb)lb.style.display=on?'none':'';const sm=k.nextElementSibling;if(sm&&sm.tagName==='SMALL')sm.style.display=on?'none':''};
   $('#bzNoKey').onchange=sync;sync()}}catch(e){}return r}}
-window.addEventListener('click',async e=>{const b=e.target.closest('#bzGo');if(!b||BZ.type!=='rec')return;const nk=$('#bzNoKey');if(!nk||!nk.checked)return;e.stopImmediatePropagation();e.preventDefault();
+window.addEventListener('click',async e=>{const b=e.target.closest('#bzGo');if(!b||BZ.type!=='rec')return;const nk=$('#bzNoKey');if(!nk||!nk.checked||$('#nkS'))return;e.stopImmediatePropagation();e.preventDefault();
   if(!NET.ok||!NET.db){toast('Sin conexión','','var(--coral)','📡');return}if(!S.name){openProfile(true);return}
   const old=($('#bzOld').value||'').trim().toUpperCase().replace(/\s+/g,'');if(old.length<2){toast('Falta tu nombre antiguo','Pon el nombre que tenías (con el #código si lo sabes)','var(--coral)','⚠️');$('#bzOld').focus();return}
   const v=id=>(($('#'+id)||{}).value||'').trim();const ans=[['Usuario',v('nkU')],['Nivel',v('nkL')],['Dinero',v('nkM')],['Amigos',v('nkF')],['Última vez',v('nkT')],['Entraba',v('nkH')]].filter(x=>x[1]);
@@ -11522,6 +11523,67 @@ function rbDice(){const d=rbLayer('rb-dice',6000),n=ri(1,6),PIP={1:[5],2:[1,9],3
   nextPrank=function(){let d=Array.isArray(S.prankDeck)?S.prankDeck.filter(i=>i<PRANKS.length):[];
     if(!d.length){d=mix(PRANKS.map((_,i)=>i));if(d[0]===S.lastPrank)d.push(d.shift())}const i=d.shift();S.prankDeck=d;S.lastPrank=i;return i};
   try{renderForbid()}catch(e){}})();
+
+/* ================= PALABRA SECRETA (recuperar sin código, sin datos públicos) ================= */
+const secNorm=w=>String(w||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' ').trim();
+async function secHash(w){w=secNorm(w);if(w.length<4)return'';try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('casinetori-sec:'+w));return[...new Uint8Array(b)].slice(0,16).map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return''}}
+function secModal(){$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('wide','notes');mb.onclick=null;const had=!!S.sech;
+  mb.innerHTML=`<h2 style="font-size:28px">🔐 ${had?'Cambiar':'Poner'} palabra secreta</h2>
+   <p class="muted" style="font-weight:700">Si pierdes tu cuenta y no tienes el código de recuperación, el jefe te pedirá esta palabra. <b>Solo la sabes tú</b>: no sale en la clasificación ni en ningún sitio.</p>
+   <input class="inp" id="secW" type="password" maxlength="40" placeholder="Palabra o frase secreta (mín. 4 letras)" autocomplete="off">
+   <input class="inp" id="secW2" type="password" maxlength="40" placeholder="Repítela" autocomplete="off" style="margin-top:8px">
+   <label class="nkchk" style="margin-top:8px"><input type="checkbox" id="secSee"> Ver lo que escribo</label>
+   <p class="muted" style="font-weight:700;font-size:13px">💡 Que sea fácil de recordar para ti y difícil de adivinar para tus amigos. No pongas tu contraseña ni tu nombre. Da igual mayúsculas y tildes.</p>
+   <button class="btn" id="secOk" style="width:100%">Guardar</button><button class="linkb" id="secX">Ahora no</button>`;
+  $('#secSee').onchange=e=>{$('#secW').type=$('#secW2').type=e.target.checked?'text':'password'};$('#secX').onclick=closeModal;
+  $('#secOk').onclick=async()=>{const a=$('#secW').value,b=$('#secW2').value;if(secNorm(a).length<4){toast('Muy corta','Pon al menos 4 letras','var(--coral)','⚠️');return}
+    if(secNorm(a)!==secNorm(b)){toast('No coinciden','Escribe la misma palabra las dos veces','var(--coral)','⚠️');return}
+    if(S.name&&secNorm(a)===secNorm(S.name)){toast('Eso es tu nombre','Cualquiera lo vería. Elige otra','var(--coral)','⚠️');return}
+    const h=await secHash(a);if(!h){toast('No se ha podido guardar','Prueba otra vez','var(--coral)','⚠️');return}
+    S.sech=h;S.secAt=Date.now();save();try{cloudSave(true)}catch(e){}closeModal();sfx('buy');toast('Palabra secreta guardada','No se la digas a nadie','var(--mint)','🔐');try{if(view==='ajustes')renderAjustes()}catch(e){}}}
+/* Ajustes › Cuenta: fila de la palabra secreta */
+{const _raSec=renderAjustes;renderAjustes=function(){const r=_raSec.apply(this,arguments);try{const bz=$('#cfBz');const row=bz&&bz.closest('.crow');if(row&&!$('#cfSec'))row.insertAdjacentHTML('beforebegin',
+  `<div class="crow"><span class="cl"><b>Palabra secreta ${S.sech?'✅':'⚠️'}</b><small>${S.sech?'Puesta. Sirve para recuperar tu cuenta si pierdes el código.':'No la tienes. Ponla: sin ella, si pierdes el código es muy difícil demostrar que la cuenta es tuya.'}</small></span><button class="btn ${S.sech?'alt':'mint'} sm" id="cfSec">${S.sech?'Cambiar':'Poner'}</button></div>`)}catch(e){}return r}}
+document.addEventListener('click',e=>{if(e.target.closest('#cfSec')){sfx('click');secModal()}});
+/* aviso una vez (y otra a los 3 días) a quien no la tiene */
+setInterval(()=>{try{if(S.sech||!S.name||!$('#modal').hidden||(S.lvl||1)<3)return;const n=S.secAsk||0;if(n>=2||Date.now()-(S.secAskT||0)<3*864e5)return;if(Date.now()-(window._secT0||(window._secT0=Date.now()))<4*60e3)return;
+  S.secAsk=n+1;S.secAskT=Date.now();save();secModal()}catch(e){}},20000);
+
+/* el formulario «No tengo el código»: ya no pide datos que se ven en la clasificación */
+{const _rbSec=renderBuzon;renderBuzon=function(){const r=_rbSec.apply(this,arguments);try{const q=$('#bzNkQ');if(q&&!q.dataset.sec){q.dataset.sec=1;
+  q.innerHTML=`<p class="muted" style="font-weight:700;margin:4px 0 8px">Escribe tu <b>palabra secreta</b> (la de Ajustes › Cuenta). El jefe comprueba que coincide sin verla. El nivel, el dinero o los amigos no sirven: eso lo puede ver cualquiera.</p>
+   <input class="inp nkq" id="nkS" type="password" maxlength="40" placeholder="Tu palabra secreta" autocomplete="off">
+   <select class="inp nkq" id="nkH"><option value="">¿Cómo entrabas?</option><option>Con Google</option><option>Con usuario y contraseña</option><option>Como invitado</option></select>
+   <small class="muted" style="font-weight:700;display:block;margin-top:6px">¿Nunca pusiste palabra secreta? Envíalo igual explicando abajo quién eres: el jefe solo te la devolverá si está seguro de que eres tú.</small>`}}catch(e){}return r}}
+window.addEventListener('click',async e=>{const b=e.target.closest('#bzGo');if(!b||BZ.type!=='rec')return;const nk=$('#bzNoKey');if(!nk||!nk.checked||!$('#nkS'))return;e.stopImmediatePropagation();e.preventDefault();
+  if(!NET.ok||!NET.db){toast('Sin conexión','','var(--coral)','📡');return}if(!S.name){openProfile(true);return}
+  const old=($('#bzOld').value||'').trim().toUpperCase().replace(/\s+/g,'');if(old.length<2){toast('Falta tu nombre antiguo','Pon el nombre que tenías (con el #código si lo sabes)','var(--coral)','⚠️');$('#bzOld').focus();return}
+  const w=$('#nkS').value,how=$('#nkH').value,extra=($('#bzTxt').value||'').trim();
+  if(!secNorm(w)&&extra.length<10){toast('Falta la palabra secreta','Si no la pusiste nunca, explica abajo quién eres','var(--coral)','⚠️');return}
+  if(Date.now()-BZ.last<20000){toast('Espera un poco','','var(--coral)','⏳');return}
+  const h=secNorm(w)?await secHash(w):'';const text=('SIN CÓDIGO · '+(h?'Palabra secreta: puesta (oculta)':'Sin palabra secreta')+(how?' · Entraba: '+how:'')+(extra?' · '+extra:'')).slice(0,340)+(h?'\n#sk:'+h:'')+'\n#sinclave';
+  b.disabled=true;b.textContent='Enviando…';
+  try{await NET.db.collection('inbox').add({from:NET.id,name:String(S.name||'').slice(0,24),code:String(S.code||''),type:'rec',text,old:old.slice(0,30),st:'pend',t:Date.now()});BZ.last=Date.now();sfx('buy');
+    toast('Enviado al jefe','Comprobará tu palabra secreta. La respuesta te sale aquí, en Mis mensajes','var(--mint)','📮');$('#bzTxt').value='';$('#bzOld').value='';document.querySelectorAll('.nkq').forEach(i=>i.value='')}
+  catch(err){toast('No se ha podido enviar','Prueba otra vez','var(--coral)','⚠️')}b.disabled=false;b.textContent='Enviar al jefe'},true);
+
+/* para el jefe: compara la huella con la palabra guardada en la partida PRIVADA de esa cuenta */
+const SKP={};
+async function secPriv(id){if(SKP[id]!==undefined)return;SKP[id]=null;try{const sn=await NET.db.collection('data/users/'+id).doc('save').get();const c=sn.exists?JSON.parse((sn.data()||{}).json||'null'):null;SKP[id]=(c&&c.sech)||''}catch(e){SKP[id]='err'}try{renderAdmInbox()}catch(e){}}
+{const _rcSec=recCheck;recCheck=function(m){const tx=String(m.text||'');if(!/#sinclave$/.test(tx))return _rcSec.apply(this,arguments);
+  const code=String(m.old||'').toUpperCase();let ent=[...NET.players.entries()].find(([id,d])=>String(d.code||'').toUpperCase()===code);
+  if(!ent){const k=nmKey(code.split('#')[0]);ent=[...NET.players.entries()].find(([id,d])=>id!==m.from&&nmKey(d.name)===k)}
+  if(!ent)return{st:'none',t:'Sin código, y no encuentro esa cuenta por el nombre. Pídele el nombre exacto.'};const id=ent[0],d=ent[1];
+  const fails=[...BZ.all.values()].filter(x=>x!==m&&x.type==='rec'&&/#sinclave$/.test(String(x.text||''))&&String(x.old||'').toUpperCase()===code&&x.from===m.from&&x.st==='no').length;
+  const who=(d.name||'?')+' '+(d.code||'');const mk=tx.match(/#sk:([0-9a-f]{32})/);
+  if(SKP[id]===undefined){secPriv(id);return{st:'wait',t:'Comprobando la palabra secreta…'}}if(SKP[id]===null)return{st:'wait',t:'Comprobando la palabra secreta…'};
+  if(SKP[id]==='err')return{st:'old',t:'No he podido leer la partida de '+who+'. Revisa las reglas de Firebase.'};
+  if(!SKP[id])return{st:'old',t:'⚠️ '+who+' nunca puso palabra secreta. El nivel, el dinero y los amigos los ve cualquiera en la clasificación: apruébalo SOLO si sabes seguro que es él (por ejemplo, le conoces en persona). Si dudas, rechaza.'};
+  if(!mk)return{st:'no',t:'❌ No ha puesto la palabra secreta, y '+who+' sí tiene una. No es suficiente.'};
+  if(mk[1]===SKP[id])return{st:'ok',t:'✅ Palabra secreta CORRECTA: la cuenta '+who+' es suya.'};
+  return{st:'no',t:'❌ Palabra secreta INCORRECTA para '+who+(fails?' · ya van '+(fails+1)+' intentos fallidos: sospechoso':'')+'.'}}}
+try{if(!FAQ.some(q=>/pierdo el código/.test(q[0])))FAQ.unshift(['¿Y si pierdo el código de recuperación?','Pon una <b>palabra secreta</b> en Ajustes › Cuenta. Si pierdes el código, ve al Buzón, marca «No tengo el código» y escríbela: el jefe comprueba que coincide sin verla. El nivel, el dinero o los amigos no sirven, porque los ve cualquiera en la clasificación.']);
+  if(typeof GU_T!=='undefined'&&GU_T.ajustes&&!GU_T.ajustes.some(x=>x[1]==='Palabra secreta'))GU_T.ajustes.splice(2,0,['#cfSec','Palabra secreta','Ponla por si pierdes el código de recuperación. Solo la sabes tú y no sale en ningún sitio.'])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
