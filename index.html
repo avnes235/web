@@ -2058,7 +2058,7 @@ body.admmod #admGlobal,body.admmod #admInbox,body.admmod #admMgr{display:none!im
 .chh{display:flex;align-items:center;gap:10px;padding:14px 14px;border-bottom:2px solid #2a2a33;background:#1b1b22}.chh b{font-size:19px;font-weight:900;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chh .av{font-size:26px}
 .chx,.chback,.chmenu{background:#26262e;border:2px solid #333;color:#fff;border-radius:10px;min-width:38px;height:38px;font:900 18px Archivo,system-ui,sans-serif;cursor:pointer}
 .chhint{margin:10px 14px 0;font-weight:700;font-size:13px;opacity:.8}.chl{overflow:auto;padding:10px;display:flex;flex-direction:column;gap:6px}
-.chi{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:#1f1f26;border:2px solid #2a2a33;color:inherit;font:inherit;text-align:left;cursor:pointer}.chi:hover{border-color:#ffd600}.chi .av{font-size:28px}.chi .cm{flex:1;min-width:0;display:flex;flex-direction:column}.chi .cm b{font-weight:900}.chi .cm small{opacity:.75;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chi.un{border-color:#3f7cff}.chi.un small{opacity:1;color:#cfe0ff}.cun{color:#3f7cff;font-size:18px}.ct{opacity:.6;font-weight:700;font-size:11px}
+.chi{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:#1f1f26;border:2px solid #2a2a33;color:inherit;font:inherit;text-align:left;cursor:pointer}.chi:hover{border-color:#ffd600}.chi .av{font-size:28px}.chi .av,.chh .av{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:50%;overflow:hidden}.chi .cm{flex:1;min-width:0;display:flex;flex-direction:column}.chi .cm b{font-weight:900}.chi .cm small{opacity:.75;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chi.un{border-color:#3f7cff}.chi.un small{opacity:1;color:#cfe0ff}.cun{color:#3f7cff;font-size:18px}.ct{opacity:.6;font-weight:700;font-size:11px}
 .chempty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:30px 18px;font-weight:700}.chempty .emo{font-size:46px}.chempty b{font-size:18px}
 .chm{flex:1;overflow:auto;padding:14px 12px;display:flex;flex-direction:column;gap:6px}.chload{opacity:.7;text-align:center;font-weight:700;margin:auto}
 .cmsg{align-self:flex-start;max-width:80%;background:#26262e;border:2px solid #333;border-radius:16px 16px 16px 4px;padding:8px 12px;font-weight:600;display:flex;flex-direction:column;gap:2px;word-wrap:break-word;overflow-wrap:anywhere}
@@ -5610,6 +5610,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-08-c',t:'Chats más claros',items:[['👥','Solo amigos con cuenta','En los chats ya no salen invitados ni «Jugador»: salen tus amigos con cuenta, con su nombre de verdad.','fix','#3f7cff'],['🖼️','Con su foto','Si tu amigo tiene foto de perfil, la verás en el chat en lugar de la carita.','new','#ffd600']]},
  {v:'2026-10-08-b',t:'Chats con tus amigos',items:[['💬','Chats','Pulsa 💬 arriba y habla con tus amigos. Te sale un aviso y un número rojo cuando te escriben.','new','#3f7cff'],['🗑️','Borra mensajes','Toca un mensaje tuyo para borrarlo (se borra para los dos). También puedes vaciar el chat o bloquear a alguien.','new','#ff3b4f']]},
  {v:'2026-10-08-a',t:'Cuentas más seguras',items:[['🏷️','Nombres únicos','Ya no puede haber dos jugadores con el mismo nombre, ni invitados ni con cuenta. Si está cogido, te avisa para que elijas otro.','new','#ffd600'],['🔑','Guarda tu contraseña','Al crear la cuenta con usuario y contraseña, tu navegador te ofrece guardarla para no olvidarla.','new','#3f7cff'],['🛟','Más formas de recuperar tu cuenta','Vincula tu Google a tu cuenta, usa la contraseña guardada, el código de recuperación o, si no lo tienes, responde unas preguntas y el jefe comprueba que la cuenta es tuya.','new','#14e08a']]},
  {v:'2026-10-07-z',t:'Invitar, siempre a mano',items:[['🎁','Invita a tus colegas','La tarjeta para invitar amigos y cobrar sale ahora en todas las pestañas de Inicio y ya no desaparece al entrar.','fix','#ffd600']]},
@@ -11179,8 +11180,14 @@ window.addEventListener('click',async e=>{const b=e.target.closest('#bzGo');if(!
 const CH={list:new Map(),open:null,msgs:[],unsubL:null,unsubM:null,started:false,last:0,sel:null};
 const chId=(a,b)=>[a,b].sort().join('_');
 const chOther=cid=>String(cid).split('_').find(x=>x!==NET.id);
-function chName(id){const p=NET.players.get(id);return p?(p.name||'Jugador'):'Jugador'}
-function chAv(id){const p=NET.players.get(id);return p?(p.av||'😎'):'😎'}
+CH.pc=new Map();CH.pcT=new Map();
+function chP(id){return NET.players.get(id)||CH.pc.get(id)||null}
+function chOk(id){const p=chP(id);return !!(p&&(p.acc==='g'||p.acc==='u')&&p.name)}
+function chName(id){const p=chP(id);return p?(p.name||'Jugador'):'Jugador'}
+function chAv(id){const p=chP(id);return p?(p.av||'😎'):'😎'}
+function chAvH(id){return avH(chP(id)||{},'😎')}
+function chFetch(ids){if(!NET.db)return;const now=Date.now(),need=ids.filter(id=>id&&!NET.players.has(id)&&now-(CH.pcT.get(id)||0)>180000).slice(0,40);if(!need.length)return;
+  need.forEach(id=>CH.pcT.set(id,now));Promise.all(need.map(id=>NET.db.collection('players').doc(id).get().then(d=>{if(d.exists)CH.pc.set(id,normP(d.data()||{}));else CH.pc.delete(id)}).catch(()=>{}))).then(()=>{if(CH.sel==='list')chRender()})}
 function chCan(){return NET.ok&&NET.db&&NET.id&&!NET.isAnon}
 function chBlocked(id){return (S.chBlock||[]).includes(id)}
 function chUnread(){let n=0;for(const [cid,c] of CH.list){const o=chOther(cid);if(c.lf&&c.lf!==NET.id&&!chBlocked(o)&&(+c.lt||0)>(+((S.chSeen||{})[cid])||0))n++}return n}
@@ -11191,7 +11198,8 @@ function chStart(){if(CH.started||!chCan())return;CH.started=true;
       if(nw&&!chBlocked(chOther(nw[0]))){sfx('coin');toast('💬 '+esc(chName(chOther(nw[0]))),esc(String(nw[1].last||'').slice(0,60)),'var(--sky)','💬');const t=document.querySelector('#toasts .toast:last-child');if(t){t.style.cursor='pointer';t.onclick=()=>chOpen(chOther(nw[0]))}}}
     chDot();if(CH.sel==='list')chRender()},()=>{CH.started=false})}
 setInterval(()=>{try{if(chCan())chStart();chDot()}catch(e){}},5000);
-function chFriends(){const ids=new Set([...(S.friends||[])]);for(const cid of CH.list.keys())ids.add(chOther(cid));return [...ids].filter(Boolean)}
+function chAllF(){const ids=new Set([...(S.friends||[])]);for(const cid of CH.list.keys())ids.add(chOther(cid));return [...ids].filter(Boolean)}
+function chFriends(){const all=chAllF();chFetch(all);return all.filter(chOk)}
 function chWin(){let w=$('#chatWin');if(!w){w=document.createElement('div');w.id='chatWin';w.hidden=true;document.body.appendChild(w)}return w}
 function chClose(){const w=chWin();w.hidden=true;if(CH.unsubM){CH.unsubM();CH.unsubM=null}CH.open=null;CH.sel=null}
 function chList(){const w=chWin();w.hidden=false;CH.sel='list';if(CH.unsubM){CH.unsubM();CH.unsubM=null}CH.open=null;chRender()}
@@ -11201,11 +11209,11 @@ function chRender(){const w=chWin();if(CH.sel!=='list')return;
   w.innerHTML=`<div class="chbox"><div class="chh"><b>💬 Chats</b><button class="chx" data-chx>✕</button></div>
    <p class="chhint">Solo puedes chatear con tus <b>amigos</b>. Añade amigos en Clasificación › Amigos con su código.</p>
    <div class="chl">${fr.length?fr.map(({id,c})=>{const un=c.lf&&c.lf!==NET.id&&(+c.lt||0)>(+((S.chSeen||{})[chId(NET.id,id)])||0);
-     return`<button class="chi ${un?'un':''}" data-chopen="${esc(id)}"><span class="av emo">${esc(chAv(id))}</span><span class="cm"><b>${esc(chName(id))}</b><small>${c.last?(c.lf===NET.id?'Tú: ':'')+esc(String(c.last).slice(0,48)):'Escríbele algo'}</small></span>${un?'<span class="cun">●</span>':c.lt?`<small class="ct">${ago(c.lt)}</small>`:''}</button>`}).join(''):'<div class="chempty"><span class="emo">🤝</span><b>Todavía no tienes amigos</b><span>Pídele el código a tu colega y añádelo en Clasificación › Amigos. Cuando acepte, podréis chatear.</span><button class="btn" data-chfr>Añadir amigos</button></div>'}</div></div>`}
+     return`<button class="chi ${un?'un':''}" data-chopen="${esc(id)}"><span class="av emo">${chAvH(id)}</span><span class="cm"><b>${esc(chName(id))}</b><small>${c.last?(c.lf===NET.id?'Tú: ':'')+esc(String(c.last).slice(0,48)):'Escríbele algo'}</small></span>${un?'<span class="cun">●</span>':c.lt?`<small class="ct">${ago(c.lt)}</small>`:''}</button>`}).join(''):'<div class="chempty"><span class="emo">🤝</span><b>Todavía no tienes amigos</b><span>Pídele el código a tu colega y añádelo en Clasificación › Amigos. Cuando acepte, podréis chatear.</span><button class="btn" data-chfr>Añadir amigos</button></div>'}</div>${chAllF().length>fr.length?'<p class="chhint">Los invitados no salen aquí: para chatear tu amigo tiene que tener cuenta (Google o usuario y contraseña). Si acaba de crearla, saldrá cuando vuelva a entrar.</p>':''}</div>`}
 function chOpen(id){if(!id)return;const w=chWin();w.hidden=false;if(!chCan()){CH.sel='list';chRender();return}
   if(!(S.friends||[]).includes(id)&&!CH.list.has(chId(NET.id,id))){toast('Solo con amigos','Primero tenéis que ser amigos','var(--coral)','🤝');return}
   CH.sel='conv';CH.open=id;CH.msgs=[];const cid=chId(NET.id,id);if(CH.unsubM)CH.unsubM();
-  w.innerHTML=`<div class="chbox"><div class="chh"><button class="chback" data-chback>‹</button><span class="av emo">${esc(chAv(id))}</span><b class="cn">${esc(chName(id))}</b><button class="chmenu" data-chmenu>⋯</button><button class="chx" data-chx>✕</button></div>
+  w.innerHTML=`<div class="chbox"><div class="chh"><button class="chback" data-chback>‹</button><span class="av emo">${chAvH(id)}</span><b class="cn">${esc(chName(id))}</b><button class="chmenu" data-chmenu>⋯</button><button class="chx" data-chx>✕</button></div>
    <div class="chmm" id="chMenu" hidden><button data-chclear>🧹 Vaciar chat (solo para ti)</button><button data-chblock>🚫 Bloquear a ${esc(chName(id))}</button><button data-chprof>👤 Ver su perfil</button></div>
    <div class="chm" id="chMsgs"><div class="chload">Cargando…</div></div>
    <div class="chin"><input class="inp" id="chTxt" maxlength="300" placeholder="Escribe un mensaje…" autocomplete="off" enterkeyhint="send"><button class="btn" id="chSend">Enviar</button></div>
