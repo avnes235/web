@@ -2310,6 +2310,13 @@ h1,h2,h3,h4,.btn,button,b,strong,small,p,span,td,th,label{overflow-wrap:break-wo
 .hwspi span{display:block;width:34px;height:28px;position:absolute;bottom:-24px;left:-16px;animation:spw 1.4s ease-in-out infinite}
 .hwpump{width:74px;height:74px;font-size:0}.hwpump em{position:absolute;right:-4px;bottom:2px;transform:rotate(8deg);font:900 13px/1 var(--f-b);font-style:normal;padding:4px 7px;border-radius:99px;background:#14e08a;color:#0b1a12;border:2px solid #0b1a12;box-shadow:0 2px 0 #0b1a12}
 .hwpump{filter:drop-shadow(0 0 14px #ff9a2a) drop-shadow(0 6px 10px #000a)}.hwpump.gold{filter:drop-shadow(0 0 18px #ffd600) drop-shadow(0 0 4px #fff) saturate(1.4) hue-rotate(15deg)}
+/* catálogo de ruletas: sin apelotonar */
+#mbox .wcat{grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr))!important;gap:12px!important}
+#mbox .wci.wci2{flex-direction:column!important;align-items:stretch!important;text-align:center;gap:10px!important;padding:14px!important}
+#mbox .wci2 .wmini{width:120px;height:120px;align-self:center}
+#mbox .wci2 .wcb{gap:8px!important}#mbox .wci2 .wcb b{font-size:17px;line-height:1.2}#mbox .wci2 .wcb small{line-height:1.35}
+#mbox .wci2 .wcb .btn{width:100%;white-space:normal;height:auto;min-height:42px;line-height:1.2;margin-top:auto}
+#mbox .wci.hwc{border-color:#ff7a00;background:linear-gradient(160deg,#2a1240,#1d1d22)}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -12021,6 +12028,12 @@ function hwSpider(){if(!seNow()||cfg('seDeco')===false||document.hidden||cfg('li
 hwAmb();setInterval(hwAmb,10000);setInterval(()=>{if(Math.random()<.35)hwBat()},20000);setInterval(()=>{if(Math.random()<.3)hwSpider()},45000);
 document.addEventListener('click',e=>{if(e.target.closest('[data-sedeco]'))setTimeout(hwAmb,50)});
 (function(){if(!seNow())return;const b=$('.brand');if(b&&!b.querySelector('.hwtag'))b.insertAdjacentHTML('beforeend','<span class="hwtag">🎃 Halloween</span>')})();
+
+
+/* ruleta de Halloween: elegirla en el catálogo es gratis */
+{const _wcHw=wCatalog;wCatalog=function(){_wcHw.apply(this,arguments);try{const i=WHEELS.findIndex(w=>w.id==='hw');if(i<0)return;const b=$(`#mbox [data-wpick="${i}"]`);if(b){b.textContent='🎃 Elegir · Gratis';b.classList.add('mint')}const card=b?b.closest('.wci'):$$('#mbox .wci')[i];if(card)card.classList.add('hwc')}catch(_){}}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-wpick]');if(!b)return;const w=WHEELS[+b.dataset.wpick];if(!w||w.id!=='hw')return;e.stopImmediatePropagation();e.preventDefault();
+  if(wBusy){toast('Espera','La ruleta está girando','var(--coral)','🎡');return}closeModal();sfx('buy');hwWheelGo();toast('Ruleta de Halloween','Elegida gratis','#ff7a00','🎃')},true);
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
