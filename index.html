@@ -2067,7 +2067,6 @@ body.admmod #admGlobal,body.admmod #admInbox,body.admmod #admMgr{display:none!im
 .chin{display:flex;gap:8px;padding:10px 12px;border-top:2px solid #2a2a33;background:#1b1b22}.chin .inp{flex:1;min-width:0}.chtip{margin:0;padding:0 12px 10px;font-size:11.5px;opacity:.55;font-weight:700;background:#1b1b22}
 .chmm{display:flex;flex-direction:column;gap:4px;padding:8px 12px;background:#1f1f26;border-bottom:2px solid #2a2a33}.chmm[hidden]{display:none}.chmm button{text-align:left;background:none;border:0;color:inherit;font:800 14px Archivo,system-ui,sans-serif;padding:8px 4px;cursor:pointer}
 @media (max-width:520px){.chbox{border-left:0}.bar #chatBtn{width:38px;height:38px}}
-.nmmine{margin:6px 0 10px;padding:10px 12px;border-radius:12px;background:#141418;border:2px solid #3f7cff;display:flex;flex-direction:column;gap:6px;text-align:left}.nmmine b{font-weight:900}.nmmine span{font-weight:700;font-size:13px;opacity:.9}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -11099,9 +11098,8 @@ const NM_TAKEN='Ese nombre ya lo tiene otro jugador. Prueba con otro (por ejempl
 function nameTakenLocal(n){const k=nmKey(n);for(const [id,p] of NET.players){if(id!==NET.id&&p&&nmKey(p.name)===k)return true}return false}
 async function nameCheck(n){const k=nmKey(n);if(k.length<2)return'Pon al menos 2 letras o números en tu nombre.';if(k===nmKey(S.name)&&S.nameKey===k)return'';
   if(nameTakenLocal(n))return NM_TAKEN;if(!NET.ok||!NET.db||!NET.id)return'';
-  const TO=(pr)=>Promise.race([pr,new Promise((_,rj)=>setTimeout(()=>rj({code:'timeout'}),3000))]);
-  try{const d=await TO(NET.db.collection('names').doc(k).get());if(d.exists&&(d.data()||{}).uid!==NET.id)return NM_TAKEN}catch(e){NET.namesOff=true;return''}
-  try{await TO(NET.db.collection('names').doc(k).set({uid:NET.id,n:String(n).slice(0,14),t:Date.now()}))}catch(e){if(e&&e.code==='timeout')return'';if(!NET.namesOff)return NM_TAKEN}
+  try{const d=await NET.db.collection('names').doc(k).get();if(d.exists&&(d.data()||{}).uid!==NET.id)return NM_TAKEN}catch(e){NET.namesOff=true;return''}
+  try{await NET.db.collection('names').doc(k).set({uid:NET.id,n:String(n).slice(0,14),t:Date.now()})}catch(e){if(!NET.namesOff)return NM_TAKEN}
   return''}
 async function nameRelease(oldK,newK){if(!NET.db||!oldK||oldK===newK)return;try{await NET.db.collection('names').doc(oldK).delete()}catch(e){}}
 /* al cambiar de nombre (bienvenida, perfil o «cambiar nombre»): primero se comprueba que está libre */
@@ -11110,10 +11108,8 @@ function nmGuard(btnSel,inpSel,errFn){window.addEventListener('click',async e=>{
   e.stopImmediatePropagation();e.preventDefault();if(b.dataset.nmbusy)return;b.dataset.nmbusy=1;const old=b.textContent;b.textContent='Comprobando el nombre…';
   const er=await nameCheck(v);delete b.dataset.nmbusy;b.textContent=old;if(er){errFn(er);sfx('lose');inp.focus();return}
   const oldK=S.nameKey;b.dataset.nmok=v;b.click();setTimeout(()=>{delete b.dataset.nmok;if(nmKey(S.name)===nmKey(v)){S.nameKey=nmKey(v);save();nameRelease(oldK,S.nameKey)}},400)},true)}
-function nmErrIsMine(t){const w=$('#pErr');if(!w)return;w.textContent=t;w.hidden=false;if(t===NM_TAKEN&&NET.isAnon&&!$('#nmMine')){w.insertAdjacentHTML('afterend',`<div id="nmMine" class="nmmine"><b>¿Es tu cuenta?</b><span>Entra en ella y tendrás tu partida (no hace falta poner el nombre).</span><div class="abtns"><button type="button" class="btn sm" data-nmg>🔵 Entrar con Google</button><button type="button" class="btn sm alt" data-nmu>Usuario y contraseña</button></div></div>`)}}
-nmGuard('#pSave','#pName',nmErrIsMine);
-nmGuard('#faSkip','#pName',nmErrIsMine);
-document.addEventListener('click',e=>{if(e.target.closest('[data-nmg]')){e.preventDefault();googleSignIn(e.target.closest('[data-nmg]'));return}if(e.target.closest('[data-nmu]')){e.preventDefault();openAccount('login')}});
+nmGuard('#pSave','#pName',t=>{const w=$('#pErr');if(w){w.textContent=t;w.hidden=false}});
+nmGuard('#faSkip','#pName',t=>{const w=$('#pErr');if(w){w.textContent=t;w.hidden=false}});
 nmGuard('#pfNameBtn','#pfName',t=>{const m=$('#pfNameMsg');if(m)m.textContent=t});
 /* los que ya tienen nombre lo reservan (el primero que lo tenía se lo queda) */
 setTimeout(async function nmBackfill(){try{if(!NET.ok||!NET.db||!S.name){setTimeout(nmBackfill,15000);return}const k=nmKey(S.name);if(S.nameKey===k||k.length<2)return;
