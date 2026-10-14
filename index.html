@@ -2386,6 +2386,8 @@ h1,h2,h3,h4,.btn,button,b,strong,small,p,span,td,th,label{overflow-wrap:break-wo
 #ageGate{grid-template-columns:minmax(0,1fr)}#ageGate .agb{box-sizing:border-box;max-width:calc(100vw - 32px);justify-self:center;min-width:0}#ageGate h2{overflow-wrap:anywhere}@media(max-width:480px){#ageGate h2{font-size:24px}#ageGate p{font-size:14px}}#ageGate small{font:700 12.5px/1.4 var(--f-b);color:var(--muted)}
 html[data-u18] .nb[data-v=casino],html[data-u18] .nb[data-v=trading],html[data-u18] .nb[data-v=online]{display:none!important}
 .rksearch{display:flex;margin:4px 0 10px;max-width:420px}.rksearch input{flex:1}
+.adm-new{margin:12px 0}.adm-new .ach2{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.adm-new h3{margin:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.newpl{display:flex;flex-direction:column;gap:6px;margin-top:10px;max-height:420px;overflow:auto}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -12432,6 +12434,27 @@ function gvNet(){const st_=S.st||{};return Math.max(0,Math.floor((+st_.gifted||0
 {const _raDv=renderAdmin;renderAdmin=function(){const r=_raDv.apply(this,arguments);try{const by={};NET.players.forEach((p,id)=>{if(p&&p.dv){(by[p.dv]=by[p.dv]||[]).push(id)}});
   document.querySelectorAll('#admList .arow[data-sel]').forEach(row=>{const p=NET.players.get(row.dataset.sel);const g=p&&p.dv?by[p.dv]:null;const b=row.querySelector('b');if(!b||b.querySelector('.dvtag'))return;
     if(g&&g.length>1)b.insertAdjacentHTML('beforeend',`<span class="tag dvtag" style="background:#9a6bff;color:#fff" title="${g.length} cuentas desde el mismo navegador">👥 ${g.length} en mismo dispositivo</span>`)})}catch(e){}return r}}
+
+/* ================= JEFE: NUEVOS JUGADORES (últimas 24 h) ================= */
+const NEWP={list:null,t:0,busy:false,open:true};
+async function newpLoad(){if(NEWP.busy||!NET.db)return;NEWP.busy=true;newpDraw();
+  try{const sn=await NET.db.collection('players').where('since','>',Date.now()-864e5).get();NEWP.list=sn.docs.filter(d=>d.exists).map(d=>({id:d.id,...(d.data()||{})}));NEWP.err=''}catch(e){NEWP.err=String(e&&e.code||e)}
+  NEWP.t=Date.now();NEWP.busy=false;newpDraw()}
+function newpDraw(){const el=$('#admNew');if(!el)return;const cut=Date.now()-864e5;
+  const L=(NEWP.list||[]).filter(p=>(+p.since||0)>cut).sort((a,b)=>(+b.since||0)-(+a.since||0));
+  const flag=c=>/^[A-Z]{2}$/.test(c||'')?String.fromCodePoint(...[...c].map(ch=>127397+ch.charCodeAt(0))):'';
+  const srcN=k=>{const o=SRC_OPT.find(x=>x[0]===k);return o?o[1]+' '+o[2]:''};
+  const acc=a=>a==='g'?'<span class="tag" style="background:#14e08a;color:#111">Google</span>':a==='u'?'<span class="tag" style="background:#4aa8ff;color:#111">Usuario</span>':'<span class="tag" style="background:#ff7a59;color:#111">Invitado</span>';
+  el.innerHTML=`<div class="ach2"><h3>🆕 Nuevos jugadores <small class="muted">últimas 24 h</small> <span class="tag" style="background:var(--sun);color:#111">${NEWP.list?L.length:'…'}</span></h3>
+    <div style="display:flex;gap:6px"><button class="btn sm alt" id="newpTg">${NEWP.open?'Ocultar':'Ver'}</button><button class="btn sm alt" id="newpRe">${NEWP.busy?'Cargando…':'Actualizar'}</button></div></div>
+   ${!NEWP.open?'':NEWP.err?`<p class="muted">No se ha podido cargar (${esc(NEWP.err)}).</p>`:!NEWP.list?'<p class="muted">Cargando…</p>':!L.length?'<p class="muted">Hoy no ha entrado nadie nuevo.</p>':
+   `<div class="newpl">${L.map(p=>`<button class="arow" data-sel="${esc(p.id)}"><span class="av emo">${avH(p)}${NET.online.has(p.id)?'<i class="on"></i>':''}</span><span style="min-width:0"><b>${esc(p.name||'Sin nombre')} ${acc(p.acc)}</b><small>${esc(p.code||'')} · Nv ${+p.lvl||1}${p.cc?' · '+flag(p.cc):''}${p.src?' · '+esc(srcN(p.src)):''}</small></span><span class="cash">${short(+p.coins||0)} €</span><span class="seen">${ago(+p.since)}</span></button>`).join('')}</div>`}`;
+  const tg=$('#newpTg');if(tg)tg.onclick=()=>{NEWP.open=!NEWP.open;sfx('click');newpDraw()};const re=$('#newpRe');if(re)re.onclick=()=>{sfx('click');newpLoad()}}
+$('#v-admin').addEventListener('click',e=>{const r=e.target.closest('#admNew [data-sel]');if(!r)return;ADM.sel=r.dataset.sel;ADM.sideDirty=true;
+  if(!NET.players.has(ADM.sel)){const p=(NEWP.list||[]).find(x=>x.id===ADM.sel);if(p)NET.players.set(p.id,normP(p))}renderAdmin();renderAdmSide();const sd=$('#admSide');if(sd)sd.scrollIntoView({behavior:'smooth',block:'start'})});
+{const _raNew=renderAdmin;renderAdmin=function(){const r=_raNew.apply(this,arguments);try{if(view!=='admin'||!ADM.on)return r;let el=$('#admNew');
+  if(!el){const st=$('#admStats');if(st){st.insertAdjacentHTML('afterend','<div class="panel adm-new" id="admNew"></div>');el=$('#admNew');newpLoad()}}
+  else if(Date.now()-NEWP.t>60000&&!NEWP.busy)newpLoad()}catch(e){}return r}}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
