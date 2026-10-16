@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-16-1500">
+<meta name="app-version" content="2026-10-16-1942">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2420,6 +2420,22 @@ html[data-u18] .nb[data-v=casino],html[data-u18] .nb[data-v=trading],html[data-u
 #betWarn{flex-basis:100%;display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:8px;background:#ff9f1a22;border:1px solid #ff9f1a;border-radius:8px;padding:7px 10px;font-weight:700;font-size:13px;color:#ffd08a}#betWarn button{background:none;border:0;color:#bdbdc8;text-decoration:underline;font-weight:700;font-size:12px;cursor:pointer}
 .nhl{display:flex;flex-wrap:wrap;gap:8px}.nhl>span{display:flex;flex-direction:column;background:#0004;border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-width:0}.nhl b{font:900 16px var(--f-b);color:#fff;overflow-wrap:anywhere}.nhl small{font-size:12px;color:#9a9aa8;font-weight:700}.nhl .linkb{font-size:12px;padding:2px 0;text-align:left}
 .nhold{display:block;font-size:11px;font-weight:700;color:#9a9aa8;line-height:1.1}.admnh{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+/* banderas en Windows (fuente Twemoji Country Flags · gráficos de Twemoji, CC-BY 4.0) */
+@font-face{font-family:"Twemoji Country Flags";unicode-range:U+1F1E6-1F1FF,U+1F3F4,U+E0062-E0063,U+E0065,U+E0067,U+E006C,U+E006E,U+E0073-E0074,U+E0077,U+E007F;src:url('twemoji-flags.woff2') format('woff2');font-display:swap}
+[data-noflags] .flg{font-family:"Twemoji Country Flags","Segoe UI Emoji",sans-serif}
+.aasec{margin:10px 0 2px;font-weight:900;font-size:13px;letter-spacing:.3px;color:var(--sun)}
+.ledt{display:flex;flex-direction:column;gap:2px;margin:4px 0}.ledt>div{display:flex;justify-content:space-between;gap:8px;align-items:center;border-bottom:1px solid var(--line);padding:3px 0}
+.ledt>div>span{display:flex;flex-direction:column;min-width:0}.ledt small,.ledhr small{color:var(--muted);font-weight:700;font-size:11px}.ledh{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase}
+.ledt .up,.ledhr .up{color:var(--mint)}.ledt .dn,.ledhr .dn{color:var(--coral)}
+.ledd{margin:6px 0}.ledd summary{cursor:pointer;font-weight:800;color:var(--sky)}.ledhr{display:grid;grid-template-columns:auto auto;justify-content:space-between;gap:2px 8px;border-bottom:1px solid var(--line);padding:4px 0}.ledhr small{grid-column:1/-1}
+.ledhelp{background:color-mix(in srgb,var(--sun) 12%,transparent);border:1px solid color-mix(in srgb,var(--sun) 40%,transparent);border-radius:8px;padding:8px;margin:10px 0 2px;font-weight:600;font-size:13px}
+#seNudge{position:fixed;left:12px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;display:flex;align-items:center;gap:10px;max-width:min(440px,calc(100vw - 24px));background:linear-gradient(135deg,#2a0f45,#4a1a00);border:2px solid #ff7a00;border-radius:14px;padding:9px 10px;box-shadow:4px 4px 0 #000;animation:snIn .35s ease-out}
+#seNudge .emo{font-size:28px}#seNudge .sn-t{display:flex;flex-direction:column;min-width:0;flex:1}#seNudge .sn-t b{font-size:14px;line-height:1.15}#seNudge .sn-t small{font-size:12px;color:#ffd9b0;font-weight:700}
+#seNudge .sn-x{background:none;border:0;color:#fff;opacity:.7;font-size:16px;cursor:pointer;padding:4px}
+@keyframes snIn{from{transform:translateY(20px);opacity:0}}
+@media (min-width:900px){#seNudge{bottom:20px;left:auto;right:20px}}
+#nav .se-dot{position:relative}#nav .se-dot::after{content:'🎃';position:absolute;top:-4px;right:2px;font-size:13px;animation:gxFlick 1.2s ease-in-out infinite}
+.seil{text-align:left;font-weight:700;margin:8px 0;padding-left:4px;list-style:none;display:flex;flex-direction:column;gap:4px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5963,6 +5979,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-16-b',t:'Que no se te escapen los caramelos',items:[['🎃','Recordatorio de Halloween','Si tienes el truco o trato sin abrir o una misión del evento lista para cobrar, sale un aviso pequeño para que no te lo pierdas. Lo puedes cerrar.'],['🍬','Calabaza en Inicio','El botón de Inicio lleva una calabacita cuando tienes caramelos esperándote.'],['🛡️','Clasificación más justa','Mejoras contra las trampas para que nadie suba de forma imposible.']]},
  {v:'2026-10-16-a',t:'Nombres anteriores',items:[['🏷️','Nombres anteriores','En el perfil de cada jugador salen los nombres que tenía antes, para que sepas quién es aunque se lo cambie.'],['👥','En tus amigos','Si un amigo se cambia el nombre, durante 7 días sale debajo «antes: …».'],['🧽','Puedes borrarlo','En tu perfil puedes borrar tu historial de nombres.'],['⏳','Un cambio por semana','El nombre solo se puede cambiar una vez cada 7 días.']]},
  {v:'2026-10-15-b',t:'Ayuda para novatos',items:[['🛟','Seguro de novato','Si te quedas sin dinero en tu primera media hora de juego, te lo devolvemos una vez.'],['💸','Sin dinero','Si te quedas a cero te enseñamos cómo conseguir más: Fábrica, ruleta gratis, Juegos y misiones.'],['💡','Consejos','Consejos pequeños cuando empiezas. Los puedes quitar en Ajustes › Consejos para novatos.'],['👀','Pregunta de origen','La pregunta de cómo nos conociste ya no se cierra sin querer al tocar fuera.']]},
  {v:'2026-10-15-a',t:'Mejoras internas',items:[['🛠️','Ajustes por dentro','Pequeñas mejoras internas para entender mejor qué partes del juego gustan más y mejorarlas.']]},
@@ -10346,12 +10363,12 @@ function acctSync(){try{const u=NET.auth&&NET.auth.currentUser;if(!u)return;cons
   const a={t:u.isAnonymous?'anon':g?'google':'user',mail:(g&&g.email)||u.email||'',uid:u.uid};const k=JSON.stringify(a);if(JSON.stringify(S.acct||{})!==k){S.acct=a;save()}}catch(e){}}
 setInterval(acctSync,15000);setTimeout(acctSync,4000);
 const _rasAcc=renderAdmSide;renderAdmSide=function(){_rasAcc.apply(this,arguments);try{const el=$('#admSide'),id=ADM.sel;if(!el||!id||el.querySelector('#admAcc'))return;
-  el.insertAdjacentHTML('afterbegin',`<div id="admAcc" class="admacc"><span class="alab">🔐 Cuenta privada</span><div id="admAccB" class="netmsg" style="margin:0">Tipo de cuenta, correo de Google, código de recuperación y su partida guardada.</div><button class="btn alt sm" id="admAccGo">Ver sus datos privados</button></div>`)}catch(e){}};
+  el.insertAdjacentHTML('afterbegin',`<div id="admAcc" class="admacc"><span class="alab">🔐 Cuenta privada</span><div id="admAccB" class="netmsg" style="margin:0">Cuenta, correo, código, dispositivo, país, cómo nos conoció, dinero y de dónde lo saca.</div><button class="btn alt sm" id="admAccGo">Ver sus datos privados</button></div>`)}catch(e){}};
 document.addEventListener('click',async e=>{if(!e.target.closest('#admAccGo')||!ADM.on||!NET.db)return;const id=ADM.sel,b=$('#admAccB');if(!id||!b)return;b.textContent='Cargando…';
   try{const sv=await NET.db.collection('data/users/'+id).doc('save').get();if(!sv.exists){b.innerHTML='No tiene partida guardada en la nube (juega sin conexión o es muy antigua).';return}
     const d=(sv.data()||{});let o={};try{o=JSON.parse(d.json||'{}')}catch(_){}const a=o.acct||{};const tp={google:'Google',user:'Usuario y contraseña',anon:'Sin cuenta'}[a.t]||'Desconocido (aún no ha entrado con esta versión)';
     const row=(k,v)=>`<div class="aarow"><small>${k}</small><b>${v}</b></div>`;
-    b.innerHTML=row('Tipo de cuenta',esc(tp))+(a.mail?row('Correo',esc(a.mail)):'')+row('Código de recuperación',o.recKey?`<code>${esc(o.recKey)}</code>`:'No tiene (versión antigua)')+row('Lo ha apuntado',o.rkOk?'Sí, '+esc(fmtDate(o.rkOk)):'Todavía no')+row('OG',o.ogN?'Nº '+o.ogN:'No')+row('Dinero en su partida',short(+o.coins||0)+' €')+row('Nivel',String(+o.lvl||1))+row('Guardado',d.t?esc(ago(+d.t)):'–')}
+    b.innerHTML=row('Tipo de cuenta',esc(tp))+(a.mail?row('Correo',esc(a.mail)):'')+row('Código de recuperación',o.recKey?`<code>${esc(o.recKey)}</code>`:'No tiene (versión antigua)')+row('Lo ha apuntado',o.rkOk?'Sí, '+esc(fmtDate(o.rkOk)):'Todavía no')+row('OG',o.ogN?'Nº '+o.ogN:'No')+row('Dinero en su partida',short(+o.coins||0)+' €')+row('Nivel',String(+o.lvl||1))+row('Guardado',d.t?esc(ago(+d.t)):'–')+(typeof admMore==='function'?admMore(o,d,id):'')}
   catch(err){b.textContent='No se ha podido leer: '+(err&&err.code||'error')}});
 /* ===== 2026-10-06-c: sin cuenta no sales en la clasificación (aviso siempre visible) ===== */
 function accType(){return!NET.ok||!NET.auth?'?':NET.isAnon?'a':(isGoogleUser()?'g':'u')}
@@ -10371,7 +10388,7 @@ const _rrNA=renderRank;renderRank=function(){const r=_rrNA.apply(this,arguments)
   if(!FAQ.some(q=>/no salgo en la clasificación/.test(q[0])))FAQ.unshift(['¿Por qué no salgo en la clasificación?','Porque juegas sin cuenta. Para salir en las clasificaciones y cobrar sus premios tienes que entrar con Google o crear una cuenta con usuario y contraseña (Ajustes › Cuenta).']);
   if(GU_T.ranking&&!GU_T.ranking.some(s=>s[1]==='Hace falta cuenta'))GU_T.ranking.unshift([null,'Hace falta cuenta','Solo salen en la clasificación los que tienen cuenta (Google o usuario y contraseña). Sin cuenta, tu puesto solo lo ves tú.'])}catch(e){}})();
 /* panel del jefe: cerrar los datos privados */
-document.addEventListener('click',e=>{if(!e.target.closest('#admAccX'))return;const b=$('#admAccB');if(b)b.innerHTML='Tipo de cuenta, correo de Google, código de recuperación y su partida guardada.';const x=$('#admAccX');if(x)x.remove();const g=$('#admAccGo');if(g)g.hidden=false});
+document.addEventListener('click',e=>{if(!e.target.closest('#admAccX'))return;const b=$('#admAccB');if(b)b.innerHTML='Cuenta, correo, código, dispositivo, país, cómo nos conoció, dinero y de dónde lo saca.';const x=$('#admAccX');if(x)x.remove();const g=$('#admAccGo');if(g)g.hidden=false});
 document.addEventListener('click',e=>{if(!e.target.closest('#admAccGo'))return;setTimeout(()=>{const g=$('#admAccGo');if(g&&!$('#admAccX')){g.hidden=true;g.insertAdjacentHTML('afterend','<button class="btn dark sm" id="admAccX">🔒 Cerrar datos privados</button>')}},0)});
 /* ===== 2026-10-06-d: monedas voladoras en la fábrica (más tipos, más chulas) ===== */
 const FLY=[
@@ -12394,7 +12411,7 @@ function admChartsDraw(){const el=$('#admCharts');if(!el)return;const A=ADMC.all
   const cS={};named.forEach(p=>{const k=p.src||'none';cS[k]=(cS[k]||0)+1});
   const srcRows=SRC_OPT.map(([k,e,nm])=>[e,nm,cS[k]||0]).filter(r=>r[2]>0).sort((a,b)=>b[2]-a[2]);if(cS.none)srcRows.push(['❔','Aún no ha contestado',cS.none]);
   const cC={};named.forEach(p=>{const k=/^[A-Z]{2}$/.test(p.cc||'')?p.cc:'??';cC[k]=(cC[k]||0)+1});let dn=null;try{dn=new Intl.DisplayNames(['es'],{type:'region'})}catch(e){}
-  const flag=c=>c==='??'?'❔':String.fromCodePoint(...[...c].map(ch=>127397+ch.charCodeAt(0)));
+  const flag=c=>flagH(c);
   const ccRows=Object.entries(cC).sort((a,b)=>b[1]-a[1]).map(([c,v])=>[flag(c),c==='??'?'Sin saber':(dn?dn.of(c):c),v]);
   const days=[];const d0=new Date();d0.setHours(0,0,0,0);for(let i=13;i>=0;i--){const a=d0.getTime()-i*864e5;days.push([a,named.filter(p=>+p.since>=a&&+p.since<a+864e5).length])}
   const mxD=Math.max(1,...days.map(x=>x[1]));const acc={a:0,g:0,u:0};named.forEach(p=>{acc[p.acc==='g'?'g':p.acc==='u'?'u':'a']++});
@@ -12482,7 +12499,7 @@ async function newpLoad(){if(NEWP.busy||!NET.db)return;NEWP.busy=true;newpDraw()
   NEWP.t=Date.now();NEWP.busy=false;newpDraw()}
 function newpDraw(){const el=$('#admNew');if(!el)return;const cut=Date.now()-864e5;
   const L=(NEWP.list||[]).filter(p=>(+p.since||0)>cut).sort((a,b)=>(+b.since||0)-(+a.since||0));
-  const flag=c=>/^[A-Z]{2}$/.test(c||'')?String.fromCodePoint(...[...c].map(ch=>127397+ch.charCodeAt(0))):'';
+  const flag=c=>/^[A-Z]{2}$/.test(c||'')?flagH(c):'';
   const srcN=k=>{const o=SRC_OPT.find(x=>x[0]===k);return o?o[1]+' '+o[2]:''};
   const acc=a=>a==='g'?'<span class="tag" style="background:#14e08a;color:#111">Google</span>':a==='u'?'<span class="tag" style="background:#4aa8ff;color:#111">Usuario</span>':'<span class="tag" style="background:#ff7a59;color:#111">Invitado</span>';
   el.innerHTML=`<div class="ach2"><h3>🆕 Nuevos jugadores <small class="muted">últimas 24 h</small> <span class="tag" style="background:var(--sun);color:#111">${NEWP.list?L.length:'…'}</span></h3>
@@ -12792,6 +12809,145 @@ function nhAdmDraw(){const el=$('#admSide');if(!el||!ADM.sel)return;const id=ADM
   box.onclick=async e=>{const b=e.target.closest('[data-nhdel]');if(!b)return;b.disabled=true;const ok=await _paSend(id,'prof',{nhdel:b.dataset.nhdel});
     if(ok){b.textContent='Enviado';try{const L=(NHLOG[id]&&NHLOG[id].list)||[];for(const x of L)if(x.n===b.dataset.nhdel&&x.id)await NET.db.doc('namelog/'+id+'/h/'+x.id).delete()}catch(_){}}}}
 {const _rasNH=renderAdmSide;renderAdmSide=function(){const r=_rasNH.apply(this,arguments);try{if(ADM.sel){if(!NHLOG[ADM.sel])nhLoad(ADM.sel);nhAdmDraw()}}catch(e){}return r}}
+
+/* ================= 2026-10-16-b: DISPOSITIVO, DE DÓNDE SALE EL DINERO, DATOS PRIVADOS COMPLETOS, BANDERAS EN PC Y RECORDATORIOS DE HALLOWEEN ================= */
+/* --- banderas en Windows: Windows no trae dibujos de banderas, así que cargamos una fuente solo con banderas (Twemoji, CC-BY 4.0) --- */
+(()=>{try{const t=(s)=>{const c=document.createElement('canvas');c.width=c.height=1;const x=c.getContext('2d',{willReadFrequently:true});x.textBaseline='top';x.font='100px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';x.scale(.01,.01);
+    const a=()=>{x.clearRect(0,0,100,100);x.fillStyle='#fff';x.fillText(s,0,0);const w=x.getImageData(0,0,1,1).data.join(',');x.clearRect(0,0,100,100);x.fillStyle='#000';x.fillText(s,0,0);const b=x.getImageData(0,0,1,1).data.join(',');return b===w&&!b.startsWith('0,0,0,')};return a()};
+  if(t('\u{1F60A}')&&!t('\u{1F1EA}\u{1F1F8}'))document.documentElement.setAttribute('data-noflags','')}catch(e){}})();
+function flagH(c){c=String(c||'').toUpperCase();if(!/^[A-Z]{2}$/.test(c))return'❔';return'<span class="flg">'+String.fromCodePoint(...[...c].map(ch=>127397+ch.charCodeAt(0)))+'</span>'}
+function ccName(c){try{return new Intl.DisplayNames(['es'],{type:'region'}).of(c)}catch(e){return c}}
+
+/* --- tu dispositivo (solo lo ve el jefe, va en tu partida privada) --- */
+function devRead(){const ua=navigator.userAgent||'',mt=navigator.maxTouchPoints||0;let os='Desconocido',osv='',br='Navegador',bv='',ty='PC';
+  const ipadMac=/Macintosh/.test(ua)&&mt>1;
+  if(/Android/i.test(ua)){os='Android';osv=(ua.match(/Android\s([\d.]+)/)||[])[1]||''}
+  else if(/iPhone|iPod/.test(ua)){os='iOS';osv=((ua.match(/OS (\d+)[_.](\d+)/)||[]).slice(1,3)).join('.')}
+  else if(/iPad/.test(ua)||ipadMac){os='iPadOS';osv=((ua.match(/OS (\d+)[_.](\d+)/)||ua.match(/Version\/(\d+)\.(\d+)/)||[]).slice(1,3)).join('.')}
+  else if(/CrOS/.test(ua))os='ChromeOS';else if(/Windows/.test(ua))os='Windows';else if(/Mac OS X/.test(ua))os='macOS';else if(/Linux/.test(ua))os='Linux';
+  const m=(re)=>(ua.match(re)||[])[1]||'';
+  if(/Edg(A|iOS)?\//.test(ua)){br='Edge';bv=m(/Edg(?:A|iOS)?\/(\d+)/)}else if(/OPR\/|Opera/.test(ua)){br='Opera';bv=m(/OPR\/(\d+)/)}else if(/SamsungBrowser/.test(ua)){br='Samsung Internet';bv=m(/SamsungBrowser\/(\d+)/)}
+  else if(/Firefox|FxiOS/.test(ua)){br='Firefox';bv=m(/(?:Firefox|FxiOS)\/(\d+)/)}else if(/CriOS/.test(ua)){br='Chrome';bv=m(/CriOS\/(\d+)/)}else if(/Chrome\//.test(ua)){br='Chrome';bv=m(/Chrome\/(\d+)/)}
+  else if(/Safari/.test(ua)){br='Safari';bv=m(/Version\/(\d+)/)}
+  if(/; wv\)/.test(ua))br+=' (dentro de una app)';else if(/Instagram/.test(ua))br='Navegador de Instagram';else if(/TikTok|musical_ly|BytedanceWebview/.test(ua))br='Navegador de TikTok';else if(/FBAN|FBAV/.test(ua))br='Navegador de Facebook';
+  if(/iPad/.test(ua)||ipadMac||(/Android/i.test(ua)&&!/Mobile/i.test(ua)))ty='tablet';else if(/Mobi|iPhone|iPod|Android/i.test(ua))ty='móvil';
+  let tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}
+  const d={ty,os,osv,br,bv,mo:'',scr:(screen.width||0)+'×'+(screen.height||0),dpr:Math.round((devicePixelRatio||1)*100)/100,tz,lang:navigator.language||'',cores:navigator.hardwareConcurrency||0,mem:navigator.deviceMemory||0,touch:mt>0,
+    app:!!(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||!!navigator.standalone,cc:(typeof myCountry==='function'?myCountry():'')};
+  return d}
+function devLabel(d){if(!d)return'';const e=d.ty==='móvil'?'📱':d.ty==='tablet'?'📲':'💻';return e+' '+(d.mo?d.mo+' · ':'')+d.os+(d.osv?' '+d.osv:'')+' · '+d.br+(d.bv?' '+d.bv:'')}
+async function devSync(){try{const d=devRead();const u=navigator.userAgentData;
+    if(u&&u.getHighEntropyValues){try{const h=await u.getHighEntropyValues(['model','platformVersion']);if(h.model)d.mo=String(h.model).slice(0,40);
+      if(d.os==='Windows'&&h.platformVersion){const mj=parseInt(h.platformVersion,10);d.osv=mj>=13?'11':mj>0?'10':''}if(d.os==='Android'&&h.platformVersion)d.osv=String(h.platformVersion).split('.')[0]}catch(e){}}
+    const lab=devLabel(d),old=S.dev||{};const same=JSON.stringify({...old,t:0})===JSON.stringify({...d,t:0});
+    S.devs=Array.isArray(S.devs)?S.devs:[];let r=S.devs.find(x=>x.id===DEV_ID);const today=dayKey();
+    if(!r){r={id:DEV_ID,l:lab,f:Date.now(),t:Date.now()};S.devs.unshift(r)}else if(r.l!==lab||r.d!==today){r.l=lab;r.t=Date.now()}r.d=today;S.devs=S.devs.sort((a,b)=>(b.t||0)-(a.t||0)).slice(0,8);
+    if(!same||!old.t||Date.now()-old.t>864e5){S.dev={...d,t:Date.now()};save()}}catch(e){}}
+setTimeout(devSync,5000);setInterval(devSync,30*60e3);
+
+/* --- de dónde sale el dinero: cada hora, cuánto sube y baja tu dinero (cartera + caja fuerte − deuda) y en qué parte del juego estabas --- */
+const LED={last:null,lt:0,tag:'',tagT:0,cw:null};
+const ledW=()=>Math.floor(+S.coins||0)+Math.floor(+S.safe||0)-Math.floor(+((S.loan||{}).owe)||0);
+function ledCtx(){if(LED.tag&&Date.now()<LED.tagT)return LED.tag;
+  try{if(view==='casino')return'cas:'+(czOpen?casTab:'lobby');if(view==='arcade')return'jg:'+(gid||'menu')}catch(e){}return'v:'+view}
+function ledAdd(ctx,d){const h=String(Math.floor(Date.now()/36e5));S.led=S.led||{};const H=S.led[h]=S.led[h]||{};const r=H[ctx]=H[ctx]||[0,0];if(d>0)r[0]+=d;else r[1]+=-d;
+  const ks=Object.keys(S.led);if(ks.length>72)ks.sort((a,b)=>a-b).slice(0,ks.length-72).forEach(k=>delete S.led[k])}
+function ledTick(){try{if(!S||!S.name)return;const w=ledW(),now=Date.now();if(LED.last===null){LED.last=w;LED.lt=now;return}
+  const d=w-LED.last,dt=Math.min(5,(now-LED.lt)/1000);LED.last=w;LED.lt=now;if(!d)return;const ctx=ledCtx();
+  if(d>0){let pas=0;try{pas=Math.min(d,Math.floor(perSec()*evMult()*dt*1.1))}catch(e){}if(pas>0)ledAdd('v:pasivo',pas);const rest=d-pas;if(rest>0)ledAdd(ctx,rest);
+    const before=w-d;if(rest>=Math.max(50000,before*.25)){S.bigJ=Array.isArray(S.bigJ)?S.bigJ:[];const cw=LED.cw&&now-LED.cw.t<4000?LED.cw:null;
+      S.bigJ.unshift([now,ctx,rest,w,cw?cw.bet:0,cw?cw.n:0]);S.bigJ=S.bigJ.slice(0,30)}}
+  else ledAdd(ctx,d)}catch(e){}}
+setInterval(ledTick,500);
+{const _cwL=casinoWin;casinoWin=function(n,g,bet){LED.cw={t:Date.now(),n:Math.floor(+n||0),bet:Math.floor(+bet||0),g};return _cwL.apply(this,arguments)}}
+/* lo que no es ganar ni perder: al cargar la partida de la nube o de otro dispositivo, se empieza a contar de nuevo */
+{const _acL=applyCloud;applyCloud=function(){const r=_acL.apply(this,arguments);LED.last=null;return r}}
+{const _agL=applyGifts;applyGifts=function(){LED.tag='v:regalos';LED.tagT=Date.now()+1500;const r=_agL.apply(this,arguments);return r}}
+
+/* --- nombres bonitos para el jefe --- */
+const LED_V={inicio:'Inicio',fabrica:'Fábrica',tienda:'Tienda',trading:'Trading',online:'Online',ranking:'Clasificación',perfil:'Perfil',logros:'Logros',ajustes:'Ajustes',admin:'Panel del jefe',
+  pasivo:'Fábrica (lo que da sola por segundo)',regalos:'Regalos que le mandan',banco:'Banco',bolsa:'Bolsa',casino:'Casino'};
+function ledName(k){const [a,b]=String(k).split(':');
+  if(a==='cas'){if(b==='lobby')return'🎰 Casino (fuera de un juego)';const g=(typeof CZ_G!=='undefined'&&CZ_G.find(x=>x[0]===b));const bw=typeof BWG!=='undefined'&&BWG[b];return'🎰 Casino · '+(g?g[1]:bw?bw[1]:b)}
+  if(a==='jg'){const g=typeof GAMES!=='undefined'&&GAMES[b];return'🎮 Juegos · '+(g?g.name:b==='menu'?'menú':b)}
+  return(b==='pasivo'?'🏭 ':b==='regalos'?'🎁 ':'📍 ')+(LED_V[b]||(b?b[0].toUpperCase()+b.slice(1):'?'))}
+
+/* --- datos privados del jefe: mucho más completo --- */
+function admMore(o,d,id){try{const row=(k,v)=>`<div class="aarow"><small>${k}</small><b>${v}</b></div>`,sec=t=>`<div class="aasec">${t}</div>`;let h='';
+  const p=(NET.players&&NET.players.get(id))||{};const dv=o.dev||null;const cc=(dv&&dv.cc)||p.cc||'';
+  h+=sec('📱 Dispositivo');
+  if(dv){h+=row('Tipo',esc(dv.ty==='móvil'?'📱 Móvil':dv.ty==='tablet'?'📲 Tablet':'💻 Ordenador'))+(dv.mo?row('Modelo',esc(dv.mo)):'')+row('Sistema',esc(dv.os+(dv.osv?' '+dv.osv:'')))+row('Navegador',esc(dv.br+(dv.bv?' '+dv.bv:'')))
+     +row('Pantalla',esc(dv.scr+(dv.dpr&&dv.dpr!==1?' (x'+dv.dpr+')':'')))+row('Pantalla táctil',dv.touch?'Sí':'No')+row('Instalada como app',dv.app?'Sí':'No')
+     +(dv.mem?row('Memoria aprox.',esc(dv.mem+' GB')):'')+(dv.cores?row('Núcleos',String(dv.cores)):'')+row('Idioma del navegador',esc(dv.lang||'–'))+row('Zona horaria',esc(dv.tz||'–'))+row('Visto',esc(ago(+dv.t)))}
+  else h+=row('Dispositivo','Aún no lo sabemos: tiene que entrar con la versión nueva');
+  if(Array.isArray(o.devs)&&o.devs.length){h+=row('Dispositivos en los que ha jugado',String(o.devs.length))+o.devs.map(x=>row(esc(fmtDate(x.f||x.t)),esc(x.l)+' <small class="muted">· '+esc(ago(+x.t))+'</small>')).join('')}
+  h+=sec('🌍 Origen');
+  h+=row('País (aproximado)',cc&&/^[A-Z]{2}$/.test(cc)?flagH(cc)+' '+esc(ccName(cc)):'Sin saber');
+  const so=(typeof SRC_OPT!=='undefined'&&SRC_OPT.find(x=>x[0]===o.src));h+=row('Cómo nos ha conocido',so?esc(so[1]+' '+so[2]):'No ha contestado');
+  h+=row('Edad',o.age18==='adult'?'Dice que tiene 18 o más':o.age18==='minor'?'Dice que es menor (sin casino)':'Sin contestar');
+  h+=row('Empezó a jugar',o.since?esc(fmtDate(+o.since))+' <small class="muted">· '+esc(ago(+o.since))+'</small>':'–')+row('Tiempo jugado',esc(fmtTime(+o.playtime||0)));
+  if(o.trk&&Array.isArray(o.trk.d))h+=row('Días distintos que ha jugado',String(o.trk.d.length));
+  if(Array.isArray(o.nh)&&o.nh.length)h+=row('Nombres anteriores',o.nh.map(x=>esc(x.n)).join(', '));
+  const sto=o.st||{};h+=sec('💰 Dinero');
+  h+=row('Caja fuerte',short(+o.safe||0)+' €')+(o.loan&&o.loan.owe?row('Debe al banco',short(+o.loan.owe)+' €'):'')+row('Ganado en total',short(+o.earned||0)+' €')
+    +row('Casino: ganado / perdido',short(+sto.casinoWon||0)+' € / '+short(+sto.casinoLost||0)+' €')+row('Regalos: recibidos / mandados',short(+sto.giftIn||0)+' € / '+short(+sto.gifted||0)+' €');
+  const ev=o.ev||{};const hw=ev.hw26;h+=row('🍬 Caramelos de Halloween',hw?fmt(+hw.tot||0):'0');
+  const bw=Object.entries(o.bw||{}).sort((a,b)=>b[1][0]-a[1][0]).slice(0,6);
+  if(bw.length){h+=sec('🏆 Sus premios más gordos');h+=bw.map(([g,v])=>{const nm=(typeof BWG!=='undefined'&&BWG[g])?BWG[g][1]:((typeof CZ_G!=='undefined'&&(CZ_G.find(x=>x[0]===g)||[])[1])||g);const mu=v[1]>0?' · apostó '+short(v[1])+' € (x'+(Math.round(v[0]/v[1]*100)/100).toLocaleString('es-ES')+')':'';return row(esc(nm),'+'+short(v[0])+' €<small class="muted">'+esc(mu)+' · '+esc(fmtDate(v[2]))+'</small>')}).join('')}
+  /* de dónde sale el dinero */
+  h+=sec('🔎 De dónde sale su dinero (últimos 3 días)');
+  const L=o.led||{};const hs=Object.keys(L).sort((a,b)=>b-a);
+  if(!hs.length)h+=`<p class="muted" style="margin:4px 0">Todavía no hay registro: empieza a apuntarse cuando entra con la versión del 16 de octubre. Si sale en el Vigilante, mira aquí después de su siguiente partida.</p>`;
+  else{const tot={};hs.forEach(k=>Object.entries(L[k]).forEach(([c,v])=>{const t=tot[c]=tot[c]||[0,0];t[0]+=v[0];t[1]+=v[1]}));
+    const rows=Object.entries(tot).map(([c,v])=>[c,v[0]-v[1],v[0],v[1]]).sort((a,b)=>b[1]-a[1]);
+    h+=`<div class="ledt"><div class="ledh"><span>Dónde estaba</span><span>Neto</span></div>${rows.map(([c,n,pl,mi])=>`<div><span>${esc(ledName(c))}<small>+${short(pl)} / −${short(mi)}</small></span><b class="${n>=0?'up':'dn'}">${n>=0?'+':'−'}${short(Math.abs(n))} €</b></div>`).join('')}</div>`;
+    h+=`<details class="ledd"><summary>Ver hora por hora</summary>${hs.slice(0,48).map(k=>{const H=L[k];const t=+k*36e5;const net=Object.values(H).reduce((a,v)=>a+v[0]-v[1],0);
+      const top=Object.entries(H).sort((a,b)=>(b[1][0]-b[1][1])-(a[1][0]-a[1][1])).slice(0,3).map(([c,v])=>esc(ledName(c))+' '+(v[0]-v[1]>=0?'+':'−')+short(Math.abs(v[0]-v[1]))).join(' · ');
+      return`<div class="ledhr"><b>${new Date(t).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</b><span class="${net>=0?'up':'dn'}">${net>=0?'+':'−'}${short(Math.abs(net))} €</span><small>${top}</small></div>`}).join('')}</details>`}
+  const bj=Array.isArray(o.bigJ)?o.bigJ:[];
+  if(bj.length){h+=sec('⚡ Subidas de golpe');h+=bj.slice(0,15).map(x=>row(esc(new Date(x[0]).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})),'+'+short(x[2])+' € · '+esc(ledName(x[1]))+(x[4]>0?' <small class="muted">· apostó '+short(x[4])+' € (x'+(Math.round(x[5]/x[4]*100)/100).toLocaleString('es-ES')+')</small>':''))).join('')}
+  h+=`<p class="ledhelp">💡 <b>Cómo leerlo:</b> si casi todo sale de juegos del casino con apuestas grandes que cuadran (apuesta × premio), es <b>legal</b>: ha tenido suerte o ha arriesgado mucho. Si sube mucho estando en sitios que no dan dinero (Inicio, Ajustes, Perfil…) o sin apuesta que lo explique, <b>huele a trampa</b>.</p>`;
+  return h}catch(e){return''}}
+
+/* --- Vigilante: botón para investigar al apuntado --- */
+{const _vbI=vigBox;vigBox=function(){const r=_vbI.apply(this,arguments);try{const box=$('#admVig');if(box&&Array.isArray(VIG))box.querySelectorAll('[data-vigok]').forEach(b=>{if(b.previousElementSibling&&b.previousElementSibling.dataset&&b.previousElementSibling.dataset.viginv)return;
+    b.insertAdjacentHTML('beforebegin',`<button class="btn sm" data-viginv="${esc(b.dataset.vigok)}">🔎 Investigar</button>`)})}catch(e){}return r}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-viginv]');if(!b||!ADM.on)return;const id=b.dataset.viginv;ADM.sel=id;ADM.sideDirty=true;
+  if(!NET.players.has(id)){const a=(Array.isArray(VIG)?VIG:[]).find(x=>x.id===id);if(a)NET.players.set(id,normP({id,name:a.name,code:a.code}))}
+  try{renderAdmin();renderAdmSide()}catch(_){}setTimeout(()=>{const g=$('#admAccGo');if(g){g.click();const sd=$('#admSide');if(sd)sd.scrollIntoView({behavior:'smooth',block:'start'})}},120)});
+
+/* --- Halloween: recordar que hay caramelos por coger --- */
+function seTodo(){const e=seNow();if(!e)return null;const s=seDay(e);const ready=s.mis.filter(i=>!s.done.includes(i)&&seProg(e,i)>=e.mis[i][1]);return{e,s,tt:s.tt!==dayKey(),ready}}
+function seNudgeDraw(){let p=$('#seNudge');const T=seTodo();const navB=document.querySelector('#nav [data-v="inicio"]');
+  const has=T&&S.name&&(T.tt||T.ready.length);if(navB)navB.classList.toggle('se-dot',!!has);
+  if(!has||view==='inicio'||view==='admin'||(typeof running!=='undefined'&&running)||S.seNgX===dayKey()+':'+(T.ready.length?'r'+T.ready.length:'t')){if(p)p.remove();return}
+  const txt=T.ready.length?`<b>${T.ready.length===1?'Tienes una misión de Halloween lista':'Tienes '+T.ready.length+' misiones de Halloween listas'}</b><small>Cóbrala en Inicio: ${T.e.cur[0]} caramelos para premios que no volverán</small>`
+    :`<b>Tu truco o trato de hoy está sin abrir</b><small>Caramelos ${T.e.cur[0]} gratis cada día en Inicio</small>`;
+  const k=dayKey()+':'+(T.ready.length?'r'+T.ready.length:'t');
+  if(!p){p=document.createElement('div');p.id='seNudge';document.body.appendChild(p)}
+  if(p.dataset.k!==k){p.dataset.k=k;p.innerHTML=`<span class="emo">🎃</span><span class="sn-t">${txt}</span><button class="btn sm" data-sego>Ir</button><button class="sn-x" data-sex aria-label="Cerrar">✕</button>`}}
+document.addEventListener('click',e=>{if(e.target.closest('[data-sego]')){sfx('click');go('inicio');setTimeout(()=>{const c=$('#seCard');if(c)c.scrollIntoView({behavior:'smooth',block:'center'})},250);const p=$('#seNudge');if(p)p.remove();return}
+  if(e.target.closest('[data-sex]')){const p=$('#seNudge');if(p){S.seNgX=p.dataset.k;save();p.remove()}}});
+setInterval(()=>{try{seNudgeDraw()}catch(e){}},3000);
+/* la primera vez: aviso grande de que hay evento (si aún no tiene caramelos) */
+setInterval(()=>{try{const e=seNow();if(!e||!S.name||S.seIntro===e.id||!$('#modal').hidden||(typeof running!=='undefined'&&running)||performance.now()<90000||view==='admin')return;
+  const s=seSt(e);if(s.tot>=40){S.seIntro=e.id;save();return}S.seIntro=e.id;save();$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('wide','notes');mb.onclick=null;
+  mb.innerHTML=`<h2 style="font-size:30px">🎃 ¡Hay evento de Halloween!</h2><p style="font-weight:700">Hasta el 1 de noviembre. Junta caramelos ${e.cur[0]} y desbloquea caras, marcos, fondos y títulos <b>que no volverán a salir nunca</b>.</p>
+   <ul class="seil"><li>🍭 <b>Truco o trato</b>: caramelos gratis cada día</li><li>📋 <b>3 misiones</b> nuevas cada día</li><li>🎃 <b>Calabazas</b> que salen volando: tócalas</li><li>🎡 <b>Ruleta de Halloween</b> en el evento</li></ul>
+   <p class="muted" style="font-weight:700">Llevas ${e.cur[0]} ${fmt(s.tot)}. La primera recompensa sale con ${fmt(e.tiers[0][0])}.</p>
+   <button class="btn big" id="seIGo">🎃 Ver el evento</button><button class="btn alt" id="seIX" style="margin-top:8px;width:100%">Luego</button>`;
+  $('#seIGo').onclick=()=>{closeModal();go('inicio');setTimeout(()=>{const c=$('#seCard');if(c)c.scrollIntoView({behavior:'smooth',block:'center'})},250)};$('#seIX').onclick=closeModal}catch(_){}},10000);
+
+try{i18nAdd([
+ ['Tienes una misión de Halloween lista','You have a Halloween mission ready','Une mission d’Halloween est prête','Tens uma missão de Halloween pronta'],
+ ['Tu truco o trato de hoy está sin abrir','Today’s trick or treat is still unopened','Ton « des bonbons ou un sort » du jour n’est pas encore ouvert','O teu doçura ou travessura de hoje ainda está por abrir'],
+ ['Ir','Go','Aller','Ir'],['Luego','Later','Plus tard','Depois'],['🎃 Ver el evento','🎃 See the event','🎃 Voir l’événement','🎃 Ver o evento'],
+ ['🎃 ¡Hay evento de Halloween!','🎃 There’s a Halloween event!','🎃 C’est l’événement d’Halloween !','🎃 Há evento de Halloween!']])}catch(e){}
+
+try{i18nAdd([['Que no se te escapen los caramelos','Don’t miss your candy','Ne rate pas tes bonbons','Não percas os teus rebuçados'],['Recordatorio de Halloween','Halloween reminder','Rappel d’Halloween','Lembrete de Halloween'],
+['Si tienes el truco o trato sin abrir o una misión del evento lista para cobrar, sale un aviso pequeño para que no te lo pierdas. Lo puedes cerrar.','If your trick or treat is unopened or an event mission is ready to claim, a small notice pops up so you don’t miss it. You can close it.','Si ton « des bonbons ou un sort » n’est pas ouvert ou qu’une mission de l’événement est prête, un petit avis apparaît pour que tu ne le rates pas. Tu peux le fermer.','Se tiveres a doçura ou travessura por abrir ou uma missão do evento pronta, aparece um pequeno aviso para não a perderes. Podes fechá-lo.'],
+['Calabaza en Inicio','Pumpkin on Home','Citrouille sur Accueil','Abóbora no Início'],['El botón de Inicio lleva una calabacita cuando tienes caramelos esperándote.','The Home button shows a little pumpkin when candy is waiting for you.','Le bouton Accueil affiche une petite citrouille quand des bonbons t’attendent.','O botão Início mostra uma aboborazinha quando tens rebuçados à espera.'],
+['Clasificación más justa','Fairer leaderboard','Classement plus juste','Classificação mais justa'],['Mejoras contra las trampas para que nadie suba de forma imposible.','Anti-cheat improvements so nobody climbs in impossible ways.','Améliorations anti-triche pour que personne ne monte de façon impossible.','Melhorias contra batotas para ninguém subir de forma impossível.']])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
