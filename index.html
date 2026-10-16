@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-04-u">
+<meta name="app-version" content="2026-10-16-1500">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -6391,7 +6391,8 @@ setInterval(()=>{if(view==='casino'&&!$('#casRec').matches(':hover'))renderCasRe
 /* ---- Aviso de nueva actualización ---- */
 const APP_VER=(document.querySelector('meta[name="app-version"]')||{}).content||'';
 let updShown=false,updLater=0;
-async function checkUpdate(){if(updShown||Date.now()<updLater||!/^https?:/.test(location.protocol))return;
+async function checkUpdate(){return;   /* desactivado: el «etag» del servidor cambia solo y sacaba el aviso sin haber nada nuevo. Ahora solo avisa checkVersion() con el número de versión */
+  if(updShown||Date.now()<updLater||!/^https?:/.test(location.protocol))return;
   try{const r=await fetch(location.pathname,{method:'HEAD',cache:'no-store'});if(!r.ok)return;const tag=r.headers.get('etag')||r.headers.get('last-modified')||'';if(!tag)return;
     if(!window.__etag){window.__etag=tag;return}if(tag!==window.__etag){updShown=true;$('#updBar').hidden=false;sfx('coin')}}catch(e){}}
 $('#updGo').addEventListener('click',()=>hardUpdate($('#updGo')));
