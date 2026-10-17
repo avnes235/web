@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-1307">
+<meta name="app-version" content="2026-10-17-1422">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2500,6 +2500,32 @@ html[data-u18] .nb[data-v=casino],html[data-u18] .nb[data-v=trading],html[data-u
 .wl-tmp{font-style:normal;font-size:10px;font-weight:900;background:#ff7a00;color:#111;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap;vertical-align:2px}
 @container (max-width:420px){.wl-r{grid-template-columns:40px minmax(0,1fr)}.wl-r>.btn,.wl-r>.wl-now,.wl-r>.wl-lk{grid-column:2;justify-self:start}}
 #wList{container-type:inline-size}
+/* Hoy ordenado: evento, botón rojo, dinero (caja fuerte y banco), premios por jugar, misiones, premio diario, torneo, buzón, invitar */
+#v-inicio[data-t=hoy] #hoyNav{order:-1}
+#v-inicio[data-t=hoy] #seCard{order:0!important}
+#v-inicio[data-t=hoy] #forbid{order:1!important}
+#v-inicio[data-t=hoy] #safeCard{order:2!important}
+#v-inicio[data-t=hoy] #bankCard{order:3!important}
+#v-inicio[data-t=hoy] #ptCard{order:4!important}
+#v-inicio[data-t=hoy] .panel.missions{order:5!important}
+#v-inicio[data-t=hoy] .panel.daily{order:6!important}
+#v-inicio[data-t=hoy] #tnHome{order:7!important}
+#v-inicio[data-t=hoy] #homeMail{order:8!important}
+#v-inicio[data-t=hoy] #invHome{order:9!important}
+.hoynav{grid-column:1/-1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 2px 4px;-webkit-overflow-scrolling:touch}.hoynav::-webkit-scrollbar{display:none}
+.hoynav button{flex:none;display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;border:2px solid var(--line);background:var(--card);color:var(--fg);font:800 13px var(--f-b);cursor:pointer;white-space:nowrap}
+.hoynav button .emo{font-size:16px}.hoynav button.rdy{border-color:var(--sun);background:#ffd6001f;color:var(--sun);position:relative}.hoynav button.rdy::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--sun);box-shadow:0 0 6px var(--sun)}
+@media (min-width:900px){.hoynav{flex-wrap:wrap;overflow:visible}}
+.hqflash{animation:hqF 1.2s ease-out}@keyframes hqF{0%,40%{box-shadow:0 0 0 4px var(--sun),0 0 30px #ffd60088}100%{box-shadow:none}}
+#wSwitch{width:100%;margin-top:6px;text-align:left}.wsw-h{font-weight:900;font-size:13px;margin:0 2px 6px;display:flex;justify-content:space-between;align-items:baseline}.wsw-h small{color:var(--muted);font-weight:700}
+.wsw-l{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
+.wsw{flex:none;width:92px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:12px;border:2px solid var(--line);background:#0005;color:var(--fg);font:inherit;cursor:pointer}
+.wsw svg{width:52px;height:52px}.wsw b{font-size:11.5px;line-height:1.1;text-align:center;min-height:2.2em;display:flex;align-items:center}.wsw em{font-style:normal;font-size:11px;font-weight:900;color:var(--sun);white-space:nowrap}
+.wsw em.free{color:var(--mint)}.wsw em.now{background:var(--sun);color:#111;border-radius:6px;padding:0 6px}.wsw em.lk{color:var(--muted)}.wsw.on{border-color:var(--sun);background:#ffd6001a}.wsw.tmp{border-color:#ff7a00}.wsw[disabled]{cursor:default}
+@media (min-width:760px){#wSwitch{display:none}}
+.serk h3{margin:10px 0 6px}
+.sptabs{display:flex;gap:6px;margin:10px 0 8px}.sptabs button{flex:1;padding:9px 6px;border-radius:12px;border:2px solid #3a2a50;background:#1d1530;color:#d8c8ef;font:900 14px var(--f-b);cursor:pointer}.sptabs button[aria-pressed=true]{background:linear-gradient(180deg,#ff9a27,#ff7a00);color:#111;border-color:#000;box-shadow:0 3px 0 #000}
+.sprk{max-height:56vh;overflow:auto}.sprk .setop>div{display:grid;grid-template-columns:44px 1fr auto;gap:8px;padding:7px 10px;border-radius:10px;background:#1d1530;margin-bottom:5px;font-weight:700}.sprk .setop>div.me{background:#ff7a0033;border:1px solid #ff7a00}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6043,6 +6069,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-17-f',t:'Inicio más ordenado',items:[['🧭','Accesos rápidos','En Inicio › Hoy, debajo de las pestañas, tienes botones para ir directo a cada cosa. Los que tienen algo por cobrar brillan.','new','#ffd600'],['📋','Todo en su sitio','Hoy va en este orden: evento, botón rojo, caja fuerte y banco, premios por jugar, misiones y premio diario.'],['🎡','Cambiar de ruleta en el móvil','Debajo del botón de girar hay una tira para cambiar de ruleta deslizando.'],['🏆','Clasificación de caramelos','En el evento de Halloween, «Recompensas y clasificación» te enseña quién lleva más caramelos y tu puesto.'],['📖','Tutorial al día','Hay guías nuevas en Ayuda › Tutorial: Inicio, Ruletas, Multiplicador, Premios por jugar, Halloween y Regalo de Google.']]},
  {v:'2026-10-17-e',t:'Ruletas más cómodas',items:[['🎡','Lista de ruletas','En Inicio › Ruletas ves todas con su dibujo y lo que cuesta elegir cada una.'],['🎲','Probabilidades a la vista','Ya no hay que pulsar para ver las probabilidades.'],['🎃','Ruleta de Halloween','Sale como «Temporal» y elegirla es gratis mientras dure el evento.'],['🛠️','Arreglado','Si girabas muy rápido (ruletas infinitas o con varias tiradas guardadas) se repetía la misma ruleta y luego se saltaba otra. Ya no pasa.']]},
  {v:'2026-10-17-d',t:'Multiplicador del casino, más claro',items:[['🔥','Ves el total','Cuando ganas con un multiplicador sale en grande tu premio, el x2 (o el que sea) y lo que te llevas de verdad.','new','#ffd600'],['⏱️','Reloj a la vista','Mientras tengas un multiplicador activo, una etiqueta te dice cuál es y cuánto le queda. Tócala para ir al casino.'],['🏆','Se queda el mejor','Si te toca otro multiplicador: si es mejor, lo cambia; si es igual, el reloj vuelve a empezar; si es peor, te quedas con el tuyo.'],['🧩','Inicio sin huecos','En el ordenador, las tarjetas de Inicio encajan como un puzle, sin espacios vacíos.'],['🎡','Todas las ruletas a mano','En Inicio › Ruletas sale la lista de todas las ruletas para elegir la que quieras.']]},
  {v:'2026-10-17-c',t:'Cofres más gordos y racha',items:[['🎁','Cofres sin tope','Los cofres de Premios por jugar ya no tienen máximo: dan un trozo de lo que tienes. Si tienes billones, te tocan miles de millones.','new','#ffd600'],['🔥','Racha','Juega 30 minutos al día y haz racha: cada día seguido tus cofres dan un 10 % más, hasta +50 %.','new','#ff7a00'],['⏱️','Reloj en directo','La cuenta atrás del próximo cofre baja de segundo en segundo.'],['🎡','Ruleta millonaria','Si te toca su premio gordo se bloquea 30 minutos solo ella. La del todo o nada sigue con lo suyo.'],['🔢','Cifras que caben','Las cantidades enormes salen cortas (por ejemplo 7,60 bill.) y ya no se parten en dos líneas.']]},
@@ -13188,6 +13215,69 @@ try{i18nAdd([['Ruletas más cómodas','Easier wheels','Roues plus pratiques','Ro
 ['Probabilidades a la vista','Odds in sight','Probabilités visibles','Probabilidades à vista'],['Ya no hay que pulsar para ver las probabilidades.','No need to tap to see the odds.','Plus besoin de toucher pour voir les probabilités.','Já não é preciso tocar para ver as probabilidades.'],['Arreglado','Fixed','Corrigé','Corrigido'],['Ruleta de Halloween','Halloween wheel','Roue d’Halloween','Roleta de Halloween'],['Sale como «Temporal» y elegirla es gratis mientras dure el evento.','It shows as “Temporary” and picking it is free while the event lasts.','Elle est marquée « Temporaire » et la choisir est gratuit pendant l’événement.','Aparece como «Temporária» e escolhê-la é grátis enquanto durar o evento.'],['Temporal','Temporary','Temporaire','Temporária'],['Elegir · gratis','Pick · free','Choisir · gratuit','Escolher · grátis'],
 ['Si girabas muy rápido (ruletas infinitas o con varias tiradas guardadas) se repetía la misma ruleta y luego se saltaba otra. Ya no pasa.','Spinning very fast (infinite wheels or saved spins) repeated the same wheel and then skipped one. Fixed.','En tournant très vite, la même roue se répétait puis une était sautée. Corrigé.','Se girasses muito depressa repetia a mesma roleta e depois saltava outra. Já não acontece.'],
 ['Después de cada tirada sale la siguiente. Si quieres una en concreto, elígela aquí.','After each spin the next one comes. Want a specific one? Pick it here.','Après chaque tour vient la suivante. Tu en veux une précise ? Choisis-la ici.','Depois de cada giro vem a seguinte. Queres uma em concreto? Escolhe-a aqui.']])}catch(e){}
+
+/* ================= 2026-10-17-f: INICIO ORDENADO, ACCESOS RÁPIDOS, CAMBIAR RULETA EN EL MÓVIL Y CLASIFICACIÓN DE CARAMELOS ================= */
+/* --- cambiar de ruleta a mano (tira de ruletas debajo del botón de girar) --- */
+function wSwitchDraw(){const card=$('.wheelcard');if(!card)return;let el=$('#wSwitch');
+  if(!el){el=document.createElement('div');el.id='wSwitch';const after=$('#wheelInfo')||$('#wheelBtn');if(after)after.insertAdjacentElement('afterend',el);else card.appendChild(el)}
+  const cur=curWheel().id;const nm=t=>String(t).replace(/^🎃\s*/,'').replace(/^Ruleta (de la |del |de |)/i,'');
+  const h=`<div class="wsw-h">🎡 Cambiar de ruleta <small>desliza →</small></div><div class="wsw-l">${WHEELS.map((w,i)=>{const le=(typeof wLockEnd==='function')?wLockEnd(w.id):0,pr=wPickPrice(w);
+    const tag=w.id===cur?'<em class="now">Ahora</em>':le?`<em class="lk">🔒 ${Math.ceil((le-Date.now())/60000)} min</em>`:`<em class="${pr?'':'free'}">${pr?short(pr)+' €':'Gratis'}</em>`;
+    return`<button class="wsw ${w.id===cur?'on':''}${w.id==='hw'?' tmp':''}" ${w.id===cur||le?'disabled':`data-wpick="${i}"`}>${(typeof wMini==='function'&&wMini(w))||''}<b>${esc(nm(w.t))}</b>${tag}</button>`}).join('')}</div>`;
+  if(el.dataset.h!==h){const sx=el.querySelector('.wsw-l')?el.querySelector('.wsw-l').scrollLeft:0;el.dataset.h=h;el.innerHTML=h;const l=el.querySelector('.wsw-l');if(l)l.scrollLeft=sx}}
+setInterval(()=>{try{if(view==='inicio')wSwitchDraw()}catch(e){}},2000);setTimeout(()=>{try{wSwitchDraw()}catch(e){}},2600);
+
+/* --- accesos rápidos en Hoy: todo a un toque, con aviso cuando hay algo por cobrar --- */
+const HQ=[['seCard','🎃','Evento'],['forbid','🔴','Botón rojo'],['safeCard','🔐','Caja fuerte'],['bankCard','🏦','Banco'],['ptCard','⏱️','Premios por jugar'],['misPanel','📋','Misiones'],['dailyPanel','📅','Premio diario'],['tnHome','🏆','Torneo'],['homeMail','📮','Buzón']];
+function hqReady(id){try{
+  if(id==='seCard'){const T=seTodo();return!!(T&&(T.tt||T.ready.length))}
+  if(id==='ptCard'){const st=ptState();return st.ready.length+st.lready.length>0}
+  if(id==='dailyPanel')return!!dailyInfo().ready;
+  if(id==='misPanel')return!!document.querySelector('#misList button:not([disabled])');}catch(e){}return false}
+function hoyNav(){const v=$('#v-inicio');if(!v)return;try{const m=v.querySelector('.panel.missions');if(m&&!m.id)m.id='misPanel';const d=v.querySelector('.panel.daily');if(d&&!d.id)d.id='dailyPanel'}catch(e){}
+  let n=$('#hoyNav');if(!n){n=document.createElement('nav');n.id='hoyNav';n.className='hoynav';n.dataset.ht='hoy';n.setAttribute('aria-label','Ir a');v.appendChild(n)}
+  const items=HQ.filter(([id])=>{const e=document.getElementById(id);return e&&!e.hidden&&getComputedStyle(e).display!=='none'});
+  const h=items.map(([id,e,t])=>`<button data-hq="${id}" class="${hqReady(id)?'rdy':''}"><span class="emo">${e}</span>${esc(t)}</button>`).join('');
+  if(n.dataset.h!==h){n.dataset.h=h;n.innerHTML=h}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-hq]');if(!b)return;const el=document.getElementById(b.dataset.hq);if(!el)return;sfx('click');
+  const tabs=$('#hoTabs');const off=(tabs?tabs.getBoundingClientRect().height:0)+(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--barh'))||64)+14;
+  scrollTo({top:el.getBoundingClientRect().top+scrollY-off,behavior:'smooth'});el.classList.remove('hqflash');void el.offsetWidth;el.classList.add('hqflash')});
+setInterval(()=>{try{if(view==='inicio')hoyNav()}catch(e){}},1500);setTimeout(()=>{try{hoyNav()}catch(e){}},2000);
+
+/* --- Halloween: el botón dice que ahí está la clasificación, y la clasificación sale arriba y más larga --- */
+{const _srHq=seRender;seRender=function(){const r=_srHq.apply(this,arguments);try{const b=document.querySelector('#seCard [data-sepass]');if(b&&!b.dataset.rk){b.dataset.rk=1;b.innerHTML='🏆 Recompensas y clasificación'}}catch(e){}return r}}
+{const _spHq=sePass;sePass=function(){const r=_spHq.apply(this,arguments);try{const mb=$('#mbox'),e=seNow()||SEASONS[SEASONS.length-1];const road=mb.querySelector('.sproad');
+  if(road&&!mb.querySelector('.sptabs')){const s=seSt(e);const all=[...NET.players.entries()].map(([id,p])=>({id,n:p.name,v:(p.hw&&p.hw.e===e.id)?+p.hw.t||0:0})).filter(x=>x.v>0&&x.id!==NET.id);if(s.tot>0&&S.name)all.push({n:S.name+' (tú)',v:s.tot,me:1});all.sort((a,b)=>b.v-a.v);const mi=all.findIndex(x=>x.me);
+    const tabs=document.createElement('div');tabs.className='sptabs';tabs.innerHTML=`<button data-spt="rw" aria-pressed="true">🎁 Recompensas</button><button data-spt="rk" aria-pressed="false">🏆 Clasificación</button>`;
+    const rk=document.createElement('div');rk.className='sprk';rk.hidden=true;
+    rk.innerHTML=`<p class="muted" style="margin:0 0 8px;font-weight:700">El que más ${e.cur[1]} tenga al acabar se lleva el título «${esc(e.king[2])}».${mi>=0?` Vas <b>${mi+1}º</b>.`:' Aún no tienes caramelos: ¡empieza!'}</p><div class="setop">${all.slice(0,30).map((x,i)=>`<div class="${x.me?'me':''}"><b>${i===0?'👑':i+1+'º'}</b><span>${esc(x.n||'?')}</span><span>${e.cur[0]} ${fmt(x.v)}</span></div>`).join('')||'<p class="muted">Aún nadie. ¡Sé el primero!</p>'}${mi>=30?`<div class="me"><b>${mi+1}º</b><span>${esc(S.name)} (tú)</span><span>${e.cur[0]} ${fmt(s.tot)}</span></div>`:''}</div>`;
+    road.insertAdjacentElement('beforebegin',tabs);road.insertAdjacentElement('afterend',rk);mb.querySelectorAll('h3.spt').forEach(h=>{const n=h.nextElementSibling;if(n&&n.classList.contains('setop'))n.remove();h.remove()});
+    tabs.onclick=ev=>{const b=ev.target.closest('[data-spt]');if(!b)return;sfx('click');const k=b.dataset.spt;tabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));road.hidden=k!=='rw';rk.hidden=k!=='rk'};return r}
+  const top=mb.querySelector('.setop');if(!top)return r;const h3=top.previousElementSibling;
+    const tiers=mb.querySelector('.setiers');const wrap=document.createElement('div');wrap.className='serk';
+    const s=seSt(e);const all=[...NET.players.entries()].map(([id,p])=>({id,n:p.name,v:(p.hw&&p.hw.e===e.id)?+p.hw.t||0:0})).filter(x=>x.v>0&&x.id!==NET.id);if(s.tot>0&&S.name)all.push({n:S.name+' (tú)',v:s.tot,me:1});all.sort((a,b)=>b.v-a.v);
+    const mi=all.findIndex(x=>x.me);
+    wrap.innerHTML=`<h3>🏆 Clasificación de caramelos</h3><p class="muted" style="margin:0 0 6px;font-weight:700">El que más ${e.cur[1]} tenga al acabar se lleva el título «${esc(e.king[2])}».${mi>=0?` Vas <b>${mi+1}º</b>.`:' Aún no tienes caramelos: ¡empieza!'}</p>
+     <div class="setop">${all.slice(0,20).map((x,i)=>`<div class="${x.me?'me':''}"><b>${i===0?'👑':i+1+'º'}</b><span>${esc(x.n||'?')}</span><span>${e.cur[0]} ${fmt(x.v)}</span></div>`).join('')||'<p class="muted">Aún nadie. ¡Sé el primero!</p>'}${mi>=20?`<div class="me"><b>${mi+1}º</b><span>${esc(S.name)} (tú)</span><span>${e.cur[0]} ${fmt(s.tot)}</span></div>`:''}</div>
+     <h3 style="margin-top:14px">🎁 Recompensas</h3>`;
+    if(h3&&h3.tagName==='H3')h3.remove();top.remove();if(tiers)tiers.insertAdjacentElement('beforebegin',wrap)}catch(err){}return r}}
+
+/* --- tutorial: todo lo nuevo --- */
+try{const add=(t)=>{if(!TUTOS.some(x=>x[1]===t[1]))TUTOS.push(t)};
+  add(['🧭','Inicio','Dónde está cada cosa','#ffd600',[['Arriba tienes 4 pestañas: <b>Hoy</b> (lo de cada día), <b>Ruletas</b>, <b>Competir</b> y <b>Jugar</b>.'],['En <b>Hoy</b>, debajo de las pestañas, hay <b>accesos rápidos</b>: Evento, Botón rojo, Caja fuerte, Banco, Premios por jugar, Misiones, Premio diario, Torneo y Buzón. Tócalos para ir directo.'],['Los que tienen algo por cobrar se iluminan en amarillo.'],['El orden de Hoy: primero el evento, luego el botón rojo, el dinero (caja fuerte y banco), los premios por jugar, las misiones y el premio diario.']],'Si no encuentras algo, mira los accesos rápidos de Hoy.','inicio']);
+  add(['🎡','Ruletas','Girar, elegir y bloqueos','#ff7a00',[['La ruleta de Inicio se puede girar <b>gratis</b> cada poco. Debajo pone cuánto falta.'],['Después de cada tirada sale la <b>siguiente ruleta</b>. Si quieres una en concreto, elígela: en el móvil, en la tira «Cambiar de ruleta» debajo del botón; en el ordenador, en la lista de al lado. Cuesta un poco de dinero.'],['La <b>Ruleta de Halloween</b> es temporal y elegirla es <b>gratis</b>.'],['Las <b>probabilidades</b> salen siempre debajo de la ruleta.'],['Si te toca el gordo de la <b>Ruleta millonaria</b>, esa se bloquea 30 minutos; la del <b>todo o nada</b>, 10 minutos. Las demás siguen libres.']],'La multiplicadora es la mejor antes de ir al casino.','inicio']);
+  add(['🔥','Multiplicador del casino','x2, x3… durante 5 minutos','#ff4527',[['Lo sacas en la <b>Ruleta multiplicadora</b>, en las cajas sorpresa o en los eventos de casino.'],['Mientras dura, lo que ganes de más en el casino se multiplica. Ejemplo: ganas 100.000 € con un <b>x2</b> → te llevas <b>200.000 €</b>.'],['Al ganar sale en grande tu premio, el x y el total.'],['Una etiqueta naranja te dice qué multiplicador tienes y cuánto le queda.'],['Si te toca otro: si es <b>mejor</b>, lo cambia; si es <b>igual</b>, vuelve a 5 minutos; si es <b>peor</b>, te quedas con el tuyo.']],'Apuesta fuerte justo después de sacar un x3.','casino']);
+  add(['⏱️','Premios por jugar','Cofres por tiempo jugado','#ffd600',[['En Inicio › Hoy hay <b>7 cofres al día</b>: a los 5, 15, 30, 45, 60, 90 y 120 minutos de juego.'],['Dan un trozo de tu dinero: cuanto más tienes, más dan.'],['<b>Racha</b>: juega 30 minutos cada día y tus cofres dan +10 % por cada día seguido (hasta +50 %).'],['<b>Premios especiales</b> al llegar a 1, 3, 6, 12, 24, 48 y 100 horas jugadas, con los títulos «Viciado/a» y «Veterano/a».'],['Solo cuenta jugar de verdad: si no tocas nada 2 minutos, el reloj se para.']],'No faltes ningún día y la racha sube.','inicio']);
+  add(['🎃','Halloween','Caramelos y clasificación','#ff7a00',[['Hasta el 1 de noviembre. Junta <b>caramelos 🍬</b> con las misiones del evento, el «truco o trato» diario, las calabazas que vuelan y la ruleta de Halloween.'],['Con caramelos desbloqueas caras, colores, marcos, fondos y títulos que <b>no vuelven a salir</b>.'],['En el evento, pulsa «<b>🏆 Recompensas y clasificación</b>» para ver quién lleva más caramelos y en qué puesto vas.'],['El que más tenga al final se lleva el título «👑 Rey Calabaza 2026».']],'El truco o trato es gratis cada día: no lo olvides.','inicio']);
+  add(['🎁','Regalo de Google','100.000 € por entrar con Google','#14e08a',[['Si entras con <b>Google</b> te regalamos <b>100.000 €</b> (una vez por cuenta y por dispositivo).'],['Además tu partida queda guardada para siempre y sales en la clasificación.']],'Ajustes › Cuenta › Entrar con Google.','ajustes'])}catch(e){}
+try{i18nAdd([['Cambiar de ruleta','Change wheel','Changer de roue','Mudar de roleta'],['desliza →','swipe →','glisse →','desliza →'],['Gratis','Free','Gratuit','Grátis'],['🏆 Recompensas y clasificación','🏆 Rewards and leaderboard','🏆 Récompenses et classement','🏆 Prémios e classificação'],['🏆 Clasificación de caramelos','🏆 Candy leaderboard','🏆 Classement des bonbons','🏆 Classificação de rebuçados'],['🎁 Recompensas','🎁 Rewards','🎁 Récompenses','🎁 Prémios'],
+  ['Evento','Event','Événement','Evento'],['Botón rojo','Red button','Bouton rouge','Botão vermelho'],['Caja fuerte','Safe','Coffre-fort','Cofre'],['Banco','Bank','Banque','Banco'],['Misiones','Missions','Missions','Missões'],['Premio diario','Daily reward','Récompense du jour','Prémio diário'],['Torneo','Tournament','Tournoi','Torneio'],['Buzón','Mailbox','Boîte','Caixa']])}catch(e){}
+
+try{i18nAdd([['Inicio más ordenado','A tidier Home','Accueil mieux rangé','Início mais arrumado'],['Accesos rápidos','Shortcuts','Raccourcis','Atalhos'],['En Inicio › Hoy, debajo de las pestañas, tienes botones para ir directo a cada cosa. Los que tienen algo por cobrar brillan.','In Home › Today, under the tabs, buttons take you straight to each thing. The ones with something to claim glow.','Dans Accueil › Aujourd’hui, sous les onglets, des boutons t’emmènent directement à chaque chose.','Em Início › Hoje, por baixo dos separadores, há botões para ir direto a cada coisa.'],
+['Todo en su sitio','Everything in place','Tout à sa place','Tudo no sítio'],['Hoy va en este orden: evento, botón rojo, caja fuerte y banco, premios por jugar, misiones y premio diario.','Today goes in this order: event, red button, safe and bank, play-time rewards, missions and daily reward.','Aujourd’hui suit cet ordre : événement, bouton rouge, coffre et banque, récompenses de jeu, missions et bonus quotidien.','Hoje vai por esta ordem: evento, botão vermelho, cofre e banco, prémios por jogar, missões e prémio diário.'],
+['Cambiar de ruleta en el móvil','Change wheel on mobile','Changer de roue sur mobile','Mudar de roleta no telemóvel'],['Debajo del botón de girar hay una tira para cambiar de ruleta deslizando.','Under the spin button there is a strip to switch wheels by swiping.','Sous le bouton tourner, une bande permet de changer de roue en glissant.','Por baixo do botão de girar há uma faixa para mudar de roleta a deslizar.'],
+['Clasificación de caramelos','Candy leaderboard','Classement des bonbons','Classificação de rebuçados'],['En el evento de Halloween, «Recompensas y clasificación» te enseña quién lleva más caramelos y tu puesto.','In the Halloween event, “Rewards and leaderboard” shows who has the most candy and your position.','Dans l’événement Halloween, « Récompenses et classement » montre qui a le plus de bonbons et ta place.','No evento de Halloween, «Prémios e classificação» mostra quem tem mais rebuçados e o teu lugar.'],
+['Tutorial al día','Tutorial up to date','Tutoriel à jour','Tutorial atualizado'],['Hay guías nuevas en Ayuda › Tutorial: Inicio, Ruletas, Multiplicador, Premios por jugar, Halloween y Regalo de Google.','New guides in Help › Tutorial: Home, Wheels, Multiplier, Play-time rewards, Halloween and Google gift.','Nouveaux guides dans Aide › Tutoriel.','Novos guias em Ajuda › Tutorial.']])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
