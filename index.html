@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-1809">
+<meta name="app-version" content="2026-10-17-1819">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2564,6 +2564,11 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]{position:relat
 #chNew.out,#chIntro.out{transition:.4s;opacity:0}@keyframes cnIn{from{transform:translate(-50%,-30px);opacity:0}}
 #chIntro{position:fixed;z-index:9400;width:min(300px,calc(100vw - 20px));display:flex;flex-direction:column;gap:6px;padding:12px;border-radius:14px;background:#123a6a;border:3px solid #4aa8ff;box-shadow:0 10px 30px #000a;font-size:13.5px;font-weight:600}
 #chIntro b{font-size:16px}#chIntro::before{content:'';position:absolute;top:-12px;right:22px;border:10px solid transparent;border-bottom-color:#4aa8ff;border-top:0}
+#fabPill{position:fixed;right:12px;top:calc(var(--barh,64px) + 10px);z-index:58;display:flex;align-items:center;gap:8px;padding:6px 12px 6px 8px;border-radius:14px;border:2px solid #000;background:linear-gradient(135deg,#14e08a,#ffd600);color:#111;font:inherit;cursor:pointer;box-shadow:3px 3px 0 #000;animation:mpIn .35s ease-out}
+#fabPill.two{top:calc(var(--barh,64px) + 66px)}#fabPill .mpx{font:24px/1 var(--f-d);animation:mpBeat 1s ease-in-out infinite}#fabPill .mpl{display:flex;flex-direction:column;line-height:1.05;font-weight:900;font-size:11px;text-transform:uppercase}#fabPill .mpl b{font:800 16px var(--f-n)}#fabPill.low{animation:mpBlink .6s step-end infinite}
+@media (max-width:520px){#fabPill{top:auto;bottom:calc(84px + env(safe-area-inset-bottom));right:10px}#fabPill.two{bottom:calc(140px + env(safe-area-inset-bottom));top:auto}}
+.fabmp .mp-in{border-color:#14e08a;background:radial-gradient(circle at 50% 30%,#0f3a26,#06140d);box-shadow:0 0 60px #14e08a88,6px 6px 0 #000}.fabmp .mp-x{color:#14e08a;text-shadow:0 0 24px #14e08a,4px 4px 0 #000}.fabmp .mp-a{text-decoration:none!important;opacity:.9}.fabmp .mp-t{font-size:34px;color:#ffd600}
+.floaty.mx{color:#14e08a!important;font-size:1.15em}.floaty .fxm{display:inline-block;background:#ffd600;color:#111;border-radius:6px;padding:0 5px;font-size:.8em;margin-left:2px;transform:rotate(-6deg)}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -4743,7 +4748,7 @@ function sizeFab(){const r=fz.getBoundingClientRect();fcv.width=Math.max(1,r.wid
 addEventListener('resize',()=>{if(view==='fabrica')sizeFab()});
 $('#bigcoin').addEventListener('pointerdown',e=>{e.preventDefault();if(Date.now()<(S.fabLock||0)){renderBan();sfx('lose');return}const why=clickCheck(e);if(why){strike(why);return}if(clicksNow()>22){if(!fabFastWarned){fabFastWarned=true;toast('Más despacio, máquina','Por encima de 22 clics por segundo los clics no cuentan','var(--sun)','🖐️')}return}const en=S.fabEn==null?100:S.fabEn,tired=en<=0,v=perClick()*(tired?.1:1);S.fabEn=Math.max(0,en-1);lastFabClick=Date.now();fabGive(v);GAINS.push({t:performance.now(),v:v*evMult()});if(tired&&!fabTiredWarned){fabTiredWarned=true;toast('Estás reventado','Descansa unos segundos: ahora cada clic vale 10 veces menos','var(--coral)','😮‍💨')}ev('clicks');sfx('tick');
   const b=$('#bigcoin');b.classList.add('hit');setTimeout(()=>b.classList.remove('hit'),70);
-  const z=fz.getBoundingClientRect(),x=e.clientX-z.left,y=e.clientY-z.top;const f=document.createElement('div');f.className='floaty';f.textContent='+'+fmtC(v);if(tired)f.style.color='var(--muted)';f.style.left=(x-14)+'px';f.style.top=(y-30)+'px';fz.appendChild(f);setTimeout(()=>f.remove(),900);
+  const z=fz.getBoundingClientRect(),x=e.clientX-z.left,y=e.clientY-z.top;const f=document.createElement('div');f.className='floaty';{const _m=(typeof fabMulNow==='function')?fabMulNow():1;if(_m>1&&!tired){f.innerHTML='+'+fmtC(v*_m)+' <b class="fxm">x'+_m+'</b>';f.classList.add('mx')}else f.textContent='+'+fmtC(v)}if(tired)f.style.color='var(--muted)';f.style.left=(x-14)+'px';f.style.top=(y-30)+'px';fz.appendChild(f);setTimeout(()=>f.remove(),900);
   for(let i=0;i<7;i++){const a=rnd(0,6.28),s=rnd(2,7);fparts.push({x:x*DPR,y:y*DPR,vx:Math.cos(a)*s*DPR,vy:Math.sin(a)*s*DPR-3*DPR,l:1,r:rnd(4,8)*DPR})}
   if(st('clicks')%60===0)xp(3)});
 function fabFx(){if(view!=='fabrica'||!fparts.length){if(fparts.length===0)fctx.clearRect(0,0,fcv.width,fcv.height);return}fctx.clearRect(0,0,fcv.width,fcv.height);
@@ -6110,6 +6115,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-17-l',t:'Multiplicador de la fábrica',items:[['🏭','Como el del casino','Si la ruleta de la fábrica te da un x2, x3 o x5 sale en grande, una etiqueta te dice cuánto queda y cada clic enseña el total con el x. Si te toca otro, se queda el mejor.','new','#14e08a']]},
  {v:'2026-10-17-k',t:'Podio de los juegos',items:[['🏆','Premios por hora según tu dinero','Los 3 primeros de cada juego cobran cada hora lo que sea mayor: lo de siempre o un trozo de su dinero (1º 0,02 %, 2º 0,01 %, 3º 0,005 %). Así también motiva a los que tienen mucho.','new','#ffd600'],['🛠️','Arreglado','El «+€/h» del podio ya no sale repetido muchas veces, y la explicación de lo que paga sale en todos los juegos.'],['💬','Chat','Tocando fuera del chat, se cierra.']]},
  {v:'2026-10-17-j',t:'Chat a la vista',items:[['💬','Botón de chat','Arriba a la derecha, botón azul «Chat» bien visible.','new','#4aa8ff'],['🔔','Te enteras de los mensajes','Si te escriben: suena, el botón se pone rojo con el número, la pestaña avisa y sale un aviso grande con «Responder».']]},
  {v:'2026-10-17-i',t:'Lluvia de monedas y botón rojo',items:[['🔴','Botón rojo más generoso','Los premios del botón rojo dan bastante más (x4) y un pequeño extra según tu dinero.'],['🪙','Monedas vacías','Cuando se acaba el dinero de la lluvia, las monedas que siguen cayendo se ponen grises con una ✕ y te avisa. Así sabes que ya no dan nada.']]},
@@ -11252,7 +11258,7 @@ WHEELS.push(
 {const _wrC=wResolve;wResolve=function(late){const P_=S.wPend;try{if(P_&&P_.p&&!(+P_.at<=(+S.wDone||0))){const p=P_.p;
     if(p.k==='pts'){lgRoll();S.wkP=(S.wkP||0)+p.v;S.moP=(S.moP||0)+p.v;sfx('win');toast('Ruleta de la liga','+'+p.v+' puntos de liga','var(--sun)','🏅')}
     if(p.k==='fab'){if(p.v==='en'){S.fabEn=100;toast('Energía a tope','La fábrica está llena de energía','var(--sun)','⚡')}else if(p.v==='gold'){goldNext=Date.now()+1500;S.goldRush=Date.now()+120000;toast('Fiebre del oro personal','2 minutos de monedas doradas en la fábrica','var(--sun)','✨')}
-      else{const m=+p.v.slice(1);S.fabX={m,until:Date.now()+180000};toast('Clics x'+m,'Durante 3 minutos en la fábrica','var(--sun)','🏭')}sfx('win')}}}catch(e){}return _wrC.apply(this,arguments)}}
+      else{const m=+p.v.slice(1);try{setFabMult(m,Date.now()+180000)}catch(_){S.fabX={m,until:Date.now()+180000}}}sfx('win')}}}catch(e){}return _wrC.apply(this,arguments)}}
 {const _fgX=fabGive;fabGive=function(v){const x=S.fabX;if(x&&+x.until>Date.now())v=v*x.m;return _fgX.call(this,v)}}
 setInterval(()=>{try{if(S.goldRush&&S.goldRush>Date.now()&&goldNext>Date.now()+6000)goldNext=Date.now()+rnd(2500,5000)}catch(e){}},1000);
 const wChoosePrice=()=>niceN(Math.max(5000,Math.floor(+S.coins||0)*.0005));
@@ -13410,6 +13416,26 @@ document.addEventListener('pointerdown',e=>{const w=document.getElementById('cha
 
 try{i18nAdd([['Podio de los juegos','Games podium','Podium des jeux','Pódio dos jogos'],['Premios por hora según tu dinero','Hourly prizes based on your money','Gains horaires selon ton argent','Prémios por hora segundo o teu dinheiro'],['Los 3 primeros de cada juego cobran cada hora lo que sea mayor: lo de siempre o un trozo de su dinero (1º 0,02 %, 2º 0,01 %, 3º 0,005 %). Así también motiva a los que tienen mucho.','The top 3 of each game earn every hour the higher of the usual amount or a slice of their own money.','Les 3 premiers gagnent chaque heure le plus grand entre le montant habituel et une part de leur argent.','Os 3 primeiros ganham por hora o maior entre o habitual e uma parte do seu dinheiro.'],['El «+€/h» del podio ya no sale repetido muchas veces, y la explicación de lo que paga sale en todos los juegos.','The podium “+€/h” no longer repeats, and the payout explanation shows in every game.','Le « +€/h » du podium ne se répète plus.','O «+€/h» do pódio já não se repete.'],['Tocando fuera del chat, se cierra.','Tapping outside the chat closes it.','Toucher en dehors du chat le ferme.','Tocar fora do chat fecha-o.']]);
 const jg=TUTOS.find(t=>t[1]==='Juegos');if(jg&&!jg[4].some(x=>/su propio dinero|tu propio dinero/.test(x[0])))jg[4].push(['<b>Podio semanal</b>: los 3 primeros de cada juego cobran cada hora. Cobras lo que sea mayor: la cantidad fija o un trozo de <b>tu propio dinero</b> (1º 0,02 %, 2º 0,01 %, 3º 0,005 %).'])}catch(e){}
+
+/* ===== MULTIPLICADOR DE LA FÁBRICA (ruleta de la fábrica): como el del casino ===== */
+function fabMulNow(){let m=1;const x=S.fabX;if(x&&+x.until>Date.now())m*=+x.m;if(Date.now()<(S.fabX2||0))m*=2;if((S.fabX5||0)>0)m*=5;return m}
+function setFabMult(v,until){v=+v;const c=S.fabX&&+S.fabX.until>Date.now()?S.fabX:null;let k='new';
+  if(c){if(v>+c.m)k='up';else if(v===+c.m){k='ext';if(until<=+c.until){fabMultShow(v,k,+c.m);return k}}else{fabMultShow(v,'keep',+c.m);return'keep'}}
+  S.fabX={m:v,until:+until};save();fabMultShow(v,k,c?+c.m:0);return k}
+function fabMultShow(v,k,old){const xs=x=>'x'+String(x).replace('.',',');
+  if(k==='keep'){toast('Te quedas con tu '+xs(old),'Ya tenías un multiplicador de clics mejor','var(--sun)','🏭');return}
+  const o=document.createElement('div');o.className='multpop fabmp';o.innerHTML=`<div class="mp-in"><small>${k==='up'?'¡Mejorado!':k==='ext'?'¡Más tiempo!':'Fábrica'}</small><span class="mp-a">Cada clic vale</span><b class="mp-x">${xs(v)}</b><span class="mp-t">3 minutos</span><small>🏭 Ve a la Fábrica y dale sin parar</small></div>`;
+  document.body.appendChild(o);try{sfx('big');confetti(160)}catch(e){}setTimeout(()=>o.classList.add('out'),2600);setTimeout(()=>o.remove(),3100)}
+function fabPill(){let p=$('#fabPill');const x=S.fabX&&+S.fabX.until>Date.now()?S.fabX:null;
+  if(!x||!S.name){if(p)p.remove();return}
+  if(!p){p=document.createElement('button');p.id='fabPill';p.type='button';p.title='Cada clic en la fábrica se multiplica';document.body.appendChild(p);p.onclick=()=>{sfx('click');go('fabrica')}}
+  const s_=Math.max(0,Math.ceil((+x.until-Date.now())/1000)),t=Math.floor(s_/60)+':'+String(s_%60).padStart(2,'0');
+  const html=`<span class="mpx">🏭 ${'x'+x.m}</span><span class="mpl">Clics<b>${t}</b></span>`;if(p.dataset.h!==html){p.dataset.h=html;p.innerHTML=html}p.classList.toggle('low',s_<=30);p.classList.toggle('two',!!$('#multPill'))}
+setInterval(()=>{try{fabPill()}catch(e){}},1000);
+try{const fb=TUTOS.find(t=>t[1]==='Fábrica');if(fb&&!fb[4].some(x=>/Ruleta de la fábrica/.test(x[0])))fb[4].push(['<b>Ruleta de la fábrica</b>: si te toca un <b>x2, x3 o x5</b>, cada clic vale eso durante 3 minutos. Una etiqueta te dice cuánto queda y cada clic enseña el x. Si te toca otro, se queda el mejor.'])}catch(e){}
+try{i18nAdd([['Cada clic vale','Each click is worth','Chaque clic vaut','Cada clique vale'],['3 minutos','3 minutes','3 minutes','3 minutos'],['🏭 Ve a la Fábrica y dale sin parar','🏭 Go to the Factory and click away','🏭 Va à l’Usine et clique sans arrêt','🏭 Vai à Fábrica e clica sem parar'],['Clics','Clicks','Clics','Cliques'],['Ya tenías un multiplicador de clics mejor','You already had a better click multiplier','Tu avais déjà un meilleur multiplicateur de clics','Já tinhas um multiplicador de cliques melhor']])}catch(e){}
+
+try{i18nAdd([['Multiplicador de la fábrica','Factory multiplier','Multiplicateur de l’usine','Multiplicador da fábrica'],['Como el del casino','Like the casino one','Comme celui du casino','Como o do casino'],['Si la ruleta de la fábrica te da un x2, x3 o x5 sale en grande, una etiqueta te dice cuánto queda y cada clic enseña el total con el x. Si te toca otro, se queda el mejor.','If the factory wheel gives you x2, x3 or x5 it shows big, a tag shows the time left and each click shows the total with the x. If you get another one, the best stays.','Si la roue de l’usine te donne x2, x3 ou x5, c’est affiché en grand, une étiquette montre le temps restant et chaque clic montre le total.','Se a roleta da fábrica te der x2, x3 ou x5 aparece em grande, uma etiqueta mostra o tempo restante e cada clique mostra o total.']])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
