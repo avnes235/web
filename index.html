@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-1441">
+<meta name="app-version" content="2026-10-17-1528">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2452,7 +2452,7 @@ html[data-u18] .nb[data-v=casino],html[data-u18] .nb[data-v=trading],html[data-u
 #nav .pt-dot{position:relative}#nav .pt-dot::before{content:'';position:absolute;top:2px;left:8px;width:11px;height:11px;border-radius:50%;background:var(--sun);border:2px solid #000;z-index:2;animation:ptPulse 1.1s infinite}
 .gbb{background:#14e08a!important;color:#111!important}
 /* 2026-10-17: nada apelotonado */
-#days b{text-overflow:clip!important;overflow:visible!important;white-space:nowrap!important;line-height:1.1}#days b .du{display:block;font-size:.8em;opacity:.85}
+#days b{text-overflow:clip!important;overflow:hidden!important;white-space:nowrap!important;line-height:1.1;display:block}#days b .du{display:block;font-size:.78em;opacity:.85;white-space:normal;line-height:1.05}
 .opt .lk{display:inline-block;padding:2px 8px;border-radius:7px;line-height:1.35;margin-top:4px;white-space:nowrap}
 .lk.sek,.lk.xk{padding:3px 9px!important;border-radius:7px!important;font-weight:800!important;box-shadow:2px 2px 0 #000}
 #v-trading .tr-tbl th,.tr-tbl th{white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important;hyphens:manual!important}
@@ -4392,7 +4392,10 @@ window.FIREBASE_CONFIG = {
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const fmt=n=>{n=Math.floor(+n||0);return(n<0?'-':'')+String(Math.abs(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')};
 const short=n=>{n=Math.floor(n);const a=Math.abs(n),f=(v,u)=>v.toFixed(v<10?2:1).replace('.',',')+u;
-  if(a>=1e18)return f(n/1e18,a>=2e18?' trillones':' trillón');if(a>=1e15)return f(n/1e15,' mil billones');if(a>=1e12)return f(n/1e12,' bill.');if(a>=1e9)return fmt(Math.round(n/1e6))+' M';return fmt(n)};
+  return fmt(n)};
+/* abreviado con palabras (solo cuando el número entero no cabe) */
+function nShort(n){n=Math.floor(+n||0);const a=Math.abs(n),f=(v,u)=>{const r=v>=100?Math.round(v):Math.round(v*10)/10;return String(r).replace('.',',')+u};
+  if(a>=1e18)return f(n/1e18,' trill.');if(a>=1e15)return f(n/1e15,' mil bill.');if(a>=1e12)return f(n/1e12,' bill.');if(a>=1e9)return f(n/1e9,' mil mill.');if(a>=1e6)return f(n/1e6,' mill.');if(a>=1e4)return f(n/1e3,' mil');return fmt(n)}
 const eur=n=>fmt(n)+' €';
 const eurS=n=>short(n)+' €';
 const walShort=n=>{n=Math.floor(n);const a=Math.abs(n),d=(v)=>v.toFixed(v<10?2:v<100?1:0).replace('.',',');if(a>=1e18)return d(n/1e18)+' trill.';if(a>=1e15)return fmt(n/1e12)+' bill.';if(a>=1e12)return d(n/1e12)+' bill.';if(a>=1e10)return fmt(n/1e6)+' M';return fmt(n)};
@@ -4503,7 +4506,7 @@ let wRot=0,wBusy=false;
 function drawWheel(){const c=$('#wheel'),g=c.getContext('2d'),n=WPRIZE.length,R=190,seg=Math.PI*2/n;g.clearRect(0,0,400,400);
   g.fillStyle='#141a2e';g.beginPath();g.arc(200,200,198,0,7);g.fill();
   WPRIZE.forEach((p,i)=>{const a0=i*seg-Math.PI/2;g.beginPath();g.moveTo(200,200);g.arc(200,200,R-6,a0,a0+seg);g.closePath();g.fillStyle=WCOL[i];g.fill();
-    g.save();g.translate(200,200);g.rotate(a0+seg/2);g.fillStyle='#141a2e';g.font='34px "Anton",sans-serif';g.textAlign='right';g.textBaseline='middle';g.fillText(short(p*wMult()),R-22,0);g.restore()});
+    g.save();g.translate(200,200);g.rotate(a0+seg/2);g.fillStyle='#141a2e';g.font='34px "Anton",sans-serif';g.textAlign='right';g.textBaseline='middle';g.fillText(nShort(p*wMult()),R-22,0);g.restore()});
   for(let i=0;i<n;i++){const a=i*seg-Math.PI/2;g.strokeStyle='#141a2e';g.lineWidth=5;g.beginPath();g.moveTo(200,200);g.lineTo(200+Math.cos(a)*(R-6),200+Math.sin(a)*(R-6));g.stroke();
     g.fillStyle='#fff';g.beginPath();g.arc(200+Math.cos(a)*(R+1),200+Math.sin(a)*(R+1),5,0,7);g.fill()}
   g.fillStyle='#141a2e';g.beginPath();g.arc(200,200,34,0,7);g.fill();g.fillStyle='#ffc23d';g.beginPath();g.arc(200,200,24,0,7);g.fill()}
@@ -4531,7 +4534,7 @@ const dayKey=(d=new Date())=>d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(
 let dailyAmt=k=>Math.round(250*k*Math.max(1,S.lvl/2)/10)*10*(k%7===0?2:1);
 function dailyInfo(){const d=S.daily||{last:'',streak:0},t=dayKey(),y=dayKey(new Date(Date.now()-864e5));return{ready:d.last!==t,streak:(d.last===t||d.last===y)?d.streak:0}}
 function renderDaily(){const{ready,streak}=dailyInfo(),base=ready?streak:streak-1,cur=((base%7)+7)%7,start=base-cur;
-  $('#days').innerHTML=Array.from({length:7},(_,i)=>`<div class="${i<cur||(!ready&&i===cur)?'got':''} ${ready&&i===cur?'now':''}">Día ${i+1}<b title="${fmt(dailyAmt(start+i+1))} €">${dailyAmt(start+i+1)>=1e5&&typeof cmpN==='function'?cmpN(dailyAmt(start+i+1)).replace(/^(\S+)\s(.+)$/,'$1<small class="du">$2</small>'):short(dailyAmt(start+i+1))}</b></div>`).join('');
+  $('#days').innerHTML=Array.from({length:7},(_,i)=>`<div class="${i<cur||(!ready&&i===cur)?'got':''} ${ready&&i===cur?'now':''}">Día ${i+1}<b class="fit2" title="${fmt(dailyAmt(start+i+1))} €">${dailyAmt(start+i+1)>=1e5&&typeof cmpN==='function'?fmt(dailyAmt(start+i+1)):short(dailyAmt(start+i+1))}</b></div>`).join('');
   $('#dStreak').textContent='Racha: '+streak+(streak===1?' día':' días');$('#dClaim').disabled=!ready;$('#dClaim').textContent=ready?'Cobrar el de hoy':'Vuelve mañana'}
 $('#dClaim').addEventListener('click',()=>{const{ready,streak}=dailyInfo();if(!ready)return;const n=streak+1,r=dailyAmt(n);S.daily={last:dayKey(),streak:n};give(r);xp(25);sfx('big');
   const b=$('#dClaim').getBoundingClientRect();confetti(120,b.left+b.width/2,b.top);toast('Premio diario','+'+short(r)+' € · racha de '+n,'var(--mint)','📅');if(n%7===0)troll('DISFRUTAAAAA','semana entera, premio doble');renderDaily();save()});
@@ -6070,6 +6073,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-17-g',t:'Números enteros',items:[['🔢','Cifras completas','El dinero sale entero (por ejemplo 203.203.120.102 €) siempre que quepa.'],['✂️','Si no cabe, con palabras','Cuando no cabe se acorta con palabras: mil, mill., mil mill., bill. y trill. (por ejemplo 7,6 bill. €). Pasa el ratón por encima para ver la cifra exacta.']]},
  {v:'2026-10-17-f',t:'Inicio más ordenado',items:[['🧭','Accesos rápidos','En Inicio › Hoy, debajo de las pestañas, tienes botones para ir directo a cada cosa. Los que tienen algo por cobrar brillan.','new','#ffd600'],['📋','Todo en su sitio','Hoy va en este orden: evento, botón rojo, caja fuerte y banco, premios por jugar, misiones y premio diario.'],['🎡','Cambiar de ruleta en el móvil','Debajo del botón de girar hay una tira para cambiar de ruleta deslizando.'],['🏆','Clasificación de caramelos','En el evento de Halloween, «Recompensas y clasificación» te enseña quién lleva más caramelos y tu puesto.'],['📖','Tutorial al día','Hay guías nuevas en Ayuda › Tutorial: Inicio, Ruletas, Multiplicador, Premios por jugar, Halloween y Regalo de Google.']]},
  {v:'2026-10-17-e',t:'Ruletas más cómodas',items:[['🎡','Lista de ruletas','En Inicio › Ruletas ves todas con su dibujo y lo que cuesta elegir cada una.'],['🎲','Probabilidades a la vista','Ya no hay que pulsar para ver las probabilidades.'],['🎃','Ruleta de Halloween','Sale como «Temporal» y elegirla es gratis mientras dure el evento.'],['🛠️','Arreglado','Si girabas muy rápido (ruletas infinitas o con varias tiradas guardadas) se repetía la misma ruleta y luego se saltaba otra. Ya no pasa.']]},
  {v:'2026-10-17-d',t:'Multiplicador del casino, más claro',items:[['🔥','Ves el total','Cuando ganas con un multiplicador sale en grande tu premio, el x2 (o el que sea) y lo que te llevas de verdad.','new','#ffd600'],['⏱️','Reloj a la vista','Mientras tengas un multiplicador activo, una etiqueta te dice cuál es y cuánto le queda. Tócala para ir al casino.'],['🏆','Se queda el mejor','Si te toca otro multiplicador: si es mejor, lo cambia; si es igual, el reloj vuelve a empezar; si es peor, te quedas con el tuyo.'],['🧩','Inicio sin huecos','En el ordenador, las tarjetas de Inicio encajan como un puzle, sin espacios vacíos.'],['🎡','Todas las ruletas a mano','En Inicio › Ruletas sale la lista de todas las ruletas para elegir la que quieras.']]},
@@ -7115,8 +7119,8 @@ _i18nApply(_i18nDetect());
 /* ================= 2026-10-02-t: ruletas, botón rojo, buzón, consejos ================= */
 const AVW=['🦄','🐲','🧛','🥷','👻','🦩','🐺','🎃','🧞','🦹'];
 const WHEELS=[
- {id:'money',t:'Ruleta del dinero',d:'Dinero seguro. Cuanto más nivel, más toca.',segs:()=>WPRIZE.map((p,i)=>({lab:short(p*wMult()),col:WCOL[i],k:'eur',v:p*wMult()}))},
- {id:'faces',t:'Ruleta de caras',d:'Caras exclusivas para tu perfil que no se consiguen de otra forma.',segs:()=>{const L=AVW.slice(0,6).map((a,i)=>({lab:a,emo:1,col:['#9a6bff','#ff5fa8','#2fd6a3','#4aa8ff','#ff6b4a','#ffc23d'][i],k:'face',v:a}));L.splice(3,0,{lab:short(800*wMult()),col:'#2a3150',k:'eur',v:800*wMult()});L.push({lab:short(400*wMult()),col:'#2a3150',k:'eur',v:400*wMult()});return L}},
+ {id:'money',t:'Ruleta del dinero',d:'Dinero seguro. Cuanto más nivel, más toca.',segs:()=>WPRIZE.map((p,i)=>({lab:nShort(p*wMult()),col:WCOL[i],k:'eur',v:p*wMult()}))},
+ {id:'faces',t:'Ruleta de caras',d:'Caras exclusivas para tu perfil que no se consiguen de otra forma.',segs:()=>{const L=AVW.slice(0,6).map((a,i)=>({lab:a,emo:1,col:['#9a6bff','#ff5fa8','#2fd6a3','#4aa8ff','#ff6b4a','#ffc23d'][i],k:'face',v:a}));L.splice(3,0,{lab:nShort(800*wMult()),col:'#2a3150',k:'eur',v:800*wMult()});L.push({lab:nShort(400*wMult()),col:'#2a3150',k:'eur',v:400*wMult()});return L}},
  {id:'risk',t:'Ruleta del todo o nada',d:'Un solo hueco da 1.000.000 €. Todos los demás te quitan 2.000 €. ¿Te atreves o la saltas?',segs:()=>Array.from({length:10},(_,i)=>i===0?{lab:'1M',col:'#ffd600',k:'eur',v:1000000,big:1}:{lab:'−2.000',col:i%2?'#3a0f18':'#561622',k:'lose',v:2000})},
  {id:'xp',t:'Ruleta de experiencia',d:'Experiencia para subir de nivel más rápido.',segs:()=>[60,150,90,400,120,250,80,600].map((v,i)=>({lab:v+' XP',col:WCOL[i],k:'xp',v}))},
  {id:'box',t:'Ruleta de cajas sorpresa',d:'Cada caja esconde algo distinto. Ni yo sé lo que hay.',segs:()=>Array.from({length:8},(_,i)=>({lab:'🎁',emo:1,col:WCOL[i],k:'box'}))},
@@ -9714,7 +9718,7 @@ setInterval(()=>{if(view==='trading')try{trLiveBar()}catch(e){}},1000);
 /* ---- Ruleta del todo o nada: el riesgo y el premio crecen con tu dinero ---- */
 (function(){const W=WHEELS.find(w=>w.id==='risk');if(!W)return;
   const RK=()=>{const c=Math.max(0,Math.floor(S.coins||0));return{L:Math.max(2000,Math.round(c*.05/100)*100),J:Math.max(1000000,Math.round(c*.5/1000)*1000)}};
-  W.segs=()=>{const {L,J}=RK();return Array.from({length:10},(_,i)=>i===0?{lab:short(J),col:'#ffd600',k:'eur',v:J,big:1}:{lab:'−'+short(L),col:i%2?'#3a0f18':'#561622',k:'lose',v:L})};
+  W.segs=()=>{const {L,J}=RK();return Array.from({length:10},(_,i)=>i===0?{lab:nShort(J),col:'#ffd600',k:'eur',v:J,big:1}:{lab:'−'+short(L),col:i%2?'#3a0f18':'#561622',k:'lose',v:L})};
   Object.defineProperty(W,'d',{configurable:true,get(){const {L,J}=RK();return'Un solo hueco da '+fmt(J)+' €. Los demás te quitan '+fmt(L)+' € (el 5 % de lo que tienes). Cuanto más dinero, más riesgo y más premio.'}});
   try{drawWheel()}catch(e){}
   const _gv=give;let last=0;setInterval(()=>{if(view==='inicio'&&curWheel().id==='risk'&&!wBusy&&Math.abs((S.coins||0)-last)>Math.max(1000,last*.02)){last=S.coins||0;try{drawWheel()}catch(e){}}},2500)})();
@@ -9900,7 +9904,7 @@ function wWeigh(id,segs){let ws;if(id==='money'||id==='xp'||id==='mult'){const b
 function wOddsHTML(){if(!wSegs)return'';const W_=curWheel();const map=new Map();wSegs.forEach(s_=>{const k=s_.k+'|'+s_.lab;const m=map.get(k)||{s:s_,p:0};m.p+=s_.p;map.set(k,m)});
   const rows=[...map.values()].sort((a,b)=>(b.s.v||0)-(a.s.v||0)||b.p-a.p);
   const pc=p=>{const v=p*100;return(v<1?v.toFixed(1):v<10?v.toFixed(1):Math.round(v)).toString().replace('.',',')+' %'};
-  return`<details class="wodds" open><summary>🎲 Probabilidades</summary><div class="wol">${rows.map(r=>`<div><span class="sw" style="background:${r.s.col}"></span><b>${esc(r.s.k==='box'?'Caja sorpresa':(/^[\d.]{6,}( €)?$/.test(String(r.s.lab))?short(+String(r.s.lab).replace(/\D/g,''))+(/€/.test(String(r.s.lab))?' €':''):r.s.lab))}</b><em>${pc(r.p)}</em></div>`).join('')}</div><small>Los premios gordos salen mucho menos que los pequeños.</small></details>`}
+  return`<details class="wodds" open><summary>🎲 Probabilidades</summary><div class="wol">${rows.map(r=>`<div><span class="sw" style="background:${r.s.col}"></span><b>${esc(r.s.k==='box'?'Caja sorpresa':r.s.lab)}</b><em>${pc(r.p)}</em></div>`).join('')}</div><small>Los premios gordos salen mucho menos que los pequeños.</small></details>`}
 const _dwOdds=drawWheel;drawWheel=function(){const r=_dwOdds.apply(this,arguments);try{const card=$('.wheelcard');if(card){let el=$('#wheelOdds');const op=el&&el.querySelector('details')&&el.querySelector('details').open;if(!el){el=document.createElement('div');el.id='wheelOdds';const inf=$('#wheelInfo');inf.insertAdjacentElement('afterend',el)}el.innerHTML=wOddsHTML();if(op)el.querySelector('details').open=true}}catch(e){}return r};
 try{drawWheel()}catch(e){}
 
@@ -11170,7 +11174,7 @@ gsMount();setTimeout(gsMount,1500);{const _goS=go;go=function(){const r=_goS.app
 
 /* ---- 2. Ruletas nuevas y catálogo ---- */
 WHEELS.push(
- {id:'rich',t:'Ruleta millonaria',d:'Premios que crecen con lo que tienes. Si te toca el gordo, se bloquea 30 minutos.',segs:()=>[.001,.003,.0015,.008,.002,.004,.0012,.015].map((f,i)=>{const v=niceN(Math.max(2000*(i+1),wealth()*f));return{lab:short(v),col:WCOL[i],k:'eur',v,big:f>=.015?1:0}})},
+ {id:'rich',t:'Ruleta millonaria',d:'Premios que crecen con lo que tienes. Si te toca el gordo, se bloquea 30 minutos.',segs:()=>[.001,.003,.0015,.008,.002,.004,.0012,.015].map((f,i)=>{const v=niceN(Math.max(2000*(i+1),wealth()*f));return{lab:nShort(v),col:WCOL[i],k:'eur',v,big:f>=.015?1:0}})},
  {id:'pts',t:'Ruleta de la liga',d:'Puntos de liga gratis para subir en tu liga esta semana.',segs:()=>[20,50,30,120,40,80,25,200].map((v,i)=>({lab:'+'+v+' pts',col:WCOL[i],k:'pts',v}))},
  {id:'fab',t:'Ruleta de la fábrica',d:'Energía, monedas doradas y clics que valen más un rato.',segs:()=>[['⚡ Energía','en'],['✨ Doradas','gold'],['x2 clics','f2'],['⚡ Energía','en'],['x3 clics','f3'],['✨ Doradas','gold'],['x2 clics','f2'],['x5 clics','f5']].map((x,i)=>({lab:x[0],col:WCOL[i],k:'fab',v:x[1]}))});
 {const _wrC=wResolve;wResolve=function(late){const P_=S.wPend;try{if(P_&&P_.p&&!(+P_.at<=(+S.wDone||0))){const p=P_.p;
@@ -13094,8 +13098,7 @@ function ptOpenL(i){S.ptL=Array.isArray(S.ptL)?S.ptL:[];if(S.ptL.includes(i)||(+
   LED.tag='v:premiotiempo';LED.tagT=Date.now()+1500;give(v);let extra='';if(l[5]){S.cosOwn=[...(S.cosOwn||[]),'ti:'+l[5]];extra=' · Título «'+l[6]+'»'}
   save();sfx('big');confetti(300);troll('¡'+l[4].toUpperCase()+'!','+'+cmpN(v)+' €'+extra,'#ffd600',true);ptRender();try{renderMe()}catch(e){}}
 const ptClock=s_=>{s_=Math.max(0,Math.ceil(s_));const m=Math.floor(s_/60),x=s_%60;return m+':'+String(x).padStart(2,'0')};
-function cmpN(n){n=Math.floor(+n||0);const a=Math.abs(n),f=(v,u)=>(v>=100?Math.round(v):Math.round(v*10)/10).toLocaleString('es-ES')+u;
-  if(a>=1e12)return f(n/1e12,' bill.');if(a>=1e10)return f(n/1e9,' mil M');if(a>=1e9)return fmt(Math.round(n/1e6))+' M';if(a>=1e6)return f(n/1e6,' M');if(a>=1e4)return f(n/1e3,' mil');return fmt(n)}
+function cmpN(n){return short(n)}
 const ptLab=m=>m<60?m+' min':(m%60?Math.floor(m/60)+' h '+(m%60):m/60+' h');
 function ptPct(v){const w=Math.max(1,wealth());const p=v/w*100;return p>=10?Math.round(p)+'\u00a0%':(Math.round(p*10)/10).toLocaleString('es-ES')+'\u00a0%'}
 function ptRender(){const c=$('#ptCard');if(!c)return;const st=ptState(),D=st.D;
@@ -13156,9 +13159,9 @@ try{i18nAdd([['Más claro y mejor colocado','Clearer and tidier','Plus clair et 
 /* ===== que los números grandes quepan siempre: si no caben, la letra se hace más pequeña (nunca se parten) ===== */
 const FIT_SEL='.fitn,.invnext b,#mLeft,.bk-pl em,.bk-sum b,.pp-stat b,.pod .pv,#stats .stat b,.gu-max,.ptm b,.ptbig b,.lb-amt,.rkr .cash';
 function fitNums(){try{document.querySelectorAll(FIT_SEL).forEach(e=>{if(!e.offsetParent)return;if(!e.classList.contains('fitn'))e.classList.add('fitn');
-  const k=e.textContent+'|'+e.parentElement.clientWidth;if(e._fk===k)return;e._fk=k;e.style.fontSize='';let fs=parseFloat(getComputedStyle(e).fontSize),min=fs*.5,i=0;
+  const k=e.textContent+'|'+e.parentElement.clientWidth;if(e._fk===k)return;e._fk=k;e.style.fontSize='';let fs=parseFloat(getComputedStyle(e).fontSize),min=fs*(e.closest('.bk-plans')?.62:.78),i=0;
   while(e.scrollWidth>e.clientWidth+1&&fs>min&&i++<30){fs-=Math.max(.5,fs*.05);e.style.fontSize=fs+'px'}})}catch(e){}}
-setInterval(fitNums,800);addEventListener('resize',()=>{document.querySelectorAll('.fitn').forEach(e=>e._fk='');fitNums()});
+setInterval(fitNums,1300);addEventListener('resize',()=>{document.querySelectorAll('.fitn').forEach(e=>e._fk='');fitNums()});
 
 try{i18nAdd([['Cofres más gordos y racha','Bigger chests and streaks','Coffres plus gros et séries','Baús maiores e sequência'],['Cofres sin tope','No-cap chests','Coffres sans plafond','Baús sem limite'],
 ['Los cofres de Premios por jugar ya no tienen máximo: dan un trozo de lo que tienes. Si tienes billones, te tocan miles de millones.','Play-time chests have no cap now: they give a slice of what you have.','Les coffres n’ont plus de plafond : ils donnent une part de ce que tu as.','Os baús já não têm máximo: dão uma parte do que tens.'],
@@ -13279,6 +13282,26 @@ try{i18nAdd([['Inicio más ordenado','A tidier Home','Accueil mieux rangé','In�
 ['Cambiar de ruleta en el móvil','Change wheel on mobile','Changer de roue sur mobile','Mudar de roleta no telemóvel'],['Debajo del botón de girar hay una tira para cambiar de ruleta deslizando.','Under the spin button there is a strip to switch wheels by swiping.','Sous le bouton tourner, une bande permet de changer de roue en glissant.','Por baixo do botão de girar há uma faixa para mudar de roleta a deslizar.'],
 ['Clasificación de caramelos','Candy leaderboard','Classement des bonbons','Classificação de rebuçados'],['En el evento de Halloween, «Recompensas y clasificación» te enseña quién lleva más caramelos y tu puesto.','In the Halloween event, “Rewards and leaderboard” shows who has the most candy and your position.','Dans l’événement Halloween, « Récompenses et classement » montre qui a le plus de bonbons et ta place.','No evento de Halloween, «Prémios e classificação» mostra quem tem mais rebuçados e o teu lugar.'],
 ['Tutorial al día','Tutorial up to date','Tutoriel à jour','Tutorial atualizado'],['Hay guías nuevas en Ayuda › Tutorial: Inicio, Ruletas, Multiplicador, Premios por jugar, Halloween y Regalo de Google.','New guides in Help › Tutorial: Home, Wheels, Multiplier, Play-time rewards, Halloween and Google gift.','Nouveaux guides dans Aide › Tutoriel.','Novos guias em Ajuda › Tutorial.']])}catch(e){}
+
+/* ===== números enteros siempre que quepan; si no caben (o se parten en dos líneas), se acortan con palabras: mill., mil mill., bill., trill. ===== */
+const NUM_RE=/(^|[^\d])(\d{1,3}(?:\.\d{3}){2,})(?!\d)/;
+function numFitPass(root){try{const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:t=>NUM_RE.test(t.nodeValue)?1:3});const nodes=[];let t;while(t=tw.nextNode())nodes.push(t);
+  nodes.forEach(t=>{const pe=t.parentElement;if(!pe||pe.closest('script,style,textarea,input,[contenteditable],#nav,.nofit')||!pe.offsetParent)return;
+    let tries=0,from=0;const RG=new RegExp(NUM_RE.source,'g');let m;while(tries++<8){RG.lastIndex=from;m=RG.exec(t.nodeValue);if(!m)break;const st=m.index+m[1].length,en=st+m[2].length;from=en;const rg=document.createRange();rg.setStart(t,st);rg.setEnd(t,en);
+      const rs=[...rg.getClientRects()].filter(q=>q.width>.5);let bad=rs.length>1&&Math.abs(rs[0].top-rs[rs.length-1].top)>3;
+      if(!bad){let a=pe;for(let k=0;k<4&&a;k++,a=a.parentElement){const cs=getComputedStyle(a);if(cs.overflowX!=='visible'||cs.textOverflow==='ellipsis'){if(a.scrollWidth>a.clientWidth+1)bad=true;break}}
+        if(!bad&&rs.length){const r=rs[rs.length-1],box=pe.getBoundingClientRect();if(r.right>box.right+2&&getComputedStyle(pe).display!=='inline')bad=true}}
+      if(!bad)continue;const v=+m[2].replace(/\./g,'');if(!pe.title)pe.title=m[2]+' €';const ns=nShort(v);t.nodeValue=t.nodeValue.slice(0,st)+ns+t.nodeValue.slice(en);from=st+ns.length}
+    /* si ni acortado cabe y es una casilla estrecha: número arriba y la palabra debajo */
+    if(pe.classList.contains('fit2')&&pe.scrollWidth>pe.clientWidth+1&&!pe.querySelector('.du')){const mm=pe.textContent.match(/^(\S+)\s(.+)$/);if(mm)pe.innerHTML=esc(mm[1])+'<small class="du">'+esc(mm[2])+'</small>'}})}catch(e){}}
+function fit2Pass(){document.querySelectorAll('.fit2').forEach(pe=>{if(!pe.offsetParent||pe.querySelector('.du'))return;if(pe.scrollWidth>pe.clientWidth+1||/^[\d,]+\s[a-z]/.test(pe.textContent)){const mm=pe.textContent.match(/^(\S+)\s(.+)$/);if(mm)pe.innerHTML=esc(mm[1])+'<small class="du">'+esc(mm[2])+'</small>'}})}
+function nbspPass(root){try{const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:t=>/\d €/.test(t.nodeValue)?1:3});let t;const L=[];while(t=tw.nextNode())L.push(t);L.forEach(t=>{const pe=t.parentElement;if(pe&&pe.closest('textarea,input,[contenteditable]'))return;t.nodeValue=t.nodeValue.replace(/(\d) €/g,'$1\u00a0€')})}catch(e){}}
+function numFitAll(){const roots=[];const v=document.querySelector('.view:not([hidden])');if(v)roots.push(v);const mo=$('#modal');if(mo&&!mo.hidden)roots.push(mo);const top=document.querySelector('header.bar');if(top)roots.push(top);
+  document.querySelectorAll('.toast,#multPill,.multpop,#seNudge').forEach(x=>roots.push(x));roots.forEach(r=>{nbspPass(r);numFitPass(r)});fit2Pass()}
+setInterval(numFitAll,400);addEventListener('resize',()=>setTimeout(numFitAll,50));
+
+try{i18nAdd([['Números enteros','Full numbers','Nombres entiers','Números inteiros'],['Cifras completas','Full figures','Chiffres complets','Valores completos'],['El dinero sale entero (por ejemplo 203.203.120.102 €) siempre que quepa.','Money is shown in full whenever it fits.','L’argent s’affiche en entier quand il tient.','O dinheiro aparece inteiro sempre que cabe.'],['Si no cabe, con palabras','If it doesn’t fit, in words','Sinon, en mots','Se não couber, em palavras'],['Cuando no cabe se acorta con palabras: mil, mill., mil mill., bill. y trill. (por ejemplo 7,6 bill. €). Pasa el ratón por encima para ver la cifra exacta.','When it doesn’t fit it is shortened with words (e.g. 7.6 trillion). Hover to see the exact figure.','Quand ça ne tient pas, c’est abrégé en mots. Survole pour le chiffre exact.','Quando não cabe, encurta-se com palavras. Passa o rato por cima para ver o valor exato.']]);
+if(!FAQ.some(q=>/bill\./.test(q[1])))FAQ.push(['¿Qué significan «mill.», «bill.» y «trill.»?','Cuando una cantidad no cabe entera se acorta: mill. = millones, mil mill. = miles de millones, bill. = billones, trill. = trillones. Pasa el ratón (o mantén el dedo) encima para ver la cifra exacta.'])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
