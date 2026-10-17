@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-1748">
+<meta name="app-version" content="2026-10-17-1751">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4421,7 +4421,7 @@ function nShort(n){n=Math.floor(+n||0);const a=Math.abs(n),f=(v,u)=>{const r=v>=
   if(a>=1e18)return f(n/1e18,' quintill.');if(a>=1e15)return f(n/1e15,' cuatrill.');if(a>=1e12)return f(n/1e12,' trill.');if(a>=1e9)return f(n/1e9,' bill.');if(a>=1e6)return f(n/1e6,' mill.');if(a>=1e4)return f(n/1e3,' mil');return fmt(n)}
 const eur=n=>fmt(n)+' €';
 const eurS=n=>short(n)+' €';
-const walShort=n=>{n=Math.floor(n);const a=Math.abs(n),d=(v)=>v.toFixed(v<10?2:v<100?1:0).replace('.',',');if(a>=1e18)return d(n/1e18)+' trill.';if(a>=1e15)return fmt(n/1e12)+' bill.';if(a>=1e12)return d(n/1e12)+' bill.';if(a>=1e10)return fmt(n/1e6)+' M';return fmt(n)};
+const walShort=n=>{n=Math.floor(n);return Math.abs(n)<1e9?fmt(n):nShort(n)};
 const rnd=(a,b)=>a+Math.random()*(b-a), ri=(a,b)=>Math.floor(rnd(a,b+1)), clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const ICON=n=>`<svg class="ic"><use href="#i-${n}"/></svg>`;
 const LOWEND=innerWidth<760||matchMedia('(hover:none)').matches;
@@ -8106,7 +8106,7 @@ const trDec=p=>p>=10?2:p>=1?4:5;
 function trP(p,d){if(!isFinite(p))return'–';d=d==null?trDec(Math.abs(p)):d;const s=Math.abs(p).toFixed(d).split('.');return(p<0?'-':'')+s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.')+(s[1]?','+s[1]:'')}
 const trPct=(x,d=2)=>(x>0?'+':x<0?'-':'')+Math.abs(x*100).toFixed(d).replace('.',',')+' %';
 const trE=n=>{n=Math.round(n);return(n>0?'+':n<0?'-':'')+fmt(Math.abs(n))+' €'};
-const trK=n=>n>=1e9?(n/1e9).toFixed(1).replace('.',',')+' mil M':n>=1e6?(n/1e6).toFixed(1).replace('.',',')+' M':n>=1e4?Math.round(n/1e3)+' k':fmt(n);
+const trK=n=>n>=1e4?nShort(n):fmt(n);
 const trM=x=>(x*100).toFixed(x*100<.1?3:2).replace('.',',').replace(/0+$/,'').replace(/,$/,'')+' %';
 
 function trS(){let t=S.tr;if(!t||typeof t!=='object')t=S.tr={};
@@ -12506,7 +12506,7 @@ function lgCuts(){try{if(view!=='ranking'||rkCat!=='liga')return;const L=$('#rkL
 
 /* ===== Clasificación: cuánto tiene cada uno en la caja fuerte ===== */
 const sfOf=id=>id===NET.id||id==='me'?Math.floor(+S.safe||0):Math.floor(+((NET.players.get(id)||{}).sf)||0);
-const sfShort=v=>v>=1e6?String(+(v/1e6).toFixed(v<1e7?1:0)).replace('.',',')+' M':v>=1e4?Math.round(v/1e3)+' mil':fmt(v);
+const sfShort=v=>v>=1e4?nShort(v):fmt(v);
 function sfBadges(){try{if(view!=='ranking'||rkCat!=='coins')return;document.querySelectorAll('#rkList .rkr[data-prof]').forEach(r=>{const v=sfOf(r.dataset.prof),old=r.querySelector('.rksf');
   if(v<=0){if(old)old.remove();return}const h=`<span class="rksf" title="Dinero guardado en la caja fuerte (no cuenta en esta clasificación)">🔐 <span class="sfl">Caja fuerte:</span><span class="sfm">Caja</span> <i class="sfn">${sfShort(v)} €</i></span>`;
   if(old){if(old.outerHTML!==h)old.outerHTML=h;return}const at=r.querySelector('small');if(at)at.insertAdjacentHTML('afterend',h)})}catch(e){}}
