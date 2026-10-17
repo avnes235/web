@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-1528">
+<meta name="app-version" content="2026-10-17-1654">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2527,6 +2527,23 @@ html[data-u18] .nb[data-v=casino],html[data-u18] .nb[data-v=trading],html[data-u
 .serk h3{margin:10px 0 6px}
 .sptabs{display:flex;gap:6px;margin:10px 0 8px}.sptabs button{flex:1;padding:9px 6px;border-radius:12px;border:2px solid #3a2a50;background:#1d1530;color:#d8c8ef;font:900 14px var(--f-b);cursor:pointer}.sptabs button[aria-pressed=true]{background:linear-gradient(180deg,#ff9a27,#ff7a00);color:#111;border-color:#000;box-shadow:0 3px 0 #000}
 .sprk{max-height:56vh;overflow:auto}.sprk .setop>div{display:grid;grid-template-columns:44px 1fr auto;gap:8px;padding:7px 10px;border-radius:10px;background:#1d1530;margin-bottom:5px;font-weight:700}.sprk .setop>div.me{background:#ff7a0033;border:1px solid #ff7a00}
+/* Gran Premio de Cine */
+#guDay{grid-template-columns:1fr!important;justify-items:center;text-align:center;border:3px solid #ffd600!important;background:radial-gradient(circle at 15% 30%,#ffd60030,transparent 45%),repeating-linear-gradient(90deg,#0000 0 22px,#ffffff06 22px 24px),linear-gradient(160deg,#1c1030,#0e0c18)!important;box-shadow:0 0 30px #ffd60033}
+#guDay .gu-dw{width:230px!important;height:230px!important}#guDay .gu-dw canvas{width:230px!important;height:230px!important;box-shadow:0 0 0 3px #000,0 0 34px #ffd60066!important}
+#guDay .gu-dw .hub{width:46px;height:46px;margin:-23px 0 0 -23px;font-size:20px;background:radial-gradient(#3a2a00,#111);box-shadow:0 0 14px #ffd600}
+#guDay .gu-dw .ptr{border-left-width:14px;border-right-width:14px;border-top-width:26px;top:-12px}
+#guDay.spin .gu-dw canvas{box-shadow:0 0 0 3px #000,0 0 60px #ffd600cc!important}
+#guDay .gu-tag{align-self:flex-start;font:900 11px var(--f-b);letter-spacing:1px;text-transform:uppercase;background:#ffd600;color:#111;border-radius:6px;padding:2px 8px}
+#guDay h3{font:34px/1 var(--f-d)!important;background:linear-gradient(90deg,#ffe680,#ffd600,#ff9a27,#ffd600,#ffe680);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;animation:gxFlow 4s linear infinite}
+#guDay .gu-tt{background:linear-gradient(90deg,#ff3b4f,#b06bff,#3fa0ff);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+#guDay .gu-go{background:linear-gradient(180deg,#ffe14d,#ffb300)!important;color:#111!important}
+#guDay .gu-odds{margin-top:4px}.gu-oh{font-weight:900;color:var(--sun);font-size:13px;margin-bottom:4px}
+.gu-ol{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 10px}.gu-ol span{display:flex;justify-content:space-between;gap:6px;font-size:12.5px;font-weight:700;color:var(--muted);border-bottom:1px solid #ffffff10;padding:2px 0}.gu-ol b{color:var(--fg)}.gu-ol em{font-style:normal;color:var(--muted);flex:none}
+.gu-ol .gj b{color:#ffd600}.gu-ol .gt b{background:linear-gradient(90deg,#ff3b4f,#b06bff,#3fa0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+#guDay .gu-dt{align-items:center;width:100%}#guDay .gu-tag{align-self:center!important}#guDay .gu-dw,#guDay .gu-dw canvas{width:260px!important;height:260px!important}#guDay .gu-ol{width:100%;text-align:left}#guDay .gu-go{width:100%;max-width:420px}
+/* título exclusivo: Estrella de Cine (tira de película dorada que brilla) */
+html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]{position:relative;color:#ffe680!important;background:repeating-linear-gradient(90deg,#111 0 6px,#ffd600 6px 9px) top/100% 3px no-repeat,repeating-linear-gradient(90deg,#111 0 6px,#ffd600 6px 9px) bottom/100% 3px no-repeat,linear-gradient(90deg,#2a1640,#5a1a8a,#1c2a6e,#5a1a8a,#2a1640)!important;background-size:100% 3px,100% 3px,300% 100%!important;padding:3px 7px!important;border-radius:3px;text-shadow:0 0 8px #ffd600,0 1px 0 #000;box-shadow:0 0 12px #ffd60088,0 0 0 1px #ffd600;animation:cineFlow 4s linear infinite}
+@keyframes cineFlow{to{background-position:0 0,0 100%,300% 0}}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6073,6 +6090,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-17-h',t:'Gran Premio de Cine',items:[['🎬','Ruleta nueva del anuncio','La ruleta del anuncio del día es ahora el «Gran Premio de Cine»: más grande, con luces, y premios que salen de tu dinero (hasta el 20 %).','new','#ffd600'],['⭐','Título exclusivo','Uno de sus huecos da el título «🎬 Estrella de Cine», que solo se consigue ahí. Si ya lo tienes, ese hueco te da dinero.','new','#b06bff'],['🎲','Probabilidades a la vista','Salen siempre debajo, sin pulsar nada.']]},
  {v:'2026-10-17-g',t:'Números enteros',items:[['🔢','Cifras completas','El dinero sale entero (por ejemplo 203.203.120.102 €) siempre que quepa.'],['✂️','Si no cabe, con palabras','Cuando no cabe se acorta con palabras: mil, mill., mil mill., bill. y trill. (por ejemplo 7,6 bill. €). Pasa el ratón por encima para ver la cifra exacta.']]},
  {v:'2026-10-17-f',t:'Inicio más ordenado',items:[['🧭','Accesos rápidos','En Inicio › Hoy, debajo de las pestañas, tienes botones para ir directo a cada cosa. Los que tienen algo por cobrar brillan.','new','#ffd600'],['📋','Todo en su sitio','Hoy va en este orden: evento, botón rojo, caja fuerte y banco, premios por jugar, misiones y premio diario.'],['🎡','Cambiar de ruleta en el móvil','Debajo del botón de girar hay una tira para cambiar de ruleta deslizando.'],['🏆','Clasificación de caramelos','En el evento de Halloween, «Recompensas y clasificación» te enseña quién lleva más caramelos y tu puesto.'],['📖','Tutorial al día','Hay guías nuevas en Ayuda › Tutorial: Inicio, Ruletas, Multiplicador, Premios por jugar, Halloween y Regalo de Google.']]},
  {v:'2026-10-17-e',t:'Ruletas más cómodas',items:[['🎡','Lista de ruletas','En Inicio › Ruletas ves todas con su dibujo y lo que cuesta elegir cada una.'],['🎲','Probabilidades a la vista','Ya no hay que pulsar para ver las probabilidades.'],['🎃','Ruleta de Halloween','Sale como «Temporal» y elegirla es gratis mientras dure el evento.'],['🛠️','Arreglado','Si girabas muy rápido (ruletas infinitas o con varias tiradas guardadas) se repetía la misma ruleta y luego se saltaba otra. Ya no pasa.']]},
@@ -9278,7 +9296,7 @@ const GU_T={
   ['.panel.hello','Tu nivel','Cuanto más juegas, más experiencia (XP) ganas. Cada vez que subes de nivel te llevas un regalo en dinero.'],
   ['.wheelcard','Ruleta gratis','Gírala gratis cada poco. Si la que sale no te convence, pulsa «Saltar a otra ruleta».'],
   ['.panel.daily','Premio diario','Cóbralo una vez al día. Si entras todos los días seguidos, la racha sube y el premio también.'],
-  ['#guDay','Anuncio del día','Una vez al día puedes ver un anuncio y girar una ruleta especial con premios de hasta 10.000 €.'],
+  ['#guDay','Gran Premio de Cine','Una vez al día: mira un anuncio y gira. Premios que crecen con tu dinero y un título exclusivo, «🎬 Estrella de Cine».'],
   [null,'Tus amigos','En Clasificación › Amigos agregas a tus colegas con su código. A tus amigos les puedes regalar dinero, mandar mensajitos y retar a duelos online. Y si invitas a alguien con tu enlace, ganas premios de hasta 2.000.000 € por cada uno.'],
   ['#nav','El menú','Desde aquí vas a todas las salas: Casino, Juegos, Clasificación, Online… Toca cualquiera para entrar.']],
  rico:[['.panel.bank','Tu cartera','Esto es lo que tienes para gastar. Aquí te puedes comprar desde una hamburguesa hasta una isla.'],
@@ -9570,43 +9588,63 @@ function guAdFake(reward,done){const SEC=5;const o=document.createElement('div')
     clearInterval(iv);cd.innerHTML='<span class="gu-adok">¡Premio!</span>';const b=o.querySelector('[data-gad="x"]');if(b)b.disabled=true;
     setTimeout(()=>{if(end)return;end=true;o.remove();reward();done()},650)},100)}
 
-/* ---------- Anuncio del día: ruleta de hasta 10.000 € ---------- */
-/* [premio, probabilidad %, color] — suman 100. Media ≈ 730 € */
-const GU_DW=[[200,24,'#2b3555'],[1000,10,'#4aa8ff'],[300,20,'#1f2945'],[2000,5,'#9a6bff'],[500,20,'#2b3555'],[10000,.5,'#ffd600'],[750,12,'#1f2945'],[1500,7,'#ff5fa8'],[5000,1.5,'#2fd6a3']];
+/* ---------- Anuncio del día: «Gran Premio de Cine» — premios según tu dinero y un título exclusivo ---------- */
+/* [tipo, % de tu dinero, mínimo, probabilidad %, color, color del texto] — las probabilidades suman 100 */
+const GU_DW=[['eur',.005,2000,24.5,'#16182c','#ffd600'],['eur',.04,16000,10,'#7a2cff','#fff'],['eur',.01,4000,17,'#16182c','#ffd600'],['eur',.20,100000,1.5,'gold','#1a1000'],
+  ['eur',.015,6000,15,'#ff2e88','#fff'],['eur',.06,25000,8,'#16182c','#ffd600'],['title',0,0,1.5,'film','#ffd600'],['eur',.025,10000,12,'#14b8a6','#06221e'],['eur',.10,40000,4.5,'#16182c','#ff5fa8'],['eur',.0075,3000,6,'#3a1d6e','#fff']];
+const GU_TITLE='xcine',GU_TITLE_N='🎬 Estrella de Cine';
+try{if(!COS.ti.some(y=>y[0]===GU_TITLE))COS.ti.push([GU_TITLE,GU_TITLE_N,999,'','x'])}catch(e){}
 let guDwRot=0,guDwSpin=false;
-function guDwPick(){let r=Math.random()*GU_DW.reduce((a,x)=>a+x[1],0);for(let i=0;i<GU_DW.length;i++){r-=GU_DW[i][1];if(r<0)return i}return 0}
-function guDwDraw(){const c=$('#guDayCv');if(!c)return;const g=c.getContext('2d'),n=GU_DW.length,R=150,seg=Math.PI*2/n;g.clearRect(0,0,300,300);
-  GU_DW.forEach((s,i)=>{const a0=-Math.PI/2+i*seg;g.beginPath();g.moveTo(R,R);g.arc(R,R,R-2,a0,a0+seg);g.closePath();g.fillStyle=s[2];g.fill();g.strokeStyle='rgba(0,0,0,.55)';g.lineWidth=3;g.stroke();
-    g.save();g.translate(R,R);g.rotate(a0+seg/2);g.textAlign='right';g.textBaseline='middle';const big=s[0]>=5000;g.fillStyle=big&&s[0]===10000?'#111':'#fff';
-    g.font=`900 ${s[0]>=10000?27:s[0]>=1000?28:32}px Archivo,system-ui,sans-serif`;g.fillText(guN(s[0]),R-14,1);g.restore()});
-  g.beginPath();g.arc(R,R,R-2,0,Math.PI*2);g.lineWidth=5;g.strokeStyle='#000';g.stroke()}
+const guHasT=()=>(S.exc||[]).includes('ti:'+GU_TITLE);
+function guVal(s){if(s[0]==='title')return guHasT()?niceN(Math.max(150000,wealth()*.15)):0;return niceN(Math.max(s[2],wealth()*s[1]))}
+const guLab=s=>s[0]==='title'?(guHasT()?nShort(guVal(s)):'TÍTULO'):nShort(guVal(s));
+function guDwPick(){let r=Math.random()*GU_DW.reduce((a,x)=>a+x[3],0);for(let i=0;i<GU_DW.length;i++){r-=GU_DW[i][3];if(r<0)return i}return 0}
+function guDwDraw(){const c=$('#guDayCv');if(!c)return;const g=c.getContext('2d'),n=GU_DW.length,S_=340,R=170,RI=150,seg=Math.PI*2/n;g.clearRect(0,0,S_,S_);
+  /* aro con bombillas */
+  const ring=g.createLinearGradient(0,0,S_,S_);ring.addColorStop(0,'#ffe680');ring.addColorStop(.5,'#b8860b');ring.addColorStop(1,'#ffe680');g.beginPath();g.arc(R,R,R-1,0,7);g.fillStyle=ring;g.fill();
+  g.beginPath();g.arc(R,R,RI+3,0,7);g.fillStyle='#000';g.fill();
+  GU_DW.forEach((s,i)=>{const a0=-Math.PI/2+i*seg-seg/2;g.beginPath();g.moveTo(R,R);g.arc(R,R,RI,a0,a0+seg);g.closePath();
+    if(s[4]==='gold'){const gr=g.createRadialGradient(R,R,20,R,R,RI);gr.addColorStop(0,'#fff6b0');gr.addColorStop(.6,'#ffd600');gr.addColorStop(1,'#c88a00');g.fillStyle=gr}
+    else if(s[4]==='film'){const gr=g.createLinearGradient(R+Math.cos(a0)*RI,R+Math.sin(a0)*RI,R+Math.cos(a0+seg)*RI,R+Math.sin(a0+seg)*RI);gr.addColorStop(0,'#ff3b4f');gr.addColorStop(.5,'#b06bff');gr.addColorStop(1,'#3fa0ff');g.fillStyle=gr}
+    else g.fillStyle=s[4];g.fill();g.strokeStyle='rgba(255,214,0,.55)';g.lineWidth=2;g.stroke();
+    g.save();g.translate(R,R);g.rotate(a0+seg/2);g.textAlign='right';g.textBaseline='middle';g.fillStyle=s[5];
+    if(s[0]==='title'){g.font='900 15px Archivo,system-ui,sans-serif';g.fillText('🎬 TÍTULO',RI-10,-1);g.font='800 10px Archivo,system-ui,sans-serif';g.fillText(guHasT()?'(ya lo tienes: '+nShort(guVal(s))+')':'EXCLUSIVO',RI-12,13)}
+    else{let fs=24;const t=guLab(s);g.font=`900 ${fs}px Archivo,system-ui,sans-serif`;while(g.measureText(t).width>RI-48&&fs>11){fs--;g.font=`900 ${fs}px Archivo,system-ui,sans-serif`}
+      if(s[4]==='gold'){g.shadowColor='rgba(255,255,255,.8)';g.shadowBlur=6}g.fillText(t,RI-10,1)}
+    g.restore()});
+  for(let i=0;i<24;i++){const a=i*Math.PI*2/24;g.beginPath();g.arc(R+Math.cos(a)*(RI+11),R+Math.sin(a)*(RI+11),4.2,0,7);g.fillStyle=i%2?'#fff8c8':'#ff9a27';g.shadowColor=g.fillStyle;g.shadowBlur=8;g.fill();g.shadowBlur=0}}
 function guDayToday(){return typeof dayKey==='function'?dayKey():new Date().toDateString()}
-function guDayHTML(){return `<div class="gu-dw"><span class="ptr"></span><canvas id="guDayCv" width="300" height="300" aria-hidden="true"></canvas><span class="hub emo">🎬</span></div>
-  <div class="gu-dt"><h3>Anuncio del día</h3><p class="gu-dd">Mira un anuncio y gira esta ruleta especial. Premio máximo: <b class="gu-max">10.000 €</b> <small style="opacity:.8">(sube con tu dinero)</small>.</p>
-   <button class="btn big mint" id="guDayBtn" type="button">Ver anuncio y girar</button><small class="gu-di" id="guDayInfo">Una vez al día</small>
-   <details><summary>Probabilidades</summary><div>${GU_DW.slice().sort((a,b)=>a[0]-b[0]).map(s=>`<span><b>${guN(s[0])} €</b> ${String(s[1]).replace('.',',')} %</span>`).join('')}</div></details></div>`}
-function guDayMount(){if($('#guDay'))return;const home=$('#v-inicio');if(!home)return;const d=document.createElement('div');d.className='panel';d.id='guDay';d.innerHTML=guDayHTML();
-  const fr=home.querySelector('.funrow');if(fr)fr.parentNode.insertBefore(d,fr);else home.appendChild(d);guDwDraw();guDayRender()}
+function guOdds(){const rows=GU_DW.map(s=>({s,v:guVal(s)})).sort((a,b)=>(a.s[0]==='title')-(b.s[0]==='title')||a.v-b.v);
+  return rows.map(({s,v})=>`<span class="${s[4]==='gold'?'gj':s[0]==='title'?'gt':''}"><b>${s[0]==='title'?(guHasT()?'+'+short(v)+' € (título ya tuyo)':'🎬 Título «Estrella de Cine»'):'+'+short(v)+' €'}</b><em>${String(s[3]).replace('.',',')} %</em></span>`).join('')}
+function guDayHTML(){return `<div class="gu-dw"><span class="ptr"></span><canvas id="guDayCv" width="340" height="340" aria-hidden="true"></canvas><span class="hub emo">🎬</span></div>
+  <div class="gu-dt"><span class="gu-tag">⭐ Una vez al día</span><h3>Gran Premio de Cine</h3><p class="gu-dd">Mira un anuncio y gira. Premios que crecen con tu dinero: hasta <b class="gu-max">${short(Math.max(...GU_DW.map(guVal)))} €</b>${guHasT()?'':` o el título exclusivo <b class="gu-tt">🎬 Estrella de Cine</b>`}.</p>
+   <button class="btn big gu-go" id="guDayBtn" type="button">🎬 Ver anuncio y girar</button><small class="gu-di" id="guDayInfo">Una vez al día</small>
+   <div class="gu-odds"><div class="gu-oh">🎲 Probabilidades</div><div class="gu-ol">${guOdds()}</div></div></div>`}
+function guDayMount(){const home=$('#v-inicio');if(!home)return;let d=$('#guDay');if(!d){d=document.createElement('div');d.className='panel';d.id='guDay';d.dataset.ht='ruletas';
+    const fr=home.querySelector('.funrow');if(fr)fr.parentNode.insertBefore(d,fr);else home.appendChild(d)}
+  const k=Math.round(wealth()/1e3)+':'+guHasT();if(d.dataset.k!==k&&!guDwSpin){d.dataset.k=k;const rot=guDwRot;d.innerHTML=guDayHTML();const c=$('#guDayCv');if(c&&rot){c.style.transition='none';c.style.transform=`rotate(${rot}deg)`}guDwDraw()}guDayRender()}
 function guDayRender(){const b=$('#guDayBtn'),inf=$('#guDayInfo');if(!b||guDwSpin)return;const st=S.guDay||{},used=st.d===guDayToday();
-  if(used&&!st.pend){b.disabled=true;b.textContent='Vuelve mañana';inf.innerHTML='Hoy te han tocado <b>'+guN(st.p||0)+' €</b>. Mañana, otra.'}
+  if(used&&!st.pend){b.disabled=true;b.textContent='Vuelve mañana';inf.innerHTML=st.t?'Hoy te ha tocado el <b>título 🎬 Estrella de Cine</b>.':'Hoy te han tocado <b>'+short(st.p||0)+' €</b>. Mañana, otra.'}
   else if(st.pend){b.disabled=true;b.textContent='Girando…'}
-  else{b.disabled=false;b.textContent='Ver anuncio y girar';inf.textContent='Una vez al día · '+(ADS_CLIENT?'anuncio de unos segundos':'modo prueba: anuncio de mentira de 5 s')}}
-function guDayPay(){const st=S.guDay;if(!st||!st.pend)return;const p=Math.max(0,Math.min(10000,+st.p||0));st.pend=0;S.coins+=p;S.earned=(S.earned||0)+p;try{save()}catch(e){}
-  try{NET.lastP='';pushPlayer()}catch(e){}return p}
-function guDayPending(){const st=S.guDay;if(!st||!st.pend||guDwSpin)return;const p=guDayPay();toast('Premio del anuncio del día','+'+guN(p)+' €','var(--mint)','🎬');guDayRender()}
-function guDaySpin(k){const c=$('#guDayCv');guDwSpin=true;const n=GU_DW.length,seg=360/n,cur=((guDwRot%360)+360)%360,target=(360-(k+.5)*seg+(Math.random()-.5)*seg*.6+360)%360;
-  const _g0=guDwRot;guDwRot+=360*6+((target-cur+360)%360);const lite=typeof cfg==='function'&&cfg('lite');
-  if(c)spinTo(c,_g0,guDwRot,lite?600:4600,lite?'ease-out':'cubic-bezier(.12,.82,.2,1)');
-  try{sfx('spin')}catch(_){}
-  setTimeout(()=>{guDwSpin=false;const p=guDayPay();if(p!=null){try{sfx(p>=2000?'big':'win')}catch(_){}if(p>=2000)try{confetti(p>=5000?160:90)}catch(_){}
-      toast(p>=10000?'¡¡PREMIO GORDO!!':'¡Te ha tocado!','+'+guN(p)+' € del anuncio del día','var(--mint)','🎬')}
-    guDayRender()},lite?800:4800)}
+  else{b.disabled=false;b.textContent='🎬 Ver anuncio y girar';inf.textContent='Una vez al día · '+(ADS_CLIENT?'anuncio de unos segundos':'modo prueba: anuncio de mentira de 5 s')}}
+function guDayPay(){const st=S.guDay;if(!st||!st.pend)return;st.pend=0;
+  if(st.t&&!guHasT()){S.exc=S.exc||[];S.exc.push('ti:'+GU_TITLE);try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}return -1}
+  const p=Math.max(0,Math.floor(+st.p||0));try{LED.tag='v:anuncio';LED.tagT=Date.now()+1500}catch(e){}S.coins+=p;S.earned=(S.earned||0)+p;try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}return p}
+function guWin(p,k){const s=GU_DW[k]||[];if(p===-1){try{sfx('big')}catch(_){}try{confetti(360)}catch(_){}troll('🎬 ¡ESTRELLA DE CINE!','título exclusivo: póntelo en Perfil › Título','#ffd600',true);try{excShow(['ti:'+GU_TITLE])}catch(_){}return}
+  const jack=s[4]==='gold';try{sfx(jack||p>=wealth()*.05?'big':'win')}catch(_){}try{confetti(jack?320:120)}catch(_){}
+  if(jack)troll('¡¡GRAN PREMIO!!','+'+short(p)+' €','#ffd600',true);else toast('¡Te ha tocado!','+'+short(p)+' € del Gran Premio de Cine','var(--mint)','🎬')}
+function guDayPending(){const st=S.guDay;if(!st||!st.pend||guDwSpin)return;const p=guDayPay();guWin(p,st.k);guDayRender()}
+function guDaySpin(k){const c=$('#guDayCv');guDwSpin=true;$('#guDay')&&$('#guDay').classList.add('spin');const n=GU_DW.length,seg=360/n,cur=((guDwRot%360)+360)%360,target=(360-k*seg+(Math.random()-.5)*seg*.6+360)%360;
+  const _g0=guDwRot;guDwRot+=360*7+((target-cur+360)%360);const lite=typeof cfg==='function'&&cfg('lite');
+  if(c)spinTo(c,_g0,guDwRot,lite?600:5600,lite?'ease-out':'cubic-bezier(.1,.82,.16,1)');
+  let tk=0;const iv=setInterval(()=>{try{sfx('tick')}catch(_){}if(++tk>45)clearInterval(iv)},110);
+  setTimeout(()=>{guDwSpin=false;$('#guDay')&&$('#guDay').classList.remove('spin');const p=guDayPay();if(p!=null)guWin(p,k);guDayRender();try{guDayMount()}catch(_){}},lite?800:5800)}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#guDayBtn');if(!b||b.disabled||guDwSpin)return;
   const st=S.guDay||{};if(st.d===guDayToday())return guDayRender();try{sfx('click')}catch(_){}
   b.disabled=true;b.textContent='Cargando anuncio…';
-  const p=showRewardAd('daily_wheel',()=>{if((S.guDay||{}).d===guDayToday())return;const k=guDwPick();S.guDay={d:guDayToday(),p:GU_DW[k][0],pend:1};try{save()}catch(_){}guDaySpin(k)});
+  const p=showRewardAd('daily_wheel',()=>{if((S.guDay||{}).d===guDayToday())return;const k=guDwPick(),s=GU_DW[k],isT=s[0]==='title'&&!guHasT();S.guDay={d:guDayToday(),k,p:isT?0:guVal(s),t:isT?1:0,pend:1};try{save()}catch(_){}guDaySpin(k)});
   Promise.resolve(p).then(()=>{if(!guDwSpin)guDayRender()},()=>{if(!guDwSpin)guDayRender()})});
-guDayMount();
+setTimeout(()=>{try{guDayMount()}catch(_){}},0);setInterval(()=>{try{if(view==='inicio')guDayMount()}catch(_){}},4000);
 const _guRh=renderHome;renderHome=function(){const r=_guRh.apply(this,arguments);guSafe(()=>{guDayMount();guDayRender()});return r};
 
 
@@ -10661,7 +10699,7 @@ const _dAmtW=dailyAmt;dailyAmt=function(k){const base=_dAmtW(k),pct=.003+.0004*M
 /* misiones */
 const _misW=misReward;misReward=function(){return Math.max(_misW(),niceN(wealth()*.002))};
 /* anuncio del día: los premios se multiplican según tu dinero */
-const GU_DW0=GU_DW.map(x=>x[0]);function guDwScale(){const m=Math.max(1,wealth()*.0006/1000);GU_DW.forEach((x,i)=>x[0]=niceN(GU_DW0[i]*m));document.querySelectorAll('.gu-max').forEach(e=>{const t=short(Math.max(...GU_DW.map(x=>x[0])))+' €';if(e.textContent!==t)e.textContent=t})}guDwScale();setInterval(guDwScale,5000);
+/* (anuncio del día: ahora los premios salen directamente de tu dinero) */
 /* ===== 2026-10-06-k: invitaciones claras (hasta 20) y que suban con tu dinero ===== */
 refPrize=function(k){if(k<1)k=1;const base=500000*Math.pow(1.2,k-1),w=wealth()*(.005+.001*(k-1));return niceN(Math.max(base,w))};
 /* quien te invitó solo cobra si tienes cuenta (así nadie se inventa invitados) */
@@ -13302,6 +13340,12 @@ setInterval(numFitAll,400);addEventListener('resize',()=>setTimeout(numFitAll,50
 
 try{i18nAdd([['Números enteros','Full numbers','Nombres entiers','Números inteiros'],['Cifras completas','Full figures','Chiffres complets','Valores completos'],['El dinero sale entero (por ejemplo 203.203.120.102 €) siempre que quepa.','Money is shown in full whenever it fits.','L’argent s’affiche en entier quand il tient.','O dinheiro aparece inteiro sempre que cabe.'],['Si no cabe, con palabras','If it doesn’t fit, in words','Sinon, en mots','Se não couber, em palavras'],['Cuando no cabe se acorta con palabras: mil, mill., mil mill., bill. y trill. (por ejemplo 7,6 bill. €). Pasa el ratón por encima para ver la cifra exacta.','When it doesn’t fit it is shortened with words (e.g. 7.6 trillion). Hover to see the exact figure.','Quand ça ne tient pas, c’est abrégé en mots. Survole pour le chiffre exact.','Quando não cabe, encurta-se com palavras. Passa o rato por cima para ver o valor exato.']]);
 if(!FAQ.some(q=>/bill\./.test(q[1])))FAQ.push(['¿Qué significan «mill.», «bill.» y «trill.»?','Cuando una cantidad no cabe entera se acorta: mill. = millones, mil mill. = miles de millones, bill. = billones, trill. = trillones. Pasa el ratón (o mantén el dedo) encima para ver la cifra exacta.'])}catch(e){}
+
+try{i18nAdd([['Gran Premio de Cine','Cinema Grand Prize','Grand Prix du Cinéma','Grande Prémio do Cinema'],['Ruleta nueva del anuncio','New ad wheel','Nouvelle roue de la pub','Nova roleta do anúncio'],['La ruleta del anuncio del día es ahora el «Gran Premio de Cine»: más grande, con luces, y premios que salen de tu dinero (hasta el 20 %).','The daily ad wheel is now the “Cinema Grand Prize”: bigger, with lights, and prizes based on your money (up to 20%).','La roue de la pub du jour devient le « Grand Prix du Cinéma » : plus grande, avec des lumières, et des gains selon ton argent (jusqu’à 20 %).','A roleta do anúncio do dia é agora o «Grande Prémio do Cinema»: maior, com luzes e prémios segundo o teu dinheiro (até 20 %).'],
+['Título exclusivo','Exclusive title','Titre exclusif','Título exclusivo'],['Uno de sus huecos da el título «🎬 Estrella de Cine», que solo se consigue ahí. Si ya lo tienes, ese hueco te da dinero.','One slot gives the exclusive title “🎬 Estrella de Cine”. If you already have it, that slot gives money.','Une case donne le titre exclusif « 🎬 Estrella de Cine ». Si tu l’as déjà, elle donne de l’argent.','Um dos espaços dá o título exclusivo «🎬 Estrella de Cine». Se já o tens, dá dinheiro.'],
+['Probabilidades a la vista','Odds in sight','Probabilités visibles','Probabilidades à vista'],['Salen siempre debajo, sin pulsar nada.','Always shown below, no tapping.','Toujours affichées en dessous.','Aparecem sempre por baixo.'],['🎬 Ver anuncio y girar','🎬 Watch ad and spin','🎬 Voir la pub et tourner','🎬 Ver anúncio e girar'],['⭐ Una vez al día','⭐ Once a day','⭐ Une fois par jour','⭐ Uma vez por dia']]);
+const _t=TUTOS.find(x=>x[1]==='Ruletas');if(_t&&!_t[4].some(x=>/Gran Premio de Cine/.test(x[0])))_t[4].push(['<b>Gran Premio de Cine</b> (Inicio › Ruletas): una vez al día, mira un anuncio y gira. Da entre el 0,5 % y el 20 % de tu dinero, o el título exclusivo <b>«🎬 Estrella de Cine»</b> (1,5 %). Las probabilidades salen debajo.']);
+if(!FAQ.some(q=>/Estrella de Cine/.test(q[0])))FAQ.push(['¿Cómo consigo el título «🎬 Estrella de Cine»?','Solo en el Gran Premio de Cine (Inicio › Ruletas): mira el anuncio del día y gira. Tiene un 1,5 % de salir cada día. Si ya lo tienes, ese hueco te da dinero.'])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
