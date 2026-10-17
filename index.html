@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-1246">
+<meta name="app-version" content="2026-10-17-1254">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2490,6 +2490,11 @@ html[data-u18] .nb[data-v=casino],html[data-u18] .nb[data-v=trading],html[data-u
 .wl-l{display:flex;flex-direction:column;gap:6px;margin-top:10px}.wl-r{display:flex;align-items:center;gap:10px;padding:7px 9px;border-radius:10px;background:#0004;border:1px solid var(--line)}
 .wl-r.on{border-color:var(--sun);background:#ffd6001a}.wl-r .emo{font-size:22px;flex:none}.wl-t{flex:1;min-width:0;display:flex;flex-direction:column}.wl-t b{font-size:14px}.wl-t small{font-size:11.5px;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wl-now{font-size:11px;font-weight:900;color:#111;background:var(--sun);border-radius:8px;padding:3px 8px;flex:none}.wl-lk{font-size:11px;font-weight:800;color:var(--muted);flex:none}.wl-r .btn{flex:none}
+#wheelSkip,#wCatBtn{display:none!important}
+.wodds>summary{pointer-events:none;list-style:none;cursor:default}.wodds>summary::-webkit-details-marker{display:none}.wodds>summary::marker{content:''}
+.wl-ico{flex:none;width:46px;height:46px;display:grid;place-items:center}.wl-ico svg{width:46px;height:46px;filter:drop-shadow(0 2px 0 #000)}
+.wl-r .btn{white-space:nowrap;font-size:12px}
+@media (max-width:420px){.wl-r .btn{font-size:11px;padding:6px 8px}.wl-ico,.wl-ico svg{width:38px;height:38px}}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6033,6 +6038,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-17-e',t:'Ruletas más cómodas',items:[['🎡','Lista de ruletas','En Inicio › Ruletas ves todas con su dibujo y lo que cuesta elegir cada una.'],['🎲','Probabilidades a la vista','Ya no hay que pulsar para ver las probabilidades.'],['🛠️','Arreglado','Si girabas muy rápido (ruletas infinitas o con varias tiradas guardadas) se repetía la misma ruleta y luego se saltaba otra. Ya no pasa.']]},
  {v:'2026-10-17-d',t:'Multiplicador del casino, más claro',items:[['🔥','Ves el total','Cuando ganas con un multiplicador sale en grande tu premio, el x2 (o el que sea) y lo que te llevas de verdad.','new','#ffd600'],['⏱️','Reloj a la vista','Mientras tengas un multiplicador activo, una etiqueta te dice cuál es y cuánto le queda. Tócala para ir al casino.'],['🏆','Se queda el mejor','Si te toca otro multiplicador: si es mejor, lo cambia; si es igual, el reloj vuelve a empezar; si es peor, te quedas con el tuyo.'],['🧩','Inicio sin huecos','En el ordenador, las tarjetas de Inicio encajan como un puzle, sin espacios vacíos.'],['🎡','Todas las ruletas a mano','En Inicio › Ruletas sale la lista de todas las ruletas para elegir la que quieras.']]},
  {v:'2026-10-17-c',t:'Cofres más gordos y racha',items:[['🎁','Cofres sin tope','Los cofres de Premios por jugar ya no tienen máximo: dan un trozo de lo que tienes. Si tienes billones, te tocan miles de millones.','new','#ffd600'],['🔥','Racha','Juega 30 minutos al día y haz racha: cada día seguido tus cofres dan un 10 % más, hasta +50 %.','new','#ff7a00'],['⏱️','Reloj en directo','La cuenta atrás del próximo cofre baja de segundo en segundo.'],['🎡','Ruleta millonaria','Si te toca su premio gordo se bloquea 30 minutos solo ella. La del todo o nada sigue con lo suyo.'],['🔢','Cifras que caben','Las cantidades enormes salen cortas (por ejemplo 7,60 bill.) y ya no se parten en dos líneas.']]},
  {v:'2026-10-17-b',t:'Más claro y mejor colocado',items:[['⏱️','Premios por jugar, más fácil','Ahora ves en grande cuánto te da el próximo cofre y cuánto te falta jugando. Debajo, los 7 cofres del día.'],['💰','Cantidades grandes','En el premio diario las cifras enormes salen cortas (por ejemplo 1.200 M) y ya no se pegan.'],['🎃','Etiquetas','Las etiquetas de Halloween y las exclusivas ya no se salen de su caja.'],['🏷️','Títulos por tiempo','Los títulos por horas jugadas son «Viciado/a» (24 h) y «Veterano/a» (100 h).']]},
@@ -7110,8 +7116,8 @@ $('#wheelBtn').addEventListener('click',()=>{if(wBusy||Date.now()-S.wheelAt<WAIT
   S.wPend={t:W_.t,id:W_.id,p:{lab:segs[k].lab,k:segs[k].k,v:segs[k].v,big:segs[k].big||0},at:Date.now()};save();try{cloudSave(true)}catch(e){}
   const _w0=wRot;wRot=wRot-(wRot%360)+360*6+target;spinTo($('#wheel'),_w0,wRot,4200,'cubic-bezier(.12,.8,.18,1)');wheelInfo();$('#wheelSkip').disabled=true;
   let tk=0;const iv=setInterval(()=>{sfx('tick');if(++tk>40)clearInterval(iv)},100);
-  setTimeout(()=>{wBusy=false;wResolve(false)},4300)});
-function wResolve(late){const P_=S.wPend;if(!P_)return;delete S.wPend;if(+P_.at<=(+S.wDone||0))return;S.wDone=+P_.at;const p=P_.p,W_={t:P_.t,id:P_.id};xp(10);
+  setTimeout(()=>{if(!wResolve(false))wBusy=false},4300)});
+function wResolve(late){const P_=S.wPend;if(!P_)return false;delete S.wPend;if(+P_.at<=(+S.wDone||0))return false;S.wDone=+P_.at;const p=P_.p,W_={t:P_.t,id:P_.id};xp(10);
     if(late)toast('Tu tirada de antes','Recargaste mientras giraba: aquí tienes lo que te tocó','var(--sun)','🎡');
     if(p.k==='eur'){give(p.v);sfx(p.big?'big':'win');if(p.big){confetti(320);troll('¡¡'+short(p.v).toUpperCase()+' €!!','te ha tocado el hueco bueno','#ffd600',true);try{jpWin(p.v,W_.id)}catch(e){}}else toast(W_.t,'+'+short(p.v)+' €','var(--coral)','🎡')}
     else if(p.k==='lose'){let t=Math.min(Math.floor(S.coins),p.v);S.coins-=t;const rest=p.v-t;if(rest>0&&(+S.safe||0)>0){const f=Math.min(Math.floor(S.safe),rest);S.safe-=f;t+=f}sfx('lose');troll('−'+short(t)+' €','la del todo o nada no perdona','#ff3b4f',true)}
@@ -7119,7 +7125,7 @@ function wResolve(late){const P_=S.wPend;if(!P_)return;delete S.wPend;if(+P_.at<
     else if(p.k==='face'){S.avWon=S.avWon||[];if(S.avWon.includes(p.v)){const v=1500*wMult();give(v);toast('Esa cara ya la tenías','Te la cambio por '+short(v)+' €','var(--sun)',p.v)}else{S.avWon.push(p.v);sfx('big');confetti(120);toast('¡Cara nueva!','Póntela en tu perfil: '+p.v,'var(--pink)',p.v)}}
     else if(p.k==='box'){const [e,txt]=boxPrize();sfx('big');confetti(90);troll(e+' '+txt,'dentro de la caja sorpresa','#ff2e88',true)}
     else if(p.k==='mult'){const old=S.casMult&&+S.casMult.until>Date.now()?+S.casMult.v:0;const k=setCasMult(p.v,Date.now()+300000);sfx('big');const xs=v=>'x'+String(v).replace('.',',');toast(k==='keep'?'Te quedas con tu '+xs(old):k==='ext'?'Casino '+xs(p.v)+' · +tiempo':k==='up'?'¡Mejorado a '+xs(p.v)+'!':'Casino '+xs(p.v),k==='keep'?'Ya tenías un multiplicador mejor: no se cambia':k==='ext'?'Mismo multiplicador: el reloj vuelve a 5 minutos':k==='up'?'Sustituye a tu '+xs(old)+' durante 5 minutos':'Durante 5 minutos, lo que ganes en el casino se multiplica','var(--sun)','🔥')}
-    save();try{cloudSave(true)}catch(e){}setTimeout(()=>{wheelNext();wheelInfo();$('#wheelSkip').disabled=false},late?300:1600)}
+    save();try{cloudSave(true)}catch(e){}wBusy=true;setTimeout(()=>{wheelNext();wBusy=false;wheelInfo();$('#wheelSkip').disabled=false},late?300:1600);return true}
 $('#wheelSkip').addEventListener('click',()=>{if(wBusy)return;if(Math.floor(S.coins)<1000){toast('No te llega','Saltar la ruleta cuesta 1.000 €','var(--coral)','💸');sfx('lose');return}S.coins-=1000;sfx('coin');toast('Ruleta saltada','−1.000 €','var(--sun)','⏭️');wheelNext();wheelInfo();save()});
 drawWheel();
 const _wiOld=wheelInfo;wheelInfo=function(){_wiOld();const m=S.casMult&&+S.casMult.until>Date.now()?S.casMult:null;const el=$('#wheelInfo');if(el&&m&&!wBusy)el.textContent+=' · Casino x'+String(m.v).replace('.',',')+' activo '+Math.ceil((+m.until-Date.now())/60000)+' min'};
@@ -9861,7 +9867,7 @@ function wWeigh(id,segs){let ws;if(id==='money'||id==='xp'||id==='mult'){const b
 function wOddsHTML(){if(!wSegs)return'';const W_=curWheel();const map=new Map();wSegs.forEach(s_=>{const k=s_.k+'|'+s_.lab;const m=map.get(k)||{s:s_,p:0};m.p+=s_.p;map.set(k,m)});
   const rows=[...map.values()].sort((a,b)=>(b.s.v||0)-(a.s.v||0)||b.p-a.p);
   const pc=p=>{const v=p*100;return(v<1?v.toFixed(1):v<10?v.toFixed(1):Math.round(v)).toString().replace('.',',')+' %'};
-  return`<details class="wodds"><summary>🎲 Probabilidades</summary><div class="wol">${rows.map(r=>`<div><span class="sw" style="background:${r.s.col}"></span><b>${esc(r.s.k==='box'?'Caja sorpresa':(/^[\d.]{6,}( €)?$/.test(String(r.s.lab))?short(+String(r.s.lab).replace(/\D/g,''))+(/€/.test(String(r.s.lab))?' €':''):r.s.lab))}</b><em>${pc(r.p)}</em></div>`).join('')}</div><small>Los premios gordos salen mucho menos que los pequeños.</small></details>`}
+  return`<details class="wodds" open><summary>🎲 Probabilidades</summary><div class="wol">${rows.map(r=>`<div><span class="sw" style="background:${r.s.col}"></span><b>${esc(r.s.k==='box'?'Caja sorpresa':(/^[\d.]{6,}( €)?$/.test(String(r.s.lab))?short(+String(r.s.lab).replace(/\D/g,''))+(/€/.test(String(r.s.lab))?' €':''):r.s.lab))}</b><em>${pc(r.p)}</em></div>`).join('')}</div><small>Los premios gordos salen mucho menos que los pequeños.</small></details>`}
 const _dwOdds=drawWheel;drawWheel=function(){const r=_dwOdds.apply(this,arguments);try{const card=$('.wheelcard');if(card){let el=$('#wheelOdds');const op=el&&el.querySelector('details')&&el.querySelector('details').open;if(!el){el=document.createElement('div');el.id='wheelOdds';const inf=$('#wheelInfo');inf.insertAdjacentElement('afterend',el)}el.innerHTML=wOddsHTML();if(op)el.querySelector('details').open=true}}catch(e){}return r};
 try{drawWheel()}catch(e){}
 
@@ -13166,11 +13172,16 @@ function hmItems(v){const out=[];const walk=el=>[...el.children].forEach(c=>{if(
 const W_ICO={money:'💶',faces:'🙂',risk:'☠️',xp:'⭐',box:'🎁',mult:'🔥',rich:'💰',pts:'🏅',fab:'🏭',hw:'🎃'};
 function wListMount(){const v=$('#v-inicio');if(!v)return;let c=$('#wList');if(!c){c=document.createElement('div');c.id='wList';c.className='panel wlist';c.dataset.ht='ruletas';v.appendChild(c)}
   const cur=curWheel().id,pr=wChoosePrice();const m=S.casMult&&+S.casMult.until>Date.now()?S.casMult:null;
-  const row=(w,i)=>{const le=(typeof wLockEnd==='function')?wLockEnd(w.id):0;const st=w.id===cur?'<span class="wl-now">Ahora</span>':le?`<span class="wl-lk">🔒 ${Math.ceil((le-Date.now())/60000)} min</span>`:`<button class="btn sm alt" data-wpick="${i}">Elegir</button>`;
-    return`<div class="wl-r ${w.id===cur?'on':''}"><span class="emo">${W_ICO[w.id]||'🎡'}</span><span class="wl-t"><b>${esc(w.t)}</b><small>${esc(String(w.d).split('.')[0])}</small></span>${st}</div>`};
-  const h=`<div class="wl-h"><h3>🎡 Todas las ruletas</h3><small>Tras cada tirada sale otra. Elegir una cuesta ${short(pr)} €.</small></div>${m?`<div class="wl-m">🔥 Casino ${xTxt(m.v)} activo · ${Math.ceil((+m.until-Date.now())/60000)} min</div>`:''}<div class="wl-l">${WHEELS.map(row).join('')}</div>`;
+  const row=(w,i)=>{const le=(typeof wLockEnd==='function')?wLockEnd(w.id):0;const st=w.id===cur?'<span class="wl-now">Ahora</span>':le?`<span class="wl-lk">🔒 ${Math.ceil((le-Date.now())/60000)} min</span>`:`<button class="btn sm" data-wpick="${i}">Elegir · ${short(pr)} €</button>`;
+    return`<div class="wl-r ${w.id===cur?'on':''}"><span class="wl-ico">${(typeof wMini==='function'&&wMini(w))||W_ICO[w.id]||'🎡'}</span><span class="wl-t"><b>${esc(w.t)}</b><small>${esc(String(w.d).split(/\.\s/)[0].replace(/\.$/,''))}</small></span>${st}</div>`};
+  const h=`<div class="wl-h"><h3>🎡 Todas las ruletas</h3><small>Después de cada tirada sale la siguiente. Si quieres una en concreto, elígela aquí.</small></div>${m?`<div class="wl-m">🔥 Casino ${xTxt(m.v)} activo · ${Math.ceil((+m.until-Date.now())/60000)} min</div>`:''}<div class="wl-l">${WHEELS.map(row).join('')}</div>`;
   if(c.dataset.h!==h){c.dataset.h=h;c.innerHTML=h}}
 setInterval(()=>{try{if(view==='inicio')wListMount()}catch(e){}},2000);setTimeout(()=>{try{wListMount()}catch(e){}},2500);
+
+try{i18nAdd([['Ruletas más cómodas','Easier wheels','Roues plus pratiques','Roletas mais cómodas'],['Lista de ruletas','Wheel list','Liste des roues','Lista de roletas'],['En Inicio › Ruletas ves todas con su dibujo y lo que cuesta elegir cada una.','In Home › Wheels you see all of them with their picture and the price to pick each one.','Dans Accueil › Roues tu vois toutes les roues et le prix pour en choisir une.','Em Início › Roletas vês todas com o desenho e o preço de escolher cada uma.'],
+['Probabilidades a la vista','Odds in sight','Probabilités visibles','Probabilidades à vista'],['Ya no hay que pulsar para ver las probabilidades.','No need to tap to see the odds.','Plus besoin de toucher pour voir les probabilités.','Já não é preciso tocar para ver as probabilidades.'],['Arreglado','Fixed','Corrigé','Corrigido'],
+['Si girabas muy rápido (ruletas infinitas o con varias tiradas guardadas) se repetía la misma ruleta y luego se saltaba otra. Ya no pasa.','Spinning very fast (infinite wheels or saved spins) repeated the same wheel and then skipped one. Fixed.','En tournant très vite, la même roue se répétait puis une était sautée. Corrigé.','Se girasses muito depressa repetia a mesma roleta e depois saltava outra. Já não acontece.'],
+['Después de cada tirada sale la siguiente. Si quieres una en concreto, elígela aquí.','After each spin the next one comes. Want a specific one? Pick it here.','Après chaque tour vient la suivante. Tu en veux une précise ? Choisis-la ici.','Depois de cada giro vem a seguinte. Queres uma em concreto? Escolhe-a aqui.']])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
