@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-1751">
+<meta name="app-version" content="2026-10-17-1801">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2550,6 +2550,20 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]{position:relat
 .frcoin.empty{background:radial-gradient(circle at 35% 30%,#d8d8e0,#8a8a96 55%,#55555f)!important;border-color:#44444c!important;color:#2a2a30!important;box-shadow:none!important;filter:saturate(0);opacity:.75}
 .frcoin.pop{transform:scale(.3)!important;opacity:0!important;transition:.22s}
 .rpop.rpe{color:#c8c8d0!important;text-shadow:0 2px 0 #000}
+/* chat a la vista */
+.bar #chatBtn{width:auto!important;padding:0 12px 0 9px;gap:6px;display:inline-flex;align-items:center;background:linear-gradient(180deg,#4aa8ff,#2a7fe0)!important;border-color:#000!important;color:#fff!important;box-shadow:0 3px 0 #000}
+#chatBtn .chl{font:900 13px var(--f-b);letter-spacing:.5px;text-transform:uppercase}
+#chatBtn.unread{background:linear-gradient(180deg,#ff5a6a,#e0233a)!important;animation:chPulse 1s ease-in-out infinite}
+#chatBtn.ring{animation:chRing .9s ease-in-out 2}
+#chatBtn .cdot{top:-8px;right:-8px;min-width:22px;height:22px;font-size:12px;line-height:22px;background:#ffd600;color:#111;box-shadow:0 0 10px #ffd600}
+@keyframes chPulse{50%{box-shadow:0 0 0 5px #ff3b4f55,0 3px 0 #000}}@keyframes chRing{0%,100%{transform:rotate(0)}15%{transform:rotate(-14deg) scale(1.1)}30%{transform:rotate(12deg) scale(1.1)}45%{transform:rotate(-8deg)}60%{transform:rotate(6deg)}}
+@media (max-width:520px){.bar #chatBtn{width:46px!important;padding:0;justify-content:center}#chatBtn .chl{display:none}}
+#chNew{position:fixed;left:50%;top:calc(var(--barh,64px) + 12px);transform:translateX(-50%);z-index:9500;display:flex;align-items:center;gap:10px;width:min(460px,calc(100vw - 20px));padding:10px 12px;border-radius:16px;background:linear-gradient(135deg,#123a6a,#0d1a33);border:3px solid #4aa8ff;box-shadow:0 10px 30px #000a,0 0 24px #4aa8ff66;animation:cnIn .4s cubic-bezier(.2,1.5,.4,1)}
+#chNew .cn-av{font-size:32px}#chNew .cn-t{flex:1;min-width:0;display:flex;flex-direction:column}#chNew small{color:#9cc9ff;font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.5px}#chNew b{font-size:17px}#chNew em{font-style:normal;font-size:13px;color:#dbe9ff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#chNew .cn-b{display:flex;align-items:center;gap:4px}#chNew .cn-x{background:none;border:0;color:#fff;opacity:.7;font-size:16px;cursor:pointer}
+#chNew.out,#chIntro.out{transition:.4s;opacity:0}@keyframes cnIn{from{transform:translate(-50%,-30px);opacity:0}}
+#chIntro{position:fixed;z-index:9400;width:min(300px,calc(100vw - 20px));display:flex;flex-direction:column;gap:6px;padding:12px;border-radius:14px;background:#123a6a;border:3px solid #4aa8ff;box-shadow:0 10px 30px #000a;font-size:13.5px;font-weight:600}
+#chIntro b{font-size:16px}#chIntro::before{content:'';position:absolute;top:-12px;right:22px;border:10px solid transparent;border-bottom-color:#4aa8ff;border-top:0}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -3962,7 +3976,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
       <div class="chip lvlchip lvl" title="Tu nivel"><span class="badge" id="wLvl">1</span><span class="xp"><i id="wXp"></i></span></div>
       <button class="updmini" id="updMini" hidden title="Hay una versión nueva"><span class="emo">🚀</span><span class="ut2">Actualizar</span></button>
       <button class="iconbtn" id="fsBtn" aria-label="Pantalla completa" title="Pantalla completa"><svg class="ic"><use href="#i-full"/></svg></button>
-      <button class="iconbtn chatbtn" id="chatBtn" aria-label="Chats" title="Chats"><span class="emo">💬</span><span class="cdot" id="chatDot" hidden></span></button>
+      <button class="iconbtn chatbtn" id="chatBtn" aria-label="Chat" title="Chat con tus amigos"><span class="emo">💬</span><span class="chl">Chat</span><span class="cdot" id="chatDot" hidden></span></button>
       <button class="iconbtn" id="cfgBtn" aria-label="Ajustes" title="Ajustes"><svg class="ic"><use href="#i-gear"/></svg></button>
       <button class="iconbtn" id="mute" aria-label="Sonido"><svg class="ic"><use href="#i-sound"/></svg></button>
     </header>
@@ -6096,6 +6110,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-17-j',t:'Chat a la vista',items:[['💬','Botón de chat','Arriba a la derecha, botón azul «Chat» bien visible.','new','#4aa8ff'],['🔔','Te enteras de los mensajes','Si te escriben: suena, el botón se pone rojo con el número, la pestaña avisa y sale un aviso grande con «Responder».']]},
  {v:'2026-10-17-i',t:'Lluvia de monedas y botón rojo',items:[['🔴','Botón rojo más generoso','Los premios del botón rojo dan bastante más (x4) y un pequeño extra según tu dinero.'],['🪙','Monedas vacías','Cuando se acaba el dinero de la lluvia, las monedas que siguen cayendo se ponen grises con una ✕ y te avisa. Así sabes que ya no dan nada.']]},
  {v:'2026-10-17-h',t:'Gran Premio de Cine',items:[['🎬','Ruleta nueva del anuncio','La ruleta del anuncio del día es ahora el «Gran Premio de Cine»: más grande, con luces, y premios que salen de tu dinero (hasta el 20 %).','new','#ffd600'],['⭐','Título exclusivo','Uno de sus huecos da el título «🎬 Estrella de Cine», que solo se consigue ahí. Si ya lo tienes, ese hueco te da dinero.','new','#b06bff'],['🎲','Probabilidades a la vista','Salen siempre debajo, sin pulsar nada.']]},
  {v:'2026-10-17-g',t:'Números enteros',items:[['🔢','Cifras completas','El dinero sale entero (por ejemplo 203.203.120.102 €) siempre que quepa.'],['✂️','Si no cabe, con palabras','Cuando no cabe se acorta: mil = 1.000, mill. = 1.000.000, bill. = 1.000.000.000 y trill. = 1.000.000.000.000 (por ejemplo 7,6 trill. €). Pasa el ratón por encima para ver la cifra exacta.']]},
@@ -11764,7 +11779,7 @@ function chDot(){const d=$('#chatDot');if(!d)return;const n=chUnread();d.hidden=
 function chStart(){if(CH.started||!chCan())return;CH.started=true;
   CH.unsubL=NET.db.collection('chats').where('u','array-contains',NET.id).limit(60).onSnapshot(sn=>{const before=chUnread();CH.list=new Map(sn.docs.map(d=>[d.id,d.data()||{}]));
     const after=chUnread();if(after>before&&!CH.open){const nw=[...CH.list.entries()].filter(([cid,c])=>c.lf!==NET.id&&(+c.lt||0)>(+((S.chSeen||{})[cid])||0)).sort((a,b)=>b[1].lt-a[1].lt)[0];
-      if(nw&&!chBlocked(chOther(nw[0]))){sfx('coin');toast('💬 '+esc(chName(chOther(nw[0]))),esc(String(nw[1].last||'').slice(0,60)),'var(--sky)','💬');const t=document.querySelector('#toasts .toast:last-child');if(t){t.style.cursor='pointer';t.onclick=()=>chOpen(chOther(nw[0]))}}}
+      if(nw&&!chBlocked(chOther(nw[0]))){chNotify(chOther(nw[0]),String(nw[1].last||''))}}
     chDot();if(CH.sel==='list')chRender()},()=>{CH.started=false})}
 setInterval(()=>{try{if(chCan())chStart();chDot()}catch(e){}},5000);
 function chAllF(){const ids=new Set([...(S.friends||[])]);for(const cid of CH.list.keys())ids.add(chOther(cid));return [...ids].filter(Boolean)}
@@ -13363,6 +13378,27 @@ if(!FAQ.some(q=>/Estrella de Cine/.test(q[0])))FAQ.push(['¿Cómo consigo el tí
 
 try{i18nAdd([['Lluvia de monedas más clara','Clearer coin rain','Pluie de pièces plus claire','Chuva de moedas mais clara'],['Monedas vacías','Empty coins','Pièces vides','Moedas vazias'],['Botón rojo más generoso','More generous red button','Bouton rouge plus généreux','Botão vermelho mais generoso'],['Los premios del botón rojo dan bastante más (x4) y un pequeño extra según tu dinero.','Red button prizes give much more (x4) plus a small bonus based on your money.','Les gains du bouton rouge sont bien plus gros (x4) avec un petit bonus selon ton argent.','Os prémios do botão vermelho dão muito mais (x4) e um pequeno extra segundo o teu dinheiro.'],['Cuando se acaba el dinero de la lluvia, las monedas que siguen cayendo se ponen grises con una ✕ y te avisa. Así sabes que ya no dan nada.','When the rain money runs out, falling coins turn grey with an ✕ and you get a notice.','Quand l’argent de la pluie est épuisé, les pièces deviennent grises avec un ✕.','Quando acaba o dinheiro da chuva, as moedas ficam cinzentas com um ✕.'],['¡Se acabó la lluvia!','The rain is over!','La pluie est finie !','A chuva acabou!'],['Ya no quedan monedas: las grises están vacías','No coins left: the grey ones are empty','Plus de pièces : les grises sont vides','Já não há moedas: as cinzentas estão vazias'],['¡Vacía!','Empty!','Vide !','Vazia!']]);
 if(!FAQ.some(q=>/monedas grises/.test(q[0])))FAQ.push(['¿Por qué hay monedas grises en la lluvia?','La lluvia de monedas tiene un bote para todos. Cuando se acaba, las monedas que aún caen se ponen grises con una ✕: están vacías y ya no dan dinero.'])}catch(e){}
+
+/* ===== CHAT A LA VISTA: botón azul con «Chat», aviso grande de mensaje nuevo, título de la pestaña y presentación ===== */
+function chNotify(id,txt){try{sfx('coin');setTimeout(()=>{try{sfx('coin')}catch(_){}},180)}catch(e){}try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){}
+  let n=$('#chNew');if(n)n.remove();n=document.createElement('div');n.id='chNew';const nm=chName(id);
+  n.innerHTML=`<span class="cn-av emo">💬</span><span class="cn-t"><small>Mensaje nuevo de</small><b>${esc(nm)}</b><em>${esc(txt.slice(0,90))}</em></span><span class="cn-b"><button class="btn sm" data-cnr>Responder</button><button class="cn-x" data-cnx aria-label="Cerrar">✕</button></span>`;
+  document.body.appendChild(n);n.querySelector('[data-cnr]').onclick=()=>{n.remove();chOpen(id)};n.querySelector('[data-cnx]').onclick=()=>n.remove();
+  clearTimeout(chNotify.t);chNotify.t=setTimeout(()=>{n.classList.add('out');setTimeout(()=>n.remove(),400)},9000);
+  const b=$('#chatBtn');if(b){b.classList.remove('ring');void b.offsetWidth;b.classList.add('ring')}}
+/* el título de la pestaña avisa si tienes mensajes sin leer */
+{const T0=document.title;let blink=0;setInterval(()=>{try{const n=chUnread();if(!n){if(document.title!==T0)document.title=T0;return}blink^=1;document.title=blink?`(${n}) 💬 Mensaje nuevo`:T0;const b=$('#chatBtn');if(b)b.classList.toggle('unread',n>0)}catch(e){}},1200)}
+/* la primera vez, presenta el chat */
+setInterval(()=>{try{if(S.chIntro||!S.name||!NET.ok||!$('#modal').hidden||(typeof running!=='undefined'&&running)||performance.now()<120000)return;const b=$('#chatBtn');if(!b||!b.offsetParent)return;
+  S.chIntro=1;save();const r=b.getBoundingClientRect();const tip=document.createElement('div');tip.id='chIntro';tip.innerHTML=`<b>💬 ¡Hay chat!</b><span>Habla con tus amigos y mándales mensajes aquí. Cuando te escriban, este botón se pondrá rojo.</span><button class="btn sm" data-chi>Abrir el chat</button>`;
+  tip.style.top=(r.bottom+12)+'px';tip.style.right=Math.max(8,innerWidth-r.right-10)+'px';document.body.appendChild(tip);b.classList.add('ring');
+  tip.querySelector('[data-chi]').onclick=()=>{tip.remove();chList()};setTimeout(()=>{tip.classList.add('out');setTimeout(()=>tip.remove(),400)},12000)}catch(e){}},5000);
+try{const am=TUTOS.find(t=>t[1]==='Amigos');if(am&&!am[4].some(x=>/botón azul/.test(x[0])))am[4].push(['<b>Chat</b>: arriba a la derecha está el botón azul <b>💬 Chat</b>. Ahí hablas con tus amigos. Si te escriben, el botón se pone rojo con el número de mensajes y sale un aviso grande con «Responder».']);
+  if(!FAQ.some(q=>/dónde está el chat/i.test(q[0])))FAQ.push(['¿Dónde está el chat?','Arriba a la derecha, el botón azul 💬 Chat. Cuando alguien te escribe, se pone rojo con el número de mensajes, suena y sale un aviso grande para responder.'])}catch(e){}
+try{i18nAdd([['Chat','Chat','Chat','Chat'],['Mensaje nuevo de','New message from','Nouveau message de','Nova mensagem de'],['Responder','Reply','Répondre','Responder'],['Abrir el chat','Open chat','Ouvrir le chat','Abrir o chat'],['💬 ¡Hay chat!','💬 There’s a chat!','💬 Il y a un chat !','💬 Há chat!'],
+ ['Habla con tus amigos y mándales mensajes aquí. Cuando te escriban, este botón se pondrá rojo.','Talk to your friends here. When they write to you, this button turns red.','Parle avec tes amis ici. Quand ils t’écrivent, ce bouton devient rouge.','Fala com os teus amigos aqui. Quando te escreverem, este botão fica vermelho.']])}catch(e){}
+
+try{i18nAdd([['Chat a la vista','Chat in sight','Chat bien visible','Chat à vista'],['Botón de chat','Chat button','Bouton chat','Botão de chat'],['Arriba a la derecha, botón azul «Chat» bien visible.','Top right, a clearly visible blue “Chat” button.','En haut à droite, un bouton bleu « Chat ».','Em cima à direita, botão azul «Chat».'],['Te enteras de los mensajes','You notice messages','Tu vois les messages','Dás pelas mensagens'],['Si te escriben: suena, el botón se pone rojo con el número, la pestaña avisa y sale un aviso grande con «Responder».','When someone writes: sound, the button turns red with the count, the tab alerts you and a big notice with “Reply” appears.','Quand on t’écrit : son, bouton rouge avec le nombre, l’onglet prévient et un grand avis « Répondre » apparaît.','Quando te escrevem: som, botão vermelho com o número, o separador avisa e aparece um aviso grande com «Responder».']])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
