@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-1727">
+<meta name="app-version" content="2026-10-17-1748">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2547,6 +2547,9 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]{position:relat
 #guDay .gu-mx{display:flex;flex-direction:column;align-items:center;gap:2px;margin:2px 0 4px}#guDay .gu-mx small{color:var(--muted);font-weight:700;font-size:13px}
 #guDay .gu-mx .gu-max{font:30px/1.1 var(--f-d);color:var(--sun);white-space:nowrap;text-shadow:0 0 14px #ffd60066;max-width:100%}
 #v-inicio[data-t=ruletas] .wheelcard{order:1!important}#v-inicio[data-t=ruletas] #wList{order:2!important}#v-inicio[data-t=ruletas] #guDay{order:3!important}
+.frcoin.empty{background:radial-gradient(circle at 35% 30%,#d8d8e0,#8a8a96 55%,#55555f)!important;border-color:#44444c!important;color:#2a2a30!important;box-shadow:none!important;filter:saturate(0);opacity:.75}
+.frcoin.pop{transform:scale(.3)!important;opacity:0!important;transition:.22s}
+.rpop.rpe{color:#c8c8d0!important;text-shadow:0 2px 0 #000}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6093,6 +6096,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-17-i',t:'Lluvia de monedas y botón rojo',items:[['🔴','Botón rojo más generoso','Los premios del botón rojo dan bastante más (x4) y un pequeño extra según tu dinero.'],['🪙','Monedas vacías','Cuando se acaba el dinero de la lluvia, las monedas que siguen cayendo se ponen grises con una ✕ y te avisa. Así sabes que ya no dan nada.']]},
  {v:'2026-10-17-h',t:'Gran Premio de Cine',items:[['🎬','Ruleta nueva del anuncio','La ruleta del anuncio del día es ahora el «Gran Premio de Cine»: más grande, con luces, y premios que salen de tu dinero (hasta el 20 %).','new','#ffd600'],['⭐','Título exclusivo','Uno de sus huecos da el título «🎬 Estrella de Cine», que solo se consigue ahí. Si ya lo tienes, ese hueco te da dinero.','new','#b06bff'],['🎲','Probabilidades a la vista','Salen siempre debajo, sin pulsar nada.']]},
  {v:'2026-10-17-g',t:'Números enteros',items:[['🔢','Cifras completas','El dinero sale entero (por ejemplo 203.203.120.102 €) siempre que quepa.'],['✂️','Si no cabe, con palabras','Cuando no cabe se acorta: mil = 1.000, mill. = 1.000.000, bill. = 1.000.000.000 y trill. = 1.000.000.000.000 (por ejemplo 7,6 trill. €). Pasa el ratón por encima para ver la cifra exacta.']]},
  {v:'2026-10-17-f',t:'Inicio más ordenado',items:[['🧭','Accesos rápidos','En Inicio › Hoy, debajo de las pestañas, tienes botones para ir directo a cada cosa. Los que tienen algo por cobrar brillan.','new','#ffd600'],['📋','Todo en su sitio','Hoy va en este orden: evento, botón rojo, caja fuerte y banco, premios por jugar, misiones y premio diario.'],['🎡','Cambiar de ruleta en el móvil','Debajo del botón de girar hay una tira para cambiar de ruleta deslizando.'],['🏆','Clasificación de caramelos','En el evento de Halloween, «Recompensas y clasificación» te enseña quién lleva más caramelos y tu puesto.'],['📖','Tutorial al día','Hay guías nuevas en Ayuda › Tutorial: Inicio, Ruletas, Multiplicador, Premios por jugar, Halloween y Regalo de Google.']]},
@@ -10343,12 +10347,19 @@ let rainIv=null,rainPushT=0;
 function rainStart(e){if(rainIv)return;let L=$('#rainL');if(!L){L=document.createElement('div');L.id='rainL';document.body.appendChild(L)}
   rainIv=setInterval(()=>{const left=rainLeft(e),val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100);if(left<val||document.hidden||$('#excWin:not([hidden])'))return;if(L.childElementCount>14)return;
     const c=document.createElement('button');c.className='frcoin';c.textContent='€';c.style.left=(4+Math.random()*88)+'vw';const dur=3.2+Math.random()*2.5;c.style.animationDuration=dur+'s';c.style.setProperty('--rr',(Math.random()*720-360)+'deg');
-    c.onpointerdown=ev=>{ev.preventDefault();ev.stopPropagation();if(c.dataset.got)return;c.dataset.got=1;const l2=rainLeft(e),v=Math.min(val,l2);if(v<=0){c.remove();return}
+    c.onpointerdown=ev=>{ev.preventDefault();ev.stopPropagation();if(c.dataset.got)return;c.dataset.got=1;const l2=rainLeft(e),v=Math.min(val,l2);if(v<=0||c.classList.contains('empty')){rainEmptyPop(ev,c);return}
       if(!S.rainG||S.rainG.id!==e.id)S.rainG={id:e.id,n:0};S.rainG.n+=v;S.coins+=v;S.earned+=v;try{sfx('coin')}catch(_){}
       const pp=document.createElement('div');pp.className='rpop';pp.textContent='+'+short(v)+' €';pp.style.left=ev.clientX-20+'px';pp.style.top=ev.clientY-20+'px';document.body.appendChild(pp);setTimeout(()=>pp.remove(),800);c.remove();
       save();if(Date.now()-rainPushT>2500){rainPushT=Date.now();NET.lastP='';pushPlayer()}else setTimeout(()=>{if(Date.now()-rainPushT>=2400){rainPushT=Date.now();NET.lastP='';pushPlayer()}},2600)};
-    L.appendChild(c);setTimeout(()=>c.remove(),dur*1000+200)},420)}
-function rainStop(){if(rainIv){clearInterval(rainIv);rainIv=null}const L=$('#rainL');if(L)L.innerHTML=''}
+    L.appendChild(c);setTimeout(()=>c.remove(),dur*1000+200)},420);
+  /* cuando se acaba el bote: las monedas que siguen cayendo se vuelven vacías (grises) y avisa una vez */
+  rainEmIv=setInterval(()=>{const val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100);if(rainLeft(e)>=val)return;
+    let n=0;L.querySelectorAll('.frcoin:not(.empty)').forEach(c=>{c.classList.add('empty');c.textContent='✕';n++});
+    if(n&&!L.dataset.out){L.dataset.out=e.id;toast('¡Se acabó la lluvia!','Ya no quedan monedas: las grises están vacías','var(--muted)','🪙')}},300)}
+let rainEmIv=null;
+function rainEmptyPop(ev,c){if(c.dataset.ep)return;c.dataset.ep=1;try{sfx('lose')}catch(_){}const pp=document.createElement('div');pp.className='rpop rpe';pp.textContent='¡Vacía!';pp.style.left=ev.clientX-24+'px';pp.style.top=ev.clientY-20+'px';document.body.appendChild(pp);setTimeout(()=>pp.remove(),800);
+  c.classList.add('pop');setTimeout(()=>c.remove(),250)}
+function rainStop(){if(rainIv){clearInterval(rainIv);rainIv=null}if(rainEmIv){clearInterval(rainEmIv);rainEmIv=null}const L=$('#rainL');if(L){L.innerHTML='';delete L.dataset.out}}
 /* configuración de eventos que pone el jefe */
 setTimeout(function evCfgListen(){if(!NET.db){setTimeout(evCfgListen,2000);return}NET.db.collection('meta').doc('evcfg').onSnapshot(sn=>{const d=sn.exists?sn.data():null;EVCFG={auto:d?d.auto!==false:true,off:(d&&d.off)||{}};try{evRender();if(view==='admin')evAdmRender()}catch(_){}},()=>{})},1500);
 /* ---------- panel del jefe: eventos ---------- */
@@ -11821,7 +11832,7 @@ function rbKill(d){if(!d||!d.isConnected)return;d.classList.add('rbxout');setTim
 function rbCv(d){const c=document.createElement('canvas'),r=Math.min(LOWEND?1:1.5,devicePixelRatio||1),W=innerWidth,H=innerHeight;c.width=Math.round(W*r);c.height=Math.round(H*r);c.className='rbcv';d.appendChild(c);const g=c.getContext('2d');g.scale(r,r);g.W=W;g.H=H;return g}
 function rbRun(ms,fn,done){const t0=performance.now();const st=t=>{const e=Math.max(0,t-t0);if(e>=ms){try{done&&done()}catch(_){}return}try{fn(e/1000,e/ms)}catch(err){try{done&&done()}catch(_){}return}requestAnimationFrame(st)};requestAnimationFrame(st)}
 const rbN=n=>Math.max(1,Math.ceil(n*(cfg('lite')?.35:LOWEND?.6:1)));
-function rbPay(k,t,s,col){const r=Math.round(k*Math.max(1,S.lvl));give(r);xp(10);save();sfx('big');confetti(120);troll(t,(s?s+' ':'')+'+'+short(r)+' €',col||'#14e08a',true);return r}
+function rbPay(k,t,s,col){const r=niceN(k*Math.max(1,S.lvl)*4+(typeof wealth==='function'?wealth():0)*.002*k/250);give(r);xp(10);save();sfx('big');confetti(120);troll(t,(s?s+' ':'')+'+'+short(r)+' €',col||'#14e08a',true);return r}
 function rbNoise(d,v,hp){if(S.muted)return;const a=ac();if(!a)return;try{const len=Math.floor(a.sampleRate*d),b=a.createBuffer(1,len,a.sampleRate),x=b.getChannelData(0);for(let i=0;i<len;i++)x[i]=(Math.random()*2-1)*Math.pow(1-i/len,2);
   const s=a.createBufferSource(),g=a.createGain(),f=a.createBiquadFilter();f.type=hp?'highpass':'lowpass';f.frequency.value=hp||600;s.buffer=b;g.gain.value=(v||.1)*cfg('vol');s.connect(f).connect(g).connect(a.destination);s.start()}catch(e){}}
 function rbShake(px,ms){try{$('.app').animate([{transform:'none'},{transform:`translate(${-px}px,${px*.6}px) rotate(-.6deg)`},{transform:`translate(${px*.9}px,${-px*.6}px) rotate(.6deg)`},{transform:`translate(${-px*.5}px,${px*.4}px)`},{transform:`translate(${px*.3}px,${-px*.2}px)`},{transform:'none'}],{duration:ms||500})}catch(e){}}
@@ -13349,6 +13360,9 @@ try{i18nAdd([['Gran Premio de Cine','Cinema Grand Prize','Grand Prix du Cinéma'
 ['Probabilidades a la vista','Odds in sight','Probabilités visibles','Probabilidades à vista'],['Salen siempre debajo, sin pulsar nada.','Always shown below, no tapping.','Toujours affichées en dessous.','Aparecem sempre por baixo.'],['🎬 Ver anuncio y girar','🎬 Watch ad and spin','🎬 Voir la pub et tourner','🎬 Ver anúncio e girar'],['⭐ Una vez al día','⭐ Once a day','⭐ Une fois par jour','⭐ Uma vez por dia']]);
 const _t=TUTOS.find(x=>x[1]==='Ruletas');if(_t&&!_t[4].some(x=>/Gran Premio de Cine/.test(x[0])))_t[4].push(['<b>Gran Premio de Cine</b> (Inicio › Ruletas): una vez al día, mira un anuncio y gira. Da entre el 0,5 % y el 20 % de tu dinero, o el título exclusivo <b>«🎬 Estrella de Cine»</b> (1,5 %). Las probabilidades salen debajo.']);
 if(!FAQ.some(q=>/Estrella de Cine/.test(q[0])))FAQ.push(['¿Cómo consigo el título «🎬 Estrella de Cine»?','Solo en el Gran Premio de Cine (Inicio › Ruletas): mira el anuncio del día y gira. Tiene un 1,5 % de salir cada día. Si ya lo tienes, ese hueco te da dinero.'])}catch(e){}
+
+try{i18nAdd([['Lluvia de monedas más clara','Clearer coin rain','Pluie de pièces plus claire','Chuva de moedas mais clara'],['Monedas vacías','Empty coins','Pièces vides','Moedas vazias'],['Botón rojo más generoso','More generous red button','Bouton rouge plus généreux','Botão vermelho mais generoso'],['Los premios del botón rojo dan bastante más (x4) y un pequeño extra según tu dinero.','Red button prizes give much more (x4) plus a small bonus based on your money.','Les gains du bouton rouge sont bien plus gros (x4) avec un petit bonus selon ton argent.','Os prémios do botão vermelho dão muito mais (x4) e um pequeno extra segundo o teu dinheiro.'],['Cuando se acaba el dinero de la lluvia, las monedas que siguen cayendo se ponen grises con una ✕ y te avisa. Así sabes que ya no dan nada.','When the rain money runs out, falling coins turn grey with an ✕ and you get a notice.','Quand l’argent de la pluie est épuisé, les pièces deviennent grises avec un ✕.','Quando acaba o dinheiro da chuva, as moedas ficam cinzentas com um ✕.'],['¡Se acabó la lluvia!','The rain is over!','La pluie est finie !','A chuva acabou!'],['Ya no quedan monedas: las grises están vacías','No coins left: the grey ones are empty','Plus de pièces : les grises sont vides','Já não há moedas: as cinzentas estão vazias'],['¡Vacía!','Empty!','Vide !','Vazia!']]);
+if(!FAQ.some(q=>/monedas grises/.test(q[0])))FAQ.push(['¿Por qué hay monedas grises en la lluvia?','La lluvia de monedas tiene un bote para todos. Cuando se acaba, las monedas que aún caen se ponen grises con una ✕: están vacías y ya no dan dinero.'])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
