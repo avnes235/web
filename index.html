@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-16-1942">
+<meta name="app-version" content="2026-10-17-1152">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2436,6 +2436,21 @@ html[data-u18] .nb[data-v=casino],html[data-u18] .nb[data-v=trading],html[data-u
 @media (min-width:900px){#seNudge{bottom:20px;left:auto;right:20px}}
 #nav .se-dot{position:relative}#nav .se-dot::after{content:'🎃';position:absolute;top:-4px;right:2px;font-size:13px;animation:gxFlick 1.2s ease-in-out infinite}
 .seil{text-align:left;font-weight:700;margin:8px 0;padding-left:4px;list-style:none;display:flex;flex-direction:column;gap:4px}
+.ptcard{border:3px solid var(--sun)!important;background:radial-gradient(circle at 92% 0,#ffd60026,transparent 45%),var(--card)}
+.pth{display:flex;gap:10px;align-items:center}.pth .emo{font-size:34px}.pth h3{margin:0;font-size:22px}.pth small{color:var(--muted);font-weight:700}
+.ptrow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:12px 0 10px}
+.ptc{position:relative;display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 2px;border:2px solid var(--line);border-radius:10px;background:#0006;color:var(--fg);font:inherit;cursor:default;min-width:0}
+.ptc .emo{font-size:24px;filter:grayscale(.7);opacity:.75}.ptc b{font-size:12px;white-space:nowrap}.ptc small{font-size:10px;color:var(--muted);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.ptc i{position:absolute;top:-8px;right:-4px;font-style:normal;font-size:9px;font-weight:900;background:#ff7a00;color:#111;border-radius:6px;padding:1px 4px}
+.ptc.rdy{border-color:var(--sun);background:#ffd60022;cursor:pointer;animation:ptPulse 1.1s ease-in-out infinite}.ptc.rdy .emo{filter:none;opacity:1}.ptc.rdy small{color:var(--sun)}
+.ptc.got{border-color:#14e08a55;background:#14e08a14}.ptc.got .emo{filter:none;opacity:1}
+@keyframes ptPulse{50%{transform:translateY(-3px);box-shadow:0 4px 0 #000}}
+.ptbar{height:12px;border:2px solid #000;border-radius:8px;background:#0008;overflow:hidden}.ptbar i{display:block;height:100%;background:linear-gradient(90deg,#ffb800,#ffd600)}
+.ptnx{margin:8px 0 4px;font-weight:700}.ptgo{width:100%}
+.ptl{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-weight:700;font-size:14px}.ptl .btn{width:100%}
+@media (max-width:520px){.ptrow{gap:4px}.ptc{padding:6px 1px}.ptc .emo{font-size:20px}.ptc b{font-size:10.5px}.ptc small{font-size:9px}.ptc i{font-size:8px;padding:0 3px}}
+#nav .pt-dot{position:relative}#nav .pt-dot::before{content:'';position:absolute;top:2px;left:8px;width:11px;height:11px;border-radius:50%;background:var(--sun);border:2px solid #000;z-index:2;animation:ptPulse 1.1s infinite}
+.gbb{background:#14e08a!important;color:#111!important}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5979,6 +5994,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-17-a',t:'Premios por jugar y regalo de Google',items:[['⏱️','Premios por jugar','En Inicio, 7 cofres cada día: se abren a los 5, 15, 30, 45, 60, 90 y 120 minutos de juego. Cuanto más dinero tienes, más te dan.','new','#ffd600'],['👑','Grandes premios','Al llegar a 1, 3, 6, 12, 24, 48 y 100 horas jugadas: premios gordos y títulos exclusivos («Viciado/a», «Sin vida social», «Leyenda de Casinetori»).'],['💸','100.000 € con Google','Si entras con Google te regalamos 100.000 €. Si ya habías entrado, te llegan solos.','new','#14e08a'],['🍬','Con caramelos','Algunos cofres traen experiencia y caramelos de Halloween.']]},
  {v:'2026-10-16-b',t:'Que no se te escapen los caramelos',items:[['🎃','Recordatorio de Halloween','Si tienes el truco o trato sin abrir o una misión del evento lista para cobrar, sale un aviso pequeño para que no te lo pierdas. Lo puedes cerrar.'],['🍬','Calabaza en Inicio','El botón de Inicio lleva una calabacita cuando tienes caramelos esperándote.'],['🛡️','Clasificación más justa','Mejoras contra las trampas para que nadie suba de forma imposible.']]},
  {v:'2026-10-16-a',t:'Nombres anteriores',items:[['🏷️','Nombres anteriores','En el perfil de cada jugador salen los nombres que tenía antes, para que sepas quién es aunque se lo cambie.'],['👥','En tus amigos','Si un amigo se cambia el nombre, durante 7 días sale debajo «antes: …».'],['🧽','Puedes borrarlo','En tu perfil puedes borrar tu historial de nombres.'],['⏳','Un cambio por semana','El nombre solo se puede cambiar una vez cada 7 días.']]},
  {v:'2026-10-15-b',t:'Ayuda para novatos',items:[['🛟','Seguro de novato','Si te quedas sin dinero en tu primera media hora de juego, te lo devolvemos una vez.'],['💸','Sin dinero','Si te quedas a cero te enseñamos cómo conseguir más: Fábrica, ruleta gratis, Juegos y misiones.'],['💡','Consejos','Consejos pequeños cuando empiezas. Los puedes quitar en Ajustes › Consejos para novatos.'],['👀','Pregunta de origen','La pregunta de cómo nos conociste ya no se cierra sin querer al tocar fuera.']]},
@@ -12948,6 +12964,76 @@ try{i18nAdd([['Que no se te escapen los caramelos','Don’t miss your candy','Ne
 ['Si tienes el truco o trato sin abrir o una misión del evento lista para cobrar, sale un aviso pequeño para que no te lo pierdas. Lo puedes cerrar.','If your trick or treat is unopened or an event mission is ready to claim, a small notice pops up so you don’t miss it. You can close it.','Si ton « des bonbons ou un sort » n’est pas ouvert ou qu’une mission de l’événement est prête, un petit avis apparaît pour que tu ne le rates pas. Tu peux le fermer.','Se tiveres a doçura ou travessura por abrir ou uma missão do evento pronta, aparece um pequeno aviso para não a perderes. Podes fechá-lo.'],
 ['Calabaza en Inicio','Pumpkin on Home','Citrouille sur Accueil','Abóbora no Início'],['El botón de Inicio lleva una calabacita cuando tienes caramelos esperándote.','The Home button shows a little pumpkin when candy is waiting for you.','Le bouton Accueil affiche une petite citrouille quand des bonbons t’attendent.','O botão Início mostra uma aboborazinha quando tens rebuçados à espera.'],
 ['Clasificación más justa','Fairer leaderboard','Classement plus juste','Classificação mais justa'],['Mejoras contra las trampas para que nadie suba de forma imposible.','Anti-cheat improvements so nobody climbs in impossible ways.','Améliorations anti-triche pour que personne ne monte de façon impossible.','Melhorias contra batotas para ninguém subir de forma impossível.']])}catch(e){}
+
+/* ================= 2026-10-17: 100.000 € POR ENTRAR CON GOOGLE + PREMIOS POR TIEMPO JUGADO ================= */
+/* --- regalo de Google: una vez por cuenta y una vez por dispositivo (para que no se farmee con cuentas nuevas) --- */
+const G_BONUS=100000,GB_K='casinetori_gbon';
+function gBonusClaim(){try{if(S.gBon||!NET.ok||!isGoogleUser()||!S.name)return;let used='';try{used=localStorage.getItem(GB_K)||''}catch(e){}
+  if(used&&used!==NET.id){S.gBon='dev';save();return}
+  S.gBon=Date.now();try{localStorage.setItem(GB_K,NET.id)}catch(e){}LED.tag='v:google';LED.tagT=Date.now()+1500;S.coins+=G_BONUS;save();NET.lastP='';try{pushPlayer()}catch(e){}
+  setTimeout(()=>{sfx('big');confetti(200);troll('+'+short(G_BONUS)+' €','¡Regalo por entrar con Google!','#14e08a',true)},400)}catch(e){}}
+setTimeout(gBonusClaim,7000);setInterval(gBonusClaim,15000);
+{const _gsGB=googleSignIn;googleSignIn=async function(){const r=await _gsGB.apply(this,arguments);setTimeout(gBonusClaim,2500);return r}}
+/* que se vea el regalo en todos los sitios donde se pide entrar con Google */
+{const _opGB=openProfile;openProfile=function(first){const r=_opGB.apply(this,arguments);try{const b=$('#wlBadge');if(b&&!b.dataset.gb){b.dataset.gb=1;b.insertAdjacentHTML('beforebegin',`<span class="wl-badge gbb">💸 Entra con Google y te regalamos <b>${short(G_BONUS)} €</b></span>`)}}catch(e){}return r}}
+{const _accGB=accBlock;accBlock=function(first){const h=_accGB.apply(this,arguments);if(!h||isGoogleUser()||S.gBon)return h;return h.replace('<div id="pAcc" class="accbox">',`<div id="pAcc" class="accbox"><span class="wl-badge gbb">💸 Entra con Google: <b>+${short(G_BONUS)} €</b> de regalo</span>`)}}
+setInterval(()=>{try{const b=$('#noAccBar .na-t');if(b&&!S.gBon&&!b.querySelector('.gbt'))b.insertAdjacentHTML('afterbegin',`<b class="gbt">💸 +${short(G_BONUS)} € si entras con Google. </b>`)}catch(e){}},2500);
+
+/* --- premios por tiempo jugado (solo cuenta el tiempo que juegas de verdad: sin tocar nada 2 minutos, se para) --- */
+const PT_D=[[5,.005,2000,250e3],[15,.0075,5000,400e3],[30,.01,10000,600e3],[45,.0125,15000,800e3],[60,.015,25000,1e6],[90,.02,40000,1.5e6],[120,.025,60000,2e6]];
+const PT_DX={2:{c:10,x:40},4:{c:15,x:80},6:{c:25,x:150}};   /* extras: caramelos (si hay evento) y experiencia */
+const PT_L=[[1,.03,20000,'⏳','1 hora jugada'],[3,.04,50000,'🔥','3 horas jugadas'],[6,.05,100000,'💪','6 horas jugadas'],[12,.06,200000,'🎯','12 horas jugadas'],
+  [24,.08,400000,'🏅','1 día entero jugado','ptviciado','Viciado/a'],[48,.09,700000,'🌙','2 días jugados','ptnoche','Sin vida social'],[100,.1,1e6,'👑','100 horas jugadas','ptleyenda','Leyenda de Casinetori']];
+PT_L.forEach(l=>{if(l[5]&&COS.ti&&!COS.ti.some(y=>y[0]===l[5]))COS.ti.push([l[5],l[6],999,'','s'])});
+function ptVal(pct,fl,cap){return niceN(Math.max(fl,Math.min(cap,wealth()*pct)))}
+function ptDay(){const d=dayKey(),pt=Math.floor(+S.playtime||0);if(!S.ptd||S.ptd.d!==d)S.ptd={d,b:pt,got:[]};return S.ptd}
+const ptMin=()=>Math.max(0,(Math.floor(+S.playtime||0)-ptDay().b)/60);
+function ptState(){const m=ptMin(),D=ptDay();const ready=PT_D.map((x,i)=>i).filter(i=>m>=PT_D[i][0]&&!D.got.includes(i));const next=PT_D.findIndex((x,i)=>m<x[0]);
+  const hrs=(+S.playtime||0)/3600;S.ptL=Array.isArray(S.ptL)?S.ptL:[];const lready=PT_L.map((x,i)=>i).filter(i=>hrs>=PT_L[i][0]&&!S.ptL.includes(i));const lnext=PT_L.findIndex(x=>hrs<x[0]);
+  return{m,D,ready,next,hrs,lready,lnext}}
+function ptOpen(i){const D=ptDay();if(D.got.includes(i)||ptMin()<PT_D[i][0])return;const [mins,pct,fl,cap]=PT_D[i];const v=ptVal(pct,fl,cap);D.got.push(i);
+  LED.tag='v:premiotiempo';LED.tagT=Date.now()+1500;give(v);const ex=PT_DX[i];let extra='';
+  if(ex){xp(ex.x);extra=' · +'+ex.x+' XP';const e=seNow();if(e){seAdd(ex.c);extra+=' · +'+ex.c+' '+e.cur[0]}}
+  save();sfx('big');confetti(i>=4?200:90);troll('+'+short(v)+' €','Cofre de '+mins+' min jugados'+extra,'#ffd600',true);ptRender()}
+function ptOpenL(i){S.ptL=Array.isArray(S.ptL)?S.ptL:[];if(S.ptL.includes(i)||(+S.playtime||0)/3600<PT_L[i][0])return;const l=PT_L[i];const v=ptVal(l[1],l[2],5e6);S.ptL.push(i);
+  LED.tag='v:premiotiempo';LED.tagT=Date.now()+1500;give(v);let extra='';if(l[5]){S.cosOwn=[...(S.cosOwn||[]),'ti:'+l[5]];extra=' · Título «'+l[6]+'»'}
+  save();sfx('big');confetti(300);troll('¡'+l[4].toUpperCase()+'!','+'+short(v)+' €'+extra,'#ffd600',true);ptRender();try{renderMe()}catch(e){}}
+const ptClock=s_=>{s_=Math.max(0,Math.ceil(s_));const m=Math.floor(s_/60),x=s_%60;return m+':'+String(x).padStart(2,'0')};
+function ptRender(){const c=$('#ptCard');if(!c)return;const st=ptState(),D=st.D;
+  const nx=st.next>=0?PT_D[st.next]:null;const prev=st.next>0?PT_D[st.next-1][0]:0;const pct=nx?Math.min(100,(st.m-prev)/(nx[0]-prev)*100):100;
+  const ln=st.lnext>=0?PT_L[st.lnext]:null;
+  const h=`<div class="pth"><span class="emo">⏱️</span><div><h3>Premios por jugar</h3><small>Cuanto más juegas hoy, mejores cofres. Se ajustan a tu dinero. Hoy llevas <b>${Math.floor(st.m)} min</b>.</small></div></div>
+   <div class="ptrow">${PT_D.map((x,i)=>{const got=D.got.includes(i),ok=st.m>=x[0];const v=ptVal(x[1],x[2],x[3]);return`<button class="ptc ${got?'got':ok?'rdy':''}" ${ok&&!got?`data-pto="${i}"`:'disabled'} title="${x[0]} min">
+      <span class="emo">${got?'✅':ok?'🎁':i>=5?'💎':i>=3?'🧰':'📦'}</span><b>${x[0]} min</b><small>${got?'Abierto':short(v)+' €'}</small>${PT_DX[i]?'<i>+extra</i>':''}</button>`}).join('')}</div>
+   ${st.ready.length?`<button class="btn big ptgo" data-pto="${st.ready[0]}">🎁 Abrir cofre · +${short(ptVal(PT_D[st.ready[0]][1],PT_D[st.ready[0]][2],PT_D[st.ready[0]][3]))} €</button>`
+     :nx?`<div class="ptbar"><i style="width:${pct}%"></i></div><p class="ptnx">Siguiente cofre en <b class="ptleft">${ptClock((nx[0]-st.m)*60)}</b> jugando · <b>+${short(ptVal(nx[1],nx[2],nx[3]))} €</b></p>`:'<p class="ptnx">✅ <b>¡Todos los cofres de hoy abiertos!</b> Mañana más.</p>'}
+   <div class="ptl">${st.lready.length?`<button class="btn mint" data-ptl="${st.lready[0]}">${PT_L[st.lready[0]][3]} ${esc(PT_L[st.lready[0]][4])}: cobrar +${short(ptVal(PT_L[st.lready[0]][1],PT_L[st.lready[0]][2],5e6))} €${PT_L[st.lready[0]][5]?' y título':''}</button>`
+     :ln?`<span>${ln[3]} Gran premio a las <b>${ln[0]} h</b> jugadas (llevas ${Math.floor(st.hrs*10)/10} h): <b>+${short(ptVal(ln[1],ln[2],5e6))} €</b>${ln[5]?` y el título <b>«${esc(ln[6])}»</b>`:''}</span>`:'<span>👑 Tienes todos los grandes premios por tiempo.</span>'}</div>`;
+  if(c.dataset.h!==h){c.dataset.h=h;c.innerHTML=h}}
+function ptMount(){const home=$('#v-inicio');let c=$('#ptCard');if(!home)return;if(!S.name){if(c)c.remove();return}
+  if(!c){c=document.createElement('div');c.id='ptCard';c.className='panel ptcard';const se=$('#seCard');if(se)se.insertAdjacentElement('afterend',c);else{const a=home.firstElementChild;if(a)a.insertAdjacentElement('afterend',c);else home.prepend(c)}}
+  ptRender()}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-pto]');if(b){ptOpen(+b.dataset.pto);return}const l=e.target.closest('[data-ptl]');if(l)ptOpenL(+l.dataset.ptl)});
+/* aviso cuando hay cofre listo (fuera de Inicio) + punto en el botón de Inicio */
+setInterval(()=>{try{if(!S.name)return;if(view==='inicio')ptMount();const st=ptState();const n=st.ready.length+st.lready.length;const nb=document.querySelector('#nav [data-v="inicio"]');if(nb)nb.classList.toggle('pt-dot',n>0);
+  const k=dayKey()+':'+st.D.got.length+':'+st.ready.length+':'+(S.ptL||[]).length+':'+st.lready.length;
+  if(n>0&&view!=='inicio'&&!(typeof running!=='undefined'&&running)&&S.ptNt!==k){S.ptNt=k;save();toast(st.lready.length?'¡Gran premio por tiempo listo!':'¡Cofre por tiempo listo!','Ábrelo en Inicio','var(--sun)','🎁')}}catch(e){}},4000);
+try{if(typeof GU_T!=='undefined'&&GU_T.inicio&&!GU_T.inicio.some(x=>x[0]==='#ptCard'))GU_T.inicio.push(['#ptCard','Premios por jugar','Cada rato que juegas se abre un cofre con dinero. Cuanto más dinero tienes, más te da.'])}catch(e){}
+try{if(!FAQ.some(q=>/Premios por jugar/.test(q[0])))FAQ.unshift(['¿Qué son los Premios por jugar?','En Inicio hay 7 cofres al día: se abren a los 5, 15, 30, 45, 60, 90 y 120 minutos de juego. Dan dinero según lo que tienes (más dinero, más premio) y algunos traen experiencia y caramelos de evento. Además hay grandes premios al llegar a 1, 3, 6, 12, 24, 48 y 100 horas jugadas, con títulos exclusivos. Solo cuenta el tiempo jugando de verdad: si no tocas nada 2 minutos, el reloj se para.']);
+  if(!FAQ.some(q=>/entrar con Google/.test(q[0])&&/100\.000/.test(q[1])))FAQ.unshift(['¿Qué me dan por entrar con Google?','100.000 € de regalo (una vez por cuenta y por dispositivo), tu partida guardada para siempre y, si eres de los 100 primeros, los títulos OG y VIP.']);
+  const c=TUTOS.find(t=>t[1]==='Primeros pasos');if(c&&!c[4].some(x=>/Premios por jugar/.test(x[0])))c[4].push(['<b>Premios por jugar</b>: en Inicio se abren cofres a los 5, 15, 30, 45, 60, 90 y 120 minutos de juego cada día.'])}catch(e){}
+try{i18nAdd([['Premios por jugar','Play-time rewards','Récompenses de jeu','Prémios por jogar'],['Ábrelo en Inicio','Open it on Home','Ouvre-le dans Accueil','Abre-o no Início'],['¡Cofre por tiempo listo!','Play-time chest ready!','Coffre de temps prêt !','Baú de tempo pronto!'],['¡Gran premio por tiempo listo!','Big play-time reward ready!','Grande récompense de temps prête !','Grande prémio de tempo pronto!'],['Abierto','Opened','Ouvert','Aberto'],['¡Regalo por entrar con Google!','Gift for signing in with Google!','Cadeau pour la connexion Google !','Presente por entrares com o Google!'],
+ ['¿Qué son los Premios por jugar?','What are play-time rewards?','Que sont les récompenses de jeu ?','O que são os prémios por jogar?'],['¿Qué me dan por entrar con Google?','What do I get for signing in with Google?','Que gagne-t-on en se connectant avec Google ?','O que ganho por entrar com o Google?']])}catch(e){}
+
+try{Object.assign(LED_V,{google:'Regalo por entrar con Google',premiotiempo:'Premios por jugar'})}catch(e){}
+
+try{i18nAdd([['Premios por jugar y regalo de Google','Play-time rewards and Google gift','Récompenses de jeu et cadeau Google','Prémios por jogar e presente do Google'],
+['En Inicio, 7 cofres cada día: se abren a los 5, 15, 30, 45, 60, 90 y 120 minutos de juego. Cuanto más dinero tienes, más te dan.','On Home, 7 chests a day: they open at 5, 15, 30, 45, 60, 90 and 120 minutes of play. The more money you have, the more they give.','Dans Accueil, 7 coffres par jour : ils s’ouvrent à 5, 15, 30, 45, 60, 90 et 120 minutes de jeu. Plus tu as d’argent, plus ils donnent.','No Início, 7 baús por dia: abrem aos 5, 15, 30, 45, 60, 90 e 120 minutos de jogo. Quanto mais dinheiro tens, mais dão.'],
+['Grandes premios','Big rewards','Grandes récompenses','Grandes prémios'],
+['Al llegar a 1, 3, 6, 12, 24, 48 y 100 horas jugadas: premios gordos y títulos exclusivos («Viciado/a», «Sin vida social», «Leyenda de Casinetori»).','At 1, 3, 6, 12, 24, 48 and 100 hours played: big rewards and exclusive titles.','À 1, 3, 6, 12, 24, 48 et 100 heures de jeu : grosses récompenses et titres exclusifs.','Ao chegar a 1, 3, 6, 12, 24, 48 e 100 horas jogadas: grandes prémios e títulos exclusivos.'],
+['100.000 € con Google','€100,000 with Google','100 000 € avec Google','100.000 € com o Google'],
+['Si entras con Google te regalamos 100.000 €. Si ya habías entrado, te llegan solos.','Sign in with Google and get €100,000. If you already had, it arrives on its own.','Connecte-toi avec Google et reçois 100 000 €. Si c’était déjà fait, ils arrivent tout seuls.','Entra com o Google e recebe 100.000 €. Se já tinhas entrado, chegam sozinhos.'],
+['Con caramelos','With candy','Avec des bonbons','Com rebuçados'],['Algunos cofres traen experiencia y caramelos de Halloween.','Some chests bring XP and Halloween candy.','Certains coffres donnent de l’XP et des bonbons d’Halloween.','Alguns baús trazem XP e rebuçados de Halloween.']])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
