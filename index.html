@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-1801">
+<meta name="app-version" content="2026-10-17-1807">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -6110,6 +6110,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-17-k',t:'Podio de los juegos',items:[['🏆','Premios por hora según tu dinero','Los 3 primeros de cada juego cobran cada hora lo que sea mayor: lo de siempre o un trozo de su dinero (1º 0,02 %, 2º 0,01 %, 3º 0,005 %). Así también motiva a los que tienen mucho.','new','#ffd600'],['🛠️','Arreglado','El «+€/h» del podio ya no sale repetido muchas veces, y la explicación de lo que paga sale en todos los juegos.'],['💬','Chat','Tocando fuera del chat, se cierra.']]},
  {v:'2026-10-17-j',t:'Chat a la vista',items:[['💬','Botón de chat','Arriba a la derecha, botón azul «Chat» bien visible.','new','#4aa8ff'],['🔔','Te enteras de los mensajes','Si te escriben: suena, el botón se pone rojo con el número, la pestaña avisa y sale un aviso grande con «Responder».']]},
  {v:'2026-10-17-i',t:'Lluvia de monedas y botón rojo',items:[['🔴','Botón rojo más generoso','Los premios del botón rojo dan bastante más (x4) y un pequeño extra según tu dinero.'],['🪙','Monedas vacías','Cuando se acaba el dinero de la lluvia, las monedas que siguen cayendo se ponen grises con una ✕ y te avisa. Así sabes que ya no dan nada.']]},
  {v:'2026-10-17-h',t:'Gran Premio de Cine',items:[['🎬','Ruleta nueva del anuncio','La ruleta del anuncio del día es ahora el «Gran Premio de Cine»: más grande, con luces, y premios que salen de tu dinero (hasta el 20 %).','new','#ffd600'],['⭐','Título exclusivo','Uno de sus huecos da el título «🎬 Estrella de Cine», que solo se consigue ahí. Si ya lo tienes, ese hueco te da dinero.','new','#b06bff'],['🎲','Probabilidades a la vista','Salen siempre debajo, sin pulsar nada.']]},
@@ -6476,9 +6477,13 @@ const TOPPAY=[500,250,120],TDMUL={f:.5,n:1,d:2,h:3,x:5},TOP_MIN=2,TOP_BACK=6;
 const topMul=n=>Math.min(5,1+Math.max(0,n-2)*.25);
 function boardList(g,d){const key=g+'_'+d,w=WK(),arr=[...NET.players.entries()].filter(([id])=>id!==NET.id&&!hideId(id)).map(([id,p])=>({id,name:p.name,v:+((p.wb&&+p.wb.w===w&&p.wb.b)||{})[key]})).filter(x=>x.v>0);
   const mv=wbMine()[key];if(mv>0&&S.name&&!meHidden())arr.push({id:NET.id||'me',name:S.name,v:+mv,me:true});const mn=gameMin(g);return arr.sort((a,b)=>mn?a.v-b.v:b.v-a.v)}
+const TOPPCT=[.0002,.0001,.00005];
+function topWOf(x){if(!x)return 0;if(x.me)return wealth();const p=NET.players.get(x.id)||{};return Math.max(0,(+p.coins||0)+(+p.sf||0))}
+/* lo que cobra cada uno del podio: lo de siempre o un trozo de SU dinero (lo que sea mayor); así todos ven lo mismo */
+function podPay(L,k,d){const base=Math.round(topPayFor(L.length,k)*(TDMUL[d]||1));if(!base)return 0;return Math.max(base,niceN(topWOf(L[k])*TOPPCT[k]*topMul(L.length)*(TDMUL[d]||1)))}
 function topPayFor(len,pos){const paid=Math.min(3,len-1);return len>=TOP_MIN&&pos<paid?Math.round(TOPPAY[pos]*topMul(len)):0}
 function topEarn(){const items=[];let total=0;if(!NET.ok)return{total,items};
-  GLIST.forEach(([g,n])=>DIFFS.forEach(([d,dn])=>{const L=boardList(g,d),i0=L.findIndex(x=>x.me);if(i0<0)return;let i=i0;while(i>0&&L[i-1].v===L[i0].v)i--;const base=topPayFor(L.length,i);if(!base)return;const amt=Math.round(base*TDMUL[d]);total+=amt;items.push({g,n,d,dn,pos:i+1,amt})}));
+  GLIST.forEach(([g,n])=>DIFFS.forEach(([d,dn])=>{const L=boardList(g,d),i0=L.findIndex(x=>x.me);if(i0<0)return;let i=i0;while(i>0&&L[i-1].v===L[i0].v)i--;const base=topPayFor(L.length,i);if(!base)return;const amt=Math.max(Math.round(base*TDMUL[d]),niceN(wealth()*TOPPCT[i]*topMul(L.length)*TDMUL[d]));total+=amt;items.push({g,n,d,dn,pos:i+1,amt})}));
   return{total,items}}
 const hourNow=()=>Math.floor(Date.now()/3600000);
 function topCheck(){if(!NET.ok||!S.name||performance.now()<12000||NET.players.size<2)return;const h=hourNow();if(!S.topHour){S.topHour=h;save();return}
@@ -6497,7 +6502,7 @@ function renderTopPay(){const el=$('#topPay');if(!el)return;const e=topEarn(),le
       <span class="cd">Próximo pago en <b id="topCd">${mm}</b></span>${st('topPaid')?`<small>Llevas cobrado ${short(st('topPaid'))} €</small>`:''}`:'<small>Necesitas conexión para entrar en las clasificaciones.</small>'}</div>`}
 setInterval(()=>{const c=$('#topCd');if(c&&view==='arcade'){const left=3600-Math.floor(Date.now()/1000)%3600;c.textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0')}},1000);
 const _rar=renderArcadeRank;renderArcadeRank=function(){_rar();renderTopPay();if(!NET.ok)return;const L=boardList(arG,arD);
-  $$('#arBoard .podium .pod').forEach(pd=>{if(pd.classList.contains('empty'))return;const k=(+pd.dataset.rk||(pd.classList.contains('p1')?1:pd.classList.contains('p2')?2:3))-1;const amt=Math.round(topPayFor(L.length,k)*TDMUL[arD]);
+  $$('#arBoard .podium .pod').forEach(pd=>{if(pd.classList.contains('empty'))return;pd.querySelectorAll('.pay').forEach(x=>x.remove());const k=(+pd.dataset.rk||(pd.classList.contains('p1')?1:pd.classList.contains('p2')?2:3))-1;const amt=podPay(L,k,arD);
     if(amt)pd.querySelector('.pv').insertAdjacentHTML('afterend',`<span class="pay">+${short(amt)} €/h</span>`)})};
 
 
@@ -12070,7 +12075,7 @@ function wbWhen(){try{return new Date(wbEnd()).toLocaleString(document.documentE
 function wbBanner(){return`<div class="wkn2"><span class="emo">🔄</span><span><b>Clasificación semanal</b><small>Todos los récords de esta clasificación se borran el <b>${esc(wbWhen())}</b> y empezáis de cero.</small></span><span class="wkcd"><small>Se reinicia en</small><b class="wbcd">${leftTxt(wbEnd())}</b></span></div>`}
 function podPayHTML(g,d){const L=boardList(g,d),n=L.length,m=TDMUL[d]||1,pos=[0,1,2].map(i=>Math.round(topPayFor(Math.max(n,4),i)*m)),now=[0,1,2].map(i=>Math.round(topPayFor(n,i)*m));
   const lab=['🥇 1º','🥈 2º','🥉 3º'];
-  return`<div class="podpay"><p><b>💰 Lo que cobra el podio cada hora</b>${n<TOP_MIN?' · <i>hace falta que jueguen al menos 2</i>':n<4?' · <i>con '+n+' jugadores cobran '+(n-1)+'</i>':''}</p><div>${lab.map((l,i)=>`<span class="${now[i]?'on':'off'}"><small>${l}</small><b>+${short(now[i]||pos[i])} €/h</b>${now[i]?'':'<em>aún no</em>'}</span>`).join('')}</div><small class="pph">Cuantos más jugadores, más paga (hasta x5). ${diffName(d)}: x${String(m).replace('.',',')}.</small></div>`}
+  return`<div class="podpay"><p><b>💰 Lo que cobra el podio cada hora</b>${n<TOP_MIN?' · <i>hace falta que jueguen al menos 2</i>':n<4?' · <i>con '+n+' jugadores cobran '+(n-1)+'</i>':''}</p><div>${lab.map((l,i)=>`<span class="${now[i]?'on':'off'}"><small>${l}</small><b>+${short(now[i]||pos[i])} €/h</b>${now[i]?'':'<em>aún no</em>'}</span>`).join('')}</div><small class="pph">Cada uno cobra lo que sea mayor: esa cantidad o un trozo de <b>su propio dinero</b> (1º 0,02 %, 2º 0,01 %, 3º 0,005 % cada hora). Por eso a los que tienen mucho les sale más. Cuantos más jugadores, más paga (hasta x5). ${diffName(d)}: x${String(m).replace('.',',')}.</small></div>`}
 /* en el Arcade */
 {const _rarP=renderArcadeRank;renderArcadeRank=function(){_rarP.apply(this,arguments);try{const bd=$('#arBoard');if(!bd||!NET.ok)return;const o=bd.querySelector('.wkn');if(o)o.remove();
   if(!bd.querySelector('.wkn2'))bd.insertAdjacentHTML('afterbegin',wbBanner());const pd=bd.querySelector('.podium');if(pd&&!bd.querySelector('.podpay'))pd.insertAdjacentHTML('afterend',podPayHTML(arG,arD));
@@ -12078,8 +12083,8 @@ function podPayHTML(g,d){const L=boardList(g,d),n=L.length,m=TDMUL[d]||1,pos=[0,
   const allT=(S.best||{})[arG+'.'+arD];if(allT!=null&&!bd.querySelector('.wkall'))bd.querySelector('.wkn2').insertAdjacentHTML('afterend',`<p class="wkall">Tu récord de siempre en este juego: <b>${fmt(allT)}</b> (ese no se borra, sale en tu perfil).</p>`)}catch(e){}}}
 /* en Clasificación › Juegos */
 {const _rrP=renderRank;renderRank=function(){_rrP.apply(this,arguments);try{if(rkCat!=='game'||!NET.ok)return;const pz=$('#rkPodium');if(!pz)return;
-  if(!pz.querySelector('.wkn2'))pz.insertAdjacentHTML('afterbegin',wbBanner());if(pz.querySelector('.podium')&&!pz.querySelector('.podpay')){pz.insertAdjacentHTML('beforeend',podPayHTML(rkG,rkD));const L=boardList(rkG,rkD);
-  pz.querySelectorAll('.podium .pod').forEach(pd=>{if(pd.classList.contains('empty')||pd.querySelector('.pay'))return;const k=(+pd.dataset.rk||1)-1,amt=Math.round(topPayFor(L.length,k)*(TDMUL[rkD]||1)),pv=pd.querySelector('.pv');if(amt&&pv)pv.insertAdjacentHTML('afterend',`<span class="pay">+${short(amt)} €/h</span>`)})}}catch(e){}}}
+  if(!pz.querySelector('.wkn2'))pz.insertAdjacentHTML('afterbegin',wbBanner());if(!pz.querySelector('.podpay'))pz.insertAdjacentHTML('beforeend',podPayHTML(rkG,rkD));if(pz.querySelector('.podium')){const L=boardList(rkG,rkD);
+  pz.querySelectorAll('.podium .pod').forEach(pd=>{if(pd.classList.contains('empty'))return;pd.querySelectorAll('.pay').forEach(x=>x.remove());const k=(+pd.dataset.rk||1)-1,amt=podPay(L,k,rkD),pv=pd.querySelector('.pv');if(amt&&pv)pv.insertAdjacentHTML('afterend',`<span class="pay">+${short(amt)} €/h</span>`)})}}catch(e){}}}
 setInterval(()=>{try{const t=leftTxt(wbEnd());document.querySelectorAll('.wbcd').forEach(b=>{if(b.textContent!==t)b.textContent=t})}catch(e){}},20000);
 /* aviso cuando empieza una semana nueva */
 function wbNewWeek(){try{const w=WK();if(S.wbSeen===w)return;const had=S.wbSeen!=null;S.wbSeen=w;save();if(had&&S.name){troll('¡NUEVA SEMANA!','las clasificaciones de los juegos empiezan de cero. Ve a por el podio','#ffd600',true);toast('Clasificaciones reiniciadas','Todos los juegos empiezan de cero esta semana','var(--sun)','🔄')}}catch(e){}}
@@ -13399,6 +13404,12 @@ try{i18nAdd([['Chat','Chat','Chat','Chat'],['Mensaje nuevo de','New message from
  ['Habla con tus amigos y mándales mensajes aquí. Cuando te escriban, este botón se pondrá rojo.','Talk to your friends here. When they write to you, this button turns red.','Parle avec tes amis ici. Quand ils t’écrivent, ce bouton devient rouge.','Fala com os teus amigos aqui. Quando te escreverem, este botão fica vermelho.']])}catch(e){}
 
 try{i18nAdd([['Chat a la vista','Chat in sight','Chat bien visible','Chat à vista'],['Botón de chat','Chat button','Bouton chat','Botão de chat'],['Arriba a la derecha, botón azul «Chat» bien visible.','Top right, a clearly visible blue “Chat” button.','En haut à droite, un bouton bleu « Chat ».','Em cima à direita, botão azul «Chat».'],['Te enteras de los mensajes','You notice messages','Tu vois les messages','Dás pelas mensagens'],['Si te escriben: suena, el botón se pone rojo con el número, la pestaña avisa y sale un aviso grande con «Responder».','When someone writes: sound, the button turns red with the count, the tab alerts you and a big notice with “Reply” appears.','Quand on t’écrit : son, bouton rouge avec le nombre, l’onglet prévient et un grand avis « Répondre » apparaît.','Quando te escrevem: som, botão vermelho com o número, o separador avisa e aparece um aviso grande com «Responder».']])}catch(e){}
+
+/* chat: tocar fuera del panel lo cierra */
+document.addEventListener('pointerdown',e=>{const w=document.getElementById('chatWin');if(!w||w.hidden)return;if(e.target===w)chClose()},true);
+
+try{i18nAdd([['Podio de los juegos','Games podium','Podium des jeux','Pódio dos jogos'],['Premios por hora según tu dinero','Hourly prizes based on your money','Gains horaires selon ton argent','Prémios por hora segundo o teu dinheiro'],['Los 3 primeros de cada juego cobran cada hora lo que sea mayor: lo de siempre o un trozo de su dinero (1º 0,02 %, 2º 0,01 %, 3º 0,005 %). Así también motiva a los que tienen mucho.','The top 3 of each game earn every hour the higher of the usual amount or a slice of their own money.','Les 3 premiers gagnent chaque heure le plus grand entre le montant habituel et une part de leur argent.','Os 3 primeiros ganham por hora o maior entre o habitual e uma parte do seu dinheiro.'],['El «+€/h» del podio ya no sale repetido muchas veces, y la explicación de lo que paga sale en todos los juegos.','The podium “+€/h” no longer repeats, and the payout explanation shows in every game.','Le « +€/h » du podium ne se répète plus.','O «+€/h» do pódio já não se repete.'],['Tocando fuera del chat, se cierra.','Tapping outside the chat closes it.','Toucher en dehors du chat le ferme.','Tocar fora do chat fecha-o.']]);
+const jg=TUTOS.find(t=>t[1]==='Juegos');if(jg&&!jg[4].some(x=>/su propio dinero|tu propio dinero/.test(x[0])))jg[4].push(['<b>Podio semanal</b>: los 3 primeros de cada juego cobran cada hora. Cobras lo que sea mayor: la cantidad fija o un trozo de <b>tu propio dinero</b> (1º 0,02 %, 2º 0,01 %, 3º 0,005 %).'])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
