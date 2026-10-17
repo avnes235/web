@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-1654">
+<meta name="app-version" content="2026-10-17-1717">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2544,6 +2544,9 @@ html[data-u18] .nb[data-v=casino],html[data-u18] .nb[data-v=trading],html[data-u
 /* título exclusivo: Estrella de Cine (tira de película dorada que brilla) */
 html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]{position:relative;color:#ffe680!important;background:repeating-linear-gradient(90deg,#111 0 6px,#ffd600 6px 9px) top/100% 3px no-repeat,repeating-linear-gradient(90deg,#111 0 6px,#ffd600 6px 9px) bottom/100% 3px no-repeat,linear-gradient(90deg,#2a1640,#5a1a8a,#1c2a6e,#5a1a8a,#2a1640)!important;background-size:100% 3px,100% 3px,300% 100%!important;padding:3px 7px!important;border-radius:3px;text-shadow:0 0 8px #ffd600,0 1px 0 #000;box-shadow:0 0 12px #ffd60088,0 0 0 1px #ffd600;animation:cineFlow 4s linear infinite}
 @keyframes cineFlow{to{background-position:0 0,0 100%,300% 0}}
+#guDay .gu-mx{display:flex;flex-direction:column;align-items:center;gap:2px;margin:2px 0 4px}#guDay .gu-mx small{color:var(--muted);font-weight:700;font-size:13px}
+#guDay .gu-mx .gu-max{font:30px/1.1 var(--f-d);color:var(--sun);white-space:nowrap;text-shadow:0 0 14px #ffd60066;max-width:100%}
+#v-inicio[data-t=ruletas] .wheelcard{order:1!important}#v-inicio[data-t=ruletas] #wList{order:2!important}#v-inicio[data-t=ruletas] #guDay{order:3!important}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -9607,22 +9610,22 @@ function guDwDraw(){const c=$('#guDayCv');if(!c)return;const g=c.getContext('2d'
     if(s[4]==='gold'){const gr=g.createRadialGradient(R,R,20,R,R,RI);gr.addColorStop(0,'#fff6b0');gr.addColorStop(.6,'#ffd600');gr.addColorStop(1,'#c88a00');g.fillStyle=gr}
     else if(s[4]==='film'){const gr=g.createLinearGradient(R+Math.cos(a0)*RI,R+Math.sin(a0)*RI,R+Math.cos(a0+seg)*RI,R+Math.sin(a0+seg)*RI);gr.addColorStop(0,'#ff3b4f');gr.addColorStop(.5,'#b06bff');gr.addColorStop(1,'#3fa0ff');g.fillStyle=gr}
     else g.fillStyle=s[4];g.fill();g.strokeStyle='rgba(255,214,0,.55)';g.lineWidth=2;g.stroke();
-    g.save();g.translate(R,R);g.rotate(a0+seg/2);g.textAlign='right';g.textBaseline='middle';g.fillStyle=s[5];
-    if(s[0]==='title'){g.font='900 15px Archivo,system-ui,sans-serif';g.fillText('🎬 TÍTULO',RI-10,-1);g.font='800 10px Archivo,system-ui,sans-serif';g.fillText(guHasT()?'(ya lo tienes: '+nShort(guVal(s))+')':'EXCLUSIVO',RI-12,13)}
+    const mid=a0+seg/2,fl=Math.cos(mid)<-0.01;g.save();g.translate(R,R);g.rotate(fl?mid+Math.PI:mid);g.textAlign=fl?'left':'right';g.textBaseline='middle';g.fillStyle=s[5];const X=x=>fl?-x:x;
+    if(s[0]==='title'){g.font='900 15px Archivo,system-ui,sans-serif';g.fillText('🎬 TÍTULO',X(RI-10),-1);g.font='800 10px Archivo,system-ui,sans-serif';g.fillText(guHasT()?'(ya lo tienes: '+nShort(guVal(s))+')':'EXCLUSIVO',X(RI-12),13)}
     else{let fs=24;const t=guLab(s);g.font=`900 ${fs}px Archivo,system-ui,sans-serif`;while(g.measureText(t).width>RI-48&&fs>11){fs--;g.font=`900 ${fs}px Archivo,system-ui,sans-serif`}
-      if(s[4]==='gold'){g.shadowColor='rgba(255,255,255,.8)';g.shadowBlur=6}g.fillText(t,RI-10,1)}
+      if(s[4]==='gold'){g.shadowColor='rgba(255,255,255,.8)';g.shadowBlur=6}g.fillText(t,X(RI-10),1)}
     g.restore()});
   for(let i=0;i<24;i++){const a=i*Math.PI*2/24;g.beginPath();g.arc(R+Math.cos(a)*(RI+11),R+Math.sin(a)*(RI+11),4.2,0,7);g.fillStyle=i%2?'#fff8c8':'#ff9a27';g.shadowColor=g.fillStyle;g.shadowBlur=8;g.fill();g.shadowBlur=0}}
 function guDayToday(){return typeof dayKey==='function'?dayKey():new Date().toDateString()}
-function guOdds(){const rows=GU_DW.map(s=>({s,v:guVal(s)})).sort((a,b)=>(a.s[0]==='title')-(b.s[0]==='title')||a.v-b.v);
+function guOdds(){const rows=GU_DW.map(s=>({s,v:guVal(s)})).sort((a,b)=>a.s[3]-b.s[3]||(b.s[0]==='title')-(a.s[0]==='title')||b.v-a.v);
   return rows.map(({s,v})=>`<span class="${s[4]==='gold'?'gj':s[0]==='title'?'gt':''}"><b>${s[0]==='title'?(guHasT()?'+'+short(v)+' € (título ya tuyo)':'🎬 Título «Estrella de Cine»'):'+'+short(v)+' €'}</b><em>${String(s[3]).replace('.',',')} %</em></span>`).join('')}
 function guDayHTML(){return `<div class="gu-dw"><span class="ptr"></span><canvas id="guDayCv" width="340" height="340" aria-hidden="true"></canvas><span class="hub emo">🎬</span></div>
-  <div class="gu-dt"><span class="gu-tag">⭐ Una vez al día</span><h3>Gran Premio de Cine</h3><p class="gu-dd">Mira un anuncio y gira. Premios que crecen con tu dinero: hasta <b class="gu-max">${short(Math.max(...GU_DW.map(guVal)))} €</b>${guHasT()?'':` o el título exclusivo <b class="gu-tt">🎬 Estrella de Cine</b>`}.</p>
+  <div class="gu-dt"><span class="gu-tag">⭐ Una vez al día</span><h3>Gran Premio de Cine</h3><p class="gu-dd">Mira un anuncio y gira. Premios que crecen con tu dinero.</p><div class="gu-mx"><small>Premio máximo</small><b class="gu-max nofit">${short(Math.max(...GU_DW.map(guVal)))} €</b>${guHasT()?'':`<small>o el título exclusivo <b class="gu-tt">🎬 Estrella de Cine</b></small>`}</div>
    <button class="btn big gu-go" id="guDayBtn" type="button">🎬 Ver anuncio y girar</button><small class="gu-di" id="guDayInfo">Una vez al día</small>
    <div class="gu-odds"><div class="gu-oh">🎲 Probabilidades</div><div class="gu-ol">${guOdds()}</div></div></div>`}
 function guDayMount(){const home=$('#v-inicio');if(!home)return;let d=$('#guDay');if(!d){d=document.createElement('div');d.className='panel';d.id='guDay';d.dataset.ht='ruletas';
     const fr=home.querySelector('.funrow');if(fr)fr.parentNode.insertBefore(d,fr);else home.appendChild(d)}
-  const k=Math.round(wealth()/1e3)+':'+guHasT();if(d.dataset.k!==k&&!guDwSpin){d.dataset.k=k;const rot=guDwRot;d.innerHTML=guDayHTML();const c=$('#guDayCv');if(c&&rot){c.style.transition='none';c.style.transform=`rotate(${rot}deg)`}guDwDraw()}guDayRender()}
+  const k=Math.max(...GU_DW.map(guVal))+':'+guHasT()+':'+(S.guDay&&S.guDay.d);if(d.dataset.k!==k&&!guDwSpin){d.dataset.k=k;const rot=guDwRot;d.innerHTML=guDayHTML();const c=$('#guDayCv');if(c&&rot){c.style.transition='none';c.style.transform=`rotate(${rot}deg)`}guDwDraw()}guDayRender()}
 function guDayRender(){const b=$('#guDayBtn'),inf=$('#guDayInfo');if(!b||guDwSpin)return;const st=S.guDay||{},used=st.d===guDayToday();
   if(used&&!st.pend){b.disabled=true;b.textContent='Vuelve mañana';inf.innerHTML=st.t?'Hoy te ha tocado el <b>título 🎬 Estrella de Cine</b>.':'Hoy te han tocado <b>'+short(st.p||0)+' €</b>. Mañana, otra.'}
   else if(st.pend){b.disabled=true;b.textContent='Girando…'}
