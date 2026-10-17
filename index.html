@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-1217">
+<meta name="app-version" content="2026-10-17-1235">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2443,7 +2443,7 @@ html[data-u18] .nb[data-v=casino],html[data-u18] .nb[data-v=trading],html[data-u
 .ptm b{font:28px/1.1 var(--f-d);color:var(--sun);letter-spacing:.3px;overflow-wrap:anywhere}.ptm .ptt{flex:none;align-items:flex-end;text-align:right}.ptm .ptt b{color:var(--fg);font-size:24px}
 .ptbar{height:12px;border:2px solid #000;border-radius:8px;background:#0008;overflow:hidden;margin-bottom:6px}.ptbar i{display:block;height:100%;background:linear-gradient(90deg,#ffb800,#ffd600)}
 .ptgo{width:100%;margin-bottom:6px}.ptdl{font-size:11px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:8px 0 4px}
-.ptdots{display:flex;flex-wrap:wrap;gap:6px}.ptdots span{display:flex;align-items:center;gap:5px;padding:4px 9px 4px 4px;border-radius:20px;background:#0005;border:2px solid var(--line);font-size:12px;font-weight:800;color:var(--muted);white-space:nowrap}
+.ptdots{display:flex;flex-wrap:wrap;gap:6px}.ptdots>span{display:flex;align-items:center;gap:5px;padding:4px 9px 4px 4px;border-radius:20px;background:#0005;border:2px solid var(--line);font-size:12px;font-weight:800;color:var(--muted);white-space:nowrap}
 .ptdots i{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#ffffff14;font-style:normal;font-size:11px}
 .ptdots .got{border-color:#14e08a77;color:var(--fg)}.ptdots .got i{background:#14e08a;color:#111}.ptdots .rdy{border-color:var(--sun);color:var(--sun);animation:ptPulse 1.1s ease-in-out infinite}.ptdots .rdy i{background:none}
 .ptbig{display:flex;align-items:center;gap:10px;margin-top:12px;padding:10px 12px;border-radius:12px;border:2px dashed var(--line)}.ptbig.ok{border:2px solid var(--mint);background:#14e08a14}
@@ -2459,6 +2459,17 @@ html[data-u18] .nb[data-v=casino],html[data-u18] .nb[data-v=trading],html[data-u
 .pchip.lng{font-size:10.5px!important;letter-spacing:-.6px}
 #v-trading .tr-tbl th[data-trcol="x"]{font-size:.78em!important;letter-spacing:-.4px!important;overflow-wrap:anywhere}
 .rksf{max-width:100%}
+.wol>div{min-width:0}.wol em{flex:none}
+.sproad .rwp.txt,.sproad .rwp.bgp{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;font-size:12px}
+.opt .lk{white-space:normal!important}
+.fitn{display:block;max-width:100%;white-space:nowrap;overflow:hidden}
+.ptm em{font-style:normal;font-size:12px;font-weight:800;color:#ffd9a0;opacity:.9}
+.ptbox{display:inline-block;animation:ptBob 2.2s ease-in-out infinite}.ptm.ok .ptbox{animation:ptShake .9s ease-in-out infinite}
+@keyframes ptBob{50%{transform:translateY(-4px) rotate(-4deg)}}@keyframes ptShake{0%,100%{transform:rotate(0)}20%{transform:rotate(-10deg) scale(1.08)}40%{transform:rotate(10deg) scale(1.08)}60%{transform:rotate(-6deg)}}
+.ptdots>span>span{display:flex;flex-direction:column;line-height:1.1}.ptdots>span>span small{font-size:10px;color:var(--sun);font-weight:800}.ptdots .got small{color:var(--mint)}.ptdots>span{padding:4px 10px 4px 4px;border-radius:14px}
+.ptsk{display:flex;gap:8px;align-items:center;margin-top:10px;padding:8px 10px;border-radius:10px;background:#ff7a0014;border:1px solid #ff7a0055;font-size:13px;font-weight:600}.ptsk .emo{font-size:20px;filter:grayscale(.8)}.ptsk.on{background:#ff7a0026;border-color:#ff7a00}.ptsk.on .emo{filter:none}
+.pth .ptall{color:var(--sun)}
+.ptbig em{font-style:normal;font-size:12px;color:var(--muted);font-weight:700}.ptbig b{color:var(--sun);font:22px/1.15 var(--f-d)}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -4324,7 +4335,7 @@ window.FIREBASE_CONFIG = {
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const fmt=n=>{n=Math.floor(+n||0);return(n<0?'-':'')+String(Math.abs(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')};
 const short=n=>{n=Math.floor(n);const a=Math.abs(n),f=(v,u)=>v.toFixed(v<10?2:1).replace('.',',')+u;
-  if(a>=1e18)return f(n/1e18,a>=2e18?' trillones':' trillón');if(a>=1e15)return f(n/1e15,' mil billones');return fmt(n)};
+  if(a>=1e18)return f(n/1e18,a>=2e18?' trillones':' trillón');if(a>=1e15)return f(n/1e15,' mil billones');if(a>=1e12)return f(n/1e12,' bill.');if(a>=1e9)return fmt(Math.round(n/1e6))+' M';return fmt(n)};
 const eur=n=>fmt(n)+' €';
 const eurS=n=>short(n)+' €';
 const walShort=n=>{n=Math.floor(n);const a=Math.abs(n),d=(v)=>v.toFixed(v<10?2:v<100?1:0).replace('.',',');if(a>=1e18)return d(n/1e18)+' trill.';if(a>=1e15)return fmt(n/1e12)+' bill.';if(a>=1e12)return d(n/1e12)+' bill.';if(a>=1e10)return fmt(n/1e6)+' M';return fmt(n)};
@@ -6002,6 +6013,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-17-c',t:'Cofres más gordos y racha',items:[['🎁','Cofres sin tope','Los cofres de Premios por jugar ya no tienen máximo: dan un trozo de lo que tienes. Si tienes billones, te tocan miles de millones.','new','#ffd600'],['🔥','Racha','Juega 30 minutos al día y haz racha: cada día seguido tus cofres dan un 10 % más, hasta +50 %.','new','#ff7a00'],['⏱️','Reloj en directo','La cuenta atrás del próximo cofre baja de segundo en segundo.'],['🎡','Ruleta millonaria','Si te toca su premio gordo se bloquea 30 minutos solo ella. La del todo o nada sigue con lo suyo.'],['🔢','Cifras que caben','Las cantidades enormes salen cortas (por ejemplo 7,60 bill.) y ya no se parten en dos líneas.']]},
  {v:'2026-10-17-b',t:'Más claro y mejor colocado',items:[['⏱️','Premios por jugar, más fácil','Ahora ves en grande cuánto te da el próximo cofre y cuánto te falta jugando. Debajo, los 7 cofres del día.'],['💰','Cantidades grandes','En el premio diario las cifras enormes salen cortas (por ejemplo 1.200 M) y ya no se pegan.'],['🎃','Etiquetas','Las etiquetas de Halloween y las exclusivas ya no se salen de su caja.'],['🏷️','Títulos por tiempo','Los títulos por horas jugadas son «Viciado/a» (24 h) y «Veterano/a» (100 h).']]},
  {v:'2026-10-17-a',t:'Premios por jugar y regalo de Google',items:[['⏱️','Premios por jugar','En Inicio, 7 cofres cada día: se abren a los 5, 15, 30, 45, 60, 90 y 120 minutos de juego. Cuanto más dinero tienes, más te dan.','new','#ffd600'],['👑','Grandes premios','Al llegar a 1, 3, 6, 12, 24, 48 y 100 horas jugadas: premios gordos y títulos exclusivos («Viciado/a» y «Veterano/a»).'],['💸','100.000 € con Google','Si entras con Google te regalamos 100.000 €. Si ya habías entrado, te llegan solos.','new','#14e08a'],['🍬','Con caramelos','Algunos cofres traen experiencia y caramelos de Halloween.']]},
  {v:'2026-10-16-b',t:'Que no se te escapen los caramelos',items:[['🎃','Recordatorio de Halloween','Si tienes el truco o trato sin abrir o una misión del evento lista para cobrar, sale un aviso pequeño para que no te lo pierdas. Lo puedes cerrar.'],['🍬','Calabaza en Inicio','El botón de Inicio lleva una calabacita cuando tienes caramelos esperándote.'],['🛡️','Clasificación más justa','Mejoras contra las trampas para que nadie suba de forma imposible.']]},
@@ -6558,7 +6570,7 @@ function casinoLose(n,g){n=Math.floor(+n||0);if(n<=0)return;S.st.casinoLost=(S.s
 renderKing=function(){const el=$('#casKing');if(!el)return;const map=new Map([...NET.players.entries()].filter(([id])=>!hideId(id)).map(([id,d])=>[id,{...d,id}]));
   if(S.name){const me={...(map.get(NET.id)||{}),id:NET.id||'me',name:S.name,av:S.av,img:S.img,cos:myCos(),cw:st('casinoWon'),cl:st('casinoLost'),me:true};map.set(me.id,me)}
   const all=[...map.values()],kw=all.filter(p=>+p.cw>0).sort((a,b)=>b.cw-a.cw)[0],kl=all.filter(p=>+p.cl>0).sort((a,b)=>b.cl-a.cl)[0];
-  const card=(k,cls,emo,lab,key,verb)=>`<div class="kcard ${cls}"><span class="crown emo">${emo}</span><span class="kt"><small>${lab}</small>${k?`<b class="${ncCls(k.cos)}">${esc(dn(k))}${k.me?' (tú)':''}</b><span class="me">${verb} ${fmt(+k[key])} € · tú llevas ${fmt(key==='cw'?st('casinoWon'):st('casinoLost'))} €</span>`:`<b>Nadie todavía</b><span class="me">${key==='cw'?'El primero que gane algo se lleva la corona.':'Aquí sale quien más dinero ha palmado.'}</span>`}</span></div>`;
+  const card=(k,cls,emo,lab,key,verb)=>`<div class="kcard ${cls}"><span class="crown emo">${emo}</span><span class="kt"><small>${lab}</small>${k?`<b class="${ncCls(k.cos)}">${esc(dn(k))}${k.me?' (tú)':''}</b><span class="me">${verb} ${short(+k[key])} € · tú llevas ${short(key==='cw'?st('casinoWon'):st('casinoLost'))} €</span>`:`<b>Nadie todavía</b><span class="me">${key==='cw'?'El primero que gane algo se lleva la corona.':'Aquí sale quien más dinero ha palmado.'}</span>`}</span></div>`;
   el.hidden=false;el.classList.add('kings');el.innerHTML=card(kw,'kw','👑','Rey de las ganancias','cw','Ha ganado')+card(kl,'kl','💸','Rey de las pérdidas','cl','Ha perdido')};
 let crMode='win';
 renderCasRec=function(){const el=$('#casRec');if(!el||view!=='casino')return;const g=crG||CAS2BW[casTab]||'slots',L=crMode==='lose',fld=L?'bl':'bw';
@@ -7080,7 +7092,7 @@ $('#wheelBtn').addEventListener('click',()=>{if(wBusy||Date.now()-S.wheelAt<WAIT
   setTimeout(()=>{wBusy=false;wResolve(false)},4300)});
 function wResolve(late){const P_=S.wPend;if(!P_)return;delete S.wPend;if(+P_.at<=(+S.wDone||0))return;S.wDone=+P_.at;const p=P_.p,W_={t:P_.t,id:P_.id};xp(10);
     if(late)toast('Tu tirada de antes','Recargaste mientras giraba: aquí tienes lo que te tocó','var(--sun)','🎡');
-    if(p.k==='eur'){give(p.v);sfx(p.big?'big':'win');if(p.big){confetti(320);troll('¡¡'+short(p.v).toUpperCase()+' €!!','te ha tocado el hueco bueno','#ffd600',true);try{jpWin(p.v)}catch(e){}}else toast(W_.t,'+'+short(p.v)+' €','var(--coral)','🎡')}
+    if(p.k==='eur'){give(p.v);sfx(p.big?'big':'win');if(p.big){confetti(320);troll('¡¡'+short(p.v).toUpperCase()+' €!!','te ha tocado el hueco bueno','#ffd600',true);try{jpWin(p.v,W_.id)}catch(e){}}else toast(W_.t,'+'+short(p.v)+' €','var(--coral)','🎡')}
     else if(p.k==='lose'){let t=Math.min(Math.floor(S.coins),p.v);S.coins-=t;const rest=p.v-t;if(rest>0&&(+S.safe||0)>0){const f=Math.min(Math.floor(S.safe),rest);S.safe-=f;t+=f}sfx('lose');troll('−'+short(t)+' €','la del todo o nada no perdona','#ff3b4f',true)}
     else if(p.k==='xp'){xp(p.v);sfx('win');toast(W_.t,'+'+p.v+' XP','var(--grape)','⭐')}
     else if(p.k==='face'){S.avWon=S.avWon||[];if(S.avWon.includes(p.v)){const v=1500*wMult();give(v);toast('Esa cara ya la tenías','Te la cambio por '+short(v)+' €','var(--sun)',p.v)}else{S.avWon.push(p.v);sfx('big');confetti(120);toast('¡Cara nueva!','Póntela en tu perfil: '+p.v,'var(--pink)',p.v)}}
@@ -9828,13 +9840,17 @@ function wWeigh(id,segs){let ws;if(id==='money'||id==='xp'||id==='mult'){const b
 function wOddsHTML(){if(!wSegs)return'';const W_=curWheel();const map=new Map();wSegs.forEach(s_=>{const k=s_.k+'|'+s_.lab;const m=map.get(k)||{s:s_,p:0};m.p+=s_.p;map.set(k,m)});
   const rows=[...map.values()].sort((a,b)=>(b.s.v||0)-(a.s.v||0)||b.p-a.p);
   const pc=p=>{const v=p*100;return(v<1?v.toFixed(1):v<10?v.toFixed(1):Math.round(v)).toString().replace('.',',')+' %'};
-  return`<details class="wodds"><summary>🎲 Probabilidades</summary><div class="wol">${rows.map(r=>`<div><span class="sw" style="background:${r.s.col}"></span><b>${esc(r.s.k==='box'?'Caja sorpresa':r.s.lab)}</b><em>${pc(r.p)}</em></div>`).join('')}</div><small>Los premios gordos salen mucho menos que los pequeños.</small></details>`}
+  return`<details class="wodds"><summary>🎲 Probabilidades</summary><div class="wol">${rows.map(r=>`<div><span class="sw" style="background:${r.s.col}"></span><b>${esc(r.s.k==='box'?'Caja sorpresa':(/^[\d.]{6,}( €)?$/.test(String(r.s.lab))?short(+String(r.s.lab).replace(/\D/g,''))+(/€/.test(String(r.s.lab))?' €':''):r.s.lab))}</b><em>${pc(r.p)}</em></div>`).join('')}</div><small>Los premios gordos salen mucho menos que los pequeños.</small></details>`}
 const _dwOdds=drawWheel;drawWheel=function(){const r=_dwOdds.apply(this,arguments);try{const card=$('.wheelcard');if(card){let el=$('#wheelOdds');const op=el&&el.querySelector('details')&&el.querySelector('details').open;if(!el){el=document.createElement('div');el.id='wheelOdds';const inf=$('#wheelInfo');inf.insertAdjacentElement('afterend',el)}el.innerHTML=wOddsHTML();if(op)el.querySelector('details').open=true}}catch(e){}return r};
 try{drawWheel()}catch(e){}
 
 /* ---- Todo o nada: botín, bloqueo y más riesgo para quien ya lo ha ganado ---- */
-function jpWin(v){S.jpN=(S.jpN||0)+1;S.jp={v:Math.floor(v),t:Date.now()};S.riskLock=Date.now()+RISK_CD;save();NET.lastP='';try{pushPlayer()}catch(e){}renderJpBar();
+function jpWin(v,wid){S.jp={v:Math.floor(v),t:Date.now()};
+  if(wid==='rich'){S.richLock=Date.now()+RICH_CD;save();NET.lastP='';try{pushPlayer()}catch(e){}renderJpBar();setTimeout(()=>toast('Ruleta millonaria','Te ha tocado el gordo: vuelve en 30 minutos. Mientras, puedes girar las demás ruletas','var(--sun)','🔒'),4500);return}
+  S.jpN=(S.jpN||0)+1;S.riskLock=Date.now()+RISK_CD;save();NET.lastP='';try{pushPlayer()}catch(e){}renderJpBar();
   setTimeout(()=>toast('Ruleta del todo o nada','Vuelve en 10 minutos. La próxima vez arriesgas un poco más: '+riskPct()+' % de tu dinero','var(--red)','🔒'),4500)}
+const RICH_CD=30*60e3;
+function wLockEnd(id){id=id||curWheel().id;if(id==='risk')return riskLocked()?+S.riskLock:0;if(id==='rich'){if(+(S.richLock||0)>Date.now()+RICH_CD)S.richLock=Date.now()+RICH_CD;return +(S.richLock||0)>Date.now()?+S.richLock:0}return 0}
 const RISK_CD=10*60e3;function riskPct(){return 2+Math.min(4,S.jpN||0)}
 const wK=v=>{v=Math.abs(Math.floor(v));if(v>=1e6){const m=v/1e6,r=(m>=10?Math.round(m):Math.round(m*10)/10);return String(r).replace('.',',')+(r===1?' millón':' millones')}if(v>=1e3)return Math.round(v/1e3)+' mil';return fmt(v)};
 (function(){const W=WHEELS.find(w=>w.id==='risk');if(!W)return;
@@ -9844,11 +9860,11 @@ const wK=v=>{v=Math.abs(Math.floor(v));if(v>=1e6){const m=v/1e6,r=(m>=10?Math.ro
 if(+(S.riskLock||0)>Date.now()+RISK_CD)S.riskLock=Date.now()+RISK_CD;
 const riskLocked=()=>{if(+(S.riskLock||0)>Date.now()+RISK_CD)S.riskLock=Date.now()+RISK_CD;return +(S.riskLock||0)>Date.now()};
 const _wiLk=wheelInfo;wheelInfo=function(){_wiLk.apply(this,arguments);const card=$('.wheelcard'),wrap=$('.wheelwrap');if(!card||!wrap)return;
-  const lk=curWheel().id==='risk'&&riskLocked()&&!wBusy;card.classList.toggle('wlocked',lk);let o=wrap.querySelector('.wlock');
-  if(!lk){if(o)o.remove();return}const left=Math.max(0,+S.riskLock-Date.now()),s_=Math.ceil(left/1000),hh=Math.floor(s_/3600),mm=Math.floor(s_%3600/60),ss=s_%60,tx=(hh?hh+':'+String(mm).padStart(2,'0'):String(mm))+':'+String(ss).padStart(2,'0');
+  const lk=!!wLockEnd()&&!wBusy;card.classList.toggle('wlocked',lk);let o=wrap.querySelector('.wlock');
+  if(!lk){if(o)o.remove();return}const left=Math.max(0,wLockEnd()-Date.now()),s_=Math.ceil(left/1000),hh=Math.floor(s_/3600),mm=Math.floor(s_%3600/60),ss=s_%60,tx=(hh?hh+':'+String(mm).padStart(2,'0'):String(mm))+':'+String(ss).padStart(2,'0');
   if(!o){o=document.createElement('div');o.className='wlock';wrap.appendChild(o)}o.innerHTML=`<div><b>🔒</b>Bloqueada<em>${tx}</em></div>`;
   const b=$('#wheelBtn');if(b)b.disabled=true;const inf=$('#wheelInfo');if(inf)inf.textContent='Te llevaste el gordo. Vuelve en '+tx+' o salta a otra ruleta.'};
-document.addEventListener('click',e=>{if(e.target.closest('#wheelBtn')&&curWheel().id==='risk'&&riskLocked()){e.stopImmediatePropagation();e.preventDefault();toast('Ruleta bloqueada','Te llevaste el gordo: espera a que acabe la cuenta atrás','var(--red)','🔒')}},true);
+document.addEventListener('click',e=>{if(e.target.closest('#wheelBtn')&&wLockEnd()){e.stopImmediatePropagation();e.preventDefault();toast('Ruleta bloqueada','Te llevaste el gordo: espera a que acabe la cuenta atrás','var(--red)','🔒')}},true);
 /* ---- barra de arriba: quién se ha llevado el gordo ---- */
 let jpSeen=new Set(JSON.parse(localStorage.getItem('jpSeen')||'[]')),jpIdx=0;
 function jpList(){const out=[];const now=Date.now();NET.players.forEach((p,id)=>{if(id===NET.id||ADM.bans.has(id))return;const j=p.jp;if(j&&+j.t>now-24*3600e3)out.push({id,name:p.name,v:+j.v,t:+j.t})});
@@ -9981,8 +9997,8 @@ i18nAdd([['Saltar a otra ruleta · 1.000 € ›','Skip to another wheel · €1
 i18nAdd([['Mantén pulsado 3 s para borrar','Hold 3 s to delete','Maintiens 3 s pour effacer','Mantém 3 s para apagar'],['Mantén pulsado','Hold it down','Maintiens appuyé','Mantém premido'],['Deja el dedo o el ratón 3 segundos encima del botón para borrar','Keep your finger or mouse on the button for 3 seconds to delete','Garde le doigt ou la souris 3 secondes sur le bouton pour effacer','Mantém o dedo ou o rato 3 segundos no botão para apagar']]);
 
 /* ===== 2026-10-04-b: la ruleta no se puede trampear recargando ===== */
-(()=>{const _acbW=applyCloudBase;applyCloudBase=function(c){const wa=+S.wheelAt||0,rl=+S.riskLock||0,wp=S.wPend,jn=S.jpN||0,jp=S.jp,wd=+S.wDone||0;_acbW.apply(this,arguments);S.wDone=Math.max(wd,+S.wDone||0);
-  S.wheelAt=Math.max(wa,+S.wheelAt||0);if(S.wheelAt>Date.now())S.wheelAt=Date.now();S.riskLock=Math.max(rl,+S.riskLock||0);S.jpN=Math.max(jn,S.jpN||0);if(jp&&(!S.jp||+jp.t>+S.jp.t))S.jp=jp;if(wp&&!S.wPend)S.wPend=wp;if(S.wPend&&+S.wPend.at<=S.wDone)delete S.wPend};
+(()=>{const _acbW=applyCloudBase;applyCloudBase=function(c){window.__rcl=+S.richLock||0;const wa=+S.wheelAt||0,rl=+S.riskLock||0,wp=S.wPend,jn=S.jpN||0,jp=S.jp,wd=+S.wDone||0;_acbW.apply(this,arguments);S.wDone=Math.max(wd,+S.wDone||0);
+  S.wheelAt=Math.max(wa,+S.wheelAt||0);if(S.wheelAt>Date.now())S.wheelAt=Date.now();S.riskLock=Math.max(rl,+S.riskLock||0);S.richLock=Math.max(+(window.__rcl||0),+S.richLock||0);S.jpN=Math.max(jn,S.jpN||0);if(jp&&(!S.jp||+jp.t>+S.jp.t))S.jp=jp;if(wp&&!S.wPend)S.wPend=wp;if(S.wPend&&+S.wPend.at<=S.wDone)delete S.wPend};
   const tryRes=()=>{if(S.wPend&&!wBusy){try{wResolve(true)}catch(e){}}};setTimeout(tryRes,2500);setTimeout(tryRes,9000)})();
 i18nAdd([['Bloqueada','Locked','Bloquée','Bloqueada'],['Tu tirada de antes','Your earlier spin','Ton tour d\'avant','A tua jogada de antes'],['Recargaste mientras giraba: aquí tienes lo que te tocó','You reloaded while it was spinning: here is what you got','Tu as rechargé pendant que ça tournait : voici ce que tu as gagné','Recarregaste enquanto girava: aqui tens o que te saiu']]);
 
@@ -11094,7 +11110,7 @@ gsMount();setTimeout(gsMount,1500);{const _goS=go;go=function(){const r=_goS.app
 
 /* ---- 2. Ruletas nuevas y catálogo ---- */
 WHEELS.push(
- {id:'rich',t:'Ruleta millonaria',d:'Premios que crecen con lo que tienes. Para los que ya no se impresionan con poco.',segs:()=>[.001,.003,.0015,.008,.002,.004,.0012,.015].map((f,i)=>{const v=niceN(Math.max(2000*(i+1),wealth()*f));return{lab:short(v),col:WCOL[i],k:'eur',v,big:f>=.015?1:0}})},
+ {id:'rich',t:'Ruleta millonaria',d:'Premios que crecen con lo que tienes. Si te toca el gordo, se bloquea 30 minutos.',segs:()=>[.001,.003,.0015,.008,.002,.004,.0012,.015].map((f,i)=>{const v=niceN(Math.max(2000*(i+1),wealth()*f));return{lab:short(v),col:WCOL[i],k:'eur',v,big:f>=.015?1:0}})},
  {id:'pts',t:'Ruleta de la liga',d:'Puntos de liga gratis para subir en tu liga esta semana.',segs:()=>[20,50,30,120,40,80,25,200].map((v,i)=>({lab:'+'+v+' pts',col:WCOL[i],k:'pts',v}))},
  {id:'fab',t:'Ruleta de la fábrica',d:'Energía, monedas doradas y clics que valen más un rato.',segs:()=>[['⚡ Energía','en'],['✨ Doradas','gold'],['x2 clics','f2'],['⚡ Energía','en'],['x3 clics','f3'],['✨ Doradas','gold'],['x2 clics','f2'],['x5 clics','f5']].map((x,i)=>({lab:x[0],col:WCOL[i],k:'fab',v:x[1]}))});
 {const _wrC=wResolve;wResolve=function(late){const P_=S.wPend;try{if(P_&&P_.p&&!(+P_.at<=(+S.wDone||0))){const p=P_.p;
@@ -12989,55 +13005,68 @@ setTimeout(gBonusClaim,7000);setInterval(gBonusClaim,15000);
 setInterval(()=>{try{const b=$('#noAccBar .na-t');if(b&&!S.gBon&&!b.querySelector('.gbt'))b.insertAdjacentHTML('afterbegin',`<b class="gbt">💸 +${short(G_BONUS)} € si entras con Google. </b>`)}catch(e){}},2500);
 
 /* --- premios por tiempo jugado (solo cuenta el tiempo que juegas de verdad: sin tocar nada 2 minutos, se para) --- */
-const PT_D=[[5,.005,2000,250e3],[15,.0075,5000,400e3],[30,.01,10000,600e3],[45,.0125,15000,800e3],[60,.015,25000,1e6],[90,.02,40000,1.5e6],[120,.025,60000,2e6]];
+const PT_D=[[5,.004,3000],[15,.006,6000],[30,.008,12000],[45,.01,18000],[60,.0125,30000],[90,.015,45000],[120,.02,70000]];
 const PT_DX={2:{c:10,x:40},4:{c:15,x:80},6:{c:25,x:150}};   /* extras: caramelos (si hay evento) y experiencia */
-const PT_L=[[1,.03,20000,'⏳','1 hora jugada'],[3,.04,50000,'🔥','3 horas jugadas'],[6,.05,100000,'💪','6 horas jugadas'],[12,.06,200000,'🎯','12 horas jugadas'],
-  [24,.08,400000,'🏅','24 horas jugadas','ptviciado','Viciado/a'],[48,.09,700000,'🌙','48 horas jugadas'],[100,.1,1e6,'💯','100 horas jugadas','ptveterano','Veterano/a']];
+const PT_L=[[1,.03,30000,'⏳','1 hora jugada'],[3,.04,60000,'🔥','3 horas jugadas'],[6,.05,120000,'💪','6 horas jugadas'],[12,.06,250000,'🎯','12 horas jugadas'],
+  [24,.08,500000,'🏅','24 horas jugadas','ptviciado','Viciado/a'],[48,.09,800000,'🌙','48 horas jugadas'],[100,.12,1.5e6,'💯','100 horas jugadas','ptveterano','Veterano/a']];
 /* fuera los títulos que no van: «Sin vida social» y «Leyenda de Casinetori» (ese solo lo da el jefe) */
 try{['ptnoche','ptleyenda'].forEach(id=>{if(COS.ti)COS.ti=COS.ti.filter(y=>y[0]!==id)});if(Array.isArray(S.cosOwn)&&S.cosOwn.some(k=>k==='ti:ptnoche'||k==='ti:ptleyenda')){S.cosOwn=S.cosOwn.filter(k=>k!=='ti:ptnoche'&&k!=='ti:ptleyenda');save()}
   if(S.cos&&(S.cos.ti==='ptnoche'||S.cos.ti==='ptleyenda')){S.cos.ti='novato';save()}}catch(e){}
 PT_L.forEach(l=>{if(l[5]&&COS.ti&&!COS.ti.some(y=>y[0]===l[5]))COS.ti.push([l[5],l[6],999,'','s'])});
-function ptVal(pct,fl,cap){return niceN(Math.max(fl,Math.min(cap,wealth()*pct)))}
+/* racha: si juegas 30 min al día, días seguidos dan +10 % cada uno (hasta +50 %) */
+const ptYest=()=>{const d=new Date();d.setDate(d.getDate()-1);return dayKey(d)};
+function ptStreak(){const r=S.pts||{d:'',n:0};if(r.d===dayKey()||r.d===ptYest())return r.n;return 0}
+function ptMul(){const r=S.pts||{};const n=ptStreak()-(r.d===dayKey()?1:0);return 1+.1*Math.min(5,Math.max(0,n))}
+function ptStreakTick(){if(ptMin()<30)return;const r=S.pts||{d:'',n:0};if(r.d===dayKey())return;S.pts={d:dayKey(),n:r.d===ptYest()?(r.n||0)+1:1};save();
+  if(S.pts.n>1){sfx('win');toast('¡Racha de '+S.pts.n+' días!','Mañana tus cofres darán +'+Math.min(50,S.pts.n*10)+' %','#ff7a00','🔥')}}
+function ptVal(pct,fl){return niceN(Math.max(fl,wealth()*pct)*ptMul())}
 function ptDay(){const d=dayKey(),pt=Math.floor(+S.playtime||0);if(!S.ptd||S.ptd.d!==d)S.ptd={d,b:pt,got:[]};return S.ptd}
 const ptMin=()=>Math.max(0,(Math.floor(+S.playtime||0)-ptDay().b)/60);
 function ptState(){const m=ptMin(),D=ptDay();const ready=PT_D.map((x,i)=>i).filter(i=>m>=PT_D[i][0]&&!D.got.includes(i));const next=PT_D.findIndex((x,i)=>m<x[0]);
   const hrs=(+S.playtime||0)/3600;S.ptL=Array.isArray(S.ptL)?S.ptL:[];const lready=PT_L.map((x,i)=>i).filter(i=>hrs>=PT_L[i][0]&&!S.ptL.includes(i));const lnext=PT_L.findIndex(x=>hrs<x[0]);
   return{m,D,ready,next,hrs,lready,lnext}}
-function ptOpen(i){const D=ptDay();if(D.got.includes(i)||ptMin()<PT_D[i][0])return;const [mins,pct,fl,cap]=PT_D[i];const v=ptVal(pct,fl,cap);D.got.push(i);
+function ptOpen(i){const D=ptDay();if(D.got.includes(i)||ptMin()<PT_D[i][0])return;const [mins,pct,fl]=PT_D[i];const v=ptVal(pct,fl);D.got.push(i);
   LED.tag='v:premiotiempo';LED.tagT=Date.now()+1500;give(v);const ex=PT_DX[i];let extra='';
   if(ex){xp(ex.x);extra=' · +'+ex.x+' XP';const e=seNow();if(e){seAdd(ex.c);extra+=' · +'+ex.c+' '+e.cur[0]}}
-  save();sfx('big');confetti(i>=4?200:90);troll('+'+short(v)+' €','Cofre de '+mins+' min jugados'+extra,'#ffd600',true);ptRender()}
-function ptOpenL(i){S.ptL=Array.isArray(S.ptL)?S.ptL:[];if(S.ptL.includes(i)||(+S.playtime||0)/3600<PT_L[i][0])return;const l=PT_L[i];const v=ptVal(l[1],l[2],5e6);S.ptL.push(i);
+  save();sfx('big');confetti(i>=4?200:90);troll('+'+cmpN(v)+' €','Cofre de '+mins+' min jugados'+extra,'#ffd600',true);ptRender()}
+function ptOpenL(i){S.ptL=Array.isArray(S.ptL)?S.ptL:[];if(S.ptL.includes(i)||(+S.playtime||0)/3600<PT_L[i][0])return;const l=PT_L[i];const v=ptVal(l[1],l[2]);S.ptL.push(i);
   LED.tag='v:premiotiempo';LED.tagT=Date.now()+1500;give(v);let extra='';if(l[5]){S.cosOwn=[...(S.cosOwn||[]),'ti:'+l[5]];extra=' · Título «'+l[6]+'»'}
-  save();sfx('big');confetti(300);troll('¡'+l[4].toUpperCase()+'!','+'+short(v)+' €'+extra,'#ffd600',true);ptRender();try{renderMe()}catch(e){}}
+  save();sfx('big');confetti(300);troll('¡'+l[4].toUpperCase()+'!','+'+cmpN(v)+' €'+extra,'#ffd600',true);ptRender();try{renderMe()}catch(e){}}
 const ptClock=s_=>{s_=Math.max(0,Math.ceil(s_));const m=Math.floor(s_/60),x=s_%60;return m+':'+String(x).padStart(2,'0')};
 function cmpN(n){n=Math.floor(+n||0);const a=Math.abs(n),f=(v,u)=>(v>=100?Math.round(v):Math.round(v*10)/10).toLocaleString('es-ES')+u;
   if(a>=1e12)return f(n/1e12,' bill.');if(a>=1e10)return f(n/1e9,' mil M');if(a>=1e9)return fmt(Math.round(n/1e6))+' M';if(a>=1e6)return f(n/1e6,' M');if(a>=1e4)return f(n/1e3,' mil');return fmt(n)}
 const ptLab=m=>m<60?m+' min':(m%60?Math.floor(m/60)+' h '+(m%60):m/60+' h');
+function ptPct(v){const w=Math.max(1,wealth());const p=v/w*100;return p>=10?Math.round(p)+'\u00a0%':(Math.round(p*10)/10).toLocaleString('es-ES')+'\u00a0%'}
 function ptRender(){const c=$('#ptCard');if(!c)return;const st=ptState(),D=st.D;
   const nx=st.next>=0?PT_D[st.next]:null;const prev=st.next>0?PT_D[st.next-1][0]:0;const pct=nx?Math.min(100,(st.m-prev)/(nx[0]-prev)*100):100;
-  const ln=st.lnext>=0?PT_L[st.lnext]:null;const rd=st.ready[0];const v=i=>ptVal(PT_D[i][1],PT_D[i][2],PT_D[i][3]);const vl=i=>ptVal(PT_L[i][1],PT_L[i][2],5e6);
+  const ln=st.lnext>=0?PT_L[st.lnext]:null;const rd=st.ready[0];const v=i=>ptVal(PT_D[i][1],PT_D[i][2]);const vl=i=>ptVal(PT_L[i][1],PT_L[i][2]);
+  const left=PT_D.map((x,i)=>i).filter(i=>!D.got.includes(i)).reduce((a,i)=>a+v(i),0);const mul=ptMul(),sk=ptStreak();
   let main;
-  if(rd!=null)main=`<div class="ptm ok"><span class="emo">🎁</span><div><small>¡Cofre listo! Por ${ptLab(PT_D[rd][0])} jugando hoy</small><b>+${fmt(v(rd))} €</b></div></div><button class="btn big ptgo" data-pto="${rd}">Abrir cofre</button>`;
-  else if(nx)main=`<div class="ptm"><span class="emo">${st.next>=5?'💎':st.next>=3?'🧰':'📦'}</span><div><small>Próximo cofre al llegar a ${ptLab(nx[0])} jugando hoy</small><b>+${fmt(v(st.next))} €</b></div><div class="ptt"><small>falta</small><b class="ptleft">${ptClock((nx[0]-st.m)*60)}</b></div></div><div class="ptbar"><i style="width:${pct}%"></i></div>`;
-  else main=`<div class="ptm ok"><span class="emo">✅</span><div><small>Hoy ya has abierto los 7 cofres</small><b>Mañana más</b></div></div>`;
-  const dots=`<div class="ptdots">${PT_D.map((x,i)=>{const got=D.got.includes(i),ok=st.m>=x[0];return`<span class="${got?'got':ok?'rdy':''}" title="+${fmt(v(i))} €"><i>${got?'✓':ok?'🎁':''}</i>${ptLab(x[0])}</span>`}).join('')}</div>`;
+  if(rd!=null)main=`<div class="ptm ok"><span class="emo ptbox">🎁</span><div><small>¡Cofre listo! · ${ptLab(PT_D[rd][0])} jugando hoy</small><b class="fitn">+${cmpN(v(rd))} €</b><em>el ${ptPct(v(rd))} de tu dinero${mul>1?' · con racha +'+Math.round((mul-1)*100)+'\u00a0%':''}</em></div></div><button class="btn big ptgo" data-pto="${rd}">🎁 Abrir cofre</button>`;
+  else if(nx)main=`<div class="ptm"><span class="emo ptbox">${st.next>=5?'💎':st.next>=3?'🧰':'📦'}</span><div><small>Próximo cofre · a los ${ptLab(nx[0])} de juego</small><b class="fitn">+${cmpN(v(st.next))} €</b><em>el ${ptPct(v(st.next))} de tu dinero${mul>1?' · con racha +'+Math.round((mul-1)*100)+'\u00a0%':''}</em></div><div class="ptt"><small>falta</small><b class="ptleft" data-pts="${Math.round((nx[0]-st.m)*60)}">${ptClock((nx[0]-st.m)*60)}</b></div></div><div class="ptbar"><i class="ptbi" style="width:${pct}%"></i></div>`;
+  else main=`<div class="ptm ok"><span class="emo ptbox">✅</span><div><small>Hoy ya has abierto los 7 cofres</small><b>¡Bien jugado!</b><em>Mañana, 7 más${sk?' y tu racha sigue':''}</em></div></div>`;
+  const chips=`<div class="ptdots">${PT_D.map((x,i)=>{const got=D.got.includes(i),ok=st.m>=x[0];return`<span class="${got?'got':ok?'rdy':''}"><i>${got?'✓':ok?'🎁':''}</i><span>${ptLab(x[0])}<small>${got?'abierto':'+'+cmpN(v(i))}</small></span></span>`}).join('')}</div>`;
   let big='';
-  if(st.lready.length){const i=st.lready[0],l=PT_L[i];big=`<div class="ptbig ok"><span class="emo">${l[3]}</span><div><small>¡Premio especial! Llevas ${l[0]} ${l[0]===1?'hora':'horas'} jugadas en total</small><b>+${fmt(vl(i))} €${l[5]?' y título «'+esc(l[6])+'»':''}</b></div><button class="btn mint" data-ptl="${i}">Cobrar</button></div>`}
-  else if(ln)big=`<div class="ptbig"><span class="emo">${ln[3]}</span><div><small>Premio especial al llegar a ${ln[0]} ${ln[0]===1?'hora jugada':'horas jugadas'} en total · llevas ${(Math.floor(st.hrs*10)/10).toLocaleString('es-ES')} h</small><b>+${fmt(vl(st.lnext))} €${ln[5]?' y título «'+esc(ln[6])+'»':''}</b></div></div>`;
-  const h=`<div class="pth"><span class="emo">⏱️</span><div><h3>Premios por jugar</h3><small>Juega y se abren cofres con dinero: <b>7 cada día</b>. Cuanto más dinero tienes, más dan. Hoy llevas <b>${Math.floor(st.m)} min</b> jugando.</small></div></div>
-   ${main}<div class="ptdl">Cofres de hoy</div>${dots}${big}`;
+  if(st.lready.length){const i=st.lready[0],l=PT_L[i];big=`<div class="ptbig ok"><span class="emo">${l[3]}</span><div><small>¡Premio especial! ${l[0]} ${l[0]===1?'hora jugada':'horas jugadas'} en total</small><b class="fitn">+${cmpN(vl(i))} €</b><em>${l[5]?'y el título «'+esc(l[6])+'» · ':''}el ${ptPct(vl(i))} de tu dinero</em></div><button class="btn mint" data-ptl="${i}">Cobrar</button></div>`}
+  else if(ln)big=`<div class="ptbig"><span class="emo">${ln[3]}</span><div><small>Premio especial a las ${ln[0]} ${ln[0]===1?'hora':'horas'} jugadas · llevas ${(Math.floor(st.hrs*10)/10).toLocaleString('es-ES')} h</small><b class="fitn">+${cmpN(vl(st.lnext))} €</b><em>${ln[5]?'y el título «'+esc(ln[6])+'» · ':''}el ${ptPct(vl(st.lnext))} de tu dinero</em></div></div>`;
+  const streak=`<div class="ptsk ${sk?'on':''}"><span class="emo">🔥</span><span>${sk?`<b>Racha de ${sk} ${sk===1?'día':'días'}</b> · ${mul>1?'tus cofres dan <b>+'+Math.round((mul-1)*100)+' %</b>':'mañana tus cofres darán +10 %'}`:'<b>Juega 30 min al día</b> y haz racha: cada día seguido, cofres +10 % (hasta +50 %)'}</span></div>`;
+  const h=`<div class="pth"><span class="emo">⏱️</span><div><h3>Premios por jugar</h3><small>Mientras juegas se abren cofres de dinero. Hoy aún puedes ganar <b class="ptall">+${cmpN(left)} €</b></small></div></div>
+   ${main}${chips}${streak}${big}`;
   if(c.dataset.h!==h){c.dataset.h=h;c.innerHTML=h}}
+/* el reloj baja de segundo en segundo */
+setInterval(()=>{try{const e=document.querySelector('#ptCard .ptleft');if(!e||view!=='inicio')return;const st=ptState();if(st.next<0||st.ready.length){ptRender();return}
+  const nx=PT_D[st.next],prev=st.next>0?PT_D[st.next-1][0]:0;const sec=(nx[0]-st.m)*60;e.textContent=ptClock(sec);const bi=document.querySelector('#ptCard .ptbi');if(bi)bi.style.width=Math.min(100,(st.m-prev)/(nx[0]-prev)*100)+'%';
+  ptStreakTick()}catch(_){}},1000);
 function ptMount(){const home=$('#v-inicio');let c=$('#ptCard');if(!home)return;if(!S.name){if(c)c.remove();return}
-  if(!c){c=document.createElement('div');c.id='ptCard';c.className='panel ptcard';const se=$('#seCard');if(se)se.insertAdjacentElement('afterend',c);else{const a=home.firstElementChild;if(a)a.insertAdjacentElement('afterend',c);else home.prepend(c)}}
+  if(!c){c=document.createElement('div');c.id='ptCard';c.className='panel ptcard';c.dataset.ht='hoy';const se=$('#seCard');if(se)se.insertAdjacentElement('afterend',c);else{const a=home.firstElementChild;if(a)a.insertAdjacentElement('afterend',c);else home.prepend(c)}}
   ptRender()}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-pto]');if(b){ptOpen(+b.dataset.pto);return}const l=e.target.closest('[data-ptl]');if(l)ptOpenL(+l.dataset.ptl)});
 /* aviso cuando hay cofre listo (fuera de Inicio) + punto en el botón de Inicio */
-setInterval(()=>{try{if(!S.name)return;if(view==='inicio')ptMount();const st=ptState();const n=st.ready.length+st.lready.length;const nb=document.querySelector('#nav [data-v="inicio"]');if(nb)nb.classList.toggle('pt-dot',n>0);
+setInterval(()=>{try{if(!S.name)return;ptStreakTick();if(view==='inicio')ptMount();const st=ptState();const n=st.ready.length+st.lready.length;const nb=document.querySelector('#nav [data-v="inicio"]');if(nb)nb.classList.toggle('pt-dot',n>0);
   const k=dayKey()+':'+st.D.got.length+':'+st.ready.length+':'+(S.ptL||[]).length+':'+st.lready.length;
   if(n>0&&view!=='inicio'&&!(typeof running!=='undefined'&&running)&&S.ptNt!==k){S.ptNt=k;save();toast(st.lready.length?'¡Gran premio por tiempo listo!':'¡Cofre por tiempo listo!','Ábrelo en Inicio','var(--sun)','🎁')}}catch(e){}},4000);
 try{if(typeof GU_T!=='undefined'&&GU_T.inicio&&!GU_T.inicio.some(x=>x[0]==='#ptCard'))GU_T.inicio.push(['#ptCard','Premios por jugar','Cada rato que juegas se abre un cofre con dinero. Cuanto más dinero tienes, más te da.'])}catch(e){}
-try{if(!FAQ.some(q=>/Premios por jugar/.test(q[0])))FAQ.unshift(['¿Qué son los Premios por jugar?','En Inicio hay 7 cofres al día: se abren a los 5, 15, 30, 45, 60, 90 y 120 minutos de juego. Dan dinero según lo que tienes (más dinero, más premio) y algunos traen experiencia y caramelos de evento. Además hay grandes premios al llegar a 1, 3, 6, 12, 24, 48 y 100 horas jugadas, con los títulos «Viciado/a» y «Veterano/a». Solo cuenta el tiempo jugando de verdad: si no tocas nada 2 minutos, el reloj se para.']);
+try{if(!FAQ.some(q=>/Premios por jugar/.test(q[0])))FAQ.unshift(['¿Qué son los Premios por jugar?','En Inicio hay 7 cofres al día: se abren a los 5, 15, 30, 45, 60, 90 y 120 minutos de juego. Dan dinero según lo que tienes (más dinero, más premio) y algunos traen experiencia y caramelos de evento. Si juegas 30 minutos cada día haces racha: cada día seguido tus cofres dan un 10 % más (hasta +50 %). Además hay grandes premios al llegar a 1, 3, 6, 12, 24, 48 y 100 horas jugadas, con los títulos «Viciado/a» y «Veterano/a». Solo cuenta el tiempo jugando de verdad: si no tocas nada 2 minutos, el reloj se para.']);
   if(!FAQ.some(q=>/entrar con Google/.test(q[0])&&/100\.000/.test(q[1])))FAQ.unshift(['¿Qué me dan por entrar con Google?','100.000 € de regalo (una vez por cuenta y por dispositivo), tu partida guardada para siempre y, si eres de los 100 primeros, los títulos OG y VIP.']);
   const c=TUTOS.find(t=>t[1]==='Primeros pasos');if(c&&!c[4].some(x=>/Premios por jugar/.test(x[0])))c[4].push(['<b>Premios por jugar</b>: en Inicio se abren cofres a los 5, 15, 30, 45, 60, 90 y 120 minutos de juego cada día.'])}catch(e){}
 try{i18nAdd([['Premios por jugar','Play-time rewards','Récompenses de jeu','Prémios por jogar'],['Ábrelo en Inicio','Open it on Home','Ouvre-le dans Accueil','Abre-o no Início'],['¡Cofre por tiempo listo!','Play-time chest ready!','Coffre de temps prêt !','Baú de tempo pronto!'],['¡Gran premio por tiempo listo!','Big play-time reward ready!','Grande récompense de temps prête !','Grande prémio de tempo pronto!'],['Abierto','Opened','Ouvert','Aberto'],['¡Regalo por entrar con Google!','Gift for signing in with Google!','Cadeau pour la connexion Google !','Presente por entrares com o Google!'],
@@ -13062,6 +13091,21 @@ try{i18nAdd([['Más claro y mejor colocado','Clearer and tidier','Plus clair et 
 ['Etiquetas','Tags','Étiquettes','Etiquetas'],['Las etiquetas de Halloween y las exclusivas ya no se salen de su caja.','Halloween and exclusive tags no longer spill out of their box.','Les étiquettes Halloween et exclusives ne débordent plus.','As etiquetas de Halloween e exclusivas já não saem da caixa.'],
 ['Títulos por tiempo','Play-time titles','Titres de temps de jeu','Títulos por tempo'],['Los títulos por horas jugadas son «Viciado/a» (24 h) y «Veterano/a» (100 h).','The play-time titles are “Viciado/a” (24 h) and “Veterano/a” (100 h).','Les titres de temps de jeu sont « Viciado/a » (24 h) et « Veterano/a » (100 h).','Os títulos por horas jogadas são «Viciado/a» (24 h) e «Veterano/a» (100 h).'],
 ['Cofres de hoy','Today’s chests','Coffres du jour','Baús de hoje'],['Abrir cofre','Open chest','Ouvrir le coffre','Abrir baú'],['Cobrar','Claim','Récupérer','Receber']])}catch(e){}
+
+/* ===== que los números grandes quepan siempre: si no caben, la letra se hace más pequeña (nunca se parten) ===== */
+const FIT_SEL='.fitn,.invnext b,#mLeft,.bk-pl em,.bk-sum b,.pp-stat b,.pod .pv,#stats .stat b,.gu-max,.ptm b,.ptbig b,#days b,.lb-amt,.rkr .cash';
+function fitNums(){try{document.querySelectorAll(FIT_SEL).forEach(e=>{if(!e.offsetParent)return;if(!e.classList.contains('fitn'))e.classList.add('fitn');
+  const k=e.textContent+'|'+e.parentElement.clientWidth;if(e._fk===k)return;e._fk=k;e.style.fontSize='';let fs=parseFloat(getComputedStyle(e).fontSize),min=fs*.5,i=0;
+  while(e.scrollWidth>e.clientWidth+1&&fs>min&&i++<30){fs-=Math.max(.5,fs*.05);e.style.fontSize=fs+'px'}})}catch(e){}}
+setInterval(fitNums,800);addEventListener('resize',()=>{document.querySelectorAll('.fitn').forEach(e=>e._fk='');fitNums()});
+
+try{i18nAdd([['Cofres más gordos y racha','Bigger chests and streaks','Coffres plus gros et séries','Baús maiores e sequência'],['Cofres sin tope','No-cap chests','Coffres sans plafond','Baús sem limite'],
+['Los cofres de Premios por jugar ya no tienen máximo: dan un trozo de lo que tienes. Si tienes billones, te tocan miles de millones.','Play-time chests have no cap now: they give a slice of what you have.','Les coffres n’ont plus de plafond : ils donnent une part de ce que tu as.','Os baús já não têm máximo: dão uma parte do que tens.'],
+['Racha','Streak','Série','Sequência'],['Juega 30 minutos al día y haz racha: cada día seguido tus cofres dan un 10 % más, hasta +50 %.','Play 30 minutes a day for a streak: each day in a row, chests give 10% more, up to +50%.','Joue 30 minutes par jour : chaque jour d’affilée, +10 % sur les coffres, jusqu’à +50 %.','Joga 30 minutos por dia: cada dia seguido os baús dão mais 10 %, até +50 %.'],
+['Reloj en directo','Live clock','Horloge en direct','Relógio em direto'],['La cuenta atrás del próximo cofre baja de segundo en segundo.','The next-chest countdown ticks every second.','Le compte à rebours avance à chaque seconde.','A contagem decrescente desce de segundo a segundo.'],
+['Ruleta millonaria','Millionaire wheel','Roue millionnaire','Roleta milionária'],['Si te toca su premio gordo se bloquea 30 minutos solo ella. La del todo o nada sigue con lo suyo.','If you hit its jackpot, only it locks for 30 minutes.','Si tu touches son gros lot, seule elle se bloque 30 minutes.','Se te sair o prémio grande, só ela bloqueia 30 minutos.'],
+['Cifras que caben','Numbers that fit','Des nombres qui tiennent','Números que cabem'],['Las cantidades enormes salen cortas (por ejemplo 7,60 bill.) y ya no se parten en dos líneas.','Huge amounts are shortened and no longer split across lines.','Les montants énormes sont abrégés et ne sont plus coupés.','As quantias enormes aparecem curtas e já não se partem.'],
+['Premios por jugar','Play-time rewards','Récompenses de jeu','Prémios por jogar']])}catch(e){}
 
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
