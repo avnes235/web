@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-17-2037">
+<meta name="app-version" content="2026-10-18-1134">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -5614,7 +5614,8 @@ function gEnd(){if(!running)return;running=false;$('#gSave').hidden=true;if(S.sa
   save();NET.lastP='';pushPlayer()}
 
 /* ---- Casino ---- */
-function casinoWin(n,g,bet){const _b=Math.max(0,Math.min(Math.floor(n),Math.floor(bet||0))),_m=evMult(),_tot=_b+Math.floor((n-_b)*_m);S.coins+=_b;give(n-_b);if(g)bigWin(g,_tot,bet||0);S.st.casinoWon=(S.st.casinoWon||0)+_tot;renderKing()}
+function casCap(){try{return Math.max(100000,Math.floor(wealth()*.01))}catch(e){return 100000}}
+function casinoWin(n,g,bet){const _b=Math.max(0,Math.min(Math.floor(n),Math.floor(bet||0))),_m=evMult(),_pr=Math.max(0,Math.floor(n-_b)),_ex=Math.min(Math.floor(_pr*(_m-1)),casCap()),_tot=_b+_pr+Math.max(0,_ex);S.coins+=_b+_pr+Math.max(0,_ex);S.earned+=_pr+Math.max(0,_ex);if(g)bigWin(g,_tot,bet||0);S.st.casinoWon=(S.st.casinoWon||0)+_tot;renderKing()}
 function renderKing(){const el=$('#casKing');if(!el)return;const all=[...NET.players.entries()].map(([id,d])=>({...d,id,cw:id===NET.id?st('casinoWon'):(+d.cw||0)}));
   if(NET.id&&!NET.players.has(NET.id)&&S.name)all.push({name:S.name,av:S.av,cw:st('casinoWon'),id:NET.id,cos:S.cos});
   const top=all.filter(p=>p.cw>0).sort((a,b)=>b.cw-a.cw)[0];
@@ -6135,6 +6136,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-18-a',t:'Multiplicadores del casino con tope',items:[['🎰','Tope en lo extra','Los multiplicadores del casino (ruleta, Casino caliente, eventos x2…) siguen sumando, pero lo extra de cada jugada tiene un tope: el 1 % de tu dinero (mínimo 100.000 €). Así nadie puede romper el juego apostando todo en jugadas casi seguras con el multiplicador puesto.','new','#ff9d00']]},
  {v:'2026-10-17-o',t:'Avisos más arriba',items:[['📣','Ya no tapan el centro','Los avisos grandes (premios, multiplicadores, nivel…) salen arriba, debajo de la barra, más pequeños. Si salen dos a la vez, uno va debajo del otro sin pisarse.','new','#4aa8ff']]},
  {v:'2026-10-17-n',t:'Gran Premio de Cine cada 3 horas',items:[['🎬','Ya no es una vez al día','Ahora puedes girar el Gran Premio de Cine cada 3 horas (mira un anuncio y gira). El botón te enseña la cuenta atrás para la siguiente.','new','#ffd600']]},
  {v:'2026-10-17-m',t:'Contadores para todo',items:[['⏱️','Todo lo que dura un rato, con cuenta atrás','Monedas doradas, clics x2, x5, doble XP, fábrica bloqueada y multiplicadores: cada uno sale en una etiqueta con lo que le queda (arriba a la derecha; en el móvil, abajo). Las monedas doradas de la ruleta salen en grande y si te tocan otra vez se suma el tiempo.','new','#ffd600'],['💰','Tu dinero, entero','Arriba se ve siempre el número completo, sin acortar nunca. Desde 1 bill. sale al lado entre paréntesis cuánto es: 22.725.611.148 (22,7 bill.). En el móvil el paréntesis va debajo.','new','#14e08a']]},
@@ -7220,7 +7222,7 @@ function boxPrize(){const r=Math.random(),m=wMult();
   if(r<.84){S.wheelAt=0;return['🎡','Otra tirada gratis ahora mismo']}
   if(r<.94){const k=setCasMult(2,Date.now()+300000);return['🔥',k==='keep'?'Casino x2 (ya tenías uno mejor: se queda el tuyo)':'Casino x2 durante 5 minutos']}
   return['🧦','Un calcetín usado. Mala suerte']}
-const _cwM=casinoWin;casinoWin=function(n,g,bet){const m=S.casMult&&+S.casMult.until>Date.now()?+S.casMult.v:1;if(m>1&&n>(bet||0)){const pr=Math.floor(n-(bet||0)),extra=Math.floor(pr*(m-1));if(extra>0){give(extra);try{multShow(pr,m,pr+extra)}catch(e){}}}_cwM(n,g,bet)};
+const _cwM=casinoWin;casinoWin=function(n,g,bet){const m=S.casMult&&+S.casMult.until>Date.now()?+S.casMult.v:1;if(m>1&&n>(bet||0)){const pr=Math.floor(n-(bet||0)),extra=Math.min(Math.floor(pr*(m-1)),casCap());if(extra>0){give(extra);try{multShow(pr,m,pr+extra)}catch(e){}}}_cwM(n,g,bet)};
 const _wbOld=$('#wheelBtn').cloneNode(true);$('#wheelBtn').replaceWith(_wbOld);
 $('#wheelBtn').addEventListener('click',()=>{if(wBusy||Date.now()-S.wheelAt<WAIT)return;wBusy=true;S.wheelAt=Date.now();save();
   const W_=curWheel(),segs=wSegs||wWeigh(W_.id,W_.segs());let r_=Math.random(),k=0;for(;k<segs.length-1;k++){if(r_<segs[k].p)break;r_-=segs[k].p}const SZ=360/segs.length,S0=k*SZ;const target=360-(S0+SZ*(.5+rnd(-.3,.3)));
@@ -11362,7 +11364,7 @@ MIS.push(['games',5,'Juega 5 partidas en Juegos'],['goals',5,'Mete 5 goles en Pe
 
 /* ---- Hora del Crash: evento donde el Cohete paga el triple ---- */
 EVT.crash=['🚀','Hora del Crash','El Cohete del casino paga el triple de lo que ganes. ¡Retírate a tiempo!',10,'#ff6b4a'];EV_W.push(['crash',6]);
-{const _cwCr=casinoWin;casinoWin=function(n,g,bet){const r=_cwCr.apply(this,arguments);try{const e=curEv();if(e&&e.type==='crash'&&g==='rocket'&&n>(bet||0)){const extra=Math.floor((n-(bet||0))*2);if(extra>0){give(extra);toast('Hora del Crash','+'+short(extra)+' € extra por el Cohete','var(--coral)','🚀')}}}catch(_){}return r}}
+{const _cwCr=casinoWin;casinoWin=function(n,g,bet){const r=_cwCr.apply(this,arguments);try{const e=curEv();if(e&&e.type==='crash'&&g==='rocket'&&n>(bet||0)){const extra=Math.min(Math.floor((n-(bet||0))*2),casCap());if(extra>0){S.coins+=extra;S.earned+=extra;toast('Hora del Crash','+'+short(extra)+' € extra por el Cohete','var(--coral)','🚀')}}}catch(_){}return r}}
 
 /* ---- caja fuerte: dinero a salvo que da intereses ---- */
 const SAFE_RATE=.005;
@@ -13503,6 +13505,8 @@ try{const T=$('#troll');if(T)new MutationObserver(()=>{const mp=[...document.que
 
 try{i18nAdd([['Avisos más arriba','Notices higher up','Annonces plus haut','Avisos mais acima'],['Ya no tapan el centro','They no longer cover the middle','Elles ne couvrent plus le centre','Já não tapam o centro'],['Los avisos grandes (premios, multiplicadores, nivel…) salen arriba, debajo de la barra, más pequeños. Si salen dos a la vez, uno va debajo del otro sin pisarse.','Big notices (prizes, multipliers, level…) now show at the top, under the bar, smaller. If two show at once, one goes under the other.','Les grandes annonces (prix, multiplicateurs, niveau…) s’affichent en haut, sous la barre, plus petites. Si deux arrivent ensemble, l’une passe sous l’autre.','Os avisos grandes (prémios, multiplicadores, nível…) aparecem em cima, por baixo da barra, mais pequenos. Se aparecerem dois, um fica por baixo do outro.']])}catch(e){}
 try{const fb=TUTOS[0];if(fb&&!fb[4].some(x=>/avisos grandes/.test(x[0])))fb[4].push(['Los <b>avisos grandes</b> (premios, multiplicadores, subir de nivel…) salen arriba del todo, debajo de la barra, para no tapar la partida.'])}catch(e){}
+try{i18nAdd([['Multiplicadores del casino con tope','Casino multipliers capped','Multiplicateurs du casino plafonnés','Multiplicadores do casino com limite'],['Tope en lo extra','Cap on the extra','Plafond sur le bonus','Limite no extra'],['Los multiplicadores del casino (ruleta, Casino caliente, eventos x2…) siguen sumando, pero lo extra de cada jugada tiene un tope: el 1 % de tu dinero (mínimo 100.000 €). Así nadie puede romper el juego apostando todo en jugadas casi seguras con el multiplicador puesto.','Casino multipliers (wheel, Hot casino, x2 events…) still add up, but the extra per play is capped at 1% of your money (minimum 100.000 €), so nobody can break the game betting everything on near-safe plays.','Les multiplicateurs du casino s’additionnent toujours, mais le bonus de chaque partie est plafonné à 1 % de ton argent (minimum 100.000 €).','Os multiplicadores do casino continuam a somar, mas o extra de cada jogada tem limite: 1 % do teu dinheiro (mínimo 100.000 €).']])}catch(e){}
+try{const t=TUTOS.find(x=>x[1]==='Casino')||TUTOS[1];if(t&&!t[4].some(x=>/tope/.test(x[0])))t[4].push(['<b>Multiplicadores del casino</b> (x2, x3… de la ruleta o de los eventos): multiplican lo que ganas, pero lo extra de cada jugada tiene un <b>tope del 1 % de tu dinero</b> (mínimo 100.000 €).'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
