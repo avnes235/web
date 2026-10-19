@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-19-1457">
+<meta name="app-version" content="2026-10-19-1518">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -13537,6 +13537,24 @@ function admPackSync(){try{if(!NET.db||!NET.id||!NET.ok)return;NET.db.collection
   else if(ADM_PACK.some(k=>S.exc.includes(k))){S.exc=S.exc.filter(k=>!ADM_PACK.includes(k));const c=myCos();['ti','f','c','bg'].forEach(k=>{if(c[k]==='xadm')c[k]=''});if(S.av==='🛡️')S.av='😎';save();try{NET.lastP='';pushPlayer()}catch(e){}try{renderMe()}catch(e){}}}).catch(()=>{})}catch(e){}}
 setTimeout(admPackSync,6000);setInterval(admPackSync,300000);
 
+/* admin: quitarle a alguien TODOS los títulos y exclusivos de un botón */
+(()=>{const isX=(k,v)=>{const x=(COS[k]||[]).find(y=>y[0]===v);return!!(x&&x[4]==='x')};
+  const _ap=admPatch;admPatch=function(id,type,n,text){if(type==='excrm'){const r=_ap.apply(this,arguments),pl=NET.players.get(id)||{},t=String(text||''),ks=t.startsWith('pack:')?(EXC_PACKS[t.slice(5)]||[]):[t];
+      if(r&&ks.some(k=>{if(!k.startsWith('ti:'))return false;const x=COS.ti.find(y=>y[0]===k.slice(3));return x&&x[1]===pl.ti}))r.ti='';return r}
+    if(type!=='excclear')return _ap.apply(this,arguments);return{exc:[],ti:''}};
+  const _ac=applyCmd;applyCmd=function(id,c){if(!c||c.type!=='excclear')return _ac.apply(this,arguments);
+    S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return;S.cmdDone.push(id);if(S.cmdDone.length>120)S.cmdDone.shift();
+    S.exc=[];const cc=myCos();['f','c','bg'].forEach(k=>{if(isX(k,cc[k]))cc[k]=COS[k][0][0]});cc.ti='none';
+    if(EXAV.includes(S.av))S.av='😎';save();try{renderMe()}catch(e){}try{if(view==='perfil')renderPerfil()}catch(e){}NET.lastP='';pushPlayer()};
+  const _rs=renderAdmSide;renderAdmSide=function(){_rs.apply(this,arguments);const el=$('#admSide'),p=ADM.sel&&NET.players.get(ADM.sel);if(!p)return;
+    const has=new Set(Array.isArray(p.exc)?p.exc:[]);
+    el.querySelectorAll('.excad [data-xg^="pack:"]').forEach(b=>{const L=EXC_PACKS[b.dataset.xg.slice(5)]||[],all=L.length&&L.every(k=>has.has(k));b.setAttribute('aria-pressed',all);b.title=all?'Lo tiene entero · pulsa para quitárselo':'Dárselo';if(all&&!b.textContent.startsWith('✓'))b.textContent='✓ '+b.textContent});
+    const box=el.querySelector('.excad');if(box&&!el.querySelector('#xClr'))box.insertAdjacentHTML('afterend',`<button class="btn" id="xClr" style="background:#c0182c;color:#fff;width:100%;margin:6px 0;white-space:normal;font-size:15px;line-height:1.2">🧹 Quitar todos sus títulos</button>`)};
+  $('#admSide').addEventListener('click',async e=>{const b=e.target.closest('#xClr');if(!b||!ADM.sel)return;const id=ADM.sel,nm=(NET.players.get(id)||{}).name||'ese';
+    if(b.dataset.c!=='1'){b.dataset.c='1';b.textContent='¿Seguro? Pulsa otra vez';setTimeout(()=>{if(b.isConnected){b.dataset.c='';b.textContent='🧹 Quitar todos sus títulos'}},3500);return}
+    b.disabled=true;const ok=await sendCmdP(id,'excclear',0,'all');b.disabled=false;b.dataset.c='';
+    if(ok){sfx('coin');toast('Títulos quitados',esc(nm)+' se queda sin título ni exclusivos','#c0182c','🧹')}else toast('No se pudo','Prueba otra vez','var(--coral)','⚠️')});
+})();
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
