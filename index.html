@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-19-1440">
+<meta name="app-version" content="2026-10-19-1457">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2589,6 +2589,12 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]{position:relat
 #troll .tw{font-size:clamp(36px,7.5vw,92px)!important;-webkit-text-stroke:2px #141a2e}
 #troll .ts{font-size:clamp(14px,2.6vw,21px)!important}
 @media (max-width:520px){.multpop{padding-top:calc(var(--barh,56px) + 10px)}.multpop .mp-x{font-size:48px!important}.multpop .mp-t{font-size:27px!important}.multpop .mp-in{padding:8px 16px!important;max-width:92vw}.bfmp .mp-x{font-size:32px!important}}
+/* pack exclusivo de admins */
+.ptitle.xtt[data-xt="🛡️ Admin"],.tt.xtt[data-xt="🛡️ Admin"],.ptt.xtt[data-xt="🛡️ Admin"],#rkTitle.xtt[data-xt="🛡️ Admin"],[data-xt="🛡️ Admin"]{background:linear-gradient(90deg,#ff1f3d,#111 50%,#ff1f3d)!important;background-size:200% 100%!important;animation:gxFlow 3s linear infinite;color:#fff!important;box-shadow:0 0 12px rgba(255,31,61,.75);text-shadow:0 1px 0 #000}
+.fr-xadm{box-shadow:0 0 0 3px #fff,0 0 0 6px #ff1f3d,0 0 0 8px #000,0 0 24px #ff1f3d!important;animation:xadmp 1.6s ease-in-out infinite}
+@keyframes xadmp{50%{box-shadow:0 0 0 3px #ff1f3d,0 0 0 6px #fff,0 0 0 8px #000,0 0 34px 4px #ff1f3d}}
+.nc-xadm{background:linear-gradient(90deg,#ff1f3d,#ffffff,#ff6b7d,#ff1f3d)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;background-size:250% 100%!important;animation:rgbmove 2.4s linear infinite}
+.mecard.bg-xadm{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='70'%3E%3Ctext x='6' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='26' fill='%23ffffff' fill-opacity='.10' transform='rotate(-14 65 35)'%3EADMIN%3C/text%3E%3C/svg%3E"),linear-gradient(135deg,#2a0008,#7a0014 55%,#140004)!important;border:2px solid #ff1f3d}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -10064,13 +10070,13 @@ const _trGoN=go;go=function(v,g){if(v==='trading'&&view!=='trading'&&!(TRU.tut>=
 i18nAdd([['Qué es Casinetori','What is Casinetori','Qu\'est-ce que Casinetori','O que é o Casinetori'],['Privacidad y cookies','Privacy and cookies','Confidentialité et cookies','Privacidade e cookies'],['Aviso legal','Legal notice','Mentions légales','Aviso legal'],['Contacto','Contact','Contact','Contacto'],['Juego gratis con dinero ficticio. Aquí no se apuesta ni se gana dinero real.','Free game with fake money. No real money is bet or won here.','Jeu gratuit avec de l\'argent fictif. Ici, on ne parie ni ne gagne d\'argent réel.','Jogo grátis com dinheiro a fingir. Aqui não se aposta nem se ganha dinheiro real.'],['Casino virtual','Virtual casino','Casino virtuel','Casino virtual'],['Simulador de trading','Trading simulator','Simulateur de trading','Simulador de trading'],['Preguntas frecuentes','FAQ','Questions fréquentes','Perguntas frequentes']]);
 
 /* ===== 2026-10-03-p: EXCLUSIVOS (solo los da el jefe) ===== */
-const EXAV=['🐐','🔱','🗿','🏆'];
-COS.ti.push(['xog','OG',999,'','x'],['xfund','Fundador',999,'','x'],['xbug','Cazabugs',999,'','x'],['xvip','VIP',999,'','x'],['xjefe','Mano derecha del jefe',999,'','x'],['xley','Leyenda de Casinetori',999,'','x']);
-COS.f.push(['xog','OG',999,'fr-xog','x'],['xvip','VIP',999,'fr-xvip','x'],['xbug','Cazabugs',999,'fr-xbug','x']);
-COS.c.push(['xog','OG',999,'nc-xog','x'],['xvip','VIP',999,'nc-xvip','x']);
-COS.bg.push(['xog','OG',999,'bg-xog','x'],['xvip','VIP',999,'bg-xvip','x']);
+const EXAV=['🐐','🔱','🗿','🏆','🛡️'];
+COS.ti.push(['xog','OG',999,'','x'],['xfund','Fundador',999,'','x'],['xbug','Cazabugs',999,'','x'],['xvip','VIP',999,'','x'],['xjefe','Mano derecha del jefe',999,'','x'],['xley','Leyenda de Casinetori',999,'','x'],['xadm','🛡️ Admin',999,'','x']);
+COS.f.push(['xog','OG',999,'fr-xog','x'],['xvip','VIP',999,'fr-xvip','x'],['xbug','Cazabugs',999,'fr-xbug','x'],['xadm','Admin',999,'fr-xadm','x']);
+COS.c.push(['xog','OG',999,'nc-xog','x'],['xvip','VIP',999,'nc-xvip','x'],['xadm','Admin',999,'nc-xadm','x']);
+COS.bg.push(['xog','OG',999,'bg-xog','x'],['xvip','VIP',999,'bg-xvip','x'],['xadm','Admin',999,'bg-xadm','x']);BGSW.xadm='linear-gradient(135deg,#2a0008,#7a0014 55%,#140004)';
 BGSW.xog="linear-gradient(135deg,#1a0636,#3b0d6e 55%,#120326)";BGSW.xvip="radial-gradient(circle at 15% 20%,#ff4fd8,transparent 55%),radial-gradient(circle at 85% 80%,#3ff0ff,transparent 55%),#0b0618";
-const EXC_PACKS={og:['ti:xog','f:xog','c:xog','bg:xog','av:🐐'],vip:['ti:xvip','f:xvip','c:xvip','bg:xvip'],bug:['ti:xbug','f:xbug']};
+const EXC_PACKS={og:['ti:xog','f:xog','c:xog','bg:xog','av:🐐'],vip:['ti:xvip','f:xvip','c:xvip','bg:xvip'],bug:['ti:xbug','f:xbug'],adm:['ti:xadm','f:xadm','c:xadm','bg:xadm','av:🛡️']};
 const EXC_KN={ti:'Título',f:'Marco',c:'Color de nombre',bg:'Fondo',av:'Cara'};
 const EXC_ALL=[...COS.ti.filter(x=>x[4]==='x').map(x=>'ti:'+x[0]),...COS.f.filter(x=>x[4]==='x').map(x=>'f:'+x[0]),...COS.c.filter(x=>x[4]==='x').map(x=>'c:'+x[0]),...COS.bg.filter(x=>x[4]==='x').map(x=>'bg:'+x[0]),...EXAV.map(a=>'av:'+a)];
 function hasExc(k,id){return(S.exc||[]).includes(k+':'+id)}
@@ -13524,6 +13530,13 @@ try{i18nAdd([['🔐 Caja fuerte','🔐 Safe','🔐 Coffre-fort','🔐 Cofre'],['
 
 try{i18nAdd([['🌍 Escribe en tu idioma, el jefe lo entiende.','🌍 Write in your own language, the boss understands it.','🌍 Écris dans ta langue, le chef la comprend.','🌍 Escreve na tua língua, o chefe entende.'],['Escribe aquí… (en tu idioma)','Write here… (in your language)','Écris ici… (dans ta langue)','Escreve aqui… (na tua língua)']])}catch(e){}
 try{const t=TUTOS.find(x=>x[4]&&x[4].some(y=>/Buzón del jefe/.test(y[0])))||TUTOS[0];if(t&&!t[4].some(x=>/en tu idioma/.test(x[0])))t[4].push(['En el <b>Buzón del jefe</b> puedes escribir <b>en tu idioma</b>: el jefe lo entiende.'])}catch(e){}
+/* pack de admins: se da solo a quien es admin (jefe o moderador) y se quita si deja de serlo */
+const ADM_PACK=EXC_PACKS.adm;
+function admPackSync(){try{if(!NET.db||!NET.id||!NET.ok)return;NET.db.collection('admins').doc(NET.id).get().then(d=>{S.exc=S.exc||[];
+  if(d.exists){const miss=ADM_PACK.filter(k=>!S.exc.includes(k));if(miss.length){S.exc.push(...miss);save();try{NET.lastP='';pushPlayer()}catch(e){}try{excShow(miss)}catch(e){}}}
+  else if(ADM_PACK.some(k=>S.exc.includes(k))){S.exc=S.exc.filter(k=>!ADM_PACK.includes(k));const c=myCos();['ti','f','c','bg'].forEach(k=>{if(c[k]==='xadm')c[k]=''});if(S.av==='🛡️')S.av='😎';save();try{NET.lastP='';pushPlayer()}catch(e){}try{renderMe()}catch(e){}}}).catch(()=>{})}catch(e){}}
+setTimeout(admPackSync,6000);setInterval(admPackSync,300000);
+
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
