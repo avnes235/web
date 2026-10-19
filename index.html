@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-18-1134">
+<meta name="app-version" content="2026-10-19-0930">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -5461,10 +5461,10 @@ function renderAdmSide(){const el=$('#admSide'),p=ADM.sel&&NET.players.get(ADM.s
   if(!p){el.innerHTML=`<div class="empty"><span class="emo">🎯</span><b>Elige a alguien de la lista</b><span>Desde aquí le das dinero, se lo quitas o le haces la vida imposible.</span></div>`;return}
   const id=ADM.sel,on=id===NET.id||NET.online.has(id),ban=ADM.bans.has(id);
   el.innerHTML=`<div class="who"><span class="bigav emo">${avH(p)}</span><div style="min-width:0"><h3 style="font-size:30px;overflow-wrap:anywhere;line-height:1">${esc(p.name||'Sin nombre')}</h3><small class="num muted">${esc(p.code||'')}</small> ${on?'<span class="tag on">Online</span>':`<span class="tag off">${ago(+p.t)}</span>`}${ban?'<span class="tag">Baneado</span>':''}</div></div>
-   <div class="kv"><div><small>Cartera</small><b>${fmt(+p.coins||0)} €</b></div><div><small>Ganado en total</small><b>${short(+p.earned||0)} €</b></div><div><small>Nivel</small><b>${+p.lvl||1}</b></div><div><small>Logros</small><b>${+p.ach||0}</b></div><div style="grid-column:1/-1"><small>Gastado en el millonario</small><b>${eurS(+p.spent||0)}</b></div></div>
+   <div class="kv"><div><small>Cartera</small><b>${fmt(+p.coins||0)} €</b></div><div><small>🔐 Caja fuerte</small><b>${fmt(+p.sf||0)} €</b></div><div><small>Cartera + caja</small><b>${fmt((+p.coins||0)+(+p.sf||0))} €</b></div><div><small>Ganado en total</small><b>${short(+p.earned||0)} €</b></div><div><small>Nivel</small><b>${+p.lvl||1}</b></div><div><small>Logros</small><b>${+p.ach||0}</b></div><div style="grid-column:1/-1"><small>Gastado en el millonario</small><b>${eurS(+p.spent||0)}</b></div></div>
    <span class="alab">Dinero</span>
    <div class="amt"><input class="inp num" id="admAmt" inputmode="numeric" aria-label="Cantidad"><button class="qa" data-q="100">100</button><button class="qa" data-q="1000">1k</button><button class="qa" data-q="10000">10k</button><button class="qa" data-q="1000000">1M</button></div>
-   <div class="abtns"><button class="btn mint" data-a="give">Dar</button><button class="btn red" data-a="take">Quitar</button><button class="btn" data-a="double">Duplicar</button><button class="btn dark" data-a="zero">Dejar a cero</button></div>
+   <div class="abtns"><button class="btn mint" data-a="give">Dar</button><button class="btn red" data-a="take">Quitar de la cartera</button><button class="btn red" data-a="takesafe">Quitar de la caja fuerte</button><button class="btn red" data-a="takeall">Quitar de las dos</button><button class="btn" data-a="double">Duplicar</button><button class="btn dark" data-a="zero">Cartera a cero</button><button class="btn dark" data-a="zeroall">Todo a cero (cartera y caja)</button></div><p class="netmsg" style="margin:4px 0 0">«Quitar de las dos» quita primero de la cartera y lo que falte, de la caja fuerte.</p>
    <span class="alab">Bromas</span>
    <div class="abtns"><button class="btn alt" data-a="bsod">Pantallazo azul</button><button class="btn alt" data-a="flip">Girar pantalla</button><button class="btn alt" data-a="fake">Falso «lo has perdido todo»</button></div>
    <span class="alab">Mensaje en grande</span>
@@ -5479,17 +5479,17 @@ $('#admQ').addEventListener('input',e=>{ADM.q=e.target.value.trim();renderAdmin(
 $('#admSide').addEventListener('click',async e=>{const q=e.target.closest('[data-q]');if(q){$('#admAmt').value=q.dataset.q;return}
   const b=e.target.closest('[data-a]');if(!b||!ADM.sel)return;const a=b.dataset.a,id=ADM.sel,nm=(NET.players.get(id)||{}).name||'ese';
   const amt=Math.floor(+String($('#admAmt').value||'').replace(/\D/g,'')||0);
-  if((a==='zero'||a==='reset')&&ADM.confirm!==a+id){ADM.confirm=a+id;b.textContent='¿Seguro? Pulsa otra vez';setTimeout(()=>{if(ADM.confirm===a+id){ADM.confirm=null;renderAdmSide()}},3000);return}
+  if((a==='zero'||a==='zeroall'||a==='reset')&&ADM.confirm!==a+id){ADM.confirm=a+id;b.textContent='¿Seguro? Pulsa otra vez';setTimeout(()=>{if(ADM.confirm===a+id){ADM.confirm=null;renderAdmSide()}},3000);return}
   ADM.confirm=null;
   if(a==='restore'){const code=($('#admRec').value||'').trim().toUpperCase().replace(/\s+/g,'');const tgt=([...NET.players.entries()].find(([,d])=>String(d.code||'').toUpperCase()===code)||[])[0];
     if(!tgt){toast('No encuentro ese código','Revisa que la cuenta nueva tenga nombre puesto','var(--coral)','⚠️');return}if(tgt===id){toast('Es la misma cuenta','Pon el código de la cuenta nueva','var(--coral)','⚠️');return}
     if(ADM.rconf!=='rs'+id+tgt){ADM.rconf='rs'+id+tgt;b.textContent='¿Seguro? Pulsa otra vez';return}ADM.rconf=null;
     if(await admRestore(id,tgt)){ADM.sel=null;renderAdmin()}return}
   if(a==='ban'){ADM.bans.has(id)?ADM.bans.delete(id):ADM.bans.add(id);try{await NET.db.collection('meta').doc('bans').set({ids:[...ADM.bans]});toast(ADM.bans.has(id)?'Baneado de la clasificación':'Baneo quitado',esc(nm),'var(--red)','🔨')}catch(err){toast('No se ha podido','Revisa la conexión','var(--coral)','⚠️')}renderAdmin();renderAdmSide();return}
-  if((a==='give'||a==='take')&&!amt){toast('Pon una cantidad','','var(--coral)','⚠️');return}
+  if((a==='give'||a==='take'||a==='takesafe'||a==='takeall')&&!amt){toast('Pon una cantidad','','var(--coral)','⚠️');return}
   let text='';if(a==='msg'){text=$('#admMsg').value.trim();if(!text){toast('Escribe el mensaje','','var(--coral)','⚠️');return}}
   b.disabled=true;const ok=await sendCmdP(id,a,amt,text);b.disabled=false;
-  if(ok){sfx('coin');const L={give:'Le das '+short(amt)+' €',take:'Le quitas '+short(amt)+' €',double:'Le duplicas la cartera',zero:'Le dejas a cero',bsod:'Pantallazo azul enviado',flip:'Pantalla girada',fake:'Susto enviado',msg:'Mensaje enviado',reset:'Partida borrada'};
+  if(ok){sfx('coin');const L={give:'Le das '+short(amt)+' €',take:'Le quitas '+short(amt)+' € de la cartera',takesafe:'Le quitas '+short(amt)+' € de la caja fuerte',takeall:'Le quitas '+short(amt)+' € (cartera y caja)',zeroall:'Le dejas todo a cero',double:'Le duplicas la cartera',zero:'Le dejas a cero',bsod:'Pantallazo azul enviado',flip:'Pantalla girada',fake:'Susto enviado',msg:'Mensaje enviado',reset:'Partida borrada'};
     toast(L[a]||'Hecho',esc(nm),'var(--red)','🛠️');if(a==='msg')$('#admMsg').value='';renderAdmSide()}});
 async function admRestore(id,tgt){try{const sv=await NET.db.collection('data/users/'+id).doc('save').get();if(!sv.exists){toast('No tiene partida guardada en la nube','Solo se puede recuperar si jugaba con la web conectada','var(--coral)','⚠️');return false}
     await NET.db.collection('cmds/'+tgt+'/q').add({type:'restore',json:(sv.data()||{}).json||'',t:Date.now()});await NET.db.collection('players').doc(id).delete().catch(()=>{});
@@ -6136,6 +6136,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-19-a',t:'Admin: caja fuerte',items:[['🔐','Quitar también de la caja fuerte','En el panel de cada jugador ves su cartera, su caja fuerte y el total. Puedes quitar de la cartera, de la caja fuerte o de las dos (primero cartera y luego caja), y dejarlo todo a cero.','new','#ff3b4f']]},
  {v:'2026-10-18-a',t:'Multiplicadores del casino con tope',items:[['🎰','Tope en lo extra','Los multiplicadores del casino (ruleta, Casino caliente, eventos x2…) siguen sumando, pero lo extra de cada jugada tiene un tope: el 1 % de tu dinero (mínimo 100.000 €). Así nadie puede romper el juego apostando todo en jugadas casi seguras con el multiplicador puesto.','new','#ff9d00']]},
  {v:'2026-10-17-o',t:'Avisos más arriba',items:[['📣','Ya no tapan el centro','Los avisos grandes (premios, multiplicadores, nivel…) salen arriba, debajo de la barra, más pequeños. Si salen dos a la vez, uno va debajo del otro sin pisarse.','new','#4aa8ff']]},
  {v:'2026-10-17-n',t:'Gran Premio de Cine cada 3 horas',items:[['🎬','Ya no es una vez al día','Ahora puedes girar el Gran Premio de Cine cada 3 horas (mira un anuncio y gira). El botón te enseña la cuenta atrás para la siguiente.','new','#ffd600']]},
@@ -13507,6 +13508,21 @@ try{i18nAdd([['Avisos más arriba','Notices higher up','Annonces plus haut','Avi
 try{const fb=TUTOS[0];if(fb&&!fb[4].some(x=>/avisos grandes/.test(x[0])))fb[4].push(['Los <b>avisos grandes</b> (premios, multiplicadores, subir de nivel…) salen arriba del todo, debajo de la barra, para no tapar la partida.'])}catch(e){}
 try{i18nAdd([['Multiplicadores del casino con tope','Casino multipliers capped','Multiplicateurs du casino plafonnés','Multiplicadores do casino com limite'],['Tope en lo extra','Cap on the extra','Plafond sur le bonus','Limite no extra'],['Los multiplicadores del casino (ruleta, Casino caliente, eventos x2…) siguen sumando, pero lo extra de cada jugada tiene un tope: el 1 % de tu dinero (mínimo 100.000 €). Así nadie puede romper el juego apostando todo en jugadas casi seguras con el multiplicador puesto.','Casino multipliers (wheel, Hot casino, x2 events…) still add up, but the extra per play is capped at 1% of your money (minimum 100.000 €), so nobody can break the game betting everything on near-safe plays.','Les multiplicateurs du casino s’additionnent toujours, mais le bonus de chaque partie est plafonné à 1 % de ton argent (minimum 100.000 €).','Os multiplicadores do casino continuam a somar, mas o extra de cada jogada tem limite: 1 % do teu dinheiro (mínimo 100.000 €).']])}catch(e){}
 try{const t=TUTOS.find(x=>x[1]==='Casino')||TUTOS[1];if(t&&!t[4].some(x=>/tope/.test(x[0])))t[4].push(['<b>Multiplicadores del casino</b> (x2, x3… de la ruleta o de los eventos): multiplican lo que ganas, pero lo extra de cada jugada tiene un <b>tope del 1 % de tu dinero</b> (mínimo 100.000 €).'])}catch(e){}
+/* admin: quitar de la caja fuerte o de las dos (cartera primero) */
+{const _acSf=applyCmd;applyCmd=function(id,c){const T=c&&c.type;if(T!=='takesafe'&&T!=='takeall'&&T!=='zeroall')return _acSf.apply(this,arguments);
+  S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return;S.cmdDone.push(id);if(S.cmdDone.length>120)S.cmdDone.shift();
+  const n=Math.max(0,Math.floor(+c.n||0));let w=0,sf=0;
+  if(T==='zeroall'){w=Math.floor(+S.coins||0);sf=Math.floor(+S.safe||0);S.coins=0;S.safe=0}
+  else if(T==='takesafe'){sf=Math.min(Math.floor(+S.safe||0),n);S.safe=(+S.safe||0)-sf}
+  else{w=Math.min(Math.max(0,Math.floor(+S.coins||0)),n);S.coins-=w;sf=Math.min(Math.floor(+S.safe||0),n-w);S.safe=(+S.safe||0)-sf}
+  try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}try{sfx('lose')}catch(e){}
+  troll(T==='zeroall'?'A CERO':'TE HAN ROBADO',T==='zeroall'?'el jefe te ha dejado sin cartera ni caja fuerte':'el jefe te ha quitado '+short(w+sf)+' €'+(sf?' (de la caja fuerte: '+short(sf)+' €)':''),'#ff3b4f',true)}}
+{const _apSf=admPatch;admPatch=function(id,type,n,text){if(type!=='takesafe'&&type!=='takeall'&&type!=='zeroall')return _apSf.apply(this,arguments);
+  const p=NET.players.get(id)||{},c=Math.max(0,Math.floor(+p.coins||0)),f=Math.max(0,Math.floor(+p.sf||0));n=Math.max(0,Math.floor(+n||0));
+  if(type==='zeroall')return{coins:0,sf:0};if(type==='takesafe')return{sf:Math.max(0,f-n)};const w=Math.min(c,n);return{coins:c-w,sf:Math.max(0,f-(n-w))}}}
+try{i18nAdd([['🔐 Caja fuerte','🔐 Safe','🔐 Coffre-fort','🔐 Cofre'],['Cartera + caja','Wallet + safe','Portefeuille + coffre','Carteira + cofre'],['Quitar de la cartera','Take from wallet','Retirer du portefeuille','Tirar da carteira'],['Quitar de la caja fuerte','Take from safe','Retirer du coffre','Tirar do cofre'],['Quitar de las dos','Take from both','Retirer des deux','Tirar dos dois'],['Cartera a cero','Wallet to zero','Portefeuille à zéro','Carteira a zero'],['Todo a cero (cartera y caja)','All to zero (wallet and safe)','Tout à zéro (portefeuille et coffre)','Tudo a zero (carteira e cofre)'],['«Quitar de las dos» quita primero de la cartera y lo que falte, de la caja fuerte.','“Take from both” takes from the wallet first and the rest from the safe.','« Retirer des deux » prend d’abord dans le portefeuille, puis le reste dans le coffre.','«Tirar dos dois» tira primeiro da carteira e o resto do cofre.'],['el jefe te ha dejado sin cartera ni caja fuerte','the boss left you with no wallet or safe','le chef t’a laissé sans portefeuille ni coffre','o chefe deixou-te sem carteira nem cofre']])}catch(e){}
+
+try{i18nAdd([['Admin: caja fuerte','Admin: safe','Admin : coffre-fort','Admin: cofre'],['Quitar también de la caja fuerte','Take from the safe too','Retirer aussi du coffre','Tirar também do cofre'],['En el panel de cada jugador ves su cartera, su caja fuerte y el total. Puedes quitar de la cartera, de la caja fuerte o de las dos (primero cartera y luego caja), y dejarlo todo a cero.','Each player panel shows wallet, safe and total. You can take from the wallet, the safe or both (wallet first), or set all to zero.','Le panneau de chaque joueur montre portefeuille, coffre et total. Tu peux retirer du portefeuille, du coffre ou des deux, ou tout mettre à zéro.','O painel de cada jogador mostra carteira, cofre e total. Podes tirar da carteira, do cofre ou dos dois, ou pôr tudo a zero.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
