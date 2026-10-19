@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-19-0934">
+<meta name="app-version" content="2026-10-19-1440">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -6644,7 +6644,8 @@ function renderBuzon(keepForm){const el=$('#hlBody');if(S.bzNew){S.bzNew=false;s
     <div class="bztypes">${Object.entries(BZT).map(([k,[e,n,c]])=>`<button data-bzt="${k}" style="--c:${c}" aria-pressed="${BZ.type===k}"><span class="emo">${e}</span>${n}</button>`).join('')}</div>
     ${BZ.type==='rec'?recHelp:`<div class="bzhelp" style="border-color:${T[2]}">${T[3]}</div>`}
     ${BZ.type==='rec'?`<label for="bzOld" style="font-weight:800;display:block">Tu nombre ANTIGUO con el código</label><input class="inp" id="bzOld" maxlength="30" placeholder="Ej: PEPE#4821" autocomplete="off" autocapitalize="characters" spellcheck="false" style="width:100%;margin:6px 0 10px">`:''}
-    <textarea class="inp" id="bzTxt" maxlength="400" placeholder="${BZ.type==='rec'?'Opcional: algo más que ayude al jefe (cuánto dinero tenías, tu nivel…)':'Escribe aquí…'}"></textarea><div class="bzcount"><span id="bzN">0</span>/400</div>
+    <textarea class="inp" id="bzTxt" maxlength="400" placeholder="${BZ.type==='rec'?'Opcional: algo más que ayude al jefe (cuánto dinero tenías, tu nivel…)':'Escribe aquí… (en tu idioma)'}"></textarea><div class="bzcount"><span id="bzN">0</span>/400</div>
+    <p class="bzlang" style="margin:6px 0 0;font-size:13px;opacity:.85">🌍 Escribe en tu idioma, el jefe lo entiende.</p>
     <button class="btn big" id="bzGo" style="width:100%;margin-top:8px">Enviar al jefe</button>
     ${NET.ok?'':'<p class="warn">Sin conexión: ahora no se puede enviar.</p>'}</div>
    <div class="panel"><h3>Mis mensajes</h3><div id="bzMine">${listH}</div></div></div>`;
@@ -13521,6 +13522,8 @@ try{const t=TUTOS.find(x=>x[1]==='Casino')||TUTOS[1];if(t&&!t[4].some(x=>/tope/.
   if(type==='zeroall')return{coins:0,sf:0};if(type==='takesafe')return{sf:Math.max(0,f-n)};const w=Math.min(c,n);return{coins:c-w,sf:Math.max(0,f-(n-w))}}}
 try{i18nAdd([['🔐 Caja fuerte','🔐 Safe','🔐 Coffre-fort','🔐 Cofre'],['Cartera + caja','Wallet + safe','Portefeuille + coffre','Carteira + cofre'],['Quitar de la cartera','Take from wallet','Retirer du portefeuille','Tirar da carteira'],['Quitar de la caja fuerte','Take from safe','Retirer du coffre','Tirar do cofre'],['Quitar de las dos','Take from both','Retirer des deux','Tirar dos dois'],['Cartera a cero','Wallet to zero','Portefeuille à zéro','Carteira a zero'],['Todo a cero (cartera y caja)','All to zero (wallet and safe)','Tout à zéro (portefeuille et coffre)','Tudo a zero (carteira e cofre)'],['«Quitar de las dos» quita primero de la cartera y lo que falte, de la caja fuerte.','“Take from both” takes from the wallet first and the rest from the safe.','« Retirer des deux » prend d’abord dans le portefeuille, puis le reste dans le coffre.','«Tirar dos dois» tira primeiro da carteira e o resto do cofre.'],['el jefe te ha dejado sin cartera ni caja fuerte','the boss left you with no wallet or safe','le chef t’a laissé sans portefeuille ni coffre','o chefe deixou-te sem carteira nem cofre']])}catch(e){}
 
+try{i18nAdd([['🌍 Escribe en tu idioma, el jefe lo entiende.','🌍 Write in your own language, the boss understands it.','🌍 Écris dans ta langue, le chef la comprend.','🌍 Escreve na tua língua, o chefe entende.'],['Escribe aquí… (en tu idioma)','Write here… (in your language)','Écris ici… (dans ta langue)','Escreve aqui… (na tua língua)']])}catch(e){}
+try{const t=TUTOS.find(x=>x[4]&&x[4].some(y=>/Buzón del jefe/.test(y[0])))||TUTOS[0];if(t&&!t[4].some(x=>/en tu idioma/.test(x[0])))t[4].push(['En el <b>Buzón del jefe</b> puedes escribir <b>en tu idioma</b>: el jefe lo entiende.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
