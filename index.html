@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-20-2129">
+<meta name="app-version" content="2026-10-20-2154">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2606,7 +2606,7 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]{position:relat
 #noAccBar .na-t{color:#e9e9f0}#noAccBar .na-t>b:not(.gbt){color:#fff}
 /* fotos de perfil con tamaño fijo: así no encogen la lista mientras cargan */
 .avimg{aspect-ratio:1/1;object-fit:cover}
-html.isscroll *,html.isscroll *::before,html.isscroll *::after{animation-play-state:paused!important}
+:root{--zk:1}html.isscroll :not(:is(.rcoin,.frcoin,.hunt,.hwpump,.ufogift,.fly,.flyer,.gold,.coinrain,#rainL,.rpop,.flypop)):not(:is(.rcoin,.frcoin,.hunt,.hwpump,.ufogift,.fly,.flyer,.gold) *),html.isscroll :not(:is(.rcoin,.frcoin,.hunt,.hwpump,.fly,.gold))::before,html.isscroll :not(:is(.rcoin,.frcoin,.hunt,.hwpump,.fly,.gold))::after{animation-play-state:paused!important}
 /* act.2 · móviles estrechos: clasificación con el dinero debajo del nombre (así el nombre, el título y la caja fuerte se leen) */
 @media (max-width:560px){
   .rkr{grid-template-columns:28px 40px minmax(0,1fr)!important;row-gap:2px!important}
@@ -2626,6 +2626,13 @@ html.isscroll *,html.isscroll *::before,html.isscroll *::after{animation-play-st
 .stc{overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
 .stcd{display:grid;gap:4px;height:150px;align-items:end;min-width:100%}.stcd>div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:3px}
 .stcd i{display:block;width:100%;border-radius:5px 5px 2px 2px}.stcd b{font:900 11px var(--f-n)}.stcd small{font:700 10px var(--f-b);color:var(--muted);white-space:nowrap}
+/* monedas que caen, caza y calabazas: mismo tamaño en la pantalla aunque hagas zoom (así no se gana fácil agrandando) */
+.rcoin{width:calc(52px*var(--zk,1))!important;height:calc(52px*var(--zk,1))!important;font-size:calc(24px*var(--zk,1))!important}
+.frcoin{width:calc(46px*var(--zk,1))!important;height:calc(46px*var(--zk,1))!important;font-size:calc(20px*var(--zk,1))!important;line-height:calc(40px*var(--zk,1))!important}
+.hunt{width:calc(64px*var(--zk,1))!important;height:calc(64px*var(--zk,1))!important;font-size:calc(28px*var(--zk,1))!important;line-height:calc(56px*var(--zk,1))!important}
+.hwpump{width:calc(74px*var(--zk,1))!important;height:calc(74px*var(--zk,1))!important}
+._tnshot .plato{width:calc(52px*var(--pk,1));height:calc(26px*var(--pk,1));left:calc(-26px*var(--pk,1));top:calc(-13px*var(--pk,1))}
+._tnshot .plato.g{width:calc(42px*var(--pk,1));height:calc(21px*var(--pk,1));left:calc(-21px*var(--pk,1));top:calc(-10px*var(--pk,1))}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6174,7 +6181,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
- {v:'2026-10-20-a',t:'Más fluido y sin fallos',items:[['📱','Va fluido en el móvil','Al deslizar ya no va a tirones y la página no salta hacia arriba sola.','fix','#14e08a'],['⬅️','La flecha de atrás ya no cierra el juego','Te lleva a la pantalla anterior o cierra la ventana abierta. En Inicio te avisa: pulsa otra vez para salir.','fix','#4aa8ff'],['🔄','PC y móvil, siempre igual','El tiempo jugado y la caja fuerte se pasan bien entre dispositivos.','fix','#b06bff'],['🪙','Coger monedas sin pulsar lo de detrás','Al tocar una moneda, calabaza o regalo que cae, ya no se pulsa el botón que hay debajo.','fix','#ffd600'],['🎯','Tiro al plato preciso','El disparo sale justo donde apuntas, también con la pantalla ajustada.','fix','#ff6b4a'],['🎁','Regalar desde Amigos','Ahora también puedes regalar a tus amigos que salen en el podio.','fix','#14e08a'],['👑','Un solo rey','El título «Rey de Casinetori» solo lo lleva el número 1 de ahora.','fix','#ffd600'],['🏆','Logros revisados','Memoria, Reflejos y Pichichi ahora van por puntos, como los juegos. Ya se pueden hacer todos.','fix','#ff9d00'],['🎡','Ruleta más clara','En la apuesta rápida ves cuánto hay puesto en Rojo, Negro y Verde.','new','#ff3b4f'],['🏛️','Bóveda ordenada','Colecciones de menor a mayor premio, y explicado qué pasa si vendes algo.','fix','#b06bff'],['🔑','Crear cuenta más fácil','Menos texto, el regalo de Google bien visible y, si no pones nombre, se usa tu usuario.','fix','#14e08a'],['🔊','Sonidos nuevos','Cada cosa suena distinta: subir de nivel, evento, mensaje, regalo, premio gordo y actualización.','new','#4aa8ff'],['📏','Todo cabe en móviles pequeños','La clasificación, la ayuda y la barra de arriba ya no se cortan.','fix','#ffd600']]},
+ {v:'2026-10-20-a',t:'Más fluido y sin fallos',items:[['🌧️','La lluvia de monedas, mejor','Las monedas ya no se paran si deslizas la pantalla, y cuando se acaba el dinero siguen cayendo monedas grises vacías hasta el final.','fix','#ffd600'],['📱','Va fluido en el móvil','Al deslizar ya no va a tirones y la página no salta hacia arriba sola.','fix','#14e08a'],['⬅️','La flecha de atrás ya no cierra el juego','Te lleva a la pantalla anterior o cierra la ventana abierta. En Inicio te avisa: pulsa otra vez para salir.','fix','#4aa8ff'],['🔄','PC y móvil, siempre igual','El tiempo jugado y la caja fuerte se pasan bien entre dispositivos.','fix','#b06bff'],['🪙','Coger monedas sin pulsar lo de detrás','Al tocar una moneda, calabaza o regalo que cae, ya no se pulsa el botón que hay debajo.','fix','#ffd600'],['🎯','Tiro al plato preciso','El disparo sale justo donde apuntas, también con la pantalla ajustada.','fix','#ff6b4a'],['🎁','Regalar desde Amigos','Ahora también puedes regalar a tus amigos que salen en el podio.','fix','#14e08a'],['👑','Un solo rey','El título «Rey de Casinetori» solo lo lleva el número 1 de ahora.','fix','#ffd600'],['🏆','Logros revisados','Memoria, Reflejos y Pichichi ahora van por puntos, como los juegos. Ya se pueden hacer todos.','fix','#ff9d00'],['🎡','Ruleta más clara','En la apuesta rápida ves cuánto hay puesto en Rojo, Negro y Verde.','new','#ff3b4f'],['🏛️','Bóveda ordenada','Colecciones de menor a mayor premio, y explicado qué pasa si vendes algo.','fix','#b06bff'],['🔑','Crear cuenta más fácil','Menos texto, el regalo de Google bien visible y, si no pones nombre, se usa tu usuario.','fix','#14e08a'],['🔊','Sonidos nuevos','Cada cosa suena distinta: subir de nivel, evento, mensaje, regalo, premio gordo y actualización.','new','#4aa8ff'],['📏','Todo cabe en móviles pequeños','La clasificación, la ayuda y la barra de arriba ya no se cortan.','fix','#ffd600']]},
  {v:'2026-10-18-a',t:'Multiplicadores del casino con tope',items:[['🎰','Tope en lo extra','Los multiplicadores del casino (ruleta, Casino caliente, eventos x2…) siguen sumando, pero lo extra de cada jugada tiene un tope: el 1 % de tu dinero (mínimo 100.000 €). Así nadie puede romper el juego apostando todo en jugadas casi seguras con el multiplicador puesto.','new','#ff9d00']]},
  {v:'2026-10-17-o',t:'Avisos más arriba',items:[['📣','Ya no tapan el centro','Los avisos grandes (premios, multiplicadores, nivel…) salen arriba, debajo de la barra, más pequeños. Si salen dos a la vez, uno va debajo del otro sin pisarse.','new','#4aa8ff']]},
  {v:'2026-10-17-n',t:'Gran Premio de Cine cada 3 horas',items:[['🎬','Ya no es una vez al día','Ahora puedes girar el Gran Premio de Cine cada 3 horas (mira un anuncio y gira). El botón te enseña la cuenta atrás para la siguiente.','new','#ffd600']]},
@@ -9335,9 +9342,9 @@ const TNPLAY={
   const run=api.run;let pts=0,hits=0,miss=0;
   ar.innerHTML=`<div class="_tnshot" id="tsA"><div class="sky"></div><p class="hint" id="tsH">¡Dispara a los platos!</p></div>`;const A=$('#tsA');
   let t0=performance.now(),paused=0,pz=0;const el=()=>performance.now()-t0-paused;
-  const pos=(p,tt)=>{const k=(tt-p.t)/p.dur;return{k,x:p.x0+p.dir*p.dx*k,y:1-4*p.h*k*(1-k)}};
+  const pos=(p,tt)=>{const k=(tt-p.t)/p.dur;return{k,x:p.x0+p.dir*p.dx*k,y:1-4*p.h*k*(1-k)}};const pk=()=>Math.max(.45,Math.min(2.5,(A.offsetWidth||360)/360));A.style.setProperty('--pk',pk());
   A.onpointerdown=e=>{if(run.paused||run.over||!e.isTrusted)return;e.preventDefault();const r0=A.getBoundingClientRect(),zs=(r0.width/(A.offsetWidth||r0.width))||1,r={width:A.offsetWidth,height:A.offsetHeight},px=(e.clientX-r0.left)/zs,py=(e.clientY-r0.top)/zs,tt=el();let best=null,bd=1e9;
-    pl.forEach(p=>{if(p.hit||!p.el||tt<p.t||tt>p.t+p.dur)return;const q=pos(p,tt),cx=q.x*r.width,cy=q.y*(r.height-40)+10,d=Math.hypot(px-cx,py-cy),rad=(p.gold?30:38)+10;if(d<rad&&d<bd){bd=d;best=p}});
+    pl.forEach(p=>{if(p.hit||!p.el||tt<p.t||tt>p.t+p.dur)return;const q=pos(p,tt),cx=q.x*r.width,cy=q.y*(r.height-40)+10,d=Math.hypot(px-cx,py-cy),rad=((p.gold?30:38)+10)*pk();if(d<rad&&d<bd){bd=d;best=p}});
     const fx=document.createElement('span');fx.className='bang';fx.style.left=px+'px';fx.style.top=py+'px';A.appendChild(fx);setTimeout(()=>fx.remove(),400);
     if(best){best.hit=1;hits++;pts+=best.gold?250:100;best.el.classList.add('boom');const e2=best.el;setTimeout(()=>e2.remove(),350);tone(best.gold?1400:900,.06,'square',.05);fx.textContent=best.gold?'+250':'+100';fx.classList.add('ok')}
     else{miss++;pts=Math.max(0,pts-50);fx.textContent='−50';sfx('hit')}api.set(pts)};
@@ -10439,8 +10446,8 @@ function rainLeft(e){return Math.max(0,(e.pool||2000000)-rainTaken(e))}
 function rainTopTxt(e){const arr=[];NET.players.forEach((p,id)=>{if(id!==NET.id&&p.rain&&p.rain.id===e.id&&+p.rain.n>0)arr.push([p.name,+p.rain.n])});if(S.rainG&&S.rainG.id===e.id&&S.rainG.n>0)arr.push([S.name||'Tú',S.rainG.n]);arr.sort((a,b)=>b[1]-a[1]);return arr.length?' · 🥇 '+esc(arr[0][0])+' '+short(arr[0][1])+' €':''}
 let rainIv=null,rainPushT=0;
 function rainStart(e){if(rainIv)return;let L=$('#rainL');if(!L){L=document.createElement('div');L.id='rainL';document.body.appendChild(L)}
-  rainIv=setInterval(()=>{const left=rainLeft(e),val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100);if(left<val||document.hidden||$('#excWin:not([hidden])'))return;if(L.childElementCount>14)return;
-    const c=document.createElement('button');c.className='frcoin';c.textContent='€';c.style.left=(4+Math.random()*88)+'vw';const dur=3.2+Math.random()*2.5;c.style.animationDuration=dur+'s';c.style.setProperty('--rr',(Math.random()*720-360)+'deg');
+  rainIv=setInterval(()=>{const left=rainLeft(e),val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100),out=left<val;if(document.hidden||$('#excWin:not([hidden])'))return;if(out&&Math.random()<.45)return;if(L.childElementCount>14)return;
+    const c=document.createElement('button');c.className='frcoin';c.textContent='€';c.style.left=(4+Math.random()*88)+'vw';const dur=3.2+Math.random()*2.5;c.style.animationDuration=dur+'s';c.style.setProperty('--rr',(Math.random()*720-360)+'deg');if(out){c.classList.add('empty');c.textContent='✕'}
     c.onpointerdown=ev=>{ev.preventDefault();ev.stopPropagation();if(c.dataset.got)return;c.dataset.got=1;const l2=rainLeft(e),v=Math.min(val,l2);if(v<=0||c.classList.contains('empty')){rainEmptyPop(ev,c);return}
       if(!S.rainG||S.rainG.id!==e.id)S.rainG={id:e.id,n:0};S.rainG.n+=v;S.coins+=v;S.earned+=v;try{sfx('coin')}catch(_){}
       const pp=document.createElement('div');pp.className='rpop';pp.textContent='+'+short(v)+' €';pp.style.left=ev.clientX-20+'px';pp.style.top=ev.clientY-20+'px';document.body.appendChild(pp);setTimeout(()=>pp.remove(),800);c.remove();
@@ -13741,6 +13748,14 @@ function statsHTML(doc,A){const D=doc.days||{};const ks=Object.keys(D).sort();if
   let box=$('#admStatsAll');if(!box){el.insertAdjacentHTML('beforeend','<div id="admStatsAll"><p class="muted">Calculando récords…</p></div>');box=$('#admStatsAll')}
   const draw=doc=>{const b=$('#admStatsAll');if(b){b.innerHTML=statsHTML(doc,A);b.querySelectorAll('.stc').forEach(s=>s.scrollLeft=s.scrollWidth)}};
   if(STH.doc&&STH.doc._for===ADMC.t)draw(STH.doc);else statsMerge(A).then(doc=>{doc._for=ADMC.t;draw(doc)})}catch(e){}}}
+/* zoom del navegador: las cosas que se pueden coger se quedan del mismo tamaño en la pantalla */
+(()=>{const ZL=[.25,.33,.5,.67,.75,.8,.9,1,1.1,1.25,1.5,1.75,2,2.5,3,4,5];
+  const calc=()=>{let k=1;try{const fine=matchMedia('(pointer:fine)').matches&&!matchMedia('(hover:none)').matches;
+      if(fine){const r=outerWidth/innerWidth;const z=ZL.find(x=>Math.abs(x-r)/x<.035);if(z&&z!==1)k=1/z}
+      else{k=Math.min(innerWidth,innerHeight)/390;k=Math.max(.6,Math.min(2.2,k))}}catch(e){}
+    document.documentElement.style.setProperty('--zk',k.toFixed(3))};
+  calc();addEventListener('resize',calc);setInterval(calc,3000)})();
+try{i18nAdd([['La lluvia de monedas, mejor','Better money rain','Pluie de pièces améliorée','Chuva de moedas melhor'],['Las monedas ya no se paran si deslizas la pantalla, y cuando se acaba el dinero siguen cayendo monedas grises vacías hasta el final.','Coins no longer stop when you scroll, and when the money runs out, empty grey coins keep falling until the end.','Les pièces ne s\'arrêtent plus quand tu fais défiler, et quand l\'argent est fini, des pièces grises vides tombent jusqu\'à la fin.','As moedas já não param quando deslizas e, quando o dinheiro acaba, continuam a cair moedas cinzentas vazias até ao fim.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
