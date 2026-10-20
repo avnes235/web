@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-19-1518">
+<meta name="app-version" content="2026-10-20-1939">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2595,6 +2595,30 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]{position:relat
 @keyframes xadmp{50%{box-shadow:0 0 0 3px #ff1f3d,0 0 0 6px #fff,0 0 0 8px #000,0 0 34px 4px #ff1f3d}}
 .nc-xadm{background:linear-gradient(90deg,#ff1f3d,#ffffff,#ff6b7d,#ff1f3d)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;background-size:250% 100%!important;animation:rgbmove 2.4s linear infinite}
 .mecard.bg-xadm{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='70'%3E%3Ctext x='6' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='26' fill='%23ffffff' fill-opacity='.10' transform='rotate(-14 65 35)'%3EADMIN%3C/text%3E%3C/svg%3E"),linear-gradient(135deg,#2a0008,#7a0014 55%,#140004)!important;border:2px solid #ff1f3d}
+.pod .podgift{margin:4px auto 6px;padding:5px 10px;font-size:12px;min-height:0;white-space:nowrap}
+.vhead .vsell{background:#ffffff0d;border-left:3px solid #ffd600;padding:8px 10px;border-radius:8px;font-size:13.5px}
+.rquick .rq{position:relative}.rquick .rq .rqamt{display:block;font:900 13px var(--f-b);margin-top:3px;min-height:16px;color:#fff;text-shadow:1px 1px 0 #000}
+.rquick .rq.has{box-shadow:0 0 0 3px #ffd600,0 4px 0 #000}
+/* regalo de Google: tarjeta limpia, sin colores pegados */
+.wl-badge.gbb{display:block;width:100%;box-sizing:border-box;background:linear-gradient(135deg,#0f8a55,#14e08a);color:#04140c!important;border:2px solid #000;border-radius:12px;padding:9px 12px;font:800 15px/1.3 var(--f-b);text-align:center;text-decoration:none;box-shadow:0 3px 0 #000;margin:0 0 10px}
+.wl-badge.gbb b{color:#04140c!important;font-weight:900;font-size:17px;white-space:nowrap;text-decoration:none}
+#noAccBar .na-t .gbt{display:block;width:fit-content;max-width:100%;background:#14e08a;color:#04140c!important;border:2px solid #000;border-radius:999px;padding:4px 12px;margin:0 0 8px;font:900 15px/1.25 var(--f-b);text-decoration:none;box-shadow:0 2px 0 #000}
+#noAccBar .na-t{color:#e9e9f0}#noAccBar .na-t>b:not(.gbt){color:#fff}
+/* fotos de perfil con tamaño fijo: así no encogen la lista mientras cargan */
+.avimg{aspect-ratio:1/1;object-fit:cover}
+html.isscroll *,html.isscroll *::before,html.isscroll *::after{animation-play-state:paused!important}
+/* act.2 · móviles estrechos: clasificación con el dinero debajo del nombre (así el nombre, el título y la caja fuerte se leen) */
+@media (max-width:560px){
+  .rkr{grid-template-columns:28px 40px minmax(0,1fr)!important;row-gap:2px!important}
+  .rkr .val{grid-column:3!important;text-align:left!important;font-size:15px!important;line-height:1.1}
+  .rkr .acts{grid-column:1/-1!important}
+  .rkr b,.rkr small,.rkr .rksf{overflow-wrap:normal;word-break:normal}
+  .rkr small .tt{white-space:nowrap}
+  #hlSeg{display:grid!important;grid-template-columns:1fr 1fr;gap:6px;overflow:visible}
+  #hlSeg button{white-space:normal!important;font-size:13px!important;padding:8px 6px!important;min-width:0!important;line-height:1.15}
+}
+/* título de la sección: si no cabe entero, mejor no se ve (ya se ve abajo en el menú) */
+#title.nofit{visibility:hidden;width:0!important;min-width:0!important;overflow:hidden;padding:0!important;margin:0!important}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -4774,7 +4798,7 @@ function sizeFab(){const r=fz.getBoundingClientRect();fcv.width=Math.max(1,r.wid
 addEventListener('resize',()=>{if(view==='fabrica')sizeFab()});
 $('#bigcoin').addEventListener('pointerdown',e=>{e.preventDefault();if(Date.now()<(S.fabLock||0)){renderBan();sfx('lose');return}const why=clickCheck(e);if(why){strike(why);return}if(clicksNow()>22){if(!fabFastWarned){fabFastWarned=true;toast('Más despacio, máquina','Por encima de 22 clics por segundo los clics no cuentan','var(--sun)','🖐️')}return}const en=S.fabEn==null?100:S.fabEn,tired=en<=0,v=perClick()*(tired?.1:1);S.fabEn=Math.max(0,en-1);lastFabClick=Date.now();fabGive(v);GAINS.push({t:performance.now(),v:v*evMult()});if(tired&&!fabTiredWarned){fabTiredWarned=true;toast('Estás reventado','Descansa unos segundos: ahora cada clic vale 10 veces menos','var(--coral)','😮‍💨')}ev('clicks');sfx('tick');
   const b=$('#bigcoin');b.classList.add('hit');setTimeout(()=>b.classList.remove('hit'),70);
-  const z=fz.getBoundingClientRect(),x=e.clientX-z.left,y=e.clientY-z.top;const f=document.createElement('div');f.className='floaty';{const _m=(typeof fabMulNow==='function')?fabMulNow():1;if(_m>1&&!tired){f.innerHTML='+'+fmtC(v*_m)+' <b class="fxm">x'+_m+'</b>';f.classList.add('mx')}else f.textContent='+'+fmtC(v)}if(tired)f.style.color='var(--muted)';f.style.left=(x-14)+'px';f.style.top=(y-30)+'px';fz.appendChild(f);setTimeout(()=>f.remove(),900);
+  const z=fz.getBoundingClientRect(),_zs=(z.width/(fz.offsetWidth||z.width))||1,x=(e.clientX-z.left)/_zs,y=(e.clientY-z.top)/_zs;const f=document.createElement('div');f.className='floaty';{const _m=(typeof fabMulNow==='function')?fabMulNow():1;if(_m>1&&!tired){f.innerHTML='+'+fmtC(v*_m)+' <b class="fxm">x'+_m+'</b>';f.classList.add('mx')}else f.textContent='+'+fmtC(v)}if(tired)f.style.color='var(--muted)';f.style.left=(x-14)+'px';f.style.top=(y-30)+'px';fz.appendChild(f);setTimeout(()=>f.remove(),900);
   for(let i=0;i<7;i++){const a=rnd(0,6.28),s=rnd(2,7);fparts.push({x:x*DPR,y:y*DPR,vx:Math.cos(a)*s*DPR,vy:Math.sin(a)*s*DPR-3*DPR,l:1,r:rnd(4,8)*DPR})}
   if(st('clicks')%60===0)xp(3)});
 function fabFx(){if(view!=='fabrica'||!fparts.length){if(fparts.length===0)fctx.clearRect(0,0,fcv.width,fcv.height);return}fctx.clearRect(0,0,fcv.width,fcv.height);
@@ -4811,7 +4835,7 @@ const BETS=[10,50,100,500,1000,5000,25000,'half','all'],BCOL=['#4aa8ff','#ff6b4a
 let betSel=1,betVal=+S.bet>0?Math.floor(+S.bet):50,betAll=false;
 $('#chips').innerHTML=BETS.map((b,i)=>`<button class="pchip" data-b="${i}" style="--c:${BCOL[i]}">${b==='all'?'TODO':b==='half'?'MITAD':short(b)}</button>`).join('');
 $('#chips').addEventListener('click',e=>{const b=e.target.closest('.pchip');if(!b)return;const v=BETS[+b.dataset.b];betAll=v==='all';if(v==='half')betVal=Math.max(1,Math.floor(S.coins/2));else if(v!=='all')betVal=v;sfx('click');setBet()});
-const curBet=()=>betAll?Math.floor(S.coins):Math.max(0,Math.floor(betVal));
+var BET_MAX=1e9;const curBet=()=>Math.min(BET_MAX,betAll?Math.floor(S.coins):Math.max(0,Math.floor(betVal)));
 let casTab='slots';
 function showCasino(t){casTab=t;if(t==='rule')drawRW();if(t==='rocket'&&!rk)drawRocket();renderKing();if(t==='bj')bjRender();['slots','rasca','race','rule','rocket','bj'].forEach(x=>$('#c-'+x).hidden=x!==t);$$('#casSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.c===t));if(t==='race')drawTrack();if(t==='rasca'){updTkPrice();if(scv.width<10)coverTk()}}
 $('#casSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(b)showCasino(b.dataset.c)});
@@ -4931,6 +4955,7 @@ const rTotal=()=>Object.values(rBets).reduce((a,b)=>a+b,0);
 function renderRB(){$$('#c-rule [data-rb]').forEach(b=>{let c=b.querySelector('.ch');const v=rBets[b.dataset.rb];if(v){if(!c){c=document.createElement('span');c.className='ch';b.appendChild(c)}c.textContent=short(v)}else if(c)c.remove()});
   $('#rTot').textContent=short(rTotal())+' €';$('#rSpin').disabled=rSpin||!rTotal()}
 $('#c-rule').addEventListener('click',e=>{const b=e.target.closest('[data-rb]');if(!b||rSpin)return;const amt=curBet();if(amt<=0){noMoney($('#rMsg'));return}
+  if(rTotal()+amt>BET_MAX){$('#rMsg').textContent='Máximo 1.000 millones en la mesa por tirada.';sfx('lose');return}
   if(rTotal()+amt>S.coins+(+S.freeChip||0)){$('#rMsg').textContent='No te llega para más fichas. Tienes '+short(S.coins)+' €.';sfx('lose');return}
   rBets[b.dataset.rb]=(rBets[b.dataset.rb]||0)+amt;sfx('click');$$('.rc.hit').forEach(x=>x.classList.remove('hit'));renderRB()});
 $('#rClear').addEventListener('click',()=>{if(!rSpin){rBets={};renderRB()}});
@@ -5420,7 +5445,7 @@ async function initNet(){
   NET.initBusy=false;
   if(!NET.ok&&!/Falta conectar|reglas|clave de Firebase|Anónimo/.test(String(NET.why||''))){const w=[3,5,8,12,20,30][Math.min(NET.tries-1,5)];if(NET.tries<12){NET.why='Conectando… (vuelvo a probar en '+w+' s)';clearTimeout(NET.rt);NET.rt=setTimeout(initNet,w*1000)}else NET.why='No se ha podido conectar. Pulsa «Reintentar».'}
   renderMe();renderRank();if(!S.name&&!NET.profAsked){NET.profAsked=1;openProfile(true)}
-  if(NET.ok){pushPlayer();setInterval(pushPlayer,30000);setInterval(cloudSave,40000);setInterval(()=>{refreshOnline();renderRank();renderAdmin()},30000);
+  if(NET.ok){pushPlayer();setInterval(pushPlayer,30000);setInterval(()=>cloudSave(),40000);setInterval(()=>{refreshOnline();renderRank();renderAdmin()},30000);
     addEventListener('pagehide',()=>{pushPlayer();cloudSave()});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')cloudSave()});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')pushPlayer()})}}
 
 /* ================= PANEL DEL JEFE ================= */
@@ -5467,7 +5492,7 @@ function renderAdmSide(){const el=$('#admSide'),p=ADM.sel&&NET.players.get(ADM.s
   if(!p){el.innerHTML=`<div class="empty"><span class="emo">🎯</span><b>Elige a alguien de la lista</b><span>Desde aquí le das dinero, se lo quitas o le haces la vida imposible.</span></div>`;return}
   const id=ADM.sel,on=id===NET.id||NET.online.has(id),ban=ADM.bans.has(id);
   el.innerHTML=`<div class="who"><span class="bigav emo">${avH(p)}</span><div style="min-width:0"><h3 style="font-size:30px;overflow-wrap:anywhere;line-height:1">${esc(p.name||'Sin nombre')}</h3><small class="num muted">${esc(p.code||'')}</small> ${on?'<span class="tag on">Online</span>':`<span class="tag off">${ago(+p.t)}</span>`}${ban?'<span class="tag">Baneado</span>':''}</div></div>
-   <div class="kv"><div><small>Cartera</small><b>${fmt(+p.coins||0)} €</b></div><div><small>🔐 Caja fuerte</small><b>${fmt(+p.sf||0)} €</b></div><div><small>Cartera + caja</small><b>${fmt((+p.coins||0)+(+p.sf||0))} €</b></div><div><small>Ganado en total</small><b>${short(+p.earned||0)} €</b></div><div><small>Nivel</small><b>${+p.lvl||1}</b></div><div><small>Logros</small><b>${+p.ach||0}</b></div><div style="grid-column:1/-1"><small>Gastado en el millonario</small><b>${eurS(+p.spent||0)}</b></div></div>
+   <div class="kv"><div><small>Cartera</small><b>${fmt(Math.max(0,(+p.coins||0)-(+p.sf||0)))} €</b></div><div><small>🔐 Caja fuerte</small><b>${fmt(+p.sf||0)} €</b></div><div><small>Cartera + caja</small><b>${fmt(+p.coins||0)} €</b></div><div><small>Ganado en total</small><b>${short(+p.earned||0)} €</b></div><div><small>Nivel</small><b>${+p.lvl||1}</b></div><div><small>Logros</small><b>${+p.ach||0}</b></div><div style="grid-column:1/-1"><small>Gastado en el millonario</small><b>${eurS(+p.spent||0)}</b></div></div>
    <span class="alab">Dinero</span>
    <div class="amt"><input class="inp num" id="admAmt" inputmode="numeric" aria-label="Cantidad"><button class="qa" data-q="100">100</button><button class="qa" data-q="1000">1k</button><button class="qa" data-q="10000">10k</button><button class="qa" data-q="1000000">1M</button></div>
    <div class="abtns"><button class="btn mint" data-a="give">Dar</button><button class="btn red" data-a="take">Quitar de la cartera</button><button class="btn red" data-a="takesafe">Quitar de la caja fuerte</button><button class="btn red" data-a="takeall">Quitar de las dos</button><button class="btn" data-a="double">Duplicar</button><button class="btn dark" data-a="zero">Cartera a cero</button><button class="btn dark" data-a="zeroall">Todo a cero (cartera y caja)</button></div><p class="netmsg" style="margin:4px 0 0">«Quitar de las dos» quita primero de la cartera y lo que falte, de la caja fuerte.</p>
@@ -5540,7 +5565,7 @@ function accBlock(first){if(!NET.ok||!NET.auth)return'';
    :`<div id="pAcc" class="accbox"><b>Cuenta: ${esc(NET.uname)}</b><span>Tu partida se guarda en la nube. Entra con este usuario desde cualquier sitio.</span><div class="abtns"><button type="button" class="btn alt sm" data-acc="logout">Cerrar sesión</button></div></div>`}
 function openAccount(mode){const create=mode==='create';$('#modal').hidden=false;
   $('#mbox').innerHTML=`<h2 style="font-size:30px">${create?'Crear cuenta':'Entrar con tu cuenta'}</h2>
-   <p class="muted" style="font-weight:700">${create?'Elige un usuario y una contraseña. Con ellos entras desde cualquier móvil u ordenador y tienes tu misma partida. Apunta la contraseña y también tu nombre con el código (tipo PEPE#4821, sale en Clasificación y en Ajustes). Si un día olvidas la contraseña, el jefe solo te puede devolver la partida si le dices ese nombre entero con el código.':'Pon tu usuario y contraseña. La partida de este dispositivo se cambia por la de tu cuenta.'}</p>
+   <p class="muted" style="font-weight:700">${create?'Elige un usuario y una contraseña. Con ellos entras desde cualquier móvil u ordenador con tu misma partida. 📝 Apunta bien la contraseña.':'Pon tu usuario y contraseña. La partida de este dispositivo se cambia por la de tu cuenta.'}</p>
    <form class="form" id="aForm" onsubmit="return false" autocomplete="on"><label for="aUser">Usuario</label><input class="inp" id="aUser" maxlength="20" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="sin espacios, ej: pepe23">
    <label for="aPass">Contraseña</label><input class="inp" id="aPass" type="password" autocomplete="${create?'new-password':'current-password'}" placeholder="6 caracteres o más">
    <p class="warn" id="aErr" hidden></p><button type="submit" class="btn big" id="aGo">${create?'Crear cuenta':'Entrar'}</button>
@@ -6142,6 +6167,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-20-a',t:'Más fluido y sin fallos',items:[['📱','Va fluido en el móvil','Al deslizar ya no va a tirones y la página no salta hacia arriba sola.','fix','#14e08a'],['⬅️','La flecha de atrás ya no cierra el juego','Te lleva a la pantalla anterior o cierra la ventana abierta. En Inicio te avisa: pulsa otra vez para salir.','fix','#4aa8ff'],['🔄','PC y móvil, siempre igual','El tiempo jugado y la caja fuerte se pasan bien entre dispositivos.','fix','#b06bff'],['🪙','Coger monedas sin pulsar lo de detrás','Al tocar una moneda, calabaza o regalo que cae, ya no se pulsa el botón que hay debajo.','fix','#ffd600'],['🎯','Tiro al plato preciso','El disparo sale justo donde apuntas, también con la pantalla ajustada.','fix','#ff6b4a'],['🎁','Regalar desde Amigos','Ahora también puedes regalar a tus amigos que salen en el podio.','fix','#14e08a'],['👑','Un solo rey','El título «Rey de Casinetori» solo lo lleva el número 1 de ahora.','fix','#ffd600'],['🏆','Logros revisados','Memoria, Reflejos y Pichichi ahora van por puntos, como los juegos. Ya se pueden hacer todos.','fix','#ff9d00'],['🎡','Ruleta más clara','En la apuesta rápida ves cuánto hay puesto en Rojo, Negro y Verde.','new','#ff3b4f'],['🏛️','Bóveda ordenada','Colecciones de menor a mayor premio, y explicado qué pasa si vendes algo.','fix','#b06bff'],['🔑','Crear cuenta más fácil','Menos texto, el regalo de Google bien visible y, si no pones nombre, se usa tu usuario.','fix','#14e08a'],['🔊','Sonidos nuevos','Cada cosa suena distinta: subir de nivel, evento, mensaje, regalo, premio gordo y actualización.','new','#4aa8ff'],['📏','Todo cabe en móviles pequeños','La clasificación, la ayuda y la barra de arriba ya no se cortan.','fix','#ffd600']]},
  {v:'2026-10-18-a',t:'Multiplicadores del casino con tope',items:[['🎰','Tope en lo extra','Los multiplicadores del casino (ruleta, Casino caliente, eventos x2…) siguen sumando, pero lo extra de cada jugada tiene un tope: el 1 % de tu dinero (mínimo 100.000 €). Así nadie puede romper el juego apostando todo en jugadas casi seguras con el multiplicador puesto.','new','#ff9d00']]},
  {v:'2026-10-17-o',t:'Avisos más arriba',items:[['📣','Ya no tapan el centro','Los avisos grandes (premios, multiplicadores, nivel…) salen arriba, debajo de la barra, más pequeños. Si salen dos a la vez, uno va debajo del otro sin pisarse.','new','#4aa8ff']]},
  {v:'2026-10-17-n',t:'Gran Premio de Cine cada 3 horas',items:[['🎬','Ya no es una vez al día','Ahora puedes girar el Gran Premio de Cine cada 3 horas (mira un anuncio y gira). El botón te enseña la cuenta atrás para la siguiente.','new','#ffd600']]},
@@ -9303,13 +9329,13 @@ const TNPLAY={
   ar.innerHTML=`<div class="_tnshot" id="tsA"><div class="sky"></div><p class="hint" id="tsH">¡Dispara a los platos!</p></div>`;const A=$('#tsA');
   let t0=performance.now(),paused=0,pz=0;const el=()=>performance.now()-t0-paused;
   const pos=(p,tt)=>{const k=(tt-p.t)/p.dur;return{k,x:p.x0+p.dir*p.dx*k,y:1-4*p.h*k*(1-k)}};
-  A.onpointerdown=e=>{if(run.paused||run.over||!e.isTrusted)return;e.preventDefault();const r=A.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top,tt=el();let best=null,bd=1e9;
+  A.onpointerdown=e=>{if(run.paused||run.over||!e.isTrusted)return;e.preventDefault();const r0=A.getBoundingClientRect(),zs=(r0.width/(A.offsetWidth||r0.width))||1,r={width:A.offsetWidth,height:A.offsetHeight},px=(e.clientX-r0.left)/zs,py=(e.clientY-r0.top)/zs,tt=el();let best=null,bd=1e9;
     pl.forEach(p=>{if(p.hit||!p.el||tt<p.t||tt>p.t+p.dur)return;const q=pos(p,tt),cx=q.x*r.width,cy=q.y*(r.height-40)+10,d=Math.hypot(px-cx,py-cy),rad=(p.gold?30:38)+10;if(d<rad&&d<bd){bd=d;best=p}});
     const fx=document.createElement('span');fx.className='bang';fx.style.left=px+'px';fx.style.top=py+'px';A.appendChild(fx);setTimeout(()=>fx.remove(),400);
     if(best){best.hit=1;hits++;pts+=best.gold?250:100;best.el.classList.add('boom');const e2=best.el;setTimeout(()=>e2.remove(),350);tone(best.gold?1400:900,.06,'square',.05);fx.textContent=best.gold?'+250':'+100';fx.classList.add('ok')}
     else{miss++;pts=Math.max(0,pts-50);fx.textContent='−50';sfx('hit')}api.set(pts)};
   await new Promise(r=>{const f=()=>{if(run.over)return r();if(run.paused){if(!pz)pz=performance.now();return requestAnimationFrame(f)}else if(pz){paused+=performance.now()-pz;pz=0}
-    const tt=el(),rc=A.getBoundingClientRect();api.time(Math.max(0,Math.ceil((D-tt)/1000)));
+    const tt=el(),rc={width:A.offsetWidth,height:A.offsetHeight};api.time(Math.max(0,Math.ceil((D-tt)/1000)));
     pl.forEach(p=>{if(p.hit)return;if(tt>=p.t&&tt<=p.t+p.dur){if(!p.el){p.el=document.createElement('i');p.el.className='plato'+(p.gold?' g':'');A.appendChild(p.el)}const q=pos(p,tt);p.el.style.transform=`translate(${q.x*rc.width}px,${q.y*(rc.height-40)+10}px) rotate(${q.k*540*p.dir}deg)`}
       else if(p.el&&tt>p.t+p.dur){p.el.remove();p.el=null;p.hit=2}});
     if(tt>=D)return r();requestAnimationFrame(f)};f()});
@@ -10391,7 +10417,7 @@ function evRender(){const el=$('#evbar');if(!el)return;const e=curEv();if(!e){el
   if(e.type==='gift'){extra=(S.evGift===e.id)?'<small>Ya has recogido tu regalo ✔</small>':`<button class="evbtn" id="evGift">🎁 Recoger</button>`}
   el.innerHTML=`<span class="eve">${T[0]}</span><span class="evt"><b>${esc(e.name||T[1])}</b><small>${esc(T[2])}</small>${e.type==='rain'?extra:''}</span>${e.type==='gift'?extra:''}<span class="num">${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}</span>`;
   const g=$('#evGift');if(g)g.onclick=()=>{if(S.evGift===e.id)return;S.evGift=e.id;const v=Math.max(5000,(S.lvl||1)*5000);give(v);save();sfx('big');confetti(160);troll('🎁 REGALO DEL JEFE','+'+fmt(v)+' € para ti','#14e08a',true);evRender()};
-  if(evSeen!==e.id){evSeen=e.id;if(!(e.type==='x2'||e.type==='x3')||e.auto)setTimeout(()=>{try{sfx('big');troll(T[0]+' '+String(e.name||T[1]).toUpperCase(),T[2],T[4],true)}catch(_){}},400)}}
+  if(evSeen!==e.id){evSeen=e.id;if(!(e.type==='x2'||e.type==='x3')||e.auto)setTimeout(()=>{try{sfx('evento');troll(T[0]+' '+String(e.name||T[1]).toUpperCase(),T[2],T[4],true)}catch(_){}},400)}}
 renderEvent=function(){evRender()};
 /* efectos que se notan cada segundo */
 setInterval(()=>{const e=curEv();try{evRender()}catch(_){}if(!e){rainStop();return}
@@ -11063,8 +11089,8 @@ function vaultSets(){const out=[];Object.entries(CATS).forEach(([k,[n,c,e]])=>{c
 const vaultPrize=st=>niceN(Math.max(20000,st.ids.reduce((a,i)=>a+P[i][2],0)*.25));
 function vaultDone(st){return st.ids.every(i=>(S.owned[i]||0)>0)}
 function vaultCount(){return Object.keys(S.vault||{}).length}
-function renderVault(){const box=$('#vault');if(!box)return;const sets=vaultSets(),got=vaultCount(),tot=sets.length;
-  box.innerHTML=`<div class="vhead"><h3>🏛️ La Bóveda</h3><p>Completa colecciones teniendo <b>al menos uno de cada objeto</b> del grupo. Cada colección completa te da un premio y una medalla para siempre (aunque luego vendas cosas). Si las completas todas: título «🏛️ Coleccionista legendario».</p><p>Llevas <b style="color:#ffd600">${got} de ${tot}</b> colecciones.</p><div class="vbar"><i style="width:${got/tot*100}%"></i></div></div>`+
+function renderVault(){const box=$('#vault');if(!box)return;const sets=vaultSets().sort((a,b)=>vaultPrize(a)-vaultPrize(b)),got=vaultCount(),tot=sets.length;
+  box.innerHTML=`<div class="vhead"><h3>🏛️ La Bóveda</h3><p>Completa colecciones teniendo <b>al menos uno de cada objeto</b> del grupo. Cada colección completa te da un premio y una medalla para siempre (aunque luego vendas cosas). Si las completas todas: título «🏛️ Coleccionista legendario».</p><p class="vsell">💡 <b>¿Y si vendo algo?</b> Si la colección ya está <b>reclamada</b>, no pierdes nada: el premio y la medalla se quedan. Si todavía <b>no</b> la has reclamado, tendrás que volver a tener ese objeto para poder reclamarla.</p><p>Ordenadas de menor a mayor premio. Llevas <b style="color:#ffd600">${got} de ${tot}</b> colecciones.</p><div class="vbar"><i style="width:${got/tot*100}%"></i></div></div>`+
   sets.map(st=>{const have=st.ids.filter(i=>(S.owned[i]||0)>0).length,n=st.ids.length,claimed=!!(S.vault||{})[st.k],ready=have===n&&!claimed;
     return`<div class="vset ${claimed?'done':''}" style="--vc:${st.c}"><div class="vt"><span class="emo">${claimed?'🏅':st.e}</span><div><h4>${esc(st.n)}</h4><small>${have} de ${n} objetos</small></div></div>
       <div class="vits">${st.ids.map(i=>`<span class="${(S.owned[i]||0)>0?'ok':'no'}" title="${esc(P[i][1])} · ${eurS(P[i][2])}">${P[i][0]}</span>`).join('')}</div>
@@ -11340,7 +11366,7 @@ function rqMount(){const box=$('#c-rule');if(!box||$('#rQuick'))return;const w=b
 document.addEventListener('click',e=>{const q=e.target.closest('[data-rq]');if(q){const b=$('#c-rule .routs [data-rb="'+q.dataset.rq+'"]');if(b)b.click();rqSync();return}
   if(e.target.closest('#rqClear')){const b=$('#rClear');if(b)b.click();rqSync();return}
   if(e.target.closest('#rqSpin')){const b=$('#rSpin');if(b&&!b.disabled){b.click();const w=$('#c-rule .rwheel');if(w&&innerWidth<900)w.scrollIntoView({behavior:'smooth',block:'center'})}else toast('Pon fichas primero','Toca Rojo, Negro o Verde','var(--coral)','🎡');rqSync()}});
-function rqSync(){const rq=$('#rQuick'),cr=$('#c-rule');if(rq&&cr){const on=!cr.hidden&&cr.offsetParent!==null;if(rq.hidden===on)rq.hidden=!on}const t=$('#rTot'),o=$('#rqTot');if(t&&o&&o.textContent!==t.textContent)o.textContent=t.textContent;const s=$('#rSpin'),q=$('#rqSpin');if(s&&q)q.disabled=s.disabled}
+function rqSync(){try{$$('#rQuick [data-rq]').forEach(q=>{const v=rBets[q.dataset.rq]||0;let t=q.querySelector('.rqamt');if(!t){t=document.createElement('span');t.className='rqamt';q.appendChild(t)}const tx=v?short(v)+' €':'';if(t.textContent!==tx)t.textContent=tx;q.classList.toggle('has',!!v)})}catch(e){}const rq=$('#rQuick'),cr=$('#c-rule');if(rq&&cr){const on=!cr.hidden&&cr.offsetParent!==null;if(rq.hidden===on)rq.hidden=!on}const t=$('#rTot'),o=$('#rqTot');if(t&&o&&o.textContent!==t.textContent)o.textContent=t.textContent;const s=$('#rSpin'),q=$('#rqSpin');if(s&&q)q.disabled=s.disabled}
 setInterval(()=>{if(view==='casino'){rqMount();rqSync()}},500);
 
 /* ================= TRADING: comprar y vender sin bajar (barra fija en el móvil) ================= */
@@ -13555,6 +13581,118 @@ setTimeout(admPackSync,6000);setInterval(admPackSync,300000);
     b.disabled=true;const ok=await sendCmdP(id,'excclear',0,'all');b.disabled=false;b.dataset.c='';
     if(ok){sfx('coin');toast('Títulos quitados',esc(nm)+' se queda sin título ni exclusivos','#c0182c','🧹')}else toast('No se pudo','Prueba otra vez','var(--coral)','⚠️')});
 })();
+/* ===== 2026-10-20 act.2: el título «Rey de Casinetori» solo para el número 1 de ahora ===== */
+{const KT='👑 Rey de Casinetori';const _np=normP;normP=function(d){d=_np(d);if(d&&typeof d.ti==='string'&&d.ti.includes('Rey de Casinetori'))d.ti='';return d};
+  for(const [id,d] of NET.players){if(d&&typeof d.ti==='string'&&d.ti.includes('Rey de Casinetori'))d.ti=''}
+  let kIn=false;const _rl=rankList;rankList=function(tab,cat){const arr=_rl.apply(this,arguments);if(kIn)return arr;
+    try{kIn=true;const all=(tab==='todos'&&(cat||'coins')==='coins')?arr:_rl('todos','coins');const k=all.length>=KING_MIN?all[0]:null;
+      arr.forEach(p=>{if(p.me)return;if(k&&p.id===k.id)p.ti=KT;else if(p.ti===KT)p.ti=''})}catch(e){}finally{kIn=false}return arr}}
+/* act.2: en Amigos, botón de regalar también en el podio (con pocos amigos todos salen ahí y no había botón) */
+{const _ph=podiumHTML;podiumHTML=function(arr,cat){let h=_ph.apply(this,arguments);if(rkTab!=='amigos'||!NET.ok)return h;
+  return h.replace(/(<div class="pod p\d (?!me)[^"]*" data-rk="\d+" data-prof="([^"]+)"[\s\S]*?)(<div class="step">)/g,(m,a,id,st)=>a+`<button class="btn mint sm podgift" data-pgift="${id}">🎁 Regalar</button>`+st)};
+ document.addEventListener('click',e=>{const b=e.target.closest('[data-pgift]');if(!b)return;e.stopPropagation();e.preventDefault();sfx('click');openGift(b.dataset.pgift)},true)}
+/* ===== act.2: flecha de atrás del móvil: vuelve atrás en vez de cerrar el juego ===== */
+(()=>{if(!history.pushState)return;const ST=[];let byBack=false,armed=false,exitT=0;
+  const _go=go;go=function(v){const prev=view;const r=_go.apply(this,arguments);if(!byBack&&prev&&view!==prev){ST.push(prev);if(ST.length>30)ST.shift()}return r};
+  const arm=()=>{try{if(!history.state||!history.state.cgb)history.pushState({cgb:1},'');armed=true}catch(e){}};
+  const vis=el=>!!(el&&!el.hidden&&el.offsetParent!==null);
+  function closeTop(){
+    const mb=$('#modal');if(mb&&!mb.hidden){if(!$('#mbox').dataset.lock)closeModal();return true}
+    const cw=$('#chatWin');if(cw&&!cw.hidden){try{if(CH.sel==='conv')chList();else chClose()}catch(e){cw.hidden=true}return true}
+    /* cualquier ventana encima de todo con botón de cerrar */
+    const ovs=[...document.body.children].filter(el=>{if(el.hidden||el.id==='modal')return false;const cs=getComputedStyle(el);if(cs.position!=='fixed'||cs.display==='none'||cs.visibility==='hidden'||+cs.opacity===0)return false;
+      const r=el.getBoundingClientRect();if(!(r.width>innerWidth*.7&&r.height>innerHeight*.5&&(+cs.zIndex||0)>=50&&r.left<innerWidth*.3&&r.right>innerWidth*.7&&r.top<innerHeight*.5&&r.bottom>innerHeight*.5))return false;const c=document.elementFromPoint(innerWidth/2,innerHeight/2);return!!(c&&el.contains(c))}).sort((a,b)=>(+getComputedStyle(b).zIndex||0)-(+getComputedStyle(a).zIndex||0));
+    for(const o of ovs){const x=[...o.querySelectorAll('button,[role="button"]')].find(b=>vis(b)&&(/^(✕|×|x|X|Cerrar|Close)$/.test((b.textContent||'').trim())||/cerrar|close/i.test(b.getAttribute('aria-label')||'')||b.matches('[data-x],[data-chx],.x,.close,.mx,.cls')));if(x){x.click();return true}}
+    if(view==='arcade'&&$('#stage')&&!$('#stage').hidden){const b=$('#gBack');if(b){b.click();return true}}
+    if(view==='casino'){const b=$('#czBack');if(vis(b)){b.click();return true}}
+    return false}
+  addEventListener('popstate',e=>{if(!armed)return;armed=false;
+    if(closeTop()){arm();return}
+    if(view!=='inicio'){let v=ST.pop();while(v&&v===view)v=ST.pop();byBack=true;try{go(v||'inicio')}finally{byBack=false}try{scrollTo(0,0)}catch(_){}arm();return}
+    if(Date.now()-exitT>2500){exitT=Date.now();toast('Pulsa otra vez atrás para salir','Así no se te cierra el juego sin querer','var(--sky)','👋');arm();return}
+    /* segunda vez: se deja salir */
+    try{history.back()}catch(_){}});
+  /* el navegador solo deja guardar el paso «atrás» después de que toques algo */
+  const first=()=>{arm();removeEventListener('pointerdown',first,true);removeEventListener('keydown',first,true)};
+  addEventListener('pointerdown',first,true);addEventListener('keydown',first,true)})();
+/* ===== act.2: al coger una moneda (o calabaza, regalo…) ya no se pulsa lo que hay detrás ===== */
+(()=>{let pdT=null,pdAt=0,pdF=false;
+  const floaty=el=>{try{if(el.closest('.rcoin,.frcoin,.gold,.ufogift,.tkflake,.shard,#rainL,.coinrain,[class*="coin"],[class*="pump"],[class*="cand"],[class*="gift"]')&&!el.closest('.btn,#nav,.bar,.panel'))return true;
+    let n=el;for(let i=0;n&&i<6;i++,n=n.parentElement){const cs=getComputedStyle(n);if(cs.position==='fixed')return cs.pointerEvents==='none'||(n!==el&&getComputedStyle(n).pointerEvents==='none');if(n.parentElement){const ps=getComputedStyle(n.parentElement);if(ps.position==='fixed'&&ps.pointerEvents==='none')return true}}}catch(e){}return false};
+  addEventListener('pointerdown',e=>{pdT=e.target;pdAt=Date.now();pdF=floaty(e.target)},true);
+  const eat=e=>{if(!pdF||!pdT||Date.now()-pdAt>800)return;if(pdT.isConnected&&!pdT.classList.contains('got')&&!pdT.dataset.got)return;if(pdT.contains&&pdT.contains(e.target))return;e.stopPropagation();e.preventDefault()};
+  addEventListener('click',eat,true);addEventListener('touchend',e=>{if(pdF&&pdT&&Date.now()-pdAt<800&&(!pdT.isConnected||pdT.classList.contains('got')||pdT.dataset.got)&&e.cancelable)e.preventDefault()},{capture:true,passive:false})})();
+/* ===== act.2: PC ↔ móvil: el tiempo jugado nunca baja al sincronizar, y al volver a la pestaña no se guarda nada hasta mirar la nube ===== */
+{const _sa=syncApply;syncApply=function(d){const pt=+S.playtime||0;const r=_sa.apply(this,arguments);try{if((+S.playtime||0)<pt){S.playtime=pt;save()}}catch(e){}return r};
+ const _cs=cloudSave;cloudSave=async function(force){if(NET.syncHold&&Date.now()-NET.syncHold<6000&&!force)return;return _cs.apply(this,arguments)};
+ document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&NET.ok&&!NET.isAnon){NET.syncHold=Date.now();
+   (async()=>{try{const sn=await NET.db.collection('data/users/'+NET.id).doc('save').get();if(sn.exists)syncCheck(sn.data()||{})}catch(e){}NET.syncHold=0})()}},true)}
+/* ===== act.2: logros que ya no se podían hacer (Memoria y Reflejos ahora van por puntos) ===== */
+(()=>{try{const set=(nm,desc,fn)=>{const a=ACH.find(x=>x[1]===nm);if(a){a[2]=desc;a[3]=fn}};
+  set('Memoria de elefante','Consigue 400 puntos en Memoria',()=>bestMax('memoria')>=400);
+  set('Rayo','Consigue 1.500 puntos en Reflejos',()=>bestMax('reflejos')>=1500);
+  set('Pichichi','Consigue 400 puntos en Penaltis en dificultad Hasbiri',()=>(S.best['penaltis.h']||0)>=400);
+  try{i18nAdd([['Consigue 400 puntos en Memoria','Get 400 points in Memory','Fais 400 points au Memory','Consegue 400 pontos na Memória'],
+    ['Consigue 1.500 puntos en Reflejos','Get 1,500 points in Reflexes','Fais 1 500 points en Réflexes','Consegue 1.500 pontos nos Reflexos'],
+    ['Consigue 400 puntos en Penaltis en dificultad Hasbiri','Get 400 points in Penalties on Hasbiri difficulty','Fais 400 points aux Penalties en difficulté Hasbiri','Consegue 400 pontos nos Penáltis na dificuldade Hasbiri']])}catch(e){}}catch(e){}})();
+/* apuesta máxima por jugada en el casino (interno, sin Novedades) */
+{let bmT=0;const _sb=setBet;setBet=function(fromInput){let cut=false;if(betVal>BET_MAX){betVal=BET_MAX;cut=true}const r=_sb.apply(this,arguments);
+  try{if(betAll&&S.coins>BET_MAX){betInp.value=BET_MAX;cut=true}if(cut&&fromInput)betInp.value=BET_MAX;if(cut&&Date.now()-bmT>8000){bmT=Date.now();toast('Apuesta máxima: 1.000 millones','Es lo máximo que se puede apostar en cada jugada','var(--sun)','🎰')}}catch(e){}return r}
+ try{i18nAdd([['Apuesta máxima: 1.000 millones','Max bet: 1 billion','Mise maximale : 1 milliard','Aposta máxima: 1.000 milhões'],['Es lo máximo que se puede apostar en cada jugada','That\'s the most you can bet on each play','C\'est le maximum par partie','É o máximo que se pode apostar em cada jogada']])}catch(e){}}
+/* admin: en la clasificación «coins» es cartera + caja fuerte; lo que cambias se calcula bien */
+{const _apM=admPatch;admPatch=function(id,type,n,text){const M=['give','take','zero','double','tax','takesafe','takeall','zeroall'];if(!M.includes(type))return _apM.apply(this,arguments);
+  const p=NET.players.get(id)||{},tot=Math.max(0,Math.floor(+p.coins||0)),f=Math.min(tot,Math.max(0,Math.floor(+p.sf||0))),w=tot-f,e=Math.floor(+p.earned||0);n=Math.max(0,Math.floor(+n||0));
+  const out=(nw,nf,extra)=>({coins:nw+nf,sf:nf,safe:nf,...(extra||{})});
+  if(type==='give')return out(w+n,f,{earned:e+n});if(type==='take')return out(Math.max(0,w-n),f);if(type==='zero')return out(0,f);
+  if(type==='double')return out(w*2,f,{earned:e+w});if(type==='tax')return out(w-Math.floor(w*Math.min(90,n||10)/100),f);
+  if(type==='zeroall')return out(0,0);if(type==='takesafe')return out(w,Math.max(0,f-n));const tw=Math.min(w,n);return out(w-tw,Math.max(0,f-(n-tw)))}}
+/* act.2: al entrar en Clasificación sale marcada «General» (salvo si vienes a una pestaña concreta) */
+{let keep=false;const _tg=window.rkTabGo;window.rkTabGo=t=>{keep=true;try{_tg(t)}finally{keep=false}};
+ const _gR=go;go=function(v){if(v==='ranking'&&view!=='ranking'&&!keep){try{rkTabSet('top',true)}catch(e){}}return _gR.apply(this,arguments)}}
+/* ===== act.2: registro más fácil y el regalo de Google bien visible ===== */
+try{i18nAdd([['Elige un usuario y una contraseña. Con ellos entras desde cualquier móvil u ordenador con tu misma partida. 📝 Apunta bien la contraseña.','Choose a username and a password. With them you can log in from any phone or computer with the same game. 📝 Write the password down.','Choisis un pseudo et un mot de passe. Avec eux tu entres depuis n’importe quel mobile ou ordinateur avec ta partie. 📝 Note bien le mot de passe.','Escolhe um utilizador e uma palavra-passe. Com eles entras em qualquer telemóvel ou computador com o teu jogo. 📝 Aponta bem a palavra-passe.'],
+ ['Entra con Google y te regalamos','Sign in with Google and get','Connecte-toi avec Google et reçois','Entra com o Google e recebe'],['de regalo','as a gift','en cadeau','de presente']])}catch(e){}
+/* bienvenida: si rellenas usuario y contraseña pero no el nombre de arriba, el nombre es tu usuario */
+document.addEventListener('click',e=>{const b=e.target.closest('#pSave');if(!b)return;const n=$('#pName'),u=$('#faU');if(!n||!u)return;
+  if(n.value.trim().length<2&&u.value.trim().length>=2){n.value=u.value.trim().slice(0,14)}},true);
+/* bienvenida: el aviso de Google en una sola tarjeta (sin repetir) */
+{const _opG2=openProfile;openProfile=function(){const r=_opG2.apply(this,arguments);try{const gb=document.querySelector('#mbox .wl-g .gbb');if(gb){const w=$('#wlBadge');if(w)w.remove()}}catch(e){}return r}}
+/* ===== act.2: un sonido distinto para cada cosa ===== */
+Object.assign(SFX,{
+  lvlup:()=>{[392,523,659,784,1047].forEach((f,i)=>tone(f,.13,'triangle',.07,0,i*.07));tone(1568,.35,'sine',.05,40,.38)},
+  evento:()=>{tone(220,.18,'sawtooth',.04,0);tone(330,.18,'sawtooth',.04,0,.16);tone(440,.18,'sawtooth',.04,0,.32);tone(880,.45,'square',.035,60,.5)},
+  upd:()=>{tone(523,.12,'sine',.07);tone(784,.12,'sine',.07,0,.12);tone(1047,.3,'sine',.07,0,.24)},
+  msg:()=>{tone(1175,.07,'sine',.08);tone(1568,.12,'sine',.08,0,.09)},
+  gift:()=>{[784,988,1175,1568].forEach((f,i)=>tone(f,.1,'triangle',.06,0,i*.06));tone(2093,.25,'sine',.04,0,.26)},
+  jackpot:()=>{for(let i=0;i<10;i++)tone(i%2?1319:1568,.07,'square',.045,0,i*.06);[523,784,1047,1568].forEach((f,i)=>tone(f,.3,'triangle',.06,0,.62+i*.1))}});
+{const _xpS=xp;xp=function(){const l0=S.lvl;const r=_xpS.apply(this,arguments);try{if(S.lvl>l0)setTimeout(()=>sfx('lvlup'),200)}catch(e){}return r}}
+{const _cwS=casinoWin;casinoWin=function(n,g,bet){const r=_cwS.apply(this,arguments);try{if(bet>0&&n>=bet*10)setTimeout(()=>sfx('jackpot'),120)}catch(e){}return r}}
+{const _agS=applyGifts;applyGifts=function(list){const c0=S.coins;const r=_agS.apply(this,arguments);try{if(S.coins>c0)sfx('gift')}catch(e){}return r}}
+{const _cnS=chNotify;chNotify=function(){const o=SFX.coin;SFX.coin=()=>{};try{SFX.msg()}catch(e){}try{return _cnS.apply(this,arguments)}finally{setTimeout(()=>{SFX.coin=o},260)}}}
+(()=>{const u=$('#updBar');if(!u)return;let was=!u.hidden;new MutationObserver(()=>{const on=!u.hidden;if(on&&!was)try{sfx('upd')}catch(e){}was=on}).observe(u,{attributes:true,attributeFilter:['hidden']})})();
+/* ===== act.2: que la página no salte hacia arriba cuando algo se repinta solo ===== */
+(()=>{let uAt=0;['wheel','touchmove','touchstart','keydown','pointerdown'].forEach(t=>addEventListener(t,()=>{uAt=Date.now()},{capture:true,passive:true}));
+  let relT=0;const hold=()=>{const de=document.documentElement,b=document.body;if(b.style.minHeight)return;const h=de.scrollHeight;if(scrollY<40)return;b.style.minHeight=h+'px';clearTimeout(relT);relT=setTimeout(()=>{b.style.minHeight=''},1500)};
+  const wrap=name=>{const f=window[name];if(typeof f!=='function'||f.__sg)return;const g=function(){const y=scrollY,v=view;hold();const r=f.apply(this,arguments);
+      try{if(y>40&&view===v&&Math.abs(scrollY-y)>3&&Date.now()-uAt>500)scrollTo(0,y)}catch(e){}return r};g.__sg=1;try{window[name]=g}catch(e){}
+    try{eval(name+'=g')}catch(e){}};
+  ['renderRank','renderAdmin','renderTopPay','renderCasRec','renderJpBar','renderBolsa','renderKing','renderShop','renderVault'].forEach(n=>{try{wrap(n)}catch(e){}});
+  {const _gS=go;go=function(){clearTimeout(relT);document.body.style.minHeight='';return _gS.apply(this,arguments)}}
+  /* al cargar la partida de otro dispositivo, te quedas donde estabas */
+  {const _ac=applyCloud;applyCloud=function(){const y=scrollY,v=view;const r=_ac.apply(this,arguments);try{if(view===v&&y>0)setTimeout(()=>scrollTo(0,y),0)}catch(e){}return r}}})();
+/* ===== act.2: al deslizar se pausan las animaciones de adorno (va mucho más fluido en el móvil) ===== */
+(()=>{let t=0,on=false;const b=document.documentElement;
+  const st=()=>{if(!on){on=true;b.classList.add('isscroll')}clearTimeout(t);t=setTimeout(()=>{on=false;b.classList.remove('isscroll')},180)};
+  addEventListener('scroll',st,{passive:true});addEventListener('wheel',st,{passive:true});addEventListener('touchmove',st,{passive:true})})();
+/* act.2: el título de la sección ya no sale cortado («I.», «C»…) en móviles estrechos */
+(()=>{const fit=()=>{const t=$('#title');if(!t)return;t.classList.remove('nofit');if(t.scrollWidth>t.clientWidth+2||t.clientWidth<40)t.classList.add('nofit')};
+  addEventListener('resize',()=>requestAnimationFrame(fit));const _gT=go;go=function(){const r=_gT.apply(this,arguments);requestAnimationFrame(fit);return r};setTimeout(fit,500);setInterval(fit,4000)})();
+try{i18nAdd([["Más fluido y sin fallos", "Smoother and bug-free", "Plus fluide et sans bugs", "Mais fluido e sem falhas"], ["Va fluido en el móvil", "Smooth on mobile", "Fluide sur mobile", "Fluido no telemóvel"], ["Al deslizar ya no va a tirones y la página no salta hacia arriba sola.", "Scrolling no longer stutters and the page doesn't jump to the top on its own.", "Le défilement ne saccade plus et la page ne remonte plus toute seule.", "Ao deslizar já não dá esticões e a página não salta para cima sozinha."], ["La flecha de atrás ya no cierra el juego", "The back arrow no longer closes the game", "La flèche retour ne ferme plus le jeu", "A seta de voltar já não fecha o jogo"], ["Te lleva a la pantalla anterior o cierra la ventana abierta. En Inicio te avisa: pulsa otra vez para salir.", "It takes you to the previous screen or closes the open window. On Home it warns you: press again to leave.", "Elle te ramène à l'écran précédent ou ferme la fenêtre ouverte. À l'accueil : appuie encore pour sortir.", "Leva-te ao ecrã anterior ou fecha a janela aberta. No Início avisa: carrega outra vez para sair."], ["PC y móvil, siempre igual", "PC and phone, always the same", "PC et mobile, toujours pareil", "PC e telemóvel, sempre igual"], ["El tiempo jugado y la caja fuerte se pasan bien entre dispositivos.", "Play time and the safe now sync properly between devices.", "Le temps de jeu et le coffre se synchronisent bien entre appareils.", "O tempo jogado e o cofre passam bem entre dispositivos."], ["Coger monedas sin pulsar lo de detrás", "Grab coins without tapping what's behind", "Attraper des pièces sans toucher derrière", "Apanhar moedas sem carregar no de trás"], ["Al tocar una moneda, calabaza o regalo que cae, ya no se pulsa el botón que hay debajo.", "Tapping a falling coin, pumpkin or gift no longer presses the button underneath.", "Toucher une pièce, citrouille ou cadeau qui tombe n'appuie plus sur le bouton en dessous.", "Ao tocar numa moeda, abóbora ou presente que cai, já não carregas no botão de baixo."], ["Tiro al plato preciso", "Accurate clay shooting", "Tir aux pigeons précis", "Tiro ao prato preciso"], ["El disparo sale justo donde apuntas, también con la pantalla ajustada.", "The shot lands exactly where you aim, also with the adjusted screen.", "Le tir part exactement où tu vises, même avec l'écran ajusté.", "O tiro sai onde apontas, também com o ecrã ajustado."], ["Regalar desde Amigos", "Gift from Friends", "Offrir depuis Amis", "Oferecer nos Amigos"], ["Ahora también puedes regalar a tus amigos que salen en el podio.", "You can now also gift friends who are on the podium.", "Tu peux aussi offrir aux amis qui sont sur le podium.", "Agora também podes oferecer aos amigos que estão no pódio."], ["Un solo rey", "Only one king", "Un seul roi", "Um só rei"], ["El título «Rey de Casinetori» solo lo lleva el número 1 de ahora.", "The «King of Casinetori» title is only worn by the current number 1.", "Le titre «Roi de Casinetori» n'est porté que par le numéro 1 actuel.", "O título «Rei do Casinetori» só o leva o número 1 atual."], ["Logros revisados", "Achievements reviewed", "Succès revus", "Conquistas revistas"], ["Memoria, Reflejos y Pichichi ahora van por puntos, como los juegos. Ya se pueden hacer todos.", "Memory, Reflexes and Pichichi now go by points, like the games. All of them can be done now.", "Memory, Réflexes et Pichichi se comptent en points, comme les jeux. Tous sont faisables.", "Memória, Reflexos e Pichichi agora vão por pontos, como os jogos. Já se podem fazer todas."], ["Ruleta más clara", "Clearer roulette", "Roulette plus claire", "Roleta mais clara"], ["En la apuesta rápida ves cuánto hay puesto en Rojo, Negro y Verde.", "In the quick bet you see how much is on Red, Black and Green.", "Dans la mise rapide tu vois combien il y a sur Rouge, Noir et Vert.", "Na aposta rápida vês quanto está em Vermelho, Preto e Verde."], ["Bóveda ordenada", "Tidy Vault", "Coffre rangé", "Cofre arrumado"], ["Colecciones de menor a mayor premio, y explicado qué pasa si vendes algo.", "Collections from smallest to biggest prize, and it explains what happens if you sell something.", "Collections du plus petit au plus gros prix, et ce qui arrive si tu vends.", "Coleções do menor ao maior prémio, e explica o que acontece se venderes algo."], ["Crear cuenta más fácil", "Easier sign-up", "Inscription plus simple", "Criar conta mais fácil"], ["Menos texto, el regalo de Google bien visible y, si no pones nombre, se usa tu usuario.", "Less text, the Google gift clearly visible and, if you don't set a name, your username is used.", "Moins de texte, le cadeau Google bien visible et, sans nom, ton pseudo est utilisé.", "Menos texto, o presente do Google bem visível e, se não puseres nome, usa-se o teu utilizador."], ["Sonidos nuevos", "New sounds", "Nouveaux sons", "Sons novos"], ["Cada cosa suena distinta: subir de nivel, evento, mensaje, regalo, premio gordo y actualización.", "Each thing sounds different: level up, event, message, gift, jackpot and update.", "Chaque chose a son son : niveau, événement, message, cadeau, gros lot et mise à jour.", "Cada coisa soa diferente: subir de nível, evento, mensagem, presente, prémio grande e atualização."], ["Todo cabe en móviles pequeños", "Everything fits on small phones", "Tout tient sur les petits mobiles", "Tudo cabe em telemóveis pequenos"], ["La clasificación, la ayuda y la barra de arriba ya no se cortan.", "The leaderboard, help and top bar no longer get cut off.", "Le classement, l'aide et la barre du haut ne sont plus coupés.", "A classificação, a ajuda e a barra de cima já não ficam cortadas."]])}catch(e){}
+(()=>{try{const t0=TUTOS.find(x=>x[1]==='Primeros pasos')||TUTOS[0];if(t0&&!t0[4].some(x=>/flecha de atrás/.test(x[0])))t0[4].push(['En el móvil, la <b>flecha de atrás</b> te lleva a la pantalla anterior. En Inicio, púlsala <b>dos veces</b> para salir del juego.']);
+ const ti=TUTOS.find(x=>x[1]==='Tienda');if(ti&&!ti[4].some(x=>/vendes/.test(x[0])))ti[4].push(['En la <b>Bóveda</b> las colecciones van de menor a mayor premio. Si vendes un objeto de una colección ya <b>reclamada</b>, no pierdes nada.']);
+ const ca=TUTOS.find(x=>x[1]==='Casino');if(ca&&!ca[4].some(x=>/apuesta rápida/.test(x[0])))ca[4].push(['En la <b>ruleta</b>, la apuesta rápida de arriba te enseña cuánto has puesto en cada color.']);
+ if(!FAQ.some(q=>/flecha de atrás/.test(q[0])))FAQ.unshift(['¿Por qué no se cierra el juego con la flecha de atrás?','Para que no lo cierres sin querer. La flecha te lleva a la pantalla anterior; en Inicio, púlsala dos veces para salir.'])}catch(e){}})();
+try{i18nAdd([['En el móvil, la <b>flecha de atrás</b> te lleva a la pantalla anterior. En Inicio, púlsala <b>dos veces</b> para salir del juego.','On mobile, the <b>back arrow</b> takes you to the previous screen. On Home, press it <b>twice</b> to leave the game.','Sur mobile, la <b>flèche retour</b> te ramène à l\'écran précédent. À l\'accueil, appuie <b>deux fois</b> pour quitter.','No telemóvel, a <b>seta de voltar</b> leva-te ao ecrã anterior. No Início, carrega <b>duas vezes</b> para sair.'],['Pulsa otra vez atrás para salir','Press back again to leave','Appuie encore sur retour pour sortir','Carrega outra vez em voltar para sair'],['Así no se te cierra el juego sin querer','So the game doesn\'t close by accident','Pour ne pas fermer le jeu par erreur','Assim o jogo não fecha sem querer'],['🎁 Regalar','🎁 Gift','🎁 Offrir','🎁 Oferecer']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
