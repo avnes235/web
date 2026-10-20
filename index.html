@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-20-2258">
+<meta name="app-version" content="2026-10-20-2312">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2638,6 +2638,17 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]{position:relat
 html[data-fit="s"] .app{min-height:calc(100vh / .88)}html[data-fit="s"] .nav,html[data-fit="s"] body #nav{height:calc(100vh / .88)!important;max-height:calc(100vh / .88)!important}
 html[data-fit="x"] .app{min-height:calc(100vh / .76)}html[data-fit="x"] .nav,html[data-fit="x"] body #nav{height:calc(100vh / .76)!important;max-height:calc(100vh / .76)!important}
 }
+/* puntito amarillo con número: hay algo por recoger */
+#nav .nb{position:relative}
+.pdot{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--sun);color:#111;border:2px solid #000;font:900 11.5px/16px var(--f-b);font-style:normal;text-align:center;box-shadow:0 0 10px #ffd60099;z-index:3;pointer-events:none;animation:ptPulse 1.1s infinite;box-sizing:border-box}
+#nav .nb .pdot{top:2px;right:auto;left:calc(50% + 6px)}
+@media (min-width:881px){#nav .nb .pdot{top:calc(50% - 10px);left:auto;right:10px}}
+#nav .nb.pt-dot::before{display:none!important}
+[data-st="boveda"],#rk2Tabs [data-t],#hlSeg [data-hl]{position:relative}
+#hoTabs [data-ho] .dot{background:var(--sun)!important;color:#111!important;border:2px solid #000}
+/* tarjeta lista para cobrar: borde amarillo que brilla */
+.prdy{box-shadow:0 0 0 3px var(--sun),0 0 22px #ffd60066!important;position:relative}
+
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6186,6 +6197,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-21-a',t:'Que no se te escape nada',items:[['🟡','Avisos amarillos en todo','Cuando hay algo por recoger (premio diario, misiones, botón rojo, ruletas gratis, cofres, torneos, colecciones, solicitudes de amistad, mensajes del jefe…) sale un número amarillo en el menú, en las pestañas de Inicio y en el botón de cada cosa. Y la tarjeta brilla.','new','#ffd600']]},
  {v:'2026-10-20-a',t:'Más fluido y sin fallos',items:[['🌧️','La lluvia de monedas, mejor','Las monedas ya no se paran si deslizas la pantalla, y cuando se acaba el dinero siguen cayendo monedas grises vacías hasta el final.','fix','#ffd600'],['📱','Va fluido en el móvil','Al deslizar ya no va a tirones y la página no salta hacia arriba sola.','fix','#14e08a'],['⬅️','La flecha de atrás ya no cierra el juego','Te lleva a la pantalla anterior o cierra la ventana abierta. En Inicio te avisa: pulsa otra vez para salir.','fix','#4aa8ff'],['🔄','PC y móvil, siempre igual','El tiempo jugado y la caja fuerte se pasan bien entre dispositivos.','fix','#b06bff'],['🪙','Coger monedas sin pulsar lo de detrás','Al tocar una moneda, calabaza o regalo que cae, ya no se pulsa el botón que hay debajo.','fix','#ffd600'],['🎯','Tiro al plato preciso','El disparo sale justo donde apuntas, también con la pantalla ajustada.','fix','#ff6b4a'],['🎁','Regalar desde Amigos','Ahora también puedes regalar a tus amigos que salen en el podio.','fix','#14e08a'],['👑','Un solo rey','El título «Rey de Casinetori» solo lo lleva el número 1 de ahora.','fix','#ffd600'],['🏆','Logros revisados','Memoria, Reflejos y Pichichi ahora van por puntos, como los juegos. Ya se pueden hacer todos.','fix','#ff9d00'],['🎡','Ruleta más clara','En la apuesta rápida ves cuánto hay puesto en Rojo, Negro y Verde.','new','#ff3b4f'],['🏛️','Bóveda ordenada','Colecciones de menor a mayor premio, y explicado qué pasa si vendes algo.','fix','#b06bff'],['🔑','Crear cuenta más fácil','Menos texto, el regalo de Google bien visible y, si no pones nombre, se usa tu usuario.','fix','#14e08a'],['🔊','Sonidos nuevos','Cada cosa suena distinta: subir de nivel, evento, mensaje, regalo, premio gordo y actualización.','new','#4aa8ff'],['📏','Todo cabe en móviles pequeños','La clasificación, la ayuda y la barra de arriba ya no se cortan.','fix','#ffd600']]},
  {v:'2026-10-18-a',t:'Multiplicadores del casino con tope',items:[['🎰','Tope en lo extra','Los multiplicadores del casino (ruleta, Casino caliente, eventos x2…) siguen sumando, pero lo extra de cada jugada tiene un tope: el 1 % de tu dinero (mínimo 100.000 €). Así nadie puede romper el juego apostando todo en jugadas casi seguras con el multiplicador puesto.','new','#ff9d00']]},
  {v:'2026-10-17-o',t:'Avisos más arriba',items:[['📣','Ya no tapan el centro','Los avisos grandes (premios, multiplicadores, nivel…) salen arriba, debajo de la barra, más pequeños. Si salen dos a la vez, uno va debajo del otro sin pisarse.','new','#4aa8ff']]},
@@ -13769,6 +13781,47 @@ try{i18nAdd([['La lluvia de monedas, mejor','Better money rain','Pluie de pièce
     const y=Math.max(scrollY,lastY);if(h<prev-2&&y+innerHeight>h-120&&y>200){if(!locked){locked=true;de.style.minHeight=prev+'px';if(scrollY<y-2)scrollTo(0,y)}clearTimeout(relT);relT=setTimeout(release,1800);return}
     if(!locked)prev=h;else if(h>=prev-2){clearTimeout(relT);release()}}catch(e){}}).observe(b);
   const _gB=go;go=function(){clearTimeout(relT);if(locked)release();return _gB.apply(this,arguments)};prev=contentH()})();
+/* ===== avisos amarillos de «hay algo por recoger» en todos los sitios: menú, pestañas de Inicio, accesos rápidos y dentro de cada sección ===== */
+const PEND={last:''};
+function pendList(){const L=[],now=Date.now(),add=(id,view,tab,chip,n=1)=>{if(n>0)L.push({id,view,tab,chip,n})};
+  try{if(!S.name)return L;
+    try{if(dailyInfo().ready)add('daily','inicio','hoy','dailyPanel')}catch(e){}
+    try{const n=$$('#misList button').filter(b=>!b.disabled&&/cobrar/i.test(b.textContent)).length;add('mis','inicio','hoy','misPanel',n)}catch(e){}
+    try{if((S.prankAt||0)<=now)add('forbid','inicio','hoy','forbid')}catch(e){}
+    try{const st=ptState();add('pt','inicio','hoy','ptCard',st.ready.length+st.lready.length)}catch(e){}
+    try{const T=seTodo();if(T)add('se','inicio','hoy','seCard',(T.tt?1:0)+T.ready.length)}catch(e){}
+    try{if(S.bzNew){add('bz','inicio','hoy','homeMail');add('bz2','ayuda',null,null)}}catch(e){}
+    try{if(NET.ok&&TN.started){const win=Object.keys(TN.wins).some(id=>!olClaimed('tn'+id));const live=tnList().some(t=>{const me=(TN.ins.get(t.id)||new Map()).get(NET.id);return t.st!=='cancel'&&now>=t.start&&now<t.end-(TNG[t.game].dur+5)*1000&&(!me||tnUsed(t,me)<tnAllowed(t,me))});if(win||live)add('tn','inicio','hoy','tnHome')}}catch(e){}
+    try{if(!(typeof wBusy!=='undefined'&&wBusy)&&now-(+S.wheelAt||0)>=WAIT)add('wheel','inicio','ruletas',null)}catch(e){}
+    try{if(guLeft()<=0)add('gu','inicio','ruletas',null)}catch(e){}
+    try{const v=vaultSets().filter(st=>vaultDone(st)&&!(S.vault||{})[st.k]).length;add('vault','rico',null,null,v)}catch(e){}
+    try{add('freq','ranking',null,null,+NET.inReqN||0)}catch(e){}
+    try{if(S.notesSeen!==NOTES[0].v)add('news','ayuda',null,null)}catch(e){}
+    try{if(+S.freeChip>0)add('chip','casino',null,null)}catch(e){}
+  }catch(e){}return L}
+function pendDraw(){try{const L=pendList();const key=JSON.stringify(L.map(x=>[x.id,x.n]));const byV={},byT={},chips=new Set();
+  L.forEach(x=>{if(x.view)byV[x.view]=(byV[x.view]||0)+x.n;if(x.tab)byT[x.tab]=(byT[x.tab]||0)+x.n;if(x.chip)chips.add(x.chip)});
+  const dot=(el,n,cls)=>{if(!el)return;let d=el.querySelector(':scope>.'+cls);if(n>0){if(!d){d=document.createElement('i');d.className=cls;el.appendChild(d)}const t=n>9?'9+':String(n);if(d.textContent!==t)d.textContent=t}else if(d)d.remove()};
+  /* menú (Online ya tiene sus propios avisos) */
+  $$('#nav .nb[data-v]').forEach(b=>{const v=b.dataset.v;if(v==='online')return;dot(b,byV[v]||0,'pdot')});
+  /* pestañas de Inicio */
+  $$('#hoTabs [data-ho]').forEach(b=>{const k=b.dataset.ho;let old=b.querySelector('.dot');const n=byT[k]||0;if(n>0){if(!old){b.insertAdjacentHTML('beforeend','<span class="dot"></span>');old=b.querySelector('.dot')}const t=String(n);if(old.textContent!==t)old.textContent=t}else if(old)old.remove()});
+  /* accesos rápidos de Hoy */
+  $$('#hoyNav [data-hq]').forEach(b=>b.classList.toggle('rdy',chips.has(b.dataset.hq)));
+  /* dentro de las secciones */
+  dot(document.querySelector('[data-st="boveda"]'),(L.find(x=>x.id==='vault')||{}).n||0,'pdot');
+  dot(document.querySelector('#rk2Tabs [data-t="amigos"]'),(L.find(x=>x.id==='freq')||{}).n||0,'pdot');
+  dot(document.querySelector('#hlSeg [data-hl="news"]'),L.some(x=>x.id==='news')?1:0,'pdot');
+  /* la tarjeta de cada cosa lista, con un borde que brilla */
+  const LT={en:'Ready!',fr:'Prêt !',pt:'Pronto!'}[typeof _i18nL!=='undefined'?_i18nL:'es']||'¡Listo!';['forbid','dailyPanel','misPanel','ptCard','seCard','tnHome','homeMail'].forEach(id=>{const e=document.getElementById(id);if(e){e.classList.toggle('prdy',chips.has(id));if(e.dataset.lt!==LT)e.dataset.lt=LT}});
+  PEND.last=key}catch(e){}}
+setInterval(pendDraw,1200);setTimeout(pendDraw,1500);
+/* hoDots antiguo: ahora lo hace pendDraw (así no se pelean) */
+hoDots=function(){pendDraw()};
+{const _hqR=hqReady;hqReady=function(id){if(['forbid','homeMail','tnHome'].includes(id)){try{return pendList().some(x=>x.chip===id)}catch(e){return false}}return _hqR.apply(this,arguments)}}
+{const _goP=go;go=function(){const r=_goP.apply(this,arguments);try{requestAnimationFrame(pendDraw)}catch(e){}return r}}
+try{i18nAdd([['Que no se te escape nada','Don\'t miss a thing','Ne rate rien','Não percas nada'],['Avisos amarillos en todo','Yellow alerts everywhere','Alertes jaunes partout','Avisos amarelos em tudo'],['Cuando hay algo por recoger (premio diario, misiones, botón rojo, ruletas gratis, cofres, torneos, colecciones, solicitudes de amistad, mensajes del jefe…) sale un número amarillo en el menú, en las pestañas de Inicio y en el botón de cada cosa. Y la tarjeta brilla.','When there\'s something to collect (daily prize, missions, red button, free wheels, chests, tournaments, collections, friend requests, messages from the boss…) a yellow number appears in the menu, in the Home tabs and on each thing\'s button. And the card glows.','Quand il y a quelque chose à récupérer (prix du jour, missions, bouton rouge, roues gratuites, coffres, tournois, collections, demandes d\'amis, messages du chef…) un numéro jaune apparaît dans le menu, dans les onglets d\'Accueil et sur le bouton de chaque chose. Et la carte brille.','Quando há algo para recolher (prémio diário, missões, botão vermelho, roletas grátis, cofres, torneios, coleções, pedidos de amizade, mensagens do chefe…) aparece um número amarelo no menu, nos separadores do Início e no botão de cada coisa. E o cartão brilha.']])}catch(e){}
+(()=>{try{const t0=TUTOS.find(x=>x[1]==='Primeros pasos')||TUTOS[0];if(t0&&!t0[4].some(x=>/número amarillo/.test(x[0])))t0[4].push(['Si ves un <b>número amarillo</b> en el menú o en una pestaña, ahí tienes algo por recoger. La tarjeta que está lista <b>brilla en amarillo</b>.'])}catch(e){}})();
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
