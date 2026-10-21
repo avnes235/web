@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-21-0944">
+<meta name="app-version" content="2026-10-21-1254">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4713,7 +4713,7 @@ $('#redbtn').addEventListener('pointerenter',e=>{if(runaway>0&&e.pointerType==='
 $('#redbtn').addEventListener('click',()=>{const b=$('#redbtn');
   if(runaway>0){runaway--;if(runaway===0){b.style.transform='';const r=150*S.lvl;give(r);sfx('win');troll('VALE, VALE','me has pillado. Toma '+short(r)+' €',null,true)}else moveBtn();renderForbid();return}
   if(Date.now()<(S.prankAt||0)){b.classList.remove('nope');void b.offsetWidth;b.classList.add('nope');sfx('lose');return}
-  S.prankAt=Date.now()+PRANK_WAIT;ev('pranks');xp(10);{const _pi=nextPrank();if(typeof rbRun==='function')rbRun(_pi);else PRANKS[_pi]()}renderForbid();save()});
+  S.prankAt=Date.now()+PRANK_WAIT;ev('pranks');xp(10);{const _pi=nextPrank();if(typeof rbPress==='function')rbPress(_pi);else PRANKS[_pi]()}renderForbid();save()});
 
 /* ================= TARJETAS DE JUEGOS ================= */
 const COVERS={
@@ -13836,7 +13836,7 @@ try{i18nAdd([['Que no se te escape nada','Don\'t miss a thing','Ne rate rien','N
 /* ===== botón rojo: cada sorpresa deja un premio bueno (según tu dinero); si la sorpresa ya pagó bien, no se añade nada ===== */
 var RB_TRICK_UNTIL=window.RB_TRICK_UNTIL||0;
 function rbTarget(){return niceN(Math.max(5000,220*Math.max(1,S.lvl)*4+(typeof wealth==='function'?wealth():0)*.0018))}
-function rbRun(i){const e0=+S.earned||0,adm=(typeof admPrank!=='undefined'&&admPrank)||Date.now()<RB_ADM_UNTIL;try{PRANKS[i]()}catch(e){}
+function rbPress(i){const e0=+S.earned||0,adm=(typeof admPrank!=='undefined'&&admPrank)||Date.now()<RB_ADM_UNTIL;try{PRANKS[i]()}catch(e){}
   if(adm)return;setTimeout(()=>{try{if(Date.now()<RB_ADM_UNTIL||Date.now()<(window.RB_TRICK_UNTIL||0))return;const got=(+S.earned||0)-e0,t=rbTarget();
     if(got<t*.6){const add=niceN(t-Math.max(0,got));give(add);save();sfx('coin');toast('🔴 Premio del botón rojo','+'+short(add)+' € por atreverte a pulsarlo','#ff3b4f','🔴')}}catch(e){}},9500)}
 /* truco o trato: su propia firma (no es cosa del jefe) */
@@ -13860,14 +13860,16 @@ try{i18nAdd([['🔴 Premio del botón rojo','🔴 Red button prize','🔴 Prix d
   const wrapW=(name)=>{const f=window[name];if(!f)return;window[name]=function(){add(name+'('+[...arguments].map(a=>typeof a==='object'?JSON.stringify(a):a).join(',')+') y='+Math.round(scrollY)+' ← '+who());return f.apply(this,arguments)}};
   ['scrollTo','scroll','scrollBy'].forEach(wrapW);
   const sIV=Element.prototype.scrollIntoView;Element.prototype.scrollIntoView=function(){add('scrollIntoView #'+(this.id||this.className||this.tagName).toString().slice(0,30)+' ← '+who());return sIV.apply(this,arguments)};
-  addEventListener('scroll',()=>{const y=scrollY,d=y-lastY;if(Math.abs(d)>100&&Date.now()-uT>300)add('SALTO SIN DEDO '+Math.round(lastY)+'→'+Math.round(y)+' alto='+document.documentElement.scrollHeight+' vista='+(typeof view!=='undefined'?view:'?'));lastY=y},{passive:true});
+  const MU=[];new MutationObserver(ms=>{const t=Date.now();for(const m of ms){let n=m.target.nodeType===1?m.target:m.target.parentElement,nm='';for(let i=0;n&&i<6&&!nm;i++,n=n.parentElement)if(n.id)nm='#'+n.id;else if(i===0&&n.className)nm='.'+String(n.className).split(' ')[0];MU.push([t,(nm||'?')+':'+m.type[0]]);}while(MU.length>200)MU.shift()}).observe(document.documentElement,{subtree:true,childList:true,attributes:true,characterData:true});
+  let lastIH=innerHeight;
+  addEventListener('scroll',()=>{const y=scrollY,d=y-lastY;if(Math.abs(d)>100&&Date.now()-uT>300&&d<0){const t=Date.now(),near=[...new Set(MU.filter(x=>t-x[0]<400).map(x=>x[1]))].slice(-6).join(' ');add('SALTO '+Math.round(lastY)+'→'+Math.round(y)+' alto='+document.documentElement.scrollHeight+' pantalla='+lastIH+'→'+innerHeight+' ancla='+(document.documentElement.style.overflowAnchor||'auto')+' vista='+(typeof view!=='undefined'?view:'?')+' cambió: '+(near||'nada'))}lastY=y;lastIH=innerHeight},{passive:true});
   addEventListener('resize',()=>add('resize '+innerWidth+'x'+innerHeight+' y='+Math.round(scrollY)));
   if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>{const h=document.documentElement.scrollHeight;if(lastH&&Math.abs(h-lastH)>40&&scrollY>100)add('alto '+lastH+'→'+h+' y='+Math.round(scrollY));lastH=h}).observe(document.body);
   document.addEventListener('DOMContentLoaded',()=>document.body.appendChild(box));if(document.body)document.body.appendChild(box);add('chivato encendido');})();
 try{i18nAdd([['Botón rojo más generoso','More generous red button','Bouton rouge plus généreux','Botão vermelho mais generoso'],['Siempre hay premio','There\'s always a prize','Il y a toujours un prix','Há sempre prémio'],['Todas las sorpresas del botón rojo dan ahora un buen premio según tu dinero. Las que antes daban poco o nada, ya no.','Every red button surprise now gives a good prize based on your money. The ones that used to give little or nothing don\'t anymore.','Chaque surprise du bouton rouge donne maintenant un bon prix selon ton argent. Celles qui donnaient peu ou rien, c\'est fini.','Todas as surpresas do botão vermelho dão agora um bom prémio segundo o teu dinheiro. As que antes davam pouco ou nada, já não.'],['Estrella de Cine renovada','Movie Star title revamped','Titre Star de cinéma relooké','Estrela de Cinema renovada'],['El título del Gran Premio de Cine ahora es de alfombra roja, con letras doradas y brillo.','The Movie Grand Prize title is now red carpet style, with golden letters and shine.','Le titre du Grand Prix du Cinéma est maintenant style tapis rouge, lettres dorées et reflets.','O título do Grande Prémio de Cinema agora é de passadeira vermelha, com letras douradas e brilho.']])}catch(e){}
 (()=>{try{const t=TUTOS.find(x=>x[4]&&x[4].some(y=>/botón rojo/i.test(y[0])))||TUTOS[0];if(t&&!t[4].some(x=>/siempre hay premio/i.test(x[0])))t[4].push(['El <b>botón rojo</b> se puede pulsar cada poco: cada sorpresa te deja un premio según tu dinero (siempre hay premio).'])}catch(e){}})();
 /* abajo del todo: sin «anclaje» del navegador (si algo de arriba cambia, te quedas abajo en vez de subir de golpe) */
-(()=>{const de=document.documentElement;let on=false;const chk=()=>{const near=scrollY+innerHeight>=de.scrollHeight-160&&scrollY>100;if(near!==on){on=near;de.style.overflowAnchor=near?'none':''}};
+(()=>{const de=document.documentElement;let on=false;const chk=()=>{const near=scrollY+innerHeight>=de.scrollHeight-160&&scrollY>100;if(near!==on){on=near;de.style.overflowAnchor=near?'none':'';document.body.style.overflowAnchor=near?'none':''}};
   addEventListener('scroll',chk,{passive:true});addEventListener('resize',chk);setInterval(chk,700);chk()})();
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
