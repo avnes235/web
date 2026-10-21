@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-21-1432">
+<meta name="app-version" content="2026-10-21-1450">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4884,7 +4884,7 @@ function renderUpg(full){const vis=i=>i===0||(S.upg2[i-1]||0)>0||S.coins>=UPG[i]
   if(full){$('#upgs').innerHTML=UPG.map((u,i)=>`<button class="up" data-u="${i}" style="--c:${u[6]}"><span class="ui emo">${u[0]}</span><span><b>${u[1]}</b><small>${u[2]}</small></span><span class="uc"><span>0</span><em>tienes 0</em></span></button>`).join('')}
   $$('.up').forEach(b=>{const i=+b.dataset.u,show=vis(i);b.disabled=S.coins<ucost(i)||!show;b.querySelector('b').textContent=show?UPG[i][1]:'???';b.querySelector('.ui').textContent=show?UPG[i][0]:'🔒';
     b.querySelector('small').textContent=show?UPG[i][2]:'Sigue ahorrando para descubrirlo';b.querySelector('.uc span').textContent=short(ucost(i));b.querySelector('.uc em').textContent='tienes '+(S.upg2[i]||0)});
-  $('#fPc').textContent=fmtC(perClick())+' €';$('#fPs').textContent=String(clicksNow());$('#fClk').textContent=short(st('clicks'))}
+  $('#fPc').textContent=fmtC(perClick())+' €';fpsDraw();$('#fClk').textContent=short(st('clicks'))}
 $('#upgs').addEventListener('click',e=>{const b=e.target.closest('.up');if(!b||b.disabled)return;const i=+b.dataset.u,c=ucost(i);if(!take(c))return;S.upg2[i]=(S.upg2[i]||0)+1;sfx('buy');xp(8+i*4);
   const r=b.getBoundingClientRect();confetti(30,r.left+30,r.top+20);renderUpg();save()});
 const fz=$('#coinzone'),fcv=$('#fabfx'),fctx=fcv.getContext('2d');let fparts=[];
@@ -6261,6 +6261,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-21-f',t:'Fábrica',items:[['👆','«Clics/seg» arreglado','Ahora se mueve al momento cuando pulsas la moneda y también cuenta el autoclick del anuncio (sale con 🤖).','fix','#ffc23d']]},
  {v:'2026-10-21-e',t:'Lluvia de monedas sin sustos',items:[['🪙','Coger monedas ya no te saca atrás','Las monedas caen un poco más hacia el centro y, si al cogerlas tocas sin querer el gesto de «atrás» del móvil, el juego no se va a otra pantalla.','fix','#ffd600']]},
  {v:'2026-10-21-d',t:'Títulos repetidos',items:[['🔁','Si te vuelve a tocar un título que ya tienes','Ahora eliges: <b>regalárselo a quien quieras</b> (buscas a cualquier jugador, aunque no sea tu amigo) o <b>convertirlo en dinero</b>, más que el premio de dinero más grande de esa ruleta. Si esa persona ya lo tiene, te avisa para que elijas a otra.','new','#ffd600']]},
  {v:'2026-10-21-c',t:'Lo nuevo, a la vista',items:[['🆕','Zona «Nuevo» en tu Perfil','Las caras, marcos, fondos y títulos que acabas de conseguir salen marcados con NUEVO y un aviso amarillo, para que no se te pasen.','new','#ffd600'],['⏳','Cambio de nombre más claro','Puedes cambiarte el nombre una vez cada 7 días. Ahora ves exactamente cuánto te falta y qué día podrás.','new','#4aa8ff'],['🛡️','Los admins, bien visibles','Los admins llevan un sello azul «ADMIN ✔» en la clasificación y en su perfil, para que sepas quién es del equipo.','new','#4aa8ff']]},
@@ -10571,11 +10572,11 @@ function evAdmRender(){const g=$('#admGlobal');if(!g)return;let box=$('#evAdm');
   $('#evCut').onclick=async()=>{try{await NET.db.collection('meta').doc('event').set({mult:1,until:0,name:''});if(EVCFG.auto&&curEv()){const c=curEv();const off={...(EVCFG.off||{})};toast('Evento manual cortado','Si es uno automático, apágalo tocándolo en la lista','var(--sun)','✋')}else toast('Evento cortado','','var(--sun)','✋')}catch(e){}}}
 const _rAdmEv=renderAdmin;renderAdmin=function(){const r=_rAdmEv.apply(this,arguments);try{if(ADM.on)evAdmRender()}catch(e){}return r};
 /* ---------- fábrica: anuncios de autoclick y energía infinita ---------- */
-let fabAutoIv=null;
+let fabAutoIv=null;const AUTOC=[];
 function fadRender(){const a=$('[data-fad="auto"]'),i=$('[data-fad="inf"]');if(!a||!i)return;const now=Date.now();
   [[a,S.fabAuto,'Autoclick'],[i,S.fabInf,'Energía infinita']].forEach(([b,u,n])=>{const on=+u>now;b.classList.toggle('on',on);b.querySelector('small').textContent=on?'¡Activo! '+Math.ceil((u-now)/1000)+' s':'📺 Ver anuncio'})}
 function fabAutoRun(){if(fabAutoIv)return;fabAutoIv=setInterval(()=>{if(!(+S.fabAuto>Date.now())){clearInterval(fabAutoIv);fabAutoIv=null;const b=$('#bigcoin');if(b)b.classList.remove('auto');return}
-  const v=perClick();fabGive(v);if(view==='fabrica'){const b=$('#bigcoin');if(b)b.classList.add('auto');if(Math.random()<.35){const z=fz.getBoundingClientRect(),f=document.createElement('div');f.className='floaty';f.textContent='+'+fmtC(v);f.style.left=(z.width/2-20+(Math.random()-.5)*80)+'px';f.style.top=(z.height/2-60+(Math.random()-.5)*40)+'px';fz.appendChild(f);setTimeout(()=>f.remove(),900)}}},125)}
+  const v=perClick();fabGive(v);try{AUTOC.push(performance.now());while(AUTOC.length>40)AUTOC.shift()}catch(_){}if(view==='fabrica'){const b=$('#bigcoin');if(b)b.classList.add('auto');if(Math.random()<.35){const z=fz.getBoundingClientRect(),f=document.createElement('div');f.className='floaty';f.textContent='+'+fmtC(v);f.style.left=(z.width/2-20+(Math.random()-.5)*80)+'px';f.style.top=(z.height/2-60+(Math.random()-.5)*40)+'px';fz.appendChild(f);setTimeout(()=>f.remove(),900)}}},125)}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-fad]');if(!b)return;const k=b.dataset.fad,key=k==='auto'?'fabAuto':'fabInf';if(+S[key]>Date.now()){toast('Ya lo tienes activo','Aprovéchalo','var(--mint)','⚡');return}
   sfx('click');showRewardAd('fab_'+k,()=>{S[key]=Date.now()+60e3;save();sfx('big');confetti(80);toast(k==='auto'?'🤖 Autoclick 1 minuto':'⚡ Energía infinita 1 minuto','¡A tope!','var(--mint)',k==='auto'?'🤖':'⚡');if(k==='auto')fabAutoRun();fadRender()})});
 setInterval(()=>{if(+S.fabInf>Date.now())S.fabEn=100;if(+S.fabAuto>Date.now())fabAutoRun();if(view==='fabrica')fadRender()},250);
@@ -14127,6 +14128,11 @@ function admIncSet(on){S.admInc=!!on;const c=myCos();
     if(box)box.insertAdjacentHTML('afterbegin',`<div class="crow" id="cfInc"><span class="cl"><b>🕶️ Modo incógnito (solo equipo)</b><small>Quita el sello «ADMIN ✔» de tu nombre y la estética de admin, para jugar tranquilo sin que se note. El panel lo sigues teniendo.</small></span><button class="sw2" role="switch" data-adminc aria-checked="${admInc()}" aria-label="Modo incógnito"></button></div>`)}}catch(_){}return r}}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-adminc]');if(!b||!ADM.on)return;const on=!admInc();b.setAttribute('aria-checked',on);sfx('click');admIncSet(on)});
 try{i18nAdd([['Lluvia de monedas sin sustos','Coin rain without scares','Pluie de pièces sans surprise','Chuva de moedas sem sustos'],['Coger monedas ya no te saca atrás','Grabbing coins no longer sends you back','Attraper des pièces ne te ramène plus en arrière','Apanhar moedas já não te manda para trás'],['Las monedas caen un poco más hacia el centro y, si al cogerlas tocas sin querer el gesto de «atrás» del móvil, el juego no se va a otra pantalla.','Coins fall a bit closer to the centre, and if you accidentally trigger your phone\'s back gesture while grabbing them, the game stays where it is.','Les pièces tombent plus vers le centre et, si tu fais sans le vouloir le geste « retour », le jeu reste où il est.','As moedas caem mais para o centro e, se fizeres sem querer o gesto de voltar, o jogo fica onde está.']])}catch(e){}
+/* Fábrica: «Clics/seg» cuenta también el autoclick del anuncio y se actualiza al momento */
+function fpsDraw(){const el=$('#fPs');if(!el)return;const now=performance.now();let a=0;try{a=AUTOC.filter(t=>now-t<1000).length}catch(e){}const n=clicksNow()+a;const t=String(n)+(a?' 🤖':'');if(el.textContent!==t)el.textContent=t;el.title=a?'Incluye el autoclick del anuncio':''}
+document.addEventListener('pointerdown',e=>{if(e.target.closest&&e.target.closest('#bigcoin'))setTimeout(fpsDraw,0)},true);
+setInterval(()=>{try{if(view==='fabrica')fpsDraw()}catch(e){}},200);
+try{i18nAdd([['Fábrica','Factory','Usine','Fábrica'],['«Clics/seg» arreglado','"Clicks/sec" fixed','« Clics/s » corrigé','«Cliques/seg» corrigido'],['Ahora se mueve al momento cuando pulsas la moneda y también cuenta el autoclick del anuncio (sale con 🤖).','It now updates instantly when you tap the coin and also counts the ad autoclick (shown with 🤖).','Il se met à jour tout de suite quand tu touches la pièce et compte aussi l\'autoclic de la pub (avec 🤖).','Agora atualiza na hora quando tocas na moeda e também conta o autoclique do anúncio (com 🤖).']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
