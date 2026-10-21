@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-21-1254">
+<meta name="app-version" content="2026-10-21-1300">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2659,6 +2659,23 @@ html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]{position:relat
 html body :is(.xtt,#rkTitle.xtt){position:relative!important;overflow:hidden!important;display:inline-block!important;vertical-align:middle;isolation:isolate;max-width:100%}
 html body :is(.xtt,#rkTitle.xtt)::after{content:'';position:absolute;top:0;bottom:0;left:-70%;width:45%;background:linear-gradient(100deg,transparent,#ffffff8c 50%,transparent);transform:skewX(-20deg);animation:xttShine 3.4s ease-in-out infinite;pointer-events:none;z-index:1}
 @keyframes xttShine{0%,58%{left:-70%}100%{left:135%}}
+.opt.isnew{box-shadow:0 0 0 2px var(--sun),0 0 14px #ffd60066!important;position:relative}
+.opt .nwb{position:absolute;top:-8px;right:-6px;background:var(--sun);color:#111;border:2px solid #000;border-radius:999px;font:900 10px/1 var(--f-b);padding:3px 6px;letter-spacing:.4px;z-index:2;animation:ptPulse 1.1s infinite;pointer-events:none}
+.nuevoban{border:2px solid var(--sun)!important;background:linear-gradient(135deg,#ffd6001c,#b06bff14)!important;display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.nuevoban .nvh{display:flex;align-items:center;gap:8px;font:900 18px var(--f-b)}.nuevoban .nvh .emo{font-size:24px}
+.nuevoban .nvl{display:flex;flex-wrap:wrap;gap:6px}.nuevoban .nvl span{background:#00000055;border:1px solid var(--sun);color:var(--sun);border-radius:999px;padding:4px 10px;font:800 12.5px var(--f-b)}
+.nuevoban small{color:var(--muted);font-weight:700}.nuevoban #nuevoOk{align-self:flex-start}
+#meChip .pdot{top:-8px;right:-8px}
+#pfNameMsg .nmwait{display:block;background:#ffd60014;border-left:3px solid var(--sun);padding:8px 10px;border-radius:6px;color:var(--fg)}#pfNameMsg .nmwait b{color:var(--sun)}#pfNameMsg small{color:var(--muted)}
+#pfNameBtn:disabled{opacity:.75;cursor:not-allowed}
+/* admins inconfundibles: azul eléctrico y blanco (ningún título ni marco normal usa estos colores) + distintivo ADMIN ✔ */
+html body .fr-xadm{box-shadow:0 0 0 3px #fff,0 0 0 6px #1e7bff,0 0 0 8px #000,0 0 24px #29b6ff!important;animation:xadmb 1.6s ease-in-out infinite!important}
+@keyframes xadmb{50%{box-shadow:0 0 0 3px #29b6ff,0 0 0 6px #fff,0 0 0 8px #000,0 0 34px 4px #29b6ff}}
+html body .nc-xadm{background:linear-gradient(90deg,#29b6ff,#ffffff,#8fe3ff,#29b6ff)!important;background-size:300% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;text-shadow:none!important;filter:drop-shadow(0 0 6px #29b6ffaa)!important;animation:gxFlow 3s linear infinite!important}
+html body [data-xt="🛡️ Admin"],html body .tt.xtt[data-xt="🛡️ Admin"],html body .ptt.xtt[data-xt="🛡️ Admin"],html body #rkTitle.xtt[data-xt="🛡️ Admin"]{background:linear-gradient(90deg,#0a3cff,#29b6ff 50%,#0a3cff)!important;background-size:200% 100%!important;color:#fff!important;border:1px solid #fff!important;text-shadow:0 1px 0 #00185a!important;box-shadow:0 0 12px #29b6ff99!important}
+html body .bg-xadm,html body .mecard.bg-xadm{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='70'%3E%3Ctext x='6' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='26' fill='%23ffffff' fill-opacity='.1' transform='rotate(-14 65 35)'%3EADMIN%3C/text%3E%3C/svg%3E"),linear-gradient(135deg,#041a3a,#0a4fb0 55%,#020c1c)!important}
+.admbdg{display:inline-flex;align-items:center;gap:2px;margin-left:6px;vertical-align:middle;background:linear-gradient(90deg,#0a3cff,#29b6ff);color:#fff!important;-webkit-text-fill-color:#fff;border:1.5px solid #fff;border-radius:5px;padding:1px 6px;font:900 10.5px/1.4 var(--f-b);letter-spacing:.6px;box-shadow:0 0 10px #29b6ffaa;white-space:nowrap;text-shadow:none;filter:none}
+.pod .admbdg{margin:2px auto 0;display:flex;width:fit-content}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6207,6 +6224,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-21-c',t:'Lo nuevo, a la vista',items:[['🆕','Zona «Nuevo» en tu Perfil','Las caras, marcos, fondos y títulos que acabas de conseguir salen marcados con NUEVO y un aviso amarillo, para que no se te pasen.','new','#ffd600'],['⏳','Cambio de nombre más claro','Puedes cambiarte el nombre una vez cada 7 días. Ahora ves exactamente cuánto te falta y qué día podrás.','new','#4aa8ff'],['🛡️','Los admins, bien visibles','Los admins llevan un sello azul «ADMIN ✔» en la clasificación y en su perfil, para que sepas quién es del equipo.','new','#4aa8ff']]},
  {v:'2026-10-21-b',t:'Botón rojo más generoso',items:[['🔴','Siempre hay premio','Todas las sorpresas del botón rojo dan ahora un buen premio según tu dinero. Las que antes daban poco o nada, ya no.','new','#ff3b4f'],['🎬','Estrella de Cine renovada','El título del Gran Premio de Cine ahora es de alfombra roja, con letras doradas y brillo.','new','#ffd600']]},
  {v:'2026-10-21-a',t:'Que no se te escape nada',items:[['🟡','Avisos amarillos en todo','Cuando hay algo por recoger (premio diario, misiones, botón rojo, ruletas gratis, cofres, torneos, colecciones, solicitudes de amistad, mensajes del jefe…) sale un número amarillo en el menú, en las pestañas de Inicio y en el botón de cada cosa. Y la tarjeta brilla.','new','#ffd600']]},
  {v:'2026-10-20-a',t:'Más fluido y sin fallos',items:[['🌧️','La lluvia de monedas, mejor','Las monedas ya no se paran si deslizas la pantalla, y cuando se acaba el dinero siguen cayendo monedas grises vacías hasta el final.','fix','#ffd600'],['📱','Va fluido en el móvil','Al deslizar ya no va a tirones y la página no salta hacia arriba sola.','fix','#14e08a'],['⬅️','La flecha de atrás ya no cierra el juego','Te lleva a la pantalla anterior o cierra la ventana abierta. En Inicio te avisa: pulsa otra vez para salir.','fix','#4aa8ff'],['🔄','PC y móvil, siempre igual','El tiempo jugado y la caja fuerte se pasan bien entre dispositivos.','fix','#b06bff'],['🪙','Coger monedas sin pulsar lo de detrás','Al tocar una moneda, calabaza o regalo que cae, ya no se pulsa el botón que hay debajo.','fix','#ffd600'],['🎯','Tiro al plato preciso','El disparo sale justo donde apuntas, también con la pantalla ajustada.','fix','#ff6b4a'],['🎁','Regalar desde Amigos','Ahora también puedes regalar a tus amigos que salen en el podio.','fix','#14e08a'],['👑','Un solo rey','El título «Rey de Casinetori» solo lo lleva el número 1 de ahora.','fix','#ffd600'],['🏆','Logros revisados','Memoria, Reflejos y Pichichi ahora van por puntos, como los juegos. Ya se pueden hacer todos.','fix','#ff9d00'],['🎡','Ruleta más clara','En la apuesta rápida ves cuánto hay puesto en Rojo, Negro y Verde.','new','#ff3b4f'],['🏛️','Bóveda ordenada','Colecciones de menor a mayor premio, y explicado qué pasa si vendes algo.','fix','#b06bff'],['🔑','Crear cuenta más fácil','Menos texto, el regalo de Google bien visible y, si no pones nombre, se usa tu usuario.','fix','#14e08a'],['🔊','Sonidos nuevos','Cada cosa suena distinta: subir de nivel, evento, mensaje, regalo, premio gordo y actualización.','new','#4aa8ff'],['📏','Todo cabe en móviles pequeños','La clasificación, la ayuda y la barra de arriba ya no se cortan.','fix','#ffd600']]},
@@ -6404,6 +6422,9 @@ const TUTOS=[
    ['En Clasificación o Ajustes pulsa <b>Crear cuenta</b>: elige usuario y contraseña.'],['En otro móvil, al entrar pulsa <b>«¿Ya tienes cuenta? Entra aquí»</b>.'],['Tu partida aparece igual: dinero, nivel, cosas y amigos.'],['Apúntate la contraseña y tu <b>nombre con el código</b>, tipo <b>PEPE#4821</b>. Lo ves en Clasificación y en Ajustes.'],['Apunta también tu <b>código de recuperación</b> (Ajustes › Cuenta). Si un día pierdes la cuenta, en <b>Ayuda › Buzón del jefe</b> pides «Recuperar cuenta» con tu nombre antiguo y ese código.']],'Sin cuenta, tu partida solo está en ese navegador.','ajustes'],
 ];
 const FAQ=[
+['¿Cada cuánto puedo cambiarme el nombre?','Una vez cada 7 días. En Perfil › Nombre ves cuánto te falta y el día exacto en que podrás cambiarlo otra vez.'],
+['¿Qué es el sello azul «ADMIN ✔»?','Lo llevan los admins del juego, elegidos por el jefe. Así sabes quién es del equipo.'],
+['¿Qué significa NUEVO en mi Perfil?','Son cosas que acabas de conseguir (caras, marcos, fondos, títulos). Cuando las miras, el aviso se quita.'],
 ['¿Y si olvido mi contraseña?','Lo más fácil es entrar con Google: así nunca pierdes la cuenta. Si usabas usuario y contraseña: 1) Crea una cuenta nueva y ponte un nombre. 2) Ve a Ayuda › Buzón del jefe y elige «Recuperar cuenta». 3) Escribe tu nombre ANTIGUO entero con el código (tipo PEPE#4821) y el código de recuperación de esa cuenta (estaba en Ajustes › Cuenta). 4) El jefe comprueba el código y te pasa toda tu partida. Sin el código de recuperación no se puede demostrar que la cuenta es tuya.'],
  ['¿Cómo hablo con el jefe?','En Ayuda > Buzón del jefe (o en Ajustes). Puedes avisar de un fallo, proponer ideas o pedir que te recuperen la cuenta. Ahí mismo ves si te lo ha aprobado o rechazado y lo que te contesta.'],
  ['¿El dinero es real?','No. Todo es dinero de mentira dentro del juego. No se puede sacar ni comprar con dinero de verdad.'],
@@ -13871,6 +13892,51 @@ try{i18nAdd([['Botón rojo más generoso','More generous red button','Bouton rou
 /* abajo del todo: sin «anclaje» del navegador (si algo de arriba cambia, te quedas abajo en vez de subir de golpe) */
 (()=>{const de=document.documentElement;let on=false;const chk=()=>{const near=scrollY+innerHeight>=de.scrollHeight-160&&scrollY>100;if(near!==on){on=near;de.style.overflowAnchor=near?'none':'';document.body.style.overflowAnchor=near?'none':''}};
   addEventListener('scroll',chk,{passive:true});addEventListener('resize',chk);setInterval(chk,700);chk()})();
+/* ===== «NUEVO»: lo que te toca (títulos, marcos, colores, fondos, caras) sale marcado en tu Perfil hasta que lo veas ===== */
+function cosAvail(){const out=[];try{const L=S.lvl||1,own=S.cosOwn||[],pw=(window.peakW?peakW():0);
+  ['c','f','bg','ti'].forEach(k=>(COS[k]||[]).forEach(x=>{if(['none','def','novato','pink'].includes(x[0]))return;const f=x[4];let ok;
+    if(f==='x')ok=hasExc(k,x[0]);else if(f==='s')ok=own.includes(k+':'+x[0]);else if(f==='w')ok=pw>=x[2];else if(f)ok=own.includes(k+':'+x[0])||hasExc(k,x[0]);else ok=L>=x[2];if(ok)out.push(k+':'+x[0])}));
+  try{itemTitles().forEach(([i])=>out.push('ti:it:'+i))}catch(e){}
+  try{AVX.forEach(([a,l])=>{if(L>=l)out.push('av:'+a)});AVW.forEach(a=>{if((S.avWon||[]).includes(a))out.push('av:'+a)});EXAV.forEach(a=>{if(hasExc('av',a))out.push('av:'+a)});(S.evFaces||[]).forEach(a=>out.push('av:'+a))}catch(e){}}catch(e){}return[...new Set(out)]}
+function cosNew(){const av=cosAvail();if(!Array.isArray(S.cosSeen)){S.cosSeen=av;save();return[]}const seen=new Set(S.cosSeen);return av.filter(k=>!seen.has(k))}
+function cosSeenAdd(keys){S.cosSeen=[...new Set([...(S.cosSeen||[]),...keys])];save();try{pendDraw()}catch(e){}try{nuevoMark()}catch(e){}}
+function cosNameK(key){const i=key.indexOf(':'),k=key.slice(0,i),id=key.slice(i+1);if(k==='av')return'Cara '+id;if(k==='ti'&&id.startsWith('it:')){try{const n=+id.slice(3);return'Título «'+ITEM_TITLES[P[n][1]]+'»'}catch(e){return'Título'}}
+  const x=(COS[k]||[]).find(y=>y[0]===id);return({ti:'Título',f:'Marco',c:'Color',bg:'Fondo'}[k]||'')+' «'+(x?x[1]:id)+'»'}
+function nuevoMark(){if(view!=='perfil')return;const body=$('#pfBody');if(!body)return;const nw=new Set(cosNew());
+  body.querySelectorAll('[data-set][data-val]').forEach(b=>{const k=b.dataset.set+':'+b.dataset.val;const on=nw.has(k);b.classList.toggle('isnew',on);let t=b.querySelector('.nwb');if(on&&!t){b.insertAdjacentHTML('beforeend','<span class="nwb">NUEVO</span>')}else if(!on&&t)t.remove()});
+  let ban=$('#nuevoBan');if(!nw.size){if(ban)ban.remove();return}
+  const names=[...nw].slice(0,8).map(cosNameK);const h=`<div class="nvh"><span class="emo">✨</span><b>Tienes ${nw.size===1?'1 cosa nueva':nw.size+' cosas nuevas'}</b></div><div class="nvl">${names.map(n=>`<span>${esc(n)}</span>`).join('')}${nw.size>8?`<span>y ${nw.size-8} más</span>`:''}</div><small>Están marcadas con <b>NUEVO</b> aquí abajo. Pulsa una para ponértela.</small><button class="btn sm alt" id="nuevoOk">Ya lo he visto</button>`;
+  if(!ban){body.insertAdjacentHTML('afterbegin','<div class="panel nuevoban" id="nuevoBan"></div>');ban=$('#nuevoBan')}if(ban._h!==h){ban._h=h;ban.innerHTML=h}}
+document.addEventListener('click',e=>{if(e.target.closest('#nuevoOk')){sfx('click');cosSeenAdd(cosAvail());return}
+  const b=e.target.closest('#pfBody [data-set][data-val]');if(b&&!b.disabled){cosSeenAdd([b.dataset.set+':'+b.dataset.val])}});
+{const _rpN=renderPerfil;renderPerfil=function(){const r=_rpN.apply(this,arguments);try{nuevoMark()}catch(e){}return r}}
+setInterval(()=>{try{if(view==='perfil')nuevoMark()}catch(e){}},1500);
+/* el aviso amarillo en tu botón de perfil (arriba) */
+{const _plN=pendList;pendList=function(){const L=_plN.apply(this,arguments);try{if(S.name){const n=cosNew().length;if(n)L.push({id:'nuevo',view:'perfil',tab:null,chip:null,n})}}catch(e){}return L}}
+{const _pdN=pendDraw;pendDraw=function(){const r=_pdN.apply(this,arguments);try{const n=(pendList().find(x=>x.id==='nuevo')||{}).n||0;const el=$('#meChip');if(el){el.style.position='relative';let d=el.querySelector(':scope>.pdot');if(n){if(!d){d=document.createElement('i');d.className='pdot';el.appendChild(d)}const t=n>9?'9+':String(n);if(d.textContent!==t)d.textContent=t}else if(d)d.remove()}}catch(e){}return r}}
+/* los avisos amarillos se actualizan al momento (no cada segundo) */
+{let pq=0;const q=()=>{if(pq)return;pq=requestAnimationFrame(()=>{pq=0;try{pendDraw()}catch(e){}})};
+ document.addEventListener('click',()=>{setTimeout(q,30);setTimeout(q,400)});const _svP=save;save=function(){const r=_svP.apply(this,arguments);q();return r}}
+try{i18nAdd([['Ya lo he visto','Got it','Vu','Já vi'],['NUEVO','NEW','NOUVEAU','NOVO']])}catch(e){}
+/* cambio de nombre: se ve claro el plazo de 7 días y cuánto falta, con cuenta atrás */
+function nmLeftTxt(ms){const s=Math.max(0,Math.floor(ms/1000)),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),ss=s%60;return(d?d+' d ':'')+(d||h?h+' h ':'')+m+' min'+(d?'':' '+String(ss).padStart(2,'0')+' s')}
+function nmDraw(){if(view!=='perfil')return;const b=$('#pfNameBtn'),m=$('#pfNameMsg');if(!b||!m)return;const left=(S.nhT||0)+NH_CD-Date.now();
+  if(left>0){const when=new Date(Date.now()+left).toLocaleString('es-ES',{weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'});
+    const h=`<span class="nmwait">⏳ Ya te cambiaste el nombre hace poco. Podrás cambiarlo otra vez en <b>${nmLeftTxt(left)}</b> <small>(el ${esc(when)})</small>.</span>`;if(m._h!==h){m._h=h;m.innerHTML=h}b.disabled=true;const t='⏳ Espera '+nmLeftTxt(left).replace(/ \d+ s$/,'');if(b.textContent!==t)b.textContent=t}
+  else{const h='Cambiar el nombre cuesta <b>1.000 €</b> y tu código de amigo cambia con él. <b>Después tendrás que esperar 7 días</b> para volver a cambiarlo, así que elígelo bien.';if(m._h!==h){m._h=h;m.innerHTML=h}if(b.disabled){b.disabled=false;b.textContent='Cambiar · 1.000 €'}}}
+{const _rpNm=renderPerfil;renderPerfil=function(){const r=_rpNm.apply(this,arguments);try{nmDraw()}catch(e){}return r}}
+setInterval(()=>{try{nmDraw()}catch(e){}},1000);
+document.getElementById('pfBody').addEventListener('click',e=>{if(e.target.closest('#pfNameBtn'))setTimeout(()=>{try{const m=$('#pfNameMsg');if(m)m._h='';nmDraw()}catch(_){}},60)});
+/* distintivo ADMIN ✔ al lado del nombre de cada admin */
+try{BGSW.xadm='linear-gradient(135deg,#041a3a,#0a4fb0 55%,#020c1c)'}catch(e){}
+{const _pubA=pubX;pubX=function(){const x=_pubA();try{x.adm=ADM.on?1:0}catch(e){}return x}}
+const isAdmP=p=>!!p&&(p.me?!!ADM.on:(p.adm===1||(Array.isArray(p.exc)&&p.exc.includes('ti:xadm'))));
+const ADMB='<span class="admbdg" title="Administrador de Casinetori">🛡️ ADMIN ✔</span>';
+const addAdmB=(h,p)=>{try{if(!isAdmP(p))return h;const nm=esc(p.name||'Sin nombre');const i=h.indexOf('>'+nm+'</span>');if(i<0)return h;const j=i+nm.length+8;return h.slice(0,j)+ADMB+h.slice(j)}catch(e){return h}};
+{const _rowA=rowHTML;rowHTML=function(p){return addAdmB(_rowA.apply(this,arguments),p)}}
+{const _podA=podiumHTML;podiumHTML=function(arr){let h=_podA.apply(this,arguments);try{(arr||[]).slice(0,3).forEach(p=>{if(!isAdmP(p))return;const nm=esc(p.name||'Sin nombre')+(p.me?' (tú)':'');const k=h.indexOf('>'+nm+'</b>');if(k>=0){const j=k+nm.length+5;h=h.slice(0,j)+ADMB+h.slice(j)}})}catch(e){}return h}}
+{const _opA=openPlayer;openPlayer=function(id){const r=_opA.apply(this,arguments);try{const me=id===NET.id||id==='me';const p=me?{me:1}:NET.players.get(id);if(isAdmP(p)){const h2=document.querySelector('#mbox .pp-head h2');if(h2&&!h2.querySelector('.admbdg'))h2.insertAdjacentHTML('beforeend',ADMB)}}catch(e){}return r}}
+try{i18nAdd([['Lo nuevo, a la vista','New stuff, front and centre','Les nouveautés bien visibles','O que é novo, à vista'],['Zona «Nuevo» en tu Perfil','"New" area in your Profile','Zone « Nouveau » dans ton Profil','Zona «Novo» no teu Perfil'],['Las caras, marcos, fondos y títulos que acabas de conseguir salen marcados con NUEVO y un aviso amarillo, para que no se te pasen.','Faces, frames, backgrounds and titles you just got are marked NEW with a yellow badge so you don\'t miss them.','Les visages, cadres, fonds et titres que tu viens d\'obtenir sont marqués NOUVEAU avec un badge jaune.','Caras, molduras, fundos e títulos que acabaste de ganhar aparecem marcados como NOVO com um aviso amarelo.'],['Cambio de nombre más claro','Clearer name change','Changement de nom plus clair','Mudança de nome mais clara'],['Puedes cambiarte el nombre una vez cada 7 días. Ahora ves exactamente cuánto te falta y qué día podrás.','You can change your name once every 7 days. Now you see exactly how long is left and on which day you can.','Tu peux changer de nom une fois tous les 7 jours. Tu vois maintenant le temps restant et le jour exact.','Podes mudar o nome uma vez a cada 7 dias. Agora vês quanto falta e em que dia poderás.'],['Los admins, bien visibles','Admins stand out','Les admins bien visibles','Os admins bem visíveis'],['Los admins llevan un sello azul «ADMIN ✔» en la clasificación y en su perfil, para que sepas quién es del equipo.','Admins carry a blue "ADMIN ✔" badge in the leaderboard and on their profile so you know who\'s staff.','Les admins portent un badge bleu « ADMIN ✔ » dans le classement et sur leur profil.','Os admins têm um selo azul «ADMIN ✔» na classificação e no perfil.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
