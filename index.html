@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-21-1921">
+<meta name="app-version" content="2026-10-21-2052">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -5588,7 +5588,7 @@ function renderAdmSide(){const el=$('#admSide'),p=ADM.sel&&NET.players.get(ADM.s
   if(!p){el.innerHTML=`<div class="empty"><span class="emo">🎯</span><b>Elige a alguien de la lista</b><span>Desde aquí le das dinero, se lo quitas o le haces la vida imposible.</span></div>`;return}
   const id=ADM.sel,on=id===NET.id||NET.online.has(id),ban=ADM.bans.has(id);
   el.innerHTML=`<div class="who"><span class="bigav emo">${avH(p)}</span><div style="min-width:0"><h3 style="font-size:30px;overflow-wrap:anywhere;line-height:1">${esc(p.name||'Sin nombre')}</h3><small class="num muted">${esc(p.code||'')}</small> ${on?'<span class="tag on">Online</span>':`<span class="tag off">${ago(+p.t)}</span>`}${ban?'<span class="tag">Baneado</span>':''}</div></div>
-   <div class="kv"><div><small>Cartera</small><b>${fmt(Math.max(0,(+p.coins||0)-(+p.sf||0)))} €</b></div><div><small>🔐 Caja fuerte</small><b>${fmt(+p.sf||0)} €</b></div><div><small>Cartera + caja</small><b>${fmt(+p.coins||0)} €</b></div><div><small>Ganado en total</small><b>${short(+p.earned||0)} €</b></div><div><small>Nivel</small><b>${+p.lvl||1}</b></div><div><small>Logros</small><b>${+p.ach||0}</b></div><div style="grid-column:1/-1"><small>Gastado en el millonario</small><b>${eurS(+p.spent||0)}</b></div></div>
+   <div class="kv"><div><small>Cartera</small><b>${fmt(p.wal!=null?Math.max(0,+p.wal||0):Math.max(0,(+p.coins||0)-(+p.sf||0)+(+p.debt||0)))} €</b></div><div><small>🔐 Caja fuerte</small><b>${fmt(+p.sf||0)} €</b></div><div><small>Cartera + caja${+p.debt>0?' − deuda':''}</small><b>${fmt(+p.coins||0)} €</b></div>${+p.debt>0?`<div><small>🏦 Debe al banco</small><b>${fmt(+p.debt)} €</b></div>`:''}<div><small>Ganado en total</small><b>${short(+p.earned||0)} €</b></div><div><small>Nivel</small><b>${+p.lvl||1}</b></div><div><small>Logros</small><b>${+p.ach||0}</b></div><div style="grid-column:1/-1"><small>Gastado en el millonario</small><b>${eurS(+p.spent||0)}</b></div></div>
    <span class="alab">Dinero</span>
    <div class="amt"><input class="inp num" id="admAmt" inputmode="numeric" aria-label="Cantidad"><button class="qa" data-q="100">100</button><button class="qa" data-q="1000">1k</button><button class="qa" data-q="10000">10k</button><button class="qa" data-q="1000000">1M</button></div>
    <div class="abtns"><button class="btn mint" data-a="give">Dar</button><button class="btn red" data-a="take">Quitar de la cartera</button><button class="btn red" data-a="takesafe">Quitar de la caja fuerte</button><button class="btn red" data-a="takeall">Quitar de las dos</button><button class="btn" data-a="double">Duplicar</button><button class="btn dark" data-a="zero">Cartera a cero</button><button class="btn dark" data-a="zeroall">Todo a cero (cartera y caja)</button></div><p class="netmsg" style="margin:4px 0 0">«Quitar de las dos» quita primero de la cartera y lo que falte, de la caja fuerte.</p>
@@ -12968,7 +12968,7 @@ setInterval(()=>{try{loanTick();if(view==='inicio')bankMount()}catch(e){}},10000
 /* lo que ganas: si el préstamo venció, la mitad va al banco; si tienes Auto, ese % */
 {const _gvL=give;give=function(n){const c0=+S.coins||0,r=_gvL.apply(this,arguments);try{const L=S.loan,g=(+S.coins||0)-c0;if(L&&loanOwe()>0&&g>0){const pc=L.col?50:bkS().auto,k=Math.min(loanOwe(),Math.floor(g*pc/100));if(k>0){S.coins-=k;lnPay(k)}}}catch(e){}return r}}
 /* en la clasificación cuenta tu dinero menos lo que debes */
-{const _pxL=pubX;pubX=function(){const x=_pxL.apply(this,arguments);try{const ow=loanOwe();if(ow>0){x.coins=Math.max(0,Math.floor(S.coins)-ow);x.debt=ow}else x.debt=0;x.bks=bkS().sc}catch(e){}return x}}
+{const _pxL=pubX;pubX=function(){const x=_pxL.apply(this,arguments);try{const ow=loanOwe();x.wal=Math.floor(+S.coins||0);if(ow>0){x.coins=Math.max(0,Math.floor((+S.coins||0)+(+S.safe||0))-ow);x.debt=ow}else x.debt=0;x.bks=bkS().sc}catch(e){}return x}}
 {const _goBk=go;go=function(){const r=_goBk.apply(this,arguments);try{if(view==='inicio')bankMount()}catch(e){}return r}}
 setTimeout(()=>{try{bkS();loanTick();bankMount()}catch(e){}},1500);
 ACH.push(['🏦','Buen pagador','Devuelve 3 préstamos a tiempo',()=>(((S.bank||{}).ok)||0)>=3],['💎','Cliente de oro','Llega a confianza Excelente en el banco',()=>(((S.bank||{}).sc)||0)>=90]);
@@ -14147,6 +14147,8 @@ document.addEventListener('input',e=>{const i=e.target.closest&&e.target.closest
 /* que al refrescar la lista no se pierda lo que estás escribiendo */
 {const _rai=renderAdmInbox;renderAdmInbox=function(){const a=document.activeElement,id=a&&a.dataset&&a.dataset.bzrwc,pos=id?a.selectionStart:0;const r=_rai.apply(this,arguments);
   if(id){const n=document.querySelector('[data-bzrwc="'+id+'"]');if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}}}return r}}
+/* jugadores con préstamo de versiones anteriores: su dinero publicado no contaba la caja fuerte; se corrige al leerlo */
+{const _npD=normP;normP=function(d){d=_npD(d);try{if(d&&!d.me&&d.wal==null&&+d.debt>0&&+d.sf>0){const c=+d.coins||0,sf=+d.sf||0,db=+d.debt||0;d.wal=c>0?c+db:null;d.coins=c>0?c+sf:Math.max(0,sf-db)}}catch(e){}return d}}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
