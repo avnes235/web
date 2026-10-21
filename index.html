@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-21-0605">
+<meta name="app-version" content="2026-10-21-0936">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2651,6 +2651,10 @@ html[data-fit="x"] .app{min-height:calc(100vh / .76)}html[data-fit="x"] .nav,htm
 
 /* sin el efecto de «estirar» de Android al llegar arriba o abajo del todo (daba un tirón) ni recargar sin querer */
 html,body{overscroll-behavior-y:none}
+/* título «🎬 Estrella de Cine» rediseñado: alfombra roja de Hollywood, letras doradas y un brillo que pasa */
+html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]{position:relative;overflow:hidden;color:#fff1b8!important;background:linear-gradient(180deg,#c3122f,#7a0718)!important;background-size:auto!important;padding:3px 9px!important;border-radius:6px!important;border:1px solid #ffd76a!important;box-shadow:0 0 0 1px #5a0410,0 0 14px #ff2a4a77,inset 0 1px 0 #ff8a9c!important;text-shadow:0 0 6px #ffb800,0 1px 0 #3a0008!important;letter-spacing:.4px;animation:none!important}
+html body :is(.xtt,#rkTitle.xtt)[data-xt="🎬 Estrella de Cine"]::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,#fff7 50%,transparent);transform:skewX(-20deg);animation:cineShine 3.2s ease-in-out infinite;pointer-events:none}
+@keyframes cineShine{0%,55%{left:-60%}100%{left:130%}}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -4705,7 +4709,7 @@ $('#redbtn').addEventListener('pointerenter',e=>{if(runaway>0&&e.pointerType==='
 $('#redbtn').addEventListener('click',()=>{const b=$('#redbtn');
   if(runaway>0){runaway--;if(runaway===0){b.style.transform='';const r=150*S.lvl;give(r);sfx('win');troll('VALE, VALE','me has pillado. Toma '+short(r)+' €',null,true)}else moveBtn();renderForbid();return}
   if(Date.now()<(S.prankAt||0)){b.classList.remove('nope');void b.offsetWidth;b.classList.add('nope');sfx('lose');return}
-  S.prankAt=Date.now()+PRANK_WAIT;ev('pranks');xp(10);PRANKS[nextPrank()]();renderForbid();save()});
+  S.prankAt=Date.now()+PRANK_WAIT;ev('pranks');xp(10);{const _pi=nextPrank();if(typeof rbRun==='function')rbRun(_pi);else PRANKS[_pi]()}renderForbid();save()});
 
 /* ================= TARJETAS DE JUEGOS ================= */
 const COVERS={
@@ -6199,6 +6203,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-21-b',t:'Botón rojo más generoso',items:[['🔴','Siempre hay premio','Todas las sorpresas del botón rojo dan ahora un buen premio según tu dinero. Las que antes daban poco o nada, ya no.','new','#ff3b4f'],['🎬','Estrella de Cine renovada','El título del Gran Premio de Cine ahora es de alfombra roja, con letras doradas y brillo.','new','#ffd600']]},
  {v:'2026-10-21-a',t:'Que no se te escape nada',items:[['🟡','Avisos amarillos en todo','Cuando hay algo por recoger (premio diario, misiones, botón rojo, ruletas gratis, cofres, torneos, colecciones, solicitudes de amistad, mensajes del jefe…) sale un número amarillo en el menú, en las pestañas de Inicio y en el botón de cada cosa. Y la tarjeta brilla.','new','#ffd600']]},
  {v:'2026-10-20-a',t:'Más fluido y sin fallos',items:[['🌧️','La lluvia de monedas, mejor','Las monedas ya no se paran si deslizas la pantalla, y cuando se acaba el dinero siguen cayendo monedas grises vacías hasta el final.','fix','#ffd600'],['📱','Va fluido en el móvil','Al deslizar ya no va a tirones y la página no salta hacia arriba sola.','fix','#14e08a'],['⬅️','La flecha de atrás ya no cierra el juego','Te lleva a la pantalla anterior o cierra la ventana abierta. En Inicio te avisa: pulsa otra vez para salir.','fix','#4aa8ff'],['🔄','PC y móvil, siempre igual','El tiempo jugado y la caja fuerte se pasan bien entre dispositivos.','fix','#b06bff'],['🪙','Coger monedas sin pulsar lo de detrás','Al tocar una moneda, calabaza o regalo que cae, ya no se pulsa el botón que hay debajo.','fix','#ffd600'],['🎯','Tiro al plato preciso','El disparo sale justo donde apuntas, también con la pantalla ajustada.','fix','#ff6b4a'],['🎁','Regalar desde Amigos','Ahora también puedes regalar a tus amigos que salen en el podio.','fix','#14e08a'],['👑','Un solo rey','El título «Rey de Casinetori» solo lo lleva el número 1 de ahora.','fix','#ffd600'],['🏆','Logros revisados','Memoria, Reflejos y Pichichi ahora van por puntos, como los juegos. Ya se pueden hacer todos.','fix','#ff9d00'],['🎡','Ruleta más clara','En la apuesta rápida ves cuánto hay puesto en Rojo, Negro y Verde.','new','#ff3b4f'],['🏛️','Bóveda ordenada','Colecciones de menor a mayor premio, y explicado qué pasa si vendes algo.','fix','#b06bff'],['🔑','Crear cuenta más fácil','Menos texto, el regalo de Google bien visible y, si no pones nombre, se usa tu usuario.','fix','#14e08a'],['🔊','Sonidos nuevos','Cada cosa suena distinta: subir de nivel, evento, mensaje, regalo, premio gordo y actualización.','new','#4aa8ff'],['📏','Todo cabe en móviles pequeños','La clasificación, la ayuda y la barra de arriba ya no se cortan.','fix','#ffd600']]},
  {v:'2026-10-18-a',t:'Multiplicadores del casino con tope',items:[['🎰','Tope en lo extra','Los multiplicadores del casino (ruleta, Casino caliente, eventos x2…) siguen sumando, pero lo extra de cada jugada tiene un tope: el 1 % de tu dinero (mínimo 100.000 €). Así nadie puede romper el juego apostando todo en jugadas casi seguras con el multiplicador puesto.','new','#ff9d00']]},
@@ -9757,7 +9762,7 @@ function guDayRender(){const b=$('#guDayBtn'),inf=$('#guDayInfo');if(!b||guDwSpi
 function guDayPay(){const st=S.guDay;if(!st||!st.pend)return;st.pend=0;
   if(st.t&&!guHasT()){S.exc=S.exc||[];S.exc.push('ti:'+GU_TITLE);try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}return -1}
   const p=Math.max(0,Math.floor(+st.p||0));try{LED.tag='v:anuncio';LED.tagT=Date.now()+1500}catch(e){}S.coins+=p;S.earned=(S.earned||0)+p;try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}return p}
-function guWin(p,k){const s=GU_DW[k]||[];if(p===-1){try{sfx('big')}catch(_){}try{confetti(360)}catch(_){}troll('🎬 ¡ESTRELLA DE CINE!','título exclusivo: póntelo en Perfil › Título','#ffd600',true);try{excShow(['ti:'+GU_TITLE])}catch(_){}return}
+function guWin(p,k){const s=GU_DW[k]||[];if(p===-1){try{sfx('big')}catch(_){}try{confetti(360)}catch(_){}troll('🎬 ¡ESTRELLA DE CINE!','título exclusivo: póntelo en Perfil › Título','#ffd600',true);try{excShow(['ti:'+GU_TITLE],{k:'🎬 Premio del Gran Premio de Cine',p:'Te ha tocado en la ruleta del Gran Premio de Cine. Muy poca gente lo tiene.'})}catch(_){}return}
   const jack=s[4]==='gold';try{sfx(jack||p>=wealth()*.05?'big':'win')}catch(_){}try{confetti(jack?320:120)}catch(_){}
   if(jack)troll('¡¡GRAN PREMIO!!','+'+short(p)+' €','#ffd600',true);else toast('¡Te ha tocado!','+'+short(p)+' € del Gran Premio de Cine','var(--mint)','🎬')}
 function guDayPending(){const st=S.guDay;if(!st||!st.pend||guDwSpin)return;const p=guDayPay();guWin(p,st.k);guDayRender()}
@@ -10149,13 +10154,13 @@ function excPrev(key){const i=key.indexOf(':'),k=key.slice(0,i),id=key.slice(i+1
   if(k==='av')return`<span class="xav emo">${esc(id)}</span>`;return''}
 /* la pantalla de «has recibido» (espera a que acabes la partida) */
 let excQ=[],excOpen=false;
-function excShow(keys,from){excQ.push(...keys.filter(k=>!excQ.includes(k)));excTry()}
+let excFrom=null;function excShow(keys,from){excQ.push(...keys.filter(k=>!excQ.includes(k)));if(from)excFrom=from;excTry()}
 function excTry(){if(excOpen||!excQ.length)return;if(typeof running!=='undefined'&&running){setTimeout(excTry,1200);return}
-  const keys=excQ.splice(0);excOpen=true;let el=$('#excWin');if(!el){el=document.createElement('div');el.id='excWin';document.body.appendChild(el)}
+  const keys=excQ.splice(0),fr=excFrom;excFrom=null;excOpen=true;let el=$('#excWin');if(!el){el=document.createElement('div');el.id='excWin';document.body.appendChild(el)}
   const one=keys.length===1;
-  el.innerHTML=`<div class="rays"></div><div class="xbox" role="dialog" aria-label="Regalo exclusivo"><small class="k">👑 Regalo exclusivo del jefe</small><h2>${one?'¡HAS RECIBIDO '+(keys[0].startsWith('ti:')?'UN TÍTULO':keys[0].startsWith('f:')?'UN MARCO':keys[0].startsWith('av:')?'UNA CARA':'ALGO')+'!':'¡HAS RECIBIDO '+keys.length+' COSAS!'}</h2>
+  el.innerHTML=`<div class="rays"></div><div class="xbox" role="dialog" aria-label="Regalo exclusivo"><small class="k">${fr?fr.k:'👑 Regalo exclusivo del jefe'}</small><h2>${one?'¡HAS RECIBIDO '+(keys[0].startsWith('ti:')?'UN TÍTULO':keys[0].startsWith('f:')?'UN MARCO':keys[0].startsWith('av:')?'UNA CARA':'ALGO')+'!':'¡HAS RECIBIDO '+keys.length+' COSAS!'}</h2>
    <div class="xit">${keys.map((k,i)=>`<div class="xi" style="animation-delay:${.15+i*.12}s">${excPrev(k)}<b>${esc(excName(k))}</b></div>`).join('')}</div>
-   <p>Esto no se consigue jugando. Solo lo tiene quien el jefe elige.</p><button class="btn big" id="excOn">¡Ponérmelo ya!</button><button class="linkb" id="excX">Guardar para luego</button></div>`;
+   <p>${fr?fr.p:'Esto no se consigue jugando. Solo lo tiene quien el jefe elige.'}</p><button class="btn big" id="excOn">¡Ponérmelo ya!</button><button class="linkb" id="excX">Guardar para luego</button></div>`;
   el.hidden=false;sfx('big');confetti(220);setTimeout(()=>{try{sfx('coin')}catch(e){}confetti(120)},600);
   const done=()=>{el.hidden=true;excOpen=false;excTry()};
   $('#excOn').onclick=()=>{const c=myCos();keys.forEach(key=>{const i=key.indexOf(':'),k=key.slice(0,i),id=key.slice(i+1);if(k==='av')S.av=id;else c[k]=id});save();renderMe();try{if(view==='perfil')renderPerfil()}catch(e){}NET.lastP='';pushPlayer();sfx('buy');toast('¡Puesto!','Ya lo ve todo el mundo en la clasificación','#b06bff','👑');done()};
@@ -10449,7 +10454,7 @@ function evRender(){const el=$('#evbar');if(!el)return;const e=curEv();if(!e){el
   if(e.type==='rain'){const L=rainLeft(e);extra=`<small>Quedan ${fmt(L)} € en el aire${rainTopTxt(e)}</small>`}
   if(e.type==='gift'){extra=(S.evGift===e.id)?'<small>Ya has recogido tu regalo ✔</small>':`<button class="evbtn" id="evGift">🎁 Recoger</button>`}
   el.innerHTML=`<span class="eve">${T[0]}</span><span class="evt"><b>${esc(e.name||T[1])}</b><small>${esc(T[2])}</small>${e.type==='rain'?extra:''}</span>${e.type==='gift'?extra:''}<span class="num">${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}</span>`;
-  const g=$('#evGift');if(g)g.onclick=()=>{if(S.evGift===e.id)return;S.evGift=e.id;const v=Math.max(5000,(S.lvl||1)*5000);give(v);save();sfx('big');confetti(160);troll('🎁 REGALO DEL JEFE','+'+fmt(v)+' € para ti','#14e08a',true);evRender()};
+  const g=$('#evGift');if(g)g.onclick=()=>{if(S.evGift===e.id)return;S.evGift=e.id;const v=Math.max(5000,(S.lvl||1)*5000);give(v);save();sfx('big');confetti(160);troll((e&&e.auto?'🎁 REGALO SORPRESA':'🎁 REGALO DEL JEFE'),'+'+fmt(v)+' € para ti','#14e08a',true);evRender()};
   if(evSeen!==e.id){evSeen=e.id;if(!(e.type==='x2'||e.type==='x3')||e.auto)setTimeout(()=>{try{sfx('evento');troll(T[0]+' '+String(e.name||T[1]).toUpperCase(),T[2],T[4],true)}catch(_){}},400)}}
 renderEvent=function(){evRender()};
 /* efectos que se notan cada segundo */
@@ -10540,7 +10545,7 @@ async function ogClaim(){if(S.ogN||!NET.ok||!NET.db||!isGoogleUser()||S.ogTry===
   let n=null;try{const q=await NET.db.collection('players').where('og','>',0).get();n=q.size}catch(e){S.ogTry=null;return}
   if(n>=OG_MAX){toast('Los 100 OG ya están repartidos','Gracias por entrar con Google: tu partida queda guardada','var(--sky)','🔐');return}
   S.ogN=n+1;S.exc=S.exc||[];const keys=[...EXC_PACKS.og,...EXC_PACKS.vip];keys.forEach(k=>{if(!S.exc.includes(k))S.exc.push(k)});save();NET.lastP='';pushPlayer();
-  try{excShow(keys)}catch(e){}confetti(220);sfx('big');troll('¡ERES OG Nº '+S.ogN+'!','y también VIP: de los 100 primeros con Google','#ffd600',true)}
+  try{excShow(keys,{k:'🐐 Premio por entrar con Google',p:'Solo para los 100 primeros que entran con Google.'})}catch(e){}confetti(220);sfx('big');troll('¡ERES OG Nº '+S.ogN+'!','y también VIP: de los 100 primeros con Google','#ffd600',true)}
 setInterval(()=>{try{ogClaim()}catch(e){}},20000);setTimeout(()=>{try{ogClaim()}catch(e){}},6000);
 const _gsOG=googleSignIn;googleSignIn=async function(){const r=await _gsOG.apply(this,arguments);setTimeout(()=>{try{ogClaim()}catch(e){}},1500);return r};
 /* la ventana de la primera vez: Google o jugar sin cuenta, bien claro */
@@ -10927,7 +10932,7 @@ const evPrize=()=>niceN(Math.max(5000,(S.lvl||1)*5000,wealth()*.003));
   if(e.type==='hunt'){const sm=el.querySelector('.evt small');if(sm&&!sm.dataset.h){sm.dataset.h=1;sm.textContent+=' · Llevas '+(S.huntN&&S.huntN.id===e.id?S.huntN.n:0)}}}}
 /* botones del evento: se pulsan al tocar (la barra se repinta cada segundo) */
 document.addEventListener('pointerdown',ev=>{const g=ev.target.closest('#evGift'),b=ev.target.closest('#evBox');if(!g&&!b)return;ev.preventDefault();const e=curEv();if(!e)return;
-  if(g&&e.type==='gift'&&S.evGift!==e.id){S.evGift=e.id;const v=evPrize();give(v);save();sfx('big');confetti(160);troll('🎁 REGALO DEL JEFE','+'+short(v)+' € para ti','#14e08a',true);evRender()}
+  if(g&&e.type==='gift'&&S.evGift!==e.id){S.evGift=e.id;const v=evPrize();give(v);save();sfx('big');confetti(160);troll((e&&e.auto?'🎁 REGALO SORPRESA':'🎁 REGALO DEL JEFE'),'+'+short(v)+' € para ti','#14e08a',true);evRender()}
   if(b&&e.type==='box'&&S.evBox!==e.id){S.evBox=e.id;const r=Math.random(),m=r<.01?20:r<.1?5:r<.4?2:1,v=evPrize()*m;give(v);save();sfx('big');confetti(m>=5?260:140);troll(m>=20?'🤯 COFRE LEGENDARIO':m>=5?'💎 COFRE ÉPICO':'🧰 COFRE ABIERTO','+'+short(v)+' €'+(m>1?' (x'+m+')':''),'#ffb300',true);evRender()}},true);
 renderEvent=function(){evRender()};
 /* caza de monedas */
@@ -11515,7 +11520,7 @@ const OGVIP=[...EXC_PACKS.og,...EXC_PACKS.vip];
 function ogvipFix(){try{if(!NET.ok||!NET.auth||!NET.auth.currentUser||!S.name)return;const ex=S.exc=S.exc||[];const has=OGVIP.filter(k=>ex.includes(k));if(!has.length)return;
   if(NET.isAnon){S.exc=ex.filter(k=>!OGVIP.includes(k));const c=myCos();['c','f','bg','ti'].forEach(k=>{if(String(c[k]||'').startsWith('x')&&OGVIP.includes(k+':'+c[k]))c[k]=COS[k][0][0]});if(OGVIP.includes('av:'+S.av))S.av='😎';save();NET.lastP='';pushPlayer();
     toast('OG y VIP solo con cuenta','Entra con Google o crea una cuenta para tenerlos','var(--sky)','🔐');return}
-  const miss=OGVIP.filter(k=>!ex.includes(k));if(miss.length){miss.forEach(k=>ex.push(k));save();NET.lastP='';pushPlayer();try{excShow(miss)}catch(e){}toast('Pack OG y VIP completo','Título, marco, color, fondo y cara: póntelos en Perfil','var(--sun)','🐐')}}catch(e){}}
+  const miss=OGVIP.filter(k=>!ex.includes(k));if(miss.length){miss.forEach(k=>ex.push(k));save();NET.lastP='';pushPlayer();try{excShow(miss,{k:'🐐 Premio por entrar con Google',p:'Solo para los 100 primeros que entran con Google.'})}catch(e){}toast('Pack OG y VIP completo','Título, marco, color, fondo y cara: póntelos en Perfil','var(--sun)','🐐')}}catch(e){}}
 setInterval(ogvipFix,8000);setTimeout(ogvipFix,5000);
 
 /* ================= CUENTA ATRÁS DEL BOTÓN ROJO: número y sonido a la vez ================= */
@@ -12319,7 +12324,7 @@ document.addEventListener('click',e=>{const ev=seNow();if(!ev)return;
   const m=e.target.closest('[data-smis]');if(m){const s=seSt(ev),i=+m.dataset.smis;if(s.done.includes(i)||seProg(ev,i)<ev.mis[i][1])return;s.done.push(i);seAdd(ev.mis[i][3],'Misión de '+ev.name);sfx('win');return}
   if(e.target.closest('[data-sett]')){const s=seSt(ev);if(s.tt===dayKey())return;s.tt=dayKey();save();
     if(Math.random()<.65){const n=ri(10,30);sfx('big');troll('¡TRATO!','+'+n+' '+ev.cur[1],'#ff7a00',true);seAdd(n)}
-    else{const fx=[rbDark,hwZombies,hwPumpkinBoom][ri(0,2)];RB_ADM_UNTIL=Date.now()+12000;try{fx()}catch(_){}setTimeout(()=>{toast('¡TRUCO!','Te has llevado un susto… y 5 '+ev.cur[1]+' de consuelo','#9a6bff','👻');seAdd(5)},5500)}
+    else{const fx=[rbDark,hwZombies,hwPumpkinBoom][ri(0,2)];window.RB_TRICK_UNTIL=Date.now()+12000;try{fx()}catch(_){}setTimeout(()=>{toast('¡TRUCO!','Te has llevado un susto… y 5 '+ev.cur[1]+' de consuelo','#9a6bff','👻');seAdd(5)},5500)}
     seRender();return}
   if(e.target.closest('[data-sepass]')){sfx('click');sePass()}});
 function sePass(){const e=seNow()||SEASONS[SEASONS.length-1];const s=seSt(e);$('#modal').hidden=false;const mb=$('#mbox');mb.classList.add('wide');mb.classList.remove('notes');mb.onclick=null;
@@ -13592,7 +13597,7 @@ try{const t=TUTOS.find(x=>x[4]&&x[4].some(y=>/Buzón del jefe/.test(y[0])))||TUT
 /* pack de admins: se da solo a quien es admin (jefe o moderador) y se quita si deja de serlo */
 const ADM_PACK=EXC_PACKS.adm;
 function admPackSync(){try{if(!NET.db||!NET.id||!NET.ok)return;NET.db.collection('admins').doc(NET.id).get().then(d=>{S.exc=S.exc||[];
-  if(d.exists){const miss=ADM_PACK.filter(k=>!S.exc.includes(k));if(miss.length){S.exc.push(...miss);save();try{NET.lastP='';pushPlayer()}catch(e){}try{excShow(miss)}catch(e){}}}
+  if(d.exists){const miss=ADM_PACK.filter(k=>!S.exc.includes(k));if(miss.length){S.exc.push(...miss);save();try{NET.lastP='';pushPlayer()}catch(e){}try{excShow(miss,{k:'🛡️ Pack del equipo de Casinetori',p:'Solo lo lleva el equipo que cuida el juego.'})}catch(e){}}}
   else if(ADM_PACK.some(k=>S.exc.includes(k))){S.exc=S.exc.filter(k=>!ADM_PACK.includes(k));const c=myCos();['ti','f','c','bg'].forEach(k=>{if(c[k]==='xadm')c[k]=''});if(S.av==='🛡️')S.av='😎';save();try{NET.lastP='';pushPlayer()}catch(e){}try{renderMe()}catch(e){}}}).catch(()=>{})}catch(e){}}
 setTimeout(admPackSync,6000);setInterval(admPackSync,300000);
 
@@ -13824,6 +13829,39 @@ hoDots=function(){pendDraw()};
 {const _goP=go;go=function(){const r=_goP.apply(this,arguments);try{requestAnimationFrame(pendDraw)}catch(e){}return r}}
 try{i18nAdd([['Que no se te escape nada','Don\'t miss a thing','Ne rate rien','Não percas nada'],['Avisos amarillos en todo','Yellow alerts everywhere','Alertes jaunes partout','Avisos amarelos em tudo'],['Cuando hay algo por recoger (premio diario, misiones, botón rojo, ruletas gratis, cofres, torneos, colecciones, solicitudes de amistad, mensajes del jefe…) sale un número amarillo en el menú, en las pestañas de Inicio y en el botón de cada cosa. Y la tarjeta brilla.','When there\'s something to collect (daily prize, missions, red button, free wheels, chests, tournaments, collections, friend requests, messages from the boss…) a yellow number appears in the menu, in the Home tabs and on each thing\'s button. And the card glows.','Quand il y a quelque chose à récupérer (prix du jour, missions, bouton rouge, roues gratuites, coffres, tournois, collections, demandes d\'amis, messages du chef…) un numéro jaune apparaît dans le menu, dans les onglets d\'Accueil et sur le bouton de chaque chose. Et la carte brille.','Quando há algo para recolher (prémio diário, missões, botão vermelho, roletas grátis, cofres, torneios, coleções, pedidos de amizade, mensagens do chefe…) aparece um número amarelo no menu, nos separadores do Início e no botão de cada coisa. E o cartão brilha.']])}catch(e){}
 (()=>{try{const t0=TUTOS.find(x=>x[1]==='Primeros pasos')||TUTOS[0];if(t0&&!t0[4].some(x=>/número amarillo/.test(x[0])))t0[4].push(['Si ves un <b>número amarillo</b> en el menú o en una pestaña, ahí tienes algo por recoger. La tarjeta que está lista <b>brilla en amarillo</b>.'])}catch(e){}})();
+/* ===== botón rojo: cada sorpresa deja un premio bueno (según tu dinero); si la sorpresa ya pagó bien, no se añade nada ===== */
+var RB_TRICK_UNTIL=window.RB_TRICK_UNTIL||0;
+function rbTarget(){return niceN(Math.max(5000,220*Math.max(1,S.lvl)*4+(typeof wealth==='function'?wealth():0)*.0018))}
+function rbRun(i){const e0=+S.earned||0,adm=(typeof admPrank!=='undefined'&&admPrank)||Date.now()<RB_ADM_UNTIL;try{PRANKS[i]()}catch(e){}
+  if(adm)return;setTimeout(()=>{try{if(Date.now()<RB_ADM_UNTIL||Date.now()<(window.RB_TRICK_UNTIL||0))return;const got=(+S.earned||0)-e0,t=rbTarget();
+    if(got<t*.6){const add=niceN(t-Math.max(0,got));give(add);save();sfx('coin');toast('🔴 Premio del botón rojo','+'+short(add)+' € por atreverte a pulsarlo','#ff3b4f','🔴')}}catch(e){}},9500)}
+/* truco o trato: su propia firma (no es cosa del jefe) */
+{const _rbPayT=rbPay;rbPay=function(k,t,s,col){if(Date.now()<(window.RB_TRICK_UNTIL||0)){sfx('win');confetti(80);troll(t,'¡truco de Halloween! 🎃',col||'#ff7a00',true);return 0}return _rbPayT.apply(this,arguments)}}
+/* el regalo de los eventos automáticos es «Regalo sorpresa»; solo dice «del jefe» si lo lanza el jefe */
+try{EVT.gift[1]='Regalo sorpresa'}catch(e){}
+{const _ceG=curEv;curEv=function(){const e=_ceG.apply(this,arguments);if(e&&e.type==='gift'&&!e.auto&&!e.name)return Object.assign({},e,{name:'Regalo del jefe'});return e}}
+try{i18nAdd([['🔴 Premio del botón rojo','🔴 Red button prize','🔴 Prix du bouton rouge','🔴 Prémio do botão vermelho'],['Regalo sorpresa','Surprise gift','Cadeau surprise','Presente surpresa'],
+ ['🎬 Premio del Gran Premio de Cine','🎬 Movie Grand Prize reward','🎬 Prix du Grand Prix du Cinéma','🎬 Prémio do Grande Prémio de Cinema'],['Te ha tocado en la ruleta del Gran Premio de Cine. Muy poca gente lo tiene.','You won it on the Movie Grand Prize wheel. Very few people have it.','Tu l\'as gagné à la roue du Grand Prix du Cinéma. Très peu de gens l\'ont.','Saiu-te na roleta do Grande Prémio de Cinema. Muito pouca gente o tem.'],
+ ['🐐 Premio por entrar con Google','🐐 Reward for signing in with Google','🐐 Récompense pour la connexion Google','🐐 Prémio por entrar com o Google'],['Solo para los 100 primeros que entran con Google.','Only for the first 100 who sign in with Google.','Seulement pour les 100 premiers connectés avec Google.','Só para os 100 primeiros que entram com o Google.'],
+ ['🛡️ Pack del equipo de Casinetori','🛡️ Casinetori team pack','🛡️ Pack de l\'équipe Casinetori','🛡️ Pack da equipa Casinetori'],['Solo lo lleva el equipo que cuida el juego.','Only the team that looks after the game has it.','Seule l\'équipe qui s\'occupe du jeu l\'a.','Só a equipa que cuida do jogo o tem.'],['¡truco de Halloween! 🎃','Halloween trick! 🎃','Farce d\'Halloween ! 🎃','Partida de Halloween! 🎃']])}catch(e){}
+/* ===== chivato de saltos de pantalla (solo si se abre con ?chivato=1; ?chivato=0 lo quita) ===== */
+(()=>{try{const q=location.search;if(/[?&]chivato=1/.test(q))localStorage.setItem('cas-chivato','1');if(/[?&]chivato=0/.test(q))localStorage.removeItem('cas-chivato');if(localStorage.getItem('cas-chivato')!=='1')return}catch(e){return}
+  const LOG=[],T0=Date.now();let uT=0,lastY=scrollY,lastH=0;const now=()=>((Date.now()-T0)/1000).toFixed(1);
+  ['touchstart','touchmove','wheel','keydown','pointerdown'].forEach(t=>addEventListener(t,()=>{uT=Date.now()},{capture:true,passive:true}));
+  const who=()=>{try{return (new Error().stack||'').split('\n').slice(3,6).map(l=>l.trim().replace(/^at /,'').replace(/\(?https?:\/\/[^)]*?:(\d+):\d+\)?/,'L$1').replace(/file:[^ ]*:(\d+):\d+/,'L$1')).join(' ← ').slice(0,140)}catch(e){return'?'}};
+  const box=document.createElement('div');box.id='chivato';box.style.cssText='position:fixed;left:4px;top:70px;z-index:2147483646;width:min(340px,92vw);max-height:42vh;overflow:auto;background:#000d;color:#7fff7f;font:11px/1.3 monospace;padding:6px;border:1px solid #7fff7f;border-radius:6px;pointer-events:auto';
+  const draw=()=>{box.innerHTML='<b style="color:#ff0">CHIVATO ('+LOG.length+')</b> <button id="chvC">Copiar</button> <button id="chvX">Quitar</button><br>'+LOG.slice(-14).reverse().map(x=>x.replace(/</g,'&lt;')).join('<br>');
+    box.querySelector('#chvC').onclick=()=>{try{navigator.clipboard.writeText(LOG.join('\n'));toast('Copiado','Pégamelo en el chat','var(--mint)','📋')}catch(e){}};box.querySelector('#chvX').onclick=()=>{try{localStorage.removeItem('cas-chivato')}catch(e){}box.remove()}};
+  const add=s=>{LOG.push(now()+'s '+s);if(LOG.length>300)LOG.shift();draw()};
+  const wrapW=(name)=>{const f=window[name];if(!f)return;window[name]=function(){add(name+'('+[...arguments].map(a=>typeof a==='object'?JSON.stringify(a):a).join(',')+') y='+Math.round(scrollY)+' ← '+who());return f.apply(this,arguments)}};
+  ['scrollTo','scroll','scrollBy'].forEach(wrapW);
+  const sIV=Element.prototype.scrollIntoView;Element.prototype.scrollIntoView=function(){add('scrollIntoView #'+(this.id||this.className||this.tagName).toString().slice(0,30)+' ← '+who());return sIV.apply(this,arguments)};
+  addEventListener('scroll',()=>{const y=scrollY,d=y-lastY;if(Math.abs(d)>100&&Date.now()-uT>300)add('SALTO SIN DEDO '+Math.round(lastY)+'→'+Math.round(y)+' alto='+document.documentElement.scrollHeight+' vista='+(typeof view!=='undefined'?view:'?'));lastY=y},{passive:true});
+  addEventListener('resize',()=>add('resize '+innerWidth+'x'+innerHeight+' y='+Math.round(scrollY)));
+  if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>{const h=document.documentElement.scrollHeight;if(lastH&&Math.abs(h-lastH)>40&&scrollY>100)add('alto '+lastH+'→'+h+' y='+Math.round(scrollY));lastH=h}).observe(document.body);
+  document.addEventListener('DOMContentLoaded',()=>document.body.appendChild(box));if(document.body)document.body.appendChild(box);add('chivato encendido');})();
+try{i18nAdd([['Botón rojo más generoso','More generous red button','Bouton rouge plus généreux','Botão vermelho mais generoso'],['Siempre hay premio','There\'s always a prize','Il y a toujours un prix','Há sempre prémio'],['Todas las sorpresas del botón rojo dan ahora un buen premio según tu dinero. Las que antes daban poco o nada, ya no.','Every red button surprise now gives a good prize based on your money. The ones that used to give little or nothing don\'t anymore.','Chaque surprise du bouton rouge donne maintenant un bon prix selon ton argent. Celles qui donnaient peu ou rien, c\'est fini.','Todas as surpresas do botão vermelho dão agora um bom prémio segundo o teu dinheiro. As que antes davam pouco ou nada, já não.'],['Estrella de Cine renovada','Movie Star title revamped','Titre Star de cinéma relooké','Estrela de Cinema renovada'],['El título del Gran Premio de Cine ahora es de alfombra roja, con letras doradas y brillo.','The Movie Grand Prize title is now red carpet style, with golden letters and shine.','Le titre du Grand Prix du Cinéma est maintenant style tapis rouge, lettres dorées et reflets.','O título do Grande Prémio de Cinema agora é de passadeira vermelha, com letras douradas e brilho.']])}catch(e){}
+(()=>{try{const t=TUTOS.find(x=>x[4]&&x[4].some(y=>/botón rojo/i.test(y[0])))||TUTOS[0];if(t&&!t[4].some(x=>/siempre hay premio/i.test(x[0])))t[4].push(['El <b>botón rojo</b> se puede pulsar cada poco: cada sorpresa te deja un premio según tu dinero (siempre hay premio).'])}catch(e){}})();
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
