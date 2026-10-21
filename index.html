@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-21-0936">
+<meta name="app-version" content="2026-10-21-0942">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -13862,6 +13862,9 @@ try{i18nAdd([['🔴 Premio del botón rojo','🔴 Red button prize','🔴 Prix d
   document.addEventListener('DOMContentLoaded',()=>document.body.appendChild(box));if(document.body)document.body.appendChild(box);add('chivato encendido');})();
 try{i18nAdd([['Botón rojo más generoso','More generous red button','Bouton rouge plus généreux','Botão vermelho mais generoso'],['Siempre hay premio','There\'s always a prize','Il y a toujours un prix','Há sempre prémio'],['Todas las sorpresas del botón rojo dan ahora un buen premio según tu dinero. Las que antes daban poco o nada, ya no.','Every red button surprise now gives a good prize based on your money. The ones that used to give little or nothing don\'t anymore.','Chaque surprise du bouton rouge donne maintenant un bon prix selon ton argent. Celles qui donnaient peu ou rien, c\'est fini.','Todas as surpresas do botão vermelho dão agora um bom prémio segundo o teu dinheiro. As que antes davam pouco ou nada, já não.'],['Estrella de Cine renovada','Movie Star title revamped','Titre Star de cinéma relooké','Estrela de Cinema renovada'],['El título del Gran Premio de Cine ahora es de alfombra roja, con letras doradas y brillo.','The Movie Grand Prize title is now red carpet style, with golden letters and shine.','Le titre du Grand Prix du Cinéma est maintenant style tapis rouge, lettres dorées et reflets.','O título do Grande Prémio de Cinema agora é de passadeira vermelha, com letras douradas e brilho.']])}catch(e){}
 (()=>{try{const t=TUTOS.find(x=>x[4]&&x[4].some(y=>/botón rojo/i.test(y[0])))||TUTOS[0];if(t&&!t[4].some(x=>/siempre hay premio/i.test(x[0])))t[4].push(['El <b>botón rojo</b> se puede pulsar cada poco: cada sorpresa te deja un premio según tu dinero (siempre hay premio).'])}catch(e){}})();
+/* abajo del todo: sin «anclaje» del navegador (si algo de arriba cambia, te quedas abajo en vez de subir de golpe) */
+(()=>{const de=document.documentElement;let on=false;const chk=()=>{const near=scrollY+innerHeight>=de.scrollHeight-160&&scrollY>100;if(near!==on){on=near;de.style.overflowAnchor=near?'none':''}};
+  addEventListener('scroll',chk,{passive:true});addEventListener('resize',chk);setInterval(chk,700);chk()})();
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
