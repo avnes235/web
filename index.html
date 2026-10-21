@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-21-1450">
+<meta name="app-version" content="2026-10-21-1921">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2713,6 +2713,8 @@ html body .bg-xadm,html body .mecard.bg-xadm{background:url("data:image/svg+xml,
 .alr{display:grid;grid-template-columns:118px 1fr;gap:8px;padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;align-items:baseline}
 .alr>small{opacity:.6;font-size:11px}.alr .alup{color:#14e08a;background:none;padding:0;border:0;display:inline}.alr .aldn{color:#ff5f6d;background:none;padding:0;border:0;display:inline}
 @media (max-width:420px){.alr{grid-template-columns:1fr;gap:0}}
+.bzctl .rw .bzrwc{width:100%;max-width:260px;margin-top:6px;padding:7px 10px;font-size:14px}
+.bzctl .rw .bzrwv{display:block;margin-top:3px;color:var(--mint);font-weight:700;font-size:12px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6751,7 +6753,7 @@ const BZT={bug:['🐞','Fallo','#ff3b4f','Cuenta qué ha pasado, en qué parte d
   idea:['💡','Idea','#ffd600','¿Qué añadirías o cambiarías? Cuanto más claro, más fácil que el jefe lo apruebe.'],
   rec:['🔐','Recuperar cuenta','#14e08a',''],
   otro:['💬','Otra cosa','#3f7cff','Lo que quieras decirle al jefe.']};
-const BZ={type:'bug',mine:new Map(),all:new Map(),started:false,admStarted:false,last:0,rw:{},rep:{},filter:'pend',rc:null};
+const BZ={type:'bug',mine:new Map(),all:new Map(),started:false,admStarted:false,last:0,rw:{},rwc:{},rep:{},filter:'pend',rc:null};
 const bzSt={pend:['pend','Pendiente'],ok:['ok','Aprobado'],no:['no','Rechazado']};
 function bzStart(){if(BZ.started||!NET.ok||!NET.db||!NET.id)return;BZ.started=true;
   NET.db.collection('inbox').where('from','==',NET.id).onSnapshot(snap=>{S.bzSeen=S.bzSeen||{};let news=0;
@@ -6810,7 +6812,7 @@ function renderAdmInbox(){const el=$('#admInbox');if(!el||!ADM.on)return;const a
   el.innerHTML=`<div class="ih"><h3>Buzón</h3>${cnt('pend')?`<span class="tag" style="background:var(--red);color:#fff">${cnt('pend')} sin contestar</span>`:''}
     <div class="seg">${[['pend','Pendientes ('+cnt('pend')+')'],['ok','Aprobados'],['no','Rechazados'],['all','Todo']].map(([k,n])=>`<button data-bzf="${k}" aria-pressed="${f===k}">${n}</button>`).join('')}</div></div>
    ${list.length?`<div class="bzlist">${list.slice(0,80).map(([id,m])=>`<div>${bzCard(m,true)}
-      ${(m.st||'pend')==='pend'?`<div class="bzm bzctl">${m.type!=='rec'?`<div class="rw">Premio: ${[0,500,5000,50000].map(v=>`<button class="qa" data-bzrw="${id}" data-v="${v}" aria-pressed="${(BZ.rw[id]||0)===v}">${v?fmt(v)+' €':'Nada'}</button>`).join('')}</div>`:''}
+      ${(m.st||'pend')==='pend'?`<div class="bzm bzctl">${m.type!=='rec'?`<div class="rw">Premio: ${[0,500,5000,50000].map(v=>`<button class="qa" data-bzrw="${id}" data-v="${v}" aria-pressed="${!BZ.rwc[id]&&(BZ.rw[id]||0)===v}">${v?fmt(v)+' €':'Nada'}</button>`).join('')}<input class="inp bzrwc" data-bzrwc="${id}" inputmode="decimal" maxlength="24" placeholder="✏️ Otra cifra (ej. 250000 o 2 mill.)" value="${esc(BZ.rwc[id]||'')}" autocomplete="off"><small class="bzrwv" data-bzrwv="${id}">${BZ.rwc[id]?(BZ.rw[id]?'Le darás '+fmt(BZ.rw[id])+' €':'Cifra no válida'):''}</small></div>`:''}
         <div class="acts"><input class="inp" data-bzrep="${id}" maxlength="120" placeholder="Contestar (opcional)" value="${esc(BZ.rep[id]||'')}" autocomplete="off"><button class="btn mint sm" data-bzok="${id}">${m.type==='rec'?'Aprobar y pasar partida':'Aprobar'}</button><button class="btn red sm" data-bzno="${id}">Rechazar</button></div></div>`
       :`<div class="acts" style="margin-top:4px"><input class="inp" data-bzmore="${id}" maxlength="120" placeholder="Escribirle otra vez…" value="${esc(BZ.more&&BZ.more[id]||'')}" autocomplete="off"><button class="btn sm" data-bzmorego="${id}">Enviar</button><button class="linkb" data-bzdel="${id}">Borrar</button></div>`}</div>`).join('')}</div>`
      :`<div class="empty"><span class="emo">📭</span><b>${f==='pend'?'Nada pendiente':'No hay nada aquí'}</b><span>Cuando alguien te escriba desde Ayuda › Buzón del jefe, sale aquí.</span></div>`}`}
@@ -6820,7 +6822,7 @@ $('#admInbox').addEventListener('click',async e=>{const b=e.target.closest('[dat
   b.disabled=true;try{await NET.db.collection('inbox').doc(id).update({rep:t,reps:[...prev,{r:t,t:now}].slice(-20),rt:now});BZ.more[id]='';sfx('buy');toast('Enviado','Le llega al momento','var(--mint)','📮')}catch(err){toast('No se ha podido enviar','','var(--coral)','⚠️')}b.disabled=false;renderAdmInbox()},true);
 $('#admInbox').addEventListener('focusout',()=>setTimeout(()=>{if(!$('#admInbox').contains(document.activeElement))renderAdmInbox()},200));
 $('#admInbox').addEventListener('click',async e=>{const fb=e.target.closest('[data-bzf]');if(fb){BZ.filter=fb.dataset.bzf;sfx('click');renderAdmInbox();return}
-  const rw=e.target.closest('[data-bzrw]');if(rw){BZ.rw[rw.dataset.bzrw]=+rw.dataset.v;sfx('click');renderAdmInbox();return}
+  const rw=e.target.closest('[data-bzrw]');if(rw){BZ.rw[rw.dataset.bzrw]=+rw.dataset.v;delete BZ.rwc[rw.dataset.bzrw];sfx('click');renderAdmInbox();return}
   const db=NET.db;const del=e.target.closest('[data-bzdel]');if(del){try{await db.collection('inbox').doc(del.dataset.bzdel).delete()}catch(err){toast('No se ha podido','','var(--coral)','⚠️')}return}
   const okB=e.target.closest('[data-bzok]'),noB=e.target.closest('[data-bzno]'),btn=okB||noB;if(!btn)return;
   const id=okB?okB.dataset.bzok:noB.dataset.bzno,m=BZ.all.get(id);if(!m)return;const rep=String(BZ.rep[id]||'').trim().slice(0,120);
@@ -14133,6 +14135,18 @@ function fpsDraw(){const el=$('#fPs');if(!el)return;const now=performance.now();
 document.addEventListener('pointerdown',e=>{if(e.target.closest&&e.target.closest('#bigcoin'))setTimeout(fpsDraw,0)},true);
 setInterval(()=>{try{if(view==='fabrica')fpsDraw()}catch(e){}},200);
 try{i18nAdd([['Fábrica','Factory','Usine','Fábrica'],['«Clics/seg» arreglado','"Clicks/sec" fixed','« Clics/s » corrigé','«Cliques/seg» corrigido'],['Ahora se mueve al momento cuando pulsas la moneda y también cuenta el autoclick del anuncio (sale con 🤖).','It now updates instantly when you tap the coin and also counts the ad autoclick (shown with 🤖).','Il se met à jour tout de suite quand tu touches la pièce et compte aussi l\'autoclic de la pub (avec 🤖).','Agora atualiza na hora quando tocas na moeda e também conta o autoclique do anúncio (com 🤖).']])}catch(e){}
+/* Buzón del jefe: premio con la cifra que quieras */
+function bzParseAmt(t){t=String(t||'').toLowerCase().replace(/€/g,'').trim();if(!t)return 0;const m=t.match(/^([\d.,\s]+)\s*(k|mil|m|mill\.?|millones?|millón|b|bill\.?|billones?|billón)?$/);if(!m)return NaN;
+  let n=m[1].replace(/\s/g,'');const u=m[2]||'';if(u){n=n.replace(/\./g,'').replace(',','.')}else n=n.replace(/[.,]/g,'');let v=parseFloat(n);if(!isFinite(v))return NaN;
+  if(/^(k|mil)$/.test(u))v*=1e3;else if(/^(m|mill|millones|millón|millon)/.test(u))v*=1e6;else if(/^(b|bill|billones|billón)/.test(u))v*=1e12;
+  v=Math.floor(v);return v>0&&v<=1e15?v:NaN}
+document.addEventListener('input',e=>{const i=e.target.closest&&e.target.closest('[data-bzrwc]');if(!i)return;const id=i.dataset.bzrwc,raw=i.value;BZ.rwc[id]=raw;const v=bzParseAmt(raw);
+  if(!raw.trim()){delete BZ.rwc[id];BZ.rw[id]=0}else BZ.rw[id]=isNaN(v)?0:v;
+  const box=i.closest('.rw');if(box)box.querySelectorAll('[data-bzrw]').forEach(b=>b.setAttribute('aria-pressed',String(!BZ.rwc[id]&&+b.dataset.v===(BZ.rw[id]||0))));
+  const o=box&&box.querySelector('[data-bzrwv]');if(o)o.textContent=!raw.trim()?'':isNaN(v)?'Cifra no válida':'Le darás '+fmt(v)+' €'});
+/* que al refrescar la lista no se pierda lo que estás escribiendo */
+{const _rai=renderAdmInbox;renderAdmInbox=function(){const a=document.activeElement,id=a&&a.dataset&&a.dataset.bzrwc,pos=id?a.selectionStart:0;const r=_rai.apply(this,arguments);
+  if(id){const n=document.querySelector('[data-bzrwc="'+id+'"]');if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}}}return r}}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
