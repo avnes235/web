@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-22-2014">
+<meta name="app-version" content="2026-10-22-2056">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -6941,7 +6941,7 @@ const BZQ=[['ok','👍 Lo haremos'],['leido','👀 Leído'],['ok','✅ Ya está 
 const BZQ_N=6,BZE=['👍','👀','✅','💡','🙅','🤔','🙏','🎁','🔧','⏳','📸','🔄','📱','🐛','⚠️','💬','🎉','👋','😂','😅','😎','🙌','❤️','🔥','💰','🏆','👑','⭐','🎰','🚀','🛡️','🎃'];
 const _rai=renderAdmInbox;renderAdmInbox=function(){_rai();const el=$('#admInbox');if(!el)return;
   const seg=el.querySelector('.ih .seg');if(seg&&!seg.querySelector('[data-bzf="leido"]'))seg.querySelector('[data-bzf="no"]').insertAdjacentHTML('beforebegin',`<button data-bzf="leido" aria-pressed="${BZ.filter==='leido'}">Leídos</button>`);
-  el.querySelectorAll('.bzctl .acts').forEach(a=>{const inp=a.querySelector('[data-bzrep]');if(!inp)return;const id=inp.dataset.bzrep;
+  el.querySelectorAll('.bzctl .acts').forEach(a=>{const inp=a.querySelector('[data-bzrep]');if(!inp)return;const id=inp.dataset.bzrep;if(a.parentElement&&a.parentElement.querySelector('.bzq'))return;/* ya puestos: no duplicar */
     const qb=(t,i)=>`<button class="qa" data-bzq="${id}" data-i="${i}">${t}</button>`;
     a.insertAdjacentHTML('beforebegin',`<div class="bzq">${BZQ.slice(0,BZQ_N).map(([s,t],i)=>qb(t,i)).join('')}</div><details class="bzmore" data-bzmore2="${id}"${(BZ.qopen||{})[id]?' open':''}><summary>➕ Más mensajes e iconos</summary><div class="bzq">${BZQ.slice(BZQ_N).map(([s,t],i)=>qb(t,i+BZQ_N)).join('')}</div><div class="bzemo">${BZE.map(e=>`<button type="button" class="qe" data-bze="${id}" data-e="${e}" aria-label="Icono ${e}">${e}</button>`).join('')}</div></details>`);
     a.querySelector('[data-bzno]').insertAdjacentHTML('beforebegin',`<button class="btn alt sm" data-bzrd="${id}">Leído</button>`)})};
