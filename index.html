@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-22-2307">
+<meta name="app-version" content="2026-10-22-2314">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -6277,6 +6277,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-23-a',t:'Títulos de riqueza ordenados',items:[['💎','Cada título con su cifra','Los títulos de riqueza ya van igual que el dinero del juego: Millonario (1 mill.), Billonario (1 bill.), Trillonario (1 trill.), Megatrillonario (100 trill.), Cuatrillonario (1 cuatrill.) y Quintillonario (1 quintill.).','fix','#ffd600']]},
  {v:'2026-10-22-a',t:'Sin límite de apuesta',items:[['🔥','Juégatelo todo','Ya no hay máximo de 1.000 millones por jugada: en el casino puedes apostar todo lo que tengas. O te forras o te arruinas. ¡Lo que guardes en la caja fuerte no se puede perder!','new','#ff3b4f']]},
  {v:'2026-10-21-f',t:'Fábrica',items:[['👆','«Clics/seg» arreglado','Ahora se mueve al momento cuando pulsas la moneda y también cuenta el autoclick del anuncio (sale con 🤖).','fix','#ffc23d']]},
  {v:'2026-10-21-e',t:'Lluvia de monedas sin sustos',items:[['🪙','Coger monedas ya no te saca atrás','Las monedas caen un poco más hacia el centro y, si al cogerlas tocas sin querer el gesto de «atrás» del móvil, el juego no se va a otra pantalla.','fix','#ffd600']]},
@@ -10967,18 +10968,18 @@ try{
 }catch(e){console.warn('cos',e)}
 /* riqueza máxima alcanzada: dinero + colección (no baja aunque gastes) */
 window.peakW=function(){const w=Math.max(0,Math.floor(+S.coins||0))+ownedValue();if(!(S.peakW>=w))S.peakW=w;return S.peakW};
-COS.ti.push(['wmil','Millonario',1e6,'','w','1 millón de'],['wmmil','Multimillonario',1e9,'','w','1.000 millones de'],['wbil','Billonario',1e12,'','w','1 billón de'],['wcbil','Megabillonario',1e14,'','w','100 billones de'],['wmbil','Archibillonario',1e15,'','w','1.000 billones de'],['wtril','Trillonario',1e18,'','w','1 trillón de']);
+COS.ti.push(['wmil','Millonario',1e6,'','w','1 mill.'],['wmmil','Billonario',1e9,'','w','1 bill.'],['wbil','Trillonario',1e12,'','w','1 trill.'],['wcbil','Megatrillonario',1e14,'','w','100 trill.'],['wmbil','Cuatrillonario',1e15,'','w','1 cuatrill.'],['wtril','Quintillonario',1e18,'','w','1 quintill.']);
 let _wtSeen=null;
 function wtTick(){try{const pw=peakW(),got=COS.ti.filter(x=>x[4]==='w'&&pw>=x[2]).map(x=>x[0]);
   if(_wtSeen===null){_wtSeen=new Set(S.wtSeen||got);S.wtSeen=[..._wtSeen];return}
   got.forEach(id=>{if(!_wtSeen.has(id)){_wtSeen.add(id);S.wtSeen=[..._wtSeen];const x=COS.ti.find(y=>y[0]===id);toast('Título nuevo: «'+x[1]+'»','Póntelo en Perfil › Título','var(--sun)','💎');sfx('win');save()}})}catch(e){}}
 setTimeout(wtTick,2500);setInterval(wtTick,5000);
 /* logros muy difíciles */
-ACH.push(['💎','Billonario','Llega a tener 1 billón de euros (dinero + colección)',()=>peakW()>=1e12],
+ACH.push(['💎','Trillonario','Llega a tener 1 trill. de euros (dinero + colección)',()=>peakW()>=1e12],
   ['🌌','Cósmico','Compra algo de la categoría Cosmos',()=>P.some((p,i)=>p[3]==='cos'&&S.owned[i])],
   ['♾️','Dueño de todo','Compra El Multiverso',()=>P.some((p,i)=>p[1]==='El Multiverso'&&S.owned[i])],
   ['🏛️','Museo','Ten una de cada cosa de la Tienda',()=>P.every((p,i)=>S.owned[i])],
-  ['👑','Trillonario','Llega a 1 trillón de euros. Suerte.',()=>peakW()>=1e18],
+  ['👑','Quintillonario','Llega a 1 quintill. de euros. Suerte.',()=>peakW()>=1e18],
   ['🗓️','Racha de hierro','Racha diaria de 30 días',()=>((S.daily||{}).streak||0)>=30],
   ['🌟','Nivel 50','Llega al nivel 50',()=>S.lvl>=50],
   ['🦾','Dedo biónico','100.000 clics en la fábrica',()=>st('clicks')>=1e5],
@@ -14177,6 +14178,7 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
   const id=b.dataset.bze,inp=document.querySelector('[data-bzrep="'+id+'"]');const cur=String((inp&&inp.value)||BZ.rep[id]||'');const v=(cur&&!/\s$/.test(cur)?cur+' ':cur)+b.dataset.e;
   BZ.rep[id]=v.slice(0,300);if(inp){inp.value=BZ.rep[id];inp.focus();try{inp.setSelectionRange(inp.value.length,inp.value.length)}catch(_){}}try{sfx('click')}catch(_){}},true);
 document.addEventListener('toggle',e=>{const d=e.target;if(!d||!d.dataset||!d.dataset.bzmore2)return;BZ.qopen=BZ.qopen||{};BZ.qopen[d.dataset.bzmore2]=d.open},true);
+try{i18nAdd([['Billonario','Billionaire','Milliardaire','Bilionário'],['Trillonario','Trillionaire','Billionnaire','Trilionário'],['Megatrillonario','Mega-trillionaire','Méga-billionnaire','Megatrilionário'],['Cuatrillonario','Quadrillionaire','Quadrillionnaire','Quatrilionário'],['Quintillonario','Quintillionaire','Quintillionnaire','Quintilionário'],['Títulos de riqueza ordenados','Wealth titles sorted out','Titres de richesse remis en ordre','Títulos de riqueza arrumados'],['Cada título con su cifra','Each title with its amount','Chaque titre avec son montant','Cada título com o seu valor'],['Los títulos de riqueza ya van igual que el dinero del juego: Millonario (1 mill.), Billonario (1 bill.), Trillonario (1 trill.), Megatrillonario (100 trill.), Cuatrillonario (1 cuatrill.) y Quintillonario (1 quintill.).','Wealth titles now match the game\'s money: Millionaire (1 mill.), Billionaire (1 bill.), Trillionaire (1 trill.), Mega-trillionaire (100 trill.), Quadrillionaire and Quintillionaire.','Les titres de richesse suivent maintenant l\'argent du jeu.','Os títulos de riqueza seguem agora o dinheiro do jogo.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
