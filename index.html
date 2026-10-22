@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-21-2052">
+<meta name="app-version" content="2026-10-22-0926">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -13444,7 +13444,7 @@ try{i18nAdd([['Multiplicador del casino, más claro','Casino multiplier, clearer
 const HM_ROW=4,HM_GAP=16;
 function homeMason(){const v=$('#v-inicio');if(!v||v.hidden)return;const on=innerWidth>=760&&getComputedStyle(v).gridTemplateColumns.split(' ').length>1;
   v.classList.toggle('mason',on);if(!on){hmItems(v).forEach(c=>{if(c.style.gridRowEnd)c.style.gridRowEnd=''});return}
-  hmItems(v).forEach(c=>{const cs=getComputedStyle(c);if(cs.display==='none'||c.hidden){return}const h=c.getBoundingClientRect().height;const span=Math.max(1,Math.ceil((h+HM_GAP)/HM_ROW));const val='span '+span;if(c.style.gridRowEnd!==val)c.style.gridRowEnd=val})}
+  hmItems(v).forEach(c=>{const cs=getComputedStyle(c);if(cs.display==='none'||c.hidden){return}const h=c.offsetHeight||c.getBoundingClientRect().height;const span=Math.max(1,Math.ceil((h+HM_GAP)/HM_ROW));const val='span '+span;if(c.style.gridRowEnd!==val)c.style.gridRowEnd=val})}
 function hmItems(v){const out=[];const walk=el=>[...el.children].forEach(c=>{if(getComputedStyle(c).display==='contents')walk(c);else out.push(c)});walk(v);return out}
 {let ro=null;const hook=()=>{const v=$('#v-inicio');if(!v||ro)return;ro=new ResizeObserver(()=>{requestAnimationFrame(homeMason)});const seen=new WeakSet();const obs=()=>hmItems(v).forEach(c=>{if(!seen.has(c)){seen.add(c);ro.observe(c)}});obs();
   new MutationObserver(()=>{obs();requestAnimationFrame(homeMason)}).observe(v,{childList:true,subtree:false,attributes:true,attributeFilter:['data-t']});setInterval(obs,2000)};
