@@ -1,0 +1,103 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Torre de Casinetori: reglas y probabilidades</title><meta name="description" content="Torre de Casinetori: ocho pisos, casillas seguras por dificultad, probabilidades y multiplicadores. Simulación +18."><meta name="theme-color" content="#0d1020">
+<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="/favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=4"><link rel="canonical" href="https://casinetori.com/guias/torre.html">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Casinetori"><meta property="og:title" content="Torre de Casinetori: reglas y probabilidades"><meta property="og:description" content="Torre de Casinetori: ocho pisos, casillas seguras por dificultad, probabilidades y multiplicadores. Simulación +18."><meta property="og:url" content="https://casinetori.com/guias/torre.html"><meta property="og:image" content="https://casinetori.com/og.png?v=5"><meta name="twitter:card" content="summary_large_image">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7676884795750639" crossorigin="anonymous"></script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Casinetori", "item": "https://casinetori.com/"}, {"@type": "ListItem", "position": 2, "name": "Guías", "item": "https://casinetori.com/guias/"}, {"@type": "ListItem", "position": 3, "name": "Torre", "item": "https://casinetori.com/guias/torre.html"}]}</script><style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;overflow-x:clip}body{margin:0;background:#0d1020;color:#e9ecf8;font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:#ffd600}header{border-bottom:3px dashed #ffd600;background:#14172a}header .in,main,footer .in{max-width:760px;margin:0 auto;padding:16px}
+header .in{display:flex;align-items:center;gap:12px;justify-content:space-between}header a.logo{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:900;font-size:22px;letter-spacing:.5px}
+header img{width:36px;height:36px;border-radius:9px}.play{background:#ffd600;color:#111;font-weight:900;text-decoration:none;padding:9px 16px;border-radius:10px;border:2px solid #000;box-shadow:3px 3px 0 #000;white-space:nowrap}
+h1{font-size:32px;line-height:1.15;margin:10px 0 6px;overflow-wrap:anywhere}h2{font-size:22px;line-height:1.25;margin:32px 0 8px;color:#ffd600}h3{font-size:18px;line-height:1.3;margin:22px 0 4px;color:#fff}
+.upd{color:#9aa0bd;font-size:14px;margin:0 0 18px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.pill{display:inline-block;background:#3a1020;color:#ffb3c4;border:1px solid #7a2a40;border-radius:999px;padding:2px 10px;font-weight:800;font-size:13px}
+.bc{font-size:14px;color:#9aa0bd;margin-top:6px}.bc a{color:#c9cde6;text-decoration:none}.bc a:hover{color:#ffd600}
+p,li{overflow-wrap:break-word}li{margin:4px 0}ol,ul{padding-left:24px}strong{color:#fff}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;border:2px solid #2a2f4a;border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:420px}th,td{padding:8px 10px;border-bottom:1px solid #2a2f4a;text-align:left;vertical-align:top}
+th{background:#171a2e;color:#fff;font-weight:800}tr:last-child td{border-bottom:0}.r{text-align:right;white-space:nowrap}tbody tr:nth-child(2n){background:#12152a}
+.shot{margin:18px auto;max-width:300px;text-align:center}.shot img{width:100%;height:auto;border-radius:16px;border:2px solid #2a2f4a;display:block}.shot figcaption{color:#9aa0bd;font-size:13px;margin-top:6px}
+.gl{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:12px 0}.gl li{margin:0}
+.gc{display:block;height:100%;background:#171a2e;border:2px solid #2a2f4a;border-radius:12px;padding:10px 12px;text-decoration:none}.gc:hover,.gc:focus{border-color:#ffd600}
+.gc b{display:block;color:#ffd600}.gc span{color:#c9cde6;font-size:15px;line-height:1.45}
+h3.q{background:#171a2e;border:2px solid #2a2f4a;border-bottom:0;border-radius:12px 12px 0 0;padding:10px 14px 2px;margin:16px 0 0}h3.q+p{background:#171a2e;border:2px solid #2a2f4a;border-top:0;border-radius:0 0 12px 12px;padding:2px 14px 12px;margin:0}
+footer{border-top:1px solid #2a2f4a;margin-top:40px;color:#9aa0bd;font-size:14px}footer nav{display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:8px}
+.cta{display:inline-block;margin:24px 0 6px;background:#ffd600;color:#111;font-weight:900;text-decoration:none;padding:12px 22px;border-radius:12px;border:2px solid #000;box-shadow:4px 4px 0 #000;font-size:18px}
+.rel{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.rel a{background:#171a2e;border:2px solid #2a2f4a;border-radius:10px;padding:7px 12px;text-decoration:none;font-weight:800}
+@media(max-width:480px){h1{font-size:27px}body{font-size:16px}header a.logo{font-size:19px}.play{padding:8px 12px}}
+</style></head><body>
+<header><div class="in"><a class="logo" href="/"><img src="/icon-192.png?v=4" alt="Logo de Casinetori" width="36" height="36">Casinetori</a><a class="play" href="/">Jugar gratis ›</a></div></header>
+<main id="contenido">
+<nav class="bc" aria-label="Ruta"><a href="/">Casinetori</a> › <a href="/guias/">Guías</a> › <span aria-current="page">Torre</span></nav>
+<h1>Torre: reglas, pagos y probabilidades</h1><p class="upd"><span class="pill">+18 · moneda ficticia</span>Actualizado el 23 de octubre de 2026</p>
+<p><strong>Casino simulado, solo para mayores de 18 años.</strong> Todas las cantidades son moneda ficticia de Casinetori: no se compra con dinero real ni se cambia por dinero o premios reales.</p>
+<p>La Torre tiene ocho pisos. En cada uno eliges una casilla: el huevo de oro permite seguir y una calavera termina la partida. Puedes cobrar durante la subida.</p>
+<h2>Cómo se juega</h2>
+<ol>
+<li>Elige dificultad y cantidad ficticia antes de pulsar «Apostar».</li>
+<li>Selecciona una casilla del piso actual.</li>
+<li>Si es segura, consulta el nuevo pago y decide si subes otro piso o cobras.</li>
+<li>Una calavera hace perder la apuesta y el cobro pendiente de la partida.</li>
+</ol>
+<figure class="shot"><img src="/img/guias/casino-torre.webp" alt="Pantalla de Torre en Casinetori" width="540" height="1180" loading="lazy" decoding="async"><figcaption>Pantalla de Torre en Casinetori</figcaption></figure>
+<h2>Casillas y dificultades</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Dificultad</th>
+<th class="r">Casillas por piso</th>
+<th class="r">Seguras</th>
+<th class="r">Probabilidad de superar un piso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fácil</td>
+<td class="r">4</td>
+<td class="r">3</td>
+<td class="r">75 %</td>
+</tr>
+<tr>
+<td>Media</td>
+<td class="r">3</td>
+<td class="r">2</td>
+<td class="r">66,67 %</td>
+</tr>
+<tr>
+<td>Difícil</td>
+<td class="r">2</td>
+<td class="r">1</td>
+<td class="r">50 %</td>
+</tr>
+<tr>
+<td>Hasbiri</td>
+<td class="r">3</td>
+<td class="r">1</td>
+<td class="r">33,33 %</td>
+</tr>
+<tr>
+<td>Hasbirinino</td>
+<td class="r">4</td>
+<td class="r">1</td>
+<td class="r">25 %</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Pago acumulado</h2>
+<p>El multiplicador tras k pisos es 0,97 × (casillas / seguras)^k. La probabilidad de superar esos pisos es (seguras / casillas)^k. Para un objetivo fijado de antemano, el retorno teórico base es <strong>97 %</strong>, antes de redondeos.</p>
+<p>En Difícil, superar dos pisos tiene probabilidad 0,5² = 25 %; el pago en ese punto es ×3,88. Llegar al octavo tiene probabilidad 1/256, aproximadamente 0,3906 %. Un 50 % por piso no significa un 50 % de completar la torre.</p>
+<p>La tabla de la interfaz permite ver el pago al que se aspira, pero ese importe no pasa al saldo hasta cobrar.</p>
+<h2>Qué conviene tener claro</h2>
+<p>Elegir siempre la misma columna no convierte sus casillas en seguras. Subir de dificultad eleva el riesgo de cada paso; no basta con mirar el premio del último piso.</p>
+<p>Elige antes una cantidad de saldo ficticio que puedas perder y evita aumentarla para recuperar lo anterior. La caja fuerte separa saldo que no se utiliza en las apuestas del casino. Puedes terminar la sesión aunque una partida haya salido mal.</p>
+<p>Los pagos descritos son los del juego base, sin bonificaciones temporales. Un multiplicador activo puede cambiar el abono: consulta su contador y sus límites. El retorno medio es una referencia matemática, no una devolución prometida en tu sesión.</p>
+<h2>Preguntas frecuentes</h2>
+<h3 class="q">¿Es obligatorio llegar al octavo piso?</h3>
+<p>No. Puedes cobrar durante la subida.</p>
+<h3 class="q">¿Qué se pierde al encontrar una calavera?</h3>
+<p>La apuesta y el premio pendiente de esa partida, no el saldo separado en la caja fuerte.</p>
+<h3 class="q">¿El riesgo es igual en todas las dificultades?</h3>
+<p>No. La proporción de casillas seguras va de tres entre cuatro a una entre cuatro.</p>
+<a class="cta" href="/">Jugar gratis a Casinetori ›</a>
+<h2>Sigue leyendo</h2><div class="rel"><a href="/guias/">Centro de guías</a><a href="/probabilidades.html">Probabilidades y retorno medio</a><a href="/guias/banco-y-caja-fuerte.html">Caja fuerte y banco</a><a href="/juego-responsable.html">Juego responsable</a></div>
+</main>
+<footer><div class="in"><nav aria-label="Información"><a href="/guias/">Guías</a><a href="/sobre.html">Qué es Casinetori</a><a href="/casino.html">Casino</a><a href="/juegos.html">Minijuegos</a><a href="/tienda.html">Tienda</a><a href="/eventos.html">Eventos</a><a href="/bolsa.html">Bolsa de Jugadores</a><a href="/grupos.html">Grupos de amigos</a><a href="/probabilidades.html">Probabilidades</a><a href="/novedades.html">Novedades</a><a href="/preguntas.html">Preguntas frecuentes</a><a href="/juego-responsable.html">Juego responsable</a><a href="/privacidad.html">Privacidad</a><a href="/cookies.html">Política de cookies</a><a href="/aviso-legal.html">Aviso legal</a><a href="/contacto.html">Contacto</a></nav><p style="margin:10px 0 8px;font-size:13px;line-height:1.5;opacity:.85"><b>Aviso legal e información (+18):</b> Casinetori es un sitio web de minijuegos y entretenimiento. Todos los simuladores funcionan únicamente con moneda virtual ficticia. No se permiten ni se realizan apuestas con dinero real, ni existe la posibilidad de ganar premios o dinero real. El casino, el trading y los duelos online son contenido exclusivo para mayores de 18 años.</p>© 2026 Casinetori</div></footer>
+</body></html>
