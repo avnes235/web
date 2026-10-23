@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-22-2314">
+<meta name="app-version" content="2026-10-23-1439">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2729,6 +2729,11 @@ html[data-fit="x"] :is(#fx,#paFxc,.rbx,.coinrain,.ghost,.hwbat,#rbCount,#rainL,.
 .tcell b{display:block;max-width:100%;overflow:hidden;text-align:center}
 /* nada puede ensanchar la página en el móvil */
 html{overflow-x:clip}
+/* clasificación de caramelos: con margen, sin pegarse al borde */
+.sprk{padding:6px 14px 10px}.sprk>p{margin:0 0 10px!important;line-height:1.35}
+.sprk .setop>div,.serk .setop>div{padding:10px 14px!important;align-items:center}
+.serk{padding:0 12px}
+#betInp{min-width:0;text-overflow:clip}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -10561,7 +10566,7 @@ function rainLeft(e){return Math.max(0,(e.pool||2000000)-rainTaken(e))}
 function rainTopTxt(e){const arr=[];NET.players.forEach((p,id)=>{if(id!==NET.id&&p.rain&&p.rain.id===e.id&&+p.rain.n>0)arr.push([p.name,+p.rain.n])});if(S.rainG&&S.rainG.id===e.id&&S.rainG.n>0)arr.push([S.name||'Tú',S.rainG.n]);arr.sort((a,b)=>b[1]-a[1]);return arr.length?' · 🥇 '+esc(arr[0][0])+' '+short(arr[0][1])+' €':''}
 let rainIv=null,rainPushT=0;
 function rainStart(e){if(rainIv)return;let L=$('#rainL');if(!L){L=document.createElement('div');L.id='rainL';document.body.appendChild(L)}
-  rainIv=setInterval(()=>{const left=rainLeft(e),val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100),out=left<val;if(document.hidden||$('#excWin:not([hidden])'))return;if(out&&Math.random()<.45)return;if(L.childElementCount>14)return;
+  rainIv=setInterval(()=>{const left=rainLeft(e),val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100),out=left<val;if(document.hidden||$('#excWin:not([hidden])'))return;if(out)return;/* bote vacío: ya no caen más monedas */if(L.childElementCount>14)return;
     const c=document.createElement('button');c.className='frcoin';c.textContent='€';c.style.left=(11+Math.random()*69)+'vw';const dur=3.2+Math.random()*2.5;c.style.animationDuration=dur+'s';c.style.setProperty('--rr',(Math.random()*720-360)+'deg');if(out){c.classList.add('empty');c.textContent='✕'}
     c.onpointerdown=ev=>{ev.preventDefault();ev.stopPropagation();if(c.dataset.got)return;c.dataset.got=1;const l2=rainLeft(e),v=Math.min(val,l2);if(v<=0||c.classList.contains('empty')){rainEmptyPop(ev,c);return}
       if(!S.rainG||S.rainG.id!==e.id)S.rainG={id:e.id,n:0};S.rainG.n+=v;S.coins+=v;S.earned+=v;try{sfx('coin')}catch(_){}
@@ -10571,7 +10576,7 @@ function rainStart(e){if(rainIv)return;let L=$('#rainL');if(!L){L=document.creat
   /* cuando se acaba el bote: las monedas que siguen cayendo se vuelven vacías (grises) y avisa una vez */
   rainEmIv=setInterval(()=>{const val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100);if(rainLeft(e)>=val)return;
     let n=0;L.querySelectorAll('.frcoin:not(.empty)').forEach(c=>{c.classList.add('empty');c.textContent='✕';n++});
-    if(n&&!L.dataset.out){L.dataset.out=e.id;toast('¡Se acabó la lluvia!','Ya no quedan monedas: las grises están vacías','var(--muted)','🪙')}},300)}
+    if(n&&!L.dataset.out){L.dataset.out=e.id;toast('¡Se acabó la lluvia!','Ya no quedan monedas en el bote','var(--muted)','🪙')}if(n)setTimeout(()=>{L.querySelectorAll('.frcoin.empty').forEach(c=>{c.style.transition='opacity .5s';c.style.opacity='0';setTimeout(()=>c.remove(),500)})},1800)},300)}
 let rainEmIv=null;
 function rainEmptyPop(ev,c){if(c.dataset.ep)return;c.dataset.ep=1;try{sfx('lose')}catch(_){}const pp=document.createElement('div');pp.className='rpop rpe';pp.textContent='¡Vacía!';pp.style.left=ev.clientX-24+'px';pp.style.top=ev.clientY-20+'px';document.body.appendChild(pp);setTimeout(()=>pp.remove(),800);
   c.classList.add('pop');setTimeout(()=>c.remove(),250)}
@@ -13558,7 +13563,9 @@ function numFitPass(root){try{const tw=document.createTreeWalker(root,NodeFilter
     let tries=0,from=0;const RG=new RegExp(NUM_RE.source,'g');let m;while(tries++<8){RG.lastIndex=from;m=RG.exec(t.nodeValue);if(!m)break;const st=m.index+m[1].length,en=st+m[2].length;from=en;const rg=document.createRange();rg.setStart(t,st);rg.setEnd(t,en);
       const rs=[...rg.getClientRects()].filter(q=>q.width>.5);let bad=rs.length>1&&Math.abs(rs[0].top-rs[rs.length-1].top)>3;
       if(!bad){let a=pe;for(let k=0;k<4&&a;k++,a=a.parentElement){const cs=getComputedStyle(a);if(cs.overflowX!=='visible'||cs.textOverflow==='ellipsis'){if(a.scrollWidth>a.clientWidth+1)bad=true;break}}
-        if(!bad&&rs.length){const r=rs[rs.length-1],box=pe.getBoundingClientRect();if(r.right>box.right+2&&getComputedStyle(pe).display!=='inline')bad=true}}
+        if(!bad&&rs.length){const r=rs[rs.length-1],box=pe.getBoundingClientRect();if(r.right>box.right+2&&getComputedStyle(pe).display!=='inline')bad=true}
+        if(!bad&&rs.length){let a=pe;for(let k=0;k<5&&a&&a!==document.body;k++,a=a.parentElement){const cs=getComputedStyle(a);if(/auto|scroll/.test(cs.overflowX))break;if(cs.display==='inline'||cs.display==='contents')continue;const bb=a.getBoundingClientRect(),pl=parseFloat(cs.paddingLeft)||0,pr=parseFloat(cs.paddingRight)||0;
+          if(bb.width>0&&(rs[rs.length-1].right>bb.right-pr+1.5||rs[0].left<bb.left+pl-1.5)){bad=true;break}}}}
       if(!bad)continue;const v=+m[2].replace(/\./g,'');if(!pe.title)pe.title=m[2]+' €';const ns=nShort(v);t.nodeValue=t.nodeValue.slice(0,st)+ns+t.nodeValue.slice(en);from=st+ns.length}
     /* si ni acortado cabe y es una casilla estrecha: número arriba y la palabra debajo */
     if(pe.classList.contains('fit2')&&pe.scrollWidth>pe.clientWidth+1&&!pe.querySelector('.du')){const mm=pe.textContent.match(/^(\S+)\s(.+)$/);if(mm)pe.innerHTML=esc(mm[1])+'<small class="du">'+esc(mm[2])+'</small>'}})}catch(e){}}
@@ -14179,6 +14186,10 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
   BZ.rep[id]=v.slice(0,300);if(inp){inp.value=BZ.rep[id];inp.focus();try{inp.setSelectionRange(inp.value.length,inp.value.length)}catch(_){}}try{sfx('click')}catch(_){}},true);
 document.addEventListener('toggle',e=>{const d=e.target;if(!d||!d.dataset||!d.dataset.bzmore2)return;BZ.qopen=BZ.qopen||{};BZ.qopen[d.dataset.bzmore2]=d.open},true);
 try{i18nAdd([['Billonario','Billionaire','Milliardaire','Bilionário'],['Trillonario','Trillionaire','Billionnaire','Trilionário'],['Megatrillonario','Mega-trillionaire','Méga-billionnaire','Megatrilionário'],['Cuatrillonario','Quadrillionaire','Quadrillionnaire','Quatrilionário'],['Quintillonario','Quintillionaire','Quintillionnaire','Quintilionário'],['Títulos de riqueza ordenados','Wealth titles sorted out','Titres de richesse remis en ordre','Títulos de riqueza arrumados'],['Cada título con su cifra','Each title with its amount','Chaque titre avec son montant','Cada título com o seu valor'],['Los títulos de riqueza ya van igual que el dinero del juego: Millonario (1 mill.), Billonario (1 bill.), Trillonario (1 trill.), Megatrillonario (100 trill.), Cuatrillonario (1 cuatrill.) y Quintillonario (1 quintill.).','Wealth titles now match the game\'s money: Millionaire (1 mill.), Billionaire (1 bill.), Trillionaire (1 trill.), Mega-trillionaire (100 trill.), Quadrillionaire and Quintillionaire.','Les titres de richesse suivent maintenant l\'argent du jeu.','Os títulos de riqueza seguem agora o dinheiro do jogo.']])}catch(e){}
+/* casilla de la apuesta: si la cifra es muy larga, la letra se hace más pequeña para que se vea entera */
+function betFit(){const i=$('#betInp');if(!i)return;i.style.fontSize='';const L=String(i.value||'').length;i.style.width=L>8?Math.min(innerWidth<=760?200:260,L*12+18)+'px':'';let fs=parseFloat(getComputedStyle(i).fontSize)||20,n=0;while(i.scrollWidth>i.clientWidth+1&&fs>10&&n++<20){fs-=1.5;i.style.fontSize=fs+'px'}}
+{const _sbF=setBet;setBet=function(){const r=_sbF.apply(this,arguments);try{requestAnimationFrame(betFit)}catch(e){}return r}}
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='betInp')betFit()});addEventListener('resize',()=>setTimeout(betFit,60));setInterval(()=>{try{if(view==='casino')betFit()}catch(e){}},1500);
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
