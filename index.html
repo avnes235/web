@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-1744">
+<meta name="app-version" content="2026-10-27-1753">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2855,6 +2855,7 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 @media (min-width:700px){.tkw{padding:10px 12px 6px}}
 .tkas{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;font-weight:800}.tkas button{padding:6px 12px;border-radius:999px;border:2px solid var(--line);background:transparent;color:var(--fg);font:800 13px var(--f-b);cursor:pointer}.tkas button.on{border-color:var(--sun);background:rgba(255,214,0,.15)}
 .tkb small.tkmod{color:#7fd0ff!important}
+.sfv b{white-space:nowrap;display:block;max-width:100%;overflow:hidden}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6404,6 +6405,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-27-f',t:'Lluvia de monedas que merece la pena',items:[['🪙','Cada moneda, según tu dinero','En la lluvia de monedas cada moneda que coges te da una parte de tu dinero, no unos pocos euros. El bote sigue siendo compartido: cuando se acaba, se acaba para todos.','fix','#ffd600'],['🔐','Caja fuerte con la cifra entera','Las cantidades enormes salen enteras y en una sola línea, con el € al lado.','fix','#7fa0ff']]},
  {v:'2026-10-27-e',t:'Botón rojo con premios de verdad',items:[['🔴','Todas las sorpresas pagan bien','La lluvia de billetes, el fantasma, cara o cruz… ahora todas dan un premio según tu dinero, no unos pocos euros.','fix','#ff3b4f'],['📈','Bolsa sin fantasmas','Si un jugador en el que invertiste ya no existe, desaparece de tu cartera y te devolvemos lo que valían sus acciones. Y el buscador ya no se mezcla con la cantidad al comprar.','fix','#14e08a']]},
  {v:'2026-10-27-d',t:'Gran Premio de Cine cada 2 horas',items:[['🎬','Más cine','El Gran Premio de Cine se puede girar cada 2 horas (antes cada 3).','new','#ffd600']]},
  {v:'2026-10-27-c',t:'Botón rojo cada minuto',items:[['🔴','Botón rojo cada minuto','Se puede pulsar cada minuto y todas las sorpresas dan un premio mejor según tu dinero.','new','#ff3b4f'],['😀','Emojis en todos los ordenadores','En algunos PC los emojis salían como cuadrados. Ahora se ven bien.','fix','#ffd600']]},
@@ -7540,7 +7542,7 @@ drawWheel();
 const _wiOld=wheelInfo;wheelInfo=function(){_wiOld();const m=S.casMult&&+S.casMult.until>Date.now()?S.casMult:null;const el=$('#wheelInfo');if(el&&m&&!wBusy)el.textContent+=' · Casino x'+String(m.v).replace('.',',')+' activo '+Math.ceil((+m.until-Date.now())/60000)+' min'};
 
 /* ---- Botón rojo: sorpresas nuevas ---- */
-function catchCoins(){troll('¡LLUVIA DE MONEDAS!','toca todas las que puedas','#ffd600',true);let got=0;const v=Math.max(20,Math.round(15*S.lvl));const layer=document.createElement('div');layer.className='coinrain';document.body.appendChild(layer);
+function catchCoins(){troll('¡LLUVIA DE MONEDAS!','toca todas las que puedas','#ffd600',true);let got=0;const v=Math.max(20,Math.round(15*S.lvl),niceN((typeof wR==='function'?wR():0)*.0012));const layer=document.createElement('div');layer.className='coinrain';document.body.appendChild(layer);
   const end=Date.now()+7000;const iv=setInterval(()=>{if(Date.now()>end){clearInterval(iv);setTimeout(()=>{layer.remove();if(got)toast('Monedas atrapadas',got+' monedas · +'+short(got*v)+' €','var(--sun)','🪙');else toast('Ni una','Eran fáciles, eh','var(--coral)','🪙')},1600);return}
     const c=document.createElement('button');c.className='rcoin';c.textContent='€';c.style.left=rnd(11,80)+'vw';c.style.animationDuration=rnd(1.6,2.6)+'s';layer.appendChild(c);
     c.onpointerdown=()=>{if(c.classList.contains('got'))return;got++;give(v);sfx('coin');c.classList.add('got');setTimeout(()=>c.remove(),200)};setTimeout(()=>c.remove(),2800)},260)}
@@ -10698,8 +10700,8 @@ function rainStart(e){if(rainIv)return;let L=$('#rainL');if(!L){L=document.creat
   rainIv=setInterval(()=>{const left=rainLeft(e),val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100),out=left<val;if(document.hidden||$('#excWin:not([hidden])'))return;if(out)return;/* bote vacío: ya no caen más monedas */if(L.childElementCount>14)return;
     const c=document.createElement('button');c.className='frcoin';c.textContent='€';c.style.left=(11+Math.random()*69)+'vw';const dur=3.2+Math.random()*2.5;c.style.animationDuration=dur+'s';c.style.setProperty('--rr',(Math.random()*720-360)+'deg');if(out){c.classList.add('empty');c.textContent='✕'}
     c.onpointerdown=ev=>{ev.preventDefault();ev.stopPropagation();if(c.dataset.got)return;c.dataset.got=1;const l2=rainLeft(e),v=Math.min(val,l2);if(v<=0||c.classList.contains('empty')){rainEmptyPop(ev,c);return}
-      if(!S.rainG||S.rainG.id!==e.id)S.rainG={id:e.id,n:0};S.rainG.n+=v;S.coins+=v;S.earned+=v;try{sfx('coin')}catch(_){}
-      const pp=document.createElement('div');pp.className='rpop';pp.textContent='+'+short(v)+' €';pp.style.left=ev.clientX-20+'px';pp.style.top=ev.clientY-20+'px';document.body.appendChild(pp);setTimeout(()=>pp.remove(),800);c.remove();
+      if(!S.rainG||S.rainG.id!==e.id)S.rainG={id:e.id,n:0};S.rainG.n+=v;const pay=rainPay(e,v,val);S.coins+=pay;S.earned+=pay;S.rainG.p=(S.rainG.p||0)+pay;try{sfx('coin')}catch(_){}
+      const pp=document.createElement('div');pp.className='rpop';pp.textContent='+'+short(pay)+' €';pp.style.left=ev.clientX-20+'px';pp.style.top=ev.clientY-20+'px';document.body.appendChild(pp);setTimeout(()=>pp.remove(),800);c.remove();
       save();if(Date.now()-rainPushT>2500){rainPushT=Date.now();NET.lastP='';pushPlayer()}else setTimeout(()=>{if(Date.now()-rainPushT>=2400){rainPushT=Date.now();NET.lastP='';pushPlayer()}},2600)};
     L.appendChild(c);setTimeout(()=>c.remove(),dur*1000+200)},420);
   /* cuando se acaba el bote: las monedas que siguen cayendo se vuelven vacías (grises) y avisa una vez */
@@ -14765,6 +14767,15 @@ function giftLater(x){const[id,c]=x;if(GLATER.has(id))return;GLATER.set(id,1);
     GLATER.delete(id);try{applyGifts([x])}catch(_){}}).catch(()=>{setTimeout(()=>{GLATER.delete(id)},20000)})}
 
 try{i18nAdd([['Botón rojo con premios de verdad','Red button with real prizes','Bouton rouge avec de vrais prix','Botão vermelho com prémios a sério'],['Todas las sorpresas pagan bien','Every surprise pays well','Toutes les surprises paient bien','Todas as surpresas pagam bem'],['La lluvia de billetes, el fantasma, cara o cruz… ahora todas dan un premio según tu dinero, no unos pocos euros.','The money rain, the ghost, heads or tails… all now give a prize based on your money, not a few euros.','La pluie de billets, le fantôme, pile ou face… donnent maintenant un prix selon ton argent, pas quelques euros.','A chuva de notas, o fantasma, cara ou coroa… agora dão um prémio conforme o teu dinheiro, não uns poucos euros.'],['Bolsa sin fantasmas','Stock Market without ghosts','Bourse sans fantômes','Bolsa sem fantasmas'],['Si un jugador en el que invertiste ya no existe, desaparece de tu cartera y te devolvemos lo que valían sus acciones. Y el buscador ya no se mezcla con la cantidad al comprar.','If a player you invested in no longer exists, they leave your portfolio and you get back what their shares were worth. The search no longer mixes with the amount when buying.','Si un joueur dans lequel tu as investi n\'existe plus, il quitte ton portefeuille et on te rend la valeur de ses actions. La recherche ne se mélange plus avec la quantité à l\'achat.','Se um jogador em que investiste já não existe, sai da tua carteira e devolvemos-te o que valiam as ações. A pesquisa já não se mistura com a quantidade ao comprar.']])}catch(e){}
+/* lluvia de monedas: el bote sigue siendo compartido (cada moneda gasta lo mismo del bote), pero lo que te da cada moneda depende de tu dinero */
+function rainPay(e,v,val){try{const k=e&&e.type==='mrain'?.003:.0015;return Math.max(v,niceN(v/Math.max(1,val)*Math.max(val,(typeof wR==='function'?wR():wealth())*k)))}catch(_){return v}}
+
+/* caja fuerte: la cifra entera en una línea; si no cabe, se hace más pequeña la letra */
+function sfFit(){try{const b=document.querySelector('#safeCard .sfv b');if(!b||!b.offsetParent)return;b.style.fontSize='';let fs=parseFloat(getComputedStyle(b).fontSize)||28,i=0;while(b.scrollWidth>b.clientWidth+1&&fs>12&&i<30){fs-=1;b.style.fontSize=fs+'px';i++}}catch(e){}}
+{const _smF=safeMount;safeMount=function(){const r=_smF.apply(this,arguments);try{requestAnimationFrame(sfFit)}catch(e){}return r}}
+addEventListener('resize',()=>requestAnimationFrame(sfFit));setInterval(sfFit,3000);
+
+try{i18nAdd([['Lluvia de monedas que merece la pena','Coin rain worth it','Pluie de pièces qui vaut le coup','Chuva de moedas que vale a pena'],['Cada moneda, según tu dinero','Each coin, based on your money','Chaque pièce, selon ton argent','Cada moeda, conforme o teu dinheiro'],['En la lluvia de monedas cada moneda que coges te da una parte de tu dinero, no unos pocos euros. El bote sigue siendo compartido: cuando se acaba, se acaba para todos.','In the coin rain each coin you catch gives you a share of your money, not a few euros. The pot is still shared: when it runs out, it\'s over for everyone.','Dans la pluie de pièces, chaque pièce attrapée te donne une part de ton argent, pas quelques euros. La cagnotte reste partagée : quand elle est vide, c\'est fini pour tous.','Na chuva de moedas cada moeda que apanhas dá-te uma parte do teu dinheiro, não uns poucos euros. O pote continua partilhado: quando acaba, acaba para todos.'],['Caja fuerte con la cifra entera','Safe with the full number','Coffre avec le nombre entier','Cofre com o número inteiro'],['Las cantidades enormes salen enteras y en una sola línea, con el € al lado.','Huge amounts show in full on one line, with the € next to them.','Les montants énormes s\'affichent en entier sur une seule ligne, avec le € à côté.','As quantias enormes aparecem inteiras numa só linha, com o € ao lado.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
