@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-1601">
+<meta name="app-version" content="2026-10-27-1611">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2795,6 +2795,46 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .tkmine{display:grid;gap:6px;margin:0 0 12px}.tkcont{margin-top:8px}
 .admstf .stfmsgs{max-height:360px;min-height:120px;overflow:auto;display:flex;flex-direction:column;gap:6px;padding:8px;border:2px solid var(--line);border-radius:12px;background:var(--bg2);margin-bottom:8px}
 .admstf .tkq{margin-bottom:6px}
+.nhhit{display:block;font-size:11px;color:#14e08a;font-weight:800}
+.bxsearch,.chsearch{display:flex;margin:8px 0}
+.outreqs{display:grid;gap:6px;margin-top:8px}.outreqs>b{font-size:14px}
+.cmsg.me{position:relative}.cdelh{font-size:13px;opacity:.75;margin-left:6px;cursor:pointer}
+.chtip{font-size:14px!important;font-weight:700;opacity:1!important}
+/* minijuegos en tarjetas pequeñas, como en el Casino */
+#arcadeGames.games{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+#arcadeGames .gcard{border:2px solid #000}
+@media (max-width:640px){
+  #arcadeGames.games{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  #arcadeGames .gcard{box-shadow:3px 3px 0 #000}
+  #arcadeGames .ginfo{flex-direction:column;align-items:flex-start;gap:4px;padding:9px 10px 11px}
+  #arcadeGames .ginfo h3{font-size:18px;margin:0}
+  #arcadeGames .ginfo small{text-align:left;font-size:12px}
+  #arcadeGames .ginfo small br{display:none}#arcadeGames .ginfo small b{margin-left:4px}
+}
+#lgHome{padding:18px 18px;border-width:4px;cursor:pointer}
+#lgHome h3{font-size:clamp(26px,5vw,36px)}
+#lgHome .lgb{font-size:56px}
+#lgHome .lgs{font-size:17px}
+#lgHome .lggap{font-size:16px!important;font-weight:800;margin-top:8px;line-height:1.45}
+#lgHome .lggap b{font-size:18px}
+.lgwhat{margin-top:10px;font-size:14px;line-height:1.45;font-weight:700;background:rgba(0,0,0,.28);border-radius:10px;padding:8px 10px}
+.lgwhat .lgcta{display:inline-block;margin-top:4px;color:var(--lc,#ffd600);font-weight:900}
+@media (max-width:520px){#lgHome{flex-wrap:wrap}#lgHome .lgt{margin-left:0}}
+/* puntos de liga: más grandes y claros */
+#lgPts .lgch h4{font-size:20px}
+#lgPts .lgchr{font-size:15px;padding:10px 12px}
+#lgPts .lgchr .t{font-weight:800}
+#lgPts .lgchr em{font-size:16px;font-weight:900}
+#lgPts .lgptl>div{font-size:15px;padding:8px 10px}
+#lgPts .lgptl small{display:block;font-size:13.5px;font-weight:800;color:var(--sun);margin-top:2px}
+#lgPts details>summary{font-size:17px;font-weight:900}
+/* barrita de accesos rápidos de Hoy: más grande y que se vea */
+.hoynav{gap:8px;padding:6px 2px 8px}
+.hoynav button{padding:10px 16px;font-size:15px;border-width:3px;box-shadow:3px 3px 0 #000}
+.hoynav button .emo{font-size:20px}
+.hoynav button.rdy{animation:hqpulse 1.4s ease-in-out infinite;box-shadow:0 0 0 2px #000,0 0 14px #ffd60099}
+@keyframes hqpulse{50%{transform:scale(1.05)}}
+@media (prefers-reduced-motion:reduce){.hoynav button.rdy{animation:none}}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5660,7 +5700,7 @@ function admPlayers(){return[...NET.players.entries()].map(([id,d])=>({...d,id,m
 function renderAdmin(){if(view!=='admin'||!ADM.on)return;const all=admPlayers(),q=ADM.q.toLowerCase();
   const tot=all.reduce((a,p)=>a+(+p.coins||0),0),on=all.filter(p=>p.on).length,top=all[0];
   $('#admStats').innerHTML=[['Jugadores',fmt(all.length)],['Conectados ahora',fmt(on)],['Dinero total',short(tot)+' €'],['El más rico',top?esc(top.name):'—']].map(([l,v])=>`<div class="stat"><small>${l}</small><b>${v}</b></div>`).join('');
-  const list=all.filter(p=>!q||String(p.name||'').toLowerCase().includes(q)||String(p.code||'').toLowerCase().includes(q));
+  const list=all.filter(p=>!q||String(p.name||'').toLowerCase().includes(q)||String(p.code||'').toLowerCase().includes(q)||(typeof pMatch==='function'&&pMatch(p,q)));
   $('#admList').innerHTML=list.length?list.map(p=>`<button class="arow" data-sel="${esc(p.id)}" aria-pressed="${ADM.sel===p.id}"><span class="av emo">${avH(p)}${p.on?'<i class="on"></i>':''}</span><span style="min-width:0"><b>${esc(p.name||'Sin nombre')}${p.me?' (tú)':''}${ADM.bans.has(p.id)?'<span class="tag">Baneado</span>':''}${(+p.cheat)?'<span class="tag" style="background:var(--sun);color:#111">Autoclicker x'+(+p.cheat)+'</span>':''}</b><small>${esc(p.code||'')} · Nv ${+p.lvl||1}</small></span><span class="cash">${short(+p.coins||0)} €</span><span class="seen">${p.on?'<span class="tag on">Online</span>':ago(+p.t)}</span></button>`).join('')
     :`<div class="empty"><span class="emo">🕳️</span><b>${all.length?'Nadie con ese nombre':'Todavía no ha entrado nadie'}</b><span>${all.length?'Prueba con otro nombre o código.':'Cuando tus colegas entren y se pongan nombre, saldrán aquí.'}</span></div>`;
   const side=$('#admSide');if(!side.contains(document.activeElement))renderAdmSide()}
@@ -6343,6 +6383,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-27-b',t:'Habla con el jefe y encuentra a todos',items:[['💬','Conversaciones con el jefe','Cuando el jefe te contesta en el buzón, ahora puedes seguir hablando con él como en un chat, y mandarle fotos o capturas. Escribe en tu idioma: el jefe lo entiende.','new','#3f7cff'],['🔎','Busca por el nombre antiguo','Si alguien se cambia el nombre, lo encuentras igual buscando cómo se llamaba antes: en la clasificación, el chat, la Bolsa y el buscador de arriba (que ahora también busca jugadores). Si borras tu historial de nombres, ya no sale.','new','#14e08a'],['📈','Buscador en la Bolsa','Encuentra al jugador que quieres comprar sin bajar toda la lista.','new','#ffd600'],['🤝','Cancelar solicitudes de amistad','Si mandas una sin querer, ahora la puedes cancelar en Amigos o pulsando «Pendiente» en la clasificación.','new','#ff9d00'],['🗑️','Borrar mensajes del chat, más fácil','Tus mensajes llevan una papelera al lado: tócala para borrarlos.','fix','#ff4d63'],['🕹️','Minijuegos más a mano','En el móvil salen en tarjetas más pequeñas, de dos en dos, como en el Casino.','fix','#b06bff'],['🏅','La liga, bien a la vista','La tarjeta de tu liga en Inicio es más grande, explica qué es y cuántos puntos te faltan. La barra de accesos rápidos de Hoy también se ve más.','fix','#e0914a']]},
  {v:'2026-10-27-a',t:'Regalos justos y arreglos',items:[['🎁','Regalos justos','Puedes regalar lo que quieras, pero no el dinero que te ha prestado el banco ni a otra cuenta tuya del mismo dispositivo. Y lo que te regalan no cuenta durante 3 días para los premios que dependen de tu dinero. Así nadie se fabrica cuentas para inflarse.','fix','#14e08a'],['👥','Sin cuentas repetidas','Si abres tu partida sin haber iniciado sesión (por ejemplo, después de borrar las cookies), el juego te pide entrar con tu cuenta en vez de crear otra igual. Así no se pierden regalos.','fix','#4aa8ff'],['🔐','Caja fuerte vacía de verdad','Al sacar todo, ya no se queda nada dentro por los intereses que van sumando.','fix','#ffd600'],['🧭','Accesos rápidos siempre a la vista','La barra de Evento, Botón rojo, Caja fuerte… de Inicio › Hoy ya no desaparece un momento al cambiar de pestaña.','fix','#ff9d00']]},
  {v:'2026-10-23-c',t:'Guías de cada juego',items:[['📚','Guías completas','En la web hay ahora una guía de cada juego: cómo se juega, la tabla de pagos y las probabilidades de verdad. Las tienes abajo del todo en Inicio y en Ayuda, en «📚 Guías de cada juego».','new','#4aa8ff'],['🎲','Probabilidades a la vista','Una página nueva explica cuánto devuelve de media cada juego del casino, para que sepas a qué juegas.','new','#14e08a']]},
  {v:'2026-10-23-b',t:'Casino más justo',items:[['🎰','Tragaperras','Dos símbolos iguales pagan ahora x1,35 (antes x1,5). Tres iguales siguen pagando hasta x60.','fix','#ff2e88'],['🎟️','Rasca y gana','Los premios salen menos a menudo. Con todos los premios juntos daba más dinero del que se apostaba y eso rompía la clasificación. Ahora es como el resto del casino: a la larga, la casa gana un poco.','fix','#ffc23d']]},
@@ -13912,7 +13953,11 @@ async function statsMerge(A){const days={};const add=(k,f,v)=>{days[k]=days[k]||
   const act={};named.forEach(p=>{(Array.isArray(p.dw)?p.dw:[]).forEach(k=>{act[k]=(act[k]||0)+1});if(+p.t>0){const k=STK(+p.t);if(!(p.dw||[]).includes(k))act[k]=(act[k]||0)+1}});for(const k in act)add(k,'a',act[k]);
   let rec={n:0,t:0};named.forEach(p=>{if(p.pkw&&typeof p.pkw==='object')for(const k in p.pkw)add(k,'p',+p.pkw[k]||0);if((+p.pko||0)>rec.n)rec={n:+p.pko,t:+p.pkot||0}});
   let old=STH.doc;try{if(!old){const sn=await NET.db.collection('meta').doc('stats').get();old=sn.exists?sn.data():{}}}catch(e){old=old||{}}
-  const od=(old&&old.days)||{};const all={...od};for(const k in days){all[k]={...(all[k]||{})};for(const f in days[k])all[k][f]=Math.max(all[k][f]||0,days[k][f])}
+  const od=(old&&old.days)||{};const all={...od};const recent=new Set();for(let i=0;i<8;i++)recent.add(STK(Date.now()-i*864e5));
+  /* «nuevos» se cuentan siempre desde las cuentas que existen (si borras cuentas falsas, desaparecen de las estadísticas);
+     «jugadores» y «a la vez» de los últimos 8 días también se rehacen; lo más antiguo se guarda tal cual */
+  for(const k in all){all[k]={...all[k]};all[k].n=(days[k]&&days[k].n)||0;if(recent.has(k)){all[k].a=(days[k]&&days[k].a)||0;all[k].p=(days[k]&&days[k].p)||0}}
+  for(const k in days){if(!all[k])all[k]={...days[k]}}
   /* lo de «nuevos» se recalcula siempre desde las fichas (si se borran cuentas, se queda el máximo que se vio) */
   const orec=(old&&old.rec)||{};if((orec.n||0)>rec.n)rec={n:orec.n,t:orec.t||0};
   const doc={days:all,rec,t:Date.now()};STH.doc=doc;
@@ -14594,6 +14639,56 @@ document.addEventListener('click',async e=>{const q=s=>e.target.closest&&e.targe
   if(b=q('[data-stfdel]')){try{await NET.db.collection('staff').doc(b.dataset.stfdel).delete()}catch(err){tkErr(err)}return}
   if(q('#stfGo')){const t=$('#stfTxt'),x=(t.value||'').trim().slice(0,600);if(!x)return;try{await NET.db.collection('staff').add({by:NET.id,n:S.name||'admin',x,t:Date.now()});t.value=''}catch(err){tkErr(err)}}});
 document.addEventListener('keydown',e=>{if(e.target&&e.target.id==='stfTxt'&&e.key==='Enter'&&!e.shiftKey&&innerWidth>700){e.preventDefault();const g=$('#stfGo');if(g)g.click()}});
+/* ===== 2026-10-27: buscar jugadores también por su nombre antiguo, en todos los sitios ===== */
+const pnNorm=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function pOld(p){return(Array.isArray(p&&p.nh)?p.nh:[]).map(x=>x&&x.n).filter(Boolean)}
+function pMatch(p,q){if(!q)return true;q=pnNorm(q).replace(/^@/,'');if(!p)return false;return pnNorm((p.name||'')+' '+(p.code||'')).includes(q)||pOld(p).some(n=>pnNorm(n).includes(q))}
+function pOldHit(p,q){if(!q||!p)return'';q=pnNorm(q);if(pnNorm((p.name||'')+' '+(p.code||'')).includes(q))return'';return pOld(p).find(n=>pnNorm(n).includes(q))||''}
+/* clasificación */
+{const _rrO=renderRank;renderRank=function(){const r=_rrO.apply(this,arguments);try{if(view!=='ranking'||!RK_Q)return r;const L=$('#rkList');if(!L)return r;let n=0;
+  L.querySelectorAll('.rkr').forEach(row=>{const idEl=row.matches('[data-prof]')?row:row.querySelector('[data-prof],[data-gift],[data-req],[data-tr]');const id=idEl&&(idEl.dataset.prof||idEl.dataset.gift||idEl.dataset.req||idEl.dataset.tr);const p=id&&NET.players.get(id);
+    const nm=(row.querySelector('b')||{}).textContent||'';const ok=pnNorm(nm).includes(pnNorm(RK_Q))||(p&&pMatch(p,RK_Q));row.style.display=ok?'':'none';if(ok)n++;
+    const old=p&&pOldHit(p,RK_Q);const ex=row.querySelector('.nhhit');if(ex)ex.remove();if(ok&&old){const b=row.querySelector('b');if(b)b.insertAdjacentHTML('afterend',`<small class="nhhit">antes se llamaba «${esc(old)}»</small>`)}});
+  const em=$('#rkQnone');if(n&&em)em.remove()}catch(e){}return r}}
+/* buscador de arriba (juegos y salas): ahora también jugadores */
+{const _gsI=gsItems;gsItems=function(){const out=_gsI.apply(this,arguments);try{if(NET&&NET.players)NET.players.forEach((p,id)=>{if(!p||!p.name||id===NET.id)return;const old=pOld(p);
+  out.push({t:p.name,s:'Jugador'+(p.code?' · '+p.code:'')+(old.length?' · antes: '+old.slice(-3).join(', '):''),e:'🙂',c:'#14e08a',go:()=>openPlayer(id)})})}catch(e){}return out}}
+document.addEventListener('focusin',e=>{try{if(e.target&&e.target.classList&&e.target.classList.contains('gsin')&&!e.target.dataset.pl){e.target.dataset.pl=1;e.target.placeholder='Buscar juego, sala o jugador…'}}catch(_){}});
+/* panel del jefe */
+try{const _q=$('#admQ');if(_q)_q.placeholder='Buscar por nombre, código o nombre antiguo'}catch(e){}
+/* regalar un título repetido */
+{const _drO=dupRes;dupRes=function(q){const r=_drO.apply(this,arguments);try{const L=String(q||'').trim();if(!L||!NET.players)return r;const have=new Set(r.map(p=>p.id));
+  [...NET.players.entries()].filter(([id,p])=>p&&p.id!==NET.id&&id!==NET.id&&p.name&&!have.has(id)&&pMatch(p,L)).slice(0,8-r.length).forEach(([id,p])=>r.push({...p,id}))}catch(e){}return r}}
+/* chat: buscar a quién escribir */
+function chSearchMount(){try{const host=document.querySelector('.chbox .chl');if(!host||$('#chQ'))return;host.insertAdjacentHTML('beforebegin','<label class="search chsearch"><svg class="ic"><use href="#i-search"/></svg><input id="chQ" type="search" placeholder="Buscar amigo (también por su nombre antiguo)" autocomplete="off"></label>')}catch(e){}}
+setInterval(chSearchMount,2000);
+document.addEventListener('input',e=>{if(!e.target||e.target.id!=='chQ')return;const q=e.target.value.trim();document.querySelectorAll('.chbox .chl [data-chopen]').forEach(b=>{const p=NET.players.get(b.dataset.chopen);b.style.display=!q||pMatch(p||{name:b.textContent},q)||pnNorm(b.textContent).includes(pnNorm(q))?'':'none'})});
+
+/* ===== Bolsa: buscador ===== */
+let BX_Q='';
+{const _rbX=renderBolsa;renderBolsa=function(){const i=$('#bxQ');if(i&&document.activeElement===i)return;const r=_rbX.apply(this,arguments);try{const root=$('#bxRoot'),list=root&&root.querySelector('.bx-list');if(!list)return r;
+  if(!$('#bxQ'))list.insertAdjacentHTML('beforebegin',`<label class="search bxsearch"><svg class="ic"><use href="#i-search"/></svg><input id="bxQ" type="search" placeholder="Buscar jugador (también por su nombre antiguo)" value="${esc(BX_Q)}" autocomplete="off"></label>`);bxFilter()}catch(e){}return r}}
+function bxFilter(){const q=BX_Q;let n=0;document.querySelectorAll('#bxRoot .bx-list .bx-row').forEach(row=>{const id=row.dataset.bxp,p=id&&NET.players.get(id);const ok=!q||(p?pMatch(p,q):pnNorm(row.textContent).includes(pnNorm(q)));row.style.display=ok?'':'none';if(ok)n++});
+  let em=$('#bxQnone');if(q&&!n){if(!em){const l=document.querySelector('#bxRoot .bx-list');if(l)l.insertAdjacentHTML('beforebegin','<p class="muted" id="bxQnone" style="text-align:center;font-weight:700">Nadie con ese nombre.</p>')}}else if(em)em.remove()}
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='bxQ'){BX_Q=e.target.value.trim();bxFilter()}});
+
+/* ===== Amigos: cancelar una solicitud enviada ===== */
+{const _rqC=renderReqs;renderReqs=function(){const r=_rqC.apply(this,arguments);try{const el=$('#reqs');if(!el)return r;const out=(S.outReq||[]).filter(id=>!(S.friends||[]).includes(id));const p=[...el.querySelectorAll('p.netmsg')].find(x=>/^Enviadas:/.test(x.textContent));
+  if(p&&out.length)p.outerHTML=`<div class="outreqs"><b>Solicitudes enviadas (esperando a que acepten)</b>${out.map(id=>`<div class="req"><span class="av emo">${avH(NET.players.get(id)||{})}</span><b>${esc((NET.players.get(id)||{}).name||'alguien')}</b><small>aún no ha aceptado</small><span class="abtns"><button class="btn alt sm" data-cancel-req="${esc(id)}">✕ Cancelar</button></span></div>`).join('')}</div>`}catch(e){}return r}}
+async function cancelReq(id){try{await NET.db.collection('freq/'+id+'/q').doc(NET.id).delete()}catch(e){}S.outReq=(S.outReq||[]).filter(x=>x!==id);save();toast('Solicitud cancelada',esc((NET.players.get(id)||{}).name||''),'var(--sky)','✕');try{renderReqs();renderRank()}catch(_){}}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-cancel-req]');if(!b)return;try{sfx('click')}catch(_){}cancelReq(b.dataset.cancelReq)});
+/* en la clasificación, el botón «Pendiente» ahora cancela */
+{const _rrC=renderRank;renderRank=function(){const r=_rrC.apply(this,arguments);try{document.querySelectorAll('#rkList .rkr').forEach(row=>{const pb=[...row.querySelectorAll('button[disabled]')].find(b=>b.textContent.trim()==='Pendiente');if(!pb)return;
+  const idEl=row.querySelector('[data-gift],[data-tr],[data-prof]')||row;const id=idEl.dataset.tr||idEl.dataset.gift||idEl.dataset.prof;if(!id)return;pb.disabled=false;pb.dataset.cancelReq=id;pb.textContent='⏳ Pendiente · cancelar';pb.title='Cancelar la solicitud de amistad'})}catch(e){}return r}}
+
+/* ===== Chat: el botón de borrar siempre a la vista ===== */
+{const _chM=chMsgs;chMsgs=function(){const r=_chM.apply(this,arguments);try{document.querySelectorAll('#chMsgs .cmsg.me').forEach(m=>{if(m.querySelector('.cdel,.cdelh'))return;m.insertAdjacentHTML('beforeend','<span class="cdelh" title="Borrar este mensaje">🗑️</span>')});
+  const tip=document.querySelector('.chtip');if(tip&&!tip.dataset.b){tip.dataset.b=1;tip.innerHTML='🗑️ <b>Para borrar un mensaje tuyo</b>, toca la papelera que tiene al lado.'}}catch(e){}return r}}
+/* ===== 2026-10-27: la liga, bien a la vista ===== */
+{const _lgV=lgCard;lgCard=function(){const r=_lgV.apply(this,arguments);try{const el=$('#lgHome');if(!el||el.hidden)return r;const d=el.querySelector('.lggap');if(d&&!el.querySelector('.lgwhat'))d.insertAdjacentHTML('afterend','<div class="lgwhat">🏅 <b>¿Qué es la liga?</b> Cada semana compites con gente de tu liga. Juega, bate récords y haz los retos para sumar puntos: el lunes los primeros suben de liga y todos cobran. <span class="lgcta">Ver cómo sumar puntos ›</span></div>')}catch(e){}return r}}
+try{if(typeof HQ!=='undefined'&&!HQ.some(x=>x[0]==='lgHome'))HQ.unshift(['lgHome','🏅','Liga'])}catch(e){}
+try{i18nAdd([['Habla con el jefe y encuentra a todos','Talk to the boss and find everyone','Parle au boss et trouve tout le monde','Fala com o chefe e encontra toda a gente'],['Conversaciones con el jefe','Chats with the boss','Discussions avec le boss','Conversas com o chefe'],['Cuando el jefe te contesta en el buzón, ahora puedes seguir hablando con él como en un chat, y mandarle fotos o capturas. Escribe en tu idioma: el jefe lo entiende.','When the boss answers you in the mailbox, you can now keep talking like in a chat and send photos or screenshots. Write in your own language: the boss understands it.','Quand le boss te répond dans la boîte, tu peux maintenant continuer à discuter comme dans un chat et envoyer des photos ou des captures. Écris dans ta langue : le boss comprend.','Quando o chefe te responde na caixa, agora podes continuar a falar como num chat e enviar fotos ou capturas. Escreve na tua língua: o chefe entende.'],['Busca por el nombre antiguo','Search by old name','Cherche par l\'ancien nom','Procura pelo nome antigo'],['Si alguien se cambia el nombre, lo encuentras igual buscando cómo se llamaba antes: en la clasificación, el chat, la Bolsa y el buscador de arriba (que ahora también busca jugadores). Si borras tu historial de nombres, ya no sale.','If someone changes their name, you can still find them by their old one: in the leaderboard, chat, Stock Market and the top search (which now finds players too). If you clear your name history, it no longer shows.','Si quelqu\'un change de nom, tu le trouves quand même avec son ancien nom : classement, chat, Bourse et recherche du haut (qui trouve aussi les joueurs). Si tu effaces ton historique de noms, il n\'apparaît plus.','Se alguém muda de nome, encontras na mesma pelo nome antigo: classificação, chat, Bolsa e a pesquisa de cima (que agora também encontra jogadores). Se apagares o teu histórico de nomes, já não aparece.'],['Buscador en la Bolsa','Stock Market search','Recherche dans la Bourse','Pesquisa na Bolsa'],['Encuentra al jugador que quieres comprar sin bajar toda la lista.','Find the player you want to buy without scrolling the whole list.','Trouve le joueur que tu veux acheter sans parcourir toute la liste.','Encontra o jogador que queres comprar sem descer a lista toda.'],['Cancelar solicitudes de amistad','Cancel friend requests','Annuler les demandes d\'ami','Cancelar pedidos de amizade'],['Si mandas una sin querer, ahora la puedes cancelar en Amigos o pulsando «Pendiente» en la clasificación.','If you send one by mistake, you can now cancel it in Friends or by tapping «Pending» in the leaderboard.','Si tu en envoies une par erreur, tu peux l\'annuler dans Amis ou en touchant « En attente » dans le classement.','Se enviares um sem querer, agora podes cancelá-lo em Amigos ou tocando em «Pendente» na classificação.'],['Borrar mensajes del chat, más fácil','Deleting chat messages, easier','Supprimer des messages, plus facile','Apagar mensagens do chat, mais fácil'],['Tus mensajes llevan una papelera al lado: tócala para borrarlos.','Your messages have a bin next to them: tap it to delete them.','Tes messages ont une corbeille à côté : touche-la pour les supprimer.','As tuas mensagens têm um caixote ao lado: toca nele para as apagar.'],['Minijuegos más a mano','Minigames easier to reach','Mini-jeux plus accessibles','Minijogos mais à mão'],['En el móvil salen en tarjetas más pequeñas, de dos en dos, como en el Casino.','On mobile they show as smaller cards, two per row, like in the Casino.','Sur mobile, ils s\'affichent en cartes plus petites, deux par ligne, comme au Casino.','No telemóvel aparecem em cartões mais pequenos, dois por linha, como no Casino.'],['La liga, bien a la vista','The league, easy to see','La ligue, bien visible','A liga, bem à vista'],['La tarjeta de tu liga en Inicio es más grande, explica qué es y cuántos puntos te faltan. La barra de accesos rápidos de Hoy también se ve más.','Your league card on Home is bigger, explains what it is and how many points you need. The Today shortcuts bar is also more visible.','La carte de ta ligue sur l\'Accueil est plus grande, explique ce que c\'est et combien de points il te manque. La barre de raccourcis d\'Aujourd\'hui se voit aussi mieux.','O cartão da tua liga no Início é maior, explica o que é e quantos pontos te faltam. A barra de atalhos de Hoje também se vê melhor.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Puedo hablar con el jefe?'))FAQ.unshift(['¿Puedo hablar con el jefe?','Sí. Escríbele en Ayuda › Buzón del jefe. Cuando te conteste, pulsa «Contestar al jefe» y podréis hablar como en un chat, con fotos. Escribe en tu idioma.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
