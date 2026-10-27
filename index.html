@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-1711">
+<meta name="app-version" content="2026-10-27-1712">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -14576,7 +14576,7 @@ async function tkOpenMine(ib,m){const ex=[...TK.mine.entries()].find(([,t])=>t.i
     const ref=await NET.db.collection('tk').add({uid:NET.id,name:S.name||'',code:S.code||'',st:'open',t:Date.now(),lt:Date.now(),lt_txt:'',lb:'user',ua:0,ur:0,src:'buzon',ib,subj:String(m.text||'').slice(0,120),seed});tkView(ref.id)}catch(err){tkErr(err)}}
 /* la ventana del chat */
 function tkData(id){return TK.all.get(id)||TK.mine.get(id)||{}}
-function tkView(id){TK.open=id;TK.img=null;const adm=ADM.on&&aCan('contactar')&&tkData(id).uid!==NET.id;
+function tkView(id){TK.open=id;TK.img=null;const adm=ADM.on&&aCan('contactar')&&(tkData(id).uid!==NET.id||TK.all.has(id));
   if(TK.unsub){try{TK.unsub()}catch(e){}TK.unsub=null}
   $('#mbox').classList.add('wide');$('#mbox').onclick=null;$('#modal').hidden=false;tkDraw(id,adm);
   try{TK.unsub=NET.db.collection('tk/'+id+'/m').orderBy('t').limitToLast(300).onSnapshot(sn=>{TK.msgs.set(id,sn.docs.map(d=>({id:d.id,...d.data()})));tkDrawMsgs(id,adm)},err=>{tkErr(err)})}catch(e){tkErr(e)}
@@ -14599,7 +14599,7 @@ function tkDrawMsgs(id,adm){const box=$('#tkMsgs');if(!box||TK.open!==id)return;
 /* foto: se reduce antes de mandarla */
 function tkShrink(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{let w=im.width,h=im.height;const mx=1100;if(w>mx||h>mx){const k=mx/Math.max(w,h);w=Math.round(w*k);h=Math.round(h*k)}
   const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);let q=.7,u=c.toDataURL('image/jpeg',q);while(u.length>650000&&q>.3){q-=.1;u=c.toDataURL('image/jpeg',q)}u.length>900000?rej('big'):res(u)};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
-async function tkSend(){const id=TK.open;if(!id)return;const t=tkData(id),adm=ADM.on&&aCan('contactar')&&t.uid!==NET.id;const ta=$('#tkTxt'),x=(ta?ta.value:'').trim().slice(0,800);if(!x&&!TK.img)return;
+async function tkSend(){const id=TK.open;if(!id)return;const t=tkData(id),adm=ADM.on&&aCan('contactar')&&(t.uid!==NET.id||TK.all.has(id));const ta=$('#tkTxt'),x=(ta?ta.value:'').trim().slice(0,800);if(!x&&!TK.img)return;
   const b=$('#tkSend');if(b){b.disabled=true;b.textContent='…'}
   try{await NET.db.collection('tk/'+id+'/m').add({by:NET.id,a:adm?1:0,x,...(TK.img?{img:TK.img}:{}),t:Date.now()});
     const inc=tkFV().increment(1);await NET.db.collection('tk').doc(id).update({lt:Date.now(),lb:adm?'adm':'user',lt_txt:(x||'📷 Foto').slice(0,120),...(adm?{ur:inc}:{ua:inc})});
@@ -14631,7 +14631,7 @@ document.addEventListener('click',async e=>{const q=s=>e.target.closest&&e.targe
   if(b=q('[data-tkmine]')){const m=BZ.mine.get(b.dataset.tkmine);if(m)tkOpenMine(b.dataset.tkmine,m);return}});
 /* Intro = nueva línea; solo se envía con el botón «Enviar» */
 /* botón en la ficha del jugador */
-{const _rsT=renderAdmSide;renderAdmSide=function(){const r=_rsT.apply(this,arguments);try{if(!aCan('contactar'))return r;const el=$('#admSide');if(!el||!ADM.sel||el.querySelector('[data-tkhab]'))return r;const q=el.querySelector('#admQuiet');const lab=q&&q.closest('label');
+{const _rsT=renderAdmSide;renderAdmSide=function(){const r=_rsT.apply(this,arguments);try{if(!aCan('contactar'))return r;const el=$('#admSide');if(!el||!ADM.sel||ADM.sel===NET.id||el.querySelector('[data-tkhab]'))return r;const q=el.querySelector('#admQuiet');const lab=q&&q.closest('label');
   const h=`<button type="button" class="btn big tkhab" data-tkhab="${esc(ADM.sel)}">💬 Hablar en privado</button>`;if(lab)lab.insertAdjacentHTML('beforebegin',h);else{const kv=el.querySelector('.kv');if(kv)kv.insertAdjacentHTML('beforebegin',h)}}catch(e){}return r}}
 /* en el buzón del jefe: abrir un chat con quien lo mandó */
 {const _riT=renderAdmInbox;renderAdmInbox=function(){const r=_riT.apply(this,arguments);try{if(!aCan('contactar'))return r;document.querySelectorAll('#admInbox [data-bzok]').forEach(ok=>{const id=ok.dataset.bzok,row=ok.parentElement;if(!row||row.querySelector('[data-tkib]'))return;
