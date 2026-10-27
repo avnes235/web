@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-1507">
+<meta name="app-version" content="2026-10-27-1544">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2735,6 +2735,10 @@ html{overflow-x:clip}
 .serk{padding:0 12px}
 #betInp{min-width:0;text-overflow:clip}
 .lnadm{background:rgba(20,224,138,.06);border:2px solid rgba(20,224,138,.35);border-radius:12px;padding:10px 12px;margin:4px 0 8px}
+.dvsame{background:rgba(255,77,99,.08);border:2px solid rgba(255,77,99,.4);border-radius:12px;padding:8px 10px;margin:8px 0;font-size:14px}
+.dvsame .dvp{display:inline-flex;gap:4px;align-items:baseline;margin:3px 4px 0 0;padding:3px 8px;border-radius:8px;border:1px solid var(--line,#2a2f4a);background:rgba(255,255,255,.04);color:inherit;font:inherit;font-weight:700;cursor:pointer}
+.dvsame .dvp small{opacity:.7;font-size:11px}
+.jkrow{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:10px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5979,7 +5983,7 @@ function openGift(id){if(!ADM.on&&NET.isAnon){toast('Necesitas una cuenta','Para
    <p class="warn" id="gfErr" hidden></p><button class="btn big mint" id="gfGo">Enviar regalo</button><button class="linkb" id="gfX">Cancelar</button></div>`;
   $('#gfX').onclick=()=>$('#modal').hidden=true;$('#mbox').querySelector('.amt').addEventListener('click',e=>{const b=e.target.closest('[data-gq]');if(b)$('#gfAmt').value=b.dataset.gq==='all'?Math.floor(S.coins):b.dataset.gq});
   $('#gfGo').onclick=async()=>{const n=Math.floor(+String($('#gfAmt').value).replace(/\D/g,'')||0),err=t=>{$('#gfErr').textContent=t;$('#gfErr').hidden=false;sfx('lose')};
-    if(n<1)return err('Pon cuánto quieres regalar.');if(!take(n))return err('No tienes tanto dinero.');
+    if(n<1)return err('Pon cuánto quieres regalar.');{const gb=giftBlock(n,id);if(gb)return err(gb)}if(!take(n))return err('No tienes tanto dinero.');
     $('#gfGo').disabled=true;try{await NET.db.collection('cmds/'+id+'/q').add({type:'gift',from:NET.id,n,t:Date.now()});ev('gifts');ev('gifted',n);try{const pq=NET.players.get(id);if(pq&&pq.dv&&pq.dv===DEV_ID){S.st.giftSelf=(S.st.giftSelf||0)+n}S.gTo=S.gTo||{};S.gTo[id]=(S.gTo[id]||0)+n}catch(_){}$('#modal').hidden=true;sfx('buy');confetti(80);toast('Regalo enviado','−'+short(n)+' € para '+esc(p.name||'este jugador'),'var(--mint)','🎁');const pp=NET.players.get(id);if(pp)admPend(id,{coins:Math.floor(+pp.coins||0)+n},!ADM.on);renderRank();save();NET.lastP='';pushPlayer()}
     catch(e){S.coins+=n;$('#gfGo').disabled=false;err('No se ha podido enviar. Te devuelvo el dinero.')}}}
 function onlyFriends(id,what){if(ADM.on||(S.friends||[]).includes(id))return true;toast('Solo para amigos','Para mandarle '+what+', primero agrégalo de amigo','var(--sky)','🤝');sfx('lose');return false}
@@ -6283,6 +6287,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-27-a',t:'Regalos justos y arreglos',items:[['🎁','Regalos justos','Para regalar dinero hace falta nivel 5 y que tu cuenta tenga 3 días. Lo que te regalan no se puede volver a regalar hasta pasados 3 días ni cuenta para los premios que dependen de tu dinero. Así nadie se fabrica cuentas para inflarse.','fix','#14e08a'],['👥','Sin cuentas repetidas','Si abres tu partida sin haber iniciado sesión (por ejemplo, después de borrar las cookies), el juego te pide entrar con tu cuenta en vez de crear otra igual. Así no se pierden regalos.','fix','#4aa8ff'],['🔐','Caja fuerte vacía de verdad','Al sacar todo, ya no se queda nada dentro por los intereses que van sumando.','fix','#ffd600'],['🧭','Accesos rápidos siempre a la vista','La barra de Evento, Botón rojo, Caja fuerte… de Inicio › Hoy ya no desaparece un momento al cambiar de pestaña.','fix','#ff9d00']]},
  {v:'2026-10-23-c',t:'Guías de cada juego',items:[['📚','Guías completas','En la web hay ahora una guía de cada juego: cómo se juega, la tabla de pagos y las probabilidades de verdad. Las tienes abajo del todo en Inicio y en Ayuda, en «📚 Guías de cada juego».','new','#4aa8ff'],['🎲','Probabilidades a la vista','Una página nueva explica cuánto devuelve de media cada juego del casino, para que sepas a qué juegas.','new','#14e08a']]},
  {v:'2026-10-23-b',t:'Casino más justo',items:[['🎰','Tragaperras','Dos símbolos iguales pagan ahora x1,35 (antes x1,5). Tres iguales siguen pagando hasta x60.','fix','#ff2e88'],['🎟️','Rasca y gana','Los premios salen menos a menudo. Con todos los premios juntos daba más dinero del que se apostaba y eso rompía la clasificación. Ahora es como el resto del casino: a la larga, la casa gana un poco.','fix','#ffc23d']]},
  {v:'2026-10-23-a',t:'Títulos de riqueza ordenados',items:[['💎','Cada título con su cifra','Los títulos de riqueza ya van igual que el dinero del juego: Millonario (1 mill.), Billonario (1 bill.), Trillonario (1 trill.), Megatrillonario (100 trill.), Cuatrillonario (1 cuatrill.) y Quintillonario (1 quintill.).','fix','#ffd600']]},
@@ -6290,7 +6295,7 @@ const NOTES=[
  {v:'2026-10-21-f',t:'Fábrica',items:[['👆','«Clics/seg» arreglado','Ahora se mueve al momento cuando pulsas la moneda y también cuenta el autoclick del anuncio (sale con 🤖).','fix','#ffc23d']]},
  {v:'2026-10-21-e',t:'Lluvia de monedas sin sustos',items:[['🪙','Coger monedas ya no te saca atrás','Las monedas caen un poco más hacia el centro y, si al cogerlas tocas sin querer el gesto de «atrás» del móvil, el juego no se va a otra pantalla.','fix','#ffd600']]},
  {v:'2026-10-21-d',t:'Títulos repetidos',items:[['🔁','Si te vuelve a tocar un título que ya tienes','Ahora eliges: <b>regalárselo a quien quieras</b> (buscas a cualquier jugador, aunque no sea tu amigo) o <b>convertirlo en dinero</b>, más que el premio de dinero más grande de esa ruleta. Si esa persona ya lo tiene, te avisa para que elijas a otra.','new','#ffd600']]},
- {v:'2026-10-21-c',t:'Lo nuevo, a la vista',items:[['🆕','Zona «Nuevo» en tu Perfil','Las caras, marcos, fondos y títulos que acabas de conseguir salen marcados con NUEVO y un aviso amarillo, para que no se te pasen.','new','#ffd600'],['⏳','Cambio de nombre más claro','Puedes cambiarte el nombre una vez cada 7 días. Ahora ves exactamente cuánto te falta y qué día podrás.','new','#4aa8ff'],['🛡️','Los admins, bien visibles','Los admins llevan un sello azul «ADMIN ✔» en la clasificación y en su perfil, para que sepas quién es del equipo.','new','#4aa8ff']]},
+ {v:'2026-10-21-c',t:'Lo nuevo, a la vista',items:[['🆕','Zona «Nuevo» en tu Perfil','Las caras, marcos, fondos y títulos que acabas de conseguir salen marcados con NUEVO y un aviso amarillo, para que no se te pasen.','new','#ffd600'],['⏳','Cambio de nombre más claro','Puedes cambiarte el nombre una vez cada 7 días. Ahora ves exactamente cuánto te falta y qué día podrás.','new','#4aa8ff']]},
  {v:'2026-10-21-b',t:'Botón rojo más generoso',items:[['🔴','Siempre hay premio','Todas las sorpresas del botón rojo dan ahora un buen premio según tu dinero. Las que antes daban poco o nada, ya no.','new','#ff3b4f'],['🎬','Estrella de Cine renovada','El título del Gran Premio de Cine ahora es de alfombra roja, con letras doradas y brillo.','new','#ffd600']]},
  {v:'2026-10-21-a',t:'Que no se te escape nada',items:[['🟡','Avisos amarillos en todo','Cuando hay algo por recoger (premio diario, misiones, botón rojo, ruletas gratis, cofres, torneos, colecciones, solicitudes de amistad, mensajes del jefe…) sale un número amarillo en el menú, en las pestañas de Inicio y en el botón de cada cosa. Y la tarjeta brilla.','new','#ffd600']]},
  {v:'2026-10-20-a',t:'Más fluido y sin fallos',items:[['🌧️','La lluvia de monedas, mejor','Las monedas ya no se paran si deslizas la pantalla, y cuando se acaba el dinero siguen cayendo monedas grises vacías hasta el final.','fix','#ffd600'],['📱','Va fluido en el móvil','Al deslizar ya no va a tirones y la página no salta hacia arriba sola.','fix','#14e08a'],['⬅️','La flecha de atrás ya no cierra el juego','Te lleva a la pantalla anterior o cierra la ventana abierta. En Inicio te avisa: pulsa otra vez para salir.','fix','#4aa8ff'],['🔄','PC y móvil, siempre igual','El tiempo jugado y la caja fuerte se pasan bien entre dispositivos.','fix','#b06bff'],['🪙','Coger monedas sin pulsar lo de detrás','Al tocar una moneda, calabaza o regalo que cae, ya no se pulsa el botón que hay debajo.','fix','#ffd600'],['🎯','Tiro al plato preciso','El disparo sale justo donde apuntas, también con la pantalla ajustada.','fix','#ff6b4a'],['🎁','Regalar desde Amigos','Ahora también puedes regalar a tus amigos que salen en el podio.','fix','#14e08a'],['👑','Un solo rey','El título «Rey de Casinetori» solo lo lleva el número 1 de ahora.','fix','#ffd600'],['🏆','Logros revisados','Memoria, Reflejos y Pichichi ahora van por puntos, como los juegos. Ya se pueden hacer todos.','fix','#ff9d00'],['🎡','Ruleta más clara','En la apuesta rápida ves cuánto hay puesto en Rojo, Negro y Verde.','new','#ff3b4f'],['🏛️','Bóveda ordenada','Colecciones de menor a mayor premio, y explicado qué pasa si vendes algo.','fix','#b06bff'],['🔑','Crear cuenta más fácil','Menos texto, el regalo de Google bien visible y, si no pones nombre, se usa tu usuario.','fix','#14e08a'],['🔊','Sonidos nuevos','Cada cosa suena distinta: subir de nivel, evento, mensaje, regalo, premio gordo y actualización.','new','#4aa8ff'],['📏','Todo cabe en móviles pequeños','La clasificación, la ayuda y la barra de arriba ya no se cortan.','fix','#ffd600']]},
@@ -6676,7 +6681,7 @@ function topWOf(x){if(!x)return 0;if(x.me)return wealth();const p=NET.players.ge
 function podPay(L,k,d){const base=Math.round(topPayFor(L.length,k)*(TDMUL[d]||1));if(!base)return 0;return Math.max(base,niceN(topWOf(L[k])*TOPPCT[k]*topMul(L.length)*(TDMUL[d]||1)))}
 function topPayFor(len,pos){const paid=Math.min(3,len-1);return len>=TOP_MIN&&pos<paid?Math.round(TOPPAY[pos]*topMul(len)):0}
 function topEarn(){const items=[];let total=0;if(!NET.ok)return{total,items};
-  GLIST.forEach(([g,n])=>DIFFS.forEach(([d,dn])=>{const L=boardList(g,d),i0=L.findIndex(x=>x.me);if(i0<0)return;let i=i0;while(i>0&&L[i-1].v===L[i0].v)i--;const base=topPayFor(L.length,i);if(!base)return;const amt=Math.max(Math.round(base*TDMUL[d]),niceN(wealth()*TOPPCT[i]*topMul(L.length)*TDMUL[d]));total+=amt;items.push({g,n,d,dn,pos:i+1,amt})}));
+  GLIST.forEach(([g,n])=>DIFFS.forEach(([d,dn])=>{const L=boardList(g,d),i0=L.findIndex(x=>x.me);if(i0<0)return;let i=i0;while(i>0&&L[i-1].v===L[i0].v)i--;const base=topPayFor(L.length,i);if(!base)return;const amt=Math.max(Math.round(base*TDMUL[d]),niceN(wR()*TOPPCT[i]*topMul(L.length)*TDMUL[d]));total+=amt;items.push({g,n,d,dn,pos:i+1,amt})}));
   return{total,items}}
 const hourNow=()=>Math.floor(Date.now()/3600000);
 function topCheck(){if(!NET.ok||!S.name||performance.now()<12000||NET.players.size<2)return;const h=hourNow();if(!S.topHour){S.topHour=h;save();return}
@@ -9824,7 +9829,7 @@ const GU_TITLE='xcine',GU_TITLE_N='🎬 Estrella de Cine';
 try{if(!COS.ti.some(y=>y[0]===GU_TITLE))COS.ti.push([GU_TITLE,GU_TITLE_N,999,'','x'])}catch(e){}
 let guDwRot=0,guDwSpin=false;
 const guHasT=()=>(S.exc||[]).includes('ti:'+GU_TITLE);
-function guVal(s){if(s[0]==='title')return guHasT()?niceN(Math.max(150000,wealth()*.15)):0;return niceN(Math.max(s[2],wealth()*s[1]))}
+function guVal(s){if(s[0]==='title')return guHasT()?niceN(Math.max(150000,wR()*.15)):0;return niceN(Math.max(s[2],wR()*s[1]))}
 const guLab=s=>s[0]==='title'?(guHasT()?nShort(guVal(s)):'TÍTULO'):nShort(guVal(s));
 function guDwPick(){let r=Math.random()*GU_DW.reduce((a,x)=>a+x[3],0);for(let i=0;i<GU_DW.length;i++){r-=GU_DW[i][3];if(r<0)return i}return 0}
 function guDwDraw(){const c=$('#guDayCv');if(!c)return;const g=c.getContext('2d'),n=GU_DW.length,S_=340,R=170,RI=150,seg=Math.PI*2/n;g.clearRect(0,0,S_,S_);
@@ -10931,15 +10936,18 @@ const _raAcc=renderAdmin;renderAdmin=function(){const r=_raAcc.apply(this,argume
   const b=row.querySelector('b');if(b)b.insertAdjacentHTML('afterbegin',`<span class="acctag" style="--t:${t[2]}" title="${t[1]}">${t[0]==='G'||t[0]==='U'?t[1]:t[0]+' '+t[1].split(' ')[0]}</span>`)})}catch(e){}return r};
 /* ===== premios que crecen con tu dinero ===== */
 const wealth=()=>Math.max(0,Math.max(0,Math.floor(+S.coins||0))+Math.max(0,Math.floor(+S.safe||0))-Math.floor(+((S.loan||{}).owe)||0));
+/* premios que dependen de tu dinero: no cuenta lo que te han regalado en los últimos 3 días (así crear cuentas y pasarse el dinero no multiplica nada) */
+const GIN_MS=3*864e5;function gInRecent(){try{const now=Date.now();S.gIn=(Array.isArray(S.gIn)?S.gIn:[]).filter(x=>Array.isArray(x)&&now-x[0]<GIN_MS);return S.gIn.reduce((a,x)=>a+(+x[1]||0),0)}catch(e){return 0}}
+function wR(){return Math.max(0,wealth()-gInRecent())}
 const niceN=n=>{n=Math.max(0,Math.round(n));if(n<1000)return Math.round(n/10)*10;const p=Math.pow(10,Math.floor(Math.log10(n))-1);return Math.round(n/p)*p};
 /* premio diario: lo de siempre o un % de tu dinero (más % cuanto más larga la racha), lo que sea mayor */
-const _dAmtW=dailyAmt;dailyAmt=function(k){const base=_dAmtW(k),pct=.003+.0004*Math.min(k,30),w=niceN(wealth()*pct)*(k%7===0?2:1);return Math.max(base,w)};
+const _dAmtW=dailyAmt;dailyAmt=function(k){const base=_dAmtW(k),pct=.003+.0004*Math.min(k,30),w=niceN(wR()*pct)*(k%7===0?2:1);return Math.max(base,w)};
 /* misiones */
-const _misW=misReward;misReward=function(){return Math.max(_misW(),niceN(wealth()*.002))};
+const _misW=misReward;misReward=function(){return Math.max(_misW(),niceN(wR()*.002))};
 /* anuncio del día: los premios se multiplican según tu dinero */
 /* (anuncio del día: ahora los premios salen directamente de tu dinero) */
 /* ===== 2026-10-06-k: invitaciones claras (hasta 20) y que suban con tu dinero ===== */
-refPrize=function(k){if(k<1)k=1;const base=500000*Math.pow(1.2,k-1),w=wealth()*(.005+.001*(k-1));return niceN(Math.max(base,w))};
+refPrize=function(k){if(k<1)k=1;const base=500000*Math.pow(1.2,k-1),w=wR()*(.005+.001*(k-1));return niceN(Math.max(base,w))};
 /* quien te invitó solo cobra si tienes cuenta (así nadie se inventa invitados) */
 /* tu ficha dice quién te invitó, para que él vea cómo vas */
 setInterval(()=>{try{if(!NET.ok||!NET.db||!NET.id||!S.refBy||NET.rbSent===S.refBy+(S.refDone?1:0))return;NET.rbSent=S.refBy+(S.refDone?1:0);NET.db.collection('players').doc(NET.id).set({rb:S.refBy,rbd:S.refDone?1:0},{merge:true}).catch(()=>{NET.rbSent=null})}catch(e){}},8000);
@@ -11020,7 +11028,7 @@ curEv=function(){const now=NOWS(),m=NET.event;let e=null;
   if(e&&e.type==='mrain')e={...e,type:'rain',name:e.name||'Megalluvia de dinero',mega:1};return e};
 evMult=function(){const e=curEv();return e?(e.type==='x5'?5:e.type==='x3'?3:e.type==='x2'?2:1):1};
 {const _xp3=xp;xp=function(n){const e=curEv();return _xp3.call(this,e&&e.type==='xp3'?n*3:n)}}
-const evPrize=()=>niceN(Math.max(5000,(S.lvl||1)*5000,wealth()*.003));
+const evPrize=()=>niceN(Math.max(5000,(S.lvl||1)*5000,wR()*.003));
 {const _evR=evRender;evRender=function(){_evR();const el=$('#evbar');if(!el)return;const e=curEv();
   if(!e){const n=evNext();if(n){const T=EVT[n.type],mins=Math.max(1,Math.round((n.start-NOWS())/60e3)),hm=new Date(n.start).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
       el.hidden=false;el.classList.add('ev2','evnext');el.style.setProperty('--evc',T[4]);el.innerHTML=`<span class="eve">${T[0]}</span><span class="evt"><b>Próximo: ${esc(T[1])} · ${hm}</b><small>Para todo el mundo a la vez · ${esc(T[2])}</small></span><span class="num">${mins<60?'en '+mins+' min':hm}</span>`}return}
@@ -11038,7 +11046,7 @@ renderEvent=function(){evRender()};
 let huntNext=0;
 setInterval(()=>{const e=curEv();if(!e||e.type!=='hunt'||document.hidden)return;const now=Date.now();if(now<huntNext)return;huntNext=now+4000+Math.random()*5000;
   const c=document.createElement('button');c.className='hunt';c.textContent='€';c.setAttribute('aria-label','Moneda');c.style.left=(8+Math.random()*(innerWidth-90))+'px';c.style.top=(90+Math.random()*(innerHeight-220))+'px';
-  c.onpointerdown=ev=>{ev.preventDefault();ev.stopPropagation();if(c.dataset.got)return;c.dataset.got=1;const v=niceN(Math.max(3000,(S.lvl||1)*1500,wealth()*.0004));give(v);if(!S.huntN||S.huntN.id!==e.id)S.huntN={id:e.id,n:0};S.huntN.n++;save();try{sfx('coin')}catch(_){}
+  c.onpointerdown=ev=>{ev.preventDefault();ev.stopPropagation();if(c.dataset.got)return;c.dataset.got=1;const v=niceN(Math.max(3000,(S.lvl||1)*1500,wR()*.0004));give(v);if(!S.huntN||S.huntN.id!==e.id)S.huntN={id:e.id,n:0};S.huntN.n++;save();try{sfx('coin')}catch(_){}
     const pp=document.createElement('div');pp.className='rpop';pp.textContent='+'+short(v)+' €';pp.style.left=ev.clientX-20+'px';pp.style.top=ev.clientY-20+'px';document.body.appendChild(pp);setTimeout(()=>pp.remove(),800);c.remove()};
   document.body.appendChild(c);setTimeout(()=>c.remove(),2600)},1000);
 
@@ -11071,7 +11079,7 @@ function thrTick(){const t=thrState();if(!t){thrRender();return}const r=t.i+1;
       else toast(who+' te ha adelantado','Ahora vas el '+r+'º. ¡A por él!','var(--coral)','📉')}}
   THR.rank=r;THR.above=t.above?t.above.name:null;t.arr.slice(0,60).forEach(p=>THR.names[p.id]=p.name);
   if(r===1){if(!S.kSince){S.kSince=NOWS();NET.lastP='';pushPlayer()}const now=NOWS();S.kingMs=(S.kingMs||0)+(S.kLast&&now-S.kLast<120e3?now-S.kLast:0);S.kLast=now;
-    if(!S.kingPaid||now-S.kingPaid>=3600e3){if(S.kingPaid){const v=niceN(Math.max(20000,wealth()*.001));give(v);toast('Renta del rey','+'+short(v)+' € por seguir en el trono','var(--sun)','👑');sfx('win')}S.kingPaid=now;save()}}
+    if(!S.kingPaid||now-S.kingPaid>=3600e3){if(S.kingPaid){const v=niceN(Math.max(20000,wR()*.001));give(v);toast('Renta del rey','+'+short(v)+' € por seguir en el trono','var(--sun)','👑');sfx('win')}S.kingPaid=now;save()}}
   else if(S.kSince){S.kSince=0;S.kLast=0;S.kingPaid=0;NET.lastP='';pushPlayer()}
   thrRender()}
 setTimeout(()=>{thrTick();setInterval(thrTick,5000)},4000);
@@ -11102,7 +11110,7 @@ lgRoll();
 function ptsW(p,w,lg){if(+p.wk===w&&(+p.lg||0)===lg)return+p.wp||0;if(+p.pwk===w&&(+p.plg||0)===lg)return+p.pwp||0;return 0}
 function ptsM(p,m){if(+p.mo===m)return+p.mp||0;if(+p.pmo===m)return+p.pmp||0;return 0}
 function others(){return[...NET.players.entries()].filter(([id,p])=>id!==NET.id&&!hideId(id)&&p.acc!=='a'&&!(typeof isOfi==='function'&&isOfi(p))).map(([id,p])=>({...p,id}))}
-const lgPrize=(lg,mul)=>niceN(Math.max(50000*(lg+1),wealth()*.004*(lg+1))*mul);
+const lgPrize=(lg,mul)=>niceN(Math.max(50000*(lg+1),wR()*.004*(lg+1))*mul);
 let lgReadyAt=Date.now()+25000;
 function lgSettle(){if(Date.now()<lgReadyAt||!NET.ok||NET.isAnon||!NET.players.size)return;
   if(S.lgPend){const w=S.lgPend,lg=S.plg||0,mine=S.pwP||0;S.lgPend=null;
@@ -11117,7 +11125,7 @@ function lgSettle(){if(Date.now()<lgReadyAt||!NET.ok||NET.isAnon||!NET.players.s
     if(msg)setTimeout(()=>{sfx(nl>lg?'big':'win');if(nl>lg)confetti(200);troll(LG[nl][1]+' LIGA '+LG[nl][0].toUpperCase(),msg,LG[nl][2],true);toast('Fin de la liga semanal',msg,'var(--sun)',LG[nl][1])},1500)}
   if(S.moPend){const m=S.moPend,mine=S.pmP||0;S.moPend=null;if(mine>0){
     const g=others().map(p=>({v:ptsM(p,m)})).filter(x=>x.v>0);g.push({v:mine,me:1});g.sort((a,b)=>b.v-a.v);const n=g.length,pos=g.findIndex(x=>x.me)+1,nm=moName(m);
-    if(pos<=3&&n>=3){const v=niceN(Math.max(1e6,wealth()*.02)*(pos===1?3:pos===2?2:1));give(v);
+    if(pos<=3&&n>=3){const v=niceN(Math.max(1e6,wR()*.02)*(pos===1?3:pos===2?2:1));give(v);
       if(pos===1){S.chm=[...(S.chm||[]),nm];S.exc=S.exc||[];if(!S.exc.includes('ti:champ'))S.exc.push('ti:champ');}
       save();NET.lastP='';pushPlayer();setTimeout(()=>{sfx('big');confetti(260);troll(pos===1?'🏆 CAMPEÓN DE '+nm.toUpperCase():'🏅 '+pos+'º DE '+nm.toUpperCase(),'+'+short(v)+' €'+(pos===1?' y el título «Campeón del mes» para siempre':''),'#ffd600',true)},4500)}}}}
 setInterval(()=>{try{lgRoll();lgSettle();lgCard()}catch(e){}},5000);
@@ -11450,7 +11458,7 @@ gsMount();setTimeout(gsMount,1500);{const _goS=go;go=function(){const r=_goS.app
 
 /* ---- 2. Ruletas nuevas y catálogo ---- */
 WHEELS.push(
- {id:'rich',t:'Ruleta millonaria',d:'Premios que crecen con lo que tienes. Si te toca el gordo, se bloquea 30 minutos.',segs:()=>[.001,.003,.0015,.008,.002,.004,.0012,.015].map((f,i)=>{const v=niceN(Math.max(2000*(i+1),wealth()*f));return{lab:nShort(v),col:WCOL[i],k:'eur',v,big:f>=.015?1:0}})},
+ {id:'rich',t:'Ruleta millonaria',d:'Premios que crecen con lo que tienes. Si te toca el gordo, se bloquea 30 minutos.',segs:()=>[.001,.003,.0015,.008,.002,.004,.0012,.015].map((f,i)=>{const v=niceN(Math.max(2000*(i+1),wR()*f));return{lab:nShort(v),col:WCOL[i],k:'eur',v,big:f>=.015?1:0}})},
  {id:'pts',t:'Ruleta de la liga',d:'Puntos de liga gratis para subir en tu liga esta semana.',segs:()=>[20,50,30,120,40,80,25,200].map((v,i)=>({lab:'+'+v+' pts',col:WCOL[i],k:'pts',v}))},
  {id:'fab',t:'Ruleta de la fábrica',d:'Energía, monedas doradas y clics que valen más un rato.',segs:()=>[['⚡ Energía','en'],['✨ Doradas','gold'],['x2 clics','f2'],['⚡ Energía','en'],['x3 clics','f3'],['✨ Doradas','gold'],['x2 clics','f2'],['x5 clics','f5']].map((x,i)=>({lab:x[0],col:WCOL[i],k:'fab',v:x[1]}))});
 {const _wrC=wResolve;wResolve=function(late){const P_=S.wPend;try{if(P_&&P_.p&&!(+P_.at<=(+S.wDone||0))){const p=P_.p;
@@ -11485,7 +11493,7 @@ tnGate=function(amt,kind){amt=Math.floor(amt||0);if(amt>Math.floor(S.coins))retu
   const lim=tnLim();if(lim>0){const used=tnLoss()+tnRisk();if(used+amt>lim)return{t:'Límite diario de pérdidas',s:used>=lim?'Hoy ya has llegado a '+short(lim)+' €. Mañana más (lo puedes cambiar en Ajustes › Online).':'Hoy solo puedes arriesgar '+short(lim-used)+' € más online'}}return null};
 
 /* ---- 5. Trading: anuncio útil (capital extra) ---- */
-const TRAD_WAIT=30*60e3,tradAdAmt=()=>niceN(Math.max(5000,wealth()*.003));
+const TRAD_WAIT=30*60e3,tradAdAmt=()=>niceN(Math.max(5000,wR()*.003));
 function tradAdCard(){const v=$('#v-trading');if(!v)return;let c=$('#trAd');if(!c){v.insertAdjacentHTML('afterbegin','<div class="trad" id="trAd"></div>');c=$('#trAd')}
   const left=(S.trAdAt||0)+TRAD_WAIT-Date.now(),h=left>0?`<span class="emo">📺</span><span><b>Capital extra del bróker</b><small>Vuelve en ${Math.ceil(left/60e3)} min a por más.</small></span>`
    :`<span class="emo">📺</span><span><b>Capital extra del bróker</b><small>Mira un anuncio corto y te damos <b>${short(tradAdAmt())} €</b> para invertir.</small></span><button class="btn sm mint" id="trAdGo">Ver anuncio</button>`;if(c._h!==h){c._h=h;c.innerHTML=h}}
@@ -11551,7 +11559,7 @@ function safeModal(dir){const max=dir==='in'?Math.floor(S.coins):Math.floor(S.sa
   $('#mbox .amt').onclick=e=>{const b=e.target.closest('[data-sq]');if(b)$('#sfAmt').value=Math.floor(max*+b.dataset.sq)};$('#sfX').onclick=()=>$('#modal').hidden=true;
   $('#sfGo').onclick=()=>{if(typeof wBusy!=='undefined'&&wBusy||S.wPend){toast('Espera a que pare la ruleta','No se puede mover dinero de la caja mientras gira','var(--coral)','⏳');sfx('lose');return}safeAccrue();const n=Math.floor(+String($('#sfAmt').value).replace(/\D/g,'')||0),err=t=>{const x=$('#sfErr');x.textContent=t;x.hidden=false;sfx('lose')};if(n<1)return err('Pon una cantidad.');
     if(dir==='in'){if(n>Math.floor(S.coins))return err('No tienes tanto en la cartera.');S.coins-=n;S.safe=(S.safe||0)+n;S.safeT=Date.now();toast('Guardado','+'+short(n)+' € en la caja fuerte','var(--mint)','🔐')}
-    else{if(n>Math.floor(S.safe||0))return err('No hay tanto en la caja.');S.safe-=n;S.coins+=n;toast('Sacado','+'+short(n)+' € a tu cartera','var(--sun)','💸')}
+    else{if(n>Math.floor(S.safe||0)&&n>max)return err('No hay tanto en la caja.');if(n>=max||n>=Math.floor(S.safe||0)){const all=Math.floor(+S.safe||0);S.coins+=all;S.safe=0;S.safeT=Date.now();toast('Sacado todo','+'+short(all)+' € a tu cartera · la caja queda vacía','var(--sun)','💸');sfx('coin');save();NET.lastP='';pushPlayer();$('#modal').hidden=true;safeMount();return}S.safe-=n;S.coins+=n;toast('Sacado','+'+short(n)+' € a tu cartera','var(--sun)','💸')}
     sfx('coin');save();NET.lastP='';pushPlayer();$('#modal').hidden=true;safeMount()}}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-safe]');if(b&&!b.disabled){sfx('click');safeModal(b.dataset.safe)}});
 /* lo de la caja fuerte cuenta como tu dinero en la clasificación */
@@ -12056,7 +12064,7 @@ function rbKill(d){if(!d||!d.isConnected)return;d.classList.add('rbxout');setTim
 function rbCv(d){const c=document.createElement('canvas'),r=Math.min(LOWEND?1:1.5,devicePixelRatio||1),W=innerWidth,H=innerHeight;c.width=Math.round(W*r);c.height=Math.round(H*r);c.className='rbcv';d.appendChild(c);const g=c.getContext('2d');g.scale(r,r);g.W=W;g.H=H;return g}
 function rbRun(ms,fn,done){const t0=performance.now();const st=t=>{const e=Math.max(0,t-t0);if(e>=ms){try{done&&done()}catch(_){}return}try{fn(e/1000,e/ms)}catch(err){try{done&&done()}catch(_){}return}requestAnimationFrame(st)};requestAnimationFrame(st)}
 const rbN=n=>Math.max(1,Math.ceil(n*(cfg('lite')?.35:LOWEND?.6:1)));
-function rbPay(k,t,s,col){const r=niceN(k*Math.max(1,S.lvl)*4+(typeof wealth==='function'?wealth():0)*.002*k/250);give(r);xp(10);save();sfx('big');confetti(120);troll(t,(s?s+' ':'')+'+'+short(r)+' €',col||'#14e08a',true);return r}
+function rbPay(k,t,s,col){const r=niceN(k*Math.max(1,S.lvl)*4+(typeof wR==='function'?wR():0)*.002*k/250);give(r);xp(10);save();sfx('big');confetti(120);troll(t,(s?s+' ':'')+'+'+short(r)+' €',col||'#14e08a',true);return r}
 function rbNoise(d,v,hp){if(S.muted)return;const a=ac();if(!a)return;try{const len=Math.floor(a.sampleRate*d),b=a.createBuffer(1,len,a.sampleRate),x=b.getChannelData(0);for(let i=0;i<len;i++)x[i]=(Math.random()*2-1)*Math.pow(1-i/len,2);
   const s=a.createBufferSource(),g=a.createGain(),f=a.createBiquadFilter();f.type=hp?'highpass':'lowpass';f.frequency.value=hp||600;s.buffer=b;g.gain.value=(v||.1)*cfg('vol');s.connect(f).connect(g).connect(a.destination);s.start()}catch(e){}}
 function rbShake(px,ms){try{$('.app').animate([{transform:'none'},{transform:`translate(${-px}px,${px*.6}px) rotate(-.6deg)`},{transform:`translate(${px*.9}px,${-px*.6}px) rotate(.6deg)`},{transform:`translate(${-px*.5}px,${px*.4}px)`},{transform:`translate(${px*.3}px,${-px*.2}px)`},{transform:'none'}],{duration:ms||500})}catch(e){}}
@@ -12393,7 +12401,7 @@ const seNow=()=>{const t=NOWS();return SEASONS.find(e=>t>=e.from&&t<e.to)||null}
 const seById=id=>SEASONS.find(e=>e.id===id);
 function seSt(e){S.ev=S.ev||{};const s=S.ev[e.id]=S.ev[e.id]||{c:0,tot:0,got:[],day:'',base:{},mis:[],done:[],tt:''};return s}
 const seOwn=(k,id)=>k==='av'?(S.evFaces||[]).includes(id):(S.cosOwn||[]).includes(k+':'+id);
-function seGrant(k,id,lab,e){if(k==='eur'){const v=niceN(Math.max(1e5,wealth()*.015))*id;give(v);return'+'+short(v)+' €'}
+function seGrant(k,id,lab,e){if(k==='eur'){const v=niceN(Math.max(1e5,wR()*.015))*id;give(v);return'+'+short(v)+' €'}
   if(seOwn(k,id))return lab;if(k==='av')S.evFaces=[...(S.evFaces||[]),id];else S.cosOwn=[...(S.cosOwn||[]),k+':'+id];return lab}
 function seAdd(n,why){const e=seNow();if(!e||n<=0)return;const s=seSt(e);s.c+=n;s.tot+=n;const nw=[];
   e.tiers.forEach((t,i)=>{if(s.tot>=t[0]&&!s.got.includes(i)){s.got.push(i);t[1].forEach(r=>nw.push(seGrant(r[0],r[1],r[2],e)))}});
@@ -12542,7 +12550,7 @@ function seRwPrev(r){const k=r[0],id=r[1];
   return`<span class="rwp emo" style="font-size:40px">${id>1?'💰':'🪙'}</span>`}
 sePass=function(){const e=seNow()||SEASONS[SEASONS.length-1];const s=seSt(e);$('#modal').hidden=false;const mb=$('#mbox');mb.classList.add('wide');mb.classList.remove('notes');mb.onclick=null;
   const top=[...NET.players.entries()].map(([id,p])=>({id,n:p.name,v:(p.hw&&p.hw.e===e.id)?+p.hw.t||0:0})).filter(x=>x.v>0&&x.id!==NET.id);if(s.tot>0&&S.name)top.push({n:S.name+' (tú)',v:s.tot,me:1});top.sort((a,b)=>b.v-a.v);
-  const money=m=>'+'+short(niceN(Math.max(1e5,wealth()*.015))*m)+' €';
+  const money=m=>'+'+short(niceN(Math.max(1e5,wR()*.015))*m)+' €';
   mb.innerHTML=`<div class="sepass"><div class="sph"><span class="emo">${e.ico}</span><div><h2>Recompensas de ${esc(e.name)}</h2><p>Junta ${e.cur[1]} ${e.cur[0]} y se desbloquean <b>solas</b>. Son <b>exclusivas</b>: cuando acabe el evento no se podrán conseguir nunca más.</p></div><div class="spc"><b>${e.cur[0]} ${fmt(s.tot)}</b><small>llevas</small></div></div>
    <div class="sproad">${e.tiers.map((t,i)=>{const g=s.got.includes(i),cur=!g&&(i===0||s.got.includes(i-1));const falta=Math.max(0,t[0]-s.tot);
      return t[1].map((r,j)=>`<div class="sprow ${g?'got':cur?'cur':''}"><span class="spn">${j?'':`${e.cur[0]}<b>${fmt(t[0])}</b>`}</span>${seRwPrev(r)}<span class="spi"><small>${SE_KIND[r[0]]}</small><b>${esc(r[0]==='eur'?money(r[1]):r[2].replace(/^(Cara|Color de nombre|Marco|Fondo|Título) /,''))}</b></span><span class="sps">${g?'✅ Tuyo':j?'':`🔒 Faltan ${fmt(falta)} ${e.cur[0]}`}</span></div>`).join('')}).join('')}
@@ -13360,7 +13368,7 @@ function ptStreak(){const r=S.pts||{d:'',n:0};if(r.d===dayKey()||r.d===ptYest())
 function ptMul(){const r=S.pts||{};const n=ptStreak()-(r.d===dayKey()?1:0);return 1+.1*Math.min(5,Math.max(0,n))}
 function ptStreakTick(){if(ptMin()<30)return;const r=S.pts||{d:'',n:0};if(r.d===dayKey())return;S.pts={d:dayKey(),n:r.d===ptYest()?(r.n||0)+1:1};save();
   if(S.pts.n>1){sfx('win');toast('¡Racha de '+S.pts.n+' días!','Mañana tus cofres darán +'+Math.min(50,S.pts.n*10)+' %','#ff7a00','🔥')}}
-function ptVal(pct,fl){return niceN(Math.max(fl,wealth()*pct)*ptMul())}
+function ptVal(pct,fl){return niceN(Math.max(fl,wR()*pct)*ptMul())}
 function ptDay(){const d=dayKey(),pt=Math.floor(+S.playtime||0);if(!S.ptd||S.ptd.d!==d)S.ptd={d,b:pt,got:[]};return S.ptd}
 const ptMin=()=>Math.max(0,(Math.floor(+S.playtime||0)-ptDay().b)/60);
 function ptState(){const m=ptMin(),D=ptDay();const ready=PT_D.map((x,i)=>i).filter(i=>m>=PT_D[i][0]&&!D.got.includes(i));const next=PT_D.findIndex((x,i)=>m<x[0]);
@@ -13514,7 +13522,7 @@ function hqReady(id){try{
   if(id==='ptCard'){const st=ptState();return st.ready.length+st.lready.length>0}
   if(id==='dailyPanel')return!!dailyInfo().ready;
   if(id==='misPanel')return!!document.querySelector('#misList button:not([disabled])');}catch(e){}return false}
-function hoyNav(){const v=$('#v-inicio');if(!v)return;try{const m=v.querySelector('.panel.missions');if(m&&!m.id)m.id='misPanel';const d=v.querySelector('.panel.daily');if(d&&!d.id)d.id='dailyPanel'}catch(e){}
+function hoyNav(){const v=$('#v-inicio');if(!v)return;if(v.dataset.t&&v.dataset.t!=='hoy')return; /* en otra pestaña las tarjetas están ocultas: no vaciar la barrita */try{const m=v.querySelector('.panel.missions');if(m&&!m.id)m.id='misPanel';const d=v.querySelector('.panel.daily');if(d&&!d.id)d.id='dailyPanel'}catch(e){}
   let n=$('#hoyNav');if(!n){n=document.createElement('nav');n.id='hoyNav';n.className='hoynav';n.dataset.ht='hoy';n.setAttribute('aria-label','Ir a');v.appendChild(n)}
   const items=HQ.filter(([id])=>{const e=document.getElementById(id);return e&&!e.hidden&&getComputedStyle(e).display!=='none'});
   const h=items.map(([id,e,t])=>`<button data-hq="${id}" class="${hqReady(id)?'rdy':''}"><span class="emo">${e}</span>${esc(t)}</button>`).join('');
@@ -13522,7 +13530,7 @@ function hoyNav(){const v=$('#v-inicio');if(!v)return;try{const m=v.querySelecto
 document.addEventListener('click',e=>{const b=e.target.closest('[data-hq]');if(!b)return;const el=document.getElementById(b.dataset.hq);if(!el)return;sfx('click');
   const tabs=$('#hoTabs');const off=(tabs?tabs.getBoundingClientRect().height:0)+(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--barh'))||64)+14;
   scrollTo({top:el.getBoundingClientRect().top+scrollY-off,behavior:'smooth'});el.classList.remove('hqflash');void el.offsetWidth;el.classList.add('hqflash')});
-setInterval(()=>{try{if(view==='inicio')hoyNav()}catch(e){}},1500);setTimeout(()=>{try{hoyNav()}catch(e){}},2000);
+setInterval(()=>{try{if(view==='inicio')hoyNav()}catch(e){}},1500);document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#hoTabs'))[0,60,250].forEach(t=>setTimeout(()=>{try{hoyNav()}catch(_){}},t))});setTimeout(()=>{try{hoyNav()}catch(e){}},2000);
 
 /* --- Halloween: el botón dice que ahí está la clasificación, y la clasificación sale arriba y más larga --- */
 {const _srHq=seRender;seRender=function(){const r=_srHq.apply(this,arguments);try{const b=document.querySelector('#seCard [data-sepass]');if(b&&!b.dataset.rk){b.dataset.rk=1;b.innerHTML='🏆 Recompensas y clasificación'}}catch(e){}return r}}
@@ -13932,7 +13940,7 @@ try{i18nAdd([['Que no se te escape nada','Don\'t miss a thing','Ne rate rien','N
 (()=>{try{const t0=TUTOS.find(x=>x[1]==='Primeros pasos')||TUTOS[0];if(t0&&!t0[4].some(x=>/número amarillo/.test(x[0])))t0[4].push(['Si ves un <b>número amarillo</b> en el menú o en una pestaña, ahí tienes algo por recoger. La tarjeta que está lista <b>brilla en amarillo</b>.'])}catch(e){}})();
 /* ===== botón rojo: cada sorpresa deja un premio bueno (según tu dinero); si la sorpresa ya pagó bien, no se añade nada ===== */
 var RB_TRICK_UNTIL=window.RB_TRICK_UNTIL||0;
-function rbTarget(){return niceN(Math.max(5000,220*Math.max(1,S.lvl)*4+(typeof wealth==='function'?wealth():0)*.0018))}
+function rbTarget(){return niceN(Math.max(5000,220*Math.max(1,S.lvl)*4+(typeof wR==='function'?wR():0)*.0018))}
 function rbPress(i){const e0=+S.earned||0,adm=(typeof admPrank!=='undefined'&&admPrank)||Date.now()<RB_ADM_UNTIL;try{PRANKS[i]()}catch(e){}
   if(adm)return;setTimeout(()=>{try{if(Date.now()<RB_ADM_UNTIL||Date.now()<(window.RB_TRICK_UNTIL||0))return;const got=(+S.earned||0)-e0,t=rbTarget();
     if(got<t*.6){const add=niceN(t-Math.max(0,got));give(add);save();sfx('coin');toast('🔴 Premio del botón rojo','+'+short(add)+' € por atreverte a pulsarlo','#ff3b4f','🔴')}}catch(e){}},9500)}
@@ -14074,7 +14082,7 @@ document.addEventListener('input',e=>{if(!e.target.classList||!e.target.classLis
 /* ===== Título repetido: regalárselo a alguien o convertirlo en dinero (no se puede cerrar sin elegir) ===== */
 const DUP_OK=['ti:xcine'];/* títulos que se pueden regalar cuando salen repetidos */
 function dupName(k){try{return cosNameK(k).replace(/^Título /,'')}catch(e){return k}}
-function guDupVal(){try{return niceN(Math.max(...GU_DW.filter(s=>s[0]==='eur').map(s=>niceN(Math.max(s[2],wealth()*s[1]))))*1.25)}catch(e){return 150000}}
+function guDupVal(){try{return niceN(Math.max(...GU_DW.filter(s=>s[0]==='eur').map(s=>niceN(Math.max(s[2],wR()*s[1]))))*1.25)}catch(e){return 150000}}
 /* dar un título que ya tienes: se guarda la decisión pendiente y sale la ventana */
 function dupGrant(k,v,src){S.dupQ=Array.isArray(S.dupQ)?S.dupQ:[];S.dupQ.push({k,v:Math.max(1000,Math.floor(+v||0)),src:String(src||''),t:Date.now()});try{save()}catch(e){}try{alog('t','🔁 Le tocó repetido '+dupName(k)+' ('+src+')')}catch(e){}setTimeout(dupOpen,400)}
 let dupSel=null;
@@ -14120,11 +14128,11 @@ const DUP_PRE='§tk:';/* viaja como «mensajito» especial: así no hace falta t
 {const _acT=applyCmd;applyCmd=function(id,c){if(!c||c.type!=='troll'||!String(c.text||'').startsWith(DUP_PRE))return _acT.apply(this,arguments);
   try{S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return;S.cmdDone.push(id);if(S.cmdDone.length>120)S.cmdDone.shift();
     const k=String(c.text).slice(DUP_PRE.length),fp=NET.players.get(c.from)||{},nm=fp.name||'un jugador';if(!DUP_OK.includes(k))return;
-    S.exc=S.exc||[];if(S.exc.includes(k)){const v=niceN(Math.max(50000,wealth()*.05));S.coins+=v;try{alog('t','🎁 '+nm+' le regaló '+dupName(k)+', pero ya lo tenía: +'+short(v)+' €')}catch(e){}save();toast('Te han regalado un título que ya tenías',esc(nm)+' · te lo damos en dinero: +'+short(v)+' €','var(--mint)','🎁');return}
+    S.exc=S.exc||[];if(S.exc.includes(k)){const v=niceN(Math.max(50000,wR()*.05));S.coins+=v;try{alog('t','🎁 '+nm+' le regaló '+dupName(k)+', pero ya lo tenía: +'+short(v)+' €')}catch(e){}save();toast('Te han regalado un título que ya tenías',esc(nm)+' · te lo damos en dinero: +'+short(v)+' €','var(--mint)','🎁');return}
     S.exc.push(k);try{alog('t','🎁 Recibió '+dupName(k)+' de regalo de '+nm+(fp.code?'#'+fp.code:''))}catch(e){}
     try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}try{sfx('gift')}catch(e){}try{excShow([k],{k:'🎁 Regalo de '+nm,p:nm+' te ha regalado este título exclusivo que le salió repetido.'})}catch(e){}}catch(e){}}}
 /* Gran Premio de Cine: si ya tienes el título, en vez de dinero sale la ventana */
-guVal=function(s){if(s[0]==='title')return guHasT()?guDupVal():0;return niceN(Math.max(s[2],wealth()*s[1]))};
+guVal=function(s){if(s[0]==='title')return guHasT()?guDupVal():0;return niceN(Math.max(s[2],wR()*s[1]))};
 {const _gp=guDayPay;guDayPay=function(){const st=S.guDay;if(st&&st.pend&&st.k!=null&&(GU_DW[st.k]||[])[0]==='title'&&guHasT()){st.pend=0;st.t=2;st.p=0;dupGrant('ti:'+GU_TITLE,guDupVal(),'🎬 Gran Premio de Cine');return -2}return _gp.apply(this,arguments)}}
 {const _gw=guWin;guWin=function(p,k){if(p===-2){try{sfx('big')}catch(_){}try{confetti(200)}catch(_){}troll('🎬 ¡OTRA VEZ ESTRELLA DE CINE!','ya lo tienes: regálalo o conviértelo en dinero','#ffd600',true);return}return _gw.apply(this,arguments)}}
 try{i18nAdd([['Títulos repetidos','Duplicate titles','Titres en double','Títulos repetidos'],['Si te vuelve a tocar un título que ya tienes','If you win a title you already have','Si tu regagnes un titre que tu as déjà','Se voltares a ganhar um título que já tens'],['Convertirlo en dinero','Turn it into money','Le convertir en argent','Convertê-lo em dinheiro'],['Regalárselo a alguien','Gift it to someone','L\'offrir à quelqu\'un','Oferecê-lo a alguém'],['Ya lo tiene','Already has it','L\'a déjà','Já o tem'],['Elegir','Choose','Choisir','Escolher'],['Cambiar','Change','Changer','Mudar'],['🎁 Sí, regalar','🎁 Yes, gift it','🎁 Oui, offrir','🎁 Sim, oferecer'],['Más que el premio de dinero más grande de esa ruleta.','More than the biggest cash prize on that wheel.','Plus que le plus gros prix en argent de cette roue.','Mais do que o maior prémio em dinheiro dessa roleta.'],['Busca a cualquier jugador (no hace falta que sea tu amigo). Le llegará el título al momento.','Search any player (they don\'t need to be your friend). They get the title instantly.','Cherche n\'importe quel joueur (pas besoin d\'être ami). Il reçoit le titre tout de suite.','Procura qualquer jogador (não precisa de ser teu amigo). Recebe o título na hora.']])}catch(e){}
@@ -14215,7 +14223,7 @@ function lnDone(id){S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return tru
   S.loan=null;save();try{NET.lastP='';pushPlayer()}catch(e){}try{bankMount()}catch(e){}try{sfx('coin')}catch(e){}
   troll('PRÉSTAMO ANULADO','el jefe lo ha anulado: se ha devuelto lo que pediste ('+short(w+sf)+' €), sin intereses ni pérdida de confianza','#14e08a',true)}}
 /* lo que ve el jefe en la ficha del jugador */
-function admLnHTML(p){if(!(+p.debt>0))return'';const a=+p.lnA||0,t=+p.lnT||0,fee=a&&t>a?t-a:0;
+function admLnHTML(p){if(ADM.mod||!(+p.debt>0))return'';const a=+p.lnA||0,t=+p.lnT||0,fee=a&&t>a?t-a:0;
   return`<span class="alab">🏦 Préstamo</span><div class="lnadm"><p class="netmsg" style="margin:0 0 8px">Debe <b>${fmt(+p.debt)} €</b>${a?` · pidió <b>${fmt(a)} €</b>`:''}${p.lnF?' · <b>ya sin intereses</b>':fee?` · intereses <b>${fmt(fee)} €</b>`:''}</p>
    <div class="abtns"><button class="btn mint" data-ln="lncut"${p.lnF?' disabled':''}>✂️ Quitarle los intereses</button><button class="btn" data-ln="lnundo">↩️ Anular préstamo (como si lo devolviera)</button></div>
    <p class="netmsg" style="margin:4px 0 0">«Quitarle los intereses»: solo tendrá que devolver lo que pidió. «Anular»: se le quita de la cartera (y si no llega, de la caja) lo que pidió y aún no ha devuelto, y el préstamo desaparece sin bajarle la confianza.</p></div>`}
@@ -14225,6 +14233,97 @@ document.addEventListener('click',async e=>{const b=e.target.closest&&e.target.c
   ADM.confirm=null;b.disabled=true;const ok=await sendCmd(id,a,0,'');b.disabled=false;
   if(ok){try{sfx('coin')}catch(_){}const p=NET.players.get(id);if(p){if(a==='lncut'){p.lnF=1;if(+p.lnA&&+p.lnT>+p.lnA)p.debt=Math.max(0,+p.debt-(+p.lnT-+p.lnA))}else{p.debt=0}}
     toast(a==='lncut'?'Intereses quitados':'Préstamo anulado',esc(nm)+(NET.online.has(id)?' · lo verá al momento':' · le llegará en cuanto entre'),'var(--mint)','🏦');renderAdmSide()}});
+/* ===== 2026-10-27: regalos sin trampas (cuentas falsas que se pasan el dinero) ===== */
+const GIFT_LVL=5,GIFT_AGE=3*864e5;
+const giftAgeOk=p=>!!p&&(Date.now()-(+p.since||Date.now()))>=GIFT_AGE;
+/* lo que se puede regalar: tu cartera menos lo que te han regalado en los últimos 3 días */
+function giftMax(){return Math.max(0,Math.floor(+S.coins||0)-gInRecent())}
+function giftBlock(n,id){try{if(ADM.on&&!ADM.mod)return'';const p=NET.players.get(id)||{};
+  if(p.dv&&p.dv===DEV_ID)return'Esa cuenta se ha usado en este mismo dispositivo: no se puede regalar dinero entre cuentas propias.';
+  if((S.lvl||1)<GIFT_LVL)return'Para regalar dinero necesitas llegar al nivel '+GIFT_LVL+'.';
+  if(Date.now()-(+S.since||Date.now())<GIFT_AGE){const d=Math.max(1,Math.ceil((GIFT_AGE-(Date.now()-(+S.since||Date.now())))/864e5));return'Podrás regalar dinero cuando tu cuenta tenga 3 días (te falta'+(d===1?' 1 día':'n '+d+' días')+').'}
+  const mx=giftMax();if(n>mx)return gInRecent()>0?'El dinero que te han regalado en los últimos 3 días no se puede volver a regalar. Ahora puedes regalar como mucho '+fmt(mx)+' €.':'No tienes tanto dinero.';
+  return''}catch(e){return''}}
+/* el que recibe: apunta lo regalado y devuelve los regalos de cuentas recién creadas o de nivel bajo */
+{const _agG=applyGifts;applyGifts=function(list){try{const ok=[];S.cmdDone=S.cmdDone||[];const back=[];
+  list.forEach(x=>{const[id,c]=x;if(!c||c.ref||S.cmdDone.includes(id)){ok.push(x);return}const p=NET.players.get(c.from);
+    if(!p)return; /* aún no se ha cargado quién lo manda: se mira en el siguiente aviso */
+    const n=Math.max(0,Math.floor(+c.n||0));
+    if((+p.lvl||1)<GIFT_LVL||!giftAgeOk(p)){S.cmdDone.push(id);try{NET.db.collection('cmds/'+NET.id+'/q').doc(id).delete().catch(()=>{})}catch(e){}
+      if(n>0)back.push([c.from,n,p.name||'alguien']);return}
+    S.gIn=Array.isArray(S.gIn)?S.gIn:[];S.gIn.push([Date.now(),n,c.from]);ok.push(x)});
+  back.forEach(([to,n,nm])=>{try{NET.db.collection('cmds/'+to+'/q').add({type:'troll',from:NET.id,text:'Tu regalo no llegó (cuenta nueva)',t:Date.now()}).catch(()=>{})}catch(e){}
+    try{alog('g','↩️ Se rechazó un regalo de '+nm+' de '+short(n)+' € (cuenta nueva o de nivel bajo)')}catch(e){}});
+  if(back.length)try{save()}catch(e){}
+  if(ok.length)return _agG(ok)}catch(e){return _agG(list)}}}
+/* el regalo devuelto: al que lo mandó no se le devuelve nada si venía de una cuenta trucada; si era legal, su propio juego no le habría dejado enviarlo */
+/* en la ventana de regalar se ve cuánto puedes regalar */
+document.addEventListener('focusin',e=>{if(!e.target||e.target.id!=='gfAmt')return;try{const r=gInRecent(),box=e.target.closest('.form');if(!box||box.querySelector('.gfmax'))return;
+  box.insertAdjacentHTML('afterbegin',`<p class="netmsg gfmax" style="margin:0 0 6px">${r>0?'Puedes regalar hasta <b>'+fmt(giftMax())+' €</b>: lo que te han regalado en los últimos 3 días no se puede volver a regalar.':'Para regalar hace falta nivel '+GIFT_LVL+' y una cuenta de al menos 3 días.'}</p>`)}catch(_){}});
+/* «Todo» en la ventana de regalar = lo que puedes regalar */
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-gq="all"]');if(!b)return;setTimeout(()=>{const i=$('#gfAmt');if(i)i.value=giftMax()},0)},true);
+
+/* ===== Jefe: cuentas basura y cuentas del mismo dispositivo ===== */
+function junkList(){if(!NET||!NET.players)return[];const now=Date.now();return[...NET.players.entries()].filter(([id,p])=>p&&id!==NET.id&&p.acc!=='g'&&(+p.lvl||1)<=1&&(+p.pt||0)<300&&(+p.earned||0)<20000&&now-(+p.t||0)>864e5).map(([id,p])=>({id,...p}))}
+function junkHTML(){if(ADM.mod)return'';const L=junkList();
+  return`<div class="row jkrow"><span><b>🧹 Cuentas basura: ${L.length}</b><small class="netmsg" style="display:block;margin:0">Nivel 1, menos de 5 min jugados, casi sin ganar nada y sin entrar desde hace más de un día (no se cuentan las de Google). Al borrarlas desaparecen de la clasificación y de tus estadísticas.</small></span>${L.length?`<button class="btn red" id="jkDel">Borrar las ${L.length}</button>`:''}</div>`}
+function junkMount(){try{if(view!=='admin'||!ADM.on||ADM.mod)return;const g=$('#admGlobal');if(!g)return;let b=g.querySelector('.jkbox');if(!b){g.insertAdjacentHTML('beforeend','<div class="jkbox"></div>');b=g.querySelector('.jkbox')}
+  if(b.contains(document.activeElement))return;const h=junkHTML();if(b._h!==h){b._h=h;b.innerHTML=h}}catch(e){}}
+setInterval(junkMount,4000);
+document.addEventListener('click',async e=>{const b=e.target.closest&&e.target.closest('#jkDel');if(!b||!ADM.on||ADM.mod)return;
+  if(!b.dataset.ok){b.dataset.ok=1;b.textContent='¿Seguro? Pulsa otra vez';setTimeout(()=>{b.dataset.ok='';const x=$('#jkDel');if(x)x.textContent='Borrar'},3000);return}
+  const L=junkList();b.disabled=true;let n=0;for(const p of L){try{await NET.db.collection('players').doc(p.id).delete();NET.players.delete(p.id);n++;b.textContent='Borrando… '+n+'/'+L.length}catch(err){}}
+  toast('Cuentas borradas',n+' de '+L.length,'var(--mint)','🧹');try{renderAdmin()}catch(_){}const box=$('#admGlobal .jkbox');if(box){box._h='';junkMount()}});
+/* en la ficha del jugador: otras cuentas usadas en su mismo dispositivo */
+{const _rsDv=renderAdmSide;renderAdmSide=function(){const r=_rsDv.apply(this,arguments);try{if(ADM.mod)return r;const p=ADM.sel&&NET.players.get(ADM.sel),el=$('#admSide');if(!p||!el||!p.dv||el.querySelector('.dvsame'))return r;
+  const same=[...NET.players.entries()].filter(([id,q])=>id!==ADM.sel&&q&&q.dv===p.dv);if(!same.length)return r;
+  const kv=el.querySelector('.kv');if(kv)kv.insertAdjacentHTML('afterend',`<div class="dvsame"><b>📱 Mismo dispositivo que ${same.length===1?'otra cuenta':same.length+' cuentas'}:</b> ${same.slice(0,30).map(([id,q])=>`<button type="button" class="dvp" data-sel="${esc(id)}">${esc(q.name||'?')}<small>${esc(q.code||'')}</small></button>`).join('')}<small class="netmsg" style="display:block;margin:4px 0 0">Si alguien se crea cuentas para pasarse dinero, salen aquí juntas.</small></div>`)}catch(e){}return r}}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.dvsame [data-sel]');if(!b)return;ADM.sel=b.dataset.sel;ADM.confirm=null;try{sfx('click')}catch(_){}renderAdmSide()});
+/* ===== 2026-10-27: que no se dupliquen las cuentas (borrar cookies y volver a entrar sin iniciar sesión) ===== */
+/* la partida recuerda de qué cuenta es; si se abre sin sesión en otro sitio, no se publica otra vez con el mismo código */
+setInterval(()=>{try{if(NET&&NET.id&&!NET.isAnon&&S&&S.name&&S.ownUid!==NET.id){S.ownUid=NET.id;save()}}catch(e){}},5000);
+NET.dupHold=false;
+function dupOwner(){try{if(!NET||!NET.id||!NET.isAnon||!S||!S.name||!NET.players)return null;
+  if(S.ownUid&&S.ownUid!==NET.id&&NET.players.has(S.ownUid))return S.ownUid;
+  const code=String(S.code||'').toUpperCase();if(!code)return null;
+  const o=[...NET.players.entries()].find(([id,p])=>id!==NET.id&&p&&p.acc&&p.acc!=='a'&&String(p.code||'').toUpperCase()===code);return o?o[0]:null}catch(e){return null}}
+{const _ppD=pushPlayer;pushPlayer=function(){try{if(NET.dupHold)return;const o=dupOwner();if(o){dupHoldOn(o);return}}catch(e){}return _ppD.apply(this,arguments)}}
+function dupHoldOn(owner){if(NET.dupHold)return;NET.dupHold=true;try{NET.db.collection('players').doc(NET.id).delete().catch(()=>{})}catch(e){}
+  const p=NET.players.get(owner)||{},g=p.acc==='g';setTimeout(()=>{try{$('#mbox').classList.remove('wide');$('#mbox').onclick=null;$('#modal').hidden=false;
+  $('#mbox').innerHTML=`<h2 style="font-size:28px">🔐 Esta partida ya tiene cuenta</h2>
+   <p style="font-weight:700">Tu partida <b>${esc(S.code||'')}</b> está guardada en una cuenta${g?' de <b>Google</b>':' con <b>usuario y contraseña</b>'}. Para no tener dos cuentas iguales (y que no se pierdan regalos), entra con ella.</p>
+   <div class="form">${g?'<button class="btn big" id="dhG">Entrar con Google</button><button class="btn alt" id="dhU">Tengo usuario y contraseña</button>':'<button class="btn big" id="dhU">Entrar con mi usuario y contraseña</button><button class="btn alt" id="dhG">Entrar con Google</button>'}
+   <button class="linkb" id="dhNew">No es mía: empezar una partida nueva</button></div>`;
+  $('#dhU').onclick=()=>openAccount('login');$('#dhG').onclick=e=>googleSignIn(e.currentTarget);
+  $('#dhNew').onclick=e=>{const b=e.currentTarget;if(!b.dataset.ok){b.dataset.ok=1;b.textContent='¿Seguro? Esta copia se borra de este navegador (tu cuenta sigue igual). Pulsa otra vez';return}
+    noSave=true;try{localStorage.removeItem(KEY)}catch(_){}location.reload()}}catch(e){}},300)}
+/* comprobarlo al cargar la lista de jugadores */
+setInterval(()=>{try{if(!NET.dupHold){const o=dupOwner();if(o)dupHoldOn(o)}}catch(e){}},4000);
+/* jefe: quitar de la lista una cuenta duplicada */
+{const _rsDd=renderAdmSide;renderAdmSide=function(){const r=_rsDd.apply(this,arguments);try{if(ADM.mod)return r;const p=ADM.sel&&NET.players.get(ADM.sel),el=$('#admSide');if(!p||!el||el.querySelector('[data-dupdel]'))return r;
+  const code=String(p.code||'').toUpperCase(),twins=[...NET.players.entries()].filter(([id,q])=>id!==ADM.sel&&q&&String(q.code||'').toUpperCase()===code);
+  if(!twins.length)return r;const kv=el.querySelector('.kv');if(kv)kv.insertAdjacentHTML('afterend',`<div class="dvsame dupacc"><b>⚠️ Hay ${twins.length===1?'otra cuenta':twins.length+' cuentas'} con su mismo código (${esc(p.code||'')}).</b> Es una cuenta duplicada. Pasa a la buena lo que le falte con «Dar» y quita esta de la lista. <button class="btn sm red" data-dupdel="${esc(ADM.sel)}">🗑️ Quitar esta de la lista</button>
+   ${twins.map(([id,q])=>`<button type="button" class="dvp" data-sel="${esc(id)}">Ver la otra · ${fmt(+q.coins||0)} €<small>${q.acc==='g'?'Google':q.acc==='u'?'usuario':'invitado'}</small></button>`).join('')}</div>`)}catch(e){}return r}}
+document.addEventListener('click',async e=>{const b=e.target.closest&&e.target.closest('[data-dupdel]');if(!b||!ADM.on||ADM.mod)return;const id=b.dataset.dupdel;
+  if(!b.dataset.ok){b.dataset.ok=1;b.textContent='¿Seguro? Pulsa otra vez';return}
+  try{await NET.db.collection('players').doc(id).delete();NET.players.delete(id);ADM.sel=null;toast('Cuenta duplicada quitada','','var(--mint)','🗑️');renderAdmin();renderAdmSide()}catch(err){toast('No se ha podido','Revisa la conexión','var(--coral)','⚠️')}});
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.dupacc [data-sel]');if(!b)return;ADM.sel=b.dataset.sel;renderAdmSide()});
+/* ===== 2026-10-27: panel del jefe más suave (no se repinta entero cada poco ni mientras lo usas) ===== */
+ADM.uiT=0;['keydown','wheel','touchmove'].forEach(t=>document.addEventListener(t,e=>{try{if(view==='admin'&&e.target&&e.target.closest&&e.target.closest('#v-admin')&&!(t==='keydown'&&e.target.id==='admQ'))ADM.uiT=Date.now()}catch(_){}},{passive:true,capture:true}));
+document.addEventListener('scroll',()=>{try{if(view==='admin')ADM.uiT=Date.now()}catch(_){}},{passive:true,capture:true});
+function admKey(){let k=(ADM.q||'')+'|'+(ADM.sel||'')+'|'+(ADM.pend?ADM.pend.size:0)+'|'+(NET.online?NET.online.size:0)+'|'+NET.players.size;
+  try{let h=0;NET.players.forEach((p,id)=>{const s=id+(p&&p.name)+(p&&p.coins)+(p&&p.lvl)+(p&&p.sf)+(p&&p.debt);for(let i=0;i<s.length;i+=3)h=(h*31+s.charCodeAt(i))|0});k+='|'+h}catch(e){}return k}
+{const _raF=renderAdmin;let lastK='',lastT=0,tm=null;renderAdmin=function(){if(view!=='admin'||!ADM.on)return _raF.apply(this,arguments);
+  const now=Date.now();if(now-ADM.uiT<2500){clearTimeout(tm);tm=setTimeout(()=>renderAdmin(),2600);return}
+  const k=admKey();if(k===lastK&&now-lastT<20000)return;lastK=k;lastT=now;return _raF.apply(this,arguments)};
+  /* al entrar al panel o tocar un filtro, sí se pinta al momento */
+  const _goF=go;go=function(v){const r=_goF.apply(this,arguments);try{if(v==='admin'){lastK='';ADM.uiT=0;renderAdmin()}}catch(e){}return r};
+  document.addEventListener('input',e=>{if(e.target&&e.target.id==='admQ'){lastK='';ADM.uiT=0}},true)}
+/* red de seguridad: si por un fallo se quedan todas las pantallas ocultas (solo se ve el fondo), se vuelve a mostrar la que toca */
+setInterval(()=>{try{if(view!=='admin'||(typeof running!=='undefined'&&running))return;const vs=[...document.querySelectorAll('section.view')];if(!vs.length||vs.some(x=>!x.hidden))return;
+  const cur=document.getElementById('v-'+view);if(cur){cur.hidden=false;try{if(view==='admin')renderAdmin()}catch(e){}}else go('inicio')}catch(e){}},1500);
+try{i18nAdd([['Regalos justos y arreglos','Fair gifts and fixes','Cadeaux équitables et correctifs','Presentes justos e correções'],['Regalos justos','Fair gifts','Cadeaux équitables','Presentes justos'],['Para regalar dinero hace falta nivel 5 y que tu cuenta tenga 3 días. Lo que te regalan no se puede volver a regalar hasta pasados 3 días ni cuenta para los premios que dependen de tu dinero. Así nadie se fabrica cuentas para inflarse.','To gift money you need level 5 and an account at least 3 days old. Money you receive can\'t be gifted again for 3 days and doesn\'t count for rewards based on your money. That way nobody can make fake accounts to pump themselves up.','Pour offrir de l\'argent, il faut le niveau 5 et un compte d\'au moins 3 jours. L\'argent reçu ne peut pas être réoffert pendant 3 jours et ne compte pas pour les récompenses basées sur ton argent. Personne ne peut créer de faux comptes pour gonfler son argent.','Para oferecer dinheiro precisas de nível 5 e de uma conta com pelo menos 3 dias. O dinheiro que recebes não pode ser oferecido outra vez durante 3 dias nem conta para os prémios que dependem do teu dinheiro. Assim ninguém cria contas falsas para se encher.'],['Sin cuentas repetidas','No duplicate accounts','Plus de comptes en double','Sem contas repetidas'],['Si abres tu partida sin haber iniciado sesión (por ejemplo, después de borrar las cookies), el juego te pide entrar con tu cuenta en vez de crear otra igual. Así no se pierden regalos.','If you open your game without being signed in (for example after clearing cookies), it asks you to sign in to your account instead of creating an identical one. That way no gifts get lost.','Si tu ouvres ta partie sans être connecté (par exemple après avoir effacé les cookies), le jeu te demande de te connecter au lieu de créer un compte identique. Ainsi, aucun cadeau ne se perd.','Se abrires o teu jogo sem teres sessão iniciada (por exemplo, depois de apagares os cookies), o jogo pede-te para entrares na tua conta em vez de criar outra igual. Assim não se perdem presentes.'],['Caja fuerte vacía de verdad','Truly empty safe','Coffre vraiment vide','Cofre vazio a sério'],['Al sacar todo, ya no se queda nada dentro por los intereses que van sumando.','When you take everything out, nothing is left inside from the interest that keeps adding up.','Quand tu retires tout, il ne reste plus rien à cause des intérêts qui s\'ajoutent.','Quando tiras tudo, já não fica nada lá dentro por causa dos juros que vão somando.'],['Accesos rápidos siempre a la vista','Shortcuts always visible','Raccourcis toujours visibles','Atalhos sempre à vista'],['La barra de Evento, Botón rojo, Caja fuerte… de Inicio › Hoy ya no desaparece un momento al cambiar de pestaña.','The Event, Red button, Safe… bar in Home › Today no longer disappears for a moment when you switch tabs.','La barre Événement, Bouton rouge, Coffre… d\'Accueil › Aujourd\'hui ne disparaît plus un instant quand tu changes d\'onglet.','A barra de Evento, Botão vermelho, Cofre… de Início › Hoje já não desaparece um momento ao mudar de separador.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Por qué no puedo regalar dinero?'))FAQ.unshift(['¿Por qué no puedo regalar dinero?','Para regalar dinero hace falta nivel 5 y que tu cuenta tenga al menos 3 días. Además, lo que te han regalado en los últimos 3 días no se puede volver a regalar. Es para que nadie se cree cuentas falsas para pasarse dinero.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
