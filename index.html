@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-1719">
+<meta name="app-version" content="2026-10-27-1721">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2853,6 +2853,8 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .tkw .tkin textarea{min-height:54px;padding:10px 12px}
 .tkw .tkadm{gap:10px;margin-top:2px}
 @media (min-width:700px){.tkw{padding:10px 12px 6px}}
+.tkas{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;font-weight:800}.tkas button{padding:6px 12px;border-radius:999px;border:2px solid var(--line);background:transparent;color:var(--fg);font:800 13px var(--f-b);cursor:pointer}.tkas button.on{border-color:var(--sun);background:rgba(255,214,0,.15)}
+.tkb small.tkmod{color:#7fd0ff!important}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -10357,10 +10359,10 @@ i18nAdd([['Qué es Casinetori','What is Casinetori','Qu\'est-ce que Casinetori',
 
 /* ===== 2026-10-03-p: EXCLUSIVOS (solo los da el jefe) ===== */
 const EXAV=['🐐','🔱','🗿','🏆','🛡️'];
-COS.ti.push(['xog','OG',999,'','x'],['xfund','Fundador',999,'','x'],['xbug','Cazabugs',999,'','x'],['xvip','VIP',999,'','x'],['xjefe','Mano derecha del jefe',999,'','x'],['xley','Leyenda de Casinetori',999,'','x'],['xadm','🛡️ Admin',999,'','x']);
-COS.f.push(['xog','OG',999,'fr-xog','x'],['xvip','VIP',999,'fr-xvip','x'],['xbug','Cazabugs',999,'fr-xbug','x'],['xadm','Admin',999,'fr-xadm','x']);
-COS.c.push(['xog','OG',999,'nc-xog','x'],['xvip','VIP',999,'nc-xvip','x'],['xadm','Admin',999,'nc-xadm','x']);
-COS.bg.push(['xog','OG',999,'bg-xog','x'],['xvip','VIP',999,'bg-xvip','x'],['xadm','Admin',999,'bg-xadm','x']);BGSW.xadm='linear-gradient(135deg,#2a0008,#7a0014 55%,#140004)';
+COS.ti.push(['xog','OG',999,'','x'],['xfund','Fundador',999,'','x'],['xbug','Cazabugs',999,'','x'],['xvip','VIP',999,'','x'],['xjefe','Mano derecha del jefe',999,'','x'],['xley','Leyenda de Casinetori',999,'','x'],['xadm','🛡️ Moderador',999,'','x']);
+COS.f.push(['xog','OG',999,'fr-xog','x'],['xvip','VIP',999,'fr-xvip','x'],['xbug','Cazabugs',999,'fr-xbug','x'],['xadm','Moderador',999,'fr-xadm','x']);
+COS.c.push(['xog','OG',999,'nc-xog','x'],['xvip','VIP',999,'nc-xvip','x'],['xadm','Moderador',999,'nc-xadm','x']);
+COS.bg.push(['xog','OG',999,'bg-xog','x'],['xvip','VIP',999,'bg-xvip','x'],['xadm','Moderador',999,'bg-xadm','x']);BGSW.xadm='linear-gradient(135deg,#2a0008,#7a0014 55%,#140004)';
 BGSW.xog="linear-gradient(135deg,#1a0636,#3b0d6e 55%,#120326)";BGSW.xvip="radial-gradient(circle at 15% 20%,#ff4fd8,transparent 55%),radial-gradient(circle at 85% 80%,#3ff0ff,transparent 55%),#0b0618";
 const EXC_PACKS={og:['ti:xog','f:xog','c:xog','bg:xog','av:🐐'],vip:['ti:xvip','f:xvip','c:xvip','bg:xvip'],bug:['ti:xbug','f:xbug'],adm:['ti:xadm','f:xadm','c:xadm','bg:xadm','av:🛡️']};
 const EXC_KN={ti:'Título',f:'Marco',c:'Color de nombre',bg:'Fondo',av:'Cara'};
@@ -14582,7 +14584,7 @@ function tkView(id){TK.open=id;TK.img=null;const adm=ADM.on&&aCan('contactar')&&
   try{TK.unsub=NET.db.collection('tk/'+id+'/m').orderBy('t').limitToLast(300).onSnapshot(sn=>{TK.msgs.set(id,sn.docs.map(d=>({id:d.id,...d.data()})));tkDrawMsgs(id,adm)},err=>{tkErr(err)})}catch(e){tkErr(e)}
   try{NET.db.collection('tk').doc(id).update(adm?{ua:0}:{ur:0}).catch(()=>{})}catch(e){}}
 function tkBubble(m,adm,mine){const tr=m.x?`<button type="button" class="tktr" data-tktr="${esc(m.x)}" title="Traducir">🌐</button>`:'';
-  return`<div class="tkb ${m.a?'adm':'usr'} ${mine?'me':''}">${m.a?'<small>👑 Jefe</small>':''}${m.img?`<img src="${m.img}" alt="Captura" loading="lazy" data-tkimg>`:''}${m.x?`<p>${esc(m.x).replace(/\n/g,'<br>')}</p>`:''}<span class="tkm">${m.t?new Date(m.t).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}${adm||!m.a?tr:tr}</span></div>`}
+  return`<div class="tkb ${m.a?'adm':'usr'} ${mine?'me':''}">${m.a?(m.as==='mod'?'<small class="tkmod">🛡️ Moderación</small>':'<small>👑 Jefe</small>'):''}${m.img?`<img src="${m.img}" alt="Captura" loading="lazy" data-tkimg>`:''}${m.x?`<p>${esc(m.x).replace(/\n/g,'<br>')}</p>`:''}<span class="tkm">${m.t?new Date(m.t).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}${adm||!m.a?tr:tr}</span></div>`}
 function tkDraw(id,adm){const t=tkData(id),closed=t.st==='closed';
   $('#mbox').innerHTML=`<div class="tkw"><div class="tkh"><div><h2>${adm?'💬 '+tkWho(t):'💬 Conversación con el jefe'}</h2><small>${adm?'Privada: solo la veis él y el equipo.':'Privada: solo la ves tú y el equipo de Casinetori. Escribe en tu idioma, el jefe lo entiende.'}</small></div><button type="button" class="tkx" data-tkx aria-label="Cerrar">✕</button></div>
    ${t.subj&&t.src==='buzon'?`<div class="tksubj">📮 Del buzón: «${esc(String(t.subj).slice(0,160))}»</div>`:''}
@@ -14591,7 +14593,7 @@ function tkDraw(id,adm){const t=tkData(id),closed=t.st==='closed';
    ${adm?`<div class="tkq">${(typeof BZQ!=='undefined'?BZQ:[]).map(q=>`<button type="button" data-tkq="${esc(q[1])}">${esc(q[1])}</button>`).join('')}</div><div class="tkq tke">${(typeof BZE!=='undefined'?BZE:[]).map(e=>`<button type="button" data-tke="${esc(e)}" class="emo">${e}</button>`).join('')}</div>`:`<div class="tkq tke">${['👍','🙏','😅','👀','📸','🐛','💡','❤️'].map(e=>`<button type="button" data-tke="${e}" class="emo">${e}</button>`).join('')}</div>`}
    <div id="tkImgP" class="tkimgp" hidden></div>
    <div class="tkin"><label class="tkatt" title="Añadir una foto o captura">📎<input type="file" accept="image/*" id="tkFile" hidden></label><textarea class="inp" id="tkTxt" maxlength="800" rows="2" placeholder="${adm?'Escribe tu respuesta…':'Escribe aquí (en tu idioma)…'}"></textarea><button type="button" class="btn mint" id="tkSend">Enviar</button></div>`}
-   ${adm?`<div class="tkadm">${closed?'<button type="button" class="btn alt" data-tkst="open">🔓 Reabrir</button>':'<button type="button" class="btn" data-tkst="closed">🔒 Cerrar conversación</button>'}<button type="button" class="btn red" data-tkdel>🗑️ Borrar todo</button>${NET.players.has(t.uid)?`<button type="button" class="btn dark" data-tkp="${esc(t.uid)}">Ver su ficha</button>`:''}</div>`:''}</div>`;
+   ${adm&&!ADM.mod&&!closed?`<div class="tkas"><span>Le sale que se lo envía:</span><button type="button" data-tkas="jefe" class="${tkAs()==='jefe'?'on':''}">👑 El jefe</button><button type="button" data-tkas="mod" class="${tkAs()==='mod'?'on':''}">🛡️ Moderación</button></div>`:''}${adm?`<div class="tkadm">${closed?'<button type="button" class="btn alt" data-tkst="open">🔓 Reabrir</button>':'<button type="button" class="btn" data-tkst="closed">🔒 Cerrar conversación</button>'}<button type="button" class="btn red" data-tkdel>🗑️ Borrar todo</button>${NET.players.has(t.uid)?`<button type="button" class="btn dark" data-tkp="${esc(t.uid)}">Ver su ficha</button>`:''}</div>`:''}</div>`;
   tkDrawMsgs(id,adm)}
 function tkDrawMsgs(id,adm){const box=$('#tkMsgs');if(!box||TK.open!==id)return;const t=tkData(id),L=TK.msgs.get(id);if(!L){return}
   const seed=(t.seed||[]).map(s=>({a:s.a,x:s.x,t:0}));const all=[...seed,...L];const atB=box.scrollHeight-box.scrollTop-box.clientHeight<60;
@@ -14601,7 +14603,7 @@ function tkShrink(file){return new Promise((res,rej)=>{const fr=new FileReader()
   const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);let q=.7,u=c.toDataURL('image/jpeg',q);while(u.length>650000&&q>.3){q-=.1;u=c.toDataURL('image/jpeg',q)}u.length>900000?rej('big'):res(u)};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
 async function tkSend(){const id=TK.open;if(!id)return;const t=tkData(id),adm=ADM.on&&aCan('contactar')&&(t.uid!==NET.id||TK.all.has(id));const ta=$('#tkTxt'),x=(ta?ta.value:'').trim().slice(0,800);if(!x&&!TK.img)return;
   const b=$('#tkSend');if(b){b.disabled=true;b.textContent='…'}
-  try{await NET.db.collection('tk/'+id+'/m').add({by:NET.id,a:adm?1:0,x,...(TK.img?{img:TK.img}:{}),t:Date.now()});
+  try{await NET.db.collection('tk/'+id+'/m').add({by:NET.id,a:adm?1:0,...(adm?{as:tkAs()}:{}),x,...(TK.img?{img:TK.img}:{}),t:Date.now()});
     const inc=tkFV().increment(1);await NET.db.collection('tk').doc(id).update({lt:Date.now(),lb:adm?'adm':'user',lt_txt:(x||'📷 Foto').slice(0,120),...(adm?{ur:inc}:{ua:inc})});
     if(adm)try{admLogAct('💬 Escribió en privado a '+alPN(t.uid)+': «'+x.slice(0,100)+'»'+(TK.img?' (+ foto)':''))}catch(_){}
     if(ta)ta.value='';TK.img=null;const pv=$('#tkImgP');if(pv){pv.hidden=true;pv.innerHTML=''}try{sfx('coin')}catch(_){}}
@@ -14737,6 +14739,10 @@ setInterval(()=>{try{if(!ADM.on||!ADM.mod)return;const w=document.querySelector(
   document.querySelectorAll('#v-admin h3,#v-admin .netmsg').forEach(e=>{if(e.dataset.modtx)return;const t=e.innerHTML;const t2=t.replace(/\bAdministradores\b/g,'Moderadores').replace(/\badmins\b/g,'moderadores').replace(/\bAdmins\b/g,'Moderadores');if(t2!==t){e.innerHTML=t2}e.dataset.modtx=1})}catch(e){}},2000);
 /* a los moderadores, cuando algo no se puede, «no tienes permiso» (no mensajes técnicos) */
 {const _toM=toast;toast=function(t,s,c,e){try{if(ADM.on&&ADM.mod&&(/No se ha podido|No se puede/i.test(String(t))||/reglas|Firebase|conexión/i.test(String(s))))return _toM.call(this,'🚫 No tienes permiso','Pídele al jefe que te dé permiso para esto','var(--coral)','🚫')}catch(_){}return _toM.apply(this,arguments)}}
+function tkAs(){try{if(ADM.mod)return'mod';return localStorage.getItem('cas-tkas')==='mod'?'mod':'jefe'}catch(e){return ADM.mod?'mod':'jefe'}}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-tkas]');if(!b)return;try{localStorage.setItem('cas-tkas',b.dataset.tkas)}catch(_){}b.parentElement.querySelectorAll('[data-tkas]').forEach(x=>x.classList.toggle('on',x===b))});
+try{i18nAdd([['🛡️ Moderador','🛡️ Moderator','🛡️ Modérateur','🛡️ Moderador'],['Moderador','Moderator','Modérateur','Moderador'],['🛡️ Moderación','🛡️ Moderation','🛡️ Modération','🛡️ Moderação']])}catch(e){}
+
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
