@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-23-1557">
+<meta name="app-version" content="2026-10-27-1507">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2734,6 +2734,7 @@ html{overflow-x:clip}
 .sprk .setop>div,.serk .setop>div{padding:10px 14px!important;align-items:center}
 .serk{padding:0 12px}
 #betInp{min-width:0;text-overflow:clip}
+.lnadm{background:rgba(20,224,138,.06);border:2px solid rgba(20,224,138,.35);border-radius:12px;padding:10px 12px;margin:4px 0 8px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -14194,6 +14195,36 @@ function betFit(){const i=$('#betInp');if(!i)return;i.style.fontSize='';const L=
 document.addEventListener('input',e=>{if(e.target&&e.target.id==='betInp')betFit()});addEventListener('resize',()=>setTimeout(betFit,60));setInterval(()=>{try{if(view==='casino')betFit()}catch(e){}},1500);
 try{i18nAdd([['Casino más justo','A fairer casino','Un casino plus juste','Casino mais justo'],['Dos símbolos iguales pagan ahora x1,35 (antes x1,5). Tres iguales siguen pagando hasta x60.','Two matching symbols now pay x1.35 (was x1.5). Three of a kind still pays up to x60.','Deux symboles identiques paient maintenant x1,35 (avant x1,5). Trois identiques paient toujours jusqu\'à x60.','Dois símbolos iguais pagam agora x1,35 (antes x1,5). Três iguais continuam a pagar até x60.'],['Los premios salen menos a menudo. Con todos los premios juntos daba más dinero del que se apostaba y eso rompía la clasificación. Ahora es como el resto del casino: a la larga, la casa gana un poco.','Prizes come up less often. It used to pay out more than was bet, which broke the leaderboard. Now it works like the rest of the casino: in the long run, the house wins a little.','Les gains sortent moins souvent. Avant, il rendait plus que ce qui était misé. Maintenant, comme le reste du casino, la maison gagne un peu à long terme.','Os prémios saem menos vezes. Antes pagava mais do que se apostava. Agora, como o resto do casino, a casa ganha um pouco a longo prazo.']])}catch(e){}
 try{i18nAdd([['Guías de cada juego','Game guides','Guides des jeux','Guias dos jogos'],['Guías completas','Full guides','Guides complets','Guias completos'],['En la web hay ahora una guía de cada juego: cómo se juega, la tabla de pagos y las probabilidades de verdad. Las tienes abajo del todo en Inicio y en Ayuda, en «📚 Guías de cada juego».','The website now has a guide for every game: how to play, the payout table and the real odds (in Spanish). Find them at the bottom of Home and Help, under «📚 Game guides».','Le site propose maintenant un guide pour chaque jeu : règles, table des gains et vraies probabilités (en espagnol). Ils sont tout en bas d\'Accueil et d\'Aide, dans « 📚 Guides des jeux ».','O site tem agora um guia de cada jogo: como se joga, a tabela de prémios e as probabilidades reais (em espanhol). Estão no fundo do Início e da Ajuda, em «📚 Guias dos jogos».'],['Probabilidades a la vista','Odds in plain sight','Probabilités visibles','Probabilidades à vista'],['Una página nueva explica cuánto devuelve de media cada juego del casino, para que sepas a qué juegas.','A new page explains how much each casino game returns on average, so you know what you are playing.','Une nouvelle page explique combien rend en moyenne chaque jeu du casino, pour savoir à quoi tu joues.','Uma página nova explica quanto devolve em média cada jogo do casino, para saberes ao que jogas.']])}catch(e){}
+/* ===== Jefe: quitar los intereses del préstamo de alguien o anularlo como si lo hubiera devuelto ===== */
+/* el jugador publica cuánto pidió y cuánto ha devuelto, para que el jefe vea la comisión */
+{const _pxLn=pubX;pubX=function(){const x=_pxLn.apply(this,arguments);try{const L=S.loan;if(L&&loanOwe()>0){x.lnA=Math.floor(+L.amt||0);x.lnT=Math.floor(+L.tot||loanOwe());x.lnF=L.free?1:0}else{x.lnA=0;x.lnT=0;x.lnF=0}}catch(e){}return x}}
+/* si el préstamo ya no tiene intereses, al pagarlo no sube ni baja la confianza */
+{const _lcLn=loanClose;loanClose=function(r){try{if(S.loan&&S.loan.free&&r==='ok')r='free'}catch(e){}return _lcLn.call(this,r)}}
+function lnDone(id){S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return true;S.cmdDone.push(id);if(S.cmdDone.length>120)S.cmdDone.shift();return false}
+{const _acLn=applyCmd;applyCmd=function(id,c){const T=c&&c.type;if(T!=='lncut'&&T!=='lnundo')return _acLn.apply(this,arguments);
+  if(lnDone(id))return;const L=S.loan;
+  if(!L||loanOwe()<=0){try{save()}catch(e){}return}
+  const amt=Math.max(0,Math.floor(+L.amt||0)),paid=Math.max(0,Math.floor(+L.paid||0)),rest=Math.max(0,amt-paid);
+  if(T==='lncut'){L.free=1;L.tot=amt;L.owe=rest;try{alog('s','✂️ El jefe le quitó los intereses del préstamo: debe '+short(rest)+' €')}catch(e){}
+    if(rest<=0)loanClose('free');else{save();try{NET.lastP='';pushPlayer()}catch(e){}try{bankMount()}catch(e){}}
+    try{sfx('win')}catch(e){}troll('SIN INTERESES','el jefe te ha quitado la comisión del préstamo: solo devuelves '+short(rest)+' €','#14e08a',true);return}
+  /* anular: se devuelve lo que pidió (lo que falte), primero de la cartera y luego de la caja fuerte; lo que no llegue, se perdona */
+  const w=Math.min(rest,Math.max(0,Math.floor(+S.coins||0)));S.coins-=w;const sf=Math.min(rest-w,Math.max(0,Math.floor(+S.safe||0)));S.safe=(+S.safe||0)-sf;
+  try{const b=bkS();b.n=Math.max(0,b.n-1)}catch(e){}
+  try{alog('s','↩️ El jefe anuló su préstamo: se devolvieron '+short(w+sf)+' € al banco')}catch(e){}
+  S.loan=null;save();try{NET.lastP='';pushPlayer()}catch(e){}try{bankMount()}catch(e){}try{sfx('coin')}catch(e){}
+  troll('PRÉSTAMO ANULADO','el jefe lo ha anulado: se ha devuelto lo que pediste ('+short(w+sf)+' €), sin intereses ni pérdida de confianza','#14e08a',true)}}
+/* lo que ve el jefe en la ficha del jugador */
+function admLnHTML(p){if(!(+p.debt>0))return'';const a=+p.lnA||0,t=+p.lnT||0,fee=a&&t>a?t-a:0;
+  return`<span class="alab">🏦 Préstamo</span><div class="lnadm"><p class="netmsg" style="margin:0 0 8px">Debe <b>${fmt(+p.debt)} €</b>${a?` · pidió <b>${fmt(a)} €</b>`:''}${p.lnF?' · <b>ya sin intereses</b>':fee?` · intereses <b>${fmt(fee)} €</b>`:''}</p>
+   <div class="abtns"><button class="btn mint" data-ln="lncut"${p.lnF?' disabled':''}>✂️ Quitarle los intereses</button><button class="btn" data-ln="lnundo">↩️ Anular préstamo (como si lo devolviera)</button></div>
+   <p class="netmsg" style="margin:4px 0 0">«Quitarle los intereses»: solo tendrá que devolver lo que pidió. «Anular»: se le quita de la cartera (y si no llega, de la caja) lo que pidió y aún no ha devuelto, y el préstamo desaparece sin bajarle la confianza.</p></div>`}
+{const _rsLn=renderAdmSide;renderAdmSide=function(){const r=_rsLn.apply(this,arguments);try{const p=ADM.sel&&NET.players.get(ADM.sel),el=$('#admSide');if(p&&el&&!el.querySelector('.lnadm')){const h=admLnHTML(p);if(h){const lab=[...el.querySelectorAll('.alab')].find(x=>x.textContent==='Bromas');if(lab)lab.insertAdjacentHTML('beforebegin',h)}}}catch(e){}return r}}
+document.addEventListener('click',async e=>{const b=e.target.closest&&e.target.closest('[data-ln]');if(!b||!ADM.sel||!$('#admSide').contains(b))return;const a=b.dataset.ln,id=ADM.sel,nm=(NET.players.get(id)||{}).name||'ese';
+  if(ADM.confirm!==a+id){ADM.confirm=a+id;b.textContent='¿Seguro? Pulsa otra vez';setTimeout(()=>{if(ADM.confirm===a+id){ADM.confirm=null;renderAdmSide()}},3000);return}
+  ADM.confirm=null;b.disabled=true;const ok=await sendCmd(id,a,0,'');b.disabled=false;
+  if(ok){try{sfx('coin')}catch(_){}const p=NET.players.get(id);if(p){if(a==='lncut'){p.lnF=1;if(+p.lnA&&+p.lnT>+p.lnA)p.debt=Math.max(0,+p.debt-(+p.lnT-+p.lnA))}else{p.debt=0}}
+    toast(a==='lncut'?'Intereses quitados':'Préstamo anulado',esc(nm)+(NET.online.has(id)?' · lo verá al momento':' · le llegará en cuanto entre'),'var(--mint)','🏦');renderAdmSide()}});
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
