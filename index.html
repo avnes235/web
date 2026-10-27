@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-1611">
+<meta name="app-version" content="2026-10-27-1637">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2797,6 +2797,8 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .admstf .tkq{margin-bottom:6px}
 .nhhit{display:block;font-size:11px;color:#14e08a;font-weight:800}
 .bxsearch,.chsearch{display:flex;margin:8px 0}
+.chbox .chsearch{flex:0 0 auto!important;height:auto!important;min-height:0!important;max-height:52px;align-items:center;padding:8px 12px}
+.chbox .chsearch input{height:34px}
 .outreqs{display:grid;gap:6px;margin-top:8px}.outreqs>b{font-size:14px}
 .cmsg.me{position:relative}.cdelh{font-size:13px;opacity:.75;margin-left:6px;cursor:pointer}
 .chtip{font-size:14px!important;font-weight:700;opacity:1!important}
@@ -2846,14 +2848,15 @@ body:not([data-v=inicio]) #evbar .num{font-size:15px!important}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;700;800;900&family=DM+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap">
 <style>
 /* Layout: consola de salón — menú lateral fijo (barra inferior en móvil), baldosas grandes de color plano, cada sala es su propia pantalla con botón de volver */
 :root{
   --bg:#11172a; --bg2:#161e35; --card:#1d2742; --card2:#283458; --line:#313e66;
   --fg:#f4f6ff; --muted:#98a4c9; --ink:#141a2e;
   --coral:#ff6b4a; --sun:#ffc23d; --mint:#2fd6a3; --sky:#4aa8ff; --grape:#9a6bff; --pink:#ff5fa8; --red:#ff4d63;
-  --f-d:"Anton","Arial Rounded MT Bold",system-ui,sans-serif;
-  --f-b:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-d:"Anton","Arial Rounded MT Bold",system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";
+  --f-b:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";
   --f-n:"DM Mono",ui-monospace,Menlo,monospace;
   --f-e:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif;
   --r:20px;
@@ -3911,7 +3914,7 @@ html body .pod.tie2 .step{height:88px;background:linear-gradient(#f2f5fb,#aeb6c8
 /* ---------- Piel callejera: carteles, cinta de obra, sombras duras ---------- */
 :root{--bg:#141416;--bg2:#1b1b1e;--card:#212125;--card2:#2c2c32;--line:#3a3a42;--fg:#f3efe6;--muted:#9c978e;--ink:#111113;
   --coral:#ff4527;--sun:#ffd600;--mint:#14e08a;--sky:#3f7cff;--grape:#9d5cff;--pink:#ff2e88;--red:#ff3b4f;--r:6px;
-  --f-d:"Anton","Impact","Arial Narrow Bold",sans-serif;--f-b:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;--hard:4px 4px 0 #000}
+  --f-d:"Anton","Impact","Arial Narrow Bold",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";--f-b:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";--hard:4px 4px 0 #000}
 body{background-color:var(--bg);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");background-size:180px}
 h1,h2,h3{text-transform:uppercase;letter-spacing:.5px;font-weight:400}
 .bar h1{font-size:38px}
@@ -4847,7 +4850,7 @@ function renderDaily(){const{ready,streak}=dailyInfo(),base=ready?streak:streak-
 $('#dClaim').addEventListener('click',()=>{const{ready,streak}=dailyInfo();if(!ready)return;const n=streak+1,r=dailyAmt(n);S.daily={last:dayKey(),streak:n};give(r);xp(25);sfx('big');
   const b=$('#dClaim').getBoundingClientRect();confetti(120,b.left+b.width/2,b.top);toast('Premio diario','+'+short(r)+' € · racha de '+n,'var(--mint)','📅');if(n%7===0)troll('DISFRUTAAAAA','semana entera, premio doble');renderDaily();save()});
 /* Botón prohibido */
-let runaway=0;const PRANK_WAIT=45000;
+let runaway=0;const PRANK_WAIT=60000;
 function moveBtn(){const b=$('#redbtn'),f=$('#forbid').getBoundingClientRect();b.style.transform=`translate(${rnd(-f.width/2+66,f.width/2-66)}px,${rnd(-34,34)}px) rotate(${rnd(-25,25)}deg)`;sfx('pop')}
 const PRANKS=[
   ()=>{const b=$('#bsod');b.hidden=false;b.innerHTML='<div><h2>:(</h2><p>¡Has roto el casino! El botón rojo no se pulsa…</p><p class="num" id="bsP">Arreglando las máquinas… 0 %</p><p class="num" style="opacity:.75">Es una broma del juego: no le pasa nada a tu móvil</p></div>';
@@ -12161,7 +12164,7 @@ function rbKill(d){if(!d||!d.isConnected)return;d.classList.add('rbxout');setTim
 function rbCv(d){const c=document.createElement('canvas'),r=Math.min(LOWEND?1:1.5,devicePixelRatio||1),W=innerWidth,H=innerHeight;c.width=Math.round(W*r);c.height=Math.round(H*r);c.className='rbcv';d.appendChild(c);const g=c.getContext('2d');g.scale(r,r);g.W=W;g.H=H;return g}
 function rbRun(ms,fn,done){const t0=performance.now();const st=t=>{const e=Math.max(0,t-t0);if(e>=ms){try{done&&done()}catch(_){}return}try{fn(e/1000,e/ms)}catch(err){try{done&&done()}catch(_){}return}requestAnimationFrame(st)};requestAnimationFrame(st)}
 const rbN=n=>Math.max(1,Math.ceil(n*(cfg('lite')?.35:LOWEND?.6:1)));
-function rbPay(k,t,s,col){const r=niceN(k*Math.max(1,S.lvl)*4+(typeof wR==='function'?wR():0)*.002*k/250);give(r);xp(10);save();sfx('big');confetti(120);troll(t,(s?s+' ':'')+'+'+short(r)+' €',col||'#14e08a',true);return r}
+function rbPay(k,t,s,col){const r=niceN(k*Math.max(1,S.lvl)*4+(typeof wR==='function'?wR():0)*.0033*k/250);give(r);xp(10);save();sfx('big');confetti(120);troll(t,(s?s+' ':'')+'+'+short(r)+' €',col||'#14e08a',true);return r}
 function rbNoise(d,v,hp){if(S.muted)return;const a=ac();if(!a)return;try{const len=Math.floor(a.sampleRate*d),b=a.createBuffer(1,len,a.sampleRate),x=b.getChannelData(0);for(let i=0;i<len;i++)x[i]=(Math.random()*2-1)*Math.pow(1-i/len,2);
   const s=a.createBufferSource(),g=a.createGain(),f=a.createBiquadFilter();f.type=hp?'highpass':'lowpass';f.frequency.value=hp||600;s.buffer=b;g.gain.value=(v||.1)*cfg('vol');s.connect(f).connect(g).connect(a.destination);s.start()}catch(e){}}
 function rbShake(px,ms){try{$('.app').animate([{transform:'none'},{transform:`translate(${-px}px,${px*.6}px) rotate(-.6deg)`},{transform:`translate(${px*.9}px,${-px*.6}px) rotate(.6deg)`},{transform:`translate(${-px*.5}px,${px*.4}px)`},{transform:`translate(${px*.3}px,${-px*.2}px)`},{transform:'none'}],{duration:ms||500})}catch(e){}}
@@ -14041,10 +14044,10 @@ try{i18nAdd([['Que no se te escape nada','Don\'t miss a thing','Ne rate rien','N
 (()=>{try{const t0=TUTOS.find(x=>x[1]==='Primeros pasos')||TUTOS[0];if(t0&&!t0[4].some(x=>/número amarillo/.test(x[0])))t0[4].push(['Si ves un <b>número amarillo</b> en el menú o en una pestaña, ahí tienes algo por recoger. La tarjeta que está lista <b>brilla en amarillo</b>.'])}catch(e){}})();
 /* ===== botón rojo: cada sorpresa deja un premio bueno (según tu dinero); si la sorpresa ya pagó bien, no se añade nada ===== */
 var RB_TRICK_UNTIL=window.RB_TRICK_UNTIL||0;
-function rbTarget(){return niceN(Math.max(5000,220*Math.max(1,S.lvl)*4+(typeof wR==='function'?wR():0)*.0018))}
+function rbTarget(){return niceN(Math.max(5000,220*Math.max(1,S.lvl)*4+(typeof wR==='function'?wR():0)*.003))}
 function rbPress(i){const e0=+S.earned||0,adm=(typeof admPrank!=='undefined'&&admPrank)||Date.now()<RB_ADM_UNTIL;try{PRANKS[i]()}catch(e){}
   if(adm)return;setTimeout(()=>{try{if(Date.now()<RB_ADM_UNTIL||Date.now()<(window.RB_TRICK_UNTIL||0))return;const got=(+S.earned||0)-e0,t=rbTarget();
-    if(got<t*.6){const add=niceN(t-Math.max(0,got));give(add);save();sfx('coin');toast('🔴 Premio del botón rojo','+'+short(add)+' € por atreverte a pulsarlo','#ff3b4f','🔴')}}catch(e){}},9500)}
+    if(got<t*.8){const add=niceN(t-Math.max(0,got));give(add);save();sfx('coin');toast('🔴 Premio del botón rojo','+'+short(add)+' € por atreverte a pulsarlo','#ff3b4f','🔴')}}catch(e){}},9500)}
 /* truco o trato: su propia firma (no es cosa del jefe) */
 {const _rbPayT=rbPay;rbPay=function(k,t,s,col){if(Date.now()<(window.RB_TRICK_UNTIL||0)){sfx('win');confetti(80);troll(t,'¡truco de Halloween! 🎃',col||'#ff7a00',true);return 0}return _rbPayT.apply(this,arguments)}}
 /* el regalo de los eventos automáticos es «Regalo sorpresa»; solo dice «del jefe» si lo lanza el jefe */
@@ -14511,10 +14514,10 @@ function admLgHTML(){const w=WK(),all=[...NET.players.entries()].map(([id,p])=>(
   return`<h3>🏆 Ligas · esta semana</h3><p class="netmsg">Termina en ${esc(leftTxt(wkEnd()))}. Suben los ${up} primeros${dn?' y bajan los '+dn+' últimos':''}.</p><div class="lgtabs">${tabs}</div>
    <div class="lglist">${play.length?play.map((p,i)=>`<button type="button" class="lgr${i<up?' up':i>=play.length-dn?' dn':''}" data-sel="${esc(p.id)}"><b>${i+1}º</b><span>${esc(p.name||'?')} <small>${esc(p.code||'')}</small></span><em>${fmt(p.v)} pts</em></button>`).join(''):'<p class="muted">Nadie ha puntuado esta semana en esta liga.</p>'}</div>
    ${idle.length?`<details class="lgidle"><summary>Están en esta liga pero no han jugado esta semana · ${idle.length}</summary>${idle.slice(0,200).map(p=>`<button type="button" class="dvp" data-sel="${esc(p.id)}">${esc(p.name||'?')}<small>${esc(p.code||'')}</small></button>`).join('')}</details>`:''}`}
-function admLgMount(){try{if(view!=='admin'||!ADM.on)return;const host=$('#v-admin');let b=$('#admLg');if(!b){const g=$('#admGlobal');(g||host).insertAdjacentHTML(g?'afterend':'beforeend','<div class="panel admlg" id="admLg"></div>');b=$('#admLg')}
-  if(b.contains(document.activeElement)||(b.querySelector('details[open]')&&b._h))return;const h=admLgHTML();if(b._h!==h){b._h=h;b.innerHTML=h}}catch(e){}}
+function admLgMount(f){try{if(view!=='admin'||!ADM.on)return;const host=$('#v-admin');let b=$('#admLg');if(!b){const g=$('#admGlobal');(g||host).insertAdjacentHTML(g?'afterend':'beforeend','<div class="panel admlg" id="admLg"></div>');b=$('#admLg')}
+  if(!f&&(b.contains(document.activeElement)||(b.querySelector('details[open]')&&b._h)))return;const h=admLgHTML();if(b._h!==h){b._h=h;b.innerHTML=h}}catch(e){}}
 setInterval(admLgMount,5000);
-document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-lgt]');if(t){ADM.lgTab=+t.dataset.lgt;const b=$('#admLg');if(b){b._h='';b.querySelectorAll('details[open]').forEach(d=>d.open=false);admLgMount()}return}
+document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-lgt]');if(t){ADM.lgTab=+t.dataset.lgt;const b=$('#admLg');if(b){b._h='';admLgMount(1)}return}
   const r=e.target.closest&&e.target.closest('#admLg [data-sel]');if(r){ADM.sel=r.dataset.sel;ADM.confirm=null;renderAdmSide();try{$('#admSide').scrollIntoView({behavior:'smooth',block:'start'})}catch(_){}}});
 document.addEventListener('click',async e=>{const b=e.target.closest&&e.target.closest('[data-dvdel]');if(!b||!ADM.on||(typeof aCan==='function'&&!aCan('cuentas')))return;const dv=b.dataset.dvdel,keep=ADM.sel;
   const L=[...NET.players.entries()].filter(([id,q])=>id!==keep&&id!==NET.id&&q&&q.dv===dv).map(([id])=>id);if(!L.length)return;
@@ -14689,6 +14692,15 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
 try{if(typeof HQ!=='undefined'&&!HQ.some(x=>x[0]==='lgHome'))HQ.unshift(['lgHome','🏅','Liga'])}catch(e){}
 try{i18nAdd([['Habla con el jefe y encuentra a todos','Talk to the boss and find everyone','Parle au boss et trouve tout le monde','Fala com o chefe e encontra toda a gente'],['Conversaciones con el jefe','Chats with the boss','Discussions avec le boss','Conversas com o chefe'],['Cuando el jefe te contesta en el buzón, ahora puedes seguir hablando con él como en un chat, y mandarle fotos o capturas. Escribe en tu idioma: el jefe lo entiende.','When the boss answers you in the mailbox, you can now keep talking like in a chat and send photos or screenshots. Write in your own language: the boss understands it.','Quand le boss te répond dans la boîte, tu peux maintenant continuer à discuter comme dans un chat et envoyer des photos ou des captures. Écris dans ta langue : le boss comprend.','Quando o chefe te responde na caixa, agora podes continuar a falar como num chat e enviar fotos ou capturas. Escreve na tua língua: o chefe entende.'],['Busca por el nombre antiguo','Search by old name','Cherche par l\'ancien nom','Procura pelo nome antigo'],['Si alguien se cambia el nombre, lo encuentras igual buscando cómo se llamaba antes: en la clasificación, el chat, la Bolsa y el buscador de arriba (que ahora también busca jugadores). Si borras tu historial de nombres, ya no sale.','If someone changes their name, you can still find them by their old one: in the leaderboard, chat, Stock Market and the top search (which now finds players too). If you clear your name history, it no longer shows.','Si quelqu\'un change de nom, tu le trouves quand même avec son ancien nom : classement, chat, Bourse et recherche du haut (qui trouve aussi les joueurs). Si tu effaces ton historique de noms, il n\'apparaît plus.','Se alguém muda de nome, encontras na mesma pelo nome antigo: classificação, chat, Bolsa e a pesquisa de cima (que agora também encontra jogadores). Se apagares o teu histórico de nomes, já não aparece.'],['Buscador en la Bolsa','Stock Market search','Recherche dans la Bourse','Pesquisa na Bolsa'],['Encuentra al jugador que quieres comprar sin bajar toda la lista.','Find the player you want to buy without scrolling the whole list.','Trouve le joueur que tu veux acheter sans parcourir toute la liste.','Encontra o jogador que queres comprar sem descer a lista toda.'],['Cancelar solicitudes de amistad','Cancel friend requests','Annuler les demandes d\'ami','Cancelar pedidos de amizade'],['Si mandas una sin querer, ahora la puedes cancelar en Amigos o pulsando «Pendiente» en la clasificación.','If you send one by mistake, you can now cancel it in Friends or by tapping «Pending» in the leaderboard.','Si tu en envoies une par erreur, tu peux l\'annuler dans Amis ou en touchant « En attente » dans le classement.','Se enviares um sem querer, agora podes cancelá-lo em Amigos ou tocando em «Pendente» na classificação.'],['Borrar mensajes del chat, más fácil','Deleting chat messages, easier','Supprimer des messages, plus facile','Apagar mensagens do chat, mais fácil'],['Tus mensajes llevan una papelera al lado: tócala para borrarlos.','Your messages have a bin next to them: tap it to delete them.','Tes messages ont une corbeille à côté : touche-la pour les supprimer.','As tuas mensagens têm um caixote ao lado: toca nele para as apagar.'],['Minijuegos más a mano','Minigames easier to reach','Mini-jeux plus accessibles','Minijogos mais à mão'],['En el móvil salen en tarjetas más pequeñas, de dos en dos, como en el Casino.','On mobile they show as smaller cards, two per row, like in the Casino.','Sur mobile, ils s\'affichent en cartes plus petites, deux par ligne, comme au Casino.','No telemóvel aparecem em cartões mais pequenos, dois por linha, como no Casino.'],['La liga, bien a la vista','The league, easy to see','La ligue, bien visible','A liga, bem à vista'],['La tarjeta de tu liga en Inicio es más grande, explica qué es y cuántos puntos te faltan. La barra de accesos rápidos de Hoy también se ve más.','Your league card on Home is bigger, explains what it is and how many points you need. The Today shortcuts bar is also more visible.','La carte de ta ligue sur l\'Accueil est plus grande, explique ce que c\'est et combien de points il te manque. La barre de raccourcis d\'Aujourd\'hui se voit aussi mieux.','O cartão da tua liga no Início é maior, explica o que é e quantos pontos te faltam. A barra de atalhos de Hoje também se vê melhor.']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Puedo hablar con el jefe?'))FAQ.unshift(['¿Puedo hablar con el jefe?','Sí. Escríbele en Ayuda › Buzón del jefe. Cuando te conteste, pulsa «Contestar al jefe» y podréis hablar como en un chat, con fotos. Escribe en tu idioma.'])}catch(e){}
+/* ===== 2026-10-27: al elegir o cambiar de ruleta, las listas se ponen al día al momento ===== */
+{const _dwN=drawWheel;drawWheel=function(){const r=_dwN.apply(this,arguments);try{clearTimeout(window.__wlT);window.__wlT=setTimeout(()=>{try{wListMount();wSwitchDraw()}catch(_){}},0)}catch(e){}return r}}
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('[data-wpick]'))setTimeout(()=>{try{wListMount();wSwitchDraw()}catch(_){}},30)});
+/* ===== perfil: «Solicitud enviada» ahora se puede cancelar ===== */
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.ppcancel');if(!b)return;e.stopPropagation();cancelReq(b.dataset.ppcancel);b.outerHTML='<button class="btn alt sm" data-pp="req">+ Amigo</button>'},true);
+setInterval(()=>{try{document.querySelectorAll('#mbox button[disabled]').forEach(b=>{if(b.textContent.trim()!=='Solicitud enviada'||b.classList.contains('ppcancel'))return;const host=b.closest('[data-pid]')||document.querySelector('#mbox [data-pp]');const id=window.__ppId||(host&&host.dataset&&host.dataset.pid);if(!id)return;
+  b.disabled=false;b.classList.add('ppcancel');b.dataset.ppcancel=id;b.textContent='✕ Cancelar solicitud';b.title='Cancelar la solicitud de amistad'})}catch(e){}},400);
+{const _opC=openPlayer;openPlayer=function(id){window.__ppId=id;return _opC.apply(this,arguments)}}
+
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
