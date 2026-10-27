@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-1657">
+<meta name="app-version" content="2026-10-27-1701">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -12182,7 +12182,7 @@ function rbKill(d){if(!d||!d.isConnected)return;d.classList.add('rbxout');setTim
 function rbCv(d){const c=document.createElement('canvas'),r=Math.min(LOWEND?1:1.5,devicePixelRatio||1),W=innerWidth,H=innerHeight;c.width=Math.round(W*r);c.height=Math.round(H*r);c.className='rbcv';d.appendChild(c);const g=c.getContext('2d');g.scale(r,r);g.W=W;g.H=H;return g}
 function rbRun(ms,fn,done){const t0=performance.now();const st=t=>{const e=Math.max(0,t-t0);if(e>=ms){try{done&&done()}catch(_){}return}try{fn(e/1000,e/ms)}catch(err){try{done&&done()}catch(_){}return}requestAnimationFrame(st)};requestAnimationFrame(st)}
 const rbN=n=>Math.max(1,Math.ceil(n*(cfg('lite')?.35:LOWEND?.6:1)));
-function rbPay(k,t,s,col){const r=niceN(k*Math.max(1,S.lvl)*4+(typeof wR==='function'?wR():0)*.0033*k/250);give(r);xp(10);save();sfx('big');confetti(120);troll(t,(s?s+' ':'')+'+'+short(r)+' €',col||'#14e08a',true);return r}
+function rbPay(k,t,s,col){const r=niceN(Math.max(20000*k/250,k*Math.max(1,S.lvl)*40)+(typeof wR==='function'?wR():0)*.0033*k/250);give(r);xp(10);save();sfx('big');confetti(120);troll(t,(s?s+' ':'')+'+'+short(r)+' €',col||'#14e08a',true);return r}
 function rbNoise(d,v,hp){if(S.muted)return;const a=ac();if(!a)return;try{const len=Math.floor(a.sampleRate*d),b=a.createBuffer(1,len,a.sampleRate),x=b.getChannelData(0);for(let i=0;i<len;i++)x[i]=(Math.random()*2-1)*Math.pow(1-i/len,2);
   const s=a.createBufferSource(),g=a.createGain(),f=a.createBiquadFilter();f.type=hp?'highpass':'lowpass';f.frequency.value=hp||600;s.buffer=b;g.gain.value=(v||.1)*cfg('vol');s.connect(f).connect(g).connect(a.destination);s.start()}catch(e){}}
 function rbShake(px,ms){try{$('.app').animate([{transform:'none'},{transform:`translate(${-px}px,${px*.6}px) rotate(-.6deg)`},{transform:`translate(${px*.9}px,${-px*.6}px) rotate(.6deg)`},{transform:`translate(${-px*.5}px,${px*.4}px)`},{transform:`translate(${px*.3}px,${-px*.2}px)`},{transform:'none'}],{duration:ms||500})}catch(e){}}
@@ -14062,7 +14062,7 @@ try{i18nAdd([['Que no se te escape nada','Don\'t miss a thing','Ne rate rien','N
 (()=>{try{const t0=TUTOS.find(x=>x[1]==='Primeros pasos')||TUTOS[0];if(t0&&!t0[4].some(x=>/número amarillo/.test(x[0])))t0[4].push(['Si ves un <b>número amarillo</b> en el menú o en una pestaña, ahí tienes algo por recoger. La tarjeta que está lista <b>brilla en amarillo</b>.'])}catch(e){}})();
 /* ===== botón rojo: cada sorpresa deja un premio bueno (según tu dinero); si la sorpresa ya pagó bien, no se añade nada ===== */
 var RB_TRICK_UNTIL=window.RB_TRICK_UNTIL||0;
-function rbTarget(){return niceN(Math.max(5000,220*Math.max(1,S.lvl)*4+(typeof wR==='function'?wR():0)*.003))}
+function rbTarget(){return niceN(Math.max(20000,220*Math.max(1,S.lvl)*40)+(typeof wR==='function'?wR():0)*.003)}
 function rbPress(i){const e0=+S.earned||0,adm=(typeof admPrank!=='undefined'&&admPrank)||Date.now()<RB_ADM_UNTIL;try{PRANKS[i]()}catch(e){}
   if(adm)return;setTimeout(()=>{try{if(Date.now()<RB_ADM_UNTIL||Date.now()<(window.RB_TRICK_UNTIL||0))return;const got=(+S.earned||0)-e0,t=rbTarget();
     if(got<t*.8){const add=niceN(t-Math.max(0,got));give(add);save();sfx('coin');toast('🔴 Premio del botón rojo','+'+short(add)+' € por atreverte a pulsarlo','#ff3b4f','🔴')}}catch(e){}},9500)}
@@ -14371,7 +14371,7 @@ function giftBlock(n,id){try{if(ADM.on&&!ADM.mod)return'';const p=NET.players.ge
     const n=Math.max(0,Math.floor(+c.n||0));
     if(false){S.cmdDone.push(id);try{NET.db.collection('cmds/'+NET.id+'/q').doc(id).delete().catch(()=>{})}catch(e){}
       if(n>0)back.push([c.from,n,p.name||'alguien']);return}
-    S.gIn=Array.isArray(S.gIn)?S.gIn:[];S.gIn.push([Date.now(),n,c.from]);ok.push(x)});
+    S.gIn=Array.isArray(S.gIn)?S.gIn:[];if((+p.lvl||1)<GIFT_LVL||!giftAgeOk(p)||(p.dv&&p.dv===DEV_ID))S.gIn.push([Date.now(),n,c.from]);ok.push(x)});
   back.forEach(([to,n,nm])=>{try{NET.db.collection('cmds/'+to+'/q').add({type:'troll',from:NET.id,text:'Tu regalo no llegó (cuenta nueva)',t:Date.now()}).catch(()=>{})}catch(e){}
     try{alog('g','↩️ Se rechazó un regalo de '+nm+' de '+short(n)+' € (cuenta nueva o de nivel bajo)')}catch(e){}});
   if(back.length)try{save()}catch(e){}
@@ -14721,6 +14721,9 @@ setInterval(()=>{try{document.querySelectorAll('#mbox button[disabled]').forEach
 
 try{i18nAdd([['Botón rojo cada minuto','Red button every minute','Bouton rouge chaque minute','Botão vermelho a cada minuto'],['Botón rojo cada minuto','Red button every minute','Bouton rouge chaque minute','Botão vermelho a cada minuto'],['Se puede pulsar cada minuto y todas las sorpresas dan un premio mejor según tu dinero.','You can press it every minute and every surprise gives a better prize based on your money.','Tu peux l\'appuyer chaque minute et chaque surprise donne un meilleur prix selon ton argent.','Podes carregar a cada minuto e todas as surpresas dão um prémio melhor conforme o teu dinheiro.'],['Emojis en todos los ordenadores','Emojis on every computer','Emojis sur tous les ordinateurs','Emojis em todos os computadores'],['En algunos PC los emojis salían como cuadrados. Ahora se ven bien.','On some PCs emojis showed as squares. Now they show properly.','Sur certains PC, les emojis s\'affichaient en carrés. Maintenant ils s\'affichent bien.','Em alguns PC os emojis apareciam como quadrados. Agora veem-se bem.']])}catch(e){}
 try{i18nAdd([['Gran Premio de Cine cada 2 horas','Film Grand Prize every 2 hours','Grand Prix du Cinéma toutes les 2 heures','Grande Prémio de Cinema a cada 2 horas'],['Más cine','More cinema','Plus de cinéma','Mais cinema'],['El Gran Premio de Cine se puede girar cada 2 horas (antes cada 3).','The Film Grand Prize can be spun every 2 hours (it used to be 3).','Le Grand Prix du Cinéma peut être tourné toutes les 2 heures (avant, toutes les 3).','O Grande Prémio de Cinema pode girar-se a cada 2 horas (antes a cada 3).']])}catch(e){}
+/* 27 oct: los regalos de cuentas normales vuelven a contar para los premios (solo restan los de cuentas nuevas o del mismo dispositivo) */
+try{if(!S.gInFix){S.gInFix=1;S.gIn=[]}}catch(e){}
+
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
