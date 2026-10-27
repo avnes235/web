@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-1544">
+<meta name="app-version" content="2026-10-27-1555">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2734,11 +2734,33 @@ html{overflow-x:clip}
 .sprk .setop>div,.serk .setop>div{padding:10px 14px!important;align-items:center}
 .serk{padding:0 12px}
 #betInp{min-width:0;text-overflow:clip}
+.lnadm .btn{white-space:normal;text-align:center;line-height:1.2;max-width:100%}
 .lnadm{background:rgba(20,224,138,.06);border:2px solid rgba(20,224,138,.35);border-radius:12px;padding:10px 12px;margin:4px 0 8px}
 .dvsame{background:rgba(255,77,99,.08);border:2px solid rgba(255,77,99,.4);border-radius:12px;padding:8px 10px;margin:8px 0;font-size:14px}
 .dvsame .dvp{display:inline-flex;gap:4px;align-items:baseline;margin:3px 4px 0 0;padding:3px 8px;border-radius:8px;border:1px solid var(--line,#2a2f4a);background:rgba(255,255,255,.04);color:inherit;font:inherit;font-weight:700;cursor:pointer}
 .dvsame .dvp small{opacity:.7;font-size:11px}
+.dvsame .dvact{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
 .jkrow{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:10px}
+body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
+.aperm{margin:-2px 0 10px;padding:8px 10px;border:2px dashed var(--line);border-radius:10px;display:grid;gap:8px}
+.aperm .apre,.aperm .apchips{display:flex;flex-wrap:wrap;gap:6px}
+.apc{padding:5px 10px;border-radius:999px;border:2px solid var(--line);background:transparent;color:var(--muted);font:800 12px var(--f-b);cursor:pointer}
+.apc.on{border-color:var(--mint);color:var(--fg);background:rgba(20,224,138,.14)}
+.admquiet{display:flex;gap:10px;align-items:center;margin:8px 0;padding:8px 12px;border:2px solid var(--line);border-radius:12px;cursor:pointer}
+.admquiet input{width:22px;height:22px;flex:none;accent-color:#9a6bff}
+.admquiet b{display:block}.admquiet small{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+.admquiet.on{border-color:#9a6bff;background:rgba(154,107,255,.12)}
+.lninfo{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;margin:0 0 8px}
+.admlg .lgtabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.admlg .lgtabs button{padding:6px 12px;border-radius:999px;border:2px solid var(--lc);background:transparent;color:var(--fg);font:800 13px var(--f-b);cursor:pointer}
+.admlg .lgtabs button.on{background:var(--lc);color:#111}
+.admlg .lgtabs b{margin-left:4px}
+.admlg .lglist{display:grid;gap:4px;max-height:420px;overflow:auto}
+.admlg .lgr{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:inherit;font:inherit;text-align:left;cursor:pointer}
+.admlg .lgr span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.admlg .lgr small{opacity:.6;font-size:11px}
+.admlg .lgr.up{border-color:rgba(20,224,138,.6)}.admlg .lgr.dn{border-color:rgba(255,77,99,.6)}
+.admlg .lgr em{font-style:normal;font-weight:800}
+.admlg .lgidle{margin-top:8px}.admlg .lgidle summary{cursor:pointer;font-weight:800}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6287,7 +6309,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
- {v:'2026-10-27-a',t:'Regalos justos y arreglos',items:[['🎁','Regalos justos','Para regalar dinero hace falta nivel 5 y que tu cuenta tenga 3 días. Lo que te regalan no se puede volver a regalar hasta pasados 3 días ni cuenta para los premios que dependen de tu dinero. Así nadie se fabrica cuentas para inflarse.','fix','#14e08a'],['👥','Sin cuentas repetidas','Si abres tu partida sin haber iniciado sesión (por ejemplo, después de borrar las cookies), el juego te pide entrar con tu cuenta en vez de crear otra igual. Así no se pierden regalos.','fix','#4aa8ff'],['🔐','Caja fuerte vacía de verdad','Al sacar todo, ya no se queda nada dentro por los intereses que van sumando.','fix','#ffd600'],['🧭','Accesos rápidos siempre a la vista','La barra de Evento, Botón rojo, Caja fuerte… de Inicio › Hoy ya no desaparece un momento al cambiar de pestaña.','fix','#ff9d00']]},
+ {v:'2026-10-27-a',t:'Regalos justos y arreglos',items:[['🎁','Regalos justos','Puedes regalar lo que quieras, pero no el dinero que te ha prestado el banco ni a otra cuenta tuya del mismo dispositivo. Y lo que te regalan no cuenta durante 3 días para los premios que dependen de tu dinero. Así nadie se fabrica cuentas para inflarse.','fix','#14e08a'],['👥','Sin cuentas repetidas','Si abres tu partida sin haber iniciado sesión (por ejemplo, después de borrar las cookies), el juego te pide entrar con tu cuenta en vez de crear otra igual. Así no se pierden regalos.','fix','#4aa8ff'],['🔐','Caja fuerte vacía de verdad','Al sacar todo, ya no se queda nada dentro por los intereses que van sumando.','fix','#ffd600'],['🧭','Accesos rápidos siempre a la vista','La barra de Evento, Botón rojo, Caja fuerte… de Inicio › Hoy ya no desaparece un momento al cambiar de pestaña.','fix','#ff9d00']]},
  {v:'2026-10-23-c',t:'Guías de cada juego',items:[['📚','Guías completas','En la web hay ahora una guía de cada juego: cómo se juega, la tabla de pagos y las probabilidades de verdad. Las tienes abajo del todo en Inicio y en Ayuda, en «📚 Guías de cada juego».','new','#4aa8ff'],['🎲','Probabilidades a la vista','Una página nueva explica cuánto devuelve de media cada juego del casino, para que sepas a qué juegas.','new','#14e08a']]},
  {v:'2026-10-23-b',t:'Casino más justo',items:[['🎰','Tragaperras','Dos símbolos iguales pagan ahora x1,35 (antes x1,5). Tres iguales siguen pagando hasta x60.','fix','#ff2e88'],['🎟️','Rasca y gana','Los premios salen menos a menudo. Con todos los premios juntos daba más dinero del que se apostaba y eso rompía la clasificación. Ahora es como el resto del casino: a la larga, la casa gana un poco.','fix','#ffc23d']]},
  {v:'2026-10-23-a',t:'Títulos de riqueza ordenados',items:[['💎','Cada título con su cifra','Los títulos de riqueza ya van igual que el dinero del juego: Millonario (1 mill.), Billonario (1 bill.), Trillonario (1 trill.), Megatrillonario (100 trill.), Cuatrillonario (1 cuatrill.) y Quintillonario (1 quintill.).','fix','#ffd600']]},
@@ -11643,7 +11665,7 @@ setInterval(bossBtnVis,2000);bossBtnVis();
 async function admRole(){try{if(!NET.db||!NET.id)return;const d=await NET.db.collection('admins').doc(NET.id).get();if(!d.exists)return;const r=(d.data()||{}).role||'jefe';ADM.role=r;ADM.mod=r==='mod';document.body.classList.toggle('admmod',ADM.mod);bossBtnVis()}catch(e){}}
 setTimeout(admRole,4000);setInterval(()=>{if(ADM.on&&!ADM.role)admRole()},10000);
 /* moderadores: solo dinero (dar o quitar), bromas y mensaje */
-{const _rsM=renderAdmSide;renderAdmSide=function(){const r=_rsM.apply(this,arguments);try{if(!ADM.mod)return r;const el=$('#admSide');if(!el)return r;
+{const _rsM=renderAdmSide;renderAdmSide=function(){const r=_rsM.apply(this,arguments);try{if(!ADM.mod||ADM.perms)return r;const el=$('#admSide');if(!el)return r;
   const pane=el.querySelector('.pa-pane');[...el.children].forEach(c=>{if(!(c.classList.contains('who')||c.classList.contains('kv')||c.classList.contains('modnote')||c===pane))c.remove()});
   const box=pane||el;if(pane){pane.hidden=false;pane.style.display=''}const keep=new Set();[...box.children].forEach(c=>{if(c.classList.contains('alab')&&/^(Dinero|Bromas|Mensaje en grande)$/i.test(c.textContent.trim())){keep.add(c);let n=c.nextElementSibling;while(n&&!n.classList.contains('alab')){if(n.classList.contains('amt')||n.classList.contains('abtns'))keep.add(n);n=n.nextElementSibling}}});
   if(pane)[...box.children].forEach(c=>{if(!keep.has(c))c.remove()});el.querySelectorAll('[data-a]').forEach(b=>{if(!['give','take','msg','bsod','flip','fake'].includes(b.dataset.a))b.remove()});
@@ -11658,7 +11680,7 @@ function admBox(){if(!ADM.on||ADM.mod||view!=='admin')return;let box=$('#admMgr'
    ${ADML===null?'<p class="netmsg">Cargando…</p>':ADML==='err'?'<p class="warn">No se puede leer la lista. ¿Has pegado las reglas nuevas de Firebase?</p>':`<div class="admml">${ADML.map(a=>`<div class="admmr"><span>${nm(a.id)}${a.id===NET.id?' (tú)':''}</span><span class="tag">${(a.role||'jefe')==='mod'?'Moderador':'Jefe'}</span>${a.id===NET.id?'':`<button class="btn sm alt" data-admrole="${esc(a.id)}">${(a.role||'jefe')==='mod'?'Hacer jefe':'Hacer moderador'}</button><button class="btn sm red" data-admdel="${esc(a.id)}">Quitar</button>`}</div>`).join('')}</div>`}`}
 document.addEventListener('click',async e=>{if(e.target.closest('#admIdCp')){try{navigator.clipboard.writeText(NET.id)}catch(_){}toast('ID copiado','','var(--sky)','📋');return}
   const r=e.target.closest('[data-admrole]'),d=e.target.closest('[data-admdel]'),mk=e.target.closest('#admMkMod');if(!r&&!d&&!mk)return;
-  try{if(mk){if(!ADM.sel)return;await NET.db.collection('admins').doc(ADM.sel).set({role:'mod',t:Date.now(),by:NET.id});toast('Moderador añadido',(NET.players.get(ADM.sel)||{}).name||'','var(--mint)','🛡️')}
+  try{if(mk){if(!ADM.sel)return;await NET.db.collection('admins').doc(ADM.sel).set({role:'mod',perms:[],t:Date.now(),by:NET.id});toast('Moderador añadido',(NET.players.get(ADM.sel)||{}).name||'','var(--mint)','🛡️')}
     if(r){const a=(ADML||[]).find(x=>x.id===r.dataset.admrole);await NET.db.collection('admins').doc(r.dataset.admrole).set({role:(a&&(a.role||'jefe')==='mod')?'jefe':'mod'},{merge:true});toast('Rol cambiado','','var(--sun)','🛡️')}
     if(d){if(!confirm2(d))return;await NET.db.collection('admins').doc(d.dataset.admdel).delete();toast('Admin quitado','','var(--coral)','🛡️')}
     admLoad()}catch(err){toast('No se ha podido','Solo el dueño puede cambiar los admins (y hacen falta las reglas nuevas)','var(--coral)','⚠️')}});
@@ -14236,20 +14258,18 @@ document.addEventListener('click',async e=>{const b=e.target.closest&&e.target.c
 /* ===== 2026-10-27: regalos sin trampas (cuentas falsas que se pasan el dinero) ===== */
 const GIFT_LVL=5,GIFT_AGE=3*864e5;
 const giftAgeOk=p=>!!p&&(Date.now()-(+p.since||Date.now()))>=GIFT_AGE;
-/* lo que se puede regalar: tu cartera menos lo que te han regalado en los últimos 3 días */
-function giftMax(){return Math.max(0,Math.floor(+S.coins||0)-gInRecent())}
+/* lo que se puede regalar: tu cartera menos lo que debes al banco (el dinero prestado no se regala) */
+function giftMax(){return Math.max(0,Math.floor(+S.coins||0)-loanOwe())}
 function giftBlock(n,id){try{if(ADM.on&&!ADM.mod)return'';const p=NET.players.get(id)||{};
   if(p.dv&&p.dv===DEV_ID)return'Esa cuenta se ha usado en este mismo dispositivo: no se puede regalar dinero entre cuentas propias.';
-  if((S.lvl||1)<GIFT_LVL)return'Para regalar dinero necesitas llegar al nivel '+GIFT_LVL+'.';
-  if(Date.now()-(+S.since||Date.now())<GIFT_AGE){const d=Math.max(1,Math.ceil((GIFT_AGE-(Date.now()-(+S.since||Date.now())))/864e5));return'Podrás regalar dinero cuando tu cuenta tenga 3 días (te falta'+(d===1?' 1 día':'n '+d+' días')+').'}
-  const mx=giftMax();if(n>mx)return gInRecent()>0?'El dinero que te han regalado en los últimos 3 días no se puede volver a regalar. Ahora puedes regalar como mucho '+fmt(mx)+' €.':'No tienes tanto dinero.';
+  const mx=giftMax();if(n>mx)return loanOwe()>0?'Debes '+fmt(loanOwe())+' € al banco: el dinero prestado no se puede regalar. Ahora puedes regalar como mucho '+fmt(mx)+' €.':'No tienes tanto dinero.';
   return''}catch(e){return''}}
 /* el que recibe: apunta lo regalado y devuelve los regalos de cuentas recién creadas o de nivel bajo */
 {const _agG=applyGifts;applyGifts=function(list){try{const ok=[];S.cmdDone=S.cmdDone||[];const back=[];
   list.forEach(x=>{const[id,c]=x;if(!c||c.ref||S.cmdDone.includes(id)){ok.push(x);return}const p=NET.players.get(c.from);
     if(!p)return; /* aún no se ha cargado quién lo manda: se mira en el siguiente aviso */
     const n=Math.max(0,Math.floor(+c.n||0));
-    if((+p.lvl||1)<GIFT_LVL||!giftAgeOk(p)){S.cmdDone.push(id);try{NET.db.collection('cmds/'+NET.id+'/q').doc(id).delete().catch(()=>{})}catch(e){}
+    if(false){S.cmdDone.push(id);try{NET.db.collection('cmds/'+NET.id+'/q').doc(id).delete().catch(()=>{})}catch(e){}
       if(n>0)back.push([c.from,n,p.name||'alguien']);return}
     S.gIn=Array.isArray(S.gIn)?S.gIn:[];S.gIn.push([Date.now(),n,c.from]);ok.push(x)});
   back.forEach(([to,n,nm])=>{try{NET.db.collection('cmds/'+to+'/q').add({type:'troll',from:NET.id,text:'Tu regalo no llegó (cuenta nueva)',t:Date.now()}).catch(()=>{})}catch(e){}
@@ -14258,8 +14278,8 @@ function giftBlock(n,id){try{if(ADM.on&&!ADM.mod)return'';const p=NET.players.ge
   if(ok.length)return _agG(ok)}catch(e){return _agG(list)}}}
 /* el regalo devuelto: al que lo mandó no se le devuelve nada si venía de una cuenta trucada; si era legal, su propio juego no le habría dejado enviarlo */
 /* en la ventana de regalar se ve cuánto puedes regalar */
-document.addEventListener('focusin',e=>{if(!e.target||e.target.id!=='gfAmt')return;try{const r=gInRecent(),box=e.target.closest('.form');if(!box||box.querySelector('.gfmax'))return;
-  box.insertAdjacentHTML('afterbegin',`<p class="netmsg gfmax" style="margin:0 0 6px">${r>0?'Puedes regalar hasta <b>'+fmt(giftMax())+' €</b>: lo que te han regalado en los últimos 3 días no se puede volver a regalar.':'Para regalar hace falta nivel '+GIFT_LVL+' y una cuenta de al menos 3 días.'}</p>`)}catch(_){}});
+document.addEventListener('focusin',e=>{if(!e.target||e.target.id!=='gfAmt')return;try{const box=e.target.closest('.form');if(!box||box.querySelector('.gfmax'))return;
+  box.insertAdjacentHTML('afterbegin',`<p class="netmsg gfmax" style="margin:0 0 6px">${loanOwe()>0?'Debes '+fmt(loanOwe())+' € al banco: puedes regalar hasta <b>'+fmt(giftMax())+' €</b> (el dinero prestado no se regala).':'Puedes regalar lo que quieras de tu cartera.'}</p>`)}catch(_){}});
 /* «Todo» en la ventana de regalar = lo que puedes regalar */
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-gq="all"]');if(!b)return;setTimeout(()=>{const i=$('#gfAmt');if(i)i.value=giftMax()},0)},true);
 
@@ -14277,7 +14297,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest&&e.target.c
 /* en la ficha del jugador: otras cuentas usadas en su mismo dispositivo */
 {const _rsDv=renderAdmSide;renderAdmSide=function(){const r=_rsDv.apply(this,arguments);try{if(ADM.mod)return r;const p=ADM.sel&&NET.players.get(ADM.sel),el=$('#admSide');if(!p||!el||!p.dv||el.querySelector('.dvsame'))return r;
   const same=[...NET.players.entries()].filter(([id,q])=>id!==ADM.sel&&q&&q.dv===p.dv);if(!same.length)return r;
-  const kv=el.querySelector('.kv');if(kv)kv.insertAdjacentHTML('afterend',`<div class="dvsame"><b>📱 Mismo dispositivo que ${same.length===1?'otra cuenta':same.length+' cuentas'}:</b> ${same.slice(0,30).map(([id,q])=>`<button type="button" class="dvp" data-sel="${esc(id)}">${esc(q.name||'?')}<small>${esc(q.code||'')}</small></button>`).join('')}<small class="netmsg" style="display:block;margin:4px 0 0">Si alguien se crea cuentas para pasarse dinero, salen aquí juntas.</small></div>`)}catch(e){}return r}}
+  const kv=el.querySelector('.kv');if(kv)kv.insertAdjacentHTML('afterend',`<div class="dvsame"><b>📱 Mismo dispositivo que ${same.length===1?'otra cuenta':same.length+' cuentas'}:</b> ${same.slice(0,30).map(([id,q])=>`<button type="button" class="dvp" data-sel="${esc(id)}">${esc(q.name||'?')}<small>${esc(q.code||'')}</small></button>`).join('')}<div class="dvact"><button type="button" class="btn sm red" data-dvdel="${esc(p.dv)}">🗑️ Borrar estas ${same.length} cuentas</button><small class="netmsg">No borra la que tienes abierta («${esc(p.name||'')}»). Si también es falsa, bórrala aparte o déjala a cero.</small></div><small class="netmsg" style="display:block;margin:4px 0 0">Si alguien se crea cuentas para pasarse dinero, salen aquí juntas.</small></div>`)}catch(e){}return r}}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.dvsame [data-sel]');if(!b)return;ADM.sel=b.dataset.sel;ADM.confirm=null;try{sfx('click')}catch(_){}renderAdmSide()});
 /* ===== 2026-10-27: que no se dupliquen las cuentas (borrar cookies y volver a entrar sin iniciar sesión) ===== */
 /* la partida recuerda de qué cuenta es; si se abre sin sesión en otro sitio, no se publica otra vez con el mismo código */
@@ -14322,8 +14342,107 @@ function admKey(){let k=(ADM.q||'')+'|'+(ADM.sel||'')+'|'+(ADM.pend?ADM.pend.siz
 /* red de seguridad: si por un fallo se quedan todas las pantallas ocultas (solo se ve el fondo), se vuelve a mostrar la que toca */
 setInterval(()=>{try{if(view!=='admin'||(typeof running!=='undefined'&&running))return;const vs=[...document.querySelectorAll('section.view')];if(!vs.length||vs.some(x=>!x.hidden))return;
   const cur=document.getElementById('v-'+view);if(cur){cur.hidden=false;try{if(view==='admin')renderAdmin()}catch(e){}}else go('inicio')}catch(e){}},1500);
-try{i18nAdd([['Regalos justos y arreglos','Fair gifts and fixes','Cadeaux équitables et correctifs','Presentes justos e correções'],['Regalos justos','Fair gifts','Cadeaux équitables','Presentes justos'],['Para regalar dinero hace falta nivel 5 y que tu cuenta tenga 3 días. Lo que te regalan no se puede volver a regalar hasta pasados 3 días ni cuenta para los premios que dependen de tu dinero. Así nadie se fabrica cuentas para inflarse.','To gift money you need level 5 and an account at least 3 days old. Money you receive can\'t be gifted again for 3 days and doesn\'t count for rewards based on your money. That way nobody can make fake accounts to pump themselves up.','Pour offrir de l\'argent, il faut le niveau 5 et un compte d\'au moins 3 jours. L\'argent reçu ne peut pas être réoffert pendant 3 jours et ne compte pas pour les récompenses basées sur ton argent. Personne ne peut créer de faux comptes pour gonfler son argent.','Para oferecer dinheiro precisas de nível 5 e de uma conta com pelo menos 3 dias. O dinheiro que recebes não pode ser oferecido outra vez durante 3 dias nem conta para os prémios que dependem do teu dinheiro. Assim ninguém cria contas falsas para se encher.'],['Sin cuentas repetidas','No duplicate accounts','Plus de comptes en double','Sem contas repetidas'],['Si abres tu partida sin haber iniciado sesión (por ejemplo, después de borrar las cookies), el juego te pide entrar con tu cuenta en vez de crear otra igual. Así no se pierden regalos.','If you open your game without being signed in (for example after clearing cookies), it asks you to sign in to your account instead of creating an identical one. That way no gifts get lost.','Si tu ouvres ta partie sans être connecté (par exemple après avoir effacé les cookies), le jeu te demande de te connecter au lieu de créer un compte identique. Ainsi, aucun cadeau ne se perd.','Se abrires o teu jogo sem teres sessão iniciada (por exemplo, depois de apagares os cookies), o jogo pede-te para entrares na tua conta em vez de criar outra igual. Assim não se perdem presentes.'],['Caja fuerte vacía de verdad','Truly empty safe','Coffre vraiment vide','Cofre vazio a sério'],['Al sacar todo, ya no se queda nada dentro por los intereses que van sumando.','When you take everything out, nothing is left inside from the interest that keeps adding up.','Quand tu retires tout, il ne reste plus rien à cause des intérêts qui s\'ajoutent.','Quando tiras tudo, já não fica nada lá dentro por causa dos juros que vão somando.'],['Accesos rápidos siempre a la vista','Shortcuts always visible','Raccourcis toujours visibles','Atalhos sempre à vista'],['La barra de Evento, Botón rojo, Caja fuerte… de Inicio › Hoy ya no desaparece un momento al cambiar de pestaña.','The Event, Red button, Safe… bar in Home › Today no longer disappears for a moment when you switch tabs.','La barre Événement, Bouton rouge, Coffre… d\'Accueil › Aujourd\'hui ne disparaît plus un instant quand tu changes d\'onglet.','A barra de Evento, Botão vermelho, Cofre… de Início › Hoje já não desaparece um momento ao mudar de separador.']])}catch(e){}
-try{if(!FAQ.some(x=>x[0]==='¿Por qué no puedo regalar dinero?'))FAQ.unshift(['¿Por qué no puedo regalar dinero?','Para regalar dinero hace falta nivel 5 y que tu cuenta tenga al menos 3 días. Además, lo que te han regalado en los últimos 3 días no se puede volver a regalar. Es para que nadie se cree cuentas falsas para pasarse dinero.'])}catch(e){}
+try{i18nAdd([['Regalos justos y arreglos','Fair gifts and fixes','Cadeaux équitables et correctifs','Presentes justos e correções'],['Regalos justos','Fair gifts','Cadeaux équitables','Presentes justos'],['Puedes regalar lo que quieras, pero no el dinero que te ha prestado el banco ni a otra cuenta tuya del mismo dispositivo. Y lo que te regalan no cuenta durante 3 días para los premios que dependen de tu dinero. Así nadie se fabrica cuentas para inflarse.','You can gift whatever you want, but not money lent by the bank, and not to another account of yours on the same device. Money you receive doesn\'t count for 3 days towards rewards based on your money. That way nobody can make fake accounts to pump themselves up.','Tu peux offrir ce que tu veux, mais pas l\'argent prêté par la banque, ni à un autre de tes comptes sur le même appareil. L\'argent reçu ne compte pas pendant 3 jours pour les récompenses basées sur ton argent. Personne ne peut créer de faux comptes pour gonfler son argent.','Podes oferecer o que quiseres, mas não o dinheiro que o banco te emprestou, nem a outra conta tua no mesmo dispositivo. O dinheiro que recebes não conta durante 3 dias para os prémios que dependem do teu dinheiro. Assim ninguém cria contas falsas para se encher.'],['Sin cuentas repetidas','No duplicate accounts','Plus de comptes en double','Sem contas repetidas'],['Si abres tu partida sin haber iniciado sesión (por ejemplo, después de borrar las cookies), el juego te pide entrar con tu cuenta en vez de crear otra igual. Así no se pierden regalos.','If you open your game without being signed in (for example after clearing cookies), it asks you to sign in to your account instead of creating an identical one. That way no gifts get lost.','Si tu ouvres ta partie sans être connecté (par exemple après avoir effacé les cookies), le jeu te demande de te connecter au lieu de créer un compte identique. Ainsi, aucun cadeau ne se perd.','Se abrires o teu jogo sem teres sessão iniciada (por exemplo, depois de apagares os cookies), o jogo pede-te para entrares na tua conta em vez de criar outra igual. Assim não se perdem presentes.'],['Caja fuerte vacía de verdad','Truly empty safe','Coffre vraiment vide','Cofre vazio a sério'],['Al sacar todo, ya no se queda nada dentro por los intereses que van sumando.','When you take everything out, nothing is left inside from the interest that keeps adding up.','Quand tu retires tout, il ne reste plus rien à cause des intérêts qui s\'ajoutent.','Quando tiras tudo, já não fica nada lá dentro por causa dos juros que vão somando.'],['Accesos rápidos siempre a la vista','Shortcuts always visible','Raccourcis toujours visibles','Atalhos sempre à vista'],['La barra de Evento, Botón rojo, Caja fuerte… de Inicio › Hoy ya no desaparece un momento al cambiar de pestaña.','The Event, Red button, Safe… bar in Home › Today no longer disappears for a moment when you switch tabs.','La barre Événement, Bouton rouge, Coffre… d\'Accueil › Aujourd\'hui ne disparaît plus un instant quand tu changes d\'onglet.','A barra de Evento, Botão vermelho, Cofre… de Início › Hoje já não desaparece um momento ao mudar de separador.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Por qué no puedo regalar dinero?'))FAQ.unshift(['¿Por qué no puedo regalar dinero?','Puedes regalar lo que quieras de tu cartera, menos el dinero que te ha prestado el banco (si debes algo, solo puedes regalar lo que tengas por encima de la deuda). Tampoco se puede regalar a otra cuenta tuya del mismo dispositivo. Es para que nadie se cree cuentas falsas para pasarse dinero.'])}catch(e){}
+/* ===== 2026-10-27: permisos de admins por niveles, registro de lo que hacen, modo confidencial, más información y ligas ===== */
+const APERM=[['dinero','💸','Dar y quitar dinero'],['bromas','🤡','Bromas y efectos'],['msg','📣','Mensajes y buzón'],['contactar','💬','Hablar en privado con jugadores'],['castigos','🔨','Castigos y baneos'],['cuentas','🔑','Cuentas, préstamos y recuperar partidas'],['editar','✏️','Cambiar perfil, logros y objetos'],['privado','🔐','Ver datos privados y su registro'],['global','🌍','Acciones para todos y eventos']];
+const APRESET=[['Solo mirar',[]],['Ayudante',['msg','contactar']],['Moderador',['msg','contactar','dinero','bromas']],['Supervisor',['msg','contactar','dinero','bromas','castigos','privado']],['Casi jefe',APERM.map(x=>x[0])]];
+const APERM_OLD=['dinero','bromas','msg'];/* los moderadores de antes conservan lo que podían hacer */
+function aCan(k){try{if(!ADM.on)return false;if(!ADM.mod)return true;return!!(ADM.perms&&ADM.perms.includes(k))}catch(e){return false}}
+/* leer mis permisos */
+{const _arP=admRole;admRole=async function(){const r=await _arP.apply(this,arguments);try{if(!NET.db||!NET.id||!ADM.on)return r;const d=await NET.db.collection('admins').doc(NET.id).get();const x=d.exists?(d.data()||{}):{};
+  ADM.perms=ADM.mod?(Array.isArray(x.perms)?x.perms.filter(k=>APERM.some(a=>a[0]===k)):APERM_OLD.slice()):APERM.map(a=>a[0]);admPermCls()}catch(e){}return r}}
+function admPermCls(){try{const b=document.body;APERM.forEach(([k])=>b.classList.toggle('ap-no-'+k,!aCan(k)))}catch(e){}}
+setInterval(()=>{if(ADM.on&&!ADM.perms)admRole()},8000);
+/* el filtro antiguo de moderadores deja paso al de permisos */
+/* qué apartado de la ficha necesita qué permiso */
+const ALAB_P=[['Dinero','dinero'],['Bromas','bromas'],['Efectos de siempre','bromas'],['Lluvia de emoji','bromas'],['Sorpresas grandes','bromas'],['Mensaje en grande','msg'],['Recuperar cuenta','cuentas'],['🏦 Préstamo','cuentas'],['Borrar cuenta','cuentas'],['Su seguridad','privado'],['🔐 Cuenta privada','privado'],['Castigos','castigos'],['Limpiar','castigos'],['Nombre','editar'],['Puntos de liga','editar'],['Título','editar'],['👑 Exclusivos','editar'],['Lo que tiene','editar'],['Dar o quitar','editar'],['Administración','__dueño']];
+const ATAB_P={stats:'',ach:'editar',prof:'editar',fx:'bromas',inv:'editar',xt:'editar'};
+const AACT_P={give:'dinero',take:'dinero',takesafe:'dinero',takeall:'dinero',double:'dinero',zero:'dinero',zeroall:'dinero',bsod:'bromas',flip:'bromas',fake:'bromas',msg:'msg',restore:'cuentas',noimg:'castigos',ban:'castigos',reset:'cuentas'};
+{const _rsP=renderAdmSide;renderAdmSide=function(){const r=_rsP.apply(this,arguments);try{if(!ADM.mod||!ADM.perms)return r;const el=$('#admSide');if(!el)return r;
+  el.querySelectorAll('[data-ptab]').forEach(b=>{const need=ATAB_P[b.dataset.ptab];if(need&&!aCan(need)){const pn=el.querySelector(`.pa-pane[data-pane="${b.dataset.ptab}"]`);if(pn)pn.remove();b.remove();if(ADM.paTab===b.dataset.ptab){ADM.paTab='base';const bp=el.querySelector('.pa-pane[data-pane="base"]');if(bp)bp.hidden=false}}});
+  el.querySelectorAll('.alab').forEach(l=>{const t=l.textContent.trim(),m=ALAB_P.find(([s])=>t.startsWith(s));if(!m)return;const need=m[1];if(need!=='__dueño'&&aCan(need))return;
+    let n=l.nextElementSibling;l.remove();while(n&&!n.classList.contains('alab')&&!n.classList.contains('pa-pane')&&!n.classList.contains('pa-tabs')){const nx=n.nextElementSibling;n.remove();n=nx}});
+  el.querySelectorAll('[data-a]').forEach(b=>{const need=AACT_P[b.dataset.a];if(need&&!aCan(need))b.remove()});
+  el.querySelectorAll('.modnote').forEach(x=>x.remove());el.insertAdjacentHTML('beforeend',`<p class="netmsg modnote">Puedes: ${ADM.perms.length?APERM.filter(a=>ADM.perms.includes(a[0])).map(a=>a[1]+' '+a[2]).join(' · '):'👀 solo mirar'}. El jefe te puede dar más permisos.</p>`)}catch(e){}return r}}
+/* el dueño reparte los permisos (en la lista de administradores) */
+{const _abP=admBox;admBox=function(){const r=_abP.apply(this,arguments);try{const box=$('#admMgr');if(!box||!Array.isArray(ADML))return r;
+  box.querySelectorAll('.admmr').forEach(row=>{const id=(row.querySelector('[data-admrole]')||{}).dataset;const aid=id&&id.admrole;if(!aid||row.nextElementSibling&&row.nextElementSibling.classList.contains('aperm'))return;const a=ADML.find(x=>x.id===aid)||{};
+    const mine=(a.role||'jefe')==='mod'?(Array.isArray(a.perms)?a.perms:APERM_OLD):APERM.map(x=>x[0]);
+    row.insertAdjacentHTML('afterend',`<div class="aperm" data-apid="${esc(aid)}">${(a.role||'jefe')!=='mod'?'<small class="netmsg">Es <b>jefe</b>: puede hacerlo todo. Pulsa «Hacer moderador» para darle solo algunos permisos.</small>':`<div class="apre">${APRESET.map(([n,ks],i)=>`<button type="button" class="btn sm ${ks.length===mine.length&&ks.every(k=>mine.includes(k))?'mint':'alt'}" data-apre="${i}">${i}. ${n}</button>`).join('')}</div>
+      <div class="apchips">${APERM.map(([k,e,n])=>`<button type="button" class="apc ${mine.includes(k)?'on':''}" data-apk="${k}">${e} ${n}</button>`).join('')}</div>`}
+      <button type="button" class="btn sm dark" data-aplog="${esc(aid)}">📜 Ver todo lo que ha hecho</button></div>`)})}catch(e){}return r}}
+async function apSave(aid,perms){try{await NET.db.collection('admins').doc(aid).set({perms,role:'mod'},{merge:true});const a=(ADML||[]).find(x=>x.id===aid);if(a){a.perms=perms;a.role='mod'}
+  admLogAct('🛡️ Cambió los permisos de '+alPN(aid)+': '+(perms.length?perms.join(', '):'solo mirar'));toast('Permisos guardados',alPN(aid),'var(--mint)','🛡️');const box=$('#admMgr');if(box){box.querySelectorAll('.aperm').forEach(x=>x.remove());admBox()}}
+  catch(err){toast('No se ha podido','Solo el dueño puede cambiar permisos','var(--coral)','⚠️')}}
+document.addEventListener('click',e=>{const w=e.target.closest&&e.target.closest('.aperm');if(!w)return;const aid=w.dataset.apid,a=(ADML||[]).find(x=>x.id===aid)||{};
+  const pr=e.target.closest('[data-apre]');if(pr){apSave(aid,APRESET[+pr.dataset.apre][1].slice());return}
+  const c=e.target.closest('[data-apk]');if(c){const cur=new Set(Array.isArray(a.perms)?a.perms:APERM_OLD);cur.has(c.dataset.apk)?cur.delete(c.dataset.apk):cur.add(c.dataset.apk);apSave(aid,[...cur]);return}
+  const l=e.target.closest('[data-aplog]');if(l)admLogShow(l.dataset.aplog)});
+/* los admins nuevos empiezan solo mirando */
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#admMkMod')&&ADM.sel){const id=ADM.sel;setTimeout(()=>{try{NET.db.collection('admins').doc(id).set({perms:[]},{merge:true}).then(()=>{admLogAct('🛡️ Hizo admin a '+alPN(id)+' (empieza solo mirando)');admLoad()}).catch(()=>{})}catch(_){}},1500)}},true);
+
+/* ---- registro de todo lo que hace cada admin (se guarda en su propia carpeta; el dueño lo lee) ---- */
+const ALQ=[];let alqT=null;
+function admLogAct(txt,extra){try{if(!ADM.on||!NET.db||!NET.id)return;NET.db.collection('data/users/'+NET.id+'/adm').add({t:Date.now(),txt:String(txt).slice(0,300),by:NET.id,byN:S.name||'',...(extra||{})}).catch(()=>{})}catch(e){}}
+const ACT_N={give:'💸 Dio',take:'➖ Quitó de la cartera',takesafe:'➖ Quitó de la caja fuerte',takeall:'➖ Quitó (cartera y caja)',zero:'0️⃣ Dejó la cartera a cero',zeroall:'0️⃣ Dejó todo a cero',double:'✖️2 Duplicó la cartera',tax:'🧾 Impuesto',msg:'📣 Mensaje en grande',bsod:'🤡 Pantallazo azul',flip:'🤡 Giró la pantalla',fake:'🤡 Susto',reset:'🗑️ Borró la partida',restore:'🔁 Pasó una partida',exc:'👑 Dio un exclusivo',excrm:'👑 Quitó un exclusivo',lncut:'✂️ Quitó los intereses del préstamo',lnundo:'↩️ Anuló el préstamo',noimg:'🖼️ Quitó la foto'};
+function alqPush(to,o){ALQ.push({to,o});clearTimeout(alqT);alqT=setTimeout(alqFlush,2500)}
+function alqFlush(){const g=new Map();ALQ.splice(0).forEach(({to,o})=>{const k=o.type+'|'+(o.n||0)+'|'+(o.text||'');if(!g.has(k))g.set(k,{o,to:[]});g.get(k).to.push(to)});
+  g.forEach(({o,to})=>{const what=(ACT_N[o.type]||'🛠️ '+o.type)+(o.n?' '+short(o.n)+' €':'')+(o.text&&o.type!=='restore'?' «'+String(o.text).slice(0,60)+'»':'')+(o.q?' 🤫 (en secreto)':'');
+    admLogAct(what+' → '+(to.length>3?to.length+' jugadores':to.map(alPN).join(', ')))})}
+(function hkA(){if(typeof NET==='undefined'||!NET.db){setTimeout(hkA,1500);return}try{const pr=Object.getPrototypeOf(NET.db.collection('cmds'));if(pr.__admq)return;pr.__admq=1;const _add=pr.add;
+  pr.add=function(o){try{const m=/^cmds\/([^/]+)\/q$/.exec(this.path||'');if(m&&o&&o.type&&ADM.on&&o.type!=='gift'&&o.type!=='troll'){if(ADM.quiet&&QUIET_T.includes(o.type))o={...o,q:1};alqPush(m[1],o)}}catch(e){}return _add.call(this,o)}}catch(e){}})();
+/* también lo del buzón */
+document.addEventListener('click',e=>{try{const ok=e.target.closest&&e.target.closest('[data-bzok],[data-bzno]');if(!ok||!ADM.on)return;const id=ok.dataset.bzok||ok.dataset.bzno,m=BZ.all.get(id);if(!m)return;
+  setTimeout(()=>{const m2=BZ.all.get(id)||m;if(m2.st==='ok'||m2.st==='no'||ok.disabled)admLogAct((ok.dataset.bzok?'✅ Aprobó':'❌ Rechazó')+' en el buzón el mensaje de '+(m.name||'?')+': «'+String(m.text||'').slice(0,80)+'»'+(m2.rep?' · respondió «'+String(m2.rep).slice(0,80)+'»':''))},2500)}catch(_){}},true);
+document.addEventListener('click',e=>{try{const b=e.target.closest&&e.target.closest('#admSide [data-a="ban"]');if(b&&ADM.sel){const id=ADM.sel,was=ADM.bans.has(id);setTimeout(()=>admLogAct((was?'🔓 Quitó el baneo a ':'🔨 Baneó de la clasificación a ')+alPN(id)),1500)}}catch(_){}},true);
+async function admLogShow(aid){$('#mbox').classList.add('wide');$('#mbox').onclick=null;$('#modal').hidden=false;$('#mbox').innerHTML=`<h2 style="font-size:26px">📜 Lo que ha hecho ${esc(alPN(aid))}</h2><p class="muted">Cargando…</p>`;
+  try{const q=await NET.db.collection('data/users/'+aid+'/adm').orderBy('t','desc').limit(300).get();const L=q.docs.map(d=>d.data());
+    const fd=t=>new Date(t).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+    $('#mbox').innerHTML=`<h2 style="font-size:26px">📜 Lo que ha hecho ${esc(alPN(aid))}</h2><input type="search" class="inp alq2" placeholder="🔎 Buscar (nombre, «Dio», «Baneó»…)"><div class="all aloglist">${L.length?L.map(x=>`<div class="alr"><small>${fd(+x.t||0)}</small><span>${esc(x.txt||'')}</span></div>`).join(''):'<p class="muted">Todavía no ha hecho nada (se apunta desde el 27 de octubre).</p>'}</div><div class="form"><button class="btn big" id="alX">Cerrar</button></div>`;
+    $('#alX').onclick=()=>{$('#modal').hidden=true;$('#mbox').classList.remove('wide')};$('#mbox .alq2').oninput=ev=>{const v=ev.target.value.toLowerCase();$$('#mbox .aloglist .alr').forEach(r=>r.hidden=!!v&&!r.textContent.toLowerCase().includes(v))}}
+  catch(err){$('#mbox').innerHTML=`<h2>📜 Registro</h2><p class="warn">No se puede leer. ¿Has pegado las reglas nuevas de Firebase?</p><div class="form"><button class="btn big" onclick="document.getElementById('modal').hidden=true">Cerrar</button></div>`}}
+
+/* ---- modo confidencial: hacer cosas sin que al jugador le salga nada en pantalla ---- */
+const QUIET_T=['give','take','takesafe','takeall','zero','zeroall','double','tax','exc','excrm','lncut','lnundo','noimg'];ADM.quiet=false;
+{const _rsQ=renderAdmSide;renderAdmSide=function(){const r=_rsQ.apply(this,arguments);try{const el=$('#admSide'),p=ADM.sel&&NET.players.get(ADM.sel);if(!el||!p||el.querySelector('#admQuiet'))return r;
+  const kv=el.querySelector('.kv');if(kv)kv.insertAdjacentHTML('beforebegin',`<label class="admquiet${ADM.quiet?' on':''}"><input type="checkbox" id="admQuiet"${ADM.quiet?' checked':''}><span><b>🤫 Modo confidencial</b><small>${ADM.quiet?'Activado: lo que hagas (dinero, préstamos, títulos…) no le saldrá en pantalla.':'Desactivado: le sale en pantalla lo que le hagas. Márcalo para hacerlo en secreto.'}</small></span></label>`)}catch(e){}return r}}
+document.addEventListener('change',e=>{if(e.target&&e.target.id==='admQuiet'){ADM.quiet=e.target.checked;const l=e.target.closest('.admquiet');if(l){l.classList.toggle('on',ADM.quiet);l.querySelector('small').textContent=ADM.quiet?'Activado: lo que hagas (dinero, préstamos, títulos…) no le saldrá en pantalla.':'Desactivado: le sale en pantalla lo que le hagas. Márcalo para hacerlo en secreto.'}}});
+/* el jugador: si la orden viene en secreto, no sale nada en pantalla */
+{const _acQ=applyCmd;applyCmd=function(id,c){if(!c||!c.q)return _acQ.apply(this,arguments);const keep={troll,toast,confetti,excShow,sfx:Object.assign({},SFX)};
+  const noop=()=>{};try{troll=noop;toast=noop;confetti=noop;excShow=noop;Object.keys(SFX).forEach(k=>SFX[k]=noop);return _acQ.apply(this,arguments)}
+  finally{troll=keep.troll;toast=keep.toast;confetti=keep.confetti;excShow=keep.excShow;Object.assign(SFX,keep.sfx)}}}
+
+/* ---- más información: apuestas con multiplicador y préstamos con todo detalle ---- */
+try{ALC.b='🎲 Apuestas'}catch(e){}
+{const _cwI=casinoWin;casinoWin=function(n,g,bet){const r=_cwI.apply(this,arguments);try{n=Math.floor(+n||0);bet=Math.floor(+bet||0);if(bet>0){const w=wealth(),m=n/bet;
+  if(n>=Math.max(1e6,w*.05)||m>=10||bet>=Math.max(1e6,w*.1))alog('b','🟢 '+ledName(ledCtx()).replace(/^🎰 Casino · /,'')+': apostó '+short(bet)+' € y se llevó '+short(n)+' € (x'+String(Math.round(m*100)/100).replace('.',',')+')'+(evMult()>1?' · con multiplicador x'+evMult():''))}}catch(e){}return r}}
+{const _clI=casinoLose;casinoLose=function(n,g){const r=_clI.apply(this,arguments);try{n=Math.floor(+n||0);const w=wealth();if(n>=Math.max(1e6,(w+n)*.1))alog('b','🔴 '+ledName(ledCtx()).replace(/^🎰 Casino · /,'')+': perdió '+short(n)+' €')}catch(e){}return r}}
+setInterval(()=>{try{const L=S.loan;if(!L||!L.t||S.lnLog===L.t)return;S.lnLog=L.t;const P=LN_PL[L.plan]||LN_PL.n;alog('s','🏦 Pidió un préstamo de '+short(L.amt)+' € · plan '+P.n+' (+'+lnFee(L.plan||'n')+' %, '+lnDays(P.d)+') · tiene que devolver '+short(L.tot||L.owe)+' € antes del '+loanWhen(L.due)+' · confianza '+bkS().sc+'/100')}catch(e){}},3000);
+{const _pxI=pubX;pubX=function(){const x=_pxI.apply(this,arguments);try{const L=S.loan;if(L&&loanOwe()>0){x.lnP=L.plan||'n';x.lnD=+L.due||0;x.lnL=L.col?1:0}else{x.lnP='';x.lnD=0;x.lnL=0}x.bks=bkS().sc}catch(e){}return x}}
+{const _lnH=admLnHTML;admLnHTML=function(p){let h=_lnH.apply(this,arguments);try{if(!h||!p.lnP)return h;const P=LN_PL[p.lnP]||LN_PL.n;
+  h=h.replace('<div class="abtns">',`<div class="lninfo"><span>${P.e} Plan <b>${P.n}</b> · +${P.f} % · ${lnDays(P.d)}</span><span>${p.lnL?'❌ <b>Vencido</b>: la mitad de lo que gana va al banco':'⏳ Tiene hasta el <b>'+esc(loanWhen(+p.lnD))+'</b>'}</span>${p.bks!=null?`<span>📊 Confianza ${+p.bks}/100</span>`:''}</div><div class="abtns">`)}catch(e){}return h}}
+
+/* ---- ligas: todas las personas de cada liga ---- */
+ADM.lgTab=ADM.lgTab||0;
+function admLgHTML(){const w=WK(),all=[...NET.players.entries()].map(([id,p])=>({id,...p}));
+  const tabs=LG.map((L,i)=>{const n=all.filter(p=>(+p.lg||0)===i&&+p.wk===w&&+p.wp>0).length;return`<button type="button" data-lgt="${i}" class="${ADM.lgTab===i?'on':''}" style="--lc:${L[2]}">${L[1]} ${L[0]} <b>${n}</b></button>`}).join('');
+  const L=all.filter(p=>(+p.lg||0)===ADM.lgTab).map(p=>({...p,v:+p.wk===w?(+p.wp||0):0})).sort((a,b)=>b.v-a.v);const play=L.filter(p=>p.v>0),idle=L.filter(p=>!p.v);
+  const up=lgUps(play.length,ADM.lgTab),dn=lgDowns(play.length,ADM.lgTab);
+  return`<h3>🏆 Ligas · esta semana</h3><p class="netmsg">Termina en ${esc(leftTxt(wkEnd()))}. Suben los ${up} primeros${dn?' y bajan los '+dn+' últimos':''}.</p><div class="lgtabs">${tabs}</div>
+   <div class="lglist">${play.length?play.map((p,i)=>`<button type="button" class="lgr${i<up?' up':i>=play.length-dn?' dn':''}" data-sel="${esc(p.id)}"><b>${i+1}º</b><span>${esc(p.name||'?')} <small>${esc(p.code||'')}</small></span><em>${fmt(p.v)} pts</em></button>`).join(''):'<p class="muted">Nadie ha puntuado esta semana en esta liga.</p>'}</div>
+   ${idle.length?`<details class="lgidle"><summary>Están en esta liga pero no han jugado esta semana · ${idle.length}</summary>${idle.slice(0,200).map(p=>`<button type="button" class="dvp" data-sel="${esc(p.id)}">${esc(p.name||'?')}<small>${esc(p.code||'')}</small></button>`).join('')}</details>`:''}`}
+function admLgMount(){try{if(view!=='admin'||!ADM.on)return;const host=$('#v-admin');let b=$('#admLg');if(!b){const g=$('#admGlobal');(g||host).insertAdjacentHTML(g?'afterend':'beforeend','<div class="panel admlg" id="admLg"></div>');b=$('#admLg')}
+  if(b.contains(document.activeElement)||(b.querySelector('details[open]')&&b._h))return;const h=admLgHTML();if(b._h!==h){b._h=h;b.innerHTML=h}}catch(e){}}
+setInterval(admLgMount,5000);
+document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-lgt]');if(t){ADM.lgTab=+t.dataset.lgt;const b=$('#admLg');if(b){b._h='';b.querySelectorAll('details[open]').forEach(d=>d.open=false);admLgMount()}return}
+  const r=e.target.closest&&e.target.closest('#admLg [data-sel]');if(r){ADM.sel=r.dataset.sel;ADM.confirm=null;renderAdmSide();try{$('#admSide').scrollIntoView({behavior:'smooth',block:'start'})}catch(_){}}});
+document.addEventListener('click',async e=>{const b=e.target.closest&&e.target.closest('[data-dvdel]');if(!b||!ADM.on||(typeof aCan==='function'&&!aCan('cuentas')))return;const dv=b.dataset.dvdel,keep=ADM.sel;
+  const L=[...NET.players.entries()].filter(([id,q])=>id!==keep&&id!==NET.id&&q&&q.dv===dv).map(([id])=>id);if(!L.length)return;
+  if(!b.dataset.ok){b.dataset.ok=1;b.textContent='¿Seguro? Se borran '+L.length+' cuentas. Pulsa otra vez';return}
+  b.disabled=true;let n=0;for(const id of L){try{await NET.db.collection('players').doc(id).delete();NET.players.delete(id);n++;b.textContent='Borrando… '+n+'/'+L.length}catch(err){}}
+  try{admLogAct('🗑️ Borró '+n+' cuentas del mismo dispositivo que '+alPN(keep))}catch(_){}toast('Cuentas borradas',n+' de '+L.length,'var(--mint)','🗑️');try{renderAdmin()}catch(_){}renderAdmSide()});
+
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
