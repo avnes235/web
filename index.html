@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-1701">
+<meta name="app-version" content="2026-10-27-1711">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -14629,7 +14629,7 @@ document.addEventListener('click',async e=>{const q=s=>e.target.closest&&e.targe
   if(b=q('[data-tkib]')){const m=BZ.all.get(b.dataset.tkib);if(!m)return;const seed=[{a:0,x:String(m.text||'').replace(/\n#rk:[0-9a-f]+$/,'')}];(m.reps&&m.reps.length?m.reps.map(r=>r.r):[m.rep]).filter(Boolean).forEach(r=>seed.push({a:1,x:r}));
     tkOpenFor(m.from,{ib:b.dataset.tkib,subj:String(m.text||'').slice(0,120),seed,name:m.name,code:m.code});return}
   if(b=q('[data-tkmine]')){const m=BZ.mine.get(b.dataset.tkmine);if(m)tkOpenMine(b.dataset.tkmine,m);return}});
-document.addEventListener('keydown',e=>{if(e.target&&e.target.id==='tkTxt'&&e.key==='Enter'&&!e.shiftKey&&innerWidth>700){e.preventDefault();tkSend()}});
+/* Intro = nueva línea; solo se envía con el botón «Enviar» */
 /* botón en la ficha del jugador */
 {const _rsT=renderAdmSide;renderAdmSide=function(){const r=_rsT.apply(this,arguments);try{if(!aCan('contactar'))return r;const el=$('#admSide');if(!el||!ADM.sel||el.querySelector('[data-tkhab]'))return r;const q=el.querySelector('#admQuiet');const lab=q&&q.closest('label');
   const h=`<button type="button" class="btn big tkhab" data-tkhab="${esc(ADM.sel)}">💬 Hablar en privado</button>`;if(lab)lab.insertAdjacentHTML('beforebegin',h);else{const kv=el.querySelector('.kv');if(kv)kv.insertAdjacentHTML('beforebegin',h)}}catch(e){}return r}}
@@ -14659,7 +14659,7 @@ document.addEventListener('click',async e=>{const q=s=>e.target.closest&&e.targe
   if(b=q('[data-stfe]')){const t=$('#stfTxt');if(t){t.value+=b.dataset.stfe;t.focus()}return}
   if(b=q('[data-stfdel]')){try{await NET.db.collection('staff').doc(b.dataset.stfdel).delete()}catch(err){tkErr(err)}return}
   if(q('#stfGo')){const t=$('#stfTxt'),x=(t.value||'').trim().slice(0,600);if(!x)return;try{await NET.db.collection('staff').add({by:NET.id,n:S.name||'admin',x,t:Date.now()});t.value=''}catch(err){tkErr(err)}}});
-document.addEventListener('keydown',e=>{if(e.target&&e.target.id==='stfTxt'&&e.key==='Enter'&&!e.shiftKey&&innerWidth>700){e.preventDefault();const g=$('#stfGo');if(g)g.click()}});
+
 /* ===== 2026-10-27: buscar jugadores también por su nombre antiguo, en todos los sitios ===== */
 const pnNorm=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 function pOld(p){return(Array.isArray(p&&p.nh)?p.nh:[]).map(x=>x&&x.n).filter(Boolean)}
