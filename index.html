@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-1655">
+<meta name="app-version" content="2026-10-27-1657">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2791,7 +2791,7 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .tkrow.new{border-color:#3f7cff;background:rgba(63,124,255,.12)}.tkrow.cl{opacity:.65}
 .tkr{min-width:0}.tkr b,.tkr small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tkr small{color:var(--muted);font-size:12px}
 .tkt{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:11px}.tkt i{font-style:normal;background:#3f7cff;color:#fff;border-radius:999px;padding:0 7px;font-weight:900}.tkt em{font-style:normal;opacity:.7}
-.tkbadge{background:#3f7cff;color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;vertical-align:middle}
+.tkbdg{background:#3f7cff;color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;vertical-align:middle}
 .tkmine{display:grid;gap:6px;margin:0 0 12px}.tkcont{margin-top:8px}
 .admstf .stfmsgs{max-height:360px;min-height:120px;overflow:auto;display:flex;flex-direction:column;gap:6px;padding:8px;border:2px solid var(--line);border-radius:12px;background:var(--bg2);margin-bottom:8px}
 .admstf .tkq{margin-bottom:6px}
@@ -2837,6 +2837,22 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .hoynav button.rdy{animation:hqpulse 1.4s ease-in-out infinite;box-shadow:0 0 0 2px #000,0 0 14px #ffd60099}
 @keyframes hqpulse{50%{transform:scale(1.05)}}
 @media (prefers-reduced-motion:reduce){.hoynav button.rdy{animation:none}}
+
+/* conversaciones: márgenes y burbujas bien puestas */
+.tkw{padding:6px 6px 4px;gap:12px}
+.tkw .tkh{padding-right:2px}
+.tkw .tkmsgs,.admstf .stfmsgs{padding:12px;gap:10px}
+.tkw .tkb,.admstf .tkb{display:block!important;flex:none;width:auto;max-width:78%;padding:9px 13px 7px;border-radius:16px;text-align:left;box-shadow:0 1px 0 #0006}
+.tkw .tkb.usr,.admstf .tkb.usr{border-bottom-left-radius:4px;background:#2a2d3a}
+.tkw .tkb.me,.admstf .tkb.me{border-bottom-right-radius:4px;border-bottom-left-radius:16px;background:#1d4fbf}
+.tkw .tkb>small,.admstf .tkb>small{display:block;margin:0 0 3px;font-size:12px}
+.tkw .tkb>p,.admstf .tkb>p{display:block;margin:0;font-size:15px;line-height:1.4;text-align:left;white-space:normal}
+.tkw .tkb .tkm,.admstf .tkb .tkm{margin-top:4px}
+.tkw .tkq{gap:8px;padding:2px 0 4px}
+.tkw .tkin{gap:10px;align-items:stretch}
+.tkw .tkin textarea{min-height:54px;padding:10px 12px}
+.tkw .tkadm{gap:10px;margin-top:2px}
+@media (min-width:700px){.tkw{padding:10px 12px 6px}}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -14545,7 +14561,7 @@ function tkStartA(){if(TK.startedA||!NET.db)return;TK.startedA=true;
   NET.db.collection('tk').orderBy('lt','desc').limit(150).onSnapshot(sn=>{TK.all=new Map(sn.docs.map(d=>[d.id,d.data()||{}]));tkAdmMount()},()=>{TK.startedA=false})}
 const tkWho=t=>esc(t.name||alPN(t.uid))+(t.code?' <small>'+esc(t.code)+'</small>':'');
 function tkAdmHTML(){const L=[...TK.all.entries()].filter(([,t])=>TK.f==='all'||(TK.f==='open'?t.st!=='closed':t.st==='closed'));const un=[...TK.all.values()].filter(t=>(+t.ua||0)>0).length;
-  return`<h3>💬 Conversaciones privadas ${un?`<span class="tkbadge">${un} nuevas</span>`:''}</h3><p class="netmsg">Solo las veis el jugador y el equipo. Para empezar una, abre la ficha de un jugador y pulsa «💬 Hablar en privado», o desde un mensaje del buzón.</p>
+  return`<h3>💬 Conversaciones privadas ${un?`<span class="tkbdg">${un} nuevas</span>`:''}</h3><p class="netmsg">Solo las veis el jugador y el equipo. Para empezar una, abre la ficha de un jugador y pulsa «💬 Hablar en privado», o desde un mensaje del buzón.</p>
    <div class="tkf">${[['open','Abiertas'],['closed','Cerradas'],['all','Todas']].map(([k,n])=>`<button type="button" data-tkf="${k}" class="${TK.f===k?'on':''}">${n}</button>`).join('')}</div>
    <div class="tklist">${L.length?L.map(([id,t])=>`<button type="button" class="tkrow${(+t.ua||0)>0?' new':''}${t.st==='closed'?' cl':''}" data-tko="${esc(id)}"><span class="emo">${t.src==='buzon'?'📮':'💬'}</span><span class="tkr"><b>${tkWho(t)}</b><small>${esc(String(t.lt_txt||t.subj||'').slice(0,90))}</small></span><span class="tkt">${(+t.ua||0)>0?'<i>'+(+t.ua)+'</i>':''}<small>${ago(+t.lt||0)}</small>${t.st==='closed'?'<em>Cerrada</em>':''}</span></button>`).join(''):'<p class="muted">No hay ninguna.</p>'}</div>`}
 function tkAdmMount(){try{if(view!=='admin'||!ADM.on||!aCan('contactar'))return;let b=$('#admTk');if(!b){const ib=$('#admInbox');(ib||$('#v-admin')).insertAdjacentHTML(ib?'beforebegin':'beforeend','<div class="panel admtk" id="admTk"></div>');b=$('#admTk')}
