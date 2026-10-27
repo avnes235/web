@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-1721">
+<meta name="app-version" content="2026-10-27-1744">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4873,16 +4873,16 @@ function moveBtn(){const b=$('#redbtn'),f=$('#forbid').getBoundingClientRect();b
 const PRANKS=[
   ()=>{const b=$('#bsod');b.hidden=false;b.innerHTML='<div><h2>:(</h2><p>¡Has roto el casino! El botón rojo no se pulsa…</p><p class="num" id="bsP">Arreglando las máquinas… 0 %</p><p class="num" style="opacity:.75">Es una broma del juego: no le pasa nada a tu móvil</p></div>';
     let p=0;const iv=setInterval(()=>{p=Math.min(100,p+ri(6,17));const el=$('#bsP');if(el)el.textContent='Arreglando las máquinas… '+p+' %';
-      if(p>=100){clearInterval(iv);const adm=admPrank;admPrank=false;const r=adm?0:200*S.lvl;give(r);b.innerHTML=adm?'<div><h2>ES BROMAAAA</h2><p>Cortesía del jefe. No ha pasado nada.</p></div>':`<div><h2>ES BROMAAAA</h2><p>Te lo has creído, ¿eh? Toma ${short(r)} € por el susto.</p></div>`;sfx('big');setTimeout(()=>b.hidden=true,2000)}},280)},
+      if(p>=100){clearInterval(iv);const adm=admPrank;admPrank=false;const r=adm?0:rbAmt(1);give(r);b.innerHTML=adm?'<div><h2>ES BROMAAAA</h2><p>Cortesía del jefe. No ha pasado nada.</p></div>':`<div><h2>ES BROMAAAA</h2><p>Te lo has creído, ¿eh? Toma ${short(r)} € por el susto.</p></div>`;sfx('big');setTimeout(()=>b.hidden=true,2000)}},280)},
   ()=>appFx('flip',3800,'¡TODO DEL REVÉS!','vuelve solo en un momento'),
-  ()=>{fakeZero=true;sfx('lose');troll('LO HAS PERDIDO TODO','te has quedado a cero',null,true);const adm=admPrank;admPrank=false;setTimeout(()=>{fakeZero=false;if(adm){troll('QUE NOOOO','es broma. Cortesía del jefe','#2fd6a3',true);return}const r=100*S.lvl;give(r);troll('¡QUE NOOO!','es broma. Toma '+short(r)+' € por el susto','#2fd6a3',true)},2600)},
+  ()=>{fakeZero=true;sfx('lose');troll('LO HAS PERDIDO TODO','te has quedado a cero',null,true);const adm=admPrank;admPrank=false;setTimeout(()=>{fakeZero=false;if(adm){troll('QUE NOOOO','es broma. Cortesía del jefe','#2fd6a3',true);return}const r=rbAmt(1);give(r);troll('¡QUE NOOO!','es broma. Toma '+short(r)+' € por el susto','#2fd6a3',true)},2600)},
   ()=>{runaway=6;troll('PÍLLAME SI PUEDES','',null,true);setTimeout(moveBtn,400)},
   ()=>{troll('NO PULSES, HE DICHO','pone NO PULSAR bien grande',null,true)},
-  ()=>{const r=300*S.lvl;give(r);confetti(260);sfx('big');troll('LLUVIA DE BILLETES','+'+short(r)+' € para ti','#2fd6a3',true)},
+  ()=>{const r=rbAmt(1.6);give(r);confetti(260);sfx('big');troll('LLUVIA DE BILLETES','+'+short(r)+' € para ti','#2fd6a3',true)},
   ()=>{const b=$('#bsod');b.hidden=false;b.classList.add('hack');b.innerHTML='<div><p class="num" id="hk"></p></div>';
     const L=['> el robot del casino se ha despertado…','> contando tus fichas…','> buscando monedas bajo el sofá…','> preparando una sorpresa…','> casi listo…'];let i=0;
     const iv=setInterval(()=>{const el=$('#hk');if(!el){clearInterval(iv);return}if(i<L.length){el.insertAdjacentHTML('beforeend',esc(L[i++])+'<br>');tone(900,.03,'square',.03)}
-      else{clearInterval(iv);const r=150*S.lvl;give(r);el.insertAdjacentHTML('beforeend','<br><b>¡Sorpresa! Toma '+short(r)+' €.</b>');sfx('big');setTimeout(()=>{b.hidden=true;b.classList.remove('hack')},2600)}},700)},
+      else{clearInterval(iv);const r=rbAmt(1);give(r);el.insertAdjacentHTML('beforeend','<br><b>¡Sorpresa! Toma '+short(r)+' €.</b>');sfx('big');setTimeout(()=>{b.hidden=true;b.classList.remove('hack')},2600)}},700)},
   ()=>appFx('fx-gray',9000,'MODO ABUELO','todo en blanco y negro un rato'),
   ()=>appFx('fx-comic',12000,'MODO COMIC SANS','a ver cuánto aguantas'),
   ()=>appFx('fx-inv',6000,'¿QUÉ LE PASA A TU PANTALLA?','tranquilo, vuelve sola'),
@@ -4891,10 +4891,10 @@ const PRANKS=[
   ()=>appFx('fx-quake',3200,'TERREMOTO','agárrate'),
   ()=>{['3','2','1'].forEach((t,k)=>setTimeout(()=>{troll(t,'el botón va a explotar','#ff3b4f',true);tone(440+k*120,.15,'square',.06)},k*1000));
     setTimeout(()=>{confetti(300);sfx('big');troll('¡BOOM!','era confeti','#ffd600',true)},3000)},
-  ()=>{const v=Math.max(50,Math.min(5000*S.lvl,Math.floor(S.coins*.1)));if(chance(.5)){give(v);sfx('win');troll('CARA','el botón te regala '+short(v)+' €','#14e08a',true)}
+  ()=>{const v=rbAmt(1.5);if(chance(.5)){give(v);sfx('win');troll('CARA','el botón te regala '+short(v)+' €','#14e08a',true)}
     else{const t=Math.min(Math.floor(S.coins),v);S.coins-=t;sfx('lose');troll('CRUZ','el botón te quita '+short(t)+' €','#ff3b4f',true)}},
   ()=>{sfx('big');confetti(160);troll('¡HAS GANADO 1.000.000 €!','espera, que lo estoy contando…','#14e08a',true);setTimeout(()=>{give(10);sfx('lose');troll('NAH, 10 €','no te emociones','#ffd600',true)},2600)},
-  ()=>{const r=60*S.lvl;give(r);sfx('win');troll('PERDÓN','por todo lo de antes. Toma '+short(r)+' €','#14e08a',true)},
+  ()=>{const r=rbAmt(1);give(r);sfx('win');troll('PERDÓN','por todo lo de antes. Toma '+short(r)+' €','#14e08a',true)},
 ];
 function appFx(cls,ms,t,sub){const a=$('.app');const mn=$('.main');if(mn)mn.style.transformOrigin='50% '+Math.round(scrollY+innerHeight/2)+'px';a.classList.add(cls);if(t)troll(t,sub,null,true);S.fxNow={cls,until:Date.now()+ms};save();setTimeout(()=>{a.classList.remove(cls);if(S.fxNow&&S.fxNow.cls===cls){S.fxNow=null;save()}},ms)}
 function nextPrank(){let d=Array.isArray(S.prankDeck)?S.prankDeck.filter(i=>i<PRANKS.length):[];
@@ -4908,7 +4908,7 @@ function renderForbid(){const b=$('#redbtn');if(!b)return;const left=Math.ceil((
   if(b.innerHTML!==html)b.innerHTML=html;$('#rbState').textContent=st}
 $('#redbtn').addEventListener('pointerenter',e=>{if(runaway>0&&e.pointerType==='mouse'&&chance(.5))moveBtn()});
 $('#redbtn').addEventListener('click',()=>{const b=$('#redbtn');
-  if(runaway>0){runaway--;if(runaway===0){b.style.transform='';const r=150*S.lvl;give(r);sfx('win');troll('VALE, VALE','me has pillado. Toma '+short(r)+' €',null,true)}else moveBtn();renderForbid();return}
+  if(runaway>0){runaway--;if(runaway===0){b.style.transform='';const r=rbAmt(1.2);give(r);sfx('win');troll('VALE, VALE','me has pillado. Toma '+short(r)+' €',null,true)}else moveBtn();renderForbid();return}
   if(Date.now()<(S.prankAt||0)){b.classList.remove('nope');void b.offsetWidth;b.classList.add('nope');sfx('lose');return}
   S.prankAt=Date.now()+PRANK_WAIT;ev('pranks');xp(10);{const _pi=nextPrank();if(typeof rbPress==='function')rbPress(_pi);else PRANKS[_pi]()}renderForbid();save()});
 
@@ -6101,8 +6101,8 @@ function openGift(id){if(!ADM.on&&NET.isAnon){toast('Necesitas una cuenta','Para
   $('#gfX').onclick=()=>$('#modal').hidden=true;$('#mbox').querySelector('.amt').addEventListener('click',e=>{const b=e.target.closest('[data-gq]');if(b)$('#gfAmt').value=b.dataset.gq==='all'?Math.floor(S.coins):b.dataset.gq});
   $('#gfGo').onclick=async()=>{const n=Math.floor(+String($('#gfAmt').value).replace(/\D/g,'')||0),err=t=>{$('#gfErr').textContent=t;$('#gfErr').hidden=false;sfx('lose')};
     if(n<1)return err('Pon cuánto quieres regalar.');{const gb=giftBlock(n,id);if(gb)return err(gb)}if(!take(n))return err('No tienes tanto dinero.');
-    $('#gfGo').disabled=true;try{await NET.db.collection('cmds/'+id+'/q').add({type:'gift',from:NET.id,n,t:Date.now()});ev('gifts');ev('gifted',n);try{const pq=NET.players.get(id);if(pq&&pq.dv&&pq.dv===DEV_ID){S.st.giftSelf=(S.st.giftSelf||0)+n}S.gTo=S.gTo||{};S.gTo[id]=(S.gTo[id]||0)+n}catch(_){}$('#modal').hidden=true;sfx('buy');confetti(80);toast('Regalo enviado','−'+short(n)+' € para '+esc(p.name||'este jugador'),'var(--mint)','🎁');const pp=NET.players.get(id);if(pp)admPend(id,{coins:Math.floor(+pp.coins||0)+n},!ADM.on);renderRank();save();NET.lastP='';pushPlayer()}
-    catch(e){S.coins+=n;$('#gfGo').disabled=false;err('No se ha podido enviar. Te devuelvo el dinero.')}}}
+    $('#gfGo').disabled=true;let _sent=false;try{await NET.db.collection('cmds/'+id+'/q').add({type:'gift',from:NET.id,n,t:Date.now()});_sent=true;ev('gifts');ev('gifted',n);try{const pq=NET.players.get(id);if(pq&&pq.dv&&pq.dv===DEV_ID){S.st.giftSelf=(S.st.giftSelf||0)+n}S.gTo=S.gTo||{};S.gTo[id]=(S.gTo[id]||0)+n}catch(_){}$('#modal').hidden=true;sfx('buy');confetti(80);toast('Regalo enviado','−'+short(n)+' € para '+esc(p.name||'este jugador'),'var(--mint)','🎁');const pp=NET.players.get(id);if(pp)admPend(id,{coins:Math.floor(+pp.coins||0)+n},!ADM.on);renderRank();save();NET.lastP='';pushPlayer()}
+    catch(e){if(_sent){try{$('#modal').hidden=true;save()}catch(_){}return}S.coins+=n;const g=$('#gfGo');if(g)g.disabled=false;err('No se ha podido enviar. Te devuelvo el dinero.')}}}
 function onlyFriends(id,what){if(ADM.on||(S.friends||[]).includes(id))return true;toast('Solo para amigos','Para mandarle '+what+', primero agrégalo de amigo','var(--sky)','🤝');sfx('lose');return false}
 function openTrollPick(id){if(!onlyFriends(id,'mensajitos'))return;$('#mbox').classList.remove('wide','notes');$('#mbox').onclick=null;const p=NET.players.get(id);$('#modal').hidden=false;
   const mine=(S.myTrolls||[]).slice(0,6);
@@ -6404,6 +6404,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-27-e',t:'Botón rojo con premios de verdad',items:[['🔴','Todas las sorpresas pagan bien','La lluvia de billetes, el fantasma, cara o cruz… ahora todas dan un premio según tu dinero, no unos pocos euros.','fix','#ff3b4f'],['📈','Bolsa sin fantasmas','Si un jugador en el que invertiste ya no existe, desaparece de tu cartera y te devolvemos lo que valían sus acciones. Y el buscador ya no se mezcla con la cantidad al comprar.','fix','#14e08a']]},
  {v:'2026-10-27-d',t:'Gran Premio de Cine cada 2 horas',items:[['🎬','Más cine','El Gran Premio de Cine se puede girar cada 2 horas (antes cada 3).','new','#ffd600']]},
  {v:'2026-10-27-c',t:'Botón rojo cada minuto',items:[['🔴','Botón rojo cada minuto','Se puede pulsar cada minuto y todas las sorpresas dan un premio mejor según tu dinero.','new','#ff3b4f'],['😀','Emojis en todos los ordenadores','En algunos PC los emojis salían como cuadrados. Ahora se ven bien.','fix','#ffd600']]},
  {v:'2026-10-27-b',t:'Habla con el jefe y encuentra a todos',items:[['💬','Conversaciones con el jefe','Cuando el jefe te contesta en el buzón, ahora puedes seguir hablando con él como en un chat, y mandarle fotos o capturas. Escribe en tu idioma: el jefe lo entiende.','new','#3f7cff'],['🔎','Busca por el nombre antiguo','Si alguien se cambia el nombre, lo encuentras igual buscando cómo se llamaba antes: en la clasificación, el chat, la Bolsa y el buscador de arriba (que ahora también busca jugadores). Si borras tu historial de nombres, ya no sale.','new','#14e08a'],['📈','Buscador en la Bolsa','Encuentra al jugador que quieres comprar sin bajar toda la lista.','new','#ffd600'],['🤝','Cancelar solicitudes de amistad','Si mandas una sin querer, ahora la puedes cancelar en Amigos o pulsando «Pendiente» en la clasificación.','new','#ff9d00'],['🗑️','Borrar mensajes del chat, más fácil','Tus mensajes llevan una papelera al lado: tócala para borrarlos.','fix','#ff4d63'],['🕹️','Minijuegos más a mano','En el móvil salen en tarjetas más pequeñas, de dos en dos, como en el Casino.','fix','#b06bff'],['🏅','La liga, bien a la vista','La tarjeta de tu liga en Inicio es más grande, explica qué es y cuántos puntos te faltan. La barra de accesos rápidos de Hoy también se ve más.','fix','#e0914a']]},
@@ -10038,7 +10039,7 @@ const _opF=openProfile;openProfile=function(first){_opF(first);if(!first||!NET.o
   $('#pName').onkeydown=null;$('#faP').addEventListener('keydown',e=>{if(e.key==='Enter')btn.click()})};
 
 /* ---- El botón rojo ya no quita dinero ---- */
-(function(){for(let i=PRANKS.length-1;i>=0;i--){const f=PRANKS[i];if(f===doubleOrNothing)PRANKS.splice(i,1);else if(/CRUZ/.test(String(f)))PRANKS[i]=()=>{const v=Math.max(50,Math.min(5000*S.lvl,Math.floor(S.coins*.1)));if(chance(.5)){give(v);sfx('win');troll('CARA','el botón te regala '+short(v)+' €','#14e08a',true)}else{sfx('pop');troll('CRUZ','esta vez nada. La próxima cae','#ffd600',true)}}}
+(function(){for(let i=PRANKS.length-1;i>=0;i--){const f=PRANKS[i];if(f===doubleOrNothing)PRANKS.splice(i,1);else if(/CRUZ/.test(String(f)))PRANKS[i]=()=>{const v=rbAmt(1.5);if(chance(.5)){give(v);sfx('win');troll('CARA','el botón te regala '+short(v)+' €','#14e08a',true)}else{sfx('pop');troll('CRUZ','esta vez nada. La próxima cae','#ffd600',true)}}}
   S.prankDeck=(S.prankDeck||[]).filter(i=>i<PRANKS.length)})();
 
 /* ---- No enseñar a qué juega cada uno ---- */
@@ -12184,7 +12185,7 @@ function rbKill(d){if(!d||!d.isConnected)return;d.classList.add('rbxout');setTim
 function rbCv(d){const c=document.createElement('canvas'),r=Math.min(LOWEND?1:1.5,devicePixelRatio||1),W=innerWidth,H=innerHeight;c.width=Math.round(W*r);c.height=Math.round(H*r);c.className='rbcv';d.appendChild(c);const g=c.getContext('2d');g.scale(r,r);g.W=W;g.H=H;return g}
 function rbRun(ms,fn,done){const t0=performance.now();const st=t=>{const e=Math.max(0,t-t0);if(e>=ms){try{done&&done()}catch(_){}return}try{fn(e/1000,e/ms)}catch(err){try{done&&done()}catch(_){}return}requestAnimationFrame(st)};requestAnimationFrame(st)}
 const rbN=n=>Math.max(1,Math.ceil(n*(cfg('lite')?.35:LOWEND?.6:1)));
-function rbPay(k,t,s,col){const r=niceN(Math.max(20000*k/250,k*Math.max(1,S.lvl)*40)+(typeof wR==='function'?wR():0)*.0033*k/250);give(r);xp(10);save();sfx('big');confetti(120);troll(t,(s?s+' ':'')+'+'+short(r)+' €',col||'#14e08a',true);return r}
+function rbPay(k,t,s,col){const r=rbAmt(k/250);give(r);xp(10);save();sfx('big');confetti(120);troll(t,(s?s+' ':'')+'+'+short(r)+' €',col||'#14e08a',true);return r}
 function rbNoise(d,v,hp){if(S.muted)return;const a=ac();if(!a)return;try{const len=Math.floor(a.sampleRate*d),b=a.createBuffer(1,len,a.sampleRate),x=b.getChannelData(0);for(let i=0;i<len;i++)x[i]=(Math.random()*2-1)*Math.pow(1-i/len,2);
   const s=a.createBufferSource(),g=a.createGain(),f=a.createBiquadFilter();f.type=hp?'highpass':'lowpass';f.frequency.value=hp||600;s.buffer=b;g.gain.value=(v||.1)*cfg('vol');s.connect(f).connect(g).connect(a.destination);s.start()}catch(e){}}
 function rbShake(px,ms){try{$('.app').animate([{transform:'none'},{transform:`translate(${-px}px,${px*.6}px) rotate(-.6deg)`},{transform:`translate(${px*.9}px,${-px*.6}px) rotate(.6deg)`},{transform:`translate(${-px*.5}px,${px*.4}px)`},{transform:`translate(${px*.3}px,${-px*.2}px)`},{transform:'none'}],{duration:ms||500})}catch(e){}}
@@ -14064,10 +14065,11 @@ try{i18nAdd([['Que no se te escape nada','Don\'t miss a thing','Ne rate rien','N
 (()=>{try{const t0=TUTOS.find(x=>x[1]==='Primeros pasos')||TUTOS[0];if(t0&&!t0[4].some(x=>/número amarillo/.test(x[0])))t0[4].push(['Si ves un <b>número amarillo</b> en el menú o en una pestaña, ahí tienes algo por recoger. La tarjeta que está lista <b>brilla en amarillo</b>.'])}catch(e){}})();
 /* ===== botón rojo: cada sorpresa deja un premio bueno (según tu dinero); si la sorpresa ya pagó bien, no se añade nada ===== */
 var RB_TRICK_UNTIL=window.RB_TRICK_UNTIL||0;
-function rbTarget(){return niceN(Math.max(20000,220*Math.max(1,S.lvl)*40)+(typeof wR==='function'?wR():0)*.003)}
+function rbTarget(){return niceN(Math.max(50000,Math.max(1,S.lvl)*12000)+(typeof wR==='function'?wR():0)*.004)}
+function rbAmt(k){try{return niceN(rbTarget()*k)}catch(e){return 50000}}
 function rbPress(i){const e0=+S.earned||0,adm=(typeof admPrank!=='undefined'&&admPrank)||Date.now()<RB_ADM_UNTIL;try{PRANKS[i]()}catch(e){}
   if(adm)return;setTimeout(()=>{try{if(Date.now()<RB_ADM_UNTIL||Date.now()<(window.RB_TRICK_UNTIL||0))return;const got=(+S.earned||0)-e0,t=rbTarget();
-    if(got<t*.8){const add=niceN(t-Math.max(0,got));give(add);save();sfx('coin');toast('🔴 Premio del botón rojo','+'+short(add)+' € por atreverte a pulsarlo','#ff3b4f','🔴')}}catch(e){}},9500)}
+    if(got<t*.8){const add=niceN(t-Math.max(0,got));give(add);save();sfx('coin');troll('🔴 PREMIO DEL BOTÓN ROJO','+'+short(add)+' € por atreverte a pulsarlo','#ff3b4f',true)}}catch(e){}},9500)}
 /* truco o trato: su propia firma (no es cosa del jefe) */
 {const _rbPayT=rbPay;rbPay=function(k,t,s,col){if(Date.now()<(window.RB_TRICK_UNTIL||0)){sfx('win');confetti(80);troll(t,'¡truco de Halloween! 🎃',col||'#ff7a00',true);return 0}return _rbPayT.apply(this,arguments)}}
 /* el regalo de los eventos automáticos es «Regalo sorpresa»; solo dice «del jefe» si lo lanza el jefe */
@@ -14329,13 +14331,13 @@ try{i18nAdd([['Casino más justo','A fairer casino','Un casino plus juste','Casi
 try{i18nAdd([['Guías de cada juego','Game guides','Guides des jeux','Guias dos jogos'],['Guías completas','Full guides','Guides complets','Guias completos'],['En la web hay ahora una guía de cada juego: cómo se juega, la tabla de pagos y las probabilidades de verdad. Las tienes abajo del todo en Inicio y en Ayuda, en «📚 Guías de cada juego».','The website now has a guide for every game: how to play, the payout table and the real odds (in Spanish). Find them at the bottom of Home and Help, under «📚 Game guides».','Le site propose maintenant un guide pour chaque jeu : règles, table des gains et vraies probabilités (en espagnol). Ils sont tout en bas d\'Accueil et d\'Aide, dans « 📚 Guides des jeux ».','O site tem agora um guia de cada jogo: como se joga, a tabela de prémios e as probabilidades reais (em espanhol). Estão no fundo do Início e da Ajuda, em «📚 Guias dos jogos».'],['Probabilidades a la vista','Odds in plain sight','Probabilités visibles','Probabilidades à vista'],['Una página nueva explica cuánto devuelve de media cada juego del casino, para que sepas a qué juegas.','A new page explains how much each casino game returns on average, so you know what you are playing.','Une nouvelle page explique combien rend en moyenne chaque jeu du casino, pour savoir à quoi tu joues.','Uma página nova explica quanto devolve em média cada jogo do casino, para saberes ao que jogas.']])}catch(e){}
 /* ===== Jefe: quitar los intereses del préstamo de alguien o anularlo como si lo hubiera devuelto ===== */
 /* el jugador publica cuánto pidió y cuánto ha devuelto, para que el jefe vea la comisión */
-{const _pxLn=pubX;pubX=function(){const x=_pxLn.apply(this,arguments);try{const L=S.loan;if(L&&loanOwe()>0){x.lnA=Math.floor(+L.amt||0);x.lnT=Math.floor(+L.tot||loanOwe());x.lnF=L.free?1:0}else{x.lnA=0;x.lnT=0;x.lnF=0}}catch(e){}return x}}
+{const _pxLn=pubX;pubX=function(){const x=_pxLn.apply(this,arguments);try{const L=S.loan;if(L&&loanOwe()>0){x.lnA=Math.floor(+L.amt||0);x.lnT=Math.floor(+L.tot||loanOwe());x.lnF=L.free?1:0;x.lnId=String(+L.t||0)}else{x.lnA=0;x.lnT=0;x.lnF=0;x.lnId=''}}catch(e){}return x}}
 /* si el préstamo ya no tiene intereses, al pagarlo no sube ni baja la confianza */
 {const _lcLn=loanClose;loanClose=function(r){try{if(S.loan&&S.loan.free&&r==='ok')r='free'}catch(e){}return _lcLn.call(this,r)}}
 function lnDone(id){S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return true;S.cmdDone.push(id);if(S.cmdDone.length>120)S.cmdDone.shift();return false}
 {const _acLn=applyCmd;applyCmd=function(id,c){const T=c&&c.type;if(T!=='lncut'&&T!=='lnundo')return _acLn.apply(this,arguments);
   if(lnDone(id))return;const L=S.loan;
-  if(!L||loanOwe()<=0){try{save()}catch(e){}return}
+  if(!L||loanOwe()<=0){try{save()}catch(e){}return}if(c.text&&String(+L.t||0)!==String(c.text)){try{save()}catch(e){}return} /* la orden era para otro préstamo */
   const amt=Math.max(0,Math.floor(+L.amt||0)),paid=Math.max(0,Math.floor(+L.paid||0)),rest=Math.max(0,amt-paid);
   if(T==='lncut'){L.free=1;L.tot=amt;L.owe=rest;try{alog('s','✂️ El jefe le quitó los intereses del préstamo: debe '+short(rest)+' €')}catch(e){}
     if(rest<=0)loanClose('free');else{save();try{NET.lastP='';pushPlayer()}catch(e){}try{bankMount()}catch(e){}}
@@ -14354,7 +14356,7 @@ function admLnHTML(p){if(ADM.mod||!(+p.debt>0))return'';const a=+p.lnA||0,t=+p.l
 {const _rsLn=renderAdmSide;renderAdmSide=function(){const r=_rsLn.apply(this,arguments);try{const p=ADM.sel&&NET.players.get(ADM.sel),el=$('#admSide');if(p&&el&&!el.querySelector('.lnadm')){const h=admLnHTML(p);if(h){const lab=[...el.querySelectorAll('.alab')].find(x=>x.textContent==='Bromas');if(lab)lab.insertAdjacentHTML('beforebegin',h)}}}catch(e){}return r}}
 document.addEventListener('click',async e=>{const b=e.target.closest&&e.target.closest('[data-ln]');if(!b||!ADM.sel||!$('#admSide').contains(b))return;const a=b.dataset.ln,id=ADM.sel,nm=(NET.players.get(id)||{}).name||'ese';
   if(ADM.confirm!==a+id){ADM.confirm=a+id;b.textContent='¿Seguro? Pulsa otra vez';setTimeout(()=>{if(ADM.confirm===a+id){ADM.confirm=null;renderAdmSide()}},3000);return}
-  ADM.confirm=null;b.disabled=true;const ok=await sendCmd(id,a,0,'');b.disabled=false;
+  ADM.confirm=null;b.disabled=true;const ok=await sendCmd(id,a,0,String((NET.players.get(id)||{}).lnId||''));b.disabled=false;
   if(ok){try{sfx('coin')}catch(_){}const p=NET.players.get(id);if(p){if(a==='lncut'){p.lnF=1;if(+p.lnA&&+p.lnT>+p.lnA)p.debt=Math.max(0,+p.debt-(+p.lnT-+p.lnA))}else{p.debt=0}}
     toast(a==='lncut'?'Intereses quitados':'Préstamo anulado',esc(nm)+(NET.online.has(id)?' · lo verá al momento':' · le llegará en cuanto entre'),'var(--mint)','🏦');renderAdmSide()}});
 /* ===== 2026-10-27: regalos sin trampas (cuentas falsas que se pasan el dinero) ===== */
@@ -14368,8 +14370,8 @@ function giftBlock(n,id){try{if(ADM.on&&!ADM.mod)return'';const p=NET.players.ge
   return''}catch(e){return''}}
 /* el que recibe: apunta lo regalado y devuelve los regalos de cuentas recién creadas o de nivel bajo */
 {const _agG=applyGifts;applyGifts=function(list){try{const ok=[];S.cmdDone=S.cmdDone||[];const back=[];
-  list.forEach(x=>{const[id,c]=x;if(!c||c.ref||S.cmdDone.includes(id)){ok.push(x);return}const p=NET.players.get(c.from);
-    if(!p)return; /* aún no se ha cargado quién lo manda: se mira en el siguiente aviso */
+  list.forEach(x=>{const[id,c]=x;if(!c||c.ref||S.cmdDone.includes(id)){ok.push(x);return}const p=NET.players.get(c.from)||(GOK.has(id)?{lvl:99,since:1}:null);
+    if(!p&&!GOK.has(id)){giftLater(x);return} /* aún no se ha cargado quién lo manda: se busca y se vuelve a mirar */
     const n=Math.max(0,Math.floor(+c.n||0));
     if(false){S.cmdDone.push(id);try{NET.db.collection('cmds/'+NET.id+'/q').doc(id).delete().catch(()=>{})}catch(e){}
       if(n>0)back.push([c.from,n,p.name||'alguien']);return}
@@ -14486,7 +14488,7 @@ document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#ad
 
 /* ---- registro de todo lo que hace cada admin (se guarda en su propia carpeta; el dueño lo lee) ---- */
 const ALQ=[];let alqT=null;
-function admLogAct(txt,extra){try{if(!ADM.on||!NET.db||!NET.id)return;NET.db.collection('data/users/'+NET.id+'/adm').add({t:Date.now(),txt:String(txt).slice(0,300),by:NET.id,byN:S.name||'',...(extra||{})}).catch(()=>{})}catch(e){}}
+function admLogAct(txt,extra){try{if(!ADM.on||!NET.db||!NET.id)return;NET.db.collection('data/users/'+NET.id+'/adm/log').add({t:Date.now(),txt:String(txt).slice(0,300),by:NET.id,byN:S.name||'',...(extra||{})}).catch(()=>{})}catch(e){}}
 const ACT_N={give:'💸 Dio',take:'➖ Quitó de la cartera',takesafe:'➖ Quitó de la caja fuerte',takeall:'➖ Quitó (cartera y caja)',zero:'0️⃣ Dejó la cartera a cero',zeroall:'0️⃣ Dejó todo a cero',double:'✖️2 Duplicó la cartera',tax:'🧾 Impuesto',msg:'📣 Mensaje en grande',bsod:'🤡 Pantallazo azul',flip:'🤡 Giró la pantalla',fake:'🤡 Susto',reset:'🗑️ Borró la partida',restore:'🔁 Pasó una partida',exc:'👑 Dio un exclusivo',excrm:'👑 Quitó un exclusivo',lncut:'✂️ Quitó los intereses del préstamo',lnundo:'↩️ Anuló el préstamo',noimg:'🖼️ Quitó la foto'};
 function alqPush(to,o){ALQ.push({to,o});clearTimeout(alqT);alqT=setTimeout(alqFlush,2500)}
 function alqFlush(){const g=new Map();ALQ.splice(0).forEach(({to,o})=>{const k=o.type+'|'+(o.n||0)+'|'+(o.text||'');if(!g.has(k))g.set(k,{o,to:[]});g.get(k).to.push(to)});
@@ -14499,7 +14501,7 @@ document.addEventListener('click',e=>{try{const ok=e.target.closest&&e.target.cl
   setTimeout(()=>{const m2=BZ.all.get(id)||m;if(m2.st==='ok'||m2.st==='no'||ok.disabled)admLogAct((ok.dataset.bzok?'✅ Aprobó':'❌ Rechazó')+' en el buzón el mensaje de '+(m.name||'?')+': «'+String(m.text||'').slice(0,80)+'»'+(m2.rep?' · respondió «'+String(m2.rep).slice(0,80)+'»':''))},2500)}catch(_){}},true);
 document.addEventListener('click',e=>{try{const b=e.target.closest&&e.target.closest('#admSide [data-a="ban"]');if(b&&ADM.sel){const id=ADM.sel,was=ADM.bans.has(id);setTimeout(()=>admLogAct((was?'🔓 Quitó el baneo a ':'🔨 Baneó de la clasificación a ')+alPN(id)),1500)}}catch(_){}},true);
 async function admLogShow(aid){$('#mbox').classList.add('wide');$('#mbox').onclick=null;$('#modal').hidden=false;$('#mbox').innerHTML=`<h2 style="font-size:26px">📜 Lo que ha hecho ${esc(alPN(aid))}</h2><p class="muted">Cargando…</p>`;
-  try{let q;try{q=await NET.db.collection('data/users/'+aid+'/adm').orderBy('t','desc').limit(300).get()}catch(e1){q=await NET.db.collection('data/users/'+aid+'/adm').limit(500).get()}const L=q.docs.map(d=>d.data()).sort((a,b)=>(+b.t||0)-(+a.t||0)).slice(0,300);
+  try{let q;try{q=await NET.db.collection('data/users/'+aid+'/adm/log').orderBy('t','desc').limit(300).get()}catch(e1){q=await NET.db.collection('data/users/'+aid+'/adm/log').limit(500).get()}const L=q.docs.map(d=>d.data()).sort((a,b)=>(+b.t||0)-(+a.t||0)).slice(0,300);
     const fd=t=>new Date(t).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
     $('#mbox').innerHTML=`<h2 style="font-size:26px">📜 Lo que ha hecho ${esc(alPN(aid))}</h2><input type="search" class="inp alq2" placeholder="🔎 Buscar (nombre, «Dio», «Baneó»…)"><div class="all aloglist">${L.length?L.map(x=>`<div class="alr"><small>${fd(+x.t||0)}</small><span>${esc(x.txt||'')}</span></div>`).join(''):'<p class="muted">Todavía no ha hecho nada (se apunta desde el 27 de octubre).</p>'}</div><div class="form"><button class="btn big" id="alX">Cerrar</button></div>`;
     $('#alX').onclick=()=>{$('#modal').hidden=true;$('#mbox').classList.remove('wide')};$('#mbox .alq2').oninput=ev=>{const v=ev.target.value.toLowerCase();$$('#mbox .aloglist .alr').forEach(r=>r.hidden=!!v&&!r.textContent.toLowerCase().includes(v))}}
@@ -14584,7 +14586,7 @@ function tkView(id){TK.open=id;TK.img=null;const adm=ADM.on&&aCan('contactar')&&
   try{TK.unsub=NET.db.collection('tk/'+id+'/m').orderBy('t').limitToLast(300).onSnapshot(sn=>{TK.msgs.set(id,sn.docs.map(d=>({id:d.id,...d.data()})));tkDrawMsgs(id,adm)},err=>{tkErr(err)})}catch(e){tkErr(e)}
   try{NET.db.collection('tk').doc(id).update(adm?{ua:0}:{ur:0}).catch(()=>{})}catch(e){}}
 function tkBubble(m,adm,mine){const tr=m.x?`<button type="button" class="tktr" data-tktr="${esc(m.x)}" title="Traducir">🌐</button>`:'';
-  return`<div class="tkb ${m.a?'adm':'usr'} ${mine?'me':''}">${m.a?(m.as==='mod'?'<small class="tkmod">🛡️ Moderación</small>':'<small>👑 Jefe</small>'):''}${m.img?`<img src="${m.img}" alt="Captura" loading="lazy" data-tkimg>`:''}${m.x?`<p>${esc(m.x).replace(/\n/g,'<br>')}</p>`:''}<span class="tkm">${m.t?new Date(m.t).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}${adm||!m.a?tr:tr}</span></div>`}
+  return`<div class="tkb ${m.a?'adm':'usr'} ${mine?'me':''}">${m.a?(m.as==='mod'?'<small class="tkmod">🛡️ Moderación</small>':'<small>👑 Jefe</small>'):''}${tkImgOk(m.img)?`<img src="${m.img}" alt="Captura" loading="lazy" data-tkimg>`:''}${m.x?`<p>${esc(m.x).replace(/\n/g,'<br>')}</p>`:''}<span class="tkm">${m.t?new Date(m.t).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}${adm||!m.a?tr:tr}</span></div>`}
 function tkDraw(id,adm){const t=tkData(id),closed=t.st==='closed';
   $('#mbox').innerHTML=`<div class="tkw"><div class="tkh"><div><h2>${adm?'💬 '+tkWho(t):'💬 Conversación con el jefe'}</h2><small>${adm?'Privada: solo la veis él y el equipo.':'Privada: solo la ves tú y el equipo de Casinetori. Escribe en tu idioma, el jefe lo entiende.'}</small></div><button type="button" class="tkx" data-tkx aria-label="Cerrar">✕</button></div>
    ${t.subj&&t.src==='buzon'?`<div class="tksubj">📮 Del buzón: «${esc(String(t.subj).slice(0,160))}»</div>`:''}
@@ -14601,15 +14603,15 @@ function tkDrawMsgs(id,adm){const box=$('#tkMsgs');if(!box||TK.open!==id)return;
 /* foto: se reduce antes de mandarla */
 function tkShrink(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{let w=im.width,h=im.height;const mx=1100;if(w>mx||h>mx){const k=mx/Math.max(w,h);w=Math.round(w*k);h=Math.round(h*k)}
   const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);let q=.7,u=c.toDataURL('image/jpeg',q);while(u.length>650000&&q>.3){q-=.1;u=c.toDataURL('image/jpeg',q)}u.length>900000?rej('big'):res(u)};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
-async function tkSend(){const id=TK.open;if(!id)return;const t=tkData(id),adm=ADM.on&&aCan('contactar')&&(t.uid!==NET.id||TK.all.has(id));const ta=$('#tkTxt'),x=(ta?ta.value:'').trim().slice(0,800);if(!x&&!TK.img)return;
+async function tkSend(){const id=TK.open;if(!id)return;if(tkData(id).st==='closed'){tkDraw(id,ADM.on&&aCan('contactar'));return}if(TK.imgFor&&TK.imgFor!==id)TK.img=null;const t=tkData(id),adm=ADM.on&&aCan('contactar')&&(t.uid!==NET.id||TK.all.has(id));const ta=$('#tkTxt'),x=(ta?ta.value:'').trim().slice(0,800);if(!x&&!TK.img)return;
   const b=$('#tkSend');if(b){b.disabled=true;b.textContent='…'}
-  try{await NET.db.collection('tk/'+id+'/m').add({by:NET.id,a:adm?1:0,...(adm?{as:tkAs()}:{}),x,...(TK.img?{img:TK.img}:{}),t:Date.now()});
-    const inc=tkFV().increment(1);await NET.db.collection('tk').doc(id).update({lt:Date.now(),lb:adm?'adm':'user',lt_txt:(x||'📷 Foto').slice(0,120),...(adm?{ur:inc}:{ua:inc})});
+  const img=TK.img;try{const bt=NET.db.batch(),mref=NET.db.collection('tk/'+id+'/m').doc();bt.set(mref,{by:NET.id,a:adm?1:0,...(adm?{as:tkAs()}:{}),x,...(img?{img}:{}),t:Date.now()});
+    const inc=tkFV().increment(1);bt.update(NET.db.collection('tk').doc(id),{lt:Date.now(),lb:adm?'adm':'user',lt_txt:(x||'📷 Foto').slice(0,120),...(adm?{ur:inc}:{ua:inc})});await bt.commit();
     if(adm)try{admLogAct('💬 Escribió en privado a '+alPN(t.uid)+': «'+x.slice(0,100)+'»'+(TK.img?' (+ foto)':''))}catch(_){}
-    if(ta)ta.value='';TK.img=null;const pv=$('#tkImgP');if(pv){pv.hidden=true;pv.innerHTML=''}try{sfx('coin')}catch(_){}}
+    if(TK.open===id){const t2=$('#tkTxt');if(t2)t2.value='';if(TK.img===img){TK.img=null;TK.imgFor=null;const pv=$('#tkImgP');if(pv){pv.hidden=true;pv.innerHTML=''}}}try{sfx('coin')}catch(_){}}
   catch(err){tkErr(err)}if(b){b.disabled=false;b.textContent='Enviar'}}
 document.addEventListener('change',async e=>{if(!e.target||e.target.id!=='tkFile')return;const f=e.target.files&&e.target.files[0];if(!f)return;
-  try{TK.img=await tkShrink(f);const pv=$('#tkImgP');if(pv){pv.hidden=false;pv.innerHTML=`<img src="${TK.img}" alt="Foto"><button type="button" data-tkimgx>✕ Quitar</button>`}}catch(err){toast('No se ha podido usar esa foto','Prueba con otra o haz una captura más pequeña','var(--coral)','📷')}e.target.value=''});
+  const forId=TK.open;try{const u=await tkShrink(f);if(TK.open!==forId)return;TK.img=u;TK.imgFor=forId;const pv=$('#tkImgP');if(pv){pv.hidden=false;pv.innerHTML=`<img src="${TK.img}" alt="Foto"><button type="button" data-tkimgx>✕ Quitar</button>`}}catch(err){toast('No se ha podido usar esa foto','Prueba con otra o haz una captura más pequeña','var(--coral)','📷')}e.target.value=''});
 document.addEventListener('click',async e=>{const q=s=>e.target.closest&&e.target.closest(s);let b;
   if(b=q('[data-tko]')){if(b.id==='tkPill')b.remove();tkView(b.dataset.tko);return}
   if(b=q('[data-tkf]')){TK.f=b.dataset.tkf;const x=$('#admTk');if(x){x._h='';tkAdmMount()}return}
@@ -14626,7 +14628,7 @@ document.addEventListener('click',async e=>{const q=s=>e.target.closest&&e.targe
   if(b=q('[data-tkdel]')){if(!b.dataset.ok){b.dataset.ok=1;b.textContent='¿Seguro? Se borra entera. Pulsa otra vez';return}const id=TK.open,t=tkData(id);b.disabled=true;
     try{const ms=await NET.db.collection('tk/'+id+'/m').get();for(const d of ms.docs)await d.ref.delete();await NET.db.collection('tk').doc(id).delete();TK.all.delete(id);admLogAct('🗑️ Borró la conversación con '+alPN(t.uid));
       TK.open=null;if(TK.unsub){try{TK.unsub()}catch(_){}TK.unsub=null}$('#modal').hidden=true;$('#mbox').classList.remove('wide');toast('Conversación borrada','','var(--mint)','🗑️');const x=$('#admTk');if(x){x._h='';tkAdmMount()}}catch(err){tkErr(err);b.disabled=false}return}
-  if(b=q('[data-tkp]')){ADM.sel=b.dataset.tkp;$('#modal').hidden=true;$('#mbox').classList.remove('wide');go('admin');setTimeout(()=>{renderAdmSide();try{$('#admSide').scrollIntoView({behavior:'smooth'})}catch(_){}},200);return}
+  if(b=q('[data-tkp]')){ADM.sel=b.dataset.tkp;tkCloseState();$('#modal').hidden=true;$('#mbox').classList.remove('wide');go('admin');setTimeout(()=>{renderAdmSide();try{$('#admSide').scrollIntoView({behavior:'smooth'})}catch(_){}},200);return}
   if(b=q('[data-tkhab]')){tkOpenFor(b.dataset.tkhab);return}
   if(b=q('[data-tkib]')){const m=BZ.all.get(b.dataset.tkib);if(!m)return;const seed=[{a:0,x:String(m.text||'').replace(/\n#rk:[0-9a-f]+$/,'')}];(m.reps&&m.reps.length?m.reps.map(r=>r.r):[m.rep]).filter(Boolean).forEach(r=>seed.push({a:1,x:r}));
     tkOpenFor(m.from,{ib:b.dataset.tkib,subj:String(m.text||'').slice(0,120),seed,name:m.name,code:m.code});return}
@@ -14689,16 +14691,16 @@ document.addEventListener('input',e=>{if(!e.target||e.target.id!=='chQ')return;c
 
 /* ===== Bolsa: buscador ===== */
 let BX_Q='';
-{const _rbX=renderBolsa;renderBolsa=function(){const i=$('#bxQ');if(i&&document.activeElement===i)return;const r=_rbX.apply(this,arguments);try{const root=$('#bxRoot'),list=root&&root.querySelector('.bx-list');if(!list)return r;
-  if(!$('#bxQ'))list.insertAdjacentHTML('beforebegin',`<label class="search bxsearch"><svg class="ic"><use href="#i-search"/></svg><input id="bxQ" type="search" placeholder="Buscar jugador (también por su nombre antiguo)" value="${esc(BX_Q)}" autocomplete="off"></label>`);bxFilter()}catch(e){}return r}}
+{const _rbX=renderBolsa;renderBolsa=function(){const i=$('#bxSearch');if(i&&document.activeElement===i)return;const r=_rbX.apply(this,arguments);try{const root=$('#bxRoot'),list=root&&root.querySelector('.bx-list');if(!list)return r;
+  if(!$('#bxSearch'))list.insertAdjacentHTML('beforebegin',`<label class="search bxsearch"><svg class="ic"><use href="#i-search"/></svg><input id="bxSearch" type="search" placeholder="Buscar jugador (también por su nombre antiguo)" value="${esc(BX_Q)}" autocomplete="off"></label>`);bxFilter()}catch(e){}return r}}
 function bxFilter(){const q=BX_Q;let n=0;document.querySelectorAll('#bxRoot .bx-list .bx-row').forEach(row=>{const id=row.dataset.bxp,p=id&&NET.players.get(id);const ok=!q||(p?pMatch(p,q):pnNorm(row.textContent).includes(pnNorm(q)));row.style.display=ok?'':'none';if(ok)n++});
-  let em=$('#bxQnone');if(q&&!n){if(!em){const l=document.querySelector('#bxRoot .bx-list');if(l)l.insertAdjacentHTML('beforebegin','<p class="muted" id="bxQnone" style="text-align:center;font-weight:700">Nadie con ese nombre.</p>')}}else if(em)em.remove()}
-document.addEventListener('input',e=>{if(e.target&&e.target.id==='bxQ'){BX_Q=e.target.value.trim();bxFilter()}});
+  let em=$('#bxSearchnone');if(q&&!n){if(!em){const l=document.querySelector('#bxRoot .bx-list');if(l)l.insertAdjacentHTML('beforebegin','<p class="muted" id="bxQnone" style="text-align:center;font-weight:700">Nadie con ese nombre.</p>')}}else if(em)em.remove()}
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='bxSearch'){BX_Q=e.target.value.trim();bxFilter()}});
 
 /* ===== Amigos: cancelar una solicitud enviada ===== */
 {const _rqC=renderReqs;renderReqs=function(){const r=_rqC.apply(this,arguments);try{const el=$('#reqs');if(!el)return r;const out=(S.outReq||[]).filter(id=>!(S.friends||[]).includes(id));const p=[...el.querySelectorAll('p.netmsg')].find(x=>/^Enviadas:/.test(x.textContent));
   if(p&&out.length)p.outerHTML=`<div class="outreqs"><b>Solicitudes enviadas (esperando a que acepten)</b>${out.map(id=>`<div class="req"><span class="av emo">${avH(NET.players.get(id)||{})}</span><b>${esc((NET.players.get(id)||{}).name||'alguien')}</b><small>aún no ha aceptado</small><span class="abtns"><button class="btn alt sm" data-cancel-req="${esc(id)}">✕ Cancelar</button></span></div>`).join('')}</div>`}catch(e){}return r}}
-async function cancelReq(id){try{await NET.db.collection('freq/'+id+'/q').doc(NET.id).delete()}catch(e){}S.outReq=(S.outReq||[]).filter(x=>x!==id);save();toast('Solicitud cancelada',esc((NET.players.get(id)||{}).name||''),'var(--sky)','✕');try{renderReqs();renderRank()}catch(_){}}
+async function cancelReq(id){if(cancelReq._b)return;cancelReq._b=1;try{await NET.db.collection('freq/'+id+'/q').doc(NET.id).delete()}catch(e){cancelReq._b=0;toast('No se ha podido cancelar','Revisa la conexión y vuelve a probar','var(--coral)','⚠️');return}cancelReq._b=0;S.outReq=(S.outReq||[]).filter(x=>x!==id);save();toast('Solicitud cancelada',esc((NET.players.get(id)||{}).name||''),'var(--sky)','✕');try{renderReqs();renderRank()}catch(_){}}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-cancel-req]');if(!b)return;try{sfx('click')}catch(_){}cancelReq(b.dataset.cancelReq)});
 /* en la clasificación, el botón «Pendiente» ahora cancela */
 {const _rrC=renderRank;renderRank=function(){const r=_rrC.apply(this,arguments);try{document.querySelectorAll('#rkList .rkr').forEach(row=>{const pb=[...row.querySelectorAll('button[disabled]')].find(b=>b.textContent.trim()==='Pendiente');if(!pb)return;
@@ -14743,6 +14745,26 @@ function tkAs(){try{if(ADM.mod)return'mod';return localStorage.getItem('cas-tkas
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-tkas]');if(!b)return;try{localStorage.setItem('cas-tkas',b.dataset.tkas)}catch(_){}b.parentElement.querySelectorAll('[data-tkas]').forEach(x=>x.classList.toggle('on',x===b))});
 try{i18nAdd([['🛡️ Moderador','🛡️ Moderator','🛡️ Modérateur','🛡️ Moderador'],['Moderador','Moderator','Modérateur','Moderador'],['🛡️ Moderación','🛡️ Moderation','🛡️ Modération','🛡️ Moderação']])}catch(e){}
 
+/* ===== Bolsa: si el jugador en el que invertiste ya no existe, se quita y te devuelve lo que valían ===== */
+setInterval(()=>{try{if(!NET||!NET.ok||!NET.players||NET.players.size<20)return;const H=bxHold();let back=0,n=0;S.bxMiss=S.bxMiss||{};
+  Object.keys(H).forEach(id=>{if(id===NET.id)return;if(NET.players.has(id)){delete S.bxMiss[id];return}S.bxMiss[id]=(S.bxMiss[id]||0)+1;if(S.bxMiss[id]<3)return;
+    const hd=H[id]||{};const v=Math.floor((+hd.last||+hd.avg||0)*(+hd.q||0));back+=v;n++;delete H[id];delete S.bxMiss[id]});
+  if(n){if(back>0){S.coins+=back}save();try{if(view==='bolsa')renderBolsa()}catch(_){}toast('Bolsa al día',n===1?'Un jugador en el que invertiste ya no existe: te devolvemos '+short(back)+' €':n+' jugadores en los que invertiste ya no existen: te devolvemos '+short(back)+' €','var(--sky)','📈')}}catch(e){}},20000);
+
+function tkImgOk(u){return typeof u==='string'&&u.length<1100000&&/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/.test(u)}
+function tkCloseState(){TK.open=null;TK.img=null;TK.imgFor=null;if(TK.unsub){try{TK.unsub()}catch(_){}TK.unsub=null}try{$('#mbox').classList.remove('wide')}catch(_){}}
+{const _cmT=closeModal;closeModal=function(){try{if(TK.open)tkCloseState()}catch(e){}return _cmT.apply(this,arguments)}}
+/* mensajes que llegan con el chat abierto: se marcan como leídos; si el otro cierra la conversación, se ve al momento */
+{const _dmT=tkDrawMsgs;tkDrawMsgs=function(id,adm){const r=_dmT.apply(this,arguments);try{if(TK.open===id&&!document.hidden&&!$('#modal').hidden){const t=tkData(id),k=adm?'ua':'ur';if((+t[k]||0)>0&&Date.now()-(TK._rd||0)>1500){TK._rd=Date.now();t[k]=0;NET.db.collection('tk').doc(id).update({[k]:0}).catch(()=>{})}}}catch(e){}return r}}
+setInterval(()=>{try{const id=TK.open;if(!id||$('#modal').hidden)return;const t=tkData(id),box=$('#mbox .tkw');if(!box)return;const shown=!!box.querySelector('.tkclosed');const closed=t.st==='closed';
+  if(shown!==closed){const ta=$('#tkTxt'),keep=ta?ta.value:'';tkDraw(id,ADM.on&&aCan('contactar')&&(t.uid!==NET.id||TK.all.has(id)));const t2=$('#tkTxt');if(t2&&keep)t2.value=keep}}catch(e){}},1500);
+/* regalos pendientes de saber quién los manda */
+const GLATER=new Map(),GOK=new Set();
+function giftLater(x){const[id,c]=x;if(GLATER.has(id))return;GLATER.set(id,1);
+  NET.db.collection('players').doc(c.from).get().then(d=>{if(d.exists){try{NET.players.set(c.from,normP(d.data()))}catch(_){NET.players.set(c.from,d.data())}}else{GOK.add(id)}
+    GLATER.delete(id);try{applyGifts([x])}catch(_){}}).catch(()=>{setTimeout(()=>{GLATER.delete(id)},20000)})}
+
+try{i18nAdd([['Botón rojo con premios de verdad','Red button with real prizes','Bouton rouge avec de vrais prix','Botão vermelho com prémios a sério'],['Todas las sorpresas pagan bien','Every surprise pays well','Toutes les surprises paient bien','Todas as surpresas pagam bem'],['La lluvia de billetes, el fantasma, cara o cruz… ahora todas dan un premio según tu dinero, no unos pocos euros.','The money rain, the ghost, heads or tails… all now give a prize based on your money, not a few euros.','La pluie de billets, le fantôme, pile ou face… donnent maintenant un prix selon ton argent, pas quelques euros.','A chuva de notas, o fantasma, cara ou coroa… agora dão um prémio conforme o teu dinheiro, não uns poucos euros.'],['Bolsa sin fantasmas','Stock Market without ghosts','Bourse sans fantômes','Bolsa sem fantasmas'],['Si un jugador en el que invertiste ya no existe, desaparece de tu cartera y te devolvemos lo que valían sus acciones. Y el buscador ya no se mezcla con la cantidad al comprar.','If a player you invested in no longer exists, they leave your portfolio and you get back what their shares were worth. The search no longer mixes with the amount when buying.','Si un joueur dans lequel tu as investi n\'existe plus, il quitte ton portefeuille et on te rend la valeur de ses actions. La recherche ne se mélange plus avec la quantité à l\'achat.','Se um jogador em que investiste já não existe, sai da tua carteira e devolvemos-te o que valiam as ações. A pesquisa já não se mistura com a quantidade ao comprar.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
