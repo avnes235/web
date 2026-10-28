@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-28-1839">
+<meta name="app-version" content="2026-10-28-1913">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -5999,7 +5999,7 @@ $('#over').addEventListener('click',e=>{const b=e.target.closest('[data-dif]');i
   if(e.target.closest('[data-o="diff"]'))overlay('start')});
 function gEnd(){if(!running)return;running=false;$('#gSave').hidden=true;if(S.saved)delete S.saved[gid];const sc=score,dk=gid+'.'+curDiff(),prev=S.best[dk];const valid=G.best==='min'?sc>0:true;
   const better=valid&&(prev==null||(G.best==='min'?sc<prev:sc>prev));if(better&&(G.best==='min'||sc>0)){S.best[dk]=sc;if(gid==='ladrillos'&&G.level){S.bestLv=S.bestLv||{};S.bestLv[dk]=G.level}if(prev!=null){try{lgRecord()}catch(e){}}}
-  const coins=Math.max(0,Math.round(G.reward(sc)*dmul()));give(coins);S.played[gid]=1;ev('games');xp((12+Math.min(150,coins/15))*Math.min(2,Math.max(1,dmul())));
+  const coins=gPay(sc,prev,better);give(coins);S.played[gid]=1;ev('games');xp((12+Math.min(150,coins/15))*Math.min(2,Math.max(1,dmul())));
   const lw=G.low;setTimeout(()=>{if(!G||gid==null)return;overlay('over',{sc,coins,better:better&&prev!=null});
     if(better&&prev!=null){sfx('big');confetti(120);trollPick('record')}else{sfx(coins>0?'win':'lose');if(lw&&(G.best==='min'?sc>=lw[0]:sc<=lw[0]))troll(lw[1],lw[2])}},450);
   save();NET.lastP='';pushPlayer()}
@@ -6527,6 +6527,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-28-c',t:'Los minijuegos pagan mucho más',items:[['🕹️','Más premio al terminar cada partida','Ahora el premio de los minijuegos va según tu dinero: cuanto más te acerques a tu récord, más cobras, y si lo superas, muchísimo más.','new','#14e08a'],['👻','Botón rojo: el fantasma y los cofres dan más','El fantasma, los cofres y la lluvia de monedas del botón rojo ahora pagan según tu dinero.','fix','#9a6bff']]},
  {v:'2026-10-28-b',t:'Chat de amigos renovado',items:[['💬','Chat más bonito','Burbujas nuevas, separadores de «Hoy» y «Ayer», y ves si tu amigo está conectado. Toca los ⋮ de un mensaje para copiarlo o borrarlo.','new','#3f7cff'],['🖼️','Fotos: mírala, recórtala y gírala antes de mandarla','Al elegir o pegar una foto puedes recortarla, girarla y añadirle un texto. Se manda entera, sin cortes raros.','new','#b06bff'],['📌','Fija a tus amigos','Toca 📌 en la lista de chats para tener arriba a quien más hablas.','new','#ff3b4f'],['🖱️','Sin saltos','El buscador y el botón de foto salen al momento, la página de detrás ya no se mueve con la rueda del ratón y, si abres un perfil desde el chat, al cerrarlo vuelves al chat.','fix','#14e08a']]},
  {v:'2026-10-28-a',t:'Fotos en el chat de amigos',items:[['📷','Manda fotos a tus amigos','En el chat de amigos toca 📷 para mandar una foto, o pega directamente una captura que hayas copiado. Toca la foto para verla en grande.','new','#3f7cff'],['🔐','Caja fuerte con la cifra entera','La caja fuerte enseña siempre todos los números de lo que tienes guardado, sin acortar.','fix','#ffd600'],['🔒','Aviso correcto al cerrar una conversación','Cuando se cierra tu conversación del buzón, ahora pone «Conversación cerrada» y no «El jefe te ha escrito».','fix','#8a8f98']]},
  {v:'2026-10-27-h',t:'Lluvia de monedas, más clara',items:[['🌧️','La lluvia cuenta monedas','En la lluvia y la megalluvia ahora pone cuántas monedas quedan en el aire y quién ha cogido más monedas. Antes ponía euros, pero cada moneda te da distinto según lo rico que seas.','fix','#14e08a']]},
@@ -8165,7 +8166,7 @@ gEnd=function(){if(running&&G&&!G.dom&&!G.won&&GX_REV[gid]&&!GX.used&&!GX.pend&&
     running=false;for(const k in KEYS)KEYS[k]=false;GX.pend={tok:++GX.tok,g:gid};$('#gSave').hidden=true;gxRevBox();return}
   return _gxGEnd.apply(this,arguments)};
 function gxFinish(silent){const p=GX.pend;if(!p)return;GX.pend=null;GX.used=true;if(silent)GX.mute=Date.now()+1500;if(!G||gid!==p.g)return;running=true;_gxGEnd()}
-function gxRevBox(){const o=$('#over'),t=GX_REV[gid],coins=Math.max(0,Math.round(G.reward(score)*dmul()));
+function gxRevBox(){const o=$('#over'),t=GX_REV[gid],coins=(()=>{try{return gPay(score,S.best[gid+'.'+curDiff()],false)}catch(e){return Math.max(0,Math.round(G.reward(score)*dmul()))}})();
   o.hidden=false;o.style.setProperty('--c',gxCol());o.classList.remove('gx-tap');setGTitle();
   o.innerHTML=`<div class="obox gx-rev"><span class="gx-badge">Segunda oportunidad</span><h3>${t[0]}</h3><div class="sc">${G.fmt?G.fmt(score):fmt(score)}</div><p>${esc(G.unit)} · ${diffName(curDiff())} · récord ${bestTxt(gid)}</p>
     <button class="btn big mint gx-ad" data-gx="rev">${GX_TV}<span>Revivir viendo un anuncio<small>${t[1]}</small></span></button>
@@ -15146,6 +15147,13 @@ function sfAnimTick(){const b=document.querySelector('#safeCard .sfv b');const k
     else if(SFA.raf){SFA.to=v}}
   if(SFA.raf){const b=document.querySelector('#safeCard .sfv b');if(b){const k=Math.min(1,(performance.now()-SFA.t0)/850),e=1-Math.pow(1-k,3);b.textContent=fmt(Math.floor(SFA.from+(SFA.to-SFA.from)*e))+' €'}}
   SFA.v=v}catch(e){}return r}}
+/* ===== 2026-10-28: los minijuegos pagan según tu dinero y lo bien que lo hagas (antes daban muy poco) ===== */
+function gPay(sc,prev,better){let base=0;try{base=Math.max(0,Math.round(G.reward(sc)*dmul()))}catch(e){}
+  try{const mn=G.best==='min';if(!(sc>0))return base;let r;if(prev==null||!(+prev>0))r=.6;else r=mn?(+prev)/sc:sc/(+prev);r=Math.max(0,Math.min(1.5,r));
+    let w=0;try{w=wR()}catch(_){w=+S.coins||0}let pct=.0015+.012*r;if(better&&prev!=null)pct*=1.6;pct*=Math.min(2,Math.max(1,dmul()));
+    return Math.max(base,niceN(Math.max(base,w*pct)))}catch(e){return base}}
+try{i18nAdd([['Los minijuegos pagan mucho más','Minigames pay much more','Les mini-jeux paient beaucoup plus','Os minijogos pagam muito mais'],['Más premio al terminar cada partida','Bigger prize at the end of each game','Plus de gains à la fin de chaque partie','Mais prémio no fim de cada partida'],['Ahora el premio de los minijuegos va según tu dinero: cuanto más te acerques a tu récord, más cobras, y si lo superas, muchísimo más.','Minigame prizes now depend on your money: the closer you get to your record, the more you earn, and if you beat it, much more.','Les gains des mini-jeux dépendent maintenant de ton argent : plus tu approches de ton record, plus tu gagnes, et si tu le bats, beaucoup plus.','Agora o prémio dos minijogos depende do teu dinheiro: quanto mais perto do teu recorde, mais ganhas, e se o bateres, muito mais.'],['Botón rojo: el fantasma y los cofres dan más','Red button: the ghost and chests give more','Bouton rouge : le fantôme et les coffres donnent plus','Botão vermelho: o fantasma e os baús dão mais'],['El fantasma, los cofres y la lluvia de monedas del botón rojo ahora pagan según tu dinero.','The ghost, the chests and the coin rain from the red button now pay according to your money.','Le fantôme, les coffres et la pluie de pièces du bouton rouge paient maintenant selon ton argent.','O fantasma, os baús e a chuva de moedas do botão vermelho agora pagam conforme o teu dinheiro.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Cuánto me dan por jugar un minijuego?'))FAQ.unshift(['¿Cuánto me dan por jugar un minijuego?','Depende de tu dinero y de lo bien que lo hagas: cuanto más te acerques a tu mejor marca, más cobras, y si la superas, mucho más.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
