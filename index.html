@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-28-2209">
+<meta name="app-version" content="2026-10-28-2243">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2978,6 +2978,15 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 #seEnd .sev{font:900 clamp(26px,8vw,40px) var(--f-d,system-ui);color:#14e08a;text-shadow:0 0 18px #14e08a88;overflow-wrap:anywhere}
 #seEnd .btn{width:100%}
 #seEnd .sef{font-size:12.5px;opacity:.6}
+.sstat .sball{background:linear-gradient(135deg,#ffd60026,#ff9d0026)!important;border-color:#ffd600!important}
+.sstat .sball small{color:#ffd600!important}
+.sstat .sball b{color:#ffd600}
+.sstat .sball.flash{animation:sbFlash .9s ease-out}
+@keyframes sbFlash{0%{transform:scale(1.18);box-shadow:0 0 18px #ffd600}100%{transform:none;box-shadow:none}}
+.gcard .gball{display:inline-block;margin-top:2px;font-size:11px;font-weight:800;color:#ffd600}
+.gcard .gball b{font-size:12px}
+.ovball{margin:8px 0 0;font-weight:800;font-size:15px;color:#ffd600;text-align:center}
+.ovball em{font-style:normal;background:#ffd600;color:#111;border-radius:99px;padding:1px 8px;margin-left:6px;font-size:12px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -5988,9 +5997,9 @@ function overlay(mode,d){const o=$('#over'),col=GLIST.find(g=>g[0]===gid)[2];o.h
   if(mode==='start'){const cd=curDiff();
     o.innerHTML=`<div class="obox" style="--c:${col}"><div class="oc">${COVERS[gid]}</div><h3>${G.name}</h3><p>${G.hint}</p>
       <div class="diffs">${DIFFS.map(x=>`<button class="dchip ${x[0]==='h'||x[0]==='x'?x[0]:''}" data-dif="${x[0]}" aria-pressed="${x[0]===cd}">${x[1]}<small>x${String(x[2]).replace('.',',')} €</small></button>`).join('')}</div>
-      <p style="font-size:13px">${cd==='x'?'Hasbirinino: nivel dios. Casi imposible, pero te dan x8.':cd==='h'?'Hasbiri: muy difícil, pero te dan el cuádruple.':'Récord en '+diffName(cd)+': '+bestTxt(gid)}</p>
+      <p style="font-size:13px">${cd==='x'?'Hasbirinino: nivel dios. Casi imposible, pero te dan x8.':cd==='h'?'Hasbiri: muy difícil, pero te dan el cuádruple.':'Récord semanal en '+diffName(cd)+': '+bestTxt(gid)}</p>
       ${S.saved&&S.saved[gid]?`<div class="savedbox"><b>Partida guardada</b><small>${savedLabel(gid)}</small><button class="btn big mint" data-o="cont">Continuar</button></div><button class="btn alt" data-o="play">Partida nueva</button><p style="font-size:12px">Si empiezas una partida nueva de este juego, la guardada se pierde (tu dinero y tu cuenta no se tocan).</p>`:'<button class="btn big" data-o="play">Jugar</button>'}</div>`}
-  else o.innerHTML=`<div class="obox">${d.better?'<span class="rec">NUEVO RÉCORD</span>':''}<h3>${G.endTitle?G.endTitle(d.sc):'¡Se acabó!'}</h3><div class="sc">${G.fmt?G.fmt(d.sc):fmt(d.sc)}</div><p>${G.unit} · ${diffName(curDiff())} · récord ${bestTxt(gid)}</p>
+  else o.innerHTML=`<div class="obox">${d.better?'<span class="rec">NUEVO RÉCORD</span>':''}<h3>${G.endTitle?G.endTitle(d.sc):'¡Se acabó!'}</h3><div class="sc">${G.fmt?G.fmt(d.sc):fmt(d.sc)}</div><p>${G.unit} · ${diffName(curDiff())} · récord semanal ${bestTxt(gid)}</p>
     <span class="earn"><span class="coinic">€</span>+${short(d.coins)}</span><div class="obtns"><button class="btn big" data-o="play">Otra vez</button><button class="btn alt" data-o="rank">Ver clasificación</button><button class="btn alt" data-o="diff">Cambiar dificultad</button><button class="btn alt" data-o="back">Otros juegos</button></div></div>`;
   o.classList.remove('tight','tighter');if(o.scrollHeight>o.clientHeight+2){o.classList.add('tight');if(o.scrollHeight>o.clientHeight+2)o.classList.add('tighter')}
   const b=o.querySelector('[data-o="play"]');if(b)setTimeout(()=>b.focus({preventScroll:true}),50)}
@@ -6527,6 +6536,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-28-d',t:'Tu récord de siempre, a la vista',items:[['🏆','Récord de siempre en cada juego','Al jugar ves tu récord de la semana y, al lado en dorado, tu récord de siempre. También sale en las tarjetas de los juegos y al acabar la partida.','new','#ffd600']]},
  {v:'2026-10-28-c',t:'Récord en minijuegos = premio gordo',items:[['🕹️','Premio gordo si superas tu récord','Si superas tu récord en un minijuego, el premio va según tu dinero y es muy grande. Si no lo superas, cobras poquito.','new','#14e08a'],['👻','Botón rojo: el fantasma y los cofres dan más','El fantasma, los cofres y la lluvia de monedas del botón rojo ahora pagan según tu dinero.','fix','#9a6bff']]},
  {v:'2026-10-28-b',t:'Chat de amigos renovado',items:[['💬','Chat más bonito','Burbujas nuevas, separadores de «Hoy» y «Ayer», y ves si tu amigo está conectado. Toca los ⋮ de un mensaje para copiarlo o borrarlo.','new','#3f7cff'],['🖼️','Fotos: mírala, recórtala y gírala antes de mandarla','Al elegir o pegar una foto puedes recortarla, girarla y añadirle un texto. Se manda entera, sin cortes raros.','new','#b06bff'],['📌','Fija a tus amigos','Toca 📌 en la lista de chats para tener arriba a quien más hablas.','new','#ff3b4f'],['🖱️','Sin saltos','El buscador y el botón de foto salen al momento, la página de detrás ya no se mueve con la rueda del ratón y, si abres un perfil desde el chat, al cerrarlo vuelves al chat.','fix','#14e08a']]},
  {v:'2026-10-28-a',t:'Fotos en el chat de amigos',items:[['📷','Manda fotos a tus amigos','En el chat de amigos toca 📷 para mandar una foto, o pega directamente una captura que hayas copiado. Toca la foto para verla en grande.','new','#3f7cff'],['🔐','Caja fuerte con la cifra entera','La caja fuerte enseña siempre todos los números de lo que tienes guardado, sin acortar.','fix','#ffd600'],['🔒','Aviso correcto al cerrar una conversación','Cuando se cierra tu conversación del buzón, ahora pone «Conversación cerrada» y no «El jefe te ha escrito».','fix','#8a8f98']]},
@@ -15171,6 +15181,18 @@ try{if(!FAQ.some(x=>x[0]==='¿Cuánto me dan por jugar un minijuego?'))FAQ.unshi
     if(now-last.t<650&&Math.hypot(x-last.x,y-last.y)<110&&document.querySelector(SEL)){e.preventDefault();e.stopImmediatePropagation();eat(x,y,700)}},true);
   const sw=e=>{const p=e.changedTouches?e.changedTouches[0]:e;if(Date.now()>eatUntil){if(e.type==='click'&&!isC(e.target)&&p&&(p.clientX||p.clientY)&&near(p.clientX,p.clientY,10)&&(e.pointerType==='touch'||matchMedia('(hover:none)').matches)){e.preventDefault();e.stopImmediatePropagation()}return}if(p&&Math.hypot((p.clientX||0)-eatX,(p.clientY||0)-eatY)>120)return;if(isC(e.target))return;if(e.cancelable)e.preventDefault();e.stopImmediatePropagation()};
   addEventListener('click',sw,true);addEventListener('pointerup',sw,true);addEventListener('mouseup',sw,true);addEventListener('touchend',sw,{capture:true,passive:false})})();
+/* ===== 2026-10-28: tu récord de siempre, bien a la vista en cada juego ===== */
+function bestAllMount(){try{const ss=document.querySelector('#stage .sstat')||$('#gBest')&&$('#gBest').closest('.sstat');if(!ss)return;let d=$('#gBestAllBox');
+  if(!d){ss.insertAdjacentHTML('beforeend','<div id="gBestAllBox" class="sball" title="Tu mejor marca de siempre en esta dificultad"><small>🏆 De siempre</small><b id="gBestAll">–</b></div>');d=$('#gBestAllBox')}
+  const b=$('#gBestAll');if(b&&gid){const t=bestAllTxt(gid);if(b.textContent!==t){b.textContent=t;d.classList.remove('flash');void d.offsetWidth;if(t!=='–')d.classList.add('flash')}}}catch(e){}}
+{const _sgtB=setGTitle;setGTitle=function(){const r=_sgtB.apply(this,arguments);bestAllMount();return r}}
+{const _geB=gEnd;gEnd=function(){const r=_geB.apply(this,arguments);setTimeout(bestAllMount,60);return r}}
+/* en las tarjetas de los juegos también */
+{const _gcB=gcards;gcards=function(){let h=_gcB.apply(this,arguments);try{GLIST.forEach(([id])=>{const t=bestAllTxt(id);h=h.replace(new RegExp('(data-game="'+id+'"[\\s\\S]*?)(</small></span></button>)'),'$1<br><span class="gball">🏆 De siempre: <b>'+t+'</b></span>$2')})}catch(e){}return h}}
+/* y en la pantalla de fin de partida */
+{const _ovB=overlay;overlay=function(mode,d){const r=_ovB.apply(this,arguments);try{if((mode==='over'||mode==='start')&&gid){const o=$('#over');if(o&&!o.querySelector('.ovball')){const host=o.querySelector('.obox');const sc=host&&(host.querySelector('.sc')||host.querySelector('.diffs'));const html=`<p class="ovball">🏆 Tu récord de siempre${mode==='start'?' en '+diffName(curDiff()):''}: <b>${bestAllTxt(gid)}</b></p>`;if(sc)sc.insertAdjacentHTML('afterend',html);else if(host)host.insertAdjacentHTML('beforeend',html)}}}catch(e){}return r}}
+try{i18nAdd([['Tu récord de siempre, a la vista','Your all-time record, in sight','Ton record de tous les temps, bien visible','O teu recorde de sempre, à vista'],['Récord de siempre en cada juego','All-time record in every game','Record de tous les temps dans chaque jeu','Recorde de sempre em cada jogo'],['Al jugar ves tu récord de la semana y, al lado en dorado, tu récord de siempre. También sale en las tarjetas de los juegos y al acabar la partida.','While playing you see your weekly record and, next to it in gold, your all-time record. It also shows on the game cards and at the end of each game.','En jouant, tu vois ton record de la semaine et, à côté en doré, ton record de tous les temps. Il apparaît aussi sur les cartes des jeux et à la fin de la partie.','Ao jogar vês o teu recorde da semana e, ao lado em dourado, o teu recorde de sempre. Também aparece nos cartões dos jogos e no fim da partida.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Dónde veo mi récord de siempre en un minijuego?'))FAQ.unshift(['¿Dónde veo mi récord de siempre en un minijuego?','Arriba mientras juegas, en el recuadro dorado «🏆 De siempre». También en la tarjeta de cada juego y al terminar la partida. El otro recuadro es el récord de esta semana.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
