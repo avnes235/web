@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-28-1541">
+<meta name="app-version" content="2026-10-28-1603">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2872,6 +2872,94 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 #chImgV[hidden]{display:none}
 #chImgV img{max-width:100%;max-height:100%;border-radius:10px}
 #chImgV button{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#000;font-size:20px;cursor:pointer}
+/* ===== chat de amigos renovado ===== */
+#chatWin{overscroll-behavior:contain}
+#chatWin .chbox{position:relative;background:#121218;border-left:3px solid #3f7cff;overflow:hidden}
+#chatWin .chh{padding:10px 12px;gap:8px;background:#18181f}
+#chatWin .chwho{flex:1;min-width:0;display:flex;align-items:center;gap:10px;background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer;padding:2px 4px;border-radius:12px}
+#chatWin .chwho:hover{background:#ffffff0d}
+#chatWin .chwho .cw{display:flex;flex-direction:column;min-width:0}
+#chatWin .chwho .cn{font-size:17px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chatWin .chwho small{font-size:12px;font-weight:700;opacity:.7;display:flex;align-items:center;gap:5px}
+#chatWin .ond{width:8px;height:8px;border-radius:50%;background:#14e08a;display:inline-block}
+#chatWin .chmenu{font-size:22px;line-height:1}
+#chatWin .chsearch{margin:10px 12px 0}
+#chatWin .chl{padding:8px 10px;gap:4px;overscroll-behavior:contain;flex:1}
+#chatWin .chsec{font:900 12px var(--f-b,system-ui);letter-spacing:.06em;text-transform:uppercase;opacity:.6;padding:8px 6px 2px}
+.chi2{display:flex;align-items:center;gap:12px;padding:10px 10px;border-radius:14px;background:transparent;border:2px solid transparent;cursor:pointer;position:relative}
+.chi2:hover,.chi2:focus-visible{background:#1c1c24;border-color:#2c2c38;outline:none}
+.chi2 .av{width:46px;height:46px;flex:none;display:grid;place-items:center;border-radius:50%;overflow:hidden;font-size:30px;background:#22222b}
+.chi2 .cm{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.chi2 .cm b{font-weight:900;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chi2 .cm small{opacity:.7;font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chi2 .cr{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.chi2 .ct{opacity:.55;font-weight:700;font-size:11px}
+.chi2 .cun{background:#3f7cff;color:#fff;font:900 10.5px var(--f-b,system-ui);padding:2px 7px;border-radius:99px}
+.chi2.un .cm small{opacity:1;color:#cfe0ff}
+.chi2.un .cm b{color:#fff}
+.chpinb{flex:none;width:34px;height:34px;border-radius:10px;border:0;background:transparent;font-size:16px;cursor:pointer;opacity:.28;filter:grayscale(1);transition:opacity .15s}
+.chi2:hover .chpinb,.chpinb:focus-visible{opacity:.7}
+.chpinb.on{opacity:1;filter:none}
+.chi2.chpinned{background:#191923}
+#chatWin .chhint{margin:0;padding:10px 14px 12px;font-size:12.5px;opacity:.65;border-top:1px solid #24242e}
+/* mensajes */
+#chatWin .chm{padding:12px 10px 8px;gap:2px;background:radial-gradient(circle at 20% 0%,#1a1a28 0,transparent 55%),#121218;overscroll-behavior:contain}
+.chday{align-self:center;margin:10px 0 6px;padding:3px 12px;border-radius:99px;background:#22222c;font:800 11.5px var(--f-b,system-ui);opacity:.85;text-transform:capitalize}
+.cm2{display:flex;align-items:center;gap:2px;max-width:86%;align-self:flex-start;margin-bottom:6px}
+.cm2.grp{margin-bottom:2px}
+.cm2.me{align-self:flex-end;flex-direction:row-reverse}
+.cm2 .cb{background:#24242e;color:#f2f2f7;border-radius:18px 18px 18px 6px;padding:7px 11px 6px;font-weight:600;font-size:15px;line-height:1.35;min-width:0;overflow-wrap:anywhere;box-shadow:0 1px 0 #0006}
+.cm2.me .cb{background:linear-gradient(135deg,#3f7cff,#7b5cff);color:#fff;border-radius:18px 18px 6px 18px}
+.cm2.grp:not(.me) .cb{border-bottom-left-radius:18px}.cm2.grp.me .cb{border-bottom-right-radius:18px}
+.cm2 .ctx{white-space:pre-wrap}
+.cm2 .ctm{float:right;margin:6px 0 -3px 10px;font-size:10.5px;font-weight:700;opacity:.65;white-space:nowrap;line-height:1}
+.cm2.hasimg .cb{padding:4px 4px 6px}
+.cm2.hasimg.imgonly .cb{background:#24242e}
+.cm2.hasimg .ctx{display:block;padding:4px 7px 0}
+.cm2.hasimg .ctm{margin-right:6px}
+.cm2 .chimg{display:block;max-width:min(260px,62vw);max-height:340px;width:auto;height:auto;object-fit:contain;border-radius:14px;cursor:zoom-in;background:#0003}
+.cmore{flex:none;width:30px;height:34px;border:0;border-radius:10px;background:transparent;color:#fff;font:900 22px/1 system-ui,sans-serif;cursor:pointer;opacity:.45;padding:0}
+.cmore:hover,.cmore:focus-visible{opacity:1;background:#ffffff14}
+@media (hover:none){.cmore{opacity:.7}}
+.chpop{position:absolute;z-index:6;min-width:200px;background:#1e1e27;border:2px solid #34343f;border-radius:14px;padding:6px;display:flex;flex-direction:column;box-shadow:0 12px 30px #000a}
+.chpop button{background:none;border:0;color:#fff;text-align:left;font:800 14.5px var(--f-b,system-ui);padding:10px 10px;border-radius:9px;cursor:pointer}
+.chpop button:hover{background:#ffffff12}
+.chpop button.del{color:#ff6b7c}
+.chpop button[data-chpx]{opacity:.6}
+/* escribir */
+#chatWin .chin{align-items:center;padding:10px;gap:8px;background:#18181f;border-top:1px solid #26262f}
+#chatWin .chin .inp{height:46px;border-radius:99px;padding:0 16px;font-size:15px}
+#chatWin .chatt{width:auto;min-width:46px;height:46px;min-height:46px;padding:0 10px;gap:5px;border-radius:99px;border:2px solid #34343f;background:#22222b;color:#cfe0ff;font:900 13px var(--f-b,system-ui)}
+#chatWin .chatt:hover{border-color:#3f7cff;color:#fff}
+@media (max-width:420px){#chatWin .chatt span{display:none}}
+#chatWin .chsendb{height:46px;border-radius:99px;padding:0 16px;background:linear-gradient(135deg,#3f7cff,#7b5cff);color:#fff;border-color:#111;white-space:nowrap}
+.chtip{display:none!important}
+/* avisos dentro del chat */
+.chnote{margin:0 10px 8px;padding:9px 12px;border-radius:12px;background:#1f2a44;border:1px solid #3f7cff66;display:flex;flex-direction:column;gap:2px;font-size:13.5px;animation:chNoteIn .2s ease-out}
+.chnote[hidden]{display:none}
+.chnote b{font-weight:900}.chnote span{opacity:.85;font-weight:700;font-size:12.5px}
+.chnote.bad{background:#3a1820;border-color:#ff3b4f88}
+@keyframes chNoteIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* preparar foto */
+#chEd{position:absolute;inset:0;z-index:7;background:#0d0d12;display:flex;flex-direction:column}
+#chEd .ceh{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#18181f}
+#chEd .ceh b{font-weight:900;font-size:16px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chEd .cestage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:10px}
+#chEd .cewrap{position:relative;line-height:0;overflow:hidden;border-radius:6px;touch-action:none}
+#chEd canvas{display:block}
+#chEd .cecrop{position:absolute;border:2px solid #fff;box-shadow:0 0 0 9999px #000a;cursor:move;touch-action:none}
+#chEd .cecrop::before,#chEd .cecrop::after{content:"";position:absolute;inset:33.3% 0;border-top:1px solid #fff6;border-bottom:1px solid #fff6;pointer-events:none}
+#chEd .cecrop::after{inset:0 33.3%;border:0;border-left:1px solid #fff6;border-right:1px solid #fff6}
+#chEd .cecrop i{position:absolute;width:26px;height:26px;border:4px solid #fff;z-index:1}
+#chEd .cecrop i[data-h=nw]{left:0;top:0;border-right:0;border-bottom:0;cursor:nwse-resize}
+#chEd .cecrop i[data-h=ne]{right:0;top:0;border-left:0;border-bottom:0;cursor:nesw-resize}
+#chEd .cecrop i[data-h=sw]{left:0;bottom:0;border-right:0;border-top:0;cursor:nesw-resize}
+#chEd .cecrop i[data-h=se]{right:0;bottom:0;border-left:0;border-top:0;cursor:nwse-resize}
+#chEd .cehelp{margin:0;text-align:center;font-size:12.5px;font-weight:700;opacity:.6}
+#chEd .cetools{display:flex;justify-content:center;gap:8px;padding:8px}
+#chEd .cefoot{display:flex;gap:8px;padding:10px;background:#18181f}
+#chEd .cefoot .inp{flex:1;min-width:0;height:46px;border-radius:99px;padding:0 16px}
+#chImgV{overscroll-behavior:contain}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6421,6 +6509,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-28-b',t:'Chat de amigos renovado',items:[['💬','Chat más bonito','Burbujas nuevas, separadores de «Hoy» y «Ayer», y ves si tu amigo está conectado. Toca los ⋮ de un mensaje para copiarlo o borrarlo.','new','#3f7cff'],['🖼️','Fotos: mírala, recórtala y gírala antes de mandarla','Al elegir o pegar una foto puedes recortarla, girarla y añadirle un texto. Se manda entera, sin cortes raros.','new','#b06bff'],['📌','Fija a tus amigos','Toca 📌 en la lista de chats para tener arriba a quien más hablas.','new','#ff3b4f'],['🖱️','Sin saltos','El buscador y el botón de foto salen al momento, la página de detrás ya no se mueve con la rueda del ratón y, si abres un perfil desde el chat, al cerrarlo vuelves al chat.','fix','#14e08a']]},
  {v:'2026-10-28-a',t:'Fotos en el chat de amigos',items:[['📷','Manda fotos a tus amigos','En el chat de amigos toca 📷 para mandar una foto, o pega directamente una captura que hayas copiado. Toca la foto para verla en grande.','new','#3f7cff'],['🔐','Caja fuerte con la cifra entera','La caja fuerte enseña siempre todos los números de lo que tienes guardado, sin acortar.','fix','#ffd600'],['🔒','Aviso correcto al cerrar una conversación','Cuando se cierra tu conversación del buzón, ahora pone «Conversación cerrada» y no «El jefe te ha escrito».','fix','#8a8f98']]},
  {v:'2026-10-27-h',t:'Lluvia de monedas, más clara',items:[['🌧️','La lluvia cuenta monedas','En la lluvia y la megalluvia ahora pone cuántas monedas quedan en el aire y quién ha cogido más monedas. Antes ponía euros, pero cada moneda te da distinto según lo rico que seas.','fix','#14e08a']]},
  {v:'2026-10-27-g',t:'Blackjack: ya puedes separar',items:[['✂️','Separar en el blackjack','Si te salen dos cartas del mismo valor, pulsa «✂️ Separar»: juegas dos manos, cada una con tu apuesta. Idea de un jugador desde el Buzón del jefe.','new','#14e08a']]},
@@ -14867,6 +14956,138 @@ document.addEventListener('click',e=>{const im=e.target.closest&&e.target.closes
 try{const t=TUTOS.find(x=>/Amigos|Chat/.test(x[1]));if(t&&!t[4].some(x=>/foto/.test(x[0])))t[4].push(['En el <b>chat de amigos</b> puedes mandar fotos: toca <b>📷</b> o pega una captura que hayas copiado.'])}catch(e){}
 try{i18nAdd([['Fotos en el chat de amigos','Photos in the friends chat','Photos dans le chat entre amis','Fotos no chat de amigos'],['Manda fotos a tus amigos','Send photos to your friends','Envoie des photos à tes amis','Manda fotos aos teus amigos'],['En el chat de amigos toca 📷 para mandar una foto, o pega directamente una captura que hayas copiado. Toca la foto para verla en grande.','In the friends chat tap 📷 to send a photo, or just paste a screenshot you copied. Tap the photo to see it big.','Dans le chat entre amis, touche 📷 pour envoyer une photo, ou colle directement une capture copiée. Touche la photo pour l\'agrandir.','No chat de amigos toca em 📷 para mandar uma foto, ou cola diretamente uma captura que tenhas copiado. Toca na foto para a ver em grande.'],['Caja fuerte con la cifra entera','Safe with the full number','Coffre avec le chiffre complet','Cofre com o número inteiro'],['La caja fuerte enseña siempre todos los números de lo que tienes guardado, sin acortar.','The safe always shows every digit of what you have saved, without shortening.','Le coffre affiche toujours tous les chiffres de ce que tu as rangé, sans abréger.','O cofre mostra sempre todos os números do que tens guardado, sem abreviar.'],['Aviso correcto al cerrar una conversación','Correct notice when a conversation is closed','Bon message quand une discussion est fermée','Aviso certo ao fechar uma conversa'],['Cuando se cierra tu conversación del buzón, ahora pone «Conversación cerrada» y no «El jefe te ha escrito».','When your mailbox conversation is closed, it now says «Conversation closed» instead of «The boss wrote to you».','Quand ta discussion de la boîte est fermée, il est écrit « Discussion fermée » et non « Le boss t\'a écrit ».','Quando a tua conversa da caixa é fechada, agora diz «Conversa fechada» e não «O chefe escreveu-te».']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Puedo mandar fotos por el chat?'))FAQ.unshift(['¿Puedo mandar fotos por el chat?','Sí, en el chat de amigos: toca 📷 para elegir una foto o pega una captura que hayas copiado. Tienes que tener cuenta.'])}catch(e){}
+/* ===== 2026-10-28: chat de amigos renovado (burbujas nuevas, menú ⋮, fotos con recorte, fijar chats, avisos dentro del chat) ===== */
+const chPinned=id=>(S.chPin||[]).includes(id);
+function chPinT(id){S.chPin=S.chPin||[];const on=!chPinned(id);S.chPin=on?[id,...S.chPin.filter(x=>x!==id)].slice(0,10):S.chPin.filter(x=>x!==id);save();return on}
+function chTime(t){const d=new Date(+t||0),n=new Date();const hm=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});if(d.toDateString()===n.toDateString())return hm;const y=new Date(n);y.setDate(n.getDate()-1);if(d.toDateString()===y.toDateString())return'ayer '+hm;return d.toLocaleDateString('es-ES',{day:'numeric',month:'short'})+' '+hm}
+/* aviso dentro del chat (en vez de en la esquina) */
+function chNote(t,s,kind){const box=document.querySelector('#chatWin .chbox');if(!box||$('#chatWin').hidden){try{toast(t,s||'',kind==='bad'?'var(--coral)':'var(--sky)',kind==='bad'?'⚠️':'💬')}catch(_){}return}
+  let n=$('#chNote');if(!n){n=document.createElement('div');n.id='chNote';const inn=box.querySelector('.chin');if(inn)inn.insertAdjacentElement('beforebegin',n);else box.appendChild(n)}
+  n.className='chnote '+(kind||'');n.innerHTML='<b>'+t+'</b>'+(s?'<span>'+s+'</span>':'');n.hidden=false;clearTimeout(n._t);if(kind!=='busy')n._t=setTimeout(()=>{n.hidden=true},kind==='bad'?4500:2600)}
+/* lista de chats: buscador y fijados desde el primer momento */
+chRender=function(){const w=chWin();if(CH.sel!=='list')return;
+  if(!chCan()){w.innerHTML=`<div class="chbox"><div class="chh"><b>💬 Chats</b><button class="chx" data-chx aria-label="Cerrar">✕</button></div><div class="chempty"><span class="emo">🔐</span><b>Para chatear necesitas cuenta</b><span>Entra con Google o crea una cuenta con usuario y contraseña. Así nadie se hace pasar por ti.</span><button class="btn" data-chacc>Crear cuenta o entrar</button></div></div>`;return}
+  const q=($('#chQ')||{}).value||'',foc=document.activeElement&&document.activeElement.id==='chQ',sc=(w.querySelector('.chl')||{}).scrollTop||0;
+  const fr=chFriends().filter(id=>!chBlocked(id)).map(id=>{const c=CH.list.get(chId(NET.id,id))||{};return{id,c,lt:+c.lt||0,pin:chPinned(id)}}).sort((a,b)=>(b.pin-a.pin)||(a.pin&&b.pin?(S.chPin.indexOf(a.id)-S.chPin.indexOf(b.id)):0)||(b.lt-a.lt));
+  const row=({id,c,pin})=>{const un=c.lf&&c.lf!==NET.id&&(+c.lt||0)>(+((S.chSeen||{})[chId(NET.id,id)])||0);
+    return`<div class="chi2 ${un?'un':''} ${pin?'chpinned':''}" data-chopen="${esc(id)}" role="button" tabindex="0"><span class="av emo">${chAvH(id)}</span><span class="cm"><b>${esc(chName(id))}</b><small>${c.last?(c.lf===NET.id?'Tú: ':'')+esc(String(c.last).slice(0,48)):'Escríbele algo'}</small></span><span class="cr">${c.lt?`<small class="ct">${ago(c.lt)}</small>`:''}${un?'<span class="cun">nuevo</span>':''}</span><button type="button" class="chpinb ${pin?'on':''}" data-chpin="${esc(id)}" title="${pin?'Quitar de fijados':'Fijar arriba'}" aria-label="${pin?'Quitar de fijados':'Fijar arriba'}">📌</button></div>`};
+  const pins=fr.filter(x=>x.pin),rest=fr.filter(x=>!x.pin);
+  w.innerHTML=`<div class="chbox"><div class="chh"><b>💬 Chats</b><button class="chx" data-chx aria-label="Cerrar">✕</button></div>
+   ${fr.length?`<label class="search chsearch"><svg class="ic"><use href="#i-search"/></svg><input id="chQ" type="search" placeholder="Buscar amigo (también por su nombre antiguo)" autocomplete="off" value="${esc(q)}"></label>`:''}
+   <div class="chl">${fr.length?(pins.length?`<div class="chsec">📌 Fijados</div>${pins.map(row).join('')}${rest.length?'<div class="chsec">Todos</div>':''}`:'')+rest.map(row).join(''):'<div class="chempty"><span class="emo">🤝</span><b>Todavía no tienes amigos</b><span>Pídele el código a tu colega y añádelo en Clasificación › Amigos. Cuando acepte, podréis chatear.</span><button class="btn" data-chfr>Añadir amigos</button></div>'}</div>
+   <p class="chhint">Solo puedes chatear con tus <b>amigos</b>. Toca 📌 para fijar a alguien arriba.${chAllF().length>fr.length?' Los invitados sin cuenta no salen aquí.':''}</p></div>`;
+  const L=w.querySelector('.chl');if(L)L.scrollTop=sc;if(q)chFilter(q);if(foc){const i=$('#chQ');if(i){i.focus();try{i.setSelectionRange(q.length,q.length)}catch(_){}}}};
+function chFilter(q){q=String(q||'').trim();document.querySelectorAll('#chatWin .chl [data-chopen]').forEach(b=>{const p=NET.players.get(b.dataset.chopen)||CH.pc.get(b.dataset.chopen);b.style.display=!q||(typeof pMatch==='function'&&pMatch(p||{name:b.textContent},q))||pnNorm(b.textContent).includes(pnNorm(q))?'':'none'});
+  document.querySelectorAll('#chatWin .chsec').forEach(s=>s.style.display=q?'none':'')}
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='chQ')chFilter(e.target.value)});
+/* conversación */
+chOpen=function(id){if(!id)return;const w=chWin();w.hidden=false;if(!chCan()){CH.sel='list';chRender();return}
+  if(!(S.friends||[]).includes(id)&&!CH.list.has(chId(NET.id,id))){toast('Solo con amigos','Primero tenéis que ser amigos','var(--coral)','🤝');return}
+  CH.sel='conv';CH.open=id;CH.msgs=[];CH.mk=null;CH.scrolled=false;const cid=chId(NET.id,id);if(CH.unsubM)CH.unsubM();const p=chP(id)||{};
+  const on=NET.online&&NET.online.has(id);
+  w.innerHTML=`<div class="chbox conv"><div class="chh"><button class="chback" data-chback aria-label="Volver">‹</button><button type="button" class="chwho" data-chprof><span class="av emo">${chAvH(id)}</span><span class="cw"><b class="cn">${esc(chName(id))}</b><small>${on?'<i class="ond"></i> conectado':(p.t?'visto '+ago(+p.t):'toca para ver su perfil')}</small></span></button><button class="chmenu" data-chmenu aria-label="Opciones">⋮</button><button class="chx" data-chx aria-label="Cerrar">✕</button></div>
+   <div class="chmm" id="chMenu" hidden><button data-chpinc>📌 ${chPinned(id)?'Quitar de fijados':'Fijar arriba en la lista'}</button><button data-chprof>👤 Ver su perfil</button><button data-chclear>🧹 Vaciar chat (solo para ti)</button><button data-chblock>🚫 Bloquear a ${esc(chName(id))}</button></div>
+   <div class="chm" id="chMsgs"><div class="chload">Cargando…</div></div>
+   <div class="chin"><label class="chatt" title="Mandar una foto (también puedes pegar una captura con Ctrl+V)"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="9" cy="10" r="1.8" fill="currentColor"/><path d="M5 17l4.5-4.5 3 3 2.5-2.5L19 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg><span>Foto</span><input type="file" accept="image/*" id="chFile" hidden></label><input class="inp" id="chTxt" maxlength="300" placeholder="Escribe un mensaje…" title="Escribe un mensaje o pega una foto (Ctrl+V)" autocomplete="off" enterkeyhint="send" data-ph2="1"><button class="btn chsendb" id="chSend" aria-label="Enviar">Enviar ➤</button></div></div>`;
+  CH.unsubM=NET.db.collection('chats/'+cid+'/m').orderBy('t','desc').limit(80).onSnapshot(sn=>{CH.msgs=sn.docs.map(d=>({id:d.id,...(d.data()||{})})).reverse();chMsgs();
+    S.chSeen=S.chSeen||{};S.chSeen[cid]=Date.now();save();chDot()},err=>{const m=$('#chMsgs');if(m)m.innerHTML='<div class="chload">No se pueden cargar los mensajes. Revisa las reglas de Firebase.</div>'});
+  if(matchMedia('(pointer:fine)').matches)setTimeout(()=>{const t=$('#chTxt');if(t)t.focus({preventScroll:true})},80)};
+chMsgs=function(){const el=$('#chMsgs');if(!el)return;const cut=+((S.chCut||{})[chId(NET.id,CH.open)])||0;const L=CH.msgs.filter(m=>(+m.t||0)>cut);
+  const key=L.map(m=>m.id).join(',');if(CH.mk===key&&el.querySelector('.cm2,.chload:not(.ld)'))return;CH.mk=key;
+  const atEnd=el.scrollHeight-el.scrollTop-el.clientHeight<80,st=el.scrollTop;let lastDay='';
+  el.innerHTML=L.length?L.map((m,i)=>{const me=m.from===NET.id,img=chImgOk(m.img),txt=img&&m.text==='📷 Foto'?'':String(m.text||'');const d=new Date(+m.t||0).toDateString();let sep='';
+    if(d!==lastDay){lastDay=d;const n=new Date();const y=new Date(n);y.setDate(n.getDate()-1);sep=`<div class="chday">${d===n.toDateString()?'Hoy':d===y.toDateString()?'Ayer':new Date(+m.t||0).toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})}</div>`}
+    const nx=L[i+1],grp=nx&&nx.from===m.from&&new Date(+nx.t||0).toDateString()===d;
+    return sep+`<div class="cm2 ${me?'me':''} ${grp?'grp':''} ${img?'hasimg':''} ${img&&!txt?'imgonly':''}" data-mid="${esc(m.id)}"><div class="cb">${img?`<img class="chimg" src="${m.img}" alt="Foto" loading="lazy">`:''}${txt?`<span class="ctx">${esc(txt)}</span>`:''}<span class="ctm">${chTime(m.t)}</span></div><button type="button" class="cmore" data-chmore="${esc(m.id)}" aria-label="Opciones del mensaje" title="Opciones">⋮</button></div>`}).join(''):'<div class="chload">Todavía no hay mensajes. ¡Saluda! 👋</div>';
+  const fin=()=>{el.scrollTop=el.scrollHeight};if(atEnd||!CH.scrolled){fin();CH.scrolled=true;el.querySelectorAll('img.chimg').forEach(im=>{if(!im.complete)im.addEventListener('load',()=>{if(el.scrollHeight-el.scrollTop-el.clientHeight<260)fin()},{once:true})})}else el.scrollTop=st};
+chSend=async function(){const t=$('#chTxt');if(!t||!CH.open)return;let text=t.value.trim().replace(/\s+/g,' ').slice(0,300);if(!text)return;
+  if(typeof badTxt==='function'&&badTxt(text)){chNote('🚫 Ese mensaje no se puede enviar','Tiene palabras que no están permitidas','bad');return}
+  if(Date.now()-CH.last<900){return}CH.last=Date.now();const id=CH.open,cid=chId(NET.id,id),now=Date.now();t.value='';
+  try{const u=[NET.id,id].sort();await NET.db.collection('chats/'+cid+'/m').add({from:NET.id,text,t:now});
+    await NET.db.collection('chats').doc(cid).set({u,last:text.slice(0,80),lt:now,lf:NET.id});sfx('click');try{ev('sent')}catch(e){}}
+  catch(e){t.value=text;chNote('⚠️ No se ha podido enviar','Revisa la conexión y vuelve a probar','bad')}};
+chDelete=async function(mid){if(!CH.open)return;const cid=chId(NET.id,CH.open);try{await NET.db.collection('chats/'+cid+'/m').doc(mid).delete();sfx('click');chNote('🗑️ Mensaje borrado','Ya no lo ve nadie');
+    const rest=CH.msgs.filter(m=>m.id!==mid);const lastM=rest[rest.length-1];if(!lastM||CH.msgs[CH.msgs.length-1].id===mid){const u=[NET.id,CH.open].sort();await NET.db.collection('chats').doc(cid).set({u,last:lastM?String(lastM.text).slice(0,80):'(mensaje borrado)',lt:Date.now(),lf:NET.id})}}
+  catch(e){chNote('⚠️ No se ha podido borrar','','bad')}};
+/* menú ⋮ de cada mensaje */
+function chPopClose(){const p=$('#chPop');if(p)p.remove()}
+function chPopOpen(btn){chPopClose();const mid=btn.dataset.chmore,m=CH.msgs.find(x=>x.id===mid);if(!m)return;const box=btn.closest('.chbox');const me=m.from===NET.id,img=chImgOk(m.img),txt=img&&m.text==='📷 Foto'?'':String(m.text||'');
+  const p=document.createElement('div');p.id='chPop';p.className='chpop';p.dataset.mid=mid;
+  p.innerHTML=`${txt?'<button type="button" data-chpcopy>📋 Copiar texto</button>':''}${img?'<button type="button" data-chpimg>🔍 Ver la foto en grande</button>':''}${me?'<button type="button" class="del" data-chpdel>🗑️ Borrar para todos</button>':''}<button type="button" data-chpx>Cancelar</button>`;
+  box.appendChild(p);const br=box.getBoundingClientRect(),r=btn.getBoundingClientRect();const pw=p.offsetWidth,ph=p.offsetHeight;
+  let x=me?r.left-br.left-pw+r.width:r.left-br.left;x=Math.max(8,Math.min(br.width-pw-8,x));let y=r.bottom-br.top+4;if(y+ph>br.height-70)y=r.top-br.top-ph-4;p.style.left=x+'px';p.style.top=Math.max(60,y)+'px'}
+document.addEventListener('click',e=>{const t=e.target;if(!t.closest||!t.closest('#chatWin'))return;
+  const mo=t.closest('[data-chmore]');if(mo){e.stopPropagation();try{sfx('click')}catch(_){}if($('#chPop')&&$('#chPop').dataset.mid===mo.dataset.chmore){chPopClose();return}chPopOpen(mo);return}
+  const pop=t.closest('#chPop');if(pop){e.stopPropagation();const mid=pop.dataset.mid,m=CH.msgs.find(x=>x.id===mid)||{};
+    if(t.closest('[data-chpcopy]')){try{navigator.clipboard.writeText(String(m.text||''));chNote('📋 Copiado')}catch(_){chNote('No se ha podido copiar','','bad')}chPopClose();return}
+    if(t.closest('[data-chpimg]')){chPopClose();chImgView(m.img);return}
+    const d=t.closest('[data-chpdel]');if(d){if(!d.dataset.sure){d.dataset.sure=1;d.textContent='⚠️ ¿Seguro? Toca otra vez para borrar';return}chPopClose();chDelete(mid);return}
+    chPopClose();return}
+  if($('#chPop'))chPopClose();
+  const pb=t.closest('[data-chpin]');if(pb){e.stopPropagation();const on=chPinT(pb.dataset.chpin);try{sfx('click')}catch(_){}chRender();chNote(on?'📌 Fijado arriba':'Quitado de fijados');return}
+  if(t.closest('[data-chpinc]')){e.stopPropagation();const on=chPinT(CH.open);const b=t.closest('[data-chpinc]');b.textContent='📌 '+(on?'Quitar de fijados':'Fijar arriba en la lista');$('#chMenu').hidden=true;chNote(on?'📌 Fijado arriba en tu lista de chats':'Quitado de fijados');return}
+  if(t.closest('.chm .chimg')){e.stopPropagation();chImgView(t.closest('.chimg').src);return}
+  /* ver perfil desde el chat: al cerrarlo, vuelves al chat */
+  if(t.closest('[data-chprof]')){e.stopPropagation();const id=CH.open;chClose();CH.ret=id;openPlayer(id);return}},true);
+document.addEventListener('keydown',e=>{const r=e.target&&e.target.closest&&e.target.closest('.chi2');if(r&&(e.key==='Enter'||e.key===' ')&&e.target===r){e.preventDefault();r.click()}});
+/* volver al chat al cerrar el perfil */
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('[data-chgo]'))CH.ret=null},true);
+setInterval(()=>{try{if(!CH.ret)return;const mo=$('#modal');if(mo&&mo.hidden){const id=CH.ret;CH.ret=null;chOpen(id)}}catch(e){CH.ret=null}},250);
+/* ver una foto en grande */
+function chImgView(src){if(!src)return;let o=$('#chImgV');if(!o){o=document.createElement('div');o.id='chImgV';document.body.appendChild(o)}o.innerHTML='<img alt="Foto"><button type="button" aria-label="Cerrar">✕</button>';o.querySelector('img').src=src;o.hidden=false}
+/* ===== fotos: ver antes de mandar, recortar y girar ===== */
+const CE={img:null,rot:0,c:null,cap:''};
+function chEdOpen(file){if(!file||!/^image\//.test(file.type||'')){chNote('Eso no es una foto','Elige una imagen (JPG, PNG…)','bad');return}
+  if(NET.isAnon){chNote('Necesitas cuenta','Para mandar fotos crea tu cuenta en Ajustes › Cuenta','bad');return}
+  const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{CE.img=im;CE.rot=0;CE.c={x:0,y:0,w:1,h:1};chEdDraw()};im.onerror=()=>chNote('No se ha podido abrir esa foto','Prueba con otra','bad');im.src=fr.result};fr.readAsDataURL(file)}
+function chEdClose(){const e=$('#chEd');if(e)e.remove();CE.img=null}
+function chEdDims(){const im=CE.img,r=CE.rot%180!==0;return{W:r?im.height:im.width,H:r?im.width:im.height}}
+function chEdDraw(){const box=document.querySelector('#chatWin .chbox');if(!box||!CE.img)return;let ed=$('#chEd');const cap=ed?(($('#chEdCap')||{}).value||''):'';
+  if(!ed){ed=document.createElement('div');ed.id='chEd';box.appendChild(ed)}
+  ed.innerHTML=`<div class="ceh"><button type="button" class="chback" data-ceno aria-label="Cancelar">✕</button><b>Enviar foto a ${esc(chName(CH.open))}</b></div>
+    <div class="cestage"><div class="cewrap"><canvas id="chEdCv"></canvas><div class="cecrop" id="chEdCrop"><i data-h="nw"></i><i data-h="ne"></i><i data-h="sw"></i><i data-h="se"></i></div></div></div>
+    <p class="cehelp">Arrastra el recuadro o sus esquinas para recortar.</p>
+    <div class="cetools"><button type="button" class="btn alt sm" data-cerot>↻ Girar</button><button type="button" class="btn alt sm" data-ceall>⤢ Foto entera</button></div>
+    <div class="cefoot"><input class="inp" id="chEdCap" maxlength="200" placeholder="Añade un texto (opcional)…" autocomplete="off" value="${esc(cap)}"><button type="button" class="btn chsendb" data-cesend>Enviar ➤</button></div>`;
+  const cv=$('#chEdCv'),{W,H}=chEdDims();const st=ed.querySelector('.cestage');const mw=Math.max(120,st.clientWidth-20),mh=Math.max(120,st.clientHeight-20);const k=Math.min(mw/W,mh/H,1.5);
+  cv.width=Math.round(W*k);cv.height=Math.round(H*k);const g=cv.getContext('2d');g.save();g.translate(cv.width/2,cv.height/2);g.rotate(CE.rot*Math.PI/180);const dw=CE.img.width*k,dh=CE.img.height*k;g.drawImage(CE.img,-dw/2,-dh/2,dw,dh);g.restore();
+  chEdCrop()}
+function chEdCrop(){const cv=$('#chEdCv'),cr=$('#chEdCrop');if(!cv||!cr)return;const c=CE.c;cr.style.left=c.x*cv.width+'px';cr.style.top=c.y*cv.height+'px';cr.style.width=c.w*cv.width+'px';cr.style.height=c.h*cv.height+'px'}
+document.addEventListener('pointerdown',e=>{const cr=e.target.closest&&e.target.closest('#chEdCrop');if(!cr)return;e.preventDefault();const cv=$('#chEdCv');const h=e.target.dataset&&e.target.dataset.h;const s={x:e.clientX,y:e.clientY,c:{...CE.c},W:cv.width,H:cv.height};
+  const mv=ev=>{const dx=(ev.clientX-s.x)/s.W,dy=(ev.clientY-s.y)/s.H,o=s.c,mn=.08;let {x,y,w,h:hh}=o;
+    if(!h){x=Math.min(1-w,Math.max(0,o.x+dx));y=Math.min(1-hh,Math.max(0,o.y+dy))}
+    else{if(h.includes('w')){const nx=Math.min(o.x+o.w-mn,Math.max(0,o.x+dx));w=o.w+(o.x-nx);x=nx}if(h.includes('e'))w=Math.min(1-o.x,Math.max(mn,o.w+dx));
+      if(h.includes('n')){const ny=Math.min(o.y+o.h-mn,Math.max(0,o.y+dy));hh=o.h+(o.y-ny);y=ny}if(h.includes('s'))hh=Math.min(1-o.y,Math.max(mn,o.h+dy))}
+    CE.c={x,y,w,h:hh};chEdCrop()};
+  const up=()=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);removeEventListener('pointercancel',up)};addEventListener('pointermove',mv);addEventListener('pointerup',up);addEventListener('pointercancel',up)});
+function chEdOut(){const im=CE.img,{W,H}=chEdDims();const full=document.createElement('canvas');full.width=W;full.height=H;const g=full.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,W,H);g.translate(W/2,H/2);g.rotate(CE.rot*Math.PI/180);g.drawImage(im,-im.width/2,-im.height/2);
+  const c=CE.c,sx=Math.round(c.x*W),sy=Math.round(c.y*H),sw=Math.max(1,Math.round(c.w*W)),sh=Math.max(1,Math.round(c.h*H));let mx=1200,u='';
+  for(let tries=0;tries<6;tries++){const k=Math.min(1,mx/Math.max(sw,sh));const o=document.createElement('canvas');o.width=Math.round(sw*k);o.height=Math.round(sh*k);o.getContext('2d').drawImage(full,sx,sy,sw,sh,0,0,o.width,o.height);
+    let q=.8;u=o.toDataURL('image/jpeg',q);while(u.length>600000&&q>.4){q-=.08;u=o.toDataURL('image/jpeg',q)}if(u.length<=640000)return u;mx=Math.round(mx*.75)}return u.length<=640000?u:''}
+let chImgBusy2=false;
+async function chEdSend(){if(chImgBusy2||!CE.img||!CH.open)return;const cap=(($('#chEdCap')||{}).value||'').trim().replace(/\s+/g,' ').slice(0,200);
+  if(cap&&typeof badTxt==='function'&&badTxt(cap)){chNote('🚫 Ese texto no se puede enviar','Tiene palabras que no están permitidas','bad');return}
+  const img=chEdOut();if(!img){chNote('La foto es demasiado grande','Recórtala un poco y vuelve a probar','bad');return}
+  chImgBusy2=true;chEdClose();chNote('📤 Enviando foto…','','busy');
+  try{const id=CH.open,cid=chId(NET.id,id),now=Date.now(),u=[NET.id,id].sort();const text=cap||'📷 Foto';
+    await NET.db.collection('chats/'+cid+'/m').add({from:NET.id,text,img,t:now});await NET.db.collection('chats').doc(cid).set({u,last:cap?'📷 '+cap.slice(0,70):'📷 Foto',lt:now,lf:NET.id});
+    try{sfx('click')}catch(_){}try{ev('sent')}catch(_){}chNote('✅ Foto enviada')}
+  catch(err){chNote('⚠️ No se ha podido enviar la foto','Revisa la conexión. Si sigue sin ir, el jefe tiene que actualizar las reglas de Firebase.','bad')}chImgBusy2=false}
+chSendImg=function(file){chEdOpen(file)};
+document.addEventListener('click',e=>{const t=e.target;if(!t.closest||!t.closest('#chEd'))return;e.stopPropagation();
+  if(t.closest('[data-ceno]')){chEdClose();return}if(t.closest('[data-cerot]')){CE.rot=(CE.rot+90)%360;CE.c={x:0,y:0,w:1,h:1};chEdDraw();return}
+  if(t.closest('[data-ceall]')){CE.c={x:0,y:0,w:1,h:1};chEdCrop();return}if(t.closest('[data-cesend]')){chEdSend();return}},true);
+document.addEventListener('keydown',e=>{if(e.target&&e.target.id==='chEdCap'&&e.key==='Enter'){e.preventDefault();e.stopPropagation();chEdSend()}},true);
+addEventListener('resize',()=>{if($('#chEd'))chEdDraw()});
+/* atrás (botón o gesto): primero se cierra la foto que estás preparando */
+{const _chL=chList;chList=function(){if($('#chEd')){chEdClose();return}if($('#chPop')){chPopClose();return}return _chL.apply(this,arguments)}}
+/* que la ruedecita del ratón no mueva lo de detrás cuando hay una ventana abierta */
+document.addEventListener('wheel',e=>{const ov=e.target.closest&&e.target.closest('#chatWin:not([hidden]),#modal:not([hidden]),#chImgV:not([hidden])');if(!ov)return;
+  let el=e.target;while(el&&el.nodeType===1){const cs=getComputedStyle(el);if(/(auto|scroll)/.test(cs.overflowY)&&el.scrollHeight>el.clientHeight+1){if(e.deltaY<0?el.scrollTop>0:el.scrollTop+el.clientHeight<el.scrollHeight-1)return}if(el===ov)break;el=el.parentElement}
+  e.preventDefault()},{passive:false});
+try{i18nAdd([['Chat de amigos renovado','Friends chat revamped','Chat entre amis renouvelé','Chat de amigos renovado'],['Chat más bonito','Nicer chat','Chat plus joli','Chat mais bonito'],['Burbujas nuevas, separadores de «Hoy» y «Ayer», y ves si tu amigo está conectado. Toca los ⋮ de un mensaje para copiarlo o borrarlo.','New bubbles, «Today» and «Yesterday» separators, and you can see if your friend is online. Tap the ⋮ on a message to copy or delete it.','Nouvelles bulles, séparateurs « Aujourd\'hui » et « Hier », et tu vois si ton ami est connecté. Touche les ⋮ d\'un message pour le copier ou le supprimer.','Bolhas novas, separadores «Hoje» e «Ontem», e vês se o teu amigo está ligado. Toca nos ⋮ de uma mensagem para a copiar ou apagar.'],['Fotos: mírala, recórtala y gírala antes de mandarla','Photos: preview, crop and rotate before sending','Photos : aperçu, recadrage et rotation avant l\'envoi','Fotos: vê, recorta e roda antes de enviar'],['Al elegir o pegar una foto puedes recortarla, girarla y añadirle un texto. Se manda entera, sin cortes raros.','When you pick or paste a photo you can crop it, rotate it and add a caption. It\'s sent whole, with no weird cropping.','Quand tu choisis ou colles une photo, tu peux la recadrer, la tourner et ajouter un texte. Elle part entière, sans coupe bizarre.','Ao escolher ou colar uma foto podes recortá-la, rodá-la e juntar um texto. Vai inteira, sem cortes estranhos.'],['Fija a tus amigos','Pin your friends','Épingle tes amis','Fixa os teus amigos'],['Toca 📌 en la lista de chats para tener arriba a quien más hablas.','Tap 📌 in the chat list to keep the people you talk to most at the top.','Touche 📌 dans la liste des chats pour garder en haut ceux à qui tu parles le plus.','Toca em 📌 na lista de chats para teres em cima quem mais falas.'],['Sin saltos','No more jumps','Plus de sauts','Sem saltos'],['El buscador y el botón de foto salen al momento, la página de detrás ya no se mueve con la rueda del ratón y, si abres un perfil desde el chat, al cerrarlo vuelves al chat.','The search and photo button show up right away, the page behind no longer scrolls with the mouse wheel, and if you open a profile from the chat, closing it takes you back to the chat.','La recherche et le bouton photo apparaissent tout de suite, la page derrière ne défile plus avec la molette, et si tu ouvres un profil depuis le chat, en le fermant tu reviens au chat.','A pesquisa e o botão de foto aparecem logo, a página de trás já não se mexe com a roda do rato e, se abrires um perfil a partir do chat, ao fechá-lo voltas ao chat.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Cómo borro o copio un mensaje del chat?'))FAQ.unshift(['¿Cómo borro o copio un mensaje del chat?','Toca los tres puntos ⋮ que hay al lado del mensaje y elige «Copiar texto» o «Borrar para todos».'])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Cómo fijo a un amigo arriba del chat?'))FAQ.unshift(['¿Cómo fijo a un amigo arriba del chat?','En la lista de chats, toca el 📌 de su fila. También desde dentro del chat, en ⋮ › Fijar arriba.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
