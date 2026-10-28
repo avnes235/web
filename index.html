@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-27-2108">
+<meta name="app-version" content="2026-10-28-1535">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2857,6 +2857,21 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .tkb small.tkmod{color:#7fd0ff!important}
 .sfv b{white-space:nowrap;display:block;max-width:100%;overflow:hidden}
 #v-inicio[data-t=ruletas] #lgHome,#v-inicio[data-t=jugar] #lgHome{display:none!important}
+.bjsp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0}
+.bjsph{border:2px solid var(--line);border-radius:12px;padding:8px;text-align:center;min-width:0;background:rgba(0,0,0,.2)}
+.bjsph.cur{border-color:var(--sun);box-shadow:0 0 12px #ffd60066}
+.bjsph.bust{opacity:.6}
+.bjsph small{display:block;font-weight:800;margin-bottom:4px}
+.bjsph .hand{justify-content:center;flex-wrap:wrap;transform:scale(.82);transform-origin:top center;margin-bottom:-14px}
+.bjsph b{display:block;font:900 15px var(--f-b);margin-top:2px}
+/* fotos en el chat de amigos */
+.chin .chatt{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:44px;min-height:44px;border:2px solid var(--line);border-radius:12px;background:var(--card);cursor:pointer;font-size:20px}
+.chin .chatt:hover{border-color:var(--sky)}
+.cmsg .chimg{display:block;max-width:min(240px,100%);max-height:260px;border-radius:10px;margin:2px 0 4px;cursor:zoom-in;object-fit:cover}
+#chImgV{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:16px}
+#chImgV[hidden]{display:none}
+#chImgV img{max-width:100%;max-height:100%;border-radius:10px}
+#chImgV button{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#000;font-size:20px;cursor:pointer}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -4895,7 +4910,7 @@ const PRANKS=[
     setTimeout(()=>{confetti(300);sfx('big');troll('¡BOOM!','era confeti','#ffd600',true)},3000)},
   ()=>{const v=rbAmt(1.5);if(chance(.5)){give(v);sfx('win');troll('CARA','el botón te regala '+short(v)+' €','#14e08a',true)}
     else{const t=Math.min(Math.floor(S.coins),v);S.coins-=t;sfx('lose');troll('CRUZ','el botón te quita '+short(t)+' €','#ff3b4f',true)}},
-  ()=>{sfx('big');confetti(160);troll('¡HAS GANADO 1.000.000 €!','espera, que lo estoy contando…','#14e08a',true);setTimeout(()=>{give(10);sfx('lose');troll('NAH, 10 €','no te emociones','#ffd600',true)},2600)},
+  ()=>{sfx('big');confetti(160);troll('¡HAS GANADO '+fakeWin()+' €!','espera, que lo estoy contando…','#14e08a',true);setTimeout(()=>{give(10);sfx('lose');troll('NAH, 10 €','no te emociones','#ffd600',true)},2600)},
   ()=>{const r=rbAmt(1);give(r);sfx('win');troll('PERDÓN','por todo lo de antes. Toma '+short(r)+' €','#14e08a',true)},
 ];
 function appFx(cls,ms,t,sub){const a=$('.app');const mn=$('.main');if(mn)mn.style.transformOrigin='50% '+Math.round(scrollY+innerHeight/2)+'px';a.classList.add(cls);if(t)troll(t,sub,null,true);S.fxNow={cls,until:Date.now()+ms};save();setTimeout(()=>{a.classList.remove(cls);if(S.fxNow&&S.fxNow.cls===cls){S.fxNow=null;save()}},ms)}
@@ -6406,6 +6421,9 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-28-a',t:'Fotos en el chat de amigos',items:[['📷','Manda fotos a tus amigos','En el chat de amigos toca 📷 para mandar una foto, o pega directamente una captura que hayas copiado. Toca la foto para verla en grande.','new','#3f7cff'],['🔐','Caja fuerte con la cifra entera','La caja fuerte enseña siempre todos los números de lo que tienes guardado, sin acortar.','fix','#ffd600'],['🔒','Aviso correcto al cerrar una conversación','Cuando se cierra tu conversación del buzón, ahora pone «Conversación cerrada» y no «El jefe te ha escrito».','fix','#8a8f98']]},
+ {v:'2026-10-27-h',t:'Lluvia de monedas, más clara',items:[['🌧️','La lluvia cuenta monedas','En la lluvia y la megalluvia ahora pone cuántas monedas quedan en el aire y quién ha cogido más monedas. Antes ponía euros, pero cada moneda te da distinto según lo rico que seas.','fix','#14e08a']]},
+ {v:'2026-10-27-g',t:'Blackjack: ya puedes separar',items:[['✂️','Separar en el blackjack','Si te salen dos cartas del mismo valor, pulsa «✂️ Separar»: juegas dos manos, cada una con tu apuesta. Idea de un jugador desde el Buzón del jefe.','new','#14e08a']]},
  {v:'2026-10-27-f',t:'Lluvia de monedas que merece la pena',items:[['🪙','Cada moneda, según tu dinero','En la lluvia de monedas cada moneda que coges te da una parte de tu dinero, no unos pocos euros. El bote sigue siendo compartido: cuando se acaba, se acaba para todos.','fix','#ffd600'],['🔐','Caja fuerte con la cifra entera','Las cantidades enormes salen enteras y en una sola línea, con el € al lado.','fix','#7fa0ff']]},
  {v:'2026-10-27-e',t:'Botón rojo con premios de verdad',items:[['🔴','Todas las sorpresas pagan bien','La lluvia de billetes, el fantasma, cara o cruz… ahora todas dan un premio según tu dinero, no unos pocos euros.','fix','#ff3b4f'],['📈','Bolsa sin fantasmas','Si un jugador en el que invertiste ya no existe, desaparece de tu cartera y te devolvemos lo que valían sus acciones. Y el buscador ya no se mezcla con la cantidad al comprar.','fix','#14e08a']]},
  {v:'2026-10-27-d',t:'Gran Premio de Cine cada 2 horas',items:[['🎬','Más cine','El Gran Premio de Cine se puede girar cada 2 horas (antes cada 3).','new','#ffd600']]},
@@ -10679,7 +10697,7 @@ const _fgEv=fabGive;fabGive=function(v){const e=curEv();return _fgEv.call(this,e
 let evSeen='';
 function evRender(){const el=$('#evbar');if(!el)return;const e=curEv();if(!e){el.hidden=true;el.classList.remove('ev2');return}const T=EVT[e.type],sec=Math.max(0,Math.ceil((e.until-Date.now())/1000));
   el.hidden=false;el.classList.add('ev2');el.style.setProperty('--evc',T[4]);let extra='';
-  if(e.type==='rain'){const L=rainLeft(e);extra=`<small>Quedan ${fmt(L)} € en el aire${rainTopTxt(e)}</small>`}
+  if(e.type==='rain'){const L=rainLeft(e);const nc=Math.ceil(L/rainVal(e));extra=`<small>${nc>0?'Quedan '+fmt(nc)+(nc===1?' moneda':' monedas')+' en el aire':'Ya no quedan monedas'}${rainTopTxt(e)}</small>`}
   if(e.type==='gift'){extra=(S.evGift===e.id)?'<small>Ya has recogido tu regalo ✔</small>':`<button class="evbtn" id="evGift">🎁 Recoger</button>`}
   el.innerHTML=`<span class="eve">${T[0]}</span><span class="evt"><b>${esc(e.name||T[1])}</b><small>${esc(T[2])}</small>${e.type==='rain'?extra:''}</span>${e.type==='gift'?extra:''}<span class="num">${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}</span>`;
   const g=$('#evGift');if(g)g.onclick=()=>{if(S.evGift===e.id)return;S.evGift=e.id;const v=Math.max(5000,(S.lvl||1)*5000);give(v);save();sfx('big');confetti(160);troll((e&&e.auto?'🎁 REGALO SORPRESA':'🎁 REGALO DEL JEFE'),'+'+fmt(v)+' € para ti','#14e08a',true);evRender()};
@@ -10694,8 +10712,9 @@ setInterval(()=>{const e=curEv();try{evRender()}catch(_){}if(!e){rainStop();retu
   if(e.type==='rain')rainStart(e);else rainStop()},1000);
 /* lluvia de dinero compartida: lo que pilla uno ya no lo pilla otro */
 function rainTaken(e){let t=0;NET.players.forEach((p,id)=>{if(id!==NET.id&&p.rain&&p.rain.id===e.id)t+=+p.rain.n||0});if(S.rainG&&S.rainG.id===e.id)t+=+S.rainG.n||0;return t}
+function rainVal(e){return Math.max(1000,Math.round(((e&&e.pool)||2e6)/300/100)*100)}
 function rainLeft(e){return Math.max(0,(e.pool||2000000)-rainTaken(e))}
-function rainTopTxt(e){const arr=[];NET.players.forEach((p,id)=>{if(id!==NET.id&&p.rain&&p.rain.id===e.id&&+p.rain.n>0)arr.push([p.name,+p.rain.n])});if(S.rainG&&S.rainG.id===e.id&&S.rainG.n>0)arr.push([S.name||'Tú',S.rainG.n]);arr.sort((a,b)=>b[1]-a[1]);return arr.length?' · 🥇 '+esc(arr[0][0])+' '+short(arr[0][1])+' €':''}
+function rainTopTxt(e){const arr=[];NET.players.forEach((p,id)=>{if(id!==NET.id&&p.rain&&p.rain.id===e.id&&+p.rain.n>0)arr.push([p.name,+p.rain.n])});if(S.rainG&&S.rainG.id===e.id&&S.rainG.n>0)arr.push([S.name||'Tú',S.rainG.n]);arr.sort((a,b)=>b[1]-a[1]);if(!arr.length)return'';const n=Math.round(arr[0][1]/rainVal(e));return' · 🥇 '+esc(arr[0][0])+' '+fmt(n)+(n===1?' moneda':' monedas')}
 let rainIv=null,rainPushT=0;
 function rainStart(e){if(rainIv)return;let L=$('#rainL');if(!L){L=document.createElement('div');L.id='rainL';document.body.appendChild(L)}
   rainIv=setInterval(()=>{const left=rainLeft(e),val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100),out=left<val;if(document.hidden||$('#excWin:not([hidden])'))return;if(out)return;/* bote vacío: ya no caen más monedas */if(L.childElementCount>14)return;
@@ -11137,7 +11156,7 @@ ACH.push(['💎','Trillonario','Llega a tener 1 trill. de euros (dinero + colecc
 let SKEW=0;const NOWS=()=>Date.now()+SKEW;
 (function skewSync(){try{if(!/^https?:/.test(location.protocol))return;const t0=Date.now();fetch('/robots.txt?ts='+t0,{cache:'no-store'}).then(r=>{const d=Date.parse(r.headers.get('date')||'');if(d){const rtt=Date.now()-t0;const sk=d+500+rtt/2-Date.now();if(Math.abs(sk)>1500)SKEW=sk}}).catch(()=>{})}catch(e){}})();
 Object.assign(EVT,{x5:['⚡','Quíntuple','Todo lo que ganes vale x5. ¡Corre!',3,'#ff2e88'],xp3:['🌟','Triple XP','Subes de nivel el triple de rápido',5,'#9d5cff'],
-  mrain:['⛈️','Megalluvia','Lluvia de dinero gigante: 20 millones para repartir entre todos',3,'#14e08a'],box:['🧰','Cofre misterioso','Ábrelo: puede tocarte poco… o muchísimo',10,'#ffb300'],
+  mrain:['⛈️','Megalluvia','Lluvia de dinero gigante: cientos de monedas para todos (cada una te da según lo rico que seas)',3,'#14e08a'],box:['🧰','Cofre misterioso','Ábrelo: puede tocarte poco… o muchísimo',10,'#ffb300'],
   hunt:['🪙','Caza de monedas','Salen monedas gordas por la pantalla: ¡púlsalas antes de que se escapen!',8,'#ffd600']});
 /* El horario sale de la hora mundial (no de la del móvil): cada hora tiene 3 huecos de 20 minutos y casi siempre hay evento. */
 const EV_W=[['x2',14],['x3',7],['x5',3],['rain',10],['mrain',3],['xp',9],['xp3',4],['fab',8],['wheel',7],['casino',8],['gold',8],['gift',6],['box',8],['hunt',9]];
@@ -11673,7 +11692,7 @@ const SAFE_RATE=.005;
 function safeAccrue(){const now=Date.now();if(!S.safe){S.safeT=now;return 0}const d=(now-(S.safeT||now))/864e5;if(d<=0)return 0;const add=S.safe*(Math.pow(1+SAFE_RATE,d)-1);S.safe+=add;S.safeT=now;S.safeInt=(S.safeInt||0)+add;return add}
 function safeCardHTML(){safeAccrue();const v=Math.floor(S.safe||0),day=Math.floor(v*SAFE_RATE);
   return`<div class="sfh"><span class="emo">🔐</span><div><h3>Caja fuerte</h3><small>Lo que guardas aquí no se puede perder en el casino ni online, y da un <b>0,5 % al día</b>.</small></div></div>
-   <div class="sfv"><b>${short(v)} €</b><small>${v?'≈ +'+short(day)+' € al día · llevas '+short(Math.floor(S.safeInt||0))+' € de intereses':'Aún no has guardado nada'}</small></div>
+   <div class="sfv"><b class="nofit" title="${fmt(v)} €">${fmt(v)} €</b><small>${v?'≈ +'+short(day)+' € al día · llevas '+short(Math.floor(S.safeInt||0))+' € de intereses':'Aún no has guardado nada'}</small></div>
    <div class="sfb"><button class="btn mint" data-safe="in">Guardar</button><button class="btn alt" data-safe="out" ${v?'':'disabled'}>Sacar</button></div>`}
 function safeMount(){const v=$('#v-inicio');if(!v)return;let c=$('#safeCard');if(!c){v.insertAdjacentHTML('beforeend','<div class="panel safecard" id="safeCard" data-ht="hoy"></div>');c=$('#safeCard')}const h=safeCardHTML();if(c._h!==h){c._h=h;c.innerHTML=h}}
 function safeModal(dir){const max=dir==='in'?Math.floor(S.coins):Math.floor(S.safe||0);$('#mbox').classList.remove('wide');$('#mbox').onclick=null;$('#modal').hidden=false;
@@ -12148,7 +12167,7 @@ function chOpen(id){if(!id)return;const w=chWin();w.hidden=false;if(!chCan()){CH
   setTimeout(()=>{const t=$('#chTxt');if(t)t.focus()},80)}
 function chMsgs(){const el=$('#chMsgs');if(!el)return;const cut=+((S.chCut||{})[chId(NET.id,CH.open)])||0;const L=CH.msgs.filter(m=>(+m.t||0)>cut);
   const atEnd=el.scrollHeight-el.scrollTop-el.clientHeight<80;
-  el.innerHTML=L.length?L.map(m=>{const me=m.from===NET.id;return`<div class="cmsg ${me?'me':''}" ${me?`data-chdel="${esc(m.id)}"`:''}><span>${esc(m.text||'')}</span><small>${new Date(+m.t||0).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})}</small>${me&&CH.del===m.id?'<button class="cdel" data-chdelok="'+esc(m.id)+'">🗑️ Borrar</button>':''}</div>`}).join(''):'<div class="chload">Todavía no hay mensajes. ¡Saluda! 👋</div>';
+  el.innerHTML=L.length?L.map(m=>{const me=m.from===NET.id;return`<div class="cmsg ${me?'me':''}" ${me?`data-chdel="${esc(m.id)}"`:''}>${chImgOk(m.img)?'<img class="chimg" src="'+m.img+'" alt="Foto" loading="lazy">':''}${chImgOk(m.img)&&m.text==='📷 Foto'?'':'<span>'+esc(m.text||'')+'</span>'}<small>${new Date(+m.t||0).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})}</small>${me&&CH.del===m.id?'<button class="cdel" data-chdelok="'+esc(m.id)+'">🗑️ Borrar</button>':''}</div>`}).join(''):'<div class="chload">Todavía no hay mensajes. ¡Saluda! 👋</div>';
   if(atEnd||!CH.scrolled){el.scrollTop=el.scrollHeight;CH.scrolled=true}}
 async function chSend(){const t=$('#chTxt');if(!t||!CH.open)return;let text=t.value.trim().replace(/\s+/g,' ').slice(0,300);if(!text)return;
   if(typeof badTxt==='function'&&badTxt(text)){toast('Ese mensaje no se puede enviar','Tiene palabras que no están permitidas','var(--coral)','🚫');return}
@@ -14557,12 +14576,12 @@ function tkErr(err){toast('No se ha podido','Faltan las reglas nuevas de Firebas
 /* jugador: escucha sus conversaciones */
 function tkStartP(){if(TK.startedP||!NET.ok||!NET.db||!NET.id)return;TK.startedP=true;
   NET.db.collection('tk').where('uid','==',NET.id).onSnapshot(sn=>{const before=new Map(TK.mine);TK.mine=new Map(sn.docs.map(d=>[d.id,d.data()||{}]));
-    TK.mine.forEach((t,id)=>{const o=before.get(id);if((+t.ur||0)>0&&(!o||(+o.ur||0)<(+t.ur||0))&&TK.open!==id){try{sfx('big')}catch(_){}troll('💬 EL JEFE TE HA ESCRITO','«'+String(t.lt_txt||'').slice(0,60)+'» · toca para contestar','#3f7cff',true);S.bzNew=true;try{bzDot()}catch(_){}}});
+    TK.mine.forEach((t,id)=>{const o=before.get(id);if((+t.ur||0)>0&&(!o||(+o.ur||0)<(+t.ur||0))&&TK.open!==id){if(t.st==='closed'){try{sfx('pop')}catch(_){}troll('🔒 CONVERSACIÓN CERRADA','Se ha cerrado tu conversación con el jefe. Si necesitas algo más, escribe otra vez en el buzón.','#8a8f98',true)}else{try{sfx('big')}catch(_){}troll('💬 EL JEFE TE HA ESCRITO','«'+String(t.lt_txt||'').slice(0,60)+'» · toca para contestar','#3f7cff',true)}S.bzNew=true;try{bzDot()}catch(_){}}});
     tkPill();if(view==='ayuda'&&typeof hlTab!=='undefined'&&hlTab==='buzon')tkMineMount()},()=>{TK.startedP=false})}
 setInterval(()=>{try{if(NET.ok&&!TK.startedP)tkStartP();if(ADM.on&&!TK.startedA&&aCan('contactar'))tkStartA()}catch(e){}},6000);
 /* aviso flotante cuando el jefe te ha escrito */
 function tkPill(){let p=$('#tkPill');const un=[...TK.mine.entries()].filter(([,t])=>(+t.ur||0)>0);if(!un.length){if(p)p.remove();return}
-  if(!p){p=document.createElement('button');p.id='tkPill';p.type='button';document.body.appendChild(p)}p.dataset.tko=un[0][0];p.innerHTML=`<span class="emo">💬</span><b>El jefe te ha escrito</b><small>Toca para leerlo y contestar</small>`}
+  if(!p){p=document.createElement('button');p.id='tkPill';p.type='button';document.body.appendChild(p)}p.dataset.tko=un[0][0];const cl=un.every(([,t])=>t.st==='closed');p.innerHTML=cl?`<span class="emo">🔒</span><b>Conversación cerrada</b><small>Toca para verla</small>`:`<span class="emo">💬</span><b>El jefe te ha escrito</b><small>Toca para leerlo y contestar</small>`}
 /* jefe: escucha todas */
 function tkStartA(){if(TK.startedA||!NET.db)return;TK.startedA=true;
   NET.db.collection('tk').orderBy('lt','desc').limit(150).onSnapshot(sn=>{TK.all=new Map(sn.docs.map(d=>[d.id,d.data()||{}]));tkAdmMount()},()=>{TK.startedA=false})}
@@ -14773,7 +14792,7 @@ try{i18nAdd([['Botón rojo con premios de verdad','Red button with real prizes',
 function rainPay(e,v,val){try{const k=e&&e.type==='mrain'?.003:.0015;return Math.max(v,niceN(v/Math.max(1,val)*Math.max(val,(typeof wR==='function'?wR():wealth())*k)))}catch(_){return v}}
 
 /* caja fuerte: la cifra entera en una línea; si no cabe, se hace más pequeña la letra */
-function sfFit(){try{const b=document.querySelector('#safeCard .sfv b');if(!b||!b.offsetParent)return;b.style.fontSize='';let fs=parseFloat(getComputedStyle(b).fontSize)||28,i=0;while(b.scrollWidth>b.clientWidth+1&&fs>12&&i<30){fs-=1;b.style.fontSize=fs+'px';i++}}catch(e){}}
+function sfFit(){try{const b=document.querySelector('#safeCard .sfv b');if(!b||!b.offsetParent)return;b.style.fontSize='';let fs=parseFloat(getComputedStyle(b).fontSize)||28,i=0;while(b.scrollWidth>b.clientWidth+1&&fs>9&&i<40){fs-=1;b.style.fontSize=fs+'px';i++}}catch(e){}}
 {const _smF=safeMount;safeMount=function(){const r=_smF.apply(this,arguments);try{requestAnimationFrame(sfFit)}catch(e){}return r}}
 addEventListener('resize',()=>requestAnimationFrame(sfFit));setInterval(sfFit,3000);
 
@@ -14788,6 +14807,66 @@ function admOffSet(on){S.admOff=!!on;S.admOffT=on?Date.now()-200000:0;save();try
 {const _raOf=renderAjustes;renderAjustes=function(){const r=_raOf.apply(this,arguments);try{if(ADM.on&&!ADM.mod&&!$('#cfOff')){const inc=$('#cfInc');const h=`<div class="crow" id="cfOff"><span class="cl"><b>⚫ Aparecer desconectado (solo el jefe)</b><small>Los demás te ven como desconectado: no sales en «conectados ahora» ni se ve a qué juegas. Tú puedes jugar normal.</small></span><button class="sw2" role="switch" data-admoff aria-checked="${admOff()}" aria-label="Aparecer desconectado"></button></div>`;
   if(inc)inc.insertAdjacentHTML('afterend',h);else{const box=$('#cfgBody .cfgbox');if(box)box.insertAdjacentHTML('afterbegin',h)}}}catch(_){}return r}}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-admoff]');if(!b||!ADM.on||ADM.mod)return;const on=!admOff();b.setAttribute('aria-checked',on);try{sfx('click')}catch(_){}admOffSet(on)});
+/* ===== 2026-10-27: Blackjack · Separar (dividir una pareja en dos manos) ===== */
+const bjCV=c=>c.r==='A'?11:['J','Q','K','10'].includes(c.r)?10:+c.r;
+function bjCanSplit(){return BJ.on&&!BJ.busy&&!BJ.sp&&BJ.p.length===2&&bjCV(BJ.p[0])===bjCV(BJ.p[1])&&Math.floor(S.coins)>=BJ.bet}
+(function(){const d=$('#bjDbl');if(d&&!$('#bjSplit'))d.insertAdjacentHTML('afterend','<button class="btn alt" id="bjSplit" disabled title="Separa una pareja en dos manos (pones otra vez la misma apuesta)">✂️ Separar</button>');
+  const r=$('#bjP')&&$('#bjP').closest('.bjrow');if(r&&!$('#bjSpRow'))r.insertAdjacentHTML('afterend','<div class="bjsp" id="bjSpRow" hidden></div>')})();
+function bjSpDraw(){const row=$('#bjSpRow');if(!row)return;const sp=BJ.sp;if(!sp){row.hidden=true;row.innerHTML='';return}row.hidden=false;
+  row.innerHTML=sp.hands.map((h,i)=>{const v=bjVal(h),st=sp.res[i];return`<div class="bjsph ${i===sp.idx&&!sp.over?'cur':''} ${st||''}"><small>Mano ${i+1}${i===sp.idx&&!sp.over?' · jugando':''}</small><div class="hand">${h.map(c=>bjCard(c,false,true)).join('')}</div><b>${v}${st==='bust'?' · te pasas':''}${sp.out&&sp.out[i]?' · '+sp.out[i]:''}</b></div>`}).join('')}
+{const _brS=bjRender;bjRender=function(){const r=_brS.apply(this,arguments);try{const b=$('#bjSplit');if(b)b.disabled=!bjCanSplit();if(BJ.sp){const d=$('#bjDbl');if(d)d.disabled=true;const pr=$('#bjP');if(pr)pr.closest('.bjrow').style.display='none'}else{const pr=$('#bjP');if(pr)pr.closest('.bjrow').style.display=''}bjSpDraw()}catch(e){}return r}}
+document.addEventListener('click',e=>{if(!e.target.closest||!e.target.closest('#bjSplit'))return;if(!bjCanSplit())return;if(!take(BJ.bet)){noMoney($('#bjMsg'));return}
+  const [a,b]=BJ.p;BJ.sp={hands:[[a,bjDraw()],[b,bjDraw()]],bet:BJ.bet,idx:0,res:[null,null],aces:a.r==='A'};BJ.p=BJ.sp.hands[0];try{sfx('tick')}catch(_){}
+  $('#bjMsg').textContent='Mano 1: ¿pides o te plantas?';bjRender();
+  if(BJ.sp.aces){$('#bjMsg').textContent='Dos ases separados: una carta para cada uno';setTimeout(()=>{bjSpNext('stand');bjSpNext('stand')},700);return}
+  if(bjVal(BJ.p)===21)bjSpNext('stand')});
+function bjSpNext(r){const sp=BJ.sp;if(!sp||sp.over)return;sp.res[sp.idx]=r;if(sp.idx===0){sp.idx=1;BJ.p=sp.hands[1];$('#bjMsg').textContent='Mano 2: ¿pides o te plantas?';bjRender();if(!sp.aces&&bjVal(BJ.p)===21)bjSpNext('stand');return}
+  sp.over=true;bjRender();bjSpDealer()}
+async function bjSpDealer(){const sp=BJ.sp;BJ.busy=true;BJ.hide=false;BJ.shown.d=1;bjRender();await wait(500);
+  const alive=sp.res.some(r=>r!=='bust');if(alive){while(bjVal(BJ.d)<17){BJ.d.push(bjDraw());try{sfx('tick')}catch(_){}bjRender();await wait(600)}}
+  const dv=bjVal(BJ.d),b=sp.bet;let won=0,lost=0;sp.out=[];
+  sp.hands.forEach((h,i)=>{const pv=bjVal(h);let o;if(sp.res[i]==='bust'){o='pierdes';lost+=b;casinoLose(b,'bj')}else if(dv>21||pv>dv){o='ganas';won+=b*2;casinoWin(b*2,'bj',b)}else if(pv===dv){o='empate';S.coins+=b;won+=b}else{o='pierdes';lost+=b;casinoLose(b,'bj')}sp.out[i]=o});
+  BJ.on=false;BJ.busy=false;const net=won-2*b;$('#bjMsg').textContent=(net>0?'+'+short(net)+' €':net<0?'−'+short(-net)+' €':'Te quedas igual')+' · '+sp.out.map((o,i)=>(i+1)+(o==='ganas'?' ✅':o==='empate'?' 🤝':' ❌')).join('  ');
+  try{sfx(net>0?'win':net<0?'lose':'coin')}catch(_){}if(net>0)try{confetti(90)}catch(_){}bjRender();bjSpDraw();save();
+  /* al repartir otra vez, se quita lo de separar */}
+document.addEventListener('click',e=>{if(!BJ.sp)return;const h=e.target.closest&&e.target.closest('#bjHit,#bjStand,#bjDbl,#bjDeal');if(!h)return;
+  if(h.id==='bjDeal'){if(BJ.sp&&BJ.sp.over){BJ.sp=null;const pr=$('#bjP');if(pr)pr.closest('.bjrow').style.display=''}return}
+  e.stopImmediatePropagation();e.preventDefault();if(BJ.busy||!BJ.on||BJ.sp.over)return;
+  if(h.id==='bjHit'){BJ.p.push(bjDraw());try{sfx('tick')}catch(_){}bjRender();const v=bjVal(BJ.p);if(v>21)bjSpNext('bust');else if(v===21)bjSpNext('stand')}
+  else if(h.id==='bjStand')bjSpNext('stand')},true);
+try{const t=TUTOS.find(x=>x[1]==='Casino');if(t&&!t[4].some(x=>/Separar/.test(x[0])))t[4].push(['En el <b>blackjack</b>, si te salen dos cartas del mismo valor puedes pulsar <b>✂️ Separar</b>: juegas dos manos con la misma apuesta cada una.'])}catch(e){}
+try{const k=document.querySelector('#c-bj .kv');if(k&&!k.querySelector('.bjspk'))k.insertAdjacentHTML('beforeend','<div class="bjspk"><small>Separar</small><b>Pareja → dos manos</b></div>')}catch(e){}
+try{i18nAdd([['Blackjack: ya puedes separar','Blackjack: you can now split','Blackjack : tu peux maintenant séparer','Blackjack: já podes separar'],['Separar en el blackjack','Split in blackjack','Séparer au blackjack','Separar no blackjack'],['Si te salen dos cartas del mismo valor, pulsa «✂️ Separar»: juegas dos manos, cada una con tu apuesta. Idea de un jugador desde el Buzón del jefe.','If you get two cards of the same value, tap «✂️ Split»: you play two hands, each with your bet. A player\'s idea from the Boss\'s mailbox.','Si tu reçois deux cartes de même valeur, touche « ✂️ Séparer » : tu joues deux mains, chacune avec ta mise. Idée d\'un joueur via la boîte du boss.','Se te saírem duas cartas do mesmo valor, toca em «✂️ Separar»: jogas duas mãos, cada uma com a tua aposta. Ideia de um jogador pela caixa do chefe.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Se puede separar en el blackjack?'))FAQ.unshift(['¿Se puede separar en el blackjack?','Sí. Si tus dos primeras cartas valen lo mismo (por ejemplo dos 8 o un 10 y una J), pulsa «✂️ Separar». Pones otra vez la misma apuesta y juegas dos manos. Si separas ases, cada uno recibe una sola carta.'])}catch(e){}
+try{i18nAdd([['Lluvia de monedas, más clara','Coin rain, clearer','Pluie de pièces, plus claire','Chuva de moedas, mais clara'],['La lluvia cuenta monedas','The rain counts coins','La pluie compte les pièces','A chuva conta moedas'],['En la lluvia y la megalluvia ahora pone cuántas monedas quedan en el aire y quién ha cogido más monedas. Antes ponía euros, pero cada moneda te da distinto según lo rico que seas.','In the rain and mega rain it now shows how many coins are left in the air and who grabbed the most coins. It used to show euros, but each coin pays differently depending on how rich you are.','Dans la pluie et la méga-pluie, on voit maintenant combien de pièces restent en l\'air et qui en a attrapé le plus. Avant c\'était en euros, mais chaque pièce rapporte différemment selon ta richesse.','Na chuva e na megachuva agora diz quantas moedas restam no ar e quem apanhou mais moedas. Antes dizia euros, mas cada moeda dá diferente conforme és mais ou menos rico.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Por qué en la lluvia de monedas a cada uno le da distinto?'))FAQ.unshift(['¿Por qué en la lluvia de monedas a cada uno le da distinto?','Cada moneda te da una parte de lo que tienes: cuanto más rico eres, más te da. Por eso el evento cuenta monedas y no euros.'])}catch(e){}
+/* ===== 2026-10-27: el botón rojo «te engaña» con una cifra redonda enorme según lo que tengas ===== */
+function fakeWin(){let w=1e6;try{w=Math.max(1e6,+(typeof wealth==='function'?wealth():S.coins)||0)}catch(e){}const d=Math.min(40,Math.floor(Math.log10(w))+2);return('1'+'0'.repeat(d-1)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')}
+try{i18nAdd([['¡HAS GANADO {} €!','YOU\'VE WON {} €!','T\'AS GAGNÉ {} € !','GANHASTE {} €!']])}catch(e){}
+/* ===== 2026-10-28: fotos en el chat de amigos (elegir una foto o pegar una captura copiada) ===== */
+function chImgOk(u){return typeof u==='string'&&u.length<700000&&/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/.test(u)}
+function chShrink(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{let w=im.width,h=im.height;const mx=1000;if(w>mx||h>mx){const k=mx/Math.max(w,h);w=Math.round(w*k);h=Math.round(h*k)}
+  const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,w,h);g.drawImage(im,0,0,w,h);let q=.72,u=c.toDataURL('image/jpeg',q);while(u.length>560000&&q>.3){q-=.08;u=c.toDataURL('image/jpeg',q)}u.length>640000?rej('big'):res(u)};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
+function chImgMount(){try{const t=$('#chTxt');if(!t||$('#chFile'))return;t.insertAdjacentHTML('beforebegin','<label class="chatt" title="Mandar una foto (también puedes pegar una captura)">📷<input type="file" accept="image/*" id="chFile" hidden></label>');
+  if(!t.dataset.ph2){t.dataset.ph2=1;t.placeholder='Escribe un mensaje o pega una foto…'}}catch(e){}}
+setInterval(chImgMount,800);
+let chImgBusy=false;
+async function chSendImg(file){if(!file||!/^image\//.test(file.type||'')){toast('Eso no es una foto','Elige una imagen (JPG, PNG…)','var(--coral)','📷');return}if(!CH.open||!NET.db)return;if(chImgBusy)return;
+  if(NET.isAnon){toast('Necesitas cuenta','Para mandar fotos crea tu cuenta en Ajustes › Cuenta','var(--coral)','📷');return}
+  chImgBusy=true;toast('Enviando foto…','','var(--sky)','📷');
+  try{const img=await chShrink(file);const id=CH.open,cid=chId(NET.id,id),now=Date.now(),u=[NET.id,id].sort();
+    await NET.db.collection('chats/'+cid+'/m').add({from:NET.id,text:'📷 Foto',img,t:now});
+    await NET.db.collection('chats').doc(cid).set({u,last:'📷 Foto',lt:now,lf:NET.id});try{sfx('click')}catch(_){}try{ev('sent')}catch(_){}}
+  catch(err){toast('No se ha podido enviar la foto',err==='big'?'Es demasiado grande: prueba con una captura más pequeña':'Revisa la conexión y vuelve a probar','var(--coral)','📷')}
+  chImgBusy=false}
+document.addEventListener('change',e=>{if(!e.target||e.target.id!=='chFile')return;const f=e.target.files&&e.target.files[0];e.target.value='';if(f)chSendImg(f)});
+document.addEventListener('paste',e=>{if(!e.target||e.target.id!=='chTxt')return;const it=[...((e.clipboardData&&e.clipboardData.items)||[])].find(x=>x.kind==='file'&&/^image\//.test(x.type));if(!it)return;e.preventDefault();chSendImg(it.getAsFile())});
+/* ver la foto en grande */
+document.addEventListener('click',e=>{const im=e.target.closest&&e.target.closest('.chimg');if(im){e.stopPropagation();let o=$('#chImgV');if(!o){o=document.createElement('div');o.id='chImgV';document.body.appendChild(o)}o.innerHTML='<img alt="Foto"><button type="button" aria-label="Cerrar">✕</button>';o.querySelector('img').src=im.src;o.hidden=false;return}
+  const v=e.target.closest&&e.target.closest('#chImgV');if(v)v.hidden=true},true);
+try{const t=TUTOS.find(x=>/Amigos|Chat/.test(x[1]));if(t&&!t[4].some(x=>/foto/.test(x[0])))t[4].push(['En el <b>chat de amigos</b> puedes mandar fotos: toca <b>📷</b> o pega una captura que hayas copiado.'])}catch(e){}
+try{i18nAdd([['Fotos en el chat de amigos','Photos in the friends chat','Photos dans le chat entre amis','Fotos no chat de amigos'],['Manda fotos a tus amigos','Send photos to your friends','Envoie des photos à tes amis','Manda fotos aos teus amigos'],['En el chat de amigos toca 📷 para mandar una foto, o pega directamente una captura que hayas copiado. Toca la foto para verla en grande.','In the friends chat tap 📷 to send a photo, or just paste a screenshot you copied. Tap the photo to see it big.','Dans le chat entre amis, touche 📷 pour envoyer une photo, ou colle directement une capture copiée. Touche la photo pour l\'agrandir.','No chat de amigos toca em 📷 para mandar uma foto, ou cola diretamente uma captura que tenhas copiado. Toca na foto para a ver em grande.'],['Caja fuerte con la cifra entera','Safe with the full number','Coffre avec le chiffre complet','Cofre com o número inteiro'],['La caja fuerte enseña siempre todos los números de lo que tienes guardado, sin acortar.','The safe always shows every digit of what you have saved, without shortening.','Le coffre affiche toujours tous les chiffres de ce que tu as rangé, sans abréger.','O cofre mostra sempre todos os números do que tens guardado, sem abreviar.'],['Aviso correcto al cerrar una conversación','Correct notice when a conversation is closed','Bon message quand une discussion est fermée','Aviso certo ao fechar uma conversa'],['Cuando se cierra tu conversación del buzón, ahora pone «Conversación cerrada» y no «El jefe te ha escrito».','When your mailbox conversation is closed, it now says «Conversation closed» instead of «The boss wrote to you».','Quand ta discussion de la boîte est fermée, il est écrit « Discussion fermée » et non « Le boss t\'a écrit ».','Quando a tua conversa da caixa é fechada, agora diz «Conversa fechada» e não «O chefe escreveu-te».']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Puedo mandar fotos por el chat?'))FAQ.unshift(['¿Puedo mandar fotos por el chat?','Sí, en el chat de amigos: toca 📷 para elegir una foto o pega una captura que hayas copiado. Tienes que tener cuenta.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
