@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-28-1609">
+<meta name="app-version" content="2026-10-28-1615">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2961,6 +2961,13 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 #chEd .cefoot{display:flex;gap:8px;padding:10px;background:#18181f}
 #chEd .cefoot .inp{flex:1;min-width:0;height:46px;border-radius:99px;padding:0 16px}
 #chImgV{overscroll-behavior:contain}
+#spamBox{position:absolute;inset:0;z-index:9;background:#000b;display:flex;align-items:center;justify-content:center;padding:20px;animation:chNoteIn .2s ease-out}
+#spamBox.inbody{position:fixed;z-index:9500}
+#spamBox .spc{background:#1c1c25;border:2px solid #ffb300;border-radius:20px;padding:22px 20px;max-width:340px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;box-shadow:0 18px 40px #000a}
+#spamBox .spe{font-size:52px;line-height:1}
+#spamBox b{font:900 21px var(--f-b,system-ui)}
+#spamBox p{margin:0;font-weight:700;opacity:.85;font-size:14.5px}
+#spamBox .btn{width:100%;margin-top:4px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -15092,6 +15099,19 @@ try{if(!FAQ.some(x=>x[0]==='¿Cómo fijo a un amigo arriba del chat?'))FAQ.unshi
 /* Ajustes: volver a preguntar antes de borrar mensajes del chat */
 {const _raCA=renderAjustes;renderAjustes=function(){const r=_raCA.apply(this,arguments);try{if(!$('#cfChAsk')){const box=$('#cfgBody .cfgbox');if(box)box.insertAdjacentHTML('beforeend',`<div class="crow" id="cfChAsk"><span class="cl"><b>🗑️ Preguntar antes de borrar mensajes</b><small>En el chat de amigos, te pide confirmar antes de borrar un mensaje.</small></span><button class="sw2" role="switch" data-chask aria-checked="${!S.chDelNoAsk}" aria-label="Preguntar antes de borrar mensajes"></button></div>`)}}catch(_){}return r}}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-chask]');if(!b)return;S.chDelNoAsk=!S.chDelNoAsk;b.setAttribute('aria-checked',String(!S.chDelNoAsk));save();try{sfx('click')}catch(_){}});
+/* ===== 2026-10-28: si mandas mensajes muy seguidos, aviso para que descanses ===== */
+const SPAM={t:[],until:0};
+function spamHit(){const now=Date.now();if(now<SPAM.until){spamShow();return true}SPAM.t=SPAM.t.filter(x=>now-x<12000);SPAM.t.push(now);
+  if(SPAM.t.length>=7){SPAM.t=[];SPAM.n=(SPAM.n||0)+1;SPAM.until=now+(SPAM.n>2?30000:15000);spamShow();return true}return false}
+function spamShow(){let o=$('#spamBox');const host=document.querySelector('#chatWin:not([hidden]) .chbox')||document.body;if(!o){o=document.createElement('div');o.id='spamBox';}
+  if(o.parentElement!==host)host.appendChild(o);o.classList.toggle('inbody',host===document.body);
+  o.innerHTML=`<div class="spc"><div class="spe">✋</div><b>Vale, un poco más despacio</b><p>Estás mandando muchos mensajes seguidos. Descansa un momento, que tu amigo no da abasto 😅</p><button type="button" class="btn big" id="spamOk" disabled>Espera…</button></div>`;
+  try{sfx('pop')}catch(_){}const tick=()=>{const b=$('#spamOk');if(!b)return;const s=Math.ceil((SPAM.until-Date.now())/1000);if(s>0){b.disabled=true;b.textContent='Espera '+s+' s';setTimeout(tick,250)}else{b.disabled=false;b.textContent='Vale'}};tick()}
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#spamOk')){if(Date.now()<SPAM.until)return;const o=$('#spamBox');if(o)o.remove();return}},true);
+{const _chSp=chSend;chSend=function(){const t=$('#chTxt');if(!t||!t.value.trim())return _chSp.apply(this,arguments);if(spamHit())return;return _chSp.apply(this,arguments)}}
+{const _ceSp=chEdSend;chEdSend=function(){if(spamHit())return;return _ceSp.apply(this,arguments)}}
+/* también en las conversaciones del buzón */
+document.addEventListener('click',e=>{if(!e.target.closest||!e.target.closest('#tkSend'))return;if(ADM.on)return;const t=$('#tkTxt');if((!t||!t.value.trim())&&!TK.img)return;if(spamHit()){e.stopImmediatePropagation();e.preventDefault()}},true);
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
