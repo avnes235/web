@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-28-1615">
+<meta name="app-version" content="2026-10-28-1828">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2968,6 +2968,16 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 #spamBox b{font:900 21px var(--f-b,system-ui)}
 #spamBox p{margin:0;font-weight:700;opacity:.85;font-size:14.5px}
 #spamBox .btn{width:100%;margin-top:4px}
+#seEnd{position:fixed;inset:0;z-index:9600;background:radial-gradient(circle at 50% 35%,#3b1a00e6,#000e);display:flex;align-items:center;justify-content:center;padding:18px;animation:chNoteIn .3s ease-out}
+#seEnd .sen{max-width:400px;width:100%;text-align:center;background:#1a1220;border:3px solid #ff7a00;border-radius:24px;padding:24px 20px;display:flex;flex-direction:column;gap:10px;align-items:center;box-shadow:0 0 60px #ff7a0066}
+#seEnd .sei{font-size:64px;line-height:1}
+#seEnd small{font:900 13px var(--f-b,system-ui);letter-spacing:.08em;text-transform:uppercase;color:#ffb347}
+#seEnd h2{margin:0;font:900 26px var(--f-d,system-ui);line-height:1.15}
+#seEnd h2 b{color:#ffb000}
+#seEnd p{margin:0;font-weight:700;opacity:.85}
+#seEnd .sev{font:900 clamp(26px,8vw,40px) var(--f-d,system-ui);color:#14e08a;text-shadow:0 0 18px #14e08a88;overflow-wrap:anywhere}
+#seEnd .btn{width:100%}
+#seEnd .sef{font-size:12.5px;opacity:.6}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -15112,6 +15122,20 @@ document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#sp
 {const _ceSp=chEdSend;chEdSend=function(){if(spamHit())return;return _ceSp.apply(this,arguments)}}
 /* también en las conversaciones del buzón */
 document.addEventListener('click',e=>{if(!e.target.closest||!e.target.closest('#tkSend'))return;if(ADM.on)return;const t=$('#tkTxt');if((!t||!t.value.trim())&&!TK.img)return;if(spamHit()){e.stopImmediatePropagation();e.preventDefault()}},true);
+/* ===== 2026-10-28: al acabar un evento de temporada, los caramelos que sobran se cambian por dinero (mucho) ===== */
+function seLeft(e){const s=(S.ev||{})[e.id];if(!s)return 0;const tot=Math.floor(+s.tot||0);let last=0;e.tiers.forEach(t=>{if(tot>=t[0])last=t[0]});return Math.max(0,tot-last)}
+function sePer(){let w=0;try{w=wR()}catch(e){w=+S.coins||0}return niceN(Math.max(2e7,w*.03))}
+function seEndCheck(){try{const t=NOWS();for(const e of SEASONS){if(t<e.to)continue;const s=(S.ev||{})[e.id];if(!s||s.endPaid||!(+s.tot>0))continue;
+    const n=seLeft(e);if(n<=0){s.endPaid=1;save();continue}if($('#seEnd'))return;
+    const per=sePer();let w=0;try{w=wR()}catch(_){}let v=Math.min(per*n,niceN(Math.max(2e8,w*5)));v=Math.max(v,2e8);seEndShow(e,n,v);return}}catch(e){}}
+function seEndShow(e,n,v){const o=document.createElement('div');o.id='seEnd';o.innerHTML=`<div class="sen"><div class="sei">${e.ico}</div><small>Se ha acabado ${esc(e.name)}</small>
+  <h2>¡Te han sobrado <b>${fmt(n)} ${e.cur[0]}</b>!</h2><p>Los ${esc(e.cur[1])} que no llegaste a gastar en recompensas se cambian por dinero:</p>
+  <div class="sev">+${fmt(v)} €</div><button type="button" class="btn big mint" id="seEndOk">💰 ¡Cobrar!</button><p class="sef">Todo lo que conseguiste en el evento es tuyo para siempre.</p></div>`;
+  document.body.appendChild(o);try{sfx('big')}catch(_){}try{confetti(200)}catch(_){}
+  $('#seEndOk').onclick=()=>{const s=(S.ev||{})[e.id];if(!s||s.endPaid){o.remove();return}s.endPaid=1;s.endV=v;S.coins+=v;S.earned=(S.earned||0)+v;try{LED.tag='v:evento';LED.tagT=Date.now()+1500}catch(_){}
+    try{alog('t','🍬 Fin de '+e.name+': '+n+' sobrantes → +'+short(v)+' €')}catch(_){}save();try{NET.lastP='';pushPlayer()}catch(_){}try{renderMe()}catch(_){}try{sfx('win')}catch(_){}try{confetti(260)}catch(_){}
+    toast('¡Cobrado!','+'+short(v)+' € por tus '+e.cur[1]+' sobrantes','var(--mint)','💰');o.remove()}}
+setInterval(seEndCheck,4000);setTimeout(seEndCheck,2500);
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
