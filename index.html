@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-29-1615">
+<meta name="app-version" content="2026-10-29-1631">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3012,6 +3012,13 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .admauto .aar{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;padding:8px 10px;border-radius:10px;background:#ffffff08;border:1px solid #ffffff14}
 .admauto .aar span{flex:1 1 100%;font-weight:700;font-size:13px;opacity:.9}
 .admauto .aar em{font-style:normal;font-size:11.5px;opacity:.6}
+/* probabilidades del Gran Premio de Cine: siempre una columna, cifras completas y alineadas */
+.gu-ol{grid-template-columns:1fr!important;gap:0!important}
+.gu-ol span{align-items:baseline;padding:4px 0!important}
+.gu-ol span{min-width:0}
+.gu-ol span b{min-width:0;white-space:nowrap;overflow:hidden;font-variant-numeric:tabular-nums}
+.gu-ol span.gt b{white-space:normal;overflow-wrap:anywhere}
+.gu-ol em{min-width:44px;text-align:right}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -10139,11 +10146,11 @@ const GU_CD=2*3600000;/* cada 2 horas */
 const guLeft=()=>{const st=S.guDay||{};if(st.pend)return 0;const at=+st.at||0;return at?Math.max(0,at+GU_CD-Date.now()):0};
 const guHMS=ms=>{const s_=Math.ceil(ms/1000);return Math.floor(s_/3600)+':'+String(Math.floor(s_%3600/60)).padStart(2,'0')+':'+String(s_%60).padStart(2,'0')};
 function guOdds(){const rows=GU_DW.map(s=>({s,v:guVal(s)})).sort((a,b)=>a.s[3]-b.s[3]||(b.s[0]==='title')-(a.s[0]==='title')||b.v-a.v);
-  return rows.map(({s,v})=>`<span class="${s[4]==='gold'?'gj':s[0]==='title'?'gt':''}"><b>${s[0]==='title'?(guHasT()?'🎬 Título repetido: regálalo o +'+short(v)+' €':'🎬 Título «Estrella de Cine»'):'+'+short(v)+' €'}</b><em>${String(s[3]).replace('.',',')} %</em></span>`).join('')}
+  return rows.map(({s,v})=>`<span class="${s[4]==='gold'?'gj':s[0]==='title'?'gt':''}"><b>${s[0]==='title'?(guHasT()?'🎬 Título repetido: regálalo o +'+fmt(v)+' €':'🎬 Título «Estrella de Cine»'):'+'+fmt(v)+' €'}</b><em>${String(s[3]).replace('.',',')} %</em></span>`).join('')}
 function guDayHTML(){return `<div class="gu-dw"><span class="ptr"></span><canvas id="guDayCv" width="340" height="340" aria-hidden="true"></canvas><span class="hub emo">🎬</span></div>
   <div class="gu-dt"><span class="gu-tag">⭐ Cada 2 horas</span><h3>Gran Premio de Cine</h3><p class="gu-dd">Mira un anuncio y gira. Premios que crecen con tu dinero.</p><div class="gu-mx"><small>Premio máximo</small><b class="gu-max nofit">${short(Math.max(...GU_DW.map(guVal)))} €</b>${guHasT()?'':`<small>o el título exclusivo <b class="gu-tt">🎬 Estrella de Cine</b></small>`}</div>
    <button class="btn big gu-go" id="guDayBtn" type="button">🎬 Ver anuncio y girar</button><small class="gu-di" id="guDayInfo">Cada 2 horas</small>
-   <div class="gu-odds"><div class="gu-oh">🎲 Probabilidades</div><div class="gu-ol">${guOdds()}</div></div></div>`}
+   <div class="gu-odds"><div class="gu-oh">🎲 Probabilidades</div><div class="gu-ol nofit">${guOdds()}</div></div></div>`}
 function guDayMount(){const home=$('#v-inicio');if(!home)return;let d=$('#guDay');if(!d){d=document.createElement('div');d.className='panel';d.id='guDay';d.dataset.ht='ruletas';
     const fr=home.querySelector('.funrow');if(fr)fr.parentNode.insertBefore(d,fr);else home.appendChild(d)}
   const k=Math.max(...GU_DW.map(guVal))+':'+guHasT()+':'+(S.guDay&&S.guDay.d);if(d.dataset.k!==k&&!guDwSpin){d.dataset.k=k;const rot=guDwRot;d.innerHTML=guDayHTML();const c=$('#guDayCv');if(c&&rot){c.style.transition='none';c.style.transform=`rotate(${rot}deg)`}guDwDraw()}guDayRender()}
@@ -15316,6 +15323,10 @@ function autoIbBox(){const host=$('#admInbox');if(!host||!ADM.on)return;let b=$(
 {const _raiA=renderAdmInbox;renderAdmInbox=function(){try{BZ.all.forEach((d,id)=>{if(isAutoIb(d)&&d.st==='pend'){d.st='read';try{NET.db.collection('inbox').doc(id).update({st:'read'}).catch(()=>{})}catch(_){}}})}catch(e){}
   const r=_raiA.apply(this,arguments);try{autoIbBox();document.querySelectorAll('#admInbox [data-ib],#admInbox .bzitem,#admInbox .ibx').forEach(c=>{const id=c.dataset.ib||c.dataset.id;const d=id&&BZ.all.get(id);if(d&&isAutoIb(d))c.style.display='none'})}catch(e){}return r}}
 try{i18nAdd([['Apuesta gratis a lo grande','Big free bet','Pari gratuit en grand','Aposta grátis em grande'],['Apuesta gratis según tu dinero','Free bet based on your money','Pari gratuit selon ton argent','Aposta grátis conforme o teu dinheiro'],['La apuesta gratis por ver un anuncio ahora vale el 5 % de lo que tienes (antes como mucho 5 millones).','The free bet for watching an ad is now worth 5% of what you have (it used to be 5 million at most).','Le pari gratuit pour regarder une pub vaut maintenant 5 % de ce que tu as (avant, 5 millions maximum).','A aposta grátis por ver um anúncio agora vale 5 % do que tens (antes no máximo 5 milhões).'],['Chats siempre abajo del todo','Chats always at the bottom','Les chats toujours en bas','Chats sempre no fundo'],['Al entrar en un chat o en una conversación del buzón, te lleva al último mensaje aunque tarden en cargar las fotos.','When you open a chat or a mailbox conversation, it takes you to the latest message even if photos take a while to load.','Quand tu ouvres un chat ou une discussion de la boîte, tu arrives au dernier message même si les photos tardent à charger.','Ao entrar num chat ou numa conversa da caixa, vais para a última mensagem mesmo que as fotos demorem a carregar.']])}catch(e){}
+/* si las cifras no caben (pantalla muy estrecha), se hace la letra más pequeña en toda la lista por igual */
+function guOddsFit(){document.querySelectorAll('.gu-ol').forEach(l=>{if(!l.offsetParent)return;l.style.fontSize='';const sp=[...l.querySelectorAll('span:not(.gt)')];let fs=12.5,i=0;const over=()=>sp.some(x=>{const b=x.querySelector('b');return x.scrollWidth>x.clientWidth+1||(b&&b.scrollWidth>b.clientWidth+1)});
+  while(over()&&fs>9&&i++<20){fs-=.5;sp.forEach(x=>x.style.fontSize=fs+'px')}})}
+setInterval(guOddsFit,1500);addEventListener('resize',()=>setTimeout(guOddsFit,60));
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
