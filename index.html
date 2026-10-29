@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-29-1638">
+<meta name="app-version" content="2026-10-29-1649">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2993,7 +2993,8 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 #acdBox b{font:900 22px var(--f-b,system-ui)}
 #acdBox p{margin:0;font-weight:700;opacity:.85}
 #acdBox .acm{color:#14e08a;opacity:1}
-#acdBox .act{font:900 18px var(--f-n,system-ui);color:#ffd600}
+#acdBox .acdt{font:900 18px var(--f-n,system-ui);color:#ffd600;line-height:1.3}
+#acdBox .acdn{font-size:12px;font-weight:700;opacity:.65}
 #acdBox .btn{width:100%}
 .pkn{margin-bottom:6px}
 #pkAuto{display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.15}
@@ -3033,6 +3034,27 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .mve{text-align:center;font-weight:700;opacity:.7;padding:20px 0}
 .movbtn{width:100%;margin:10px 0}
 .chip[title^="Tu dinero"]{cursor:pointer}
+/* apuesta gratis por anuncio: bien a la vista */
+.freebar{padding:12px 14px!important;border-width:3px!important;border-radius:16px!important;background:linear-gradient(135deg,#132a52,#2a1452)!important;border-color:#ffd600!important;box-shadow:0 0 0 0 #ffd60066;animation:fbPulse 2.4s ease-in-out infinite}
+.freebar .e{font-size:30px!important}
+.freebar b{font-size:16px!important}
+.freebar small{font-size:12.5px!important;color:#d6dcf0!important}
+.freebar .btn{font-size:14px!important;padding:10px 16px!important;border-radius:12px!important;box-shadow:0 4px 0 #8a6d00}
+.freebar.on{background:linear-gradient(135deg,#0c3a2a,#0f4f39)!important;border-color:#14e08a!important;animation:fbOn 1.6s ease-in-out infinite}
+.freebar.on b{color:#7dffc8!important}
+.freebar .fbtag{flex:none;background:#14e08a;color:#062417;font:900 13px var(--f-b,system-ui);padding:6px 10px;border-radius:99px;letter-spacing:.06em}
+.freebar.wait{animation:none;border-color:#3f7cff!important;background:#12233f!important}
+@keyframes fbPulse{0%,100%{box-shadow:0 0 0 0 #ffd60055}50%{box-shadow:0 0 0 6px #ffd60000}}
+@keyframes fbOn{0%,100%{box-shadow:0 0 12px #14e08a55}50%{box-shadow:0 0 26px #14e08aaa}}
+/* aviso de autoclicker: que no se corte el texto */
+
+#acdBox .acc{gap:12px}
+/* botón de movimientos en el perfil */
+.movbtn{display:flex!important;align-items:center;justify-content:center;gap:10px;padding:14px 16px!important;border-radius:16px!important;margin:14px 0!important;background:linear-gradient(135deg,#0f3d2c,#123a52)!important;border:2px solid #14e08a!important;color:#fff!important;font:900 15px var(--f-b,system-ui)!important;text-transform:none!important;letter-spacing:0!important}
+.movbtn .mvbi{font-size:24px}
+.movbtn small{display:block;font:700 12px var(--f-b,system-ui);opacity:.75;text-transform:none}
+.movbtn .mvbt{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.movmini{width:100%;margin-top:8px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6411,7 +6433,7 @@ function setBet(fromInput){if(!fromInput)betInp.value=betAll?Math.floor(S.coins)
 function updBetUI(){const v=curBet();$$('#chips .pchip').forEach(c=>{const b=BETS[+c.dataset.b];c.setAttribute('aria-pressed',b==='all'?betAll:(!betAll&&b===betVal))});
   $('.betin').classList.toggle('bad',v>S.coins||v<=0);const t=v>0?'· '+short(v)+' €':'';$$('.bamt').forEach(e=>{if(e.textContent!==t)e.textContent=t});
   $('#betWal').textContent=short(S.coins)+' €';if(betAll&&document.activeElement!==betInp)betInp.value=Math.floor(S.coins)}
-betInp.addEventListener('input',()=>{const v=Math.floor(+betInp.value.replace(/\D/g,'')||0);betAll=false;betVal=v;if(betInp.value!==String(v||''))betInp.value=v||'';setBet(true)});
+betInp.addEventListener('input',()=>{const v=Math.floor(+betInp.value.replace(/\D/g,'')||0);betAll=false;betVal=v;if(betInp.value!==String(v||'')&&!/^0+$/.test(betInp.value)&&!/^0/.test(betInp.value))betInp.value=v||'';setBet(true)});
 betInp.addEventListener('blur',()=>{if(!betVal){betVal=10}setBet()});
 $('.betin').addEventListener('click',e=>{const b=e.target.closest('[data-bs]');if(!b)return;const v=betAll?Math.floor(S.coins):betVal,step=v<100?10:v<1000?100:v<10000?1000:v<100000?10000:100000;
   betAll=false;betVal=Math.max(10,b.dataset.bs==='+'?v+step:v-step);sfx('tick');setBet()});
@@ -6583,6 +6605,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-29-d',t:'Apuesta gratis más clara',items:[['🎁','Apuesta gratis: se ve mejor y vuelves a tu apuesta','El cartel de la apuesta gratis se ve mucho más. Cuando ves el anuncio te avisa en grande y, al usarla, vuelves solo a la apuesta que tenías antes.','fix','#14e08a'],['🔢','Escribir tu apuesta sin que se borre','Si borras el primer número (el 5 de 5.000.000), se queda 000.000 y puedes escribir otro delante. Y puedes borrar junto a los puntos.','fix','#ffd600']]},
  {v:'2026-10-29-c',t:'💸 Movimientos: de dónde sale tu dinero',items:[['💸','Mira tus movimientos','Toca tu dinero (arriba) o el botón de tu Perfil para ver de dónde te ha llegado cada euro y adónde se ha ido: regalos, casino, premios, juegos, Fábrica…','new','#14e08a'],['🎬','Probabilidades del Gran Premio de Cine, ordenadas','Ahora salen en una sola lista con todas las cifras completas, también en Opera y en pantallas pequeñas.','fix','#ffd600']]},
  {v:'2026-10-29-b',t:'Apuesta gratis a lo grande',items:[['📺','Apuesta gratis según tu dinero','La apuesta gratis por ver un anuncio ahora vale el 5 % de lo que tienes (antes como mucho 5 millones).','new','#3f7cff'],['💬','Chats siempre abajo del todo','Al entrar en un chat o en una conversación del buzón, te lleva al último mensaje aunque tarden en cargar las fotos.','fix','#14e08a']]},
  {v:'2026-10-29-a',t:'Plinko más rápido y cohete sin límite',items:[['🔴','Plinko: elige cuántas bolas y velocidad x2','Suelta 10, 25 o 50 bolas seguidas viendo cuánto cuesta en total, y activa «⏩ Velocidad x2» para que caigan el doble de rápido.','new','#9d5cff'],['🚀','Cohete sin límite y sin esperas','Ya no se para en x100: puede subir muchísimo más. Y cuando te has retirado, pulsa «⏩ Saltar» para ver al momento dónde explota.','new','#ff6b4a'],['🤖','Fuera autoclickers','El casino y los juegos de pulsar detectan los autoclickers y bloquean un rato al que los usa. Jugar a mano rinde más.','fix','#ff3b4f'],['🔢','Escribir cantidades sin líos','Ya puedes borrar un número (también el primero o el que está junto a un punto) sin que se borre todo. Y los precios ya no hacen saltar los botones.','fix','#14e08a']]},
@@ -10941,12 +10964,14 @@ document.addEventListener('contextmenu',e=>{if(e.target.closest&&e.target.closes
 const FREE_CD=30*60e3,freeVal=()=>{let w=0;try{w=wR()}catch(e){w=+S.coins||0}const v=Math.max(100000,w*.05),p=Math.pow(10,Math.max(0,Math.floor(Math.log10(v))-1));return Math.round(v/p)*p};
 function freeRender(){let el=$('#freeBar');const bb=$('#betbar');if(!el&&bb){bb.insertAdjacentHTML('afterend','<div class="freebar" id="freeBar"></div>');el=$('#freeBar')}if(!el)return;
   const f=+S.freeChip||0,left=(+S.freeAdAt||0)+FREE_CD-Date.now();
-  if(f>0){el.className='freebar on';el.innerHTML=`<span class="e">🎁</span><span class="t"><b>Tu próxima apuesta va gratis</b><small>Ya te he puesto la apuesta en ${short(f)} €. Juega en el juego del casino que quieras</small></span>`}
+  if(f>0){el.className='freebar on';el.innerHTML=`<span class="e">🎁</span><span class="t"><b>¡Apuesta gratis de ${short(f)} € lista!</b><small>Ya está puesta. Juega en el juego del casino que quieras y no te cuesta nada. Luego vuelves a tu apuesta de antes.</small></span><span class="fbtag">GRATIS</span>`}
   else if(left>0){const m=Math.floor(left/60000),sec=Math.floor(left%60000/1000);el.className='freebar wait';el.innerHTML=`<span class="e">⏳</span><span class="t"><b>Apuesta gratis</b><small>Otro anuncio en ${m}:${String(sec).padStart(2,'0')}</small></span>`}
   else{el.className='freebar';el.innerHTML=`<span class="e">📺</span><span class="t"><b>Apuesta gratis de ${short(freeVal())} €</b><small>Mira un anuncio y tu próxima apuesta no te cuesta nada</small></span><button class="btn sm" id="freeGo">Ver anuncio</button>`;
-    $('#freeGo').onclick=()=>{if(+S.freeChip>0||(+S.freeAdAt||0)+FREE_CD>Date.now())return;sfx('click');const v=freeVal();showRewardAd('casino_gratis',()=>{S.freeChip=v;S.freeAdAt=Date.now();try{betAll=false;betVal=v;setBet()}catch(_){}save();sfx('big');confetti(80);toast('🎁 Apuesta gratis','Tu próxima apuesta (hasta '+short(v)+' €) no te cuesta nada','var(--mint)','🎰');freeRender()})}}}
+    $('#freeGo').onclick=()=>{if(+S.freeChip>0||(+S.freeAdAt||0)+FREE_CD>Date.now())return;sfx('click');const v=freeVal();showRewardAd('casino_gratis',()=>{try{S.freePrev={v:betVal,all:!!betAll}}catch(_){}S.freeChip=v;S.freeAdAt=Date.now();try{betAll=false;betVal=v;setBet()}catch(_){}save();sfx('big');confetti(160);troll('🎁 ¡APUESTA GRATIS LISTA!','ya te he puesto '+short(v)+' € de apuesta: juega y no te cuesta nada','#14e08a',true);freeRender()})}}}
 const _takeF=take;take=function(n){const f=+S.freeChip||0;n=Math.floor(n);if(f>0&&n>0&&view==='casino'&&czOpen){const use=Math.min(f,n);S.freeChip=0;if(n-use>0&&!_takeF(n-use)){S.freeChip=f;return false}
-    try{toast('🎁 Apuesta gratis',short(use)+' € de regalo en esta','var(--mint)','🎰');freeRender()}catch(_){}save();return true}return _takeF(n)};
+    try{toast('🎁 Apuesta gratis',short(use)+' € de regalo en esta · vuelves a tu apuesta de antes','var(--mint)','🎰');freeRender()}catch(_){}
+    /* después de la apuesta gratis, vuelves a la apuesta que tenías */
+    try{const pv=S.freePrev;S.freePrev=null;if(pv){setTimeout(()=>{try{betAll=!!pv.all;betVal=Math.max(10,Math.floor(+pv.v||10));setBet()}catch(_){}},60)}}catch(_){}save();return true}return _takeF(n)};
 setInterval(()=>{if(view==='casino')freeRender()},1000);freeRender();
 i18nAdd([['Clasificaciones','Leaderboards','Classements','Classificações'],['Modo ultra rendimiento','Ultra performance mode','Mode ultra performance','Modo ultra desempenho'],['Para móviles muy lentos: quita animaciones, sombras, brillos, confeti y efectos. El juego se ve más simple pero va mucho más fluido.','For very slow phones: removes animations, shadows, glows, confetti and effects. The game looks simpler but runs much smoother.','Pour les téléphones très lents : enlève animations, ombres, brillances, confettis et effets. Le jeu est plus simple mais beaucoup plus fluide.','Para telemóveis muito lentos: tira animações, sombras, brilhos, confetes e efeitos. O jogo fica mais simples mas muito mais fluido.']]);
 /* el bot se abre aunque su cuenta no esté en la lista de jugadores */
@@ -12924,7 +12949,12 @@ const nfDots=v=>{let s=String(v==null?'':v);const neg=/^\s*-/.test(s);s=s.replac
 function nfAttach(el){if(el._nf)return;el._nf=1;
   Object.defineProperty(el,'value',{configurable:true,get(){return String(ND.get.call(this)).replace(/[^\d-]/g,'')},set(v){ND.set.call(this,nfDots(v))}});
   ND.set.call(el,nfDots(ND.get.call(el)));
-  el.addEventListener('input',()=>{const raw=ND.get.call(el),pos=el.selectionStart==null?raw.length:el.selectionStart,fromEnd=raw.length-pos,f=nfDots(raw);if(f!==raw){ND.set.call(el,f);const p=Math.max(0,f.length-fromEnd);try{el.setSelectionRange(p,p)}catch(_){}}},true)}
+  /* mientras escribes: los ceros de delante se quedan (para poder poner otro número delante) y el cursor no salta */
+  el.addEventListener('input',()=>{const raw=ND.get.call(el),pos=el.selectionStart==null?raw.length:el.selectionStart,dR=raw.slice(pos).replace(/\D/g,'').length,neg=/^\s*-/.test(raw),d=raw.replace(/\D/g,''),f=d?(neg?'-':'')+d.replace(/\B(?=(\d{3})+(?!\d))/g,'.'):(neg?'-':'');
+    if(f!==raw)ND.set.call(el,f);let p=f.length,c=0;while(p>0&&c<dR){p--;if(/\d/.test(f[p]))c++}try{el.setSelectionRange(p,p)}catch(_){}},true);
+  /* borrar justo detrás de un punto borra el número de antes */
+  el.addEventListener('keydown',e=>{let a,b;try{a=el.selectionStart;b=el.selectionEnd}catch(_){return}if(a==null||a!==b)return;const v=ND.get.call(el);if(e.key==='Backspace'&&a>0&&v[a-1]==='.')try{el.setSelectionRange(a-1,a-1)}catch(_){}if(e.key==='Delete'&&v[a]==='.')try{el.setSelectionRange(a+1,a+1)}catch(_){}});
+  el.addEventListener('blur',()=>{const v=ND.get.call(el),f=nfDots(v);if(f!==v)ND.set.call(el,f)})}
 function nfScan(root){try{(root.matches&&root.matches(NF_SEL)?[root]:[]).concat([...(root.querySelectorAll?root.querySelectorAll(NF_SEL):[])]).forEach(nfAttach)}catch(_){}}
 nfScan(document.body);new MutationObserver(ms=>{for(const m of ms)m.addedNodes.forEach(n=>{if(n.nodeType===1)nfScan(n)})}).observe(document.body,{childList:true,subtree:true})}
 
@@ -15161,7 +15191,7 @@ addEventListener('resize',()=>{if($('#chEd'))chEdDraw()});
 /* atrás (botón o gesto): primero se cierra la foto que estás preparando */
 {const _chL=chList;chList=function(){if($('#chEd')){chEdClose();return}if($('#chPop')){chPopClose();return}return _chL.apply(this,arguments)}}
 /* que la ruedecita del ratón no mueva lo de detrás cuando hay una ventana abierta */
-document.addEventListener('wheel',e=>{const ov=e.target.closest&&e.target.closest('#chatWin:not([hidden]),#modal:not([hidden]),#chImgV:not([hidden])');if(!ov)return;
+document.addEventListener('wheel',e=>{const ov=e.target.closest&&e.target.closest('#chatWin:not([hidden]),#modal:not([hidden]),#chImgV:not([hidden]),#acdBox,#seEnd,#dupBox,#spamBox.inbody,#excWin:not([hidden]),#guTour:not([hidden])');if(!ov)return;
   let el=e.target;while(el&&el.nodeType===1){const cs=getComputedStyle(el);if(/(auto|scroll)/.test(cs.overflowY)&&el.scrollHeight>el.clientHeight+1){if(e.deltaY<0?el.scrollTop>0:el.scrollTop+el.clientHeight<el.scrollHeight-1)return}if(el===ov)break;el=el.parentElement}
   e.preventDefault()},{passive:false});
 try{i18nAdd([['Chat de amigos renovado','Friends chat revamped','Chat entre amis renouvelé','Chat de amigos renovado'],['Chat más bonito','Nicer chat','Chat plus joli','Chat mais bonito'],['Burbujas nuevas, separadores de «Hoy» y «Ayer», y ves si tu amigo está conectado. Toca los ⋮ de un mensaje para copiarlo o borrarlo.','New bubbles, «Today» and «Yesterday» separators, and you can see if your friend is online. Tap the ⋮ on a message to copy or delete it.','Nouvelles bulles, séparateurs « Aujourd\'hui » et « Hier », et tu vois si ton ami est connecté. Touche les ⋮ d\'un message pour le copier ou le supprimer.','Bolhas novas, separadores «Hoje» e «Ontem», e vês se o teu amigo está ligado. Toca nos ⋮ de uma mensagem para a copiar ou apagar.'],['Fotos: mírala, recórtala y gírala antes de mandarla','Photos: preview, crop and rotate before sending','Photos : aperçu, recadrage et rotation avant l\'envoi','Fotos: vê, recorta e roda antes de enviar'],['Al elegir o pegar una foto puedes recortarla, girarla y añadirle un texto. Se manda entera, sin cortes raros.','When you pick or paste a photo you can crop it, rotate it and add a caption. It\'s sent whole, with no weird cropping.','Quand tu choisis ou colles une photo, tu peux la recadrer, la tourner et ajouter un texte. Elle part entière, sans coupe bizarre.','Ao escolher ou colar uma foto podes recortá-la, rodá-la e juntar um texto. Vai inteira, sem cortes estranhos.'],['Fija a tus amigos','Pin your friends','Épingle tes amis','Fixa os teus amigos'],['Toca 📌 en la lista de chats para tener arriba a quien más hablas.','Tap 📌 in the chat list to keep the people you talk to most at the top.','Touche 📌 dans la liste des chats pour garder en haut ceux à qui tu parles le plus.','Toca em 📌 na lista de chats para teres em cima quem mais falas.'],['Sin saltos','No more jumps','Plus de sauts','Sem saltos'],['El buscador y el botón de foto salen al momento, la página de detrás ya no se mueve con la rueda del ratón y, si abres un perfil desde el chat, al cerrarlo vuelves al chat.','The search and photo button show up right away, the page behind no longer scrolls with the mouse wheel, and if you open a profile from the chat, closing it takes you back to the chat.','La recherche et le bouton photo apparaissent tout de suite, la page derrière ne défile plus avec la molette, et si tu ouvres un profil depuis le chat, en le fermant tu reviens au chat.','A pesquisa e o botão de foto aparecem logo, a página de trás já não se mexe com a roda do rato e, se abrires um perfil a partir do chat, ao fechá-lo voltas ao chat.']])}catch(e){}
@@ -15259,7 +15289,7 @@ try{if(!FAQ.some(x=>x[0]==='¿Dónde veo mi récord de siempre en un minijuego?'
     if(!set.size)return;busy=true;try{set.forEach(el=>{if(![...set].some(o=>o!==el&&o.contains(el))){try{nbspPass(el)}catch(_){}numFitPass(el)}})}catch(_){}mo.takeRecords();busy=false});
   const start=()=>{try{mo.observe(document.body,{childList:true,subtree:true,characterData:true})}catch(_){}};if(document.body)start();else addEventListener('DOMContentLoaded',start)})();
 /* --- 3. escribir cantidades: borrar sin que se borre todo ni salte el cursor --- */
-(()=>{const isNum=i=>i&&i.tagName==='INPUT'&&!/^(password|email|search|checkbox|radio|range|file)$/i.test(i.type||'')&&/^[\d.]*$/.test(i.value||'')&&(i.inputMode==='numeric'||i.inputMode==='decimal'||i.classList.contains('num')||/\d\.\d{3}/.test(i.value||'')||/amt|bet|cant|monto|apuesta/i.test((i.id||'')+(i.className||'')));
+(()=>{const isNum=i=>i&&i.tagName==='INPUT'&&!i._nf&&!/^(password|email|search|checkbox|radio|range|file)$/i.test(i.type||'')&&/^[\d.]*$/.test(i.value||'')&&(i.inputMode==='numeric'||i.inputMode==='decimal'||i.classList.contains('num')||/\d\.\d{3}/.test(i.value||'')||/amt|bet|cant|monto|apuesta/i.test((i.id||'')+(i.className||'')));
   const dr=(v,pos)=>v.slice(pos).replace(/\D/g,'').length;
   const setCaret=(i,dRight)=>{const v=i.value;let p=v.length,c=0;while(p>0&&c<dRight){p--;if(/\d/.test(v[p]))c++}try{i.setSelectionRange(p,p)}catch(_){}};
   document.addEventListener('keydown',e=>{const i=e.target;if(!isNum(i)||e.ctrlKey||e.metaKey)return;let a,b;try{a=i.selectionStart;b=i.selectionEnd}catch(_){return}if(a==null||a!==b)return;
@@ -15285,9 +15315,9 @@ function acdBan(why){const now=Date.now();ACD.n=(+S.acdN||0)+1;S.acdN=ACD.n;cons
   if(ACD.n>=2)try{if(NET.db&&!NET.isAnon&&now-(+S.acdRep||0)>1800000){S.acdRep=now;NET.db.collection('inbox').add({from:NET.id,name:String(S.name||'').slice(0,24),code:String(S.code||''),type:'bug',text:('🤖 AVISO AUTOMÁTICO: posible AUTOCLICKER en '+why+' ('+ACD.n+' veces). Bloqueado '+(secs>=60?Math.round(secs/60)+' min':secs+' s')+'.').slice(0,400),old:'',st:'pend',t:now}).catch(()=>{})}}catch(_){}
   acdShow()}
 function acdShow(){let o=$('#acdBox');if(!o){o=document.createElement('div');o.id='acdBox';document.body.appendChild(o)}
-  o.innerHTML=`<div class="acc"><div class="ace">🤖</div><b>Parece un autoclicker</b><p>Tus clics son demasiado rápidos o demasiado perfectos para ser de una persona. Durante un rato el casino y los juegos de pulsar no te dejan jugar.</p><p class="acm">Juega a mano: rinde más y no te pillan 😉</p><div class="act" id="acdT"></div><button type="button" class="btn big" id="acdOk" disabled>Espera…</button></div>`;
-  try{sfx('lose')}catch(_){}const tick=()=>{const b=$('#acdOk'),t=$('#acdT');if(!b)return;const s=Math.ceil((ACD.until-Date.now())/1000);if(s>0){const tx=s>=60?Math.floor(s/60)+':'+String(s%60).padStart(2,'0'):s+' s';t.textContent='Vuelves a jugar en '+tx;b.disabled=true;b.textContent='Espera '+tx;setTimeout(tick,500)}else{t.textContent='';b.disabled=false;b.textContent='Vale, jugaré a mano'}};tick()}
-document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#acdOk')){if(acdBlocked())return;const o=$('#acdBox');if(o)o.remove()}},true);
+  o.innerHTML=`<div class="acc"><div class="ace">🤖</div><b>Parece un autoclicker</b><p>Tus clics son demasiado rápidos o demasiado perfectos para ser de una persona. Durante un rato el casino y los juegos de pulsar no te dejan jugar.</p><p class="acm">Juega a mano: rinde más y no te pillan 😉</p><div class="acdt" id="acdT"></div><button type="button" class="btn big" id="acdOk">Vale, haré otra cosa</button><small class="acdn">Mientras, puedes usar el resto del juego (Inicio, Tienda, Bolsa, chat…). Solo el casino y los juegos de pulsar esperan.</small></div>`;
+  try{sfx('lose')}catch(_){}const tick=()=>{const b=$('#acdOk'),t=$('#acdT');if(!b)return;const s=Math.ceil((ACD.until-Date.now())/1000);if(s>0){const tx=s>=60?Math.floor(s/60)+':'+String(s%60).padStart(2,'0'):s+' s';t.textContent='El casino vuelve en '+tx;setTimeout(tick,500)}else{t.textContent='¡Ya puedes volver a jugar!';b.textContent='Vale, jugaré a mano'}};tick()}
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#acdOk')){const o=$('#acdBox');if(o)o.remove()}},true);
 const ACD_SEL='#v-casino button,#v-casino canvas,#bigcoin,#v-casino .c10-main,#stage button';
 document.addEventListener('pointerdown',e=>{const t=e.target.closest&&e.target.closest(ACD_SEL);if(!t)return;
   if(acdBlocked()){e.preventDefault();e.stopImmediatePropagation();acdShow();return}
@@ -15372,10 +15402,13 @@ document.addEventListener('click',e=>{const t=e.target;if(!t.closest)return;
 setInterval(()=>{if($('#movBox')&&!$('#modal').hidden)movDraw()},15000);
 (function(){const c=document.querySelector('.chip[title="Tu dinero"]');if(c){c.title='Tu dinero · toca para ver tus movimientos';c.style.cursor='pointer';c.setAttribute('role','button');c.setAttribute('tabindex','0')}})();
 /* en el perfil y en la caja fuerte, botón para verlos */
-{const _rpM=renderPerfil;renderPerfil=function(){const r=_rpM.apply(this,arguments);try{const v=$('#v-perfil');if(v&&!v.querySelector('[data-movopen]')){const h=v.querySelector('.panel');if(h)h.insertAdjacentHTML('afterend','<button class="btn alt movbtn" type="button" data-movopen>💸 Ver mis movimientos de dinero</button>')}}catch(e){}return r}}
+{const _rpM=renderPerfil;renderPerfil=function(){const r=_rpM.apply(this,arguments);try{const v=$('#v-perfil');if(v&&!v.querySelector('[data-movopen]')){const h=v.querySelector('.panel');if(h)h.insertAdjacentHTML('afterend','<button class="btn alt movbtn" type="button" data-movopen><span class="mvbi emo">💸</span><span class="mvbt">Mis movimientos de dinero<small>De dónde te llega cada euro y adónde se va</small></span></button>')}}catch(e){}return r}}
 try{const t=TUTOS.find(x=>/Inicio|Empezar/.test(x[1]));if(t&&!t[4].some(x=>/Movimientos/.test(x[0])))t[4].push(['Toca <b>tu dinero</b> (arriba) para ver tus <b>💸 Movimientos</b>: de dónde te ha llegado cada euro y adónde se ha ido.'])}catch(e){}
 try{i18nAdd([['💸 Movimientos: de dónde sale tu dinero','💸 Transactions: where your money comes from','💸 Mouvements : d\'où vient ton argent','💸 Movimentos: de onde vem o teu dinheiro'],['Mira tus movimientos','Check your transactions','Regarde tes mouvements','Vê os teus movimentos'],['Toca tu dinero (arriba) o el botón de tu Perfil para ver de dónde te ha llegado cada euro y adónde se ha ido: regalos, casino, premios, juegos, Fábrica…','Tap your money (at the top) or the button on your Profile to see where each euro came from and where it went: gifts, casino, prizes, games, Factory…','Touche ton argent (en haut) ou le bouton de ton Profil pour voir d\'où vient chaque euro et où il est parti : cadeaux, casino, prix, jeux, Usine…','Toca no teu dinheiro (em cima) ou no botão do teu Perfil para veres de onde veio cada euro e para onde foi: presentes, casino, prémios, jogos, Fábrica…'],['Probabilidades del Gran Premio de Cine, ordenadas','Film Grand Prize odds, tidy','Probabilités du Grand Prix du Cinéma, bien rangées','Probabilidades do Grande Prémio de Cinema, arrumadas'],['Ahora salen en una sola lista con todas las cifras completas, también en Opera y en pantallas pequeñas.','They now show in a single list with every number in full, also on Opera and small screens.','Elles s\'affichent maintenant en une seule liste avec tous les chiffres complets, aussi sur Opera et les petits écrans.','Agora aparecem numa só lista com todos os números completos, também no Opera e em ecrãs pequenos.']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Cómo sé de dónde me ha llegado un dinero?'))FAQ.unshift(['¿Cómo sé de dónde me ha llegado un dinero?','Toca tu dinero arriba del todo (o en Perfil › «Ver mis movimientos de dinero»). Sale cada entrada y salida con de dónde viene: regalo de alguien, casino, premio, Fábrica…'])}catch(e){}
+/* movimientos también desde la caja fuerte de Inicio */
+{const _smMv=safeMount;safeMount=function(){const r=_smMv.apply(this,arguments);try{const c=$('#safeCard');if(c&&!c.querySelector('[data-movopen]')){const b=c.querySelector('.sfb');if(b)b.insertAdjacentHTML('afterend','<button class="btn alt sm movmini" type="button" data-movopen>💸 Ver mis movimientos</button>')}}catch(e){}return r}}
+try{i18nAdd([['Apuesta gratis más clara','Clearer free bet','Pari gratuit plus clair','Aposta grátis mais clara'],['Apuesta gratis: se ve mejor y vuelves a tu apuesta','Free bet: easier to see and back to your bet','Pari gratuit : plus visible et retour à ta mise','Aposta grátis: vê-se melhor e voltas à tua aposta'],['El cartel de la apuesta gratis se ve mucho más. Cuando ves el anuncio te avisa en grande y, al usarla, vuelves solo a la apuesta que tenías antes.','The free bet banner stands out much more. After watching the ad you get a big notice and, once you use it, you go back to your previous bet automatically.','La bannière du pari gratuit se voit beaucoup plus. Après la pub tu as un gros message et, une fois utilisé, tu reviens tout seul à ta mise d\'avant.','O cartaz da aposta grátis vê-se muito mais. Depois do anúncio aparece um aviso grande e, ao usá-la, voltas sozinho à aposta que tinhas antes.'],['Escribir tu apuesta sin que se borre','Typing your bet without it disappearing','Écrire ta mise sans qu\'elle s\'efface','Escrever a tua aposta sem se apagar'],['Si borras el primer número (el 5 de 5.000.000), se queda 000.000 y puedes escribir otro delante. Y puedes borrar junto a los puntos.','If you delete the first digit (the 5 in 5.000.000), 000.000 stays and you can type another one in front. And you can delete next to the dots.','Si tu effaces le premier chiffre (le 5 de 5.000.000), il reste 000.000 et tu peux en écrire un autre devant. Et tu peux effacer à côté des points.','Se apagares o primeiro número (o 5 de 5.000.000), fica 000.000 e podes escrever outro à frente. E podes apagar junto aos pontos.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
