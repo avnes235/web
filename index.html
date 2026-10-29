@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-29-1631">
+<meta name="app-version" content="2026-10-29-1638">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3019,6 +3019,20 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .gu-ol span b{min-width:0;white-space:nowrap;overflow:hidden;font-variant-numeric:tabular-nums}
 .gu-ol span.gt b{white-space:normal;overflow-wrap:anywhere}
 .gu-ol em{min-width:44px;text-align:right}
+#movBox .mvf{display:flex;gap:6px;margin-bottom:10px}
+#movBox .mvf button{flex:1;border:2px solid var(--line);background:var(--card);color:var(--fg);border-radius:10px;padding:8px 6px;font:800 13px var(--f-b,system-ui);cursor:pointer}
+#movBox .mvf button[aria-pressed="true"]{background:var(--sun);color:#111;border-color:#111}
+.mvl{display:flex;flex-direction:column;gap:4px;max-height:min(60vh,520px);overflow:auto;overscroll-behavior:contain}
+.mvr{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:#ffffff08;border:1px solid #ffffff10}
+.mvr .mvi{font-size:22px;flex:none;width:28px;text-align:center}
+.mvr .mvt{flex:1;min-width:0;display:flex;flex-direction:column}
+.mvr .mvt{text-align:left}.mvr .mvt b{font-size:14px;font-weight:800;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mvr .mvt small{font-size:11.5px;opacity:.6;font-weight:700}
+.mvr .mva{font:900 14px var(--f-n,system-ui);white-space:nowrap;flex:none}
+.mvr.in .mva{color:#14e08a}.mvr.out .mva{color:#ff5a6e}
+.mve{text-align:center;font-weight:700;opacity:.7;padding:20px 0}
+.movbtn{width:100%;margin:10px 0}
+.chip[title^="Tu dinero"]{cursor:pointer}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6569,6 +6583,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-29-c',t:'💸 Movimientos: de dónde sale tu dinero',items:[['💸','Mira tus movimientos','Toca tu dinero (arriba) o el botón de tu Perfil para ver de dónde te ha llegado cada euro y adónde se ha ido: regalos, casino, premios, juegos, Fábrica…','new','#14e08a'],['🎬','Probabilidades del Gran Premio de Cine, ordenadas','Ahora salen en una sola lista con todas las cifras completas, también en Opera y en pantallas pequeñas.','fix','#ffd600']]},
  {v:'2026-10-29-b',t:'Apuesta gratis a lo grande',items:[['📺','Apuesta gratis según tu dinero','La apuesta gratis por ver un anuncio ahora vale el 5 % de lo que tienes (antes como mucho 5 millones).','new','#3f7cff'],['💬','Chats siempre abajo del todo','Al entrar en un chat o en una conversación del buzón, te lleva al último mensaje aunque tarden en cargar las fotos.','fix','#14e08a']]},
  {v:'2026-10-29-a',t:'Plinko más rápido y cohete sin límite',items:[['🔴','Plinko: elige cuántas bolas y velocidad x2','Suelta 10, 25 o 50 bolas seguidas viendo cuánto cuesta en total, y activa «⏩ Velocidad x2» para que caigan el doble de rápido.','new','#9d5cff'],['🚀','Cohete sin límite y sin esperas','Ya no se para en x100: puede subir muchísimo más. Y cuando te has retirado, pulsa «⏩ Saltar» para ver al momento dónde explota.','new','#ff6b4a'],['🤖','Fuera autoclickers','El casino y los juegos de pulsar detectan los autoclickers y bloquean un rato al que los usa. Jugar a mano rinde más.','fix','#ff3b4f'],['🔢','Escribir cantidades sin líos','Ya puedes borrar un número (también el primero o el que está junto a un punto) sin que se borre todo. Y los precios ya no hacen saltar los botones.','fix','#14e08a']]},
  {v:'2026-10-28-d',t:'Tu récord de siempre, a la vista',items:[['🏆','Récord de siempre en cada juego','Al jugar ves tu récord de la semana y, al lado en dorado, tu récord de siempre. También sale en las tarjetas de los juegos y al acabar la partida.','new','#ffd600']]},
@@ -15327,6 +15342,40 @@ try{i18nAdd([['Apuesta gratis a lo grande','Big free bet','Pari gratuit en grand
 function guOddsFit(){document.querySelectorAll('.gu-ol').forEach(l=>{if(!l.offsetParent)return;l.style.fontSize='';const sp=[...l.querySelectorAll('span:not(.gt)')];let fs=12.5,i=0;const over=()=>sp.some(x=>{const b=x.querySelector('b');return x.scrollWidth>x.clientWidth+1||(b&&b.scrollWidth>b.clientWidth+1)});
   while(over()&&fs>9&&i++<20){fs-=.5;sp.forEach(x=>x.style.fontSize=fs+'px')}})}
 setInterval(guOddsFit,1500);addEventListener('resize',()=>setTimeout(guOddsFit,60));
+/* ===== 2026-10-29: 💸 Movimientos — de dónde te ha llegado (o adónde se ha ido) cada dinero ===== */
+const MOV={msg:null};
+function movMsg(t,s){try{const tx=String(t||'').replace(/<[^>]+>/g,'').trim(),sx=String(s||'').replace(/<[^>]+>/g,'').trim();if(!tx||/^(Título nuevo|Logro|Nuevo récord|Has subido|Te ha pasado|Guardad)/i.test(tx))return;const money=/€|\d/.test(tx+' '+sx);if(MOV.msg&&Date.now()-MOV.msg.t<2500&&MOV.msg.money&&!money)return;MOV.msg={t:Date.now(),title:tx,sub:sx,money}}catch(e){}}
+{const _trM=troll;troll=function(a,b){movMsg(a,b);return _trM.apply(this,arguments)}}
+{const _toM=toast;toast=function(a,b){if(!/^(Logro desbloqueado|Guardado|Copiado)/.test(String(a)))movMsg(a,b);return _toM.apply(this,arguments)}}
+function movLabel(ctx,d){const m=MOV.msg;const cas=/^cas:/.test(ctx)||/^jg:/.test(ctx);
+  if(m&&Date.now()-m.t<2500&&!cas&&ctx!=='v:pasivo'){let l=m.title;if(/^NIVEL \d+/i.test(l))return'Subir a '+l.split('·')[0].trim().toLowerCase();if(/^¡?Pillado/i.test(l))return'Botón rojo · fantasma pillado';if(m.sub&&!/[€\d]/.test(m.sub)&&m.sub.length<40)l+=' · '+m.sub;else if(/regal|jefe|premio|cofre|ruleta|recompensa|misión|nivel|logro|lluvia|fantasma|botón|caramelo|torneo|duelo|bote/i.test(m.sub)&&m.sub.length<60)l+=' · '+m.sub;return l.slice(0,90)}
+  try{return ledName(ctx).replace(/^\S+\s/,'')}catch(e){return ctx}}
+function movIco(ctx,l){if(/regal/i.test(l))return'🎁';if(/jefe|moderaci/i.test(l))return'👑';if(/banco|préstamo|prestamo|deuda/i.test(l))return'🏦';if(/bolsa|acci/i.test(l))return'📈';if(/ruleta/i.test(l))return'🎡';if(/botón rojo|BOTÓN|fantasma|cofre/i.test(l))return'🔴';if(/caramelo|halloween/i.test(l))return'🎃';
+  if(/^cas:/.test(ctx))return'🎰';if(/^jg:/.test(ctx))return'🎮';if(ctx==='v:pasivo'||/fábrica/i.test(l))return'🏭';if(/tienda|compra/i.test(l))return'🛒';return'💶'}
+{const _ledM=ledAdd;ledAdd=function(ctx,d){const r=_ledM.apply(this,arguments);try{if(!d)return r;const now=Date.now();S.mov=Array.isArray(S.mov)?S.mov:[];const L=S.mov,lab=movLabel(ctx,d),top=L[0];
+    const win=ctx==='v:pasivo'?600000:(/^cas:|^jg:/.test(ctx)?15000:3000);
+    if(top&&top[3]===ctx&&top[2]===lab&&now-top[0]<win&&(ctx==='v:pasivo'||/^cas:|^jg:/.test(ctx)||Math.sign(top[1])===Math.sign(d))){top[1]+=d;top[0]=now;top[4]=(top[4]||1)+1}
+    else{L.unshift([now,d,lab,ctx,1]);if(L.length>80)L.length=80}
+    if($('#movBox'))movDraw()}catch(e){}return r}}
+function movDraw(){const box=$('#movList');if(!box)return;const L=(S.mov||[]).filter(x=>x&&x[1]);const f=MOV.f||'all';const F=L.filter(x=>f==='all'||(f==='in'?x[1]>0:x[1]<0));
+  box.innerHTML=F.length?F.slice(0,60).map(([t,d,l,c,n])=>`<div class="mvr ${d>0?'in':'out'}"><span class="mvi emo">${movIco(c,l)}</span><span class="mvt"><b>${esc(l)}</b><small>${ago(t)}${n>1&&/^cas:|^jg:/.test(c)?' · '+n+' jugadas':n>1&&c==='v:pasivo'?'':''}</small></span><span class="mva">${d>0?'+':'−'}${fmt(Math.abs(d))} €</span></div>`).join('')
+    :'<p class="mve">Todavía no hay movimientos. Juega un poco y aquí verás de dónde te llega cada euro.</p>'}
+function movOpen(){$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('wide','notes');mb.onclick=null;
+  mb.innerHTML=`<div id="movBox"><h2 style="font-size:28px;margin:0 0 4px">💸 Movimientos</h2><p class="muted" style="margin:0 0 10px;font-weight:700">De dónde te ha llegado el dinero (y adónde se ha ido). Lo de la caja fuerte no cuenta: sigue siendo tuyo.</p>
+    <div class="mvf"><button type="button" data-mvf="all">Todo</button><button type="button" data-mvf="in">➕ Entradas</button><button type="button" data-mvf="out">➖ Salidas</button></div><div id="movList" class="mvl"></div>
+    <button class="btn alt" type="button" id="movX" style="width:100%;margin-top:10px">Cerrar</button></div>`;
+  $$('#movBox [data-mvf]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mvf===(MOV.f||'all'))));movDraw()}
+document.addEventListener('click',e=>{const t=e.target;if(!t.closest)return;
+  if(t.closest('#wCoins')||t.closest('.chip[title="Tu dinero"]')||t.closest('[data-movopen]')){try{sfx('click')}catch(_){}movOpen();return}
+  const f=t.closest('[data-mvf]');if(f){MOV.f=f.dataset.mvf;$$('#movBox [data-mvf]').forEach(b=>b.setAttribute('aria-pressed',String(b===f)));movDraw();return}
+  if(t.closest('#movX')){closeModal()}});
+setInterval(()=>{if($('#movBox')&&!$('#modal').hidden)movDraw()},15000);
+(function(){const c=document.querySelector('.chip[title="Tu dinero"]');if(c){c.title='Tu dinero · toca para ver tus movimientos';c.style.cursor='pointer';c.setAttribute('role','button');c.setAttribute('tabindex','0')}})();
+/* en el perfil y en la caja fuerte, botón para verlos */
+{const _rpM=renderPerfil;renderPerfil=function(){const r=_rpM.apply(this,arguments);try{const v=$('#v-perfil');if(v&&!v.querySelector('[data-movopen]')){const h=v.querySelector('.panel');if(h)h.insertAdjacentHTML('afterend','<button class="btn alt movbtn" type="button" data-movopen>💸 Ver mis movimientos de dinero</button>')}}catch(e){}return r}}
+try{const t=TUTOS.find(x=>/Inicio|Empezar/.test(x[1]));if(t&&!t[4].some(x=>/Movimientos/.test(x[0])))t[4].push(['Toca <b>tu dinero</b> (arriba) para ver tus <b>💸 Movimientos</b>: de dónde te ha llegado cada euro y adónde se ha ido.'])}catch(e){}
+try{i18nAdd([['💸 Movimientos: de dónde sale tu dinero','💸 Transactions: where your money comes from','💸 Mouvements : d\'où vient ton argent','💸 Movimentos: de onde vem o teu dinheiro'],['Mira tus movimientos','Check your transactions','Regarde tes mouvements','Vê os teus movimentos'],['Toca tu dinero (arriba) o el botón de tu Perfil para ver de dónde te ha llegado cada euro y adónde se ha ido: regalos, casino, premios, juegos, Fábrica…','Tap your money (at the top) or the button on your Profile to see where each euro came from and where it went: gifts, casino, prizes, games, Factory…','Touche ton argent (en haut) ou le bouton de ton Profil pour voir d\'où vient chaque euro et où il est parti : cadeaux, casino, prix, jeux, Usine…','Toca no teu dinheiro (em cima) ou no botão do teu Perfil para veres de onde veio cada euro e para onde foi: presentes, casino, prémios, jogos, Fábrica…'],['Probabilidades del Gran Premio de Cine, ordenadas','Film Grand Prize odds, tidy','Probabilités du Grand Prix du Cinéma, bien rangées','Probabilidades do Grande Prémio de Cinema, arrumadas'],['Ahora salen en una sola lista con todas las cifras completas, también en Opera y en pantallas pequeñas.','They now show in a single list with every number in full, also on Opera and small screens.','Elles s\'affichent maintenant en une seule liste avec tous les chiffres complets, aussi sur Opera et les petits écrans.','Agora aparecem numa só lista com todos os números completos, também no Opera e em ecrãs pequenos.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Cómo sé de dónde me ha llegado un dinero?'))FAQ.unshift(['¿Cómo sé de dónde me ha llegado un dinero?','Toca tu dinero arriba del todo (o en Perfil › «Ver mis movimientos de dinero»). Sale cada entrada y salida con de dónde viene: regalo de alguien, casino, premio, Fábrica…'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
