@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-28-2243">
+<meta name="app-version" content="2026-10-29-1516">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -2987,6 +2987,22 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .gcard .gball b{font-size:12px}
 .ovball{margin:8px 0 0;font-weight:800;font-size:15px;color:#ffd600;text-align:center}
 .ovball em{font-style:normal;background:#ffd600;color:#111;border-radius:99px;padding:1px 8px;margin-left:6px;font-size:12px}
+#acdBox{position:fixed;inset:0;z-index:9700;background:#000c;display:flex;align-items:center;justify-content:center;padding:18px}
+#acdBox .acc{max-width:380px;width:100%;background:#1c1c25;border:3px solid #ff3b4f;border-radius:22px;padding:22px 20px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+#acdBox .ace{font-size:56px;line-height:1}
+#acdBox b{font:900 22px var(--f-b,system-ui)}
+#acdBox p{margin:0;font-weight:700;opacity:.85}
+#acdBox .acm{color:#14e08a;opacity:1}
+#acdBox .act{font:900 18px var(--f-n,system-ui);color:#ffd600}
+#acdBox .btn{width:100%}
+.pkn{margin-bottom:6px}
+#pkAuto{display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.15}
+#pkAuto .pkc{font-size:11.5px;font-weight:800;opacity:.75;text-transform:none;letter-spacing:0}
+.pkfast[aria-pressed="true"]{background:#9d5cff!important;color:#fff!important;border-color:#111!important}
+.pkfast{width:100%;margin-top:6px}
+/* vender en la tienda: el precio arriba y el botón debajo, siempre del mismo tamaño (no salta) */
+.ownrow .cnt{flex:1 1 100%;display:block;text-align:center;overflow:hidden;text-overflow:ellipsis}
+.ownrow [data-sell]{min-height:40px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -4613,7 +4629,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
           <span class="c10-lbl">Filas</span>
           <div class="c10-opts" id="pkRows"><button data-pw="8" aria-pressed="false">8</button><button data-pw="12" aria-pressed="true">12</button><button data-pw="16" aria-pressed="false">16</button></div>
           <button class="btn big c10-main" id="pkGo"><span class="c10l">Soltar bola</span> <span class="bamt"></span></button>
-          <button class="btn alt c10-main2" id="pkAuto">Soltar 10 seguidas</button>
+          <span class="c10-lbl">Bolas seguidas</span><div class="c10-opts pkn" id="pkN"><button data-pn="10" aria-pressed="true">10</button><button data-pn="25" aria-pressed="false">25</button><button data-pn="50" aria-pressed="false">50</button></div><button class="btn alt c10-main2" id="pkAuto">Soltar 10 seguidas</button><button class="btn alt pkfast" id="pkFast" aria-pressed="false">⏩ Velocidad x2</button>
           <p class="rmsg c10-msg" id="pkMsg">Cada bola cuesta tu apuesta. Los bordes pagan una barbaridad.</p>
         </div>
       </div>
@@ -5356,7 +5372,7 @@ function settleR(n,tot){rSpin=false;rW%=Math.PI*2;rBallA%=Math.PI*2;let win=0;
 renderRHist();
 /* Cohete */
 const rcv=$('#rc'),rg=rcv.getContext('2d');let rk=null;const rkHist=[];const stars=Array.from({length:80},()=>({x:rnd(0,760),y:rnd(0,400),s:rnd(.6,2.2)}));
-function rkCrash(){const u=Math.random();if(u<.05)return 1;return Math.max(1,Math.min(100,Math.floor(93/(1-Math.random()))/100))}
+function rkCrash(){const u=Math.random();if(u<.05)return 1;return Math.max(1,Math.min(1e6,Math.floor(93/(1-Math.random()))/100))}
 function drawRocket(){const g=rg,W=760,H=400;const bg=g.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#090d22');bg.addColorStop(1,'#1d1846');g.fillStyle=bg;g.fillRect(0,0,W,H);
   const sp=rk&&!rk.boom?Math.min(14,1+rk.m*.8):.3;stars.forEach(st=>{st.y+=sp*st.s*.5;if(st.y>H){st.y=0;st.x=rnd(0,W)}g.fillStyle=`rgba(255,255,255,${.3+st.s*.25})`;g.fillRect(st.x,st.y,st.s,st.s*(1+sp*.3))});
   g.strokeStyle='rgba(255,255,255,.06)';g.lineWidth=1;for(let y=60;y<H;y+=60){g.beginPath();g.moveTo(50,y);g.lineTo(W-20,y);g.stroke()}
@@ -5864,7 +5880,7 @@ function renderAdmSide(){const el=$('#admSide'),p=ADM.sel&&NET.players.get(ADM.s
    <div class="kv"><div><small>Cartera</small><b>${fmt(p.wal!=null?Math.max(0,+p.wal||0):Math.max(0,(+p.coins||0)-(+p.sf||0)+(+p.debt||0)))} €</b></div><div><small>🔐 Caja fuerte</small><b>${fmt(+p.sf||0)} €</b></div><div><small>Cartera + caja${+p.debt>0?' − deuda':''}</small><b>${fmt(+p.coins||0)} €</b></div>${+p.debt>0?`<div><small>🏦 Debe al banco</small><b>${fmt(+p.debt)} €</b></div>`:''}<div><small>Ganado en total</small><b>${short(+p.earned||0)} €</b></div><div><small>Nivel</small><b>${+p.lvl||1}</b></div><div><small>Logros</small><b>${+p.ach||0}</b></div><div style="grid-column:1/-1"><small>Gastado en el millonario</small><b>${eurS(+p.spent||0)}</b></div></div>
    <span class="alab">Dinero</span>
    <div class="amt"><input class="inp num" id="admAmt" inputmode="numeric" aria-label="Cantidad"><button class="qa" data-q="100">100</button><button class="qa" data-q="1000">1k</button><button class="qa" data-q="10000">10k</button><button class="qa" data-q="1000000">1M</button></div>
-   <div class="abtns"><button class="btn mint" data-a="give">Dar</button><button class="btn red" data-a="take">Quitar de la cartera</button><button class="btn red" data-a="takesafe">Quitar de la caja fuerte</button><button class="btn red" data-a="takeall">Quitar de las dos</button><button class="btn" data-a="double">Duplicar</button><button class="btn dark" data-a="zero">Cartera a cero</button><button class="btn dark" data-a="zeroall">Todo a cero (cartera y caja)</button></div><p class="netmsg" style="margin:4px 0 0">«Quitar de las dos» quita primero de la cartera y lo que falte, de la caja fuerte.</p>
+   <div class="abtns"><button class="btn mint" data-a="give">Dar</button><button class="btn red" data-a="take">Quitar de la cartera</button><button class="btn red" data-a="takesafe">Quitar de la caja fuerte</button><button class="btn red" data-a="takeall">Quitar de las dos</button><button class="btn" data-a="double">Duplicar</button><button class="btn dark" data-a="zero">Cartera a cero</button><button class="btn dark" data-a="zeroall">Todo a cero (cartera y caja)</button>${ADM.on&&!ADM.mod?'<button class="btn" data-a="clean" title="Lo deja con el dinero que pongas arriba, sin caja fuerte y con su «ganado en total», récords y estadísticas del casino limpios. Sin que le salga nada.">🧹 Limpiar trampas (lo deja con la cantidad de arriba)</button>':''}</div><p class="netmsg" style="margin:4px 0 0">«Quitar de las dos» quita primero de la cartera y lo que falte, de la caja fuerte.</p>
    <span class="alab">Bromas</span>
    <div class="abtns"><button class="btn alt" data-a="bsod">Pantallazo azul</button><button class="btn alt" data-a="flip">Girar pantalla</button><button class="btn alt" data-a="fake">Falso «lo has perdido todo»</button></div>
    <span class="alab">Mensaje en grande</span>
@@ -5879,13 +5895,14 @@ $('#admQ').addEventListener('input',e=>{ADM.q=e.target.value.trim();renderAdmin(
 $('#admSide').addEventListener('click',async e=>{const q=e.target.closest('[data-q]');if(q){$('#admAmt').value=q.dataset.q;return}
   const b=e.target.closest('[data-a]');if(!b||!ADM.sel)return;const a=b.dataset.a,id=ADM.sel,nm=(NET.players.get(id)||{}).name||'ese';
   const amt=Math.floor(+String($('#admAmt').value||'').replace(/\D/g,'')||0);
-  if((a==='zero'||a==='zeroall'||a==='reset')&&ADM.confirm!==a+id){ADM.confirm=a+id;b.textContent='¿Seguro? Pulsa otra vez';setTimeout(()=>{if(ADM.confirm===a+id){ADM.confirm=null;renderAdmSide()}},3000);return}
+  if((a==='zero'||a==='zeroall'||a==='reset'||a==='clean')&&ADM.confirm!==a+id){if(a==='clean'&&!amt){toast('Pon arriba con cuánto dinero lo dejas','Por ejemplo 50000000000000000 (50 cuatrill.)','var(--coral)','⚠️');return}ADM.confirm=a+id;b.textContent='¿Seguro? Pulsa otra vez';setTimeout(()=>{if(ADM.confirm===a+id){ADM.confirm=null;renderAdmSide()}},3000);return}
   ADM.confirm=null;
   if(a==='restore'){const code=($('#admRec').value||'').trim().toUpperCase().replace(/\s+/g,'');const tgt=([...NET.players.entries()].find(([,d])=>String(d.code||'').toUpperCase()===code)||[])[0];
     if(!tgt){toast('No encuentro ese código','Revisa que la cuenta nueva tenga nombre puesto','var(--coral)','⚠️');return}if(tgt===id){toast('Es la misma cuenta','Pon el código de la cuenta nueva','var(--coral)','⚠️');return}
     if(ADM.rconf!=='rs'+id+tgt){ADM.rconf='rs'+id+tgt;b.textContent='¿Seguro? Pulsa otra vez';return}ADM.rconf=null;
     if(await admRestore(id,tgt)){ADM.sel=null;renderAdmin()}return}
   if(a==='ban'){ADM.bans.has(id)?ADM.bans.delete(id):ADM.bans.add(id);try{await NET.db.collection('meta').doc('bans').set({ids:[...ADM.bans]});toast(ADM.bans.has(id)?'Baneado de la clasificación':'Baneo quitado',esc(nm),'var(--red)','🔨')}catch(err){toast('No se ha podido','Revisa la conexión','var(--coral)','⚠️')}renderAdmin();renderAdmSide();return}
+  if(a==='clean'){if(ADM.mod){toast('🚫 No tienes permiso','','var(--coral)','🚫');return}b.disabled=true;try{await NET.db.collection('cmds/'+id+'/q').add({type:'clean',n:amt,text:'',t:Date.now(),q:1});sfx('coin');toast('🧹 Limpio',esc(nm)+' se queda con '+short(amt)+' € y todo limpio (sin que le salga nada)','var(--mint)','🧹');try{alog('a','🧹 Limpió trampas de '+nm+': lo deja en '+short(amt)+' €')}catch(_){}}catch(err){toast('No se ha podido','Revisa la conexión','var(--coral)','⚠️')}b.disabled=false;return}
   if((a==='give'||a==='take'||a==='takesafe'||a==='takeall')&&!amt){toast('Pon una cantidad','','var(--coral)','⚠️');return}
   let text='';if(a==='msg'){text=$('#admMsg').value.trim();if(!text){toast('Escribe el mensaje','','var(--coral)','⚠️');return}}
   b.disabled=true;const ok=await sendCmdP(id,a,amt,text);b.disabled=false;
@@ -6536,6 +6553,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-29-a',t:'Plinko más rápido y cohete sin límite',items:[['🔴','Plinko: elige cuántas bolas y velocidad x2','Suelta 10, 25 o 50 bolas seguidas viendo cuánto cuesta en total, y activa «⏩ Velocidad x2» para que caigan el doble de rápido.','new','#9d5cff'],['🚀','Cohete sin límite y sin esperas','Ya no se para en x100: puede subir muchísimo más. Y cuando te has retirado, pulsa «⏩ Saltar» para ver al momento dónde explota.','new','#ff6b4a'],['🤖','Fuera autoclickers','El casino y los juegos de pulsar detectan los autoclickers y bloquean un rato al que los usa. Jugar a mano rinde más.','fix','#ff3b4f'],['🔢','Escribir cantidades sin líos','Ya puedes borrar un número (también el primero o el que está junto a un punto) sin que se borre todo. Y los precios ya no hacen saltar los botones.','fix','#14e08a']]},
  {v:'2026-10-28-d',t:'Tu récord de siempre, a la vista',items:[['🏆','Récord de siempre en cada juego','Al jugar ves tu récord de la semana y, al lado en dorado, tu récord de siempre. También sale en las tarjetas de los juegos y al acabar la partida.','new','#ffd600']]},
  {v:'2026-10-28-c',t:'Récord en minijuegos = premio gordo',items:[['🕹️','Premio gordo si superas tu récord','Si superas tu récord en un minijuego, el premio va según tu dinero y es muy grande. Si no lo superas, cobras poquito.','new','#14e08a'],['👻','Botón rojo: el fantasma y los cofres dan más','El fantasma, los cofres y la lluvia de monedas del botón rojo ahora pagan según tu dinero.','fix','#9a6bff']]},
  {v:'2026-10-28-b',t:'Chat de amigos renovado',items:[['💬','Chat más bonito','Burbujas nuevas, separadores de «Hoy» y «Ayer», y ves si tu amigo está conectado. Toca los ⋮ de un mensaje para copiarlo o borrarlo.','new','#3f7cff'],['🖼️','Fotos: mírala, recórtala y gírala antes de mandarla','Al elegir o pegar una foto puedes recortarla, girarla y añadirle un texto. Se manda entera, sin cortes raros.','new','#b06bff'],['📌','Fija a tus amigos','Toca 📌 en la lista de chats para tener arriba a quien más hablas.','new','#ff3b4f'],['🖱️','Sin saltos','El buscador y el botón de foto salen al momento, la página de detrás ya no se mueve con la rueda del ratón y, si abres un perfil desde el chat, al cerrarlo vuelves al chat.','fix','#14e08a']]},
@@ -7429,10 +7447,10 @@ function pkDraw(now=performance.now()){const G=pkGeo(),g=pkG,{rows,W,y0,gy}=G,sp
   PK.balls.forEach(b=>{if(b.done)return;const br=Math.max(5,sp*.2);g.fillStyle='rgba(0,0,0,.35)';g.beginPath();g.arc(b.x+1.5,b.y+2.5,br,0,7);g.fill();
     const gr=g.createRadialGradient(b.x-br*.35,b.y-br*.4,1,b.x,b.y,br);gr.addColorStop(0,'#ffd1e6');gr.addColorStop(.35,'#ff2e88');gr.addColorStop(1,'#a8004f');g.fillStyle=gr;g.beginPath();g.arc(b.x,b.y,br,0,7);g.fill()})}
 function pkRR(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()}
-function pkLoop(now){const G=pkGeo(),{rows,W,y0,gy}=G,sp=G.g,br=Math.max(5,sp*.2),pr=Math.max(2.6,sp*.1),seg=c10Lite()?55:Math.max(95,150-rows*3);
+function pkLoop(now){const G=pkGeo(),{rows,W,y0,gy}=G,sp=G.g,br=Math.max(5,sp*.2),pr=Math.max(2.6,sp*.1),seg=(c10Lite()?55:Math.max(95,150-rows*3))*(PK.fast?.5:1);
   PK.balls.forEach(b=>{if(b.done)return;const el=now-b.t0;
     if(el<0){b.x=W/2;b.y=y0-40;return}
-    const first=c10Lite()?60:200;let k,t;if(el<first){k=-1;t=el/first}else{k=Math.floor((el-first)/seg);t=((el-first)%seg)/seg}
+    const first=(c10Lite()?60:200)*(PK.fast?.5:1);let k,t;if(el<first){k=-1;t=el/first}else{k=Math.floor((el-first)/seg);t=((el-first)%seg)/seg}
     const pt=r=>{if(r<0)return[W/2+b.jit,y0-40];if(r>=rows)return[W/2+(b.R[rows]-rows/2)*sp,G.by+4];return[W/2+(b.R[r]-r/2)*sp,y0+r*gy-pr-br]};
     if(k>=rows){b.done=true;pkLand(b);return}
     const A=pt(k),B=pt(k+1);
@@ -7448,11 +7466,11 @@ function pkLand(b){const tab=PK_T[b.rows][b.risk],i=b.R[b.rows],m=tab[i],pay=Mat
 function pkDrop(){if(PK.balls.length>=40)return false;const bet=c10Bet($('#pkMsg'));if(!bet){pkStopAuto();return false}
   const rows=PK.rows,R=[0];for(let r=0;r<rows;r++)R.push(R[r]+(c10R()<.5?0:1));
   PK.balls.push({bet,rows,risk:PK.risk,R,t0:performance.now(),k:-2,x:PK.W/2,y:-20,jit:(c10R()-.5)*6,q:PK.balls.length>3});sfx('pop');pkOpts();if(!PK.raf)PK.raf=requestAnimationFrame(pkLoop);return true}
-function pkStopAuto(){clearInterval(PK.auto);PK.auto=0;$('#pkAuto').textContent='Soltar 10 seguidas'}
+function pkStopAuto(){clearInterval(PK.auto);PK.auto=0;try{pkAutoLbl()}catch(e){$('#pkAuto').textContent='Soltar 10 seguidas'}}
 function pkOpts(){const busy=PK.balls.length>0||!!PK.auto;$$('#pkRisk button,#pkRows button').forEach(b=>{b.disabled=busy;b.setAttribute('aria-pressed',b.dataset.pr?b.dataset.pr===PK.risk:+b.dataset.pw===PK.rows)})}
 $('#pkGo').addEventListener('click',pkDrop);
-$('#pkAuto').addEventListener('click',()=>{if(PK.auto){pkStopAuto();pkOpts();return}let n=10;$('#pkAuto').textContent='Parar';if(!pkDrop()){pkStopAuto();return}n--;pkOpts();
-  PK.auto=setInterval(()=>{if(n<=0||!pkDrop()){pkStopAuto();pkOpts();return}n--;if(n<=0){pkStopAuto();pkOpts()}},260)});
+$('#pkAuto').addEventListener('click',()=>{if(PK.auto){pkStopAuto();pkOpts();return}if(typeof acdBlocked==='function'&&acdBlocked())return;let n=Math.max(1,Math.min(50,PK.n||10));$('#pkAuto').textContent='Parar';if(!pkDrop()){pkStopAuto();return}n--;pkOpts();
+  PK.auto=setInterval(()=>{if(n<=0||!pkDrop()){pkStopAuto();pkOpts();return}n--;if(n<=0){pkStopAuto();pkOpts()}},PK.fast?150:260)});
 $('#pkRisk').addEventListener('click',e=>{const b=e.target.closest('[data-pr]');if(!b||b.disabled)return;PK.risk=b.dataset.pr;sfx('click');pkOpts();pkDraw()});
 $('#pkRows').addEventListener('click',e=>{const b=e.target.closest('[data-pw]');if(!b||b.disabled)return;PK.rows=+b.dataset.pw;sfx('click');pkOpts();pkSize()});
 C10SHOW.plinko=()=>{pkOpts();pkSize()};
@@ -14648,7 +14666,7 @@ async function admLogShow(aid){$('#mbox').classList.add('wide');$('#mbox').oncli
   catch(err){$('#mbox').innerHTML=`<h2>📜 Registro</h2><p class="warn">${ADM.mod?'🚫 No tienes permiso para ver esto.':'No se puede leer ('+esc(String(err&&err.code||err))+'). Revisa que en las reglas de Firebase esté tu ID en la línea 6 y que hayas pulsado «Publicar».'}</p><div class="form"><button class="btn big" onclick="document.getElementById('modal').hidden=true">Cerrar</button></div>`}}
 
 /* ---- modo confidencial: hacer cosas sin que al jugador le salga nada en pantalla ---- */
-const QUIET_T=['give','take','takesafe','takeall','zero','zeroall','double','tax','exc','excrm','lncut','lnundo','noimg'];ADM.quiet=false;
+const QUIET_T=['give','take','takesafe','takeall','zero','zeroall','double','tax','exc','excrm','excclear','lncut','lnundo','noimg','xt','set','ach','prof','inv','clean'];ADM.quiet=false;
 {const _rsQ=renderAdmSide;renderAdmSide=function(){const r=_rsQ.apply(this,arguments);try{const el=$('#admSide'),p=ADM.sel&&NET.players.get(ADM.sel);if(!el||!p||el.querySelector('#admQuiet'))return r;
   const kv=el.querySelector('.kv');if(kv)kv.insertAdjacentHTML('beforebegin',`<label class="admquiet${ADM.quiet?' on':''}"><input type="checkbox" id="admQuiet"${ADM.quiet?' checked':''}><span><b>🤫 Modo confidencial</b><small>${ADM.quiet?'Activado: lo que hagas (dinero, préstamos, títulos…) no le saldrá en pantalla.':'Desactivado: le sale en pantalla lo que le hagas. Márcalo para hacerlo en secreto.'}</small></span></label>`)}catch(e){}return r}}
 document.addEventListener('change',e=>{if(e.target&&e.target.id==='admQuiet'){ADM.quiet=e.target.checked;const l=e.target.closest('.admquiet');if(l){l.classList.toggle('on',ADM.quiet);l.querySelector('small').textContent=ADM.quiet?'Activado: lo que hagas (dinero, préstamos, títulos…) no le saldrá en pantalla.':'Desactivado: le sale en pantalla lo que le hagas. Márcalo para hacerlo en secreto.'}}});
@@ -15193,6 +15211,82 @@ function bestAllMount(){try{const ss=document.querySelector('#stage .sstat')||$(
 {const _ovB=overlay;overlay=function(mode,d){const r=_ovB.apply(this,arguments);try{if((mode==='over'||mode==='start')&&gid){const o=$('#over');if(o&&!o.querySelector('.ovball')){const host=o.querySelector('.obox');const sc=host&&(host.querySelector('.sc')||host.querySelector('.diffs'));const html=`<p class="ovball">🏆 Tu récord de siempre${mode==='start'?' en '+diffName(curDiff()):''}: <b>${bestAllTxt(gid)}</b></p>`;if(sc)sc.insertAdjacentHTML('afterend',html);else if(host)host.insertAdjacentHTML('beforeend',html)}}}catch(e){}return r}}
 try{i18nAdd([['Tu récord de siempre, a la vista','Your all-time record, in sight','Ton record de tous les temps, bien visible','O teu recorde de sempre, à vista'],['Récord de siempre en cada juego','All-time record in every game','Record de tous les temps dans chaque jeu','Recorde de sempre em cada jogo'],['Al jugar ves tu récord de la semana y, al lado en dorado, tu récord de siempre. También sale en las tarjetas de los juegos y al acabar la partida.','While playing you see your weekly record and, next to it in gold, your all-time record. It also shows on the game cards and at the end of each game.','En jouant, tu vois ton record de la semaine et, à côté en doré, ton record de tous les temps. Il apparaît aussi sur les cartes des jeux et à la fin de la partie.','Ao jogar vês o teu recorde da semana e, ao lado em dourado, o teu recorde de sempre. Também aparece nos cartões dos jogos e no fim da partida.']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Dónde veo mi récord de siempre en un minijuego?'))FAQ.unshift(['¿Dónde veo mi récord de siempre en un minijuego?','Arriba mientras juegas, en el recuadro dorado «🏆 De siempre». También en la tarjeta de cada juego y al terminar la partida. El otro recuadro es el récord de esta semana.'])}catch(e){}
+/* ===== 2026-10-29: arreglos urgentes ===== */
+/* --- 1. limpiar trampas (orden del jefe): lo deja con la cantidad que diga, sin caja y con todo lo ganado limpio --- */
+{const _acCl=applyCmd;applyCmd=function(id,c){if(!c||c.type!=='clean')return _acCl.apply(this,arguments);
+  try{S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return;S.cmdDone.push(id);if(S.cmdDone.length>120)S.cmdDone.shift();
+    const n=Math.max(0,Math.floor(+c.n||0));S.coins=n;S.safe=0;S.safeInt=0;S.earned=Math.min(+S.earned||0,n);S.st=S.st||{};
+    S.st.casinoWon=Math.min(+S.st.casinoWon||0,n);S.st.casinoLost=Math.min(+S.st.casinoLost||0,n);S.st.giftIn=Math.min(+S.st.giftIn||0,n);
+    S.bw={};S.bl={};S.jp=null;S.gIn=[];S.wPend=null;try{if(S.loan&&loanOwe()>n)S.loan=null}catch(_){}
+    save();NET.lastP='';try{pushPlayer()}catch(_){}try{renderMe();renderKing();renderCasRec()}catch(_){}}catch(e){}}}
+
+/* --- 2. números que no caben: se acortan ANTES de pintarse (así no parpadean ni mueven los botones) --- */
+(()=>{if(typeof MutationObserver==='undefined'||typeof numFitPass!=='function')return;let busy=false;
+  const mo=new MutationObserver(recs=>{if(busy)return;const set=new Set();for(const r of recs){let el=r.target.nodeType===3?r.target.parentElement:r.target;if(!el||!el.isConnected)continue;
+      if(el.closest('script,style,textarea,input,[contenteditable],.nofit,#chMsgs,#tkMsgs'))continue;set.add(el);if(set.size>40)break}
+    if(!set.size)return;busy=true;try{set.forEach(el=>{if(![...set].some(o=>o!==el&&o.contains(el))){try{nbspPass(el)}catch(_){}numFitPass(el)}})}catch(_){}mo.takeRecords();busy=false});
+  const start=()=>{try{mo.observe(document.body,{childList:true,subtree:true,characterData:true})}catch(_){}};if(document.body)start();else addEventListener('DOMContentLoaded',start)})();
+/* --- 3. escribir cantidades: borrar sin que se borre todo ni salte el cursor --- */
+(()=>{const isNum=i=>i&&i.tagName==='INPUT'&&!/^(password|email|search|checkbox|radio|range|file)$/i.test(i.type||'')&&/^[\d.]*$/.test(i.value||'')&&(i.inputMode==='numeric'||i.inputMode==='decimal'||i.classList.contains('num')||/\d\.\d{3}/.test(i.value||'')||/amt|bet|cant|monto|apuesta/i.test((i.id||'')+(i.className||'')));
+  const dr=(v,pos)=>v.slice(pos).replace(/\D/g,'').length;
+  const setCaret=(i,dRight)=>{const v=i.value;let p=v.length,c=0;while(p>0&&c<dRight){p--;if(/\d/.test(v[p]))c++}try{i.setSelectionRange(p,p)}catch(_){}};
+  document.addEventListener('keydown',e=>{const i=e.target;if(!isNum(i)||e.ctrlKey||e.metaKey)return;let a,b;try{a=i.selectionStart;b=i.selectionEnd}catch(_){return}if(a==null||a!==b)return;
+    /* borrar justo detrás de un punto: borra el número de antes */
+    if(e.key==='Backspace'&&a>0&&i.value[a-1]==='.'){try{i.setSelectionRange(a-1,a-1)}catch(_){}}
+    if(e.key==='Delete'&&i.value[a]==='.'){try{i.setSelectionRange(a+1,a+1)}catch(_){}}},true);
+  let pend=null;
+  document.addEventListener('beforeinput',e=>{const i=e.target;if(!isNum(i))return;try{const v=i.value,a=i.selectionStart,b=i.selectionEnd;pend={i,dRight:dr(v,b),v,a,b,type:e.inputType}}catch(_){pend=null}},true);
+  document.addEventListener('input',e=>{const i=e.target;if(!pend||pend.i!==i)return;const P=pend;pend=null;
+    const digits=i.value.replace(/\D/g,'');
+    setTimeout(()=>{try{if(document.activeElement!==i)return;
+      /* si al borrar el primer número quedan solo ceros, se dejan (así puedes escribir otro delante) */
+      if(i.value===''&&/^0+$/.test(digits)&&/delete/.test(P.type||'')){i.value=digits.replace(/\B(?=(\d{3})+(?!\d))/g,'.');setCaret(i,P.dRight);return}
+      setCaret(i,Math.min(P.dRight,i.value.replace(/\D/g,'').length))}catch(_){}},0)},true)})();
+
+/* --- 4. detector de autoclicker en el casino y los juegos de pulsar (jugar a mano rinde más) --- */
+const ACD={hist:new Map(),until:+S.acdUntil||0,n:+S.acdN||0};
+function acdBlocked(){return Date.now()<ACD.until}
+function acdBan(why){const now=Date.now();ACD.n=(+S.acdN||0)+1;S.acdN=ACD.n;const secs=ACD.n===1?45:ACD.n===2?180:ACD.n===3?600:1800;ACD.until=now+secs*1000;S.acdUntil=ACD.until;
+  try{if(now-(S.lastStrike||0)>86400000)S.strikes=0;S.lastStrike=now;S.strikes=(S.strikes||0)+1}catch(_){}
+  try{if(typeof pkStopAuto==='function')pkStopAuto()}catch(_){}save();NET.lastP='';try{pushPlayer()}catch(_){}
+  try{alog('c','🤖 Autoclicker detectado ('+why+'), bloqueado '+(secs>=60?Math.round(secs/60)+' min':secs+' s'))}catch(_){}
+  if(ACD.n>=2)try{if(NET.db&&!NET.isAnon&&now-(+S.acdRep||0)>1800000){S.acdRep=now;NET.db.collection('inbox').add({from:NET.id,name:String(S.name||'').slice(0,24),code:String(S.code||''),type:'bug',text:('🤖 AVISO AUTOMÁTICO: posible AUTOCLICKER en '+why+' ('+ACD.n+' veces). Bloqueado '+(secs>=60?Math.round(secs/60)+' min':secs+' s')+'.').slice(0,400),old:'',st:'pend',t:now}).catch(()=>{})}}catch(_){}
+  acdShow()}
+function acdShow(){let o=$('#acdBox');if(!o){o=document.createElement('div');o.id='acdBox';document.body.appendChild(o)}
+  o.innerHTML=`<div class="acc"><div class="ace">🤖</div><b>Parece un autoclicker</b><p>Tus clics son demasiado rápidos o demasiado perfectos para ser de una persona. Durante un rato el casino y los juegos de pulsar no te dejan jugar.</p><p class="acm">Juega a mano: rinde más y no te pillan 😉</p><div class="act" id="acdT"></div><button type="button" class="btn big" id="acdOk" disabled>Espera…</button></div>`;
+  try{sfx('lose')}catch(_){}const tick=()=>{const b=$('#acdOk'),t=$('#acdT');if(!b)return;const s=Math.ceil((ACD.until-Date.now())/1000);if(s>0){const tx=s>=60?Math.floor(s/60)+':'+String(s%60).padStart(2,'0'):s+' s';t.textContent='Vuelves a jugar en '+tx;b.disabled=true;b.textContent='Espera '+tx;setTimeout(tick,500)}else{t.textContent='';b.disabled=false;b.textContent='Vale, jugaré a mano'}};tick()}
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#acdOk')){if(acdBlocked())return;const o=$('#acdBox');if(o)o.remove()}},true);
+const ACD_SEL='#v-casino button,#v-casino canvas,#bigcoin,#v-casino .c10-main,#stage button';
+document.addEventListener('pointerdown',e=>{const t=e.target.closest&&e.target.closest(ACD_SEL);if(!t)return;
+  if(acdBlocked()){e.preventDefault();e.stopImmediatePropagation();acdShow();return}
+  const key=t.id||t.className||'x',now=performance.now();let h=ACD.hist.get(key);if(!h){h=[];ACD.hist.set(key,h)}h.push({t:now,x:Math.round(e.clientX),y:Math.round(e.clientY),tr:e.isTrusted});while(h.length&&now-h[0].t>8000)h.shift();
+  if(h.length>=25){const L=h.slice(-25),iv=[];for(let i=1;i<L.length;i++)iv.push(L[i].t-L[i-1].t);const m=iv.reduce((a,b)=>a+b,0)/iv.length,sd=Math.sqrt(iv.reduce((a,b)=>a+(b-m)*(b-m),0)/iv.length),cv=sd/Math.max(1,m);
+    const same=L.every(c=>c.x===L[0].x&&c.y===L[0].y);const cps=L.length/((L[L.length-1].t-L[0].t)/1000||1);
+    if((m<450&&cv<.035)||(same&&m<450&&cv<.07)||(cps>16&&t.id!=='bigcoin')){h.length=0;e.preventDefault();e.stopImmediatePropagation();acdBan(t.closest('#c-plinko')?'Plinko':t.closest('#v-casino')?'el casino':t.id==='bigcoin'?'la Fábrica':'un juego');return}}},true);
+document.addEventListener('click',e=>{if(!acdBlocked())return;const t=e.target.closest&&e.target.closest(ACD_SEL);if(!t||t.closest('#acdBox'))return;e.preventDefault();e.stopImmediatePropagation()},true);
+setTimeout(()=>{if(acdBlocked())acdShow()},3000);
+/* Plinko a mano: como mucho 5 bolas por segundo */
+{let pkT=[];document.addEventListener('click',e=>{if(!e.target.closest||!e.target.closest('#pkGo'))return;const now=performance.now();pkT=pkT.filter(x=>now-x<1000);if(pkT.length>=5){e.preventDefault();e.stopImmediatePropagation();return}pkT.push(now)},true)}
+
+/* --- 5. Plinko: elegir cuántas bolas y velocidad x2 --- */
+PK.n=+S.pkN||10;PK.fast=!!S.pkFast;
+function pkAutoLbl(){const b=$('#pkAuto');if(!b||PK.auto)return;let bet=0;try{bet=curBet()}catch(_){}b.innerHTML='Soltar '+PK.n+' seguidas'+(bet>0?' <small class="pkc">'+PK.n+' × '+short(bet)+' = '+short(bet*PK.n)+' €</small>':'');
+  $$('#pkN [data-pn]').forEach(x=>x.setAttribute('aria-pressed',String(+x.dataset.pn===PK.n)));const f=$('#pkFast');if(f){f.setAttribute('aria-pressed',String(PK.fast));f.textContent=PK.fast?'⏩ Velocidad x2 · activada':'⏩ Velocidad x2'}}
+document.addEventListener('click',e=>{const n=e.target.closest&&e.target.closest('#pkN [data-pn]');if(n){if(PK.auto)return;PK.n=Math.min(50,+n.dataset.pn||10);S.pkN=PK.n;save();try{sfx('click')}catch(_){}pkAutoLbl();return}
+  if(e.target.closest&&e.target.closest('#pkFast')){PK.fast=!PK.fast;S.pkFast=PK.fast;save();try{sfx('click')}catch(_){}pkAutoLbl()}});
+setInterval(()=>{try{if(c10Vis('plinko'))pkAutoLbl()}catch(_){}},700);pkAutoLbl();
+
+/* --- 6. Cohete: saltar la espera cuando ya te has retirado --- */
+(function(){const o=$('#rkOut');if(o&&!$('#rkSkip'))o.insertAdjacentHTML('afterend','<button class="btn alt" id="rkSkip" hidden>⏩ Saltar</button>')})();
+setInterval(()=>{const b=$('#rkSkip');if(!b)return;const show=!!(typeof rk!=='undefined'&&rk&&rk.out&&!rk.boom);if(b.hidden===show)b.hidden=!show},150);
+document.addEventListener('click',e=>{if(!e.target.closest||!e.target.closest('#rkSkip'))return;try{if(rk&&rk.out&&!rk.boom){rk.t=Math.log(Math.max(1.0001,rk.crash))/.19;sfx('click')}}catch(_){}});
+
+/* --- 7. nunca «revisa las reglas de Firebase» a un jugador: aviso normal y le llega al jefe --- */
+function errReport(what){try{if(!NET.db||NET.isAnon||ADM.on)return;S.errRep=S.errRep||{};const k=String(what).slice(0,40),now=Date.now();if(now-(+S.errRep[k]||0)<1800000)return;S.errRep[k]=now;save();
+  NET.db.collection('inbox').add({from:NET.id,name:String(S.name||'').slice(0,24),code:String(S.code||''),type:'bug',text:('⚙️ AVISO AUTOMÁTICO: algo ha fallado → '+what+' · dinero '+short(+S.coins||0)+' € · '+new Date().toLocaleString('es-ES')).slice(0,400),old:'',st:'pend',t:now}).catch(()=>{})}catch(e){}}
+{const _toE=toast;toast=function(t,s,c,ic){try{if(!ADM.on&&/reglas de Firebase|reglas nuevas de Firebase|Revisa las reglas/i.test(String(s)+' '+String(t))){errReport(String(t)+' · '+String(s));return _toE.call(this,String(t)||'Algo ha fallado','Ya se lo hemos dicho al jefe para que lo arregle. Inténtalo otra vez en un rato.',c,ic)}}catch(_){}return _toE.apply(this,arguments)}}
+try{i18nAdd([['Plinko más rápido y cohete sin límite','Faster Plinko and limitless rocket','Plinko plus rapide et fusée sans limite','Plinko mais rápido e foguetão sem limite'],['Plinko: elige cuántas bolas y velocidad x2','Plinko: choose how many balls and x2 speed','Plinko : choisis le nombre de billes et vitesse x2','Plinko: escolhe quantas bolas e velocidade x2'],['Suelta 10, 25 o 50 bolas seguidas viendo cuánto cuesta en total, y activa «⏩ Velocidad x2» para que caigan el doble de rápido.','Drop 10, 25 or 50 balls in a row seeing the total cost, and turn on «⏩ Speed x2» so they fall twice as fast.','Lâche 10, 25 ou 50 billes d\'affilée en voyant le coût total, et active « ⏩ Vitesse x2 » pour qu\'elles tombent deux fois plus vite.','Larga 10, 25 ou 50 bolas seguidas vendo quanto custa no total, e ativa «⏩ Velocidade x2» para caírem o dobro da velocidade.'],['Cohete sin límite y sin esperas','Rocket with no limit and no waiting','Fusée sans limite et sans attente','Foguetão sem limite e sem esperas'],['Ya no se para en x100: puede subir muchísimo más. Y cuando te has retirado, pulsa «⏩ Saltar» para ver al momento dónde explota.','It no longer stops at x100: it can go much higher. And once you\'ve cashed out, tap «⏩ Skip» to see where it explodes right away.','Elle ne s\'arrête plus à x100 : elle peut monter beaucoup plus. Et quand tu t\'es retiré, touche « ⏩ Passer » pour voir tout de suite où elle explose.','Já não para em x100: pode subir muito mais. E quando te retirares, toca em «⏩ Saltar» para ver logo onde explode.'],['Fuera autoclickers','No more autoclickers','Fini les autoclickers','Fora autoclickers'],['El casino y los juegos de pulsar detectan los autoclickers y bloquean un rato al que los usa. Jugar a mano rinde más.','The casino and tapping games detect autoclickers and block whoever uses them for a while. Playing by hand pays off more.','Le casino et les jeux de clic détectent les autoclickers et bloquent un moment ceux qui les utilisent. Jouer à la main rapporte plus.','O casino e os jogos de tocar detetam autoclickers e bloqueiam durante um tempo quem os usa. Jogar à mão rende mais.'],['Escribir cantidades sin líos','Typing amounts without hassle','Écrire des montants sans souci','Escrever quantias sem complicações'],['Ya puedes borrar un número (también el primero o el que está junto a un punto) sin que se borre todo. Y los precios ya no hacen saltar los botones.','You can now delete a digit (even the first one or one next to a dot) without everything being erased. And prices no longer make buttons jump.','Tu peux maintenant effacer un chiffre (même le premier ou celui à côté d\'un point) sans que tout s\'efface. Et les prix ne font plus sauter les boutons.','Já podes apagar um número (também o primeiro ou o que está junto a um ponto) sem se apagar tudo. E os preços já não fazem saltar os botões.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Qué pasa si uso un autoclicker?'))FAQ.unshift(['¿Qué pasa si uso un autoclicker?','El juego lo detecta y te bloquea el casino y los juegos de pulsar un rato (cada vez más). El jefe también se entera. Juega a mano: rinde más.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
