@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-29-1719">
+<meta name="app-version" content="2026-10-30-0043">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3070,6 +3070,9 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .ntfcard .ntft small{font-weight:700;font-size:12.5px;opacity:.8}
 .ntfcard .ntfb{display:flex;gap:8px;flex-wrap:wrap}
 @keyframes ntfRing{0%,80%,100%{transform:rotate(0)}84%{transform:rotate(14deg)}88%{transform:rotate(-12deg)}92%{transform:rotate(8deg)}96%{transform:rotate(-4deg)}}
+.luckbox{margin-top:10px}
+.luckr{display:flex;gap:6px;flex-wrap:wrap}
+.luckt{display:inline-block;margin-left:6px;background:#3a1820;color:#ff8a99;border:1px solid #ff3b4f88;border-radius:99px;padding:1px 7px;font:800 10.5px var(--f-b,system-ui)}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6098,7 +6101,7 @@ function gEnd(){if(!running)return;running=false;$('#gSave').hidden=true;if(S.sa
   save();NET.lastP='';pushPlayer()}
 
 /* ---- Casino ---- */
-function casCap(){try{return Math.max(100000,Math.floor(wealth()*.01))}catch(e){return 100000}}
+const CASX=[];function casCap(){try{const now=Date.now();while(CASX.length&&now-CASX[0]>600000)CASX.shift();const k=CASX.length;CASX.push(now);if(S.badLuck>0)return 0;return Math.max(1000,Math.floor(Math.max(100000,wealth()*.01)/Math.pow(1+k/2,2)))}catch(e){return 100000}}
 function casinoWin(n,g,bet){const _b=Math.max(0,Math.min(Math.floor(n),Math.floor(bet||0))),_m=evMult(),_pr=Math.max(0,Math.floor(n-_b)),_ex=Math.min(Math.floor(_pr*(_m-1)),casCap()),_tot=_b+_pr+Math.max(0,_ex);S.coins+=_b+_pr+Math.max(0,_ex);S.earned+=_pr+Math.max(0,_ex);if(g)bigWin(g,_tot,bet||0);S.st.casinoWon=(S.st.casinoWon||0)+_tot;renderKing()}
 function renderKing(){const el=$('#casKing');if(!el)return;const all=[...NET.players.entries()].map(([id,d])=>({...d,id,cw:id===NET.id?st('casinoWon'):(+d.cw||0)}));
   if(NET.id&&!NET.players.has(NET.id)&&S.name)all.push({name:S.name,av:S.av,cw:st('casinoWon'),id:NET.id,cos:S.cos});
@@ -7535,7 +7538,7 @@ function pkLand(b){const tab=PK_T[b.rows][b.risk],i=b.R[b.rows],m=tab[i],pay=Mat
   const h=$('#pkHist');const s=document.createElement('span');s.style.background=pkCol(i,b.rows);s.textContent=pkLbl(m)+'x';h.prepend(s);while(h.children.length>(innerWidth<560?6:7))h.lastChild.remove();
   if(m>=10){c10Cheer(m,pkCv);$('#pkMsg').textContent=`¡${pkLbl(m)}x! Te llevas ${c10E(pay)}`}else{if(m>=2)sfx('coin');else tone(m>=1?520:300,.08,'triangle',.05,m>=1?120:-80);$('#pkMsg').textContent=`${pkLbl(m)}x · ${pay>=b.bet?'+':''}${c10E(pay)}`}}
 function pkDrop(){if(PK.balls.length>=40)return false;const bet=c10Bet($('#pkMsg'));if(!bet){pkStopAuto();return false}
-  const rows=PK.rows,R=[0];for(let r=0;r<rows;r++)R.push(R[r]+(c10R()<.5?0:1));
+  const rows=PK.rows,R=[0],bl=+S.badLuck||0,pull=bl>=3?.42:bl>=2?.3:bl>=1?.18:0;for(let r=0;r<rows;r++){const off=R[r]-r/2;let p=.5;if(pull)p=.5+Math.max(-pull,Math.min(pull,off*pull));R.push(R[r]+(c10R()<p?0:1))}
   PK.balls.push({bet,rows,risk:PK.risk,R,t0:performance.now(),k:-2,x:PK.W/2,y:-20,jit:(c10R()-.5)*6,q:PK.balls.length>3});sfx('pop');pkOpts();if(!PK.raf)PK.raf=requestAnimationFrame(pkLoop);return true}
 function pkStopAuto(){clearInterval(PK.auto);PK.auto=0;try{pkAutoLbl()}catch(e){$('#pkAuto').textContent='Soltar 10 seguidas'}}
 function pkOpts(){const busy=PK.balls.length>0||!!PK.auto;$$('#pkRisk button,#pkRows button').forEach(b=>{b.disabled=busy;b.setAttribute('aria-pressed',b.dataset.pr?b.dataset.pr===PK.risk:+b.dataset.pw===PK.rows)})}
@@ -15459,6 +15462,22 @@ try{if(S.ntfNo&&Date.now()-S.ntfNo>3*864e5)S.ntfNo=0}catch(e){}
   if(box)box.insertAdjacentHTML('beforeend',`<div class="crow" id="cfNtf"><span class="cl"><b>🔔 Avisos del navegador</b><small>${st==='denied'?'Los tienes bloqueados: actívalos en el candado 🔒 de la barra de direcciones.':st==='nada'?'Tu navegador no tiene avisos.':'Regalos, mensajes, eventos y ruletas listas, aunque estés en otra pestaña.'}</small></span><button class="sw2" role="switch" data-ntfsw aria-checked="${st==='granted'&&cfg('ntf')!==false}" aria-label="Avisos del navegador"></button></div>`)}}catch(_){}return r}}
 try{i18nAdd([['🔔 Avisos aunque estés en otra pestaña','🔔 Alerts even in another tab','🔔 Alertes même dans un autre onglet','🔔 Avisos mesmo noutro separador'],['Avisos del navegador','Browser alerts','Alertes du navigateur','Avisos do navegador'],['Actívalos en Inicio o en Ajustes y te avisaré de regalos, mensajes de tus amigos, respuestas del jefe, eventos que empiezan, el botón rojo y el Gran Premio de Cine, aunque tengas el juego en otra pestaña o minimizado.','Turn them on in Home or Settings and I\'ll tell you about gifts, friends\' messages, replies from the boss, events starting, the red button and the Film Grand Prize, even with the game in another tab or minimised.','Active-les dans Accueil ou Réglages et je te préviens des cadeaux, messages d\'amis, réponses du boss, événements qui commencent, du bouton rouge et du Grand Prix du Cinéma, même si le jeu est dans un autre onglet ou réduit.','Ativa-os no Início ou em Definições e aviso-te de presentes, mensagens dos amigos, respostas do chefe, eventos a começar, o botão vermelho e o Grande Prémio de Cinema, mesmo com o jogo noutro separador ou minimizado.']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Cómo activo los avisos?'))FAQ.unshift(['¿Cómo activo los avisos?','En Inicio pulsa «🔔 Activar avisos» (o en Ajustes › Avisos del navegador) y dile que sí al navegador. Te avisa aunque estés en otra pestaña. Con el juego cerrado del todo, llegará más adelante.'])}catch(e){}
+/* ===== 2026-10-30: 🍀 suerte de cada jugador (solo el jefe, en secreto): contra los tramposos ===== */
+/* al jugador: con mala suerte, lo que gana en el casino es menos (nivel 1: la mitad, 2: un cuarto, 3: casi nada) */
+{const _cwBL=casinoWin;casinoWin=function(n,g,bet){try{const L=+S.badLuck||0;if(L>0&&n>(bet||0)){const pr=Math.floor(n-(bet||0)),f=L>=3?.05:L>=2?.25:.5;n=Math.floor((bet||0)+pr*f)}}catch(e){}return _cwBL.call(this,n,g,bet)}}
+{const _acBL=applyCmd;applyCmd=function(id,c){if(!c||c.type!=='luck')return _acBL.apply(this,arguments);try{S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return;S.cmdDone.push(id);if(S.cmdDone.length>120)S.cmdDone.shift();
+  S.badLuck=Math.max(0,Math.min(3,Math.floor(+c.n||0)));save()}catch(e){}}}
+/* en el panel del jefe: lo que le has puesto a cada uno se recuerda en tu navegador */
+const LUCK_K='cas-luck';const luckGet=()=>{try{return JSON.parse(localStorage.getItem(LUCK_K)||'{}')}catch(e){return{}}};
+function luckBox(){try{if(!ADM.on||ADM.mod||!ADM.sel)return;const side=$('#admSide');if(!side)return;const ab=side.querySelector('[data-a="zeroall"]');if(!ab)return;const host=ab.closest('.abtns');if(!host)return;
+  let b=$('#luckBox');const cur=+luckGet()[ADM.sel]||0;const h=`<span class="alab">🍀 Suerte en el casino (secreto)</span><div class="luckr">${[[0,'🍀 Normal'],[1,'😕 Mala 1'],[2,'😣 Mala 2'],[3,'💀 Mala 3']].map(([v,t])=>`<button type="button" class="btn ${v===cur?(v?'red':'mint'):'alt'} sm" data-luck="${v}">${t}</button>`).join('')}</div><p class="netmsg" style="margin:4px 0 0">Con mala suerte gana mucho menos en el casino (1: la mitad · 2: un cuarto · 3: casi nada), en el Plinko la bola tiende al centro y no le cuentan los multiplicadores. No le sale nada en pantalla. Pulsa «Normal» para quitarla.</p>`;
+  if(!b){host.insertAdjacentHTML('afterend','<div id="luckBox" class="luckbox"></div>');b=$('#luckBox')}if(b.dataset.k!==ADM.sel+':'+cur){b.dataset.k=ADM.sel+':'+cur;b.innerHTML=h}}catch(e){}}
+setInterval(luckBox,700);
+document.addEventListener('click',async e=>{const b=e.target.closest&&e.target.closest('[data-luck]');if(!b||!ADM.on||ADM.mod||!ADM.sel)return;const id=ADM.sel,v=+b.dataset.luck,nm=(NET.players.get(id)||{}).name||'?';
+  try{await NET.db.collection('cmds/'+id+'/q').add({type:'luck',n:v,text:'',t:Date.now(),q:1});const L=luckGet();if(v)L[id]=v;else delete L[id];localStorage.setItem(LUCK_K,JSON.stringify(L));
+    try{alog('a',v?'🍀 Puso mala suerte '+v+' a '+nm:'🍀 Quitó la mala suerte a '+nm)}catch(_){}sfx('click');toast(v?'Mala suerte '+v+' puesta':'Suerte normal otra vez',esc(nm)+' · no le sale nada','var(--sky)','🍀');const bx=$('#luckBox');if(bx)bx.dataset.k='';luckBox()}catch(err){toast('No se ha podido','Revisa la conexión','var(--coral)','⚠️')}});
+/* en la lista del panel, una marca para que sepas a quién se la has puesto */
+setInterval(()=>{try{if(!ADM.on||view!=='admin')return;const L=luckGet();document.querySelectorAll('#v-admin [data-sel],#v-admin .arow').forEach(r=>{const id=r.dataset.sel||r.dataset.id;const v=id&&L[id];let t=r.querySelector('.luckt');if(v&&!t){r.querySelector('b,.nm')?.insertAdjacentHTML('afterend',`<span class="luckt">💀 mala suerte ${v}</span>`)}else if(!v&&t)t.remove()})}catch(e){}},2000);
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
