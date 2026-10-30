@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-30-2332">
+<meta name="app-version" content="2026-10-30-2334">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -12862,13 +12862,12 @@ function sePass(){const e=seNow()||SEASONS[SEASONS.length-1];const s=seSt(e);$('
    <h3 style="margin:14px 0 6px">🍬 Los que más ${e.cur[1]} llevan</h3><div class="setop">${top.slice(0,8).map((x,i)=>`<div class="${x.me?'me':''}"><b>${i+1}º</b><span>${esc(x.n||'?')}</span><span>${e.cur[0]} ${fmt(x.v)}</span></div>`).join('')||'<p class="muted">Aún nadie. ¡Sé el primero!</p>'}</div>
    <button class="btn big" id="evX" style="margin-top:12px">Cerrar</button>`;$('#evX').onclick=closeModal}
 /* lo que ven los demás: cuántos caramelos llevas (para el top) */
-{const _pxE=pubX;pubX=function(){const x=_pxE.apply(this,arguments);try{const t=NOWS();const e=seNow()||SEASONS.find(z=>t>=z.to&&t<z.to+20*864e5);if(e){const s=(S.ev||{})[e.id];if(s&&s.tot)x.hw={e:e.id,t:s.tot}}if(+S.badLuck>0)x.xq=1}catch(_){}return x}}
+{const _pxE=pubX;pubX=function(){const x=_pxE.apply(this,arguments);try{const t=NOWS();const e=seNow()||SEASONS.find(z=>t>=z.to&&t<z.to+20*864e5);if(e){const s=(S.ev||{})[e.id];if(s&&s.tot)x.hw={e:e.id,t:s.tot}}}catch(_){}return x}}
 /* al acabar: título de Rey Calabaza al primero (se comprueba al entrar después del evento) */
 /* al acabar: premios para el podio (1.º, 2.º, 3.º) y del 4.º al 10.º. Se comprueba al entrar después del evento, con la clasificación congelada */
 const SE_POD=[{p:1,k:['ti','hw26king','👑 Rey Calabaza 2026'],f:['f','hw26crown','Marco «Corona de calabazas»'],pct:.5,min:1e9,ico:'🥇'},{p:2,k:['ti','hw26prin','🥈 Príncipe Calabaza 2026'],pct:.3,min:5e8,ico:'🥈'},{p:3,k:['ti','hw26duq','🥉 Duque Calabaza 2026'],pct:.15,min:2.5e8,ico:'🥉'}];
-function seRankAt(e){const all=[...NET.players.entries()].filter(([id,p])=>id!==NET.id&&p&&p.hw&&p.hw.e===e.id&&+p.hw.t>0&&!p.xq).map(([id,p])=>({id,v:+p.hw.t}));const s=seSt(e);all.push({id:NET.id,v:+s.tot||0,me:1});all.sort((a,b)=>b.v-a.v||(a.me?-1:b.me?1:String(a.id).localeCompare(String(b.id))));return all.findIndex(x=>x.me)+1}
+function seRankAt(e){const all=[...NET.players.entries()].filter(([id,p])=>id!==NET.id&&p&&p.hw&&p.hw.e===e.id&&+p.hw.t>0).map(([id,p])=>({id,v:+p.hw.t}));const s=seSt(e);all.push({id:NET.id,v:+s.tot||0,me:1});all.sort((a,b)=>b.v-a.v||(a.me?-1:b.me?1:String(a.id).localeCompare(String(b.id))));return all.findIndex(x=>x.me)+1}
 function seEndCheck(){try{const t=NOWS();SEASONS.forEach(e=>{if(t<e.to+120000||t>e.to+20*864e5)return;const s=(S.ev||{})[e.id];if(!s||!s.tot||s.kingChk)return;if(!NET.ok||NET.players.size<5)return;
-  if(+S.badLuck>0){s.kingChk=1;save();return}
   const pos=seRankAt(e);s.kingChk=1;s.pos=pos;if(pos>10){save();return}
   let w=0;try{w=wR()}catch(_){w=+S.coins||0}const P=SE_POD.find(x=>x.p===pos);const v=niceN(P?Math.max(P.min,w*P.pct):Math.max(5e7,w*.05));
   const items=[];if(P){seGrant(P.k[0],P.k[1],P.k[2],e);items.push('Título «'+P.k[2]+'»');if(P.f){seGrant(P.f[0],P.f[1],P.f[2],e);items.push(P.f[2])}}
