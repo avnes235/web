@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-30-1501">
+<meta name="app-version" content="2026-10-30-1518">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3079,6 +3079,31 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 #movBox .mvc button[aria-pressed="true"]{background:#14e08a;color:#062417;border-color:#111}
 #movBox .mvtot{margin:0 0 8px;font-weight:800;font-size:13px;opacity:.85;text-align:left}
 #movBox .mvtot b.in{color:#14e08a}#movBox .mvtot b.out{color:#ff5a6e}
+/* Ajustes: usa todo el ancho (también en «Ajustada») */
+#cfgBody .cfg.gu-cfg{columns:4 330px!important;max-width:none!important}
+#cfgBody .cfgbox.gu .crow{border-top:1px solid #ffffff10}
+#cfgBody .cfgbox.gu>h3+.gu-sub+.crow,#cfgBody .cfgbox.gu .gu-sub+.crow{border-top:0}
+#cfgBody .cfgbox.gu-jefe{border-color:rgba(255,59,79,.45)!important}
+/* la pantalla de «tu partida está en otro dispositivo» tapa todo: así no juegas sin que se guarde */
+#ssBar{position:fixed!important;inset:0!important;z-index:9900!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px!important;background:rgba(8,8,14,.985)!important;border:0!important;border-radius:0!important;max-width:none!important;width:auto!important;transform:none!important}
+#ssBar .e{font-size:56px!important}
+#ssBar .t b{display:block;font:900 24px var(--f-b,system-ui)!important;color:#fff}
+#ssBar .t small{display:block;font-weight:700;font-size:15px!important;opacity:.85;max-width:420px;margin:6px auto 0}
+#ssBar .btn{font-size:18px!important;padding:14px 28px!important;min-width:240px}
+/* Movimientos: ventana grande y fija, con márgenes */
+#mbox.wide #movBox{display:flex;flex-direction:column;height:min(78vh,760px);padding:6px 6px 0}
+#movBox .mvc{flex-wrap:wrap;overflow:visible!important}
+#movBox .mvc button{flex:1 1 auto}
+#movBox .mvl{flex:1 1 auto;max-height:none!important;min-height:0;padding-right:4px}
+#movBox>*{flex:none}
+#movBox>.mvl{flex:1 1 auto}
+#movBox .mvsearch{height:auto!important;min-height:0!important}
+#ssBar .t{flex:none!important;display:block}
+#ssBar>*{flex:none!important}
+#movBox .mvr{padding:12px 14px!important;gap:14px!important}
+#movBox .mvr .mvt{gap:2px}
+#movBox h2,#movBox>p{padding:0 4px}
+#movBox .mvtot{padding:0 4px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -7305,7 +7330,7 @@ function sessWatch(){try{if(OLD_SITE)return}catch(e){}if(!NET.ok||!NET.db||!NET.
     /* al recargar puede llegar primero la sesión vieja: si aún no hemos visto la nuestra y es anterior a nuestra entrada, no es otro dispositivo */
     if(!sessSeen&&(+d.t||0)<=sessT0+1500)return;
     NET.kicked=true;let b=$('#ssBar');if(!b){b=document.createElement('div');b.id='ssBar';document.body.appendChild(b)}
-    b.innerHTML=`<span class="e">📱</span><span class="t"><b>Tu partida se ha abierto en otro dispositivo</b><small>Aquí está en pausa para que no se mezcle el dinero.</small></span><button class="btn sm" id="ssHere">Jugar aquí</button>`;
+    b.innerHTML=`<span class="e">📱</span><span class="t"><b>Tu partida está abierta en otro sitio</b><small>Estás jugando en otro móvil, ordenador o pestaña. Lo que hagas aquí no se guardaría, así que está en pausa. Pulsa el botón para seguir jugando aquí con todo tu dinero.</small></span><button class="btn big" id="ssHere">▶ Jugar aquí</button>`;
     $('#ssHere').onclick=()=>{$('#ssHere').disabled=true;sessHere()}},()=>{})}
 /* si vuelves a esta pestaña o app, se recupera sola */
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&NET.kicked&&$('#ssBar')&&!$('#ssBar').classList.contains('busy'))setTimeout(()=>{if(document.visibilityState==='visible'&&NET.kicked)sessHere()},600)});
@@ -11907,7 +11932,7 @@ EVT.crash=['🚀','Hora del Crash','El Cohete del casino paga el triple de lo qu
 
 /* ---- caja fuerte: dinero a salvo que da intereses ---- */
 const SAFE_RATE=.005;
-function safeAccrue(){const now=Date.now();if(!S.safe){S.safeT=now;return 0}const d=(now-(S.safeT||now))/864e5;if(d<=0)return 0;const add=S.safe*(Math.pow(1+SAFE_RATE,d)-1);S.safe+=add;S.safeT=now;S.safeInt=(S.safeInt||0)+add;return add}
+function safeAccrue(){const now=Date.now();if(!S.safe){S.safeT=now;return 0}const d=(now-(S.safeT||now))/864e5;if(d<=0)return 0;const add=S.safe*(Math.pow(1+SAFE_RATE,d)-1);try{if(add>0&&typeof LED!=='undefined'){LED.tag='v:intereses';LED.tagT=Date.now()+1200}}catch(_){}S.safe+=add;S.safeT=now;S.safeInt=(S.safeInt||0)+add;return add}
 function safeCardHTML(){safeAccrue();const v=Math.floor(S.safe||0),day=Math.floor(v*SAFE_RATE);
   return`<div class="sfh"><span class="emo">🔐</span><div><h3>Caja fuerte</h3><small>Lo que guardas aquí no se puede perder en el casino ni online, y da un <b>0,5 % al día</b>.</small></div></div>
    <div class="sfv"><b class="nofit" title="${fmt(v)} €">${fmt(v)} €</b><small>${v?'≈ +'+short(day)+' € al día · llevas '+short(Math.floor(S.safeInt||0))+' € de intereses':'Aún no has guardado nada'}</small></div>
@@ -13621,7 +13646,7 @@ setInterval(ledTick,500);
 {const _agL=applyGifts;applyGifts=function(){LED.tag='v:regalos';LED.tagT=Date.now()+1500;const r=_agL.apply(this,arguments);return r}}
 
 /* --- nombres bonitos para el jefe --- */
-const LED_V={inicio:'Inicio',fabrica:'Fábrica',tienda:'Tienda',trading:'Trading',online:'Online',ranking:'Clasificación',perfil:'Perfil',logros:'Logros',ajustes:'Ajustes',admin:'Panel del jefe',
+const LED_V={intereses:'Intereses de la caja fuerte',inicio:'Inicio',fabrica:'Fábrica',tienda:'Tienda',trading:'Trading',online:'Online',ranking:'Clasificación',perfil:'Perfil',logros:'Logros',ajustes:'Ajustes',admin:'Panel del jefe',
   pasivo:'Fábrica (lo que da sola por segundo)',titulo:'Título repetido cambiado por dinero',regalos:'Regalos que le mandan',banco:'Banco',bolsa:'Bolsa',casino:'Casino'};
 function ledName(k){const [a,b]=String(k).split(':');
   if(a==='cas'){if(b==='lobby')return'🎰 Casino (fuera de un juego)';const g=(typeof CZ_G!=='undefined'&&CZ_G.find(x=>x[0]===b));const bw=typeof BWG!=='undefined'&&BWG[b];return'🎰 Casino · '+(g?g[1]:bw?bw[1]:b)}
@@ -15349,7 +15374,7 @@ document.addEventListener('pointerdown',e=>{const t=e.target.closest&&e.target.c
   const key=t.id||t.className||'x',now=performance.now();let h=ACD.hist.get(key);if(!h){h=[];ACD.hist.set(key,h)}h.push({t:now,x:Math.round(e.clientX),y:Math.round(e.clientY),tr:e.isTrusted});while(h.length&&now-h[0].t>8000)h.shift();
   if(h.length>=25){const L=h.slice(-25),iv=[];for(let i=1;i<L.length;i++)iv.push(L[i].t-L[i-1].t);const m=iv.reduce((a,b)=>a+b,0)/iv.length,sd=Math.sqrt(iv.reduce((a,b)=>a+(b-m)*(b-m),0)/iv.length),cv=sd/Math.max(1,m);
     const same=L.every(c=>c.x===L[0].x&&c.y===L[0].y);const cps=L.length/((L[L.length-1].t-L[0].t)/1000||1);
-    if((m<450&&cv<.035)||(same&&m<450&&cv<.07)||(cps>20&&t.id!=='bigcoin')){h.length=0;e.preventDefault();e.stopImmediatePropagation();acdBan(t.closest('#c-plinko')?'Plinko':t.closest('#v-casino')?'el casino':t.id==='bigcoin'?'la Fábrica':'un juego');return}}},true);
+    if((L.length>=25&&m<450&&cv<.02)||(cps>25&&t.id!=='bigcoin')){h.length=0;e.preventDefault();e.stopImmediatePropagation();acdBan(t.closest('#c-plinko')?'Plinko':t.closest('#v-casino')?'el casino':t.id==='bigcoin'?'la Fábrica':'un juego');return}}},true);
 document.addEventListener('click',e=>{if(!acdBlocked())return;const t=e.target.closest&&e.target.closest(ACD_SEL);if(!t||t.closest('#acdBox'))return;e.preventDefault();e.stopImmediatePropagation()},true);
 setTimeout(()=>{if(acdBlocked())acdShow()},3000);
 /* Plinko a mano: como mucho 5 bolas por segundo */
@@ -15406,9 +15431,9 @@ function movLabel(ctx,d){const m=MOV.msg;const cas=/^cas:/.test(ctx)||/^jg:/.tes
   if(m&&Date.now()-m.t<2500&&!cas&&ctx!=='v:pasivo'){let l=m.title;if(/^NIVEL \d+/i.test(l))return'Subir a '+l.split('·')[0].trim().toLowerCase();if(/^¡?Pillado/i.test(l))return'Botón rojo · fantasma pillado';if(m.sub&&!/[€\d]/.test(m.sub)&&m.sub.length<40)l+=' · '+m.sub;else if(/regal|jefe|premio|cofre|ruleta|recompensa|misión|nivel|logro|lluvia|fantasma|botón|caramelo|torneo|duelo|bote/i.test(m.sub)&&m.sub.length<60)l+=' · '+m.sub;return l.slice(0,90)}
   try{return ledName(ctx).replace(/^\S+\s/,'')}catch(e){return ctx}}
 function movIco(ctx,l){if(/regal/i.test(l))return'🎁';if(/jefe|moderaci/i.test(l))return'👑';if(/banco|préstamo|prestamo|deuda/i.test(l))return'🏦';if(/bolsa|acci/i.test(l))return'📈';if(/ruleta/i.test(l))return'🎡';if(/botón rojo|BOTÓN|fantasma|cofre/i.test(l))return'🔴';if(/caramelo|halloween/i.test(l))return'🎃';
-  if(/^cas:/.test(ctx))return'🎰';if(/^jg:/.test(ctx))return'🎮';if(ctx==='v:pasivo'||/fábrica/i.test(l))return'🏭';if(/tienda|compra/i.test(l))return'🛒';return'💶'}
+  if(/^cas:/.test(ctx))return'🎰';if(/^jg:/.test(ctx))return'🎮';if(ctx==='v:pasivo'||/fábrica/i.test(l))return'🏭';if(ctx==='v:intereses')return'🔐';if(/tienda|compra/i.test(l))return'🛒';return'💶'}
 {const _ledM=ledAdd;ledAdd=function(ctx,d){const r=_ledM.apply(this,arguments);try{if(!d)return r;const now=Date.now();S.mov=Array.isArray(S.mov)?S.mov:[];const L=S.mov,lab=movLabel(ctx,d),top=L[0];
-    const win=ctx==='v:pasivo'?600000:(/^cas:|^jg:/.test(ctx)?15000:3000);
+    const win=ctx==='v:pasivo'||ctx==='v:intereses'?3600000:(/^cas:|^jg:/.test(ctx)?15000:(/^v:(inicio|admin|perfil|ajustes|ayuda|ranking|tienda)$/.test(ctx)?600000:3000));
     if(top&&top[3]===ctx&&top[2]===lab&&now-top[0]<win&&(ctx==='v:pasivo'||/^cas:|^jg:/.test(ctx)||Math.sign(top[1])===Math.sign(d))){top[1]+=d;top[0]=now;top[4]=(top[4]||1)+1}
     else{L.unshift([now,d,lab,ctx,1]);if(L.length>400)L.length=400}
     if($('#movBox'))movDraw()}catch(e){}return r}}
@@ -15508,6 +15533,13 @@ movOpen=function(){$('#modal').hidden=false;const mb=$('#mbox');mb.classList.rem
   $$('#movBox [data-mvf]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mvf===(MOV.f||'all'))));movDraw()};
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-mvc]');if(!b)return;MOV.c=b.dataset.mvc;$$('#movBox [data-mvc]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));try{sfx('click')}catch(_){}movDraw()});
 document.addEventListener('input',e=>{if(e.target&&e.target.id==='movQ'){MOV.q=e.target.value;movDraw()}});
+/* ===== 2026-10-30: Ajustes ordenados: cada opción nueva en su sitio y aprovechando el ancho de la pantalla ===== */
+{const _raZ=renderAjustes;renderAjustes=function(){const r=_raZ.apply(this,arguments);try{const c=$('#cfgBody .cfg');if(!c)return r;
+  const byH=t=>[...c.querySelectorAll(':scope>.cfgbox')].find(b=>{const h=b.querySelector(':scope>h3');return h&&h.textContent.trim()===t});
+  const mv=(id,box)=>{const row=$('#'+id);if(row&&box&&row.parentElement!==box)box.appendChild(row)};
+  mv('cfNtf',byH('Avisos'));mv('cfChAsk',byH('Amigos'));
+  if(ADM.on&&($('#cfInc')||$('#cfOff'))){let jb=$('#cfJefe');if(!jb){c.insertAdjacentHTML('afterbegin','<div class="panel cfgbox gu gu-jefe" id="cfJefe" style="--ic:#ff3b4f"><span class="gu-ic emo">🛡️</span><h3>Solo para ti (jefe)</h3><p class="gu-sub">Cómo te ven los demás mientras juegas.</p></div>');jb=$('#cfJefe')}mv('cfInc',jb);mv('cfOff',jb)}
+  }catch(e){}return r}}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
