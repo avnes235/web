@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-30-1542">
+<meta name="app-version" content="2026-10-30-2332">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3122,6 +3122,21 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 #movBox .mvr .mva{font-size:clamp(15px,1.9vw,20px)!important}
 #movBox .mvr.in{border-left:4px solid #14e08a!important}#movBox .mvr.out{border-left:4px solid #ff5a6e!important}
 @media (max-width:560px){#movBox .mvsum{grid-template-columns:1fr 1fr}#movBox .mvs.net{grid-column:1/-1}#mbox.movwide #movBox{padding:12px!important}#movBox .mvr .mva{font-size:14px!important}}
+/* podio de Halloween */
+#sePod{position:fixed;inset:0;z-index:9650;background:radial-gradient(circle at 50% 35%,#4a2a00e6,#000e);display:flex;align-items:center;justify-content:center;padding:18px}
+#sePod .sen{max-width:420px;width:100%;text-align:center;background:#1a1220;border:3px solid #ffd600;border-radius:24px;padding:24px 20px;display:flex;flex-direction:column;gap:10px;align-items:center;box-shadow:0 0 70px #ffd60066}
+#sePod .sei{font-size:72px;line-height:1;animation:podBounce 1.6s ease-in-out infinite}
+#sePod small{font:900 13px var(--f-b,system-ui);letter-spacing:.08em;text-transform:uppercase;color:#ffb347}
+#sePod h2{margin:0;font:900 30px var(--f-d,system-ui)}#sePod h2 b{color:#ffd600}
+#sePod .spit{display:flex;flex-direction:column;gap:6px;width:100%}
+#sePod .spit span{background:#ffffff0d;border:1px solid #ffd60055;border-radius:12px;padding:8px 10px;font-weight:800}
+#sePod p{margin:0;font-weight:700;opacity:.85}
+#sePod .sev{font:900 clamp(26px,8vw,40px) var(--f-d,system-ui);color:#14e08a;text-shadow:0 0 18px #14e08a88;overflow-wrap:anywhere}
+#sePod .btn{width:100%}#sePod .sef{font-size:12.5px;opacity:.6}
+@keyframes podBounce{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(4deg)}}
+/* marco «Corona de calabazas» (1.º de Halloween 2026) */
+.fr-hw26crown{box-shadow:0 0 0 3px #ff7a00,0 0 0 6px #ffd600,0 0 22px 6px #ff7a00aa!important;position:relative;animation:crownGlow 2.2s ease-in-out infinite}
+@keyframes crownGlow{0%,100%{box-shadow:0 0 0 3px #ff7a00,0 0 0 6px #ffd600,0 0 18px 4px #ff7a0088}50%{box-shadow:0 0 0 3px #ffd600,0 0 0 6px #ff7a00,0 0 30px 9px #ffd600aa}}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6672,6 +6687,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-31-a',t:'🏆 Premios para el podio de Halloween',items:[['🎃','Podio de caramelos con premio','Al acabar Halloween (2 nov a las 00:00): 🥇 título «Rey Calabaza 2026», marco «Corona de calabazas» y el 50 % de tu dinero · 🥈 «Príncipe Calabaza 2026» y el 30 % · 🥉 «Duque Calabaza 2026» y el 15 % · del 4.º al 10.º, el 5 %. ¡Aún estás a tiempo!','new','#ff7a00']]},
  {v:'2026-10-29-e',t:'🔔 Avisos aunque estés en otra pestaña',items:[['🔔','Avisos del navegador','Actívalos en Inicio o en Ajustes y te avisaré de regalos, mensajes de tus amigos, respuestas del jefe, eventos que empiezan, el botón rojo y el Gran Premio de Cine, aunque tengas el juego en otra pestaña o minimizado.','new','#3f7cff']]},
  {v:'2026-10-29-d',t:'Apuesta gratis más clara',items:[['🎁','Apuesta gratis: se ve mejor y vuelves a tu apuesta','El cartel de la apuesta gratis se ve mucho más. Cuando ves el anuncio te avisa en grande y, al usarla, vuelves solo a la apuesta que tenías antes.','fix','#14e08a'],['🔢','Escribir tu apuesta sin que se borre','Si borras el primer número (el 5 de 5.000.000), se queda 000.000 y puedes escribir otro delante. Y puedes borrar junto a los puntos.','fix','#ffd600']]},
  {v:'2026-10-29-c',t:'💸 Movimientos: de dónde sale tu dinero',items:[['💸','Mira tus movimientos','Toca tu dinero (arriba) o el botón de tu Perfil para ver de dónde te ha llegado cada euro y adónde se ha ido: regalos, casino, premios, juegos, Fábrica…','new','#14e08a'],['🎬','Probabilidades del Gran Premio de Cine, ordenadas','Ahora salen en una sola lista con todas las cifras completas, también en Opera y en pantallas pequeñas.','fix','#ffd600']]},
@@ -12796,8 +12812,8 @@ const SEASONS=[{id:'hw26',name:'Halloween 2026',ico:'🎃',theme:'hw',from:Date.
   king:['ti','hw26king','👑 Rey Calabaza 2026'],
   mis:[['games',5,'Juega 5 partidas en Juegos',15],['wins',3,'Gana 3 veces en el casino',15],['spins',10,'Gira 10 veces la tragaperras',12],['hwpump',3,'Atrapa 3 calabazas',15],
     ['pranks',2,'Pulsa 2 veces el botón rojo',10],['missions',2,'Cobra 2 misiones normales',15],['clicks',300,'Haz 300 clics en la Fábrica',12],['buys',3,'Compra 3 cosas en la Tienda',10]]}];
-const SE_COS={c:{hw26cal:['Calabaza','nc-hw26cal'],hw26ecto:['Ectoplasma','nc-hw26ecto']},f:{hw26web:['Telaraña','fr-hw26web'],hw26fire:['Fuego fatuo','fr-hw26fire']},
-  bg:{hw26night:['Noche de brujas','bg-hw26night'],hw26grave:['Cementerio','bg-hw26grave']},ti:{hw26caza:['Cazafantasmas 2026'],hw26lord:['🦇 Señor de la Noche 2026'],hw26king:['👑 Rey Calabaza 2026']}};
+const SE_COS={c:{hw26cal:['Calabaza','nc-hw26cal'],hw26ecto:['Ectoplasma','nc-hw26ecto']},f:{hw26web:['Telaraña','fr-hw26web'],hw26fire:['Fuego fatuo','fr-hw26fire'],hw26crown:['Corona de calabazas','fr-hw26crown']},
+  bg:{hw26night:['Noche de brujas','bg-hw26night'],hw26grave:['Cementerio','bg-hw26grave']},ti:{hw26caza:['Cazafantasmas 2026'],hw26lord:['🦇 Señor de la Noche 2026'],hw26king:['👑 Rey Calabaza 2026'],hw26prin:['🥈 Príncipe Calabaza 2026'],hw26duq:['🥉 Duque Calabaza 2026']}};
 Object.assign(BGSW,{hw26night:'radial-gradient(circle at 78% 22%,#ffe9a8 0 7%,#ffb347 8%,transparent 16%),linear-gradient(170deg,#1b0638,#3b0d6e 55%,#ff7a00)',hw26grave:'radial-gradient(ellipse at 50% 120%,#2a3a1a,transparent 60%),repeating-linear-gradient(90deg,transparent 0 22px,#ffffff10 22px 26px),linear-gradient(180deg,#0b0b18,#1d2b14)'});
 Object.entries(SE_COS).forEach(([k,o])=>Object.entries(o).forEach(([id,v])=>{if(!COS[k].some(y=>y[0]===id))COS[k].push(k==='ti'?[id,v[0],999,'','s']:[id,v[0],999,v[1],'s'])}));
 const SE_FACES={'🦇':'hw26','🕷️':'hw26','🧟':'hw26','🧙':'hw26'};
@@ -12842,15 +12858,29 @@ function sePass(){const e=seNow()||SEASONS[SEASONS.length-1];const s=seSt(e);$('
   const top=[...NET.players.entries()].map(([id,p])=>({id,n:p.name,v:(p.hw&&p.hw.e===e.id)?+p.hw.t||0:0})).filter(x=>x.v>0&&x.id!==NET.id);if(s.tot>0&&S.name)top.push({n:S.name+' (tú)',v:s.tot,me:1});top.sort((a,b)=>b.v-a.v);
   mb.innerHTML=`<h2 style="font-size:28px">${e.ico} ${esc(e.name)}</h2><p class="muted" style="font-weight:700">Junta ${e.cur[1]} ${e.cur[0]} y se desbloquean solas. <b>Son exclusivas de este evento</b>: cuando termine no se podrán conseguir nunca más.</p>
    <div class="setiers">${e.tiers.map((t,i)=>{const g=s.got.includes(i);return`<div class="stier ${g?'got':''}"><span class="stn">${e.cur[0]} ${fmt(t[0])}</span>${t[1].map(r=>`<span class="strw">${r[0]==='av'?`<span class="emo" style="font-size:26px">${r[1]}</span>`:r[0]==='c'?`<span class="nm ${SE_COS.c[r[1]][1]}" style="font-weight:900">${esc(S.name||'Nombre')}</span>`:r[0]==='bg'?`<span class="sebg" style="background:${BGSW[r[1]]}"></span>`:r[0]==='f'?`<span class="sw emo ${SE_COS.f[r[1]][1]}" style="width:34px;height:34px;font-size:20px">${avH({av:S.av,img:S.img},'😎')}</span>`:r[0]==='eur'?'<span class="emo" style="font-size:24px">💰</span>':'<span class="emo" style="font-size:22px">🏷️</span>'}<small>${esc(r[2])}</small></span>`).join('')}${g?'<em>✔</em>':''}</div>`}).join('')}
-    <div class="stier king"><span class="stn">🏆 Top 1</span><span class="strw"><span class="emo" style="font-size:24px">👑</span><small>Título «${esc(e.king[2])}» para quien más ${e.cur[1]} junte al terminar</small></span></div></div>
+    <div class="stier king"><span class="stn">🏆 Podio</span><span class="strw"><span class="emo" style="font-size:24px">👑</span><small>🥇 «${esc(e.king[2])}» + marco + 50 % de tu dinero · 🥈 «Príncipe Calabaza 2026» + 30 % · 🥉 «Duque Calabaza 2026» + 15 % · del 4.º al 10.º: 5 %</small></span></div></div>
    <h3 style="margin:14px 0 6px">🍬 Los que más ${e.cur[1]} llevan</h3><div class="setop">${top.slice(0,8).map((x,i)=>`<div class="${x.me?'me':''}"><b>${i+1}º</b><span>${esc(x.n||'?')}</span><span>${e.cur[0]} ${fmt(x.v)}</span></div>`).join('')||'<p class="muted">Aún nadie. ¡Sé el primero!</p>'}</div>
    <button class="btn big" id="evX" style="margin-top:12px">Cerrar</button>`;$('#evX').onclick=closeModal}
 /* lo que ven los demás: cuántos caramelos llevas (para el top) */
-{const _pxE=pubX;pubX=function(){const x=_pxE.apply(this,arguments);try{const e=seNow();if(e){const s=seSt(e);if(s.tot)x.hw={e:e.id,t:s.tot}}}catch(_){}return x}}
+{const _pxE=pubX;pubX=function(){const x=_pxE.apply(this,arguments);try{const t=NOWS();const e=seNow()||SEASONS.find(z=>t>=z.to&&t<z.to+20*864e5);if(e){const s=(S.ev||{})[e.id];if(s&&s.tot)x.hw={e:e.id,t:s.tot}}if(+S.badLuck>0)x.xq=1}catch(_){}return x}}
 /* al acabar: título de Rey Calabaza al primero (se comprueba al entrar después del evento) */
-function seEndCheck(){try{const t=NOWS();SEASONS.forEach(e=>{if(t<e.to||t>e.to+20*864e5)return;const s=(S.ev||{})[e.id];if(!s||!s.tot||s.kingChk)return;if(!NET.ok||NET.players.size<2)return;
-  s.kingChk=1;const best=Math.max(0,...[...NET.players.entries()].filter(([id])=>id!==NET.id).map(([,p])=>(p.hw&&p.hw.e===e.id)?+p.hw.t||0:0));
-  if(s.tot>best){seGrant(e.king[0],e.king[1],e.king[2],e);sfx('big');confetti(300);troll('¡ERES EL REY!',e.king[2],'#ffd600',true)}save()})}catch(_){}}
+/* al acabar: premios para el podio (1.º, 2.º, 3.º) y del 4.º al 10.º. Se comprueba al entrar después del evento, con la clasificación congelada */
+const SE_POD=[{p:1,k:['ti','hw26king','👑 Rey Calabaza 2026'],f:['f','hw26crown','Marco «Corona de calabazas»'],pct:.5,min:1e9,ico:'🥇'},{p:2,k:['ti','hw26prin','🥈 Príncipe Calabaza 2026'],pct:.3,min:5e8,ico:'🥈'},{p:3,k:['ti','hw26duq','🥉 Duque Calabaza 2026'],pct:.15,min:2.5e8,ico:'🥉'}];
+function seRankAt(e){const all=[...NET.players.entries()].filter(([id,p])=>id!==NET.id&&p&&p.hw&&p.hw.e===e.id&&+p.hw.t>0&&!p.xq).map(([id,p])=>({id,v:+p.hw.t}));const s=seSt(e);all.push({id:NET.id,v:+s.tot||0,me:1});all.sort((a,b)=>b.v-a.v||(a.me?-1:b.me?1:String(a.id).localeCompare(String(b.id))));return all.findIndex(x=>x.me)+1}
+function seEndCheck(){try{const t=NOWS();SEASONS.forEach(e=>{if(t<e.to+120000||t>e.to+20*864e5)return;const s=(S.ev||{})[e.id];if(!s||!s.tot||s.kingChk)return;if(!NET.ok||NET.players.size<5)return;
+  if(+S.badLuck>0){s.kingChk=1;save();return}
+  const pos=seRankAt(e);s.kingChk=1;s.pos=pos;if(pos>10){save();return}
+  let w=0;try{w=wR()}catch(_){w=+S.coins||0}const P=SE_POD.find(x=>x.p===pos);const v=niceN(P?Math.max(P.min,w*P.pct):Math.max(5e7,w*.05));
+  const items=[];if(P){seGrant(P.k[0],P.k[1],P.k[2],e);items.push('Título «'+P.k[2]+'»');if(P.f){seGrant(P.f[0],P.f[1],P.f[2],e);items.push(P.f[2])}}
+  s.podV=v;s.podPaid=0;save();try{alog('t','🏆 '+e.name+': quedó '+pos+'º')}catch(_){}seEndPodShow(e,pos,v,items)})}catch(_){}}
+function seEndPodShow(e,pos,v,items){if($('#sePod'))return;const P=SE_POD.find(x=>x.p===pos);const o=document.createElement('div');o.id='sePod';o.className='sepod';
+  o.innerHTML=`<div class="sen"><div class="sei">${P?P.ico:'🎃'}</div><small>Clasificación final de ${esc(e.name)}</small><h2>¡Has quedado <b>${pos}º</b>!</h2>${items.length?`<div class="spit">${items.map(x=>'<span>🎁 '+esc(x)+'</span>').join('')}</div>`:''}<p>Y además te llevas:</p><div class="sev">+${fmt(v)} €</div><button type="button" class="btn big mint" id="sePodOk">💰 ¡Cobrar!</button><p class="sef">${P?'Es exclusivo de '+e.name+': no volverá a salir.':'Por quedar entre los 10 primeros.'}</p></div>`;
+  document.body.appendChild(o);try{sfx('big')}catch(_){}try{confetti(300)}catch(_){}
+  $('#sePodOk').onclick=()=>{const s=(S.ev||{})[e.id];if(!s||s.podPaid){o.remove();return}s.podPaid=1;S.coins+=v;S.earned=(S.earned||0)+v;try{LED.tag='v:evento';LED.tagT=Date.now()+1500}catch(_){}
+    try{alog('t','🏆 Cobró el premio de '+pos+'º de '+e.name+': +'+short(v)+' €')}catch(_){}save();try{NET.lastP='';pushPlayer()}catch(_){}try{renderMe()}catch(_){}try{sfx('win');confetti(260)}catch(_){}
+    toast('¡Cobrado!','+'+short(v)+' € por quedar '+pos+'º en '+e.name,'var(--mint)','🏆');o.remove();setTimeout(()=>{try{seCandyCheck()}catch(_){}},800)}}
+/* si se cerró el juego sin cobrar, sale otra vez */
+setInterval(()=>{try{SEASONS.forEach(e=>{const s=(S.ev||{})[e.id];if(s&&s.kingChk&&s.pos&&s.pos<=10&&s.podV&&!s.podPaid&&!$('#sePod'))seEndPodShow(e,s.pos,s.podV,[])})}catch(_){}},5000);
 setTimeout(seEndCheck,20000);setInterval(seEndCheck,120000);
 /* calabazas que salen volando: tócalas para coger caramelos */
 let hwPumpT=0;function hwPumpkin(){const e=seNow();if(!e||document.hidden||!S.name||!$('#modal').hidden||(typeof running!=='undefined'&&running))return;
@@ -12958,7 +12988,7 @@ sePass=function(){const e=seNow()||SEASONS[SEASONS.length-1];const s=seSt(e);$('
   mb.innerHTML=`<div class="sepass"><div class="sph"><span class="emo">${e.ico}</span><div><h2>Recompensas de ${esc(e.name)}</h2><p>Junta ${e.cur[1]} ${e.cur[0]} y se desbloquean <b>solas</b>. Son <b>exclusivas</b>: cuando acabe el evento no se podrán conseguir nunca más.</p></div><div class="spc"><b>${e.cur[0]} ${fmt(s.tot)}</b><small>llevas</small></div></div>
    <div class="sproad">${e.tiers.map((t,i)=>{const g=s.got.includes(i),cur=!g&&(i===0||s.got.includes(i-1));const falta=Math.max(0,t[0]-s.tot);
      return t[1].map((r,j)=>`<div class="sprow ${g?'got':cur?'cur':''}"><span class="spn">${j?'':`${e.cur[0]}<b>${fmt(t[0])}</b>`}</span>${seRwPrev(r)}<span class="spi"><small>${SE_KIND[r[0]]}</small><b>${esc(r[0]==='eur'?money(r[1]):r[2].replace(/^(Cara|Color de nombre|Marco|Fondo|Título) /,''))}</b></span><span class="sps">${g?'✅ Tuyo':j?'':`🔒 Faltan ${fmt(falta)} ${e.cur[0]}`}</span></div>`).join('')}).join('')}
-    <div class="sprow king"><span class="spn">🏆<b>Top 1</b></span><span class="rwp emo" style="font-size:40px">👑</span><span class="spi"><small>Título único</small><b>${esc(e.king[2])}</b></span><span class="sps">Para quien más ${e.cur[1]} tenga al acabar</span></div></div>
+    <div class="sprow king"><span class="spn">🏆<b>Top 1</b></span><span class="rwp emo" style="font-size:40px">👑</span><span class="spi"><small>Podio final</small><b>🥇 ${esc(e.king[2])} · 🥈 Príncipe · 🥉 Duque</b></span><span class="sps">1.º: título, marco y 50 % de tu dinero · 2.º: título y 30 % · 3.º: título y 15 % · 4.º-10.º: 5 %</span></div></div>
    <h3 class="spt">🍬 Los que más ${e.cur[1]} llevan</h3><div class="setop">${top.slice(0,8).map((x,i)=>`<div class="${x.me?'me':''}"><b>${i+1}º</b><span>${esc(x.n||'?')}</span><span>${e.cur[0]} ${fmt(x.v)}</span></div>`).join('')||'<p class="muted">Aún nadie. ¡Sé el primero!</p>'}</div>
    <button class="btn big" id="evX">Cerrar</button></div>`;$('#evX').onclick=closeModal;const cu=mb.querySelector('.sprow.cur');if(cu)setTimeout(()=>cu.scrollIntoView({block:'center'}),60)};
 
@@ -13947,15 +13977,15 @@ setInterval(()=>{try{if(view==='inicio')hoyNav()}catch(e){}},1500);document.addE
   if(road&&!mb.querySelector('.sptabs')){const s=seSt(e);const all=[...NET.players.entries()].map(([id,p])=>({id,n:p.name,v:(p.hw&&p.hw.e===e.id)?+p.hw.t||0:0})).filter(x=>x.v>0&&x.id!==NET.id);if(s.tot>0&&S.name)all.push({n:S.name+' (tú)',v:s.tot,me:1});all.sort((a,b)=>b.v-a.v);const mi=all.findIndex(x=>x.me);
     const tabs=document.createElement('div');tabs.className='sptabs';tabs.innerHTML=`<button data-spt="rw" aria-pressed="true">🎁 Recompensas</button><button data-spt="rk" aria-pressed="false">🏆 Clasificación</button>`;
     const rk=document.createElement('div');rk.className='sprk';rk.hidden=true;
-    rk.innerHTML=`<p class="muted" style="margin:0 0 8px;font-weight:700">El que más ${e.cur[1]} tenga al acabar se lleva el título «${esc(e.king[2])}».${mi>=0?` Vas <b>${mi+1}º</b>.`:' Aún no tienes caramelos: ¡empieza!'}</p><div class="setop">${all.slice(0,30).map((x,i)=>`<div class="${x.me?'me':''}"><b>${i===0?'👑':i+1+'º'}</b><span>${esc(x.n||'?')}</span><span>${e.cur[0]} ${fmt(x.v)}</span></div>`).join('')||'<p class="muted">Aún nadie. ¡Sé el primero!</p>'}${mi>=30?`<div class="me"><b>${mi+1}º</b><span>${esc(S.name)} (tú)</span><span>${e.cur[0]} ${fmt(s.tot)}</span></div>`:''}</div>`;
+    rk.innerHTML=`<p class="muted" style="margin:0 0 8px;font-weight:700">Al acabar, premio para el podio: 🥇 «${esc(e.king[2])}», marco y 50 % de tu dinero · 🥈 título y 30 % · 🥉 título y 15 % · del 4.º al 10.º, 5 %.${mi>=0?` Vas <b>${mi+1}º</b>.`:' Aún no tienes caramelos: ¡empieza!'}</p><div class="setop">${all.slice(0,30).map((x,i)=>`<div class="${x.me?'me':''}"><b>${['🥇','🥈','🥉'][i]||i+1+'º'}</b><span>${esc(x.n||'?')}</span><span>${e.cur[0]} ${fmt(x.v)}</span></div>`).join('')||'<p class="muted">Aún nadie. ¡Sé el primero!</p>'}${mi>=30?`<div class="me"><b>${mi+1}º</b><span>${esc(S.name)} (tú)</span><span>${e.cur[0]} ${fmt(s.tot)}</span></div>`:''}</div>`;
     road.insertAdjacentElement('beforebegin',tabs);road.insertAdjacentElement('afterend',rk);mb.querySelectorAll('h3.spt').forEach(h=>{const n=h.nextElementSibling;if(n&&n.classList.contains('setop'))n.remove();h.remove()});
     tabs.onclick=ev=>{const b=ev.target.closest('[data-spt]');if(!b)return;sfx('click');const k=b.dataset.spt;tabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));road.hidden=k!=='rw';rk.hidden=k!=='rk'};return r}
   const top=mb.querySelector('.setop');if(!top)return r;const h3=top.previousElementSibling;
     const tiers=mb.querySelector('.setiers');const wrap=document.createElement('div');wrap.className='serk';
     const s=seSt(e);const all=[...NET.players.entries()].map(([id,p])=>({id,n:p.name,v:(p.hw&&p.hw.e===e.id)?+p.hw.t||0:0})).filter(x=>x.v>0&&x.id!==NET.id);if(s.tot>0&&S.name)all.push({n:S.name+' (tú)',v:s.tot,me:1});all.sort((a,b)=>b.v-a.v);
     const mi=all.findIndex(x=>x.me);
-    wrap.innerHTML=`<h3>🏆 Clasificación de caramelos</h3><p class="muted" style="margin:0 0 6px;font-weight:700">El que más ${e.cur[1]} tenga al acabar se lleva el título «${esc(e.king[2])}».${mi>=0?` Vas <b>${mi+1}º</b>.`:' Aún no tienes caramelos: ¡empieza!'}</p>
-     <div class="setop">${all.slice(0,20).map((x,i)=>`<div class="${x.me?'me':''}"><b>${i===0?'👑':i+1+'º'}</b><span>${esc(x.n||'?')}</span><span>${e.cur[0]} ${fmt(x.v)}</span></div>`).join('')||'<p class="muted">Aún nadie. ¡Sé el primero!</p>'}${mi>=20?`<div class="me"><b>${mi+1}º</b><span>${esc(S.name)} (tú)</span><span>${e.cur[0]} ${fmt(s.tot)}</span></div>`:''}</div>
+    wrap.innerHTML=`<h3>🏆 Clasificación de caramelos</h3><p class="muted" style="margin:0 0 6px;font-weight:700">Al acabar, premio para el podio: 🥇 «${esc(e.king[2])}», marco y 50 % de tu dinero · 🥈 título y 30 % · 🥉 título y 15 % · del 4.º al 10.º, 5 %.${mi>=0?` Vas <b>${mi+1}º</b>.`:' Aún no tienes caramelos: ¡empieza!'}</p>
+     <div class="setop">${all.slice(0,20).map((x,i)=>`<div class="${x.me?'me':''}"><b>${['🥇','🥈','🥉'][i]||i+1+'º'}</b><span>${esc(x.n||'?')}</span><span>${e.cur[0]} ${fmt(x.v)}</span></div>`).join('')||'<p class="muted">Aún nadie. ¡Sé el primero!</p>'}${mi>=20?`<div class="me"><b>${mi+1}º</b><span>${esc(S.name)} (tú)</span><span>${e.cur[0]} ${fmt(s.tot)}</span></div>`:''}</div>
      <h3 style="margin-top:14px">🎁 Recompensas</h3>`;
     if(h3&&h3.tagName==='H3')h3.remove();top.remove();if(tiers)tiers.insertAdjacentElement('beforebegin',wrap)}catch(err){}return r}}
 
@@ -15287,7 +15317,7 @@ document.addEventListener('click',e=>{if(!e.target.closest||!e.target.closest('#
 /* ===== 2026-10-28: al acabar un evento de temporada, los caramelos que sobran se cambian por dinero (mucho) ===== */
 function seLeft(e){const s=(S.ev||{})[e.id];if(!s)return 0;const tot=Math.floor(+s.tot||0);let last=0;e.tiers.forEach(t=>{if(tot>=t[0])last=t[0]});return Math.max(0,tot-last)}
 function sePer(){let w=0;try{w=wR()}catch(e){w=+S.coins||0}return niceN(Math.max(2e7,w*.03))}
-function seEndCheck(){try{const t=NOWS();for(const e of SEASONS){if(t<e.to)continue;const s=(S.ev||{})[e.id];if(!s||s.endPaid||!(+s.tot>0))continue;
+function seCandyCheck(){try{if($('#sePod'))return;const t=NOWS();for(const e of SEASONS){if(t<e.to)continue;const s=(S.ev||{})[e.id];if(!s||s.endPaid||!(+s.tot>0))continue;
     const n=seLeft(e);if(n<=0){s.endPaid=1;save();continue}if($('#seEnd'))return;
     const per=sePer();let w=0;try{w=wR()}catch(_){}let v=Math.min(per*n,niceN(Math.max(2e8,w*5)));v=Math.max(v,2e8);seEndShow(e,n,v);return}}catch(e){}}
 function seEndShow(e,n,v){const o=document.createElement('div');o.id='seEnd';o.innerHTML=`<div class="sen"><div class="sei">${e.ico}</div><small>Se ha acabado ${esc(e.name)}</small>
@@ -15297,7 +15327,7 @@ function seEndShow(e,n,v){const o=document.createElement('div');o.id='seEnd';o.i
   $('#seEndOk').onclick=()=>{const s=(S.ev||{})[e.id];if(!s||s.endPaid){o.remove();return}s.endPaid=1;s.endV=v;S.coins+=v;S.earned=(S.earned||0)+v;try{LED.tag='v:evento';LED.tagT=Date.now()+1500}catch(_){}
     try{alog('t','🍬 Fin de '+e.name+': '+n+' sobrantes → +'+short(v)+' €')}catch(_){}save();try{NET.lastP='';pushPlayer()}catch(_){}try{renderMe()}catch(_){}try{sfx('win')}catch(_){}try{confetti(260)}catch(_){}
     toast('¡Cobrado!','+'+short(v)+' € por tus '+e.cur[1]+' sobrantes','var(--mint)','💰');o.remove()}}
-setInterval(seEndCheck,4000);setTimeout(seEndCheck,2500);
+setInterval(seCandyCheck,4000);setTimeout(seCandyCheck,2500);
 /* ===== 2026-10-28: la caja fuerte sube y baja poco a poco (como la cartera) al guardar o sacar ===== */
 const SFA={v:null,from:0,to:0,t0:0,raf:0};
 function sfAnimTick(){const b=document.querySelector('#safeCard .sfv b');const k=Math.min(1,(performance.now()-SFA.t0)/850),e=1-Math.pow(1-k,3);const cur=Math.floor(SFA.from+(SFA.to-SFA.from)*e);
@@ -15581,6 +15611,8 @@ document.addEventListener('input',e=>{if(e.target&&e.target.id==='movQ'){MOV.q=e
 {const _lgSt=lgCard;lgCard=function(){try{const el=$('#lgHome');if(el&&!NET.ok&&S.name&&!(NET.isAnon&&!ADM.on)&&el._seen&&Date.now()-(NET.lastOk||0)<60000)return}catch(e){}return _lgSt.apply(this,arguments)}}
 setInterval(()=>{try{if(NET.ok)NET.lastOk=Date.now()}catch(e){}},2000);
 {const _tnSt=tnHome;tnHome=function(){try{const c=$('#tnHome');if(c&&!NET.ok&&c._seen&&Date.now()-(NET.lastOk||0)<60000)return}catch(e){}return _tnSt.apply(this,arguments)}}
+try{i18nAdd([['🏆 Premios para el podio de Halloween','🏆 Prizes for the Halloween podium','🏆 Prix pour le podium d\'Halloween','🏆 Prémios para o pódio do Halloween'],['Podio de caramelos con premio','Candy podium with prizes','Podium des bonbons avec prix','Pódio de rebuçados com prémios'],['Al acabar Halloween (2 nov a las 00:00): 🥇 título «Rey Calabaza 2026», marco «Corona de calabazas» y el 50 % de tu dinero · 🥈 «Príncipe Calabaza 2026» y el 30 % · 🥉 «Duque Calabaza 2026» y el 15 % · del 4.º al 10.º, el 5 %. ¡Aún estás a tiempo!','When Halloween ends (2 Nov at 00:00): 🥇 «Pumpkin King 2026» title, «Pumpkin Crown» frame and 50% of your money · 🥈 «Pumpkin Prince 2026» and 30% · 🥉 «Pumpkin Duke 2026» and 15% · 4th to 10th, 5%. There\'s still time!','À la fin d\'Halloween (2 nov à 00:00) : 🥇 titre « Roi Citrouille 2026 », cadre « Couronne de citrouilles » et 50 % de ton argent · 🥈 « Prince Citrouille 2026 » et 30 % · 🥉 « Duc Citrouille 2026 » et 15 % · du 4e au 10e, 5 %. Il est encore temps !','Quando acabar o Halloween (2 nov às 00:00): 🥇 título «Rei Abóbora 2026», moldura «Coroa de abóboras» e 50 % do teu dinheiro · 🥈 «Príncipe Abóbora 2026» e 30 % · 🥉 «Duque Abóbora 2026» e 15 % · do 4.º ao 10.º, 5 %. Ainda vais a tempo!']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Qué gana el podio de Halloween?'))FAQ.unshift(['¿Qué gana el podio de Halloween?','1.º: título «👑 Rey Calabaza 2026», marco «Corona de calabazas» y el 50 % de tu dinero. 2.º: título «Príncipe Calabaza 2026» y el 30 %. 3.º: título «Duque Calabaza 2026» y el 15 %. Del 4.º al 10.º: el 5 %. Se cobra al entrar después del 2 de noviembre.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
