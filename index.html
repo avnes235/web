@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-30-1518">
+<meta name="app-version" content="2026-10-30-1533">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3104,6 +3104,24 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 #movBox .mvr .mvt{gap:2px}
 #movBox h2,#movBox>p{padding:0 4px}
 #movBox .mvtot{padding:0 4px}
+/* Movimientos: ventana grande y bonita, con el dinero bien a la vista */
+#mbox.movwide{width:min(1000px,96vw)!important;max-width:none!important;border-radius:22px;background:linear-gradient(180deg,#151a26,#101219)!important;border:2px solid #14e08a55!important}
+#mbox.movwide #movBox{height:min(86vh,880px)!important;padding:18px 20px 16px!important;gap:0}
+#movBox h2{font-size:34px!important;margin-bottom:6px!important}
+#movBox .mvsum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:2px 0 12px}
+#movBox .mvs{border-radius:14px;padding:12px 14px;background:#ffffff08;border:1px solid #ffffff14;min-width:0}
+#movBox .mvs small{display:block;font:800 12.5px var(--f-b,system-ui);opacity:.75;margin-bottom:4px}
+#movBox .mvs b{display:block;font:900 clamp(15px,2.1vw,22px) var(--f-n,system-ui);overflow-wrap:anywhere}
+#movBox .mvs.in b{color:#14e08a}#movBox .mvs.out b{color:#ff5a6e}
+#movBox .mvs.net{background:#14e08a14;border-color:#14e08a55}#movBox .mvs.net.out{background:#ff3b4f14;border-color:#ff3b4f55}
+#movBox .mvtot{display:none}
+#movBox .mvr{padding:14px 16px!important;border-radius:14px!important;background:#ffffff07!important}
+#movBox .mvr .mvi{font-size:28px!important;width:36px!important}
+#movBox .mvr .mvt b{font-size:16px!important}
+#movBox .mvr .mvt small{font-size:12.5px!important}
+#movBox .mvr .mva{font-size:clamp(15px,1.9vw,20px)!important}
+#movBox .mvr.in{border-left:4px solid #14e08a!important}#movBox .mvr.out{border-left:4px solid #ff5a6e!important}
+@media (max-width:560px){#movBox .mvsum{grid-template-columns:1fr 1fr}#movBox .mvs.net{grid-column:1/-1}#mbox.movwide #movBox{padding:12px!important}#movBox .mvr .mva{font-size:14px!important}}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -15449,6 +15467,8 @@ document.addEventListener('click',e=>{const t=e.target;if(!t.closest)return;
   if(t.closest('#wCoins')||t.closest('.chip[title="Tu dinero"]')||t.closest('[data-movopen]')){try{sfx('click')}catch(_){}movOpen();return}
   const f=t.closest('[data-mvf]');if(f){MOV.f=f.dataset.mvf;$$('#movBox [data-mvf]').forEach(b=>b.setAttribute('aria-pressed',String(b===f)));movDraw();return}
   if(t.closest('#movX')){closeModal()}});
+{const _cmMv=closeModal;closeModal=function(){try{$('#mbox').classList.remove('movwide')}catch(_){}return _cmMv.apply(this,arguments)}}
+new MutationObserver(()=>{const m=$('#mbox');if(m&&m.classList.contains('movwide')&&!m.querySelector('#movBox'))m.classList.remove('movwide')}).observe($('#mbox'),{childList:true})
 setInterval(()=>{if($('#movBox')&&!$('#modal').hidden)movDraw()},15000);
 (function(){const c=document.querySelector('.chip[title="Tu dinero"]');if(c){c.title='Tu dinero · toca para ver tus movimientos';c.style.cursor='pointer';c.setAttribute('role','button');c.setAttribute('tabindex','0')}})();
 /* en el perfil y en la caja fuerte, botón para verlos */
@@ -15520,15 +15540,15 @@ setInterval(movWeek,60000);movWeek();
 {const _laM3=ledAdd;ledAdd=function(){const r=_laM3.apply(this,arguments);try{movWeek();if(Array.isArray(S.mov)&&S.mov.length>=80){}}catch(e){}return r}}
 movDraw=function(){const box=$('#movList');if(!box)return;const L=(S.mov||[]).filter(x=>x&&x[1]);const c=MOV.c||'all',q=pnNorm(MOV.q||''),f=MOV.f||'all';
   const F=L.filter(x=>(c==='all'||movCat(x[3],x[2])===c)&&(f==='all'||(f==='in'?x[1]>0:x[1]<0))&&(!q||pnNorm(x[2]+' '+(x[1]>0?'+':'-')+fmt(Math.abs(x[1]))).includes(q)));
-  const sum=F.reduce((a,x)=>a+x[1],0);const tot=$('#movTot');if(tot)tot.innerHTML=F.length?`${F.length} movimiento${F.length===1?'':'s'} · total <b class="${sum>=0?'in':'out'}">${sum>=0?'+':'−'}${fmt(Math.abs(sum))} €</b>`:'';
+  const sum=F.reduce((a,x)=>a+x[1],0);try{const ins=F.filter(x=>x[1]>0).reduce((a,x)=>a+x[1],0),outs=F.filter(x=>x[1]<0).reduce((a,x)=>a-x[1],0),sm=$('#movSum');if(sm)sm.innerHTML=`<div class="mvs in"><small>➕ Te ha entrado</small><b>${ins?'+':''}${fmt(ins)} €</b></div><div class="mvs out"><small>➖ Se ha ido</small><b>${outs?'−':''}${fmt(outs)} €</b></div><div class="mvs net ${sum>=0?'in':'out'}"><small>🧮 Balance</small><b>${sum>=0?'+':'−'}${fmt(Math.abs(sum))} €</b></div>`}catch(_){}const tot=$('#movTot');if(tot)tot.innerHTML=F.length?`${F.length} movimiento${F.length===1?'':'s'} · total <b class="${sum>=0?'in':'out'}">${sum>=0?'+':'−'}${fmt(Math.abs(sum))} €</b>`:'';
   box.innerHTML=F.length?F.slice(0,150).map(([t,d,l,cx,n])=>`<div class="mvr ${d>0?'in':'out'}"><span class="mvi emo">${movIco(cx,l)}</span><span class="mvt"><b>${esc(l)}</b><small>${ago(t)}${n>1&&/^cas:|^jg:/.test(cx)?' · '+n+' jugadas':''}</small></span><span class="mva">${d>0?'+':'−'}${fmt(Math.abs(d))} €</span></div>`).join('')
     :`<p class="mve">${q?'No hay nada con «'+esc(MOV.q)+'».':'Todavía no hay movimientos aquí esta semana.'}</p>`};
-movOpen=function(){$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('notes');mb.classList.add('wide');mb.onclick=null;
+movOpen=function(){$('#modal').hidden=false;const mb=$('#mbox');mb.classList.remove('notes');mb.classList.add('wide','movwide');mb.onclick=null;
   mb.innerHTML=`<div id="movBox"><h2 style="font-size:28px;margin:0 0 4px">💸 Mis movimientos</h2><p class="muted" style="margin:0 0 10px;font-weight:700">De dónde te ha llegado el dinero esta semana y adónde se ha ido. Cada lunes empieza de cero. Lo de la caja fuerte no cuenta: sigue siendo tuyo.</p>
     <label class="search mvsearch"><svg class="ic"><use href="#i-search"/></svg><input id="movQ" type="search" placeholder="Buscar: un nombre, «regalo», «Plinko», una cifra…" autocomplete="off" value="${esc(MOV.q||'')}"></label>
     <div class="mvc">${MOV_CAT.map(([k,t,e])=>`<button type="button" data-mvc="${k}" aria-pressed="${(MOV.c||'all')===k}"><span class="emo">${e}</span> ${t}</button>`).join('')}</div>
     <div class="mvf"><button type="button" data-mvf="all">Todo</button><button type="button" data-mvf="in">➕ Entradas</button><button type="button" data-mvf="out">➖ Salidas</button></div>
-    <p class="mvtot" id="movTot"></p><div id="movList" class="mvl"></div>
+    <div class="mvsum" id="movSum"></div><p class="mvtot" id="movTot"></p><div id="movList" class="mvl"></div>
     <button class="btn alt" type="button" id="movX" style="width:100%;margin-top:10px">Cerrar</button></div>`;
   $$('#movBox [data-mvf]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mvf===(MOV.f||'all'))));movDraw()};
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-mvc]');if(!b)return;MOV.c=b.dataset.mvc;$$('#movBox [data-mvc]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));try{sfx('click')}catch(_){}movDraw()});
