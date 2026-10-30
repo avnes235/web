@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-30-1538">
+<meta name="app-version" content="2026-10-30-1542">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -15563,6 +15563,24 @@ document.addEventListener('input',e=>{if(e.target&&e.target.id==='movQ'){MOV.q=e
   mv('cfNtf',byH('Avisos'));mv('cfChAsk',byH('Amigos'));
   if(ADM.on&&($('#cfInc')||$('#cfOff'))){let jb=$('#cfJefe');if(!jb){c.insertAdjacentHTML('afterbegin','<div class="panel cfgbox gu gu-jefe" id="cfJefe" style="--ic:#ff3b4f"><span class="gu-ic emo">🛡️</span><h3>Solo para ti (jefe)</h3><p class="gu-sub">Cómo te ven los demás mientras juegas.</p></div>');jb=$('#cfJefe')}mv('cfInc',jb);mv('cfOff',jb)}
   }catch(e){}return r}}
+/* ===== 2026-10-30: nada de tarjetas que aparecen y desaparecen (al volver de otra pestaña, al reconectar…) ===== */
+/* las tarjetas de Inicio solo se esconden si siguen tocando esconderse 2,5 s después; si vuelven a mostrarse antes, ni se nota */
+(()=>{const HD=Object.getOwnPropertyDescriptor(HTMLElement.prototype,'hidden');if(!HD||!HD.set)return;
+  function stab(el){if(el._stab)return;el._stab=1;let want=HD.get.call(el),tm=0;
+    Object.defineProperty(el,'hidden',{configurable:true,get(){return want},set(v){v=!!v;want=v;clearTimeout(tm);
+      if(!v){HD.set.call(el,false);return}
+      if(HD.get.call(el))return;
+      /* si nunca se ha visto (al cargar), se esconde al momento */
+      if(!el._seen||Date.now()-(window.__lastTap||0)<800){HD.set.call(el,true);return}
+      tm=setTimeout(()=>{if(want)HD.set.call(el,true)},2500)}});
+    const mark=()=>{if(!HD.get.call(el)&&el.offsetParent)el._seen=1};setInterval(mark,1000);mark()}
+  const SEL='#v-inicio > [id], #v-inicio .panel[id], #lgHome, #tnHome, #seCard, #safeCard, #freeBar, #ntfCard';
+  addEventListener('pointerdown',()=>{window.__lastTap=Date.now()},true);addEventListener('keydown',()=>{window.__lastTap=Date.now()},true);
+  const scan=()=>{try{document.querySelectorAll(SEL).forEach(stab)}catch(e){}};scan();setInterval(scan,3000)})();
+/* al volver a la pestaña, aunque se reconecte un momento, la liga y los torneos no se esconden */
+{const _lgSt=lgCard;lgCard=function(){try{const el=$('#lgHome');if(el&&!NET.ok&&S.name&&!(NET.isAnon&&!ADM.on)&&el._seen&&Date.now()-(NET.lastOk||0)<60000)return}catch(e){}return _lgSt.apply(this,arguments)}}
+setInterval(()=>{try{if(NET.ok)NET.lastOk=Date.now()}catch(e){}},2000);
+{const _tnSt=tnHome;tnHome=function(){try{const c=$('#tnHome');if(c&&!NET.ok&&c._seen&&Date.now()-(NET.lastOk||0)<60000)return}catch(e){}return _tnSt.apply(this,arguments)}}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
