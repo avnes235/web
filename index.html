@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-31-0952">
+<meta name="app-version" content="2026-10-31-1018">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3137,6 +3137,15 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 /* marco «Corona de calabazas» (1.º de Halloween 2026) */
 .fr-hw26crown{box-shadow:0 0 0 3px #ff7a00,0 0 0 6px #ffd600,0 0 22px 6px #ff7a00aa!important;position:relative;animation:crownGlow 2.2s ease-in-out infinite}
 @keyframes crownGlow{0%,100%{box-shadow:0 0 0 3px #ff7a00,0 0 0 6px #ffd600,0 0 18px 4px #ff7a0088}50%{box-shadow:0 0 0 3px #ffd600,0 0 0 6px #ff7a00,0 0 30px 9px #ffd600aa}}
+.lgbox .lgtiers.lgsel{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
+.lgbox .lgsee{appearance:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 6px;border-radius:12px;border:2px solid var(--c);background:transparent;color:var(--c);font:900 14px var(--f-b,system-ui);line-height:1.15;transition:transform .12s}
+.lgbox .lgsee small{font-weight:700;font-size:11px;opacity:.85;color:inherit}
+.lgbox .lgsee:hover{transform:translateY(-2px)}
+.lgbox .lgsee.on{box-shadow:inset 0 0 0 2px var(--c)}
+.lgbox .lgsee.see{background:var(--c);color:#111}
+.lgbox .lgseetip{margin-top:8px;font-weight:700;font-size:13px;line-height:1.4}
+.lgbox .lgback{appearance:none;cursor:pointer;margin-left:6px;padding:4px 10px;border-radius:99px;border:2px solid var(--lc);background:transparent;color:var(--lc);font:900 12px var(--f-b,system-ui)}
+.lgempty{text-align:center;font-weight:700;opacity:.75;padding:18px 8px}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6383,9 +6392,9 @@ function openGift(id){if(!ADM.on&&NET.isAnon){toast('Necesitas una cuenta','Para
    <p class="warn" id="gfErr" hidden></p><button class="btn big mint" id="gfGo">Enviar regalo</button><button class="linkb" id="gfX">Cancelar</button></div>`;
   $('#gfX').onclick=()=>$('#modal').hidden=true;$('#mbox').querySelector('.amt').addEventListener('click',e=>{const b=e.target.closest('[data-gq]');if(b)$('#gfAmt').value=b.dataset.gq==='all'?Math.floor(S.coins):b.dataset.gq});
   $('#gfGo').onclick=async()=>{const n=Math.floor(+String($('#gfAmt').value).replace(/\D/g,'')||0),err=t=>{$('#gfErr').textContent=t;$('#gfErr').hidden=false;sfx('lose')};
-    if(n<1)return err('Pon cuánto quieres regalar.');{const gb=giftBlock(n,id);if(gb)return err(gb)}if(!take(n))return err('No tienes tanto dinero.');
+    if(n<1)return err('Pon cuánto quieres regalar.');{const gb=giftBlock(n,id);if(gb)return err(gb)}try{movForce('Regalo para '+(p.name||'un jugador'),-1)}catch(_){}if(!take(n))return err('No tienes tanto dinero.');
     $('#gfGo').disabled=true;let _sent=false;try{await NET.db.collection('cmds/'+id+'/q').add({type:'gift',from:NET.id,n,t:Date.now()});_sent=true;ev('gifts');ev('gifted',n);try{const pq=NET.players.get(id);if(pq&&pq.dv&&pq.dv===DEV_ID){S.st.giftSelf=(S.st.giftSelf||0)+n}S.gTo=S.gTo||{};S.gTo[id]=(S.gTo[id]||0)+n}catch(_){}$('#modal').hidden=true;sfx('buy');confetti(80);toast('Regalo enviado','−'+short(n)+' € para '+esc(p.name||'este jugador'),'var(--mint)','🎁');const pp=NET.players.get(id);if(pp)admPend(id,{coins:Math.floor(+pp.coins||0)+n},!ADM.on);renderRank();save();NET.lastP='';pushPlayer()}
-    catch(e){if(_sent){try{$('#modal').hidden=true;save()}catch(_){}return}S.coins+=n;const g=$('#gfGo');if(g)g.disabled=false;err('No se ha podido enviar. Te devuelvo el dinero.')}}}
+    catch(e){if(_sent){try{$('#modal').hidden=true;save()}catch(_){}return}try{movForce('Regalo para '+(p.name||'un jugador')+' devuelto (no se pudo enviar)',1)}catch(_){}S.coins+=n;const g=$('#gfGo');if(g)g.disabled=false;err('No se ha podido enviar. Te devuelvo el dinero.')}}}
 function onlyFriends(id,what){if(ADM.on||(S.friends||[]).includes(id))return true;toast('Solo para amigos','Para mandarle '+what+', primero agrégalo de amigo','var(--sky)','🤝');sfx('lose');return false}
 function openTrollPick(id){if(!onlyFriends(id,'mensajitos'))return;$('#mbox').classList.remove('wide','notes');$('#mbox').onclick=null;const p=NET.players.get(id);$('#modal').hidden=false;
   const mine=(S.myTrolls||[]).slice(0,6);
@@ -6401,7 +6410,7 @@ function openTrollPick(id){if(!onlyFriends(id,'mensajitos'))return;$('#mbox').cl
   const send=async text=>{text=String(text||'').replace(/\s+/g,' ').trim().slice(0,40);if(!text||!NET.db)return;
     if(badTxt(text)){toast('Ese mensaje no se puede enviar','Nada de insultos ni palabras feas. Prueba con otro','var(--coral)','🚫');sfx('lose');return}
     if(Date.now()<sentAt){toast('Tranqui','Espera unos segundos entre mensajitos','var(--coral)','⏳');return}
-    if(!take(100)){toast('Te faltan euros','Un mensajito cuesta 100 €','var(--coral)','💸');sfx('lose');return}sentAt=Date.now()+4000;
+    try{movForce('Mensajito a '+((NET.players.get(id)||{}).name||'un jugador'),-1)}catch(_){}if(!take(100)){toast('Te faltan euros','Un mensajito cuesta 100 €','var(--coral)','💸');sfx('lose');return}sentAt=Date.now()+4000;
     try{await NET.db.collection('cmds/'+id+'/q').add({type:'troll',from:NET.id,text,t:Date.now()});ev('sent');sfx('coin');toast('Mensajito enviado',esc(text)+' · −100 €','var(--pink)','💬');$('#modal').hidden=true;
       if(!SEND.includes(text)){S.myTrolls=[text,...(S.myTrolls||[]).filter(x=>x!==text)].slice(0,6)}save()}
     catch(err){S.coins+=100;toast('No se ha podido enviar','Te devuelvo los 100 €','var(--coral)','⚠️')}};
@@ -6687,6 +6696,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-31-c',t:'Mira otras ligas y tus regalos',items:[['👀','Mira cómo van las otras ligas','En Clasificación › Liga toca Bronce, Plata, Oro, Diamante o Maestro para ver quién va primero allí. Solo es para mirar: compites en la tuya.','new','#ffd600'],['🎁','Movimientos: de quién y para quién','En tus 💸 Movimientos ahora sale de quién te llega cada regalo, a quién se lo has mandado tú y a quién le has enviado mensajitos.','new','#14e08a']]},
  {v:'2026-10-31-b',t:'Varias pestañas abiertas',items:[['📱','Abrir otra pestaña ya no te quita la partida','Si abres Casinetori en otra pestaña, la nueva se queda en pausa y te pregunta. Solo pasa a jugar ahí si pulsas «Jugar aquí».','fix','#3f7cff']]},
  {v:'2026-10-31-a',t:'🏆 Premios para el podio de Halloween',items:[['🎃','Podio de caramelos con premio','Al acabar Halloween (2 nov a las 00:00): 🥇 título «Rey Calabaza 2026», marco «Corona de calabazas» y el 50 % de tu dinero · 🥈 «Príncipe Calabaza 2026» y el 30 % · 🥉 «Duque Calabaza 2026» y el 15 % · del 4.º al 10.º, el 5 %. ¡Aún estás a tiempo!','new','#ff7a00']]},
  {v:'2026-10-29-e',t:'🔔 Avisos aunque estés en otra pestaña',items:[['🔔','Avisos del navegador','Actívalos en Inicio o en Ajustes y te avisaré de regalos, mensajes de tus amigos, respuestas del jefe, eventos que empiezan, el botón rojo y el Gran Premio de Cine, aunque tengas el juego en otra pestaña o minimizado.','new','#3f7cff']]},
@@ -15629,6 +15639,31 @@ try{i18nAdd([['🏆 Premios para el podio de Halloween','🏆 Prizes for the Hal
 try{if(!FAQ.some(x=>x[0]==='¿Qué gana el podio de Halloween?'))FAQ.unshift(['¿Qué gana el podio de Halloween?','1.º: título «👑 Rey Calabaza 2026», marco «Corona de calabazas» y el 50 % de tu dinero. 2.º: título «Príncipe Calabaza 2026» y el 30 %. 3.º: título «Duque Calabaza 2026» y el 15 %. Del 4.º al 10.º: el 5 %. Se cobra al entrar después del 2 de noviembre.'])}catch(e){}
 try{i18nAdd([['Varias pestañas abiertas','Several tabs open','Plusieurs onglets ouverts','Várias abas abertas'],['Abrir otra pestaña ya no te quita la partida','Opening another tab no longer steals your game','Ouvrir un autre onglet ne te vole plus ta partie','Abrir outra aba já não te tira o jogo'],['Si abres Casinetori en otra pestaña, la nueva se queda en pausa y te pregunta. Solo pasa a jugar ahí si pulsas «Jugar aquí».','If you open Casinetori in another tab, the new one stays paused and asks you. It only takes over if you press «Play here».','Si tu ouvres Casinetori dans un autre onglet, le nouveau reste en pause et te demande. Il ne prend le relais que si tu appuies sur «Jouer ici».','Se abrires o Casinetori noutra aba, a nova fica em pausa e pergunta-te. Só passa a jogar lá se carregares em «Jogar aqui».']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='Me sale «Tu partida está abierta en otro sitio»'))FAQ.unshift(['Me sale «Tu partida está abierta en otro sitio»','Tienes el juego abierto en otra pestaña, móvil u ordenador. Para no perder dinero, solo se juega en un sitio a la vez. Pulsa «Jugar aquí» para seguir en esta pantalla; la otra se quedará en pausa.'])}catch(e){}
+/* ===== 2026-10-31: Movimientos dice de quién te llega cada regalo y a quién se lo mandas tú ===== */
+{const _miF=movIco;movIco=function(c,l){if(/^Mensajito/.test(String(l)))return'💬';if(/devuelto/.test(String(l)))return'↩️';return _miF.apply(this,arguments)}}
+function movForce(l,sign){MOV.force={t:Date.now()+3000,l:String(l).slice(0,90),sign:sign||0,once:1}}
+{const _mlF=movLabel;movLabel=function(ctx,d){const f=MOV.force;if(f&&ctx!=='v:pasivo'&&Date.now()<f.t&&(!f.sign||Math.sign(d)===f.sign)){if(f.once)MOV.force=null;return f.l}return _mlF.apply(this,arguments)}}
+{const _agF=applyGifts;applyGifts=function(list){try{S.cmdDone=S.cmdDone||[];const fr=(list||[]).filter(([id])=>!S.cmdDone.includes(id));
+    if(fr.length){const by=new Map();fr.forEach(([id,c])=>{const nm=(NET.players.get(c.from)||{}).name||'un jugador';const k=(c.ref?'ref:':'')+nm;by.set(k,(by.get(k)||0)+Math.max(0,Math.floor(+c.n||0)))});
+      const parts=[...by].map(([k,v])=>(k.startsWith('ref:')?k.slice(4)+' (por invitarle)':k)+(by.size>1?' ('+short(v)+' €)':''));
+      movForce((fr.length>1&&by.size>1?'Regalos de ':'Regalo de ')+(parts.length>3?parts.slice(0,3).join(', ')+' y '+(parts.length-3)+' más':parts.join(', ').replace(/, ([^,]*)$/,' y $1')),1)}}catch(e){}
+  return _agF.apply(this,arguments)}}
+/* ===== 2026-10-31: 👀 mirar las otras ligas (solo para ver, se compite solo en la tuya) ===== */
+let LGV=null;
+function lgCounts(){const w=WK(),c=[0,0,0,0,0];try{others().forEach(p=>{if(+p.wk===w&&+p.wp>0){const l=Math.min(4,Math.max(0,+p.lg||0));c[l]++}})}catch(e){}c[S.lg||0]++;return c}
+{const _rlS=rankList;rankList=function(tab,cat){if(cat==='liga'&&LGV!=null&&LGV!==(S.lg||0)){const w=WK();return _rlS(tab,'coins').filter(p=>!p.me&&+p.wk===w&&(+p.lg||0)===LGV&&+p.wp>0).sort((a,b)=>pval(b,'liga')-pval(a,'liga'))}return _rlS.apply(this,arguments)}}
+{const _rrS=renderRank;renderRank=function(){if(view!=='ranking'||rkCat!=='liga')LGV=null;const r=_rrS.apply(this,arguments);try{if(view!=='ranking'||rkCat!=='liga')return r;const box=$('#lgBox');if(!box)return r;
+  const mine=S.lg||0,see=LGV==null?mine:LGV,cnt=lgCounts(),T=box.querySelector('.lgtiers');
+  if(T){const h=LG.map((x,i)=>`<button type="button" class="lgsee${i===mine?' on':''}${i===see?' see':''}" style="--c:${x[2]}" data-lgv="${i}" aria-pressed="${i===see}">${x[1]} ${x[0]}<small>${cnt[i]} ${cnt[i]===1?'jugador':'jugadores'}${i===mine?' · la tuya':''}</small></button>`).join('');
+    if(T._h!==h){T._h=h;T.innerHTML=h;T.classList.add('lgsel')}
+    let tip=box.querySelector('.lgseetip');const th=see===mine?'👀 Toca otra liga para ver cómo va la gente allí.':`👀 Estás mirando la <b>Liga ${LG[see][0]}</b> (${cnt[see]} ${cnt[see]===1?'jugador':'jugadores'}). Solo es para mirar: tú compites en la Liga ${LG[mine][0]}. <button type="button" class="lgback" data-lgv="${mine}">${LG[mine][1]} Volver a mi liga</button>`;
+    if(!tip){T.insertAdjacentHTML('afterend','<div class="lgseetip"></div>');tip=box.querySelector('.lgseetip')}if(tip._h!==th){tip._h=th;tip.innerHTML=th}}
+  if(see!==mine){const mp=$('#rkMyPos');if(mp)mp.innerHTML='';const L=$('#rkList');if(L&&!L.querySelector('.rkr')&&!L.querySelector('.lgempty'))L.insertAdjacentHTML('afterbegin',`<p class="lgempty">Nadie ha jugado todavía esta semana en la Liga ${LG[see][0]}.</p>`)}
+  }catch(e){}return r}}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-lgv]');if(!b)return;const i=+b.dataset.lgv;LGV=i===(S.lg||0)?null:i;try{sfx('click')}catch(_){}renderRank()});
+try{const t=TUTOS.find(x=>x[1]==='Ligas y temporadas');if(t&&!t[4].some(x=>/otras ligas/.test(x[0])))t[4].push(['En <b>Clasificación › Liga</b> puedes tocar <b>otras ligas</b> para ver cómo va la gente allí. Solo es para mirar: compites en la tuya.'])}catch(e){}
+try{i18nAdd([['Mira otras ligas y tus regalos','See other leagues and your gifts','Regarde les autres ligues et tes cadeaux','Vê outras ligas e as tuas prendas'],['Mira cómo van las otras ligas','See how the other leagues are going','Regarde comment vont les autres ligues','Vê como vão as outras ligas'],['En Clasificación › Liga toca Bronce, Plata, Oro, Diamante o Maestro para ver quién va primero allí. Solo es para mirar: compites en la tuya.','In Leaderboard › League tap Bronze, Silver, Gold, Diamond or Master to see who leads there. It\'s just to look: you compete in yours.','Dans Classement › Ligue, touche Bronze, Argent, Or, Diamant ou Maître pour voir qui mène. C\'est juste pour regarder : tu joues dans la tienne.','Em Classificação › Liga toca em Bronze, Prata, Ouro, Diamante ou Mestre para ver quem lidera. É só para ver: competes na tua.'],['Movimientos: de quién y para quién','Transactions: from whom and to whom','Mouvements : de qui et pour qui','Movimentos: de quem e para quem'],['En tus 💸 Movimientos ahora sale de quién te llega cada regalo, a quién se lo has mandado tú y a quién le has enviado mensajitos.','Your 💸 Transactions now show who each gift came from, who you sent gifts to and who you sent little messages to.','Tes 💸 Mouvements montrent maintenant qui t\'a fait chaque cadeau, à qui tu en as envoyé et à qui tu as envoyé des petits messages.','Os teus 💸 Movimentos agora mostram de quem vem cada prenda, a quem as enviaste e a quem mandaste mensagens.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Puedo ver las otras ligas?'))FAQ.unshift(['¿Puedo ver las otras ligas?','Sí. En Clasificación › Liga toca cualquier liga (Bronce, Plata, Oro, Diamante o Maestro) para ver quién va primero allí. Solo es para mirar: compites en la tuya.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
