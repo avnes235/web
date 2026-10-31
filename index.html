@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-30-2334">
+<meta name="app-version" content="2026-10-31-0952">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -6687,6 +6687,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-31-b',t:'Varias pestañas abiertas',items:[['📱','Abrir otra pestaña ya no te quita la partida','Si abres Casinetori en otra pestaña, la nueva se queda en pausa y te pregunta. Solo pasa a jugar ahí si pulsas «Jugar aquí».','fix','#3f7cff']]},
  {v:'2026-10-31-a',t:'🏆 Premios para el podio de Halloween',items:[['🎃','Podio de caramelos con premio','Al acabar Halloween (2 nov a las 00:00): 🥇 título «Rey Calabaza 2026», marco «Corona de calabazas» y el 50 % de tu dinero · 🥈 «Príncipe Calabaza 2026» y el 30 % · 🥉 «Duque Calabaza 2026» y el 15 % · del 4.º al 10.º, el 5 %. ¡Aún estás a tiempo!','new','#ff7a00']]},
  {v:'2026-10-29-e',t:'🔔 Avisos aunque estés en otra pestaña',items:[['🔔','Avisos del navegador','Actívalos en Inicio o en Ajustes y te avisaré de regalos, mensajes de tus amigos, respuestas del jefe, eventos que empiezan, el botón rojo y el Gran Premio de Cine, aunque tengas el juego en otra pestaña o minimizado.','new','#3f7cff']]},
  {v:'2026-10-29-d',t:'Apuesta gratis más clara',items:[['🎁','Apuesta gratis: se ve mejor y vuelves a tu apuesta','El cartel de la apuesta gratis se ve mucho más. Cuando ves el anuncio te avisa en grande y, al usarla, vuelves solo a la apuesta que tenías antes.','fix','#14e08a'],['🔢','Escribir tu apuesta sin que se borre','Si borras el primer número (el 5 de 5.000.000), se queda 000.000 y puedes escribir otro delante. Y puedes borrar junto a los puntos.','fix','#ffd600']]},
@@ -7354,20 +7355,34 @@ function topWhyNot(){const near=[];GLIST.forEach(([g,n])=>DIFFS.forEach(([d,dn_]
 (function(){if(S.amnesty2)return;S.amnesty2=true;if(S.strikes||(S.fabLock||0)>Date.now()){S.strikes=0;S.fabLock=0;S.cheatWarn=0;setTimeout(()=>toast('Fábrica desbloqueada','Hemos arreglado el detector de autoclicker. Si te multó sin razón, díselo al jefe por el buzón.','var(--mint)','🕊️'),3500)}save()})();
 
 /* ---- Una sola sesión por cuenta (evita que dos móviles se pisen el dinero) ---- */
-const SID=Math.random().toString(36).slice(2)+Date.now().toString(36);
-async function sessClaim(){if(!NET.ok||!NET.db||!NET.id)return;try{await NET.db.collection('data/users/'+NET.id).doc('sess').set({sid:SID,t:Date.now(),ua:navigator.userAgent.slice(0,80)})}catch(e){}}
+/* 2026-10-31: el SID se guarda en la pestaña (al recargar sigue siendo la misma partida) y se habla con las otras pestañas */
+let SID=(()=>{try{const v=sessionStorage.getItem('cas-sid');if(v)return v}catch(e){}return Math.random().toString(36).slice(2)+Date.now().toString(36)})();
+const SSBC=(()=>{try{return new BroadcastChannel('cas-sess')}catch(e){return null}})();let sessMyT=0;
+function sessNewSid(){SID=Math.random().toString(36).slice(2)+Date.now().toString(36);try{sessionStorage.setItem('cas-sid',SID)}catch(e){}}
+try{sessionStorage.setItem('cas-sid',SID)}catch(e){}
+if(SSBC){SSBC.__me=Math.random().toString(36).slice(2);SSBC.onmessage=ev=>{const m=ev.data||{};
+  if(m.q==='sid'&&m.sid===SID&&m.from!==SSBC.__me)SSBC.postMessage({a:'dup',to:m.from});
+  if(m.a==='dup'&&m.to===SSBC.__me)sessNewSid();
+  if(m.q==='alive'&&m.from!==SSBC.__me&&NET.sessOn&&!NET.kicked)SSBC.postMessage({a:'alive',to:m.from})};
+  SSBC.postMessage({q:'sid',sid:SID,from:SSBC.__me})}
+function sessOtherTab(){return new Promise(r=>{if(!SSBC)return r(false);let yes=false;const me=SSBC.__me;const f=ev=>{const m=ev.data||{};if(m.a==='alive'&&m.to===me)yes=true};SSBC.addEventListener('message',f);SSBC.postMessage({q:'alive',from:me});setTimeout(()=>{SSBC.removeEventListener('message',f);r(yes)},500)})}
+function sessShow(){NET.kicked=true;let b=$('#ssBar');if(!b){b=document.createElement('div');b.id='ssBar';document.body.appendChild(b)}
+    b.innerHTML=`<span class="e">📱</span><span class="t"><b>Tu partida está abierta en otro sitio</b><small>Estás jugando en otro móvil, ordenador o pestaña. Lo que hagas aquí no se guardaría, así que está en pausa. Pulsa el botón para seguir jugando aquí con todo tu dinero.</small></span><button class="btn big" id="ssHere">▶ Jugar aquí</button>`;
+    $('#ssHere').onclick=()=>{$('#ssHere').disabled=true;sessHere()}}
+async function sessClaim(){if(!NET.ok||!NET.db||!NET.id)return;sessMyT=Date.now();try{await NET.db.collection('data/users/'+NET.id).doc('sess').set({sid:SID,t:Date.now(),ua:navigator.userAgent.slice(0,80)})}catch(e){}}
 let sessT0=0,sessSeen=false;
 async function sessHere(){const b=$('#ssBar');if(b)b.classList.add('busy');try{const sv=await NET.db.collection('data/users/'+NET.id).doc('save').get();const c=sv.exists?JSON.parse((sv.data()||{}).json||'null'):null;if(c&&typeof c==='object')applyCloud(c)}catch(e){}
-  NET.kicked=false;sessT0=Date.now();sessSeen=false;await sessClaim();if(b)b.remove();NET.lastP='';pushPlayer();try{renderMe()}catch(e){}toast('Jugando aquí','Tu partida se ha cargado en este dispositivo','var(--mint)','✅')}
-function sessWatch(){try{if(OLD_SITE)return}catch(e){}if(!NET.ok||!NET.db||!NET.id||NET.sessOn)return;NET.sessOn=true;sessT0=Date.now();sessClaim();
+  NET.kicked=false;sessT0=Date.now();sessSeen=false;await sessClaim();sessSeen=true;if(b)b.remove();NET.lastP='';pushPlayer();try{renderMe()}catch(e){}toast('Jugando aquí','Tu partida se ha cargado en este dispositivo','var(--mint)','✅')}
+async function sessWatch(){try{if(OLD_SITE)return}catch(e){}if(!NET.ok||!NET.db||!NET.id||NET.sessOn)return;NET.sessOn=true;sessT0=Date.now();
+  /* si ya hay otra pestaña jugando en este navegador, no le quitamos la partida: preguntamos */
+  if(await SS_EARLY||await sessOtherTab())sessShow();else sessClaim();
   NET.db.collection('data/users/'+NET.id).doc('sess').onSnapshot(sn=>{const d=sn.exists?sn.data():null;if(!d||!d.sid||sn.metadata&&sn.metadata.hasPendingWrites)return;if(d.sid===SID){sessSeen=true;return}if(NET.kicked)return;
-    /* al recargar puede llegar primero la sesión vieja: si aún no hemos visto la nuestra y es anterior a nuestra entrada, no es otro dispositivo */
-    if(!sessSeen&&(+d.t||0)<=sessT0+1500)return;
-    NET.kicked=true;let b=$('#ssBar');if(!b){b=document.createElement('div');b.id='ssBar';document.body.appendChild(b)}
-    b.innerHTML=`<span class="e">📱</span><span class="t"><b>Tu partida está abierta en otro sitio</b><small>Estás jugando en otro móvil, ordenador o pestaña. Lo que hagas aquí no se guardaría, así que está en pausa. Pulsa el botón para seguir jugando aquí con todo tu dinero.</small></span><button class="btn big" id="ssHere">▶ Jugar aquí</button>`;
-    $('#ssHere').onclick=()=>{$('#ssHere').disabled=true;sessHere()}},()=>{})}
-/* si vuelves a esta pestaña o app, se recupera sola */
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&NET.kicked&&$('#ssBar')&&!$('#ssBar').classList.contains('busy'))setTimeout(()=>{if(document.visibilityState==='visible'&&NET.kicked)sessHere()},600)});
+    /* al recargar puede llegar primero la sesión vieja (anterior a nuestra entrada): esa no cuenta */
+    if(!sessSeen&&(+d.t||0)<sessMyT)return;
+    sessShow()},()=>{})}
+/* nada más abrir la pestaña: si otra ya está jugando, en pausa desde el primer segundo (así no pisa el guardado) */
+const SS_EARLY=sessOtherTab().then(y=>{if(y)sessShow();return y});
+/* ya no se recupera sola al volver a la pestaña: hay que pulsar «Jugar aquí» */
 setTimeout(sessWatch,3000);setInterval(()=>{if(NET.ok&&!NET.sessOn)sessWatch()},20000);
 const _svK=save;save=function(){if(NET&&NET.kicked)return;return _svK.apply(this,arguments)};
 
@@ -15612,6 +15627,8 @@ setInterval(()=>{try{if(NET.ok)NET.lastOk=Date.now()}catch(e){}},2000);
 {const _tnSt=tnHome;tnHome=function(){try{const c=$('#tnHome');if(c&&!NET.ok&&c._seen&&Date.now()-(NET.lastOk||0)<60000)return}catch(e){}return _tnSt.apply(this,arguments)}}
 try{i18nAdd([['🏆 Premios para el podio de Halloween','🏆 Prizes for the Halloween podium','🏆 Prix pour le podium d\'Halloween','🏆 Prémios para o pódio do Halloween'],['Podio de caramelos con premio','Candy podium with prizes','Podium des bonbons avec prix','Pódio de rebuçados com prémios'],['Al acabar Halloween (2 nov a las 00:00): 🥇 título «Rey Calabaza 2026», marco «Corona de calabazas» y el 50 % de tu dinero · 🥈 «Príncipe Calabaza 2026» y el 30 % · 🥉 «Duque Calabaza 2026» y el 15 % · del 4.º al 10.º, el 5 %. ¡Aún estás a tiempo!','When Halloween ends (2 Nov at 00:00): 🥇 «Pumpkin King 2026» title, «Pumpkin Crown» frame and 50% of your money · 🥈 «Pumpkin Prince 2026» and 30% · 🥉 «Pumpkin Duke 2026» and 15% · 4th to 10th, 5%. There\'s still time!','À la fin d\'Halloween (2 nov à 00:00) : 🥇 titre « Roi Citrouille 2026 », cadre « Couronne de citrouilles » et 50 % de ton argent · 🥈 « Prince Citrouille 2026 » et 30 % · 🥉 « Duc Citrouille 2026 » et 15 % · du 4e au 10e, 5 %. Il est encore temps !','Quando acabar o Halloween (2 nov às 00:00): 🥇 título «Rei Abóbora 2026», moldura «Coroa de abóboras» e 50 % do teu dinheiro · 🥈 «Príncipe Abóbora 2026» e 30 % · 🥉 «Duque Abóbora 2026» e 15 % · do 4.º ao 10.º, 5 %. Ainda vais a tempo!']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Qué gana el podio de Halloween?'))FAQ.unshift(['¿Qué gana el podio de Halloween?','1.º: título «👑 Rey Calabaza 2026», marco «Corona de calabazas» y el 50 % de tu dinero. 2.º: título «Príncipe Calabaza 2026» y el 30 %. 3.º: título «Duque Calabaza 2026» y el 15 %. Del 4.º al 10.º: el 5 %. Se cobra al entrar después del 2 de noviembre.'])}catch(e){}
+try{i18nAdd([['Varias pestañas abiertas','Several tabs open','Plusieurs onglets ouverts','Várias abas abertas'],['Abrir otra pestaña ya no te quita la partida','Opening another tab no longer steals your game','Ouvrir un autre onglet ne te vole plus ta partie','Abrir outra aba já não te tira o jogo'],['Si abres Casinetori en otra pestaña, la nueva se queda en pausa y te pregunta. Solo pasa a jugar ahí si pulsas «Jugar aquí».','If you open Casinetori in another tab, the new one stays paused and asks you. It only takes over if you press «Play here».','Si tu ouvres Casinetori dans un autre onglet, le nouveau reste en pause et te demande. Il ne prend le relais que si tu appuies sur «Jouer ici».','Se abrires o Casinetori noutra aba, a nova fica em pausa e pergunta-te. Só passa a jogar lá se carregares em «Jogar aqui».']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='Me sale «Tu partida está abierta en otro sitio»'))FAQ.unshift(['Me sale «Tu partida está abierta en otro sitio»','Tienes el juego abierto en otra pestaña, móvil u ordenador. Para no perder dinero, solo se juega en un sitio a la vez. Pulsa «Jugar aquí» para seguir en esta pantalla; la otra se quedará en pausa.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
