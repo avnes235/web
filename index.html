@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-31-1018">
+<meta name="app-version" content="2026-10-31-1029">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3146,6 +3146,13 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .lgbox .lgseetip{margin-top:8px;font-weight:700;font-size:13px;line-height:1.4}
 .lgbox .lgback{appearance:none;cursor:pointer;margin-left:6px;padding:4px 10px;border-radius:99px;border:2px solid var(--lc);background:transparent;color:var(--lc);font:900 12px var(--f-b,system-ui)}
 .lgempty{text-align:center;font-weight:700;opacity:.75;padding:18px 8px}
+#rkList .rkr.zup{box-shadow:inset 4px 0 0 #14e08a}
+#rkList .rkr.zdn{box-shadow:inset 4px 0 0 #ff3b4f}
+.lgzt{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:99px;font:900 11px var(--f-b,system-ui);vertical-align:middle;white-space:nowrap}
+.lgzt.zup{background:rgba(20,224,138,.16);color:#14e08a}.lgzt.zdn{background:rgba(255,59,79,.16);color:#ff6b7c}
+.podium .lgzt{display:block;margin:3px auto 0;width:max-content}
+.lgbox .lgzleg{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;font-weight:900;font-size:13px}
+.lgbox .lgzleg span{padding:4px 10px;border-radius:99px}.lgbox .lgzleg .zup{background:rgba(20,224,138,.15);color:#14e08a}.lgbox .lgzleg .zdn{background:rgba(255,59,79,.15);color:#ff6b7c}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -13194,7 +13201,7 @@ function lgCutHTML(kind,k,lg){const N=kind==='up'?LG[Math.min(4,lg+1)]:LG[Math.m
   const ch=kind==='up'?'<i>︽</i><i>︽</i><i>︽</i>':'<i>︾</i><i>︾</i><i>︾</i>';
   return`<div class="lgcut lgc-${kind}" style="--nc:${N[2]}"><span class="ch">${ch}</span><span class="lt"><span class="emo">${N[1]}</span> <b>${t}</b></span><span class="ch">${ch}</span></div>`}
 function lgCuts(){try{if(view!=='ranking'||rkCat!=='liga')return;const L=$('#rkList');if(!L)return;L.querySelectorAll('.lgcut').forEach(x=>x.remove());
-  const i=lgInfo(),rows=[...L.querySelectorAll('.rkr')];if(!rows.length)return;const pos=r=>+((r.querySelector('.pos')||{}).textContent||0);
+  const lgS=LGV==null?(S.lg||0):LGV,nS=rankList(rkTab,'liga').length,i={lg:lgS,n:nS,up:lgUps(nS,lgS),dn:lgDowns(nS,lgS)},rows=[...L.querySelectorAll('.rkr')];if(!rows.length)return;const pos=r=>+((r.querySelector('.pos')||{}).textContent||0);
   if(i.up&&i.n>i.up){const r=rows.find(x=>pos(x)===i.up+1);if(r)r.insertAdjacentHTML('beforebegin',lgCutHTML('up',i.up,i.lg))}
   if(i.dn){const r=rows.find(x=>pos(x)===i.n-i.dn+1);if(r)r.insertAdjacentHTML('beforebegin',lgCutHTML('down',i.dn,i.lg))}}catch(e){}}
 {const _rrCut=renderRank;renderRank=function(){const r=_rrCut.apply(this,arguments);lgCuts();return r}}
@@ -15649,7 +15656,7 @@ function movForce(l,sign){MOV.force={t:Date.now()+3000,l:String(l).slice(0,90),s
       movForce((fr.length>1&&by.size>1?'Regalos de ':'Regalo de ')+(parts.length>3?parts.slice(0,3).join(', ')+' y '+(parts.length-3)+' más':parts.join(', ').replace(/, ([^,]*)$/,' y $1')),1)}}catch(e){}
   return _agF.apply(this,arguments)}}
 /* ===== 2026-10-31: 👀 mirar las otras ligas (solo para ver, se compite solo en la tuya) ===== */
-let LGV=null;
+var LGV=null;
 function lgCounts(){const w=WK(),c=[0,0,0,0,0];try{others().forEach(p=>{if(+p.wk===w&&+p.wp>0){const l=Math.min(4,Math.max(0,+p.lg||0));c[l]++}})}catch(e){}c[S.lg||0]++;return c}
 {const _rlS=rankList;rankList=function(tab,cat){if(cat==='liga'&&LGV!=null&&LGV!==(S.lg||0)){const w=WK();return _rlS(tab,'coins').filter(p=>!p.me&&+p.wk===w&&(+p.lg||0)===LGV&&+p.wp>0).sort((a,b)=>pval(b,'liga')-pval(a,'liga'))}return _rlS.apply(this,arguments)}}
 {const _rrS=renderRank;renderRank=function(){if(view!=='ranking'||rkCat!=='liga')LGV=null;const r=_rrS.apply(this,arguments);try{if(view!=='ranking'||rkCat!=='liga')return r;const box=$('#lgBox');if(!box)return r;
@@ -15664,6 +15671,18 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
 try{const t=TUTOS.find(x=>x[1]==='Ligas y temporadas');if(t&&!t[4].some(x=>/otras ligas/.test(x[0])))t[4].push(['En <b>Clasificación › Liga</b> puedes tocar <b>otras ligas</b> para ver cómo va la gente allí. Solo es para mirar: compites en la tuya.'])}catch(e){}
 try{i18nAdd([['Mira otras ligas y tus regalos','See other leagues and your gifts','Regarde les autres ligues et tes cadeaux','Vê outras ligas e as tuas prendas'],['Mira cómo van las otras ligas','See how the other leagues are going','Regarde comment vont les autres ligues','Vê como vão as outras ligas'],['En Clasificación › Liga toca Bronce, Plata, Oro, Diamante o Maestro para ver quién va primero allí. Solo es para mirar: compites en la tuya.','In Leaderboard › League tap Bronze, Silver, Gold, Diamond or Master to see who leads there. It\'s just to look: you compete in yours.','Dans Classement › Ligue, touche Bronze, Argent, Or, Diamant ou Maître pour voir qui mène. C\'est juste pour regarder : tu joues dans la tienne.','Em Classificação › Liga toca em Bronze, Prata, Ouro, Diamante ou Mestre para ver quem lidera. É só para ver: competes na tua.'],['Movimientos: de quién y para quién','Transactions: from whom and to whom','Mouvements : de qui et pour qui','Movimentos: de quem e para quem'],['En tus 💸 Movimientos ahora sale de quién te llega cada regalo, a quién se lo has mandado tú y a quién le has enviado mensajitos.','Your 💸 Transactions now show who each gift came from, who you sent gifts to and who you sent little messages to.','Tes 💸 Mouvements montrent maintenant qui t\'a fait chaque cadeau, à qui tu en as envoyé et à qui tu as envoyé des petits messages.','Os teus 💸 Movimentos agora mostram de quem vem cada prenda, a quem as enviaste e a quem mandaste mensagens.']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Puedo ver las otras ligas?'))FAQ.unshift(['¿Puedo ver las otras ligas?','Sí. En Clasificación › Liga toca cualquier liga (Bronce, Plata, Oro, Diamante o Maestro) para ver quién va primero allí. Solo es para mirar: compites en la tuya.'])}catch(e){}
+/* ===== 2026-10-31: zona de subida y de bajada siempre a la vista en la clasificación de la liga ===== */
+{const _rrZ=renderRank;renderRank=function(){const r=_rrZ.apply(this,arguments);try{if(view!=='ranking'||rkCat!=='liga')return r;
+  const lg=LGV==null?(S.lg||0):LGV,arr=rankList(rkTab,'liga'),n=arr.length,up=lgUps(n,lg),dn=lgDowns(n,lg);
+  const L=$('#rkList');if(L){const rows=[...L.querySelectorAll('.rkr')];
+    rows.forEach((row,i)=>{row.classList.remove('zup','zdn');const tag=row.querySelector('.lgzt');if(tag)tag.remove();
+      const z=i<up?'zup':(dn&&i>=n-dn)?'zdn':'';if(!z)return;row.classList.add(z);const b=row.querySelector('b');if(b)b.insertAdjacentHTML('afterend',`<span class="lgzt ${z}">${z==='zup'?'🔼 Sube':'🔽 Baja'}</span>`)});
+    }
+  document.querySelectorAll('#v-ranking .podium .pod').forEach(p=>{const t=p.querySelector('.lgzt');if(t)t.remove();const k=+(p.className.match(/\bp(\d)\b/)||[])[1];if(!k||p.classList.contains('empty'))return;const i=k-1;
+    const z=i<up?'zup':(dn&&i>=n-dn)?'zdn':'';if(z){const b=p.querySelector('b');if(b)b.insertAdjacentHTML('afterend',`<span class="lgzt ${z}">${z==='zup'?'🔼 Sube':'🔽 Baja'}</span>`)}});
+  const box=$('#lgBox');if(box){let lz=box.querySelector('.lgzleg');const h=n<2?(lg<4?`🔼 Si solo juega 1, sube con ${fmt(LG_SOLO[lg])} puntos.`:''):`<span class="zup">🔼 Suben: ${up?(up===1?'el 1º':'los '+up+' primeros'):'nadie (es la más alta)'}</span><span class="zdn">🔽 Bajan: ${dn?(dn===1?'el último':'los '+dn+' últimos'):lg===0?'nadie (es la primera)':'nadie (hacen falta 5 o más)'}</span>`;
+    if(!lz){box.insertAdjacentHTML('beforeend','<div class="lgzleg"></div>');lz=box.querySelector('.lgzleg')}if(lz._h!==h){lz._h=h;lz.innerHTML=h}}
+  }catch(e){}return r}}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
