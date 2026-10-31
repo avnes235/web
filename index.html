@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-31-1042">
+<meta name="app-version" content="2026-10-31-1223">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -6329,7 +6329,7 @@ function renderPerfil(){const c=myCos(),L=S.lvl,t=tiText();
 $('#pfBody').addEventListener('click',e=>{const b=e.target.closest('[data-set],[data-show],#pfNameBtn');if(!b||b.disabled)return;
   if(b.id==='pfNameBtn'){const nm=$('#pfName').value.trim().replace(/\s+/g,' '),msg=$('#pfNameMsg');
     if(nm.length<2){msg.textContent='Ponte un nombre de 2 a 14 letras.';return}if(badTxt(nm)){msg.textContent='Ese nombre no está permitido. Elige otro.';return}if(nm===S.name){msg.textContent='Ya te llamas así.';return}
-    if(!take(1000)){msg.textContent='Te faltan '+short(1000-S.coins)+' € para cambiarte el nombre.';sfx('lose');return}
+    try{movForce('Cambio de nombre',-1)}catch(_){}if(!take(1000)){msg.textContent='Te faltan '+short(1000-S.coins)+' € para cambiarte el nombre.';sfx('lose');return}
     S.name=nm.slice(0,14);S.code=codeFor();sfx('buy');toast('Nombre cambiado',esc(S.name),'var(--mint)','🏷️');save();NET.lastP='';pushPlayer();renderMe();renderPerfil();return}
   if(b.dataset.show!=null){const i=+b.dataset.show;let sh=showList();if(sh.includes(i))sh=sh.filter(x=>x!==i);else{if(sh.length>=3){toast('Vitrina llena','Quita algo antes de poner otra cosa','var(--coral)','🗄️');return}sh.push(i)}S.show=sh}
   else{const k=b.dataset.set,v=b.dataset.val;if(k==='av')S.av=v;else myCos()[k]=v}
@@ -6725,6 +6725,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-10-31-d',t:'Arreglos: Movimientos y chat',items:[['💸','Movimientos con el nombre correcto','Los duelos y botes online ahora salen como «Duelo online contra…» y nunca con el nombre de otro aviso (como «Premio por hora» en una pérdida).','fix','#14e08a'],['💬','El chat ya no se sube solo','Si estás abajo del todo, el chat se queda abajo aunque carguen fotos o escribas varias líneas.','fix','#3f7cff']]},
  {v:'2026-10-31-c',t:'Mira otras ligas y tus regalos',items:[['👀','Mira cómo van las otras ligas','En Clasificación › Liga toca Bronce, Plata, Oro, Diamante o Maestro para ver quién va primero allí. Solo es para mirar: compites en la tuya.','new','#ffd600'],['🎁','Movimientos: de quién y para quién','En tus 💸 Movimientos ahora sale de quién te llega cada regalo, a quién se lo has mandado tú y a quién le has enviado mensajitos.','new','#14e08a']]},
  {v:'2026-10-31-b',t:'Varias pestañas abiertas',items:[['📱','Abrir otra pestaña ya no te quita la partida','Si abres Casinetori en otra pestaña, la nueva se queda en pausa y te pregunta. Solo pasa a jugar ahí si pulsas «Jugar aquí».','fix','#3f7cff']]},
  {v:'2026-10-31-a',t:'🏆 Premios para el podio de Halloween',items:[['🎃','Podio de caramelos con premio','Al acabar Halloween (2 nov a las 00:00): 🥇 título «Rey Calabaza 2026», marco «Corona de calabazas» y el 50 % de tu dinero · 🥈 «Príncipe Calabaza 2026» y el 30 % · 🥉 «Duque Calabaza 2026» y el 15 % · del 4.º al 10.º, el 5 %. ¡Aún estás a tiempo!','new','#ff7a00']]},
@@ -9747,7 +9748,7 @@ async function tnEnsure(t){if(!t.virt||TN.docs.has(t.id))return true;const ref=N
   catch(e){try{return(await ref.get()).exists}catch(_){return false}}}
 async function tnEnter(id){const t=tnGet(id);if(!t||!NET.ok)return;const now=Date.now();if(now<t.start||now>t.end-(TNG[t.game].dur+5)*1000)return toast('Ahora no se puede entrar','','var(--coral)','⏱️');
   const g=tnGate(t.fee,'tourn');if(g)return tnBlock(g);if(S.coins<t.fee)return toast('No te llega','Necesitas '+short(t.fee)+' €','var(--coral)','💸');
-  if(t.fee&&!await tnBigOk(t.fee,'Es la entrada del torneo.'))return;if(t.fee&&!take(t.fee))return;save();
+  if(t.fee&&!await tnBigOk(t.fee,'Es la entrada del torneo.'))return;try{movForce('Entrada del torneo «'+(t.name||'torneo')+'»',-1)}catch(_){}if(t.fee&&!take(t.fee))return;save();
   try{if(!await tnEnsure(t))throw 0;await NET.db.collection('tourn/'+id+'/in').doc(NET.id).set({name:S.name||'?',av:S.av||'😎',paid:t.fee,score:0,tries:0,t:FV().serverTimestamp()});
     S.tnMine=[{id,end:t.end},...(S.tnMine||[]).filter(x=>x.id!==id)].slice(0,40);save();sfx('buy');toast('¡Estás dentro!','Ya puedes jugar tu intento','var(--mint)','🏆');tnSubIns();olRefresh();
     setTimeout(()=>tnIntro(id),350)}
@@ -15717,6 +15718,37 @@ try{if(!FAQ.some(x=>x[0]==='¿Puedo ver las otras ligas?'))FAQ.unshift(['¿Puedo
   const box=$('#lgSel');if(box){let lz=box.querySelector('.lgzleg');const h=n<2?(lg<4?`🔼 Si solo juega 1, sube con ${fmt(LG_SOLO[lg])} puntos.`:''):`<span class="zup">🔼 Suben: ${up?(up===1?'el 1º':'los '+up+' primeros'):'nadie (es la más alta)'}</span><span class="zdn">🔽 Bajan: ${dn?(dn===1?'el último':'los '+dn+' últimos'):lg===0?'nadie (es la primera)':'nadie (hacen falta 5 o más)'}</span>`;
     if(!lz){box.insertAdjacentHTML('beforeend','<div class="lgzleg"></div>');lz=box.querySelector('.lgzleg')}if(lz._h!==h){lz._h=h;lz.innerHTML=h}}
   }catch(e){}return r}}
+/* ===== 2026-10-31: Movimientos — nombres siempre correctos (online, signo, cifras sueltas) ===== */
+/* el aviso solo vale si va en el mismo sentido que el dinero: un «Premio por hora» (+) no puede nombrar una pérdida (−) */
+function movMsgSign(t,s){const x=(t||'')+' '+(s||'');
+  if(/(^|\s)[−\-–]\s?\d|pierdes|perdido|perdiste|te quita|quitado|robad|impuesto|multa|cuesta|pagas|pagado|no perdona|deuda|cobra el banco/i.test(x))return-1;
+  if(/(^|\s)\+\s?\d|premio|ganas|ganado|ganaste|regalo|recibid|cobrad|te llevas|devuelv|recuperas|lluvia|cofre/i.test(x))return 1;return 0}
+const MOV_AMT=/^[−\-–+±]?\s?[\d.,]+\s*(mil|mill\.?|bill\.?|trill\.?|cuatrill\.?|quintill\.?)?\s*€?$/i;
+function movTidy(l){l=String(l||'').trim();const i=l.indexOf(' · ');if(i>0&&MOV_AMT.test(l.slice(0,i).trim())){l=l.slice(i+3).trim()}
+  l=l.replace(/^[−\-–+]\s?[\d.,]+\s*(mil|mill\.?|bill\.?|trill\.?|cuatrill\.?|quintill\.?)?\s*€\s*[·:\-]?\s*/i,'').trim();return l?l.charAt(0).toUpperCase()+l.slice(1):l}
+{const _mlS=movLabel;movLabel=function(ctx,d){const f=MOV.force;if(f&&ctx!=='v:pasivo'&&Date.now()<f.t&&(!f.sign||Math.sign(d)===f.sign))return _mlS.apply(this,arguments);
+  const m=MOV.msg;if(m){const sg=movMsgSign(m.title,m.sub);if(sg&&sg!==Math.sign(d)){const k=MOV.msg;MOV.msg=null;try{return movTidy(_mlS.apply(this,arguments))}finally{MOV.msg=k}}}
+  return movTidy(_mlS.apply(this,arguments))}}
+/* online: duelos, botes y sus resultados */
+{const _cdM=createDuel;createDuel=function(){let n='';try{const to=OL.to&&NET.players.get(OL.to);n=to&&to.name?' a '+to.name:''}catch(_){}movForce('Duelo online'+n+': tu apuesta',-1);return _cdM.apply(this,arguments)}}
+{const _jdM=joinDuel;joinDuel=function(id){let n='';try{const d=OL.duels.get(id);n=d&&d.byName?' contra '+d.byName:''}catch(_){}movForce('Duelo online'+n+': tu apuesta',-1);return _jdM.apply(this,arguments)}}
+{const _cpM=createPot;createPot=function(){movForce('Bote online: tu entrada',-1);return _cpM.apply(this,arguments)}}
+{const _jpM=joinPot;joinPot=function(){movForce('Bote online: tu entrada',-1);return _jpM.apply(this,arguments)}}
+{const _ohM=olHist;olHist=function(e){try{const vs=e&&e.vs?String(e.vs):'';if(e&&e.k==='d'){if(e.res==='win')movForce('Duelo online ganado'+(vs?' contra '+vs:''),1);else if(e.res==='tie')movForce('Duelo online empatado'+(vs?' con '+vs:'')+': recuperas tu apuesta',1)}
+    else if(e&&e.k==='p'){if(e.res==='win')movForce('Bote online ganado'+(vs?' ('+vs+')':''),1);else if(e.res==='tie')movForce('Bote online sin rivales: recuperas tu entrada',1)}}catch(_){}return _ohM.apply(this,arguments)}}
+{const _omM=olMark;olMark=function(k){if(/^c/.test(String(k)))movForce('Duelo online cancelado: recuperas tu apuesta',1);return _omM.apply(this,arguments)}}
+/* arreglar lo que ya estaba mal guardado */
+(function(){try{if(S.movFix1||!Array.isArray(S.mov))return;S.movFix1=1;S.mov.forEach(r=>{if(!r)return;let l=String(r[2]||'');const sg=/^(Regalo para|Mensajito|Entrada|Cambio de nombre|Duelo|Bote)|devuelto/.test(l)?0:movMsgSign(l,'');
+    if(sg&&r[1]&&sg!==Math.sign(r[1])){l=r[3]==='v:online'?(r[1]<0?'Duelo o bote online: tu apuesta':'Duelo o bote online'):(()=>{try{return ledName(r[3]).replace(/^📍 /,'')}catch(_){return'Otros'}})()}
+    r[2]=movTidy(l)});save()}catch(e){}})();
+/* ===== 2026-10-31: el chat no se sube solo: si estás abajo, se queda abajo aunque carguen fotos, crezca la caja de escribir o llegue algo ===== */
+document.addEventListener('scroll',e=>{const el=e.target;if(!el||!el.id||(el.id!=='chMsgs'&&el.id!=='tkMsgs'))return;if(el._prog&&Date.now()<el._prog)return;el._pin=el.scrollHeight-el.scrollTop-el.clientHeight<90},true);
+function chPinTick(){['chMsgs','tkMsgs'].forEach(id=>{const el=document.getElementById(id);if(!el||!el.offsetParent)return;if(el._pin===undefined)el._pin=true;
+  const sh=el.scrollHeight,ch=el.clientHeight;if((sh!==el._sh||ch!==el._ch)&&el._pin){el._prog=Date.now()+120;el.scrollTop=sh}el._sh=sh;el._ch=ch})}
+setInterval(chPinTick,150);
+{const _csP=chSend;chSend=function(){const el=$('#chMsgs');if(el){el._pin=true}return _csP.apply(this,arguments)}}
+{const _coP=chOpen;chOpen=function(){const r=_coP.apply(this,arguments);setTimeout(()=>{const el=$('#chMsgs');if(el)el._pin=true},0);return r}}
+try{i18nAdd([['Arreglos: Movimientos y chat','Fixes: Transactions and chat','Corrections : Mouvements et chat','Correções: Movimentos e chat'],['Movimientos con el nombre correcto','Transactions with the right name','Mouvements avec le bon nom','Movimentos com o nome certo'],['Los duelos y botes online ahora salen como «Duelo online contra…» y nunca con el nombre de otro aviso (como «Premio por hora» en una pérdida).','Online duels and pots now show as «Online duel against…» and never with the name of another notice (like «Hourly prize» on a loss).','Les duels et cagnottes en ligne s\'affichent comme «Duel en ligne contre…» et jamais avec le nom d\'une autre notification.','Os duelos e potes online aparecem como «Duelo online contra…» e nunca com o nome de outro aviso.'],['El chat ya no se sube solo','The chat no longer jumps up','Le chat ne remonte plus tout seul','O chat já não sobe sozinho'],['Si estás abajo del todo, el chat se queda abajo aunque carguen fotos o escribas varias líneas.','If you\'re at the bottom, the chat stays there even while photos load or you type several lines.','Si tu es tout en bas, le chat y reste même quand des photos chargent ou que tu écris plusieurs lignes.','Se estás no fundo, o chat fica lá mesmo quando as fotos carregam ou escreves várias linhas.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
