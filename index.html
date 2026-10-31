@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-31-1029">
+<meta name="app-version" content="2026-10-31-1042">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3137,22 +3137,44 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 /* marco «Corona de calabazas» (1.º de Halloween 2026) */
 .fr-hw26crown{box-shadow:0 0 0 3px #ff7a00,0 0 0 6px #ffd600,0 0 22px 6px #ff7a00aa!important;position:relative;animation:crownGlow 2.2s ease-in-out infinite}
 @keyframes crownGlow{0%,100%{box-shadow:0 0 0 3px #ff7a00,0 0 0 6px #ffd600,0 0 18px 4px #ff7a0088}50%{box-shadow:0 0 0 3px #ffd600,0 0 0 6px #ff7a00,0 0 30px 9px #ffd600aa}}
-.lgbox .lgtiers.lgsel{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
-.lgbox .lgsee{appearance:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 6px;border-radius:12px;border:2px solid var(--c);background:transparent;color:var(--c);font:900 14px var(--f-b,system-ui);line-height:1.15;transition:transform .12s}
-.lgbox .lgsee small{font-weight:700;font-size:11px;opacity:.85;color:inherit}
-.lgbox .lgsee:hover{transform:translateY(-2px)}
-.lgbox .lgsee.on{box-shadow:inset 0 0 0 2px var(--c)}
-.lgbox .lgsee.see{background:var(--c);color:#111}
-.lgbox .lgseetip{margin-top:8px;font-weight:700;font-size:13px;line-height:1.4}
-.lgbox .lgback{appearance:none;cursor:pointer;margin-left:6px;padding:4px 10px;border-radius:99px;border:2px solid var(--lc);background:transparent;color:var(--lc);font:900 12px var(--f-b,system-ui)}
 .lgempty{text-align:center;font-weight:700;opacity:.75;padding:18px 8px}
 #rkList .rkr.zup{box-shadow:inset 4px 0 0 #14e08a}
 #rkList .rkr.zdn{box-shadow:inset 4px 0 0 #ff3b4f}
 .lgzt{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:99px;font:900 11px var(--f-b,system-ui);vertical-align:middle;white-space:nowrap}
 .lgzt.zup{background:rgba(20,224,138,.16);color:#14e08a}.lgzt.zdn{background:rgba(255,59,79,.16);color:#ff6b7c}
 .podium .lgzt{display:block;margin:3px auto 0;width:max-content}
-.lgbox .lgzleg{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;font-weight:900;font-size:13px}
-.lgbox .lgzleg span{padding:4px 10px;border-radius:99px}.lgbox .lgzleg .zup{background:rgba(20,224,138,.15);color:#14e08a}.lgbox .lgzleg .zdn{background:rgba(255,59,79,.15);color:#ff6b7c}
+#lgSel{margin:12px 0;padding:14px}
+#lgSel .lgsh{font:900 20px var(--f-b,system-ui);margin-bottom:10px}#lgSel .lgsh small{display:block;font-size:13px;font-weight:700;opacity:.75;margin-top:2px}
+#lgSel .lgsg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:700px){#lgSel .lgsg{grid-template-columns:repeat(3,minmax(0,1fr))}}
+#lgSel .lgsee{position:relative;appearance:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:104px;padding:14px 6px 12px;border-radius:16px;border:2px solid color-mix(in srgb,var(--c) 45%,transparent);background:color-mix(in srgb,var(--c) 7%,#15151d);color:var(--c);font:900 18px var(--f-b,system-ui);line-height:1.1;transition:transform .12s,background .15s,border-color .15s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+#lgSel .lgsee .lgse{font-size:34px;line-height:1}
+#lgSel .lgsee b{color:inherit}
+#lgSel .lgsee small{font:700 12px var(--f-b,system-ui);opacity:.85;color:#ddd}
+#lgSel .lgsee:hover{transform:translateY(-2px);border-color:var(--c)}
+#lgSel .lgsee .lgmine{display:none;position:absolute;top:-10px;left:50%;transform:translateX(-50%);padding:2px 8px;border-radius:99px;background:var(--c);color:#111;font:900 10.5px var(--f-b,system-ui);font-style:normal;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+#lgSel .lgsee.on .lgmine{display:block}
+#lgSel .lgsee.on{border:3px solid var(--c);background:color-mix(in srgb,var(--c) 16%,#15151d)}
+#lgSel .lgsee[aria-pressed="true"].on{background:color-mix(in srgb,var(--c) 26%,#15151d);box-shadow:0 0 18px color-mix(in srgb,var(--c) 40%,transparent)}
+#lgSel .lgsee.see{background:color-mix(in srgb,var(--c) 14%,#15151d);border:2px solid color-mix(in srgb,var(--c) 70%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 18%,transparent)}
+#lgSel .lgseetip{margin-top:12px;font-weight:700;font-size:14px;line-height:1.5}
+#lgSel .lgback{appearance:none;cursor:pointer;margin-left:6px;padding:5px 12px;border-radius:99px;border:2px solid #ffd600;background:transparent;color:#ffd600;font:900 13px var(--f-b,system-ui)}
+#lgSel .lgzleg{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-weight:900;font-size:14px}
+#lgSel .lgzleg span{padding:5px 12px;border-radius:99px}#lgSel .lgzleg .zup{background:rgba(20,224,138,.15);color:#14e08a}#lgSel .lgzleg .zdn{background:rgba(255,59,79,.15);color:#ff6b7c}
+#v-ranking.lgmode #rkPodium,#v-ranking.lgmode #rkTapHint{display:none!important}
+#lgBox .lgtiers{display:none!important}
+#lgPts{margin-top:16px}
+/* tú, bien marcado */
+#rkList .rkr.mine{background:linear-gradient(90deg,rgba(255,214,0,.18),rgba(255,214,0,.05))!important;border:3px solid #ffd600!important;box-shadow:0 0 22px rgba(255,214,0,.35)!important;transform:scale(1.01)}
+#rkList .rkr.mine .pos{color:#ffd600}
+#rkList .rkr.mine.zup{box-shadow:inset 6px 0 0 #14e08a,0 0 22px rgba(255,214,0,.35)!important}
+#rkList .rkr.mine.zdn{box-shadow:inset 6px 0 0 #ff3b4f,0 0 22px rgba(255,214,0,.35)!important}
+#rkList .rkr.mine.mpflash{animation:mpfl 1.4s ease-out}
+@keyframes mpfl{0%,50%{outline:6px solid rgba(255,214,0,.9);outline-offset:4px}100%{outline:0 solid transparent;outline-offset:12px}}
+#rkMyPos .mypos{flex-wrap:wrap;align-items:center;gap:10px}
+#rkMyPos .mpz{padding:5px 12px;border-radius:99px;font:900 13px var(--f-b,system-ui);background:rgba(255,255,255,.08)}
+#rkMyPos .mpz.zup{background:rgba(20,224,138,.16);color:#14e08a}#rkMyPos .mpz.zdn{background:rgba(255,59,79,.16);color:#ff6b7c}
+#rkMyPos .mpgo{margin-left:auto;width:auto;flex:none}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -11608,7 +11630,7 @@ ACH.push(['📈','Ascenso','Sube de liga',()=>(S.lgMax||0)>=1],['💎','Diamante
 
 /* ================= CLASIFICACIÓN REMASTERIZADA (pestañas) ================= */
 let RK2=(S.rk2&&['top','liga','amigos','fama','grupos'].includes(S.rk2))?S.rk2:'top';
-const RK2_HINT={liga:'Compites solo con los de <b>tu liga</b>. El lunes a las 2:00 los 3 primeros suben.',amigos:'Tus amigos ordenados por dinero. Añade amigos con su código o invítalos con tu enlace.',fama:'Los campeones de cada mes y quién ha sido <b>rey</b> más tiempo.'};
+const RK2_HINT={liga:'Compites solo con los de <b>tu liga</b>. Más abajo puedes mirar las otras ligas.',amigos:'Tus amigos ordenados por dinero. Añade amigos con su código o invítalos con tu enlace.',fama:'Los campeones de cada mes y quién ha sido <b>rey</b> más tiempo.'};
 function rkTabSet(t,noRender){RK2=t;S.rk2=t;const v=$('#v-ranking');if(v)v.dataset.t=t;
   if(t==='top'){rkTab='todos';if(rkCat==='liga'||rkCat==='fama')rkCat='coins'}else if(t==='liga'){rkTab='todos';rkCat='liga'}else if(t==='amigos'){rkTab='amigos';rkCat='coins'}else if(t==='fama'){rkTab='todos';rkCat='fama'}
   $$('#rk2Tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));if(!noRender)renderRank()}
@@ -13202,8 +13224,8 @@ function lgCutHTML(kind,k,lg){const N=kind==='up'?LG[Math.min(4,lg+1)]:LG[Math.m
   return`<div class="lgcut lgc-${kind}" style="--nc:${N[2]}"><span class="ch">${ch}</span><span class="lt"><span class="emo">${N[1]}</span> <b>${t}</b></span><span class="ch">${ch}</span></div>`}
 function lgCuts(){try{if(view!=='ranking'||rkCat!=='liga')return;const L=$('#rkList');if(!L)return;L.querySelectorAll('.lgcut').forEach(x=>x.remove());
   const lgS=LGV==null?(S.lg||0):LGV,nS=rankList(rkTab,'liga').length,i={lg:lgS,n:nS,up:lgUps(nS,lgS),dn:lgDowns(nS,lgS)},rows=[...L.querySelectorAll('.rkr')];if(!rows.length)return;const pos=r=>+((r.querySelector('.pos')||{}).textContent||0);
-  if(i.up&&i.n>i.up){const r=rows.find(x=>pos(x)===i.up+1);if(r)r.insertAdjacentHTML('beforebegin',lgCutHTML('up',i.up,i.lg))}
-  if(i.dn){const r=rows.find(x=>pos(x)===i.n-i.dn+1);if(r)r.insertAdjacentHTML('beforebegin',lgCutHTML('down',i.dn,i.lg))}}catch(e){}}
+  if(rows.length!==i.n)return;if(i.up&&i.n>i.up&&rows[i.up])rows[i.up].insertAdjacentHTML('beforebegin',lgCutHTML('up',i.up,i.lg));
+  if(i.dn&&rows[i.n-i.dn])rows[i.n-i.dn].insertAdjacentHTML('beforebegin',lgCutHTML('down',i.dn,i.lg))}catch(e){}}
 {const _rrCut=renderRank;renderRank=function(){const r=_rrCut.apply(this,arguments);lgCuts();return r}}
 
 /* ===== Clasificación: cuánto tiene cada uno en la caja fuerte ===== */
@@ -15659,14 +15681,26 @@ function movForce(l,sign){MOV.force={t:Date.now()+3000,l:String(l).slice(0,90),s
 var LGV=null;
 function lgCounts(){const w=WK(),c=[0,0,0,0,0];try{others().forEach(p=>{if(+p.wk===w&&+p.wp>0){const l=Math.min(4,Math.max(0,+p.lg||0));c[l]++}})}catch(e){}c[S.lg||0]++;return c}
 {const _rlS=rankList;rankList=function(tab,cat){if(cat==='liga'&&LGV!=null&&LGV!==(S.lg||0)){const w=WK();return _rlS(tab,'coins').filter(p=>!p.me&&+p.wk===w&&(+p.lg||0)===LGV&&+p.wp>0).sort((a,b)=>pval(b,'liga')-pval(a,'liga'))}return _rlS.apply(this,arguments)}}
-{const _rrS=renderRank;renderRank=function(){if(view!=='ranking'||rkCat!=='liga')LGV=null;const r=_rrS.apply(this,arguments);try{if(view!=='ranking'||rkCat!=='liga')return r;const box=$('#lgBox');if(!box)return r;
-  const mine=S.lg||0,see=LGV==null?mine:LGV,cnt=lgCounts(),T=box.querySelector('.lgtiers');
-  if(T){const h=LG.map((x,i)=>`<button type="button" class="lgsee${i===mine?' on':''}${i===see?' see':''}" style="--c:${x[2]}" data-lgv="${i}" aria-pressed="${i===see}">${x[1]} ${x[0]}<small>${cnt[i]} ${cnt[i]===1?'jugador':'jugadores'}${i===mine?' · la tuya':''}</small></button>`).join('');
-    if(T._h!==h){T._h=h;T.innerHTML=h;T.classList.add('lgsel')}
-    let tip=box.querySelector('.lgseetip');const th=see===mine?'👀 Toca otra liga para ver cómo va la gente allí.':`👀 Estás mirando la <b>Liga ${LG[see][0]}</b> (${cnt[see]} ${cnt[see]===1?'jugador':'jugadores'}). Solo es para mirar: tú compites en la Liga ${LG[mine][0]}. <button type="button" class="lgback" data-lgv="${mine}">${LG[mine][1]} Volver a mi liga</button>`;
-    if(!tip){T.insertAdjacentHTML('afterend','<div class="lgseetip"></div>');tip=box.querySelector('.lgseetip')}if(tip._h!==th){tip._h=th;tip.innerHTML=th}}
-  if(see!==mine){const mp=$('#rkMyPos');if(mp)mp.innerHTML='';const L=$('#rkList');if(L&&!L.querySelector('.rkr')&&!L.querySelector('.lgempty'))L.insertAdjacentHTML('afterbegin',`<p class="lgempty">Nadie ha jugado todavía esta semana en la Liga ${LG[see][0]}.</p>`)}
-  }catch(e){}return r}}
+{const _rrS=renderRank;renderRank=function(){if(view!=='ranking'||rkCat!=='liga')LGV=null;const r=_rrS.apply(this,arguments);try{lgLayout()}catch(e){}return r}}
+/* 2026-10-31 b: selector de ligas fijo (no se rehace y no se pierden los toques), la clasificación justo debajo y los retos al final */
+function lgLayout(){const v=$('#v-ranking');if(!v)return;let sel=$('#lgSel');
+  if(view!=='ranking'||rkCat!=='liga'){if(sel)sel.hidden=true;v.classList.remove('lgmode','lgother');return}
+  const mine=S.lg||0,see=LGV==null?mine:LGV,cnt=lgCounts();v.classList.add('lgmode');v.classList.toggle('lgother',see!==mine);
+  if(!sel){sel=document.createElement('div');sel.id='lgSel';sel.className='panel';
+    sel.innerHTML=`<div class="lgsh">🏅 Las 5 ligas <small>Toca una para ver cómo va la gente allí</small></div><div class="lgsg">${LG.map((x,i)=>`<button type="button" class="lgsee" style="--c:${x[2]}" data-lgv="${i}"><span class="lgse emo">${x[1]}</span><b>${x[0]}</b><small></small><i class="lgmine">⭐ TU LIGA</i></button>`).join('')}</div><div class="lgseetip"></div>`}
+  const anchor=$('#lgBox')||$('#rkDesc');if(anchor&&anchor.nextElementSibling!==sel)anchor.after(sel);sel.hidden=false;
+  sel.querySelectorAll('.lgsee').forEach(b=>{const i=+b.dataset.lgv;b.classList.toggle('on',i===mine);b.classList.toggle('see',i===see&&i!==mine);b.setAttribute('aria-pressed',String(i===see));
+    const t=cnt[i]+' '+(cnt[i]===1?'jugador':'jugadores');const sm=b.querySelector('small');if(sm.textContent!==t)sm.textContent=t});
+  const tip=sel.querySelector('.lgseetip');const th=see===mine?`Estás viendo <b>tu liga (${LG[mine][0]})</b>.`:`👀 Estás mirando la <b>Liga ${LG[see][0]}</b>. Solo es para mirar: tú compites en la Liga ${LG[mine][0]}. <button type="button" class="lgback" data-lgv="${mine}">${LG[mine][1]} Volver a mi liga</button>`;
+  if(tip._h!==th){tip._h=th;tip.innerHTML=th}
+  const P=$('#lgPts'),L=$('#rkList');if(P&&L&&L.nextElementSibling!==P)L.after(P);
+  {const mp0=$('#rkMyPos');if(mp0)mp0.style.display=see!==mine?'none':''}
+  if(see!==mine){if(L&&!L.querySelector('.rkr')&&!L.querySelector('.lgempty'))L.insertAdjacentHTML('afterbegin',`<p class="lgempty">Nadie ha jugado todavía esta semana en la Liga ${LG[see][0]}.</p>`)}
+  else{const mp=$('#rkMyPos .mypos');if(mp&&!mp.querySelector('.mpgo')){let z='';try{const i=lgInfo();z=i.zone==='up'?'<span class="mpz zup">🔼 Zona de subida</span>':i.zone==='down'?'<span class="mpz zdn">🔽 Zona de bajada</span>':'<span class="mpz">Zona tranquila</span>'}catch(_){}
+    mp.insertAdjacentHTML('beforeend',`${z}<button type="button" class="btn sm mpgo" data-mpgo>📍 Ir a mi puesto</button>`)}}}
+document.addEventListener('click',e=>{if(!e.target.closest||!e.target.closest('[data-mpgo]'))return;const r=$('#rkList .rkr.mine');if(!r)return;try{sfx('click')}catch(_){}r.scrollIntoView({behavior:'smooth',block:'center'});r.classList.remove('mpflash');void r.offsetWidth;r.classList.add('mpflash')});
+/* en tiempo real: con la liga abierta se actualiza cada 5 s */
+setInterval(()=>{try{if(view==='ranking'&&rkCat==='liga'&&!document.hidden&&!(document.activeElement&&document.activeElement.id==='rkQ'))renderRank()}catch(e){}},5000);
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-lgv]');if(!b)return;const i=+b.dataset.lgv;LGV=i===(S.lg||0)?null:i;try{sfx('click')}catch(_){}renderRank()});
 try{const t=TUTOS.find(x=>x[1]==='Ligas y temporadas');if(t&&!t[4].some(x=>/otras ligas/.test(x[0])))t[4].push(['En <b>Clasificación › Liga</b> puedes tocar <b>otras ligas</b> para ver cómo va la gente allí. Solo es para mirar: compites en la tuya.'])}catch(e){}
 try{i18nAdd([['Mira otras ligas y tus regalos','See other leagues and your gifts','Regarde les autres ligues et tes cadeaux','Vê outras ligas e as tuas prendas'],['Mira cómo van las otras ligas','See how the other leagues are going','Regarde comment vont les autres ligues','Vê como vão as outras ligas'],['En Clasificación › Liga toca Bronce, Plata, Oro, Diamante o Maestro para ver quién va primero allí. Solo es para mirar: compites en la tuya.','In Leaderboard › League tap Bronze, Silver, Gold, Diamond or Master to see who leads there. It\'s just to look: you compete in yours.','Dans Classement › Ligue, touche Bronze, Argent, Or, Diamant ou Maître pour voir qui mène. C\'est juste pour regarder : tu joues dans la tienne.','Em Classificação › Liga toca em Bronze, Prata, Ouro, Diamante ou Mestre para ver quem lidera. É só para ver: competes na tua.'],['Movimientos: de quién y para quién','Transactions: from whom and to whom','Mouvements : de qui et pour qui','Movimentos: de quem e para quem'],['En tus 💸 Movimientos ahora sale de quién te llega cada regalo, a quién se lo has mandado tú y a quién le has enviado mensajitos.','Your 💸 Transactions now show who each gift came from, who you sent gifts to and who you sent little messages to.','Tes 💸 Mouvements montrent maintenant qui t\'a fait chaque cadeau, à qui tu en as envoyé et à qui tu as envoyé des petits messages.','Os teus 💸 Movimentos agora mostram de quem vem cada prenda, a quem as enviaste e a quem mandaste mensagens.']])}catch(e){}
@@ -15680,7 +15714,7 @@ try{if(!FAQ.some(x=>x[0]==='¿Puedo ver las otras ligas?'))FAQ.unshift(['¿Puedo
     }
   document.querySelectorAll('#v-ranking .podium .pod').forEach(p=>{const t=p.querySelector('.lgzt');if(t)t.remove();const k=+(p.className.match(/\bp(\d)\b/)||[])[1];if(!k||p.classList.contains('empty'))return;const i=k-1;
     const z=i<up?'zup':(dn&&i>=n-dn)?'zdn':'';if(z){const b=p.querySelector('b');if(b)b.insertAdjacentHTML('afterend',`<span class="lgzt ${z}">${z==='zup'?'🔼 Sube':'🔽 Baja'}</span>`)}});
-  const box=$('#lgBox');if(box){let lz=box.querySelector('.lgzleg');const h=n<2?(lg<4?`🔼 Si solo juega 1, sube con ${fmt(LG_SOLO[lg])} puntos.`:''):`<span class="zup">🔼 Suben: ${up?(up===1?'el 1º':'los '+up+' primeros'):'nadie (es la más alta)'}</span><span class="zdn">🔽 Bajan: ${dn?(dn===1?'el último':'los '+dn+' últimos'):lg===0?'nadie (es la primera)':'nadie (hacen falta 5 o más)'}</span>`;
+  const box=$('#lgSel');if(box){let lz=box.querySelector('.lgzleg');const h=n<2?(lg<4?`🔼 Si solo juega 1, sube con ${fmt(LG_SOLO[lg])} puntos.`:''):`<span class="zup">🔼 Suben: ${up?(up===1?'el 1º':'los '+up+' primeros'):'nadie (es la más alta)'}</span><span class="zdn">🔽 Bajan: ${dn?(dn===1?'el último':'los '+dn+' últimos'):lg===0?'nadie (es la primera)':'nadie (hacen falta 5 o más)'}</span>`;
     if(!lz){box.insertAdjacentHTML('beforeend','<div class="lgzleg"></div>');lz=box.querySelector('.lgzleg')}if(lz._h!==h){lz._h=h;lz.innerHTML=h}}
   }catch(e){}return r}}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
