@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-01-1343">
+<meta name="app-version" content="2026-11-01-1440">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3186,6 +3186,12 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 .wlcard{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:18px 20px;margin-bottom:14px;border:2px solid #14e08a;background:linear-gradient(135deg,rgba(20,224,138,.14),rgba(63,124,255,.1))}
 .wlcard .wlct{flex:1 1 320px;min-width:0}.wlcard .wlct>b{display:block;font:900 22px var(--f-b,system-ui);margin-bottom:4px}.wlcard .wlct span{font-weight:700;opacity:.92;line-height:1.45}
 .wlcard .wlcb{display:flex;flex-wrap:wrap;gap:8px}.wlcard .wlcb .btn{width:auto;margin:0}
+.howto{display:inline-flex;align-items:center;gap:6px;margin:0 0 10px;padding:7px 14px;border-radius:99px;background:rgba(127,211,255,.12);border:2px solid rgba(127,211,255,.5);color:#bfe8ff;font:800 13.5px var(--f-b,system-ui);text-decoration:none;width:max-content;max-width:100%}
+.howto:hover{background:rgba(127,211,255,.22)}
+#czHow .howto{margin:4px 0 12px 14px}
+.howto.sm{margin:6px 0 0;padding:4px 10px;font-size:12px}
+.aygu{display:flex;align-items:center;gap:14px;padding:16px 18px;margin-bottom:14px;text-decoration:none;color:inherit;border:2px solid #7fd3ff;background:linear-gradient(135deg,rgba(127,211,255,.14),rgba(63,124,255,.08))}
+.aygu>.emo{font-size:34px}.aygu b{display:block;font:900 19px var(--f-b,system-ui)}.aygu small{display:block;font-weight:700;opacity:.85;line-height:1.4}.aygu .go{margin-left:auto;font-weight:900;color:#7fd3ff;white-space:nowrap}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -6752,6 +6758,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-01-b',t:'Guías a la vista y enlaces directos',items:[['📚','Guías en el menú y en cada juego','Nuevo botón «📚 Guías» en el menú, las guías arriba del todo en Ayuda y, en cada juego, un enlace a su guía con reglas y trucos.','new','#7fd3ff'],['🔗','Cada sección con su enlace','Ahora la dirección cambia al moverte: casinetori.com/#tienda, #bolsa, #jugar=plinko… Cópiala y pásasela a quien quieras para que entre directo ahí.','new','#14e08a']]},
  {v:'2026-11-01-a',t:'Entrar es más rápido',items:[['🚪','Ves la web nada más entrar','Ya no sale nada tapando la web al entrar. La edad solo se pregunta al ir al Casino, Trading u Online, y el nombre cuando vas a jugar.','new','#14e08a'],['📚','De la guía al juego en un toque','Cada guía tiene un botón «▶ Jugar a…» que abre ese juego directamente.','new','#3f7cff']]},
  {v:'2026-10-31-d',t:'Arreglos: Movimientos y chat',items:[['💸','Movimientos con el nombre correcto','Los duelos y botes online ahora salen como «Duelo online contra…» y nunca con el nombre de otro aviso (como «Premio por hora» en una pérdida).','fix','#14e08a'],['💬','El chat ya no se sube solo','Si estás abajo del todo, el chat se queda abajo aunque carguen fotos o escribas varias líneas.','fix','#3f7cff']]},
  {v:'2026-10-31-c',t:'Mira otras ligas y tus regalos',items:[['👀','Mira cómo van las otras ligas','En Clasificación › Liga toca Bronce, Plata, Oro, Diamante o Maestro para ver quién va primero allí. Solo es para mirar: compites en la tuya.','new','#ffd600'],['🎁','Movimientos: de quién y para quién','En tus 💸 Movimientos ahora sale de quién te llega cada regalo, a quién se lo has mandado tú y a quién le has enviado mensajitos.','new','#14e08a']]},
@@ -15796,6 +15803,27 @@ document.addEventListener('click',e=>{if(!WLS.on||S.name)return;const t=e.target
 (function(){const m=/[#&]jugar=([a-z]+)/.exec(location.hash||'');if(!m)return;const k=m[1];try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
   setTimeout(()=>{try{if(typeof CZ_G!=='undefined'&&CZ_G.some(x=>x[0]===k)){go('casino',k)}else if(GAMES[k]){go('arcade');openGame(k)}}catch(e){}},400)})();
 try{i18nAdd([['Entrar es más rápido','Getting in is faster','Entrer est plus rapide','Entrar é mais rápido'],['Ves la web nada más entrar','See the site as soon as you arrive','Tu vois le site dès l\'arrivée','Vês a web logo ao entrar'],['Ya no sale nada tapando la web al entrar. La edad solo se pregunta al ir al Casino, Trading u Online, y el nombre cuando vas a jugar.','Nothing covers the site when you arrive any more. Age is only asked when you go to Casino, Trading or Online, and your name when you start playing.','Plus rien ne cache le site à l\'arrivée. L\'âge n\'est demandé qu\'en allant au Casino, au Trading ou en Ligne, et ton nom quand tu vas jouer.','Já nada tapa a web ao entrar. A idade só é perguntada ao ir ao Casino, Trading ou Online, e o nome quando vais jogar.'],['De la guía al juego en un toque','From the guide to the game in one tap','Du guide au jeu en un geste','Do guia ao jogo num toque'],['Cada guía tiene un botón «▶ Jugar a…» que abre ese juego directamente.','Every guide has a «▶ Play…» button that opens that game directly.','Chaque guide a un bouton «▶ Jouer à…» qui ouvre ce jeu directement.','Cada guia tem um botão «▶ Jogar…» que abre esse jogo diretamente.']])}catch(e){}
+/* ===== 2026-11-01: cada sección con su dirección (casinetori.com/#tienda), guías a la vista y «cómo se juega» en cada juego ===== */
+const V2H={rico:'tienda',arcade:'juegos'},H2V={tienda:'rico',juegos:'arcade'};
+const GUIA={slots:'tragaperras',rasca:'rasca-y-gana',race:'carreras',rule:'ruleta',bj:'blackjack',rocket:'cohete',pollo:'pollo',minas:'minas',plinko:'plinko',dados:'dados',keno:'keno',hilo:'mayor-o-menor',torre:'torre',
+  dash:'dash',snake:'snake',pajaro:'pajaro-loco',diana:'diana-loca',ladrillos:'ladrillos',memoria:'memoria',reflejos:'reflejos',penaltis:'penaltis'};
+function urlSet(){try{let h='';if(view==='casino'&&typeof casTab!=='undefined'&&czOpen&&GUIA[casTab])h='jugar='+casTab;else if(view==='arcade'&&gid&&GAMES[gid]&&!$('#stage').hidden)h='jugar='+gid;else if(view&&view!=='inicio'&&view!=='admin')h=V2H[view]||view;
+  const want=location.pathname+location.search+(h?'#'+h:'');if(location.pathname+location.search+location.hash!==want)history.replaceState(history.state,'',want)}catch(e){}}
+{const _goU=go;go=function(){const r=_goU.apply(this,arguments);setTimeout(urlSet,0);return r}}
+{const _ogU=openGame;openGame=function(){const r=_ogU.apply(this,arguments);setTimeout(urlSet,0);try{howtoGame()}catch(e){}return r}}
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#gBack,#czBack,[data-cz],[data-g]'))setTimeout(urlSet,60)},true);
+/* al entrar con #tienda, #juegos, #bolsa… */
+(function(){const h=(location.hash||'').slice(1);if(!h||/^(jugar|mv)=/.test(h))return;const v=H2V[h]||h;if(TITLES[v]&&v!=='admin'&&view!==v)setTimeout(()=>{try{go(v)}catch(e){}},300)})();
+/* 📚 Guías en el menú (izquierda en ordenador, abajo en el móvil) */
+(function(){const a=$('#nav [data-v="ayuda"]');if(!a||$('#navGuias'))return;a.insertAdjacentHTML('beforebegin','<a class="nb" id="navGuias" href="guias/" style="--c:#7fd3ff;text-decoration:none"><span class="ico"><span class="emo" style="font-size:18px">📚</span></span>Guías</a>')})();
+/* ❓ Cómo se juega: en cada juego del casino y en cada minijuego */
+function howtoHTML(k){const s=GUIA[k];return s?`<a class="howto" href="guias/${s}.html" target="_blank" rel="noopener">❓ Cómo se juega · reglas y trucos</a>`:''}
+function howtoCas(){try{const h=$('#czHow');if(!h)return;let a=$('#czGuide');if(!a){h.insertAdjacentHTML('beforeend','<a class="howto" id="czGuide" target="_blank" rel="noopener"></a>');a=$('#czGuide')}const g=GUIA[casTab];a.hidden=!g;if(g){a.href='guias/'+g+'.html';a.textContent='📚 Guía completa: reglas, pagos y probabilidades ›'}}catch(e){}}
+{const _uS=urlSet;urlSet=function(){howtoCas();return _uS.apply(this,arguments)}}
+function howtoGame(){const t=$('#gTitle');if(!t)return;let a=$('#gHow');if(!a){t.parentElement.insertAdjacentHTML('beforeend','<a class="howto sm" id="gHow" target="_blank" rel="noopener"></a>');a=$('#gHow')}const s=GUIA[gid];a.hidden=!s;if(s){a.href='guias/'+s+'.html';a.textContent='❓ Cómo se juega'}}
+/* en Ayuda, las guías arriba del todo */
+(function(){const v=$('#v-ayuda');if(!v||$('#ayGuias'))return;v.insertAdjacentHTML('afterbegin',`<a class="panel aygu" id="ayGuias" href="guias/"><span class="emo">📚</span><span><b>Guías de cada juego</b><small>Reglas, controles, trucos y probabilidades de los 21 juegos. Mira cómo se juega antes de empezar.</small></span><span class="go">Ver guías ›</span></a>`)})();
+try{i18nAdd([['Guías a la vista y enlaces directos','Guides in sight and direct links','Guides visibles et liens directs','Guias à vista e links diretos'],['Guías en el menú y en cada juego','Guides in the menu and in every game','Guides dans le menu et dans chaque jeu','Guias no menu e em cada jogo'],['Nuevo botón «📚 Guías» en el menú, las guías arriba del todo en Ayuda y, en cada juego, un enlace a su guía con reglas y trucos.','New «📚 Guides» button in the menu, guides at the top of Help and, in every game, a link to its guide with rules and tips.','Nouveau bouton «📚 Guides» dans le menu, guides en haut de l\'Aide et, dans chaque jeu, un lien vers son guide.','Novo botão «📚 Guias» no menu, guias no topo da Ajuda e, em cada jogo, um link para o seu guia.'],['Cada sección con su enlace','Every section has its own link','Chaque section a son lien','Cada secção com o seu link'],['Ahora la dirección cambia al moverte: casinetori.com/#tienda, #bolsa, #jugar=plinko… Cópiala y pásasela a quien quieras para que entre directo ahí.','The address now changes as you move: casinetori.com/#tienda, #bolsa, #jugar=plinko… Copy it and send it so others go straight there.','L\'adresse change maintenant : casinetori.com/#tienda, #bolsa, #jugar=plinko… Copie-la et envoie-la pour y aller directement.','Agora o endereço muda: casinetori.com/#tienda, #bolsa, #jugar=plinko… Copia-o e envia-o para irem direto lá.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
