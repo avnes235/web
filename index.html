@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-10-31-1223">
+<meta name="app-version" content="2026-11-01-1343">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3175,6 +3175,17 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 #rkMyPos .mpz{padding:5px 12px;border-radius:99px;font:900 13px var(--f-b,system-ui);background:rgba(255,255,255,.08)}
 #rkMyPos .mpz.zup{background:rgba(20,224,138,.16);color:#14e08a}#rkMyPos .mpz.zdn{background:rgba(255,59,79,.16);color:#ff6b7c}
 #rkMyPos .mpgo{margin-left:auto;width:auto;flex:none}
+.seoabout{margin:22px 0 10px;padding:22px 24px;border-radius:18px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);line-height:1.65;font-size:15.5px;color:#d9dcef}
+.seoabout h2{font:900 26px var(--f-h,var(--f-b,system-ui));margin:0 0 10px;color:#fff}
+.seoabout h3{font:900 18px var(--f-b,system-ui);margin:18px 0 6px;color:#ffd600}
+.seoabout p{margin:0 0 10px}
+.seoabout a{color:#7fd3ff;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.seoabout .seomore{margin-top:14px;font-weight:800}
+#v-inicio #wlCard{grid-column:1/-1;order:-1}
+#v-inicio #seoAbout{grid-column:1/-1;order:98}
+.wlcard{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:18px 20px;margin-bottom:14px;border:2px solid #14e08a;background:linear-gradient(135deg,rgba(20,224,138,.14),rgba(63,124,255,.1))}
+.wlcard .wlct{flex:1 1 320px;min-width:0}.wlcard .wlct>b{display:block;font:900 22px var(--f-b,system-ui);margin-bottom:4px}.wlcard .wlct span{font-weight:700;opacity:.92;line-height:1.45}
+.wlcard .wlcb{display:flex;flex-wrap:wrap;gap:8px}.wlcard .wlcb .btn{width:auto;margin:0}
 /* barra de eventos: grande solo en Inicio; en el resto, finita */
 body:not([data-v=inicio]) #evbar.evnext{display:none!important}
 body:not([data-v=inicio]) #evbar{padding:8px 12px!important;min-height:0!important;gap:10px!important;margin-bottom:10px!important}
@@ -4647,6 +4658,22 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
       </div>
       <div class="sec-h"><h2>Juegos</h2><span>Cada partida da dinero y XP</span></div>
       <div class="games" id="homeGames"></div>
+    <section id="seoAbout" class="seoabout" aria-labelledby="seoAboutH">
+<h2 id="seoAboutH">¿Qué es Casinetori?</h2>
+<p>Casinetori es un juego gratis para el navegador en el que compites con tus amigos usando <b>dinero ficticio</b>. No hay que descargar nada ni pagar: entras desde el móvil o el ordenador, eliges un nombre y empiezas con tu cartera de mentira. Todo lo que ganas o pierdes es moneda virtual sin valor real. Aquí no se apuesta dinero de verdad y no se puede cambiar por premios reales.</p>
+<p>La idea es sencilla: hacer crecer tu fortuna jugando un poco de todo, subir en la clasificación y presumir delante de tus amigos. Cada semana hay una liga nueva, retos iguales para todos y eventos especiales, como el de Halloween.</p>
+<h3>Minijuegos para batir récords</h3>
+<p>Los minijuegos son partidas cortas de reflejos, puntería y memoria. Cada uno tiene varias dificultades y su propia clasificación semanal, y quien queda en el podio cobra un premio cada hora. Tienes una guía de cada uno con sus controles y trucos:
+<a href="guias/snake.html">Snake</a>, <a href="guias/pajaro-loco.html">Pájaro Loco</a>, <a href="guias/diana-loca.html">Diana Loca</a>, <a href="guias/ladrillos.html">Ladrillos</a>, <a href="guias/memoria.html">Memoria</a>, <a href="guias/reflejos.html">Reflejos</a>, <a href="guias/penaltis.html">Penaltis</a> y <a href="guias/dash.html">Dash</a>.</p>
+<h3>Casino simulado (solo para mayores de 18)</h3>
+<p>El casino es una simulación con la misma moneda ficticia, pensada para entender cómo funcionan estos juegos sin arriesgar nada. Cada juego tiene una guía con sus reglas, pagos y probabilidades reales, para que veas por qué la casa siempre tiene ventaja:
+<a href="guias/tragaperras.html">Tragaperras</a>, <a href="guias/ruleta.html">Ruleta</a>, <a href="guias/blackjack.html">Blackjack</a>, <a href="guias/plinko.html">Plinko</a>, <a href="guias/cohete.html">Cohete</a>, <a href="guias/minas.html">Minas</a>, <a href="guias/dados.html">Dados</a>, <a href="guias/keno.html">Keno</a>, <a href="guias/torre.html">Torre</a>, <a href="guias/pollo.html">Pollo</a>, <a href="guias/carreras.html">Carreras</a>, <a href="guias/mayor-o-menor.html">Mayor o menor</a> y <a href="guias/rasca-y-gana.html">Rasca y gana</a>. Todas las probabilidades están juntas en la página de <a href="probabilidades.html">probabilidades y retorno</a>.</p>
+<h3>Mucho más que jugar</h3>
+<p>Tu dinero no solo sale de las partidas. La <a href="guias/fabrica.html">fábrica</a> produce sola mientras juegas, la <a href="guias/banco-y-caja-fuerte.html">caja fuerte y el banco</a> te dejan guardar o pedir préstamos, la <a href="tienda.html">tienda</a> tiene coches, casas e islas de colección, y en la <a href="bolsa.html">Bolsa de Jugadores</a> puedes invertir en otros jugadores. También hay <a href="guias/ruletas.html">ruletas de premios</a>, <a href="guias/perfil-y-titulos.html">títulos y marcos</a> para tu perfil y <a href="eventos.html">eventos</a> con recompensas exclusivas.</p>
+<h3>Para jugar con amigos</h3>
+<p>Añade a tus amigos con su código, chatea con ellos, mándales regalos y compara quién va primero. Puedes crear <a href="grupos.html">grupos</a> con tu clase o tu pandilla, competir en las <a href="guias/ligas-y-trono.html">ligas semanales y el Trono</a> y ver la <a href="ranking.html">clasificación</a> de todos los jugadores.</p>
+<p class="seomore"><a href="guias/">📚 Todas las guías</a> · <a href="preguntas.html">Preguntas frecuentes</a> · <a href="sobre.html">Quién hace Casinetori</a> · <a href="juego-responsable.html">Juego responsable</a> · <a href="novedades.html">Novedades</a></p>
+</section>
     </section>
 
     <!-- ============ MILLONARIO ============ -->
@@ -6001,7 +6028,7 @@ async function initNet(){
   }catch(e){nlog('Fallo: '+(typeof e==='string'?e:(e&&(e.code||e.message))||e));NET.ok=false;NET.why={nolib:'No se ha podido cargar la conexión. Revisa tu internet y recarga.',nocfg:'Falta conectar la base de datos. Tu partida se guarda en este navegador.',auth:/api-key/.test(NET.authErr||'')?'La clave de Firebase no es válida. Revisa la configuración del juego.':/operation-not-allowed|admin-restricted/.test(NET.authErr||'')?'Falta activar el acceso Anónimo en Firebase (Authentication).':'No se ha podido entrar a la clasificación ('+(NET.authErr||'sin conexión')+').'}[e]||'No hay conexión con la clasificación ahora mismo.'}
   NET.initBusy=false;
   if(!NET.ok&&!/Falta conectar|reglas|clave de Firebase|Anónimo/.test(String(NET.why||''))){const w=[3,5,8,12,20,30][Math.min(NET.tries-1,5)];if(NET.tries<12){NET.why='Conectando… (vuelvo a probar en '+w+' s)';clearTimeout(NET.rt);NET.rt=setTimeout(initNet,w*1000)}else NET.why='No se ha podido conectar. Pulsa «Reintentar».'}
-  renderMe();renderRank();if(!S.name&&!NET.profAsked){NET.profAsked=1;openProfile(true)}
+  renderMe();renderRank();if(!S.name&&!NET.profAsked){NET.profAsked=1;try{wlSoft()}catch(e){openProfile(true)}}
   if(NET.ok){pushPlayer();setInterval(pushPlayer,30000);setInterval(()=>cloudSave(),40000);setInterval(()=>{refreshOnline();renderRank();renderAdmin()},30000);
     addEventListener('pagehide',()=>{pushPlayer();cloudSave()});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')cloudSave()});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')pushPlayer()})}}
 
@@ -6725,6 +6752,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-01-a',t:'Entrar es más rápido',items:[['🚪','Ves la web nada más entrar','Ya no sale nada tapando la web al entrar. La edad solo se pregunta al ir al Casino, Trading u Online, y el nombre cuando vas a jugar.','new','#14e08a'],['📚','De la guía al juego en un toque','Cada guía tiene un botón «▶ Jugar a…» que abre ese juego directamente.','new','#3f7cff']]},
  {v:'2026-10-31-d',t:'Arreglos: Movimientos y chat',items:[['💸','Movimientos con el nombre correcto','Los duelos y botes online ahora salen como «Duelo online contra…» y nunca con el nombre de otro aviso (como «Premio por hora» en una pérdida).','fix','#14e08a'],['💬','El chat ya no se sube solo','Si estás abajo del todo, el chat se queda abajo aunque carguen fotos o escribas varias líneas.','fix','#3f7cff']]},
  {v:'2026-10-31-c',t:'Mira otras ligas y tus regalos',items:[['👀','Mira cómo van las otras ligas','En Clasificación › Liga toca Bronce, Plata, Oro, Diamante o Maestro para ver quién va primero allí. Solo es para mirar: compites en la tuya.','new','#ffd600'],['🎁','Movimientos: de quién y para quién','En tus 💸 Movimientos ahora sale de quién te llega cada regalo, a quién se lo has mandado tú y a quién le has enviado mensajitos.','new','#14e08a']]},
  {v:'2026-10-31-b',t:'Varias pestañas abiertas',items:[['📱','Abrir otra pestaña ya no te quita la partida','Si abres Casinetori en otra pestaña, la nueva se queda en pausa y te pregunta. Solo pasa a jugar ahí si pulsas «Jugar aquí».','fix','#3f7cff']]},
@@ -13310,20 +13338,20 @@ function ageGet(){try{return localStorage.getItem(AGE_K)||S.age18||''}catch(e){r
 function ageSet(v){S.age18=v;try{localStorage.setItem(AGE_K,v)}catch(e){}save();ageApply()}
 function isU18(){return ageGet()==='minor'}
 function ageApply(){document.documentElement.toggleAttribute('data-u18',isU18());if(isU18()&&U18_V.includes(view))go('inicio')}
-function ageGate(again){if($('#ageGate'))return;const d=document.createElement('div');d.id='ageGate';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');
+function ageGate(again,cb){if($('#ageGate'))return;const d=document.createElement('div');d.id='ageGate';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');
   d.innerHTML=`<div class="agb"><span class="agi">+18</span><h2>Confirmación de edad</h2>
-   <p>Casinetori incluye <b>simulaciones de casino y juegos de azar</b> con moneda virtual <b>100 % ficticia</b>, sin ningún valor económico real. No se apuesta ni se gana dinero real.</p>
+   <p>Vas a entrar en una zona con <b>simulaciones de casino</b> que usan moneda virtual <b>100 % ficticia</b>, sin ningún valor económico real. No se apuesta ni se gana dinero real.</p>
    <p>El casino, el trading y los duelos online son <b>solo para mayores de 18 años</b>.</p>
    <button class="btn big mint" data-age="adult">Sí, tengo 18 años o más</button>
    <button class="btn big alt" data-age="minor">No, soy menor de 18</button>
    <small>Si eres menor, entras sin el casino: puedes jugar a los minijuegos, la fábrica, la tienda y el resto. ${again?'':'Puedes cambiarlo luego en Ajustes.'}</small></div>`;
-  document.body.appendChild(d);d.addEventListener('click',e=>{const b=e.target.closest('[data-age]');if(!b)return;ageSet(b.dataset.age);d.remove();
+  document.body.appendChild(d);d.addEventListener('click',e=>{const b=e.target.closest('[data-age]');if(!b)return;ageSet(b.dataset.age);d.remove();if(b.dataset.age==='adult'&&typeof cb==='function')setTimeout(cb,0);
     if(b.dataset.age==='minor')toast('Modo sin casino','Casino, trading y duelos online quedan ocultos','var(--sky)','🛡️');else if(again)toast('Casino activado','Ya puedes entrar en Casino, Trading y Online','var(--mint)','✅')})}
 {const _goAge=go;go=function(v){if(isU18()&&U18_V.includes(v)){toast('Solo para mayores de 18','Puedes cambiarlo en Ajustes › Edad','var(--coral)','🔞');sfx('lose');return _goAge.call(this,'inicio')}return _goAge.apply(this,arguments)}}
 {const _raAge=renderAjustes;renderAjustes=function(){const r=_raAge.apply(this,arguments);try{const bz=$('#cfBz');const row=bz&&bz.closest('.crow');if(row&&!$('#cfAge'))row.insertAdjacentHTML('beforebegin',
   `<div class="crow"><span class="cl"><b>Edad · casino ${isU18()?'oculto 🛡️':'activado'}</b><small>${isU18()?'Dijiste que eres menor de 18: el casino, el trading y los duelos online están ocultos.':'Has confirmado que tienes 18 años o más.'}</small></span><button class="btn ${isU18()?'mint':'alt'} sm" id="cfAge">${isU18()?'Tengo 18 o más':'Ocultar casino'}</button></div>`)}catch(e){}return r}}
 document.addEventListener('click',e=>{if(!e.target.closest('#cfAge'))return;sfx('click');if(isU18())ageGate(true);else{ageSet('minor');toast('Modo sin casino','Casino, trading y duelos online ocultos','var(--sky)','🛡️')}try{renderAjustes()}catch(_){}});
-ageApply();if(!ageGet())ageGate();
+ageApply();/* 2026-11-01: ya no se pregunta la edad al entrar, solo al ir al casino, trading u online */
 
 /* ================= PARTIDA SINCRONIZADA ENTRE DISPOSITIVOS =================
    Antes: el PC solo cogía la partida de la nube si tenías más «ganado en total», así que mover dinero a la caja fuerte
@@ -15749,6 +15777,25 @@ setInterval(chPinTick,150);
 {const _csP=chSend;chSend=function(){const el=$('#chMsgs');if(el){el._pin=true}return _csP.apply(this,arguments)}}
 {const _coP=chOpen;chOpen=function(){const r=_coP.apply(this,arguments);setTimeout(()=>{const el=$('#chMsgs');if(el)el._pin=true},0);return r}}
 try{i18nAdd([['Arreglos: Movimientos y chat','Fixes: Transactions and chat','Corrections : Mouvements et chat','Correções: Movimentos e chat'],['Movimientos con el nombre correcto','Transactions with the right name','Mouvements avec le bon nom','Movimentos com o nome certo'],['Los duelos y botes online ahora salen como «Duelo online contra…» y nunca con el nombre de otro aviso (como «Premio por hora» en una pérdida).','Online duels and pots now show as «Online duel against…» and never with the name of another notice (like «Hourly prize» on a loss).','Les duels et cagnottes en ligne s\'affichent comme «Duel en ligne contre…» et jamais avec le nom d\'une autre notification.','Os duelos e potes online aparecem como «Duelo online contra…» e nunca com o nome de outro aviso.'],['El chat ya no se sube solo','The chat no longer jumps up','Le chat ne remonte plus tout seul','O chat já não sobe sozinho'],['Si estás abajo del todo, el chat se queda abajo aunque carguen fotos o escribas varias líneas.','If you\'re at the bottom, the chat stays there even while photos load or you type several lines.','Si tu es tout en bas, le chat y reste même quand des photos chargent ou que tu écris plusieurs lignes.','Se estás no fundo, o chat fica lá mesmo quando as fotos carregam ou escreves várias linhas.']])}catch(e){}
+/* ===== 2026-11-01: la web se ve nada más entrar (AdSense): sin muros, texto en Inicio y enlaces directos a cada juego ===== */
+/* 1) la edad se pregunta solo al ir al casino, trading u online */
+{const _goAge2=go;go=function(v){if(!ageGet()&&U18_V.includes(v)){const a=arguments,t=this;ageGate(false,()=>{try{_goAge2.apply(t,a)}catch(e){}});return}return _goAge2.apply(this,arguments)}}
+/* 2) bienvenida sin tapar: tarjeta en Inicio; la ventana de nombre sale cuando vas a jugar */
+const WLS={on:false};
+function wlSoft(){if(S.name)return;WLS.on=true;wlCard()}
+function wlCard(){const v=$('#v-inicio');if(!v)return;let c=$('#wlCard');if(S.name||!WLS.on){if(c)c.remove();return}if(c)return;
+  const top=v.querySelector('.home-top');(top||v).insertAdjacentHTML(top?'afterend':'afterbegin',`<div class="panel wlcard" id="wlCard"><div class="wlct"><b>👋 ¡Bienvenido a Casinetori!</b><span>Minijuegos, casino simulado, ligas y retos con tus amigos. Todo con <b>dinero ficticio</b>: gratis y sin dinero real. Mira lo que hay y, cuando quieras, empieza.</span></div><div class="wlcb"><button class="btn big mint" type="button" data-wlgo>▶ Empezar a jugar</button><a class="btn alt" href="guias/">📚 Ver las guías</a></div></div>`)}
+setInterval(()=>{try{wlCard()}catch(e){}},3000);
+document.addEventListener('click',e=>{if(!WLS.on||S.name)return;const t=e.target;if(!t.closest)return;
+  if(t.closest('[data-wlgo]')){e.preventDefault();openProfile(true);return}
+  if(t.closest('#modal,#ageGate,#ssBar,a[href],.legalf,#seoAbout,#nav,.drawer,#hoTabs,input,select,textarea,.tipbox,.toast'))return;
+  if(t.closest('button,[role="button"],canvas,.gcard,.card,[data-g],[data-cz],[data-play]')){e.preventDefault();e.stopPropagation();try{sfx('click')}catch(_){}openProfile(true)}},true);
+/* 3) el texto «¿Qué es Casinetori?» va al final de Inicio */
+(function(){const a=$('#seoAbout'),v=$('#v-inicio');if(!a||!v)return;const lf=v.querySelector('.legalf');if(lf)lf.before(a);else v.appendChild(a);a.hidden=false})();
+/* 4) enlaces directos desde las guías: casinetori.com/#jugar=plinko */
+(function(){const m=/[#&]jugar=([a-z]+)/.exec(location.hash||'');if(!m)return;const k=m[1];try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
+  setTimeout(()=>{try{if(typeof CZ_G!=='undefined'&&CZ_G.some(x=>x[0]===k)){go('casino',k)}else if(GAMES[k]){go('arcade');openGame(k)}}catch(e){}},400)})();
+try{i18nAdd([['Entrar es más rápido','Getting in is faster','Entrer est plus rapide','Entrar é mais rápido'],['Ves la web nada más entrar','See the site as soon as you arrive','Tu vois le site dès l\'arrivée','Vês a web logo ao entrar'],['Ya no sale nada tapando la web al entrar. La edad solo se pregunta al ir al Casino, Trading u Online, y el nombre cuando vas a jugar.','Nothing covers the site when you arrive any more. Age is only asked when you go to Casino, Trading or Online, and your name when you start playing.','Plus rien ne cache le site à l\'arrivée. L\'âge n\'est demandé qu\'en allant au Casino, au Trading ou en Ligne, et ton nom quand tu vas jouer.','Já nada tapa a web ao entrar. A idade só é perguntada ao ir ao Casino, Trading ou Online, e o nome quando vais jogar.'],['De la guía al juego en un toque','From the guide to the game in one tap','Du guide au jeu en un geste','Do guia ao jogo num toque'],['Cada guía tiene un botón «▶ Jugar a…» que abre ese juego directamente.','Every guide has a «▶ Play…» button that opens that game directly.','Chaque guide a un bouton «▶ Jouer à…» qui ouvre ce jeu directement.','Cada guia tem um botão «▶ Jogar…» que abre esse jogo diretamente.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
