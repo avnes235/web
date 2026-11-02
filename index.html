@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-02-0027">
+<meta name="app-version" content="2026-11-02-1238">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -15413,7 +15413,18 @@ function seCandyCheck(){try{if($('#sePod'))return;const t=NOWS();for(const e of 
     /* 2026-11-02: solo para quien consiguió TODAS las recompensas del evento */
     const top=Math.max(...e.tiers.map(t=>+t[0]||0));if(!(+s.tot>=top)){s.endPaid=1;save();continue}
     const n=seLeft(e);if(n<=0){s.endPaid=1;save();continue}if($('#seEnd'))return;
-    const per=sePer();let w=0;try{w=wR()}catch(_){}let v=Math.min(per*n,niceN(Math.max(2e8,w*5)));v=Math.max(v,2e8);seEndShow(e,n,v);return}}catch(e){}}
+    const per=sePer();let w=0;try{w=wR()}catch(_){}let v=Math.min(per*n,niceN(Math.max(2e8,w*.5)));v=Math.max(v,2e8);seEndShow(e,n,v);return}}catch(e){}}
+/* 2026-11-02: arreglo — el cambio de caramelos podía dar hasta 5 veces tu dinero; ahora como mucho la mitad. A quien ya cobró de más se le corrige una vez */
+function seCandyFix(){try{const e=SEASONS[0];const s=(S.ev||{})[e.id];if(!s||!s.endPaid||!(+s.endV>0)||s.endFix)return;
+  const v=+s.endV,n=Math.max(1,seLeft(e));let w0=v/5;if(0.03*w0*n<v)w0=v/(0.03*n);
+  const top=Math.max(...e.tiers.map(t=>+t[0]||0));const all=+s.tot>=top;
+  const fair=all?Math.max(2e8,Math.min(Math.max(2e7,w0*.03)*n,w0*.5)):0;const back=Math.floor(v-fair);s.endFix=1;
+  if(back>1e6){let t=Math.min(Math.max(0,Math.floor(+S.coins||0)),back);try{LED.tag='v:evento';LED.tagT=Date.now()+1500;movForce('Ajuste de Halloween: caramelos cobrados de más',-1)}catch(_){}
+    S.coins-=t;let rest=back-t;if(rest>0&&(+S.safe||0)>0){const f=Math.min(Math.floor(+S.safe),rest);S.safe-=f;rest-=f}
+    s.endFixV=back-rest;try{alog('t','🎃 Ajuste caramelos: −'+short(back-rest)+' € (cobró '+short(v)+', le tocaban '+short(fair)+')')}catch(_){}
+    setTimeout(()=>{try{troll('AJUSTE DE HALLOWEEN','los caramelos sobrantes pagaban de más por un fallo: −'+short(back-rest)+' €','#ff9a1f',true)}catch(_){}},3000)}
+  save();try{NET.lastP='';pushPlayer()}catch(_){}}catch(e){}}
+setTimeout(seCandyFix,6000);{const _acF=applyCloud;applyCloud=function(){const r=_acF.apply(this,arguments);setTimeout(seCandyFix,1500);return r}}
 function seEndShow(e,n,v){const o=document.createElement('div');o.id='seEnd';o.innerHTML=`<div class="sen"><div class="sei">${e.ico}</div><small>Se ha acabado ${esc(e.name)}</small>
   <h2>¡Te han sobrado <b>${fmt(n)} ${e.cur[0]}</b>!</h2><p>Los ${esc(e.cur[1])} que no llegaste a gastar en recompensas se cambian por dinero:</p>
   <div class="sev">+${fmt(v)} €</div><button type="button" class="btn big mint" id="seEndOk">💰 ¡Cobrar!</button><p class="sef">Todo lo que conseguiste en el evento es tuyo para siempre.</p></div>`;
