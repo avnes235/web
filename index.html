@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-02-0022">
+<meta name="app-version" content="2026-11-02-0027">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -3141,6 +3141,8 @@ body.ap-no-global #admGlobal,body.ap-no-msg #admInbox{display:none!important}
 #rkList .rkr.zup{box-shadow:inset 4px 0 0 #14e08a}
 #rkList .rkr.zdn{box-shadow:inset 4px 0 0 #ff3b4f}
 .lgzt{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:99px;font:900 11px var(--f-b,system-ui);vertical-align:middle;white-space:nowrap}
+.lgzt.z0{background:rgba(255,255,255,.08);color:#aab}
+#rkList .rkr.lgz0{opacity:.62}
 .lgzt.zup{background:rgba(20,224,138,.16);color:#14e08a}.lgzt.zdn{background:rgba(255,59,79,.16);color:#ff6b7c}
 .podium .lgzt{display:block;margin:3px auto 0;width:max-content}
 #lgSel{margin:12px 0;padding:14px}
@@ -6758,6 +6760,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-02-a',t:'Liga: salen todos',items:[['💤','Los que aún no han jugado, también','En la clasificación de la liga ahora salen también los de tu liga que todavía no han jugado esta semana, con 0 puntos y «💤 Sin jugar». Ojo: quien no juega en toda la semana baja de liga.','new','#aab0c8']]},
  {v:'2026-11-01-b',t:'Guías a la vista y enlaces directos',items:[['📚','Guías en el menú y en cada juego','Nuevo botón «📚 Guías» en el menú, las guías arriba del todo en Ayuda y, en cada juego, un enlace a su guía con reglas y trucos.','new','#7fd3ff'],['🔗','Cada sección con su enlace','Ahora la dirección cambia al moverte: casinetori.com/#tienda, #bolsa, #jugar=plinko… Cópiala y pásasela a quien quieras para que entre directo ahí.','new','#14e08a']]},
  {v:'2026-11-01-a',t:'Entrar es más rápido',items:[['🚪','Ves la web nada más entrar','Ya no sale nada tapando la web al entrar. La edad solo se pregunta al ir al Casino, Trading u Online, y el nombre cuando vas a jugar.','new','#14e08a'],['📚','De la guía al juego en un toque','Cada guía tiene un botón «▶ Jugar a…» que abre ese juego directamente.','new','#3f7cff']]},
  {v:'2026-10-31-d',t:'Arreglos: Movimientos y chat',items:[['💸','Movimientos con el nombre correcto','Los duelos y botes online ahora salen como «Duelo online contra…» y nunca con el nombre de otro aviso (como «Premio por hora» en una pérdida).','fix','#14e08a'],['💬','El chat ya no se sube solo','Si estás abajo del todo, el chat se queda abajo aunque carguen fotos o escribas varias líneas.','fix','#3f7cff']]},
@@ -13259,8 +13262,8 @@ function lgCutHTML(kind,k,lg){const N=kind==='up'?LG[Math.min(4,lg+1)]:LG[Math.m
   const ch=kind==='up'?'<i>︽</i><i>︽</i><i>︽</i>':'<i>︾</i><i>︾</i><i>︾</i>';
   return`<div class="lgcut lgc-${kind}" style="--nc:${N[2]}"><span class="ch">${ch}</span><span class="lt"><span class="emo">${N[1]}</span> <b>${t}</b></span><span class="ch">${ch}</span></div>`}
 function lgCuts(){try{if(view!=='ranking'||rkCat!=='liga')return;const L=$('#rkList');if(!L)return;L.querySelectorAll('.lgcut').forEach(x=>x.remove());
-  const lgS=LGV==null?(S.lg||0):LGV,nS=rankList(rkTab,'liga').length,i={lg:lgS,n:nS,up:lgUps(nS,lgS),dn:lgDowns(nS,lgS)},rows=[...L.querySelectorAll('.rkr')];if(!rows.length)return;const pos=r=>+((r.querySelector('.pos')||{}).textContent||0);
-  if(rows.length!==i.n)return;if(i.up&&i.n>i.up&&rows[i.up])rows[i.up].insertAdjacentHTML('beforebegin',lgCutHTML('up',i.up,i.lg));
+  const lgS=LGV==null?(S.lg||0):LGV,nS=lgActiveN(rankList(rkTab,'liga')),i={lg:lgS,n:nS,up:lgUps(nS,lgS),dn:lgDowns(nS,lgS)},rows=[...L.querySelectorAll('.rkr')];if(!rows.length)return;const pos=r=>+((r.querySelector('.pos')||{}).textContent||0);
+  if(rows.length<i.n)return;if(i.up&&i.n>i.up&&rows[i.up])rows[i.up].insertAdjacentHTML('beforebegin',lgCutHTML('up',i.up,i.lg));
   if(i.dn&&rows[i.n-i.dn])rows[i.n-i.dn].insertAdjacentHTML('beforebegin',lgCutHTML('down',i.dn,i.lg))}catch(e){}}
 {const _rrCut=renderRank;renderRank=function(){const r=_rrCut.apply(this,arguments);lgCuts();return r}}
 
@@ -15745,9 +15748,10 @@ try{i18nAdd([['Mira otras ligas y tus regalos','See other leagues and your gifts
 try{if(!FAQ.some(x=>x[0]==='¿Puedo ver las otras ligas?'))FAQ.unshift(['¿Puedo ver las otras ligas?','Sí. En Clasificación › Liga toca cualquier liga (Bronce, Plata, Oro, Diamante o Maestro) para ver quién va primero allí. Solo es para mirar: compites en la tuya.'])}catch(e){}
 /* ===== 2026-10-31: zona de subida y de bajada siempre a la vista en la clasificación de la liga ===== */
 {const _rrZ=renderRank;renderRank=function(){const r=_rrZ.apply(this,arguments);try{if(view!=='ranking'||rkCat!=='liga')return r;
-  const lg=LGV==null?(S.lg||0):LGV,arr=rankList(rkTab,'liga'),n=arr.length,up=lgUps(n,lg),dn=lgDowns(n,lg);
+  const lg=LGV==null?(S.lg||0):LGV,arr=rankList(rkTab,'liga'),n=lgActiveN(arr),up=lgUps(n,lg),dn=lgDowns(n,lg);
   const L=$('#rkList');if(L){const rows=[...L.querySelectorAll('.rkr')];
-    rows.forEach((row,i)=>{row.classList.remove('zup','zdn');const tag=row.querySelector('.lgzt');if(tag)tag.remove();
+    rows.forEach((row,i)=>{row.classList.remove('zup','zdn','lgz0');const tag=row.querySelector('.lgzt');if(tag)tag.remove();
+      if(i>=n){row.classList.add('lgz0');const b0=row.querySelector('b');if(b0)b0.insertAdjacentHTML('afterend',`<span class="lgzt z0">💤 Sin jugar${lg>0?' · baja si no juega':''}</span>`);return}
       const z=i<up?'zup':(dn&&i>=n-dn)?'zdn':'';if(!z)return;row.classList.add(z);const b=row.querySelector('b');if(b)b.insertAdjacentHTML('afterend',`<span class="lgzt ${z}">${z==='zup'?'🔼 Sube':'🔽 Baja'}</span>`)});
     }
   document.querySelectorAll('#v-ranking .podium .pod').forEach(p=>{const t=p.querySelector('.lgzt');if(t)t.remove();const k=+(p.className.match(/\bp(\d)\b/)||[])[1];if(!k||p.classList.contains('empty'))return;const i=k-1;
@@ -15826,6 +15830,25 @@ function howtoGame(){const t=$('#gTitle');if(!t)return;let a=$('#gHow');if(!a){t
 /* en Ayuda, las guías arriba del todo */
 (function(){const v=$('#v-ayuda');if(!v||$('#ayGuias'))return;v.insertAdjacentHTML('afterbegin',`<a class="panel aygu" id="ayGuias" href="guias/"><span class="emo">📚</span><span><b>Guías de cada juego</b><small>Reglas, controles, trucos y probabilidades de los 21 juegos. Mira cómo se juega antes de empezar.</small></span><span class="go">Ver guías ›</span></a>`)})();
 try{i18nAdd([['Guías a la vista y enlaces directos','Guides in sight and direct links','Guides visibles et liens directs','Guias à vista e links diretos'],['Guías en el menú y en cada juego','Guides in the menu and in every game','Guides dans le menu et dans chaque jeu','Guias no menu e em cada jogo'],['Nuevo botón «📚 Guías» en el menú, las guías arriba del todo en Ayuda y, en cada juego, un enlace a su guía con reglas y trucos.','New «📚 Guides» button in the menu, guides at the top of Help and, in every game, a link to its guide with rules and tips.','Nouveau bouton «📚 Guides» dans le menu, guides en haut de l\'Aide et, dans chaque jeu, un lien vers son guide.','Novo botão «📚 Guias» no menu, guias no topo da Ajuda e, em cada jogo, um link para o seu guia.'],['Cada sección con su enlace','Every section has its own link','Chaque section a son lien','Cada secção com o seu link'],['Ahora la dirección cambia al moverte: casinetori.com/#tienda, #bolsa, #jugar=plinko… Cópiala y pásasela a quien quieras para que entre directo ahí.','The address now changes as you move: casinetori.com/#tienda, #bolsa, #jugar=plinko… Copy it and send it so others go straight there.','L\'adresse change maintenant : casinetori.com/#tienda, #bolsa, #jugar=plinko… Copie-la et envoie-la pour y aller directement.','Agora o endereço muda: casinetori.com/#tienda, #bolsa, #jugar=plinko… Copia-o e envia-o para irem direto lá.']])}catch(e){}
+/* ===== 2026-11-02: mientras no haya anuncios de verdad (AdSense sin aprobar), nada de «modo prueba»: lo de «ver anuncio» es un regalo ===== */
+const adsLive=()=>{try{return !!(GU_AD&&GU_AD.ready&&!GU_AD.failed&&typeof window.adBreak==='function')}catch(e){return false}};
+guAdFake=function(reward,done){try{sfx('coin')}catch(_){}setTimeout(()=>{try{reward()}catch(e){}try{toast('🎁 ¡De regalo!','Hoy no hace falta ver nada','var(--mint)','🎁')}catch(_){}done()},250)};
+const ADT=[[/🎬 Ver anuncio y girar/g,'🎁 Girar gratis'],[/📺 Ver anuncio/g,'🎁 Gratis'],[/\bVer anuncio y girar\b/g,'Girar gratis'],[/\bVER ANUNCIO\b/g,'¡GRATIS!'],[/\bVer anuncio\b/g,'¡Gratis!'],
+  [/Mira un anuncio corto y te damos/g,'Te damos'],[/: mira un anuncio y gira/g,': gira gratis'],[/mira un anuncio y gira/g,'gira gratis'],
+  [/Mira un anuncio y (\S)/g,(m,c)=>c.toUpperCase()],[/mira un anuncio y /g,''],[/\(mira un anuncio y gira\)/g,'(gira gratis)']];
+function adsTextFix(){if(adsLive())return;const roots=[$('.main'),$('#modal')].filter(Boolean);
+  roots.forEach(r=>{const w=document.createTreeWalker(r,NodeFilter.SHOW_TEXT);let n;while((n=w.nextNode())){const p=n.parentElement;if(!p||p.closest('#v-ayuda,#v-admin,script,style,textarea,input'))continue;const t=n.nodeValue;if(!/anuncio/i.test(t))continue;let u=t;ADT.forEach(([re,to])=>{u=u.replace(re,to)});if(u!==t)n.nodeValue=u}})}
+setInterval(adsTextFix,1200);setTimeout(adsTextFix,300);
+(function(){let q=0;const mo=new MutationObserver(()=>{if(q||adsLive())return;q=requestAnimationFrame(()=>{q=0;mo.disconnect();try{adsTextFix()}finally{obs()}})});const obs=()=>{[$('.main'),$('#modal')].forEach(r=>{if(r)mo.observe(r,{subtree:true,childList:true,characterData:true})})};obs()})();
+/* ===== 2026-11-02: en la liga salen también los que aún no han jugado esta semana (con 0 puntos), al final ===== */
+const LG_SEEN=30*864e5;
+{const _rlZ=rankList;rankList=function(tab,cat){const arr=_rlZ.apply(this,arguments);if(cat!=='liga')return arr;try{
+    const lg=LGV==null?(S.lg||0):LGV,have=new Set(arr.map(p=>p.id||'me')),now=Date.now();
+    const zero=others().filter(p=>!have.has(p.id)&&(+p.lg||0)===lg&&now-(+p.t||0)<LG_SEEN&&!(+p.wk===WK()&&+p.wp>0)).map(p=>({...p,me:false,lgZero:1}));
+    if(tab==='amigos'){const fr=new Set(S.friends||[]);return arr.concat(zero.filter(p=>fr.has(p.id)))}
+    zero.sort((a,b)=>(+b.t||0)-(+a.t||0));return arr.concat(zero)}catch(e){return arr}}}
+function lgActiveN(arr){return arr.filter(p=>p.me||(!p.lgZero&&pval(p,'liga')>0)).length}
+try{i18nAdd([['Liga: salen todos','League: everyone shows','Ligue : tout le monde apparaît','Liga: aparecem todos'],['Los que aún no han jugado, también','Those who haven\'t played yet show too','Ceux qui n\'ont pas encore joué aussi','Os que ainda não jogaram também'],['En la clasificación de la liga ahora salen también los de tu liga que todavía no han jugado esta semana, con 0 puntos y «💤 Sin jugar». Ojo: quien no juega en toda la semana baja de liga.','The league table now also shows players in your league who haven\'t played this week, with 0 points and «💤 Not played». Careful: whoever doesn\'t play all week goes down.','Le classement de la ligue montre aussi ceux de ta ligue qui n\'ont pas joué cette semaine, avec 0 point. Attention : qui ne joue pas de la semaine descend.','A classificação da liga agora mostra também quem ainda não jogou esta semana, com 0 pontos. Atenção: quem não joga a semana toda desce.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
