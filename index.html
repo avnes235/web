@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-02-0020">
+<meta name="app-version" content="2026-11-02-0022">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -15406,10 +15406,12 @@ document.addEventListener('click',e=>{if(!e.target.closest||!e.target.closest('#
 /* ===== 2026-10-28: al acabar un evento de temporada, los caramelos que sobran se cambian por dinero (mucho) ===== */
 function seLeft(e){const s=(S.ev||{})[e.id];if(!s)return 0;const tot=Math.floor(+s.tot||0);let last=0;e.tiers.forEach(t=>{if(tot>=t[0])last=t[0]});return Math.max(0,tot-last)}
 function sePer(){let w=0;try{w=wR()}catch(e){w=+S.coins||0}return niceN(Math.max(2e7,w*.03))}
-function seCandyCheck(){try{/* 2026-11-02: PARADO por el jefe */return;if($('#sePod'))return;const t=NOWS();for(const e of SEASONS){if(t<e.to)continue;const s=(S.ev||{})[e.id];if(!s||s.endPaid||!(+s.tot>0))continue;
+function seCandyCheck(){try{if($('#sePod'))return;const t=NOWS();for(const e of SEASONS){if(t<e.to)continue;const s=(S.ev||{})[e.id];if(!s||s.endPaid||!(+s.tot>0))continue;
+    /* 2026-11-02: solo para quien consiguió TODAS las recompensas del evento */
+    const top=Math.max(...e.tiers.map(t=>+t[0]||0));if(!(+s.tot>=top)){s.endPaid=1;save();continue}
     const n=seLeft(e);if(n<=0){s.endPaid=1;save();continue}if($('#seEnd'))return;
     const per=sePer();let w=0;try{w=wR()}catch(_){}let v=Math.min(per*n,niceN(Math.max(2e8,w*5)));v=Math.max(v,2e8);seEndShow(e,n,v);return}}catch(e){}}
-function seEndShow(e,n,v){return;const o=document.createElement('div');o.id='seEnd';o.innerHTML=`<div class="sen"><div class="sei">${e.ico}</div><small>Se ha acabado ${esc(e.name)}</small>
+function seEndShow(e,n,v){const o=document.createElement('div');o.id='seEnd';o.innerHTML=`<div class="sen"><div class="sei">${e.ico}</div><small>Se ha acabado ${esc(e.name)}</small>
   <h2>¡Te han sobrado <b>${fmt(n)} ${e.cur[0]}</b>!</h2><p>Los ${esc(e.cur[1])} que no llegaste a gastar en recompensas se cambian por dinero:</p>
   <div class="sev">+${fmt(v)} €</div><button type="button" class="btn big mint" id="seEndOk">💰 ¡Cobrar!</button><p class="sef">Todo lo que conseguiste en el evento es tuyo para siempre.</p></div>`;
   document.body.appendChild(o);try{sfx('big')}catch(_){}try{confetti(200)}catch(_){}
