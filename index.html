@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-03-1840">
+<meta name="app-version" content="2026-11-03-1900">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4631,8 +4631,8 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 .nb .nwb{position:absolute;top:1px;right:2px;z-index:3;background:#ff2e88;color:#fff;font:900 8px/1 var(--f-b,system-ui);letter-spacing:.6px;padding:3px 4px;border-radius:5px;animation:nwBlink 1.4s ease-in-out infinite;pointer-events:none}
 @keyframes nwBlink{50%{transform:scale(1.15)}}
 /* escaparate de novedades */
-#nwShow{position:fixed;inset:0;z-index:9990;display:grid;place-items:center;padding:16px}
-#nwShow .nwbg{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(40,20,70,.9),rgba(5,6,14,.94));backdrop-filter:blur(4px)}
+#nwShow,#wbShow{position:fixed;inset:0;z-index:9990;display:grid;place-items:center;padding:16px}
+#nwShow .nwbg,#wbShow .nwbg{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(40,20,70,.9),rgba(5,6,14,.94));backdrop-filter:blur(4px)}
 .nwcard{position:relative;width:min(420px,100%);padding:22px 20px 18px;border-radius:24px;text-align:center;background:linear-gradient(180deg,#1c1f36,#111325);border:3px solid var(--c);box-shadow:0 0 0 6px rgba(0,0,0,.35),0 0 60px color-mix(in srgb,var(--c) 45%,transparent);animation:nwIn .35s cubic-bezier(.3,1.5,.5,1)}
 @keyframes nwIn{from{transform:scale(.85) translateY(20px);opacity:0}to{transform:none;opacity:1}}
 .nwx{position:absolute;top:10px;right:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:#fff;font-size:16px;cursor:pointer}
@@ -4644,6 +4644,22 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 .nwdots{display:flex;justify-content:center;gap:7px;margin-bottom:14px}.nwdots i{width:9px;height:9px;border-radius:5px;background:rgba(255,255,255,.2);cursor:pointer;transition:width .2s}.nwdots i.on{width:24px;background:var(--c)}
 .nwbtns{display:flex;flex-direction:column;gap:8px}.nwbtns .btn{width:100%;padding:13px;font-size:16px}
 .nwgo{background:var(--c)!important;color:#111!important}
+/* Bote de los Caídos, explicado */
+.bcbox2{display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:14px;background:linear-gradient(160deg,rgba(20,224,138,.14),rgba(20,224,138,.04));border:2px solid rgba(20,224,138,.45)}
+.bchd{display:flex;gap:12px;align-items:center}.bchd>div:last-child{display:flex;flex-direction:column;min-width:0}
+.bcbox2 .bcjar{overflow:hidden}.bcbox2 .bcjar span{position:relative;z-index:1}.bcbox2 .bcjar i{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,#ffd600,#ff9a1f);opacity:.85;border-radius:0 0 14px 14px;animation:bcFill 2.4s ease-in-out infinite}
+@keyframes bcFill{50%{filter:brightness(1.25)}}
+.bcbox2 .bcamt{font-size:30px!important;line-height:1}
+.bcsteps{display:flex;flex-direction:column;gap:6px}.bcsteps>div{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;font-weight:700;line-height:1.3}.bcsteps .lzn{background:#14e08a;color:#062;flex:none}
+.bcst{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:12px;text-align:center}.bcst b{font-size:15px;letter-spacing:.4px}.bcst span{font-size:12.5px;font-weight:700;opacity:.9}
+.bcst.in{background:rgba(20,224,138,.2);border:2px solid #14e08a;color:#d9ffef}.bcst.out{background:rgba(255,255,255,.05);border:2px dashed rgba(255,255,255,.2)}
+.bcfoot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;font-size:12.5px;font-weight:700;opacity:.9}.bcfoot b{color:var(--sun)}.bcwon{color:#14e08a}
+/* vuelta tras mucho tiempo */
+.wbcard{width:min(520px,100%);max-height:calc(100vh - 32px);overflow:auto}.wbcard h2{font-size:28px}.wbcard p{font-size:14.5px;margin-bottom:10px}
+.wbgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;text-align:left}
+.wbgrid button{text-align:left;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:8px;align-items:center;padding:10px;border-radius:12px;border:2px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:inherit;cursor:pointer}
+.wbgrid .emo{grid-row:1/3;font-size:26px}.wbgrid b{font-size:14px}.wbgrid small{font-size:11.5px;opacity:.75;font-weight:700;line-height:1.25}
+.wbgrid button:active{transform:scale(.96)}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -6896,6 +6912,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-03-d',t:'Top 5 sin trampas y Bote más claro',items:[['👑','El top 5 ya no cobra nada gratis','El botón rojo (todas sus sorpresas), la lluvia de dinero, el premio por hora y los premios por anuncio ya no dan dinero a los 5 más ricos. Te sale un aviso cuando pasa.','fix','#ffd600'],['💀','Bote de los Caídos explicado','Ahora ves en 3 pasos cómo funciona, si estás dentro del sorteo, cuántas papeletas hay, tu probabilidad, la cuenta atrás y quién ganó el último.','fix','#14e08a'],['👋','¿Vuelves después de mucho?','Si llevas días sin entrar, te enseñamos el mapa del juego en un vistazo: qué es cada sección y un botón para ir.','new','#7fd3ff']]},
  {v:'2026-11-03-c',t:'Lo nuevo, a la vista',items:[['🚀','Escaparate de novedades','Al entrar te enseñamos lo nuevo en 5 tarjetas, con un botón que te lleva directo a cada cosa. Lo puedes volver a ver desde Novedades.','new','#ffd600'],['✨','Torre, Renacer y Locuras más bonitos','La Torre tiene dibujo y reloj en directo, el Renacer te dice claro qué ganas y qué pierdes, y las Locuras enseñan el resultado en grande. La Torre sale también en Inicio.','fix','#ff2e88']]},
  {v:'2026-11-03-b',t:'La Torre, el Renacer, las Locuras y el Bote',items:[['👑','La Torre de Casinetori','Solo hay una para todo el juego. Para quitársela al que la tiene pagas el doble de lo que pagó él. Sin esperas. El trofeo de la semana es para quien más tiempo la tenga. Está en la Tienda.','new','#ffd600'],['⭐','Renacer con estrellas','Cuando seas muy rico, vuelve a empezar a cambio de una estrella para siempre: cada una te da un 10 % más de dinero y sale junto a tu nombre. Hay 10 distintas. En la Tienda.','new','#b48cff'],['🔥','Locuras en el Casino','Apuestas enormes de una sola tirada: elige cuánto te juegas (hasta TODO) y a qué multiplicador, de ×2 a ×1.000. Nadie más se entera.','new','#ff6b4a'],['💀','El Bote de los Caídos','El 10 % de lo que se pierde en Locuras va a un bote. Cada lunes se sortea entre todos los que han perdido alguna Locura esa semana.','new','#14e08a'],['👑','Top 5: solo habilidad','Si estás entre los 5 más ricos, se acabó el dinero gratis (botones, regalos, intereses…). Solo ganas en el Casino, los juegos y la Fábrica.','new','#7fd3ff'],['🎁','Premio de Google a tu medida','El regalo por entrar con Google ya no es fijo: es una parte de tu dinero (hasta la mitad si tienes poco).','fix','#14e08a'],['📮','Buzón con cifras enormes','Ya puedes escribir cantidades como «55 quintill.» o «2 sextill.» sin que salga «cifra no válida».','fix','#14e08a'],['⚡','La web carga más rápido','Menos cosas al entrar: la web aparece antes, sobre todo en el móvil.','fix','#b48cff']]},
  {v:'2026-11-02-a',t:'Liga: salen todos',items:[['💤','Los que aún no han jugado, también','En la clasificación de la liga ahora salen también los de tu liga que todavía no han jugado esta semana, con 0 puntos y «💤 Sin jugar». Ojo: quien no juega en toda la semana baja de liga.','new','#aab0c8']]},
@@ -7320,7 +7337,7 @@ function topEarn(){const items=[];let total=0;if(!NET.ok)return{total,items};
 const hourNow=()=>Math.floor(Date.now()/3600000);
 function topCheck(){if(!NET.ok||!S.name||performance.now()<12000||NET.players.size<2)return;const h=hourNow();if(!S.topHour){S.topHour=h;save();return}
   if(h<=S.topHour)return;const hours=Math.min(TOP_BACK,h-S.topHour);S.topHour=h;const e=topEarn();if(!e.total){save();return}
-  const pay=e.total*hours;S.coins+=pay;S.st.topPaid=(S.st.topPaid||0)+pay;save();NET.lastP='';pushPlayer();sfx('big');confetti(160);
+  const pay=t5Q()?0:e.total*hours;if(!pay){t5Warn();save();return}S.coins+=pay;S.st.topPaid=(S.st.topPaid||0)+pay;save();NET.lastP='';pushPlayer();sfx('big');confetti(160);
   const best=e.items.sort((a,b)=>a.pos-b.pos||b.amt-a.amt)[0];
   troll('PREMIO DE LAS CLASIFICACIONES','+'+short(pay)+' € · '+(hours>1?hours+' horas · ':'')+'Top '+best.pos+' en '+best.n,'#ffd600',true);
   toast('Premio por hora','+'+short(pay)+' € por estar en '+e.items.length+(e.items.length===1?' podio':' podios'),'var(--sun)','🏆')}
@@ -10515,7 +10532,7 @@ function guDayRender(){const b=$('#guDayBtn'),inf=$('#guDayInfo');if(!b||guDwSpi
   else{b.disabled=false;b.textContent='🎬 Ver anuncio y girar';inf.textContent='Cada 2 horas · '+(ADS_CLIENT?'anuncio de unos segundos':'modo prueba: anuncio de mentira de 5 s')}}
 function guDayPay(){const st=S.guDay;if(!st||!st.pend)return;st.pend=0;
   if(st.t&&!guHasT()){S.exc=S.exc||[];S.exc.push('ti:'+GU_TITLE);try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}return -1}
-  const p=Math.max(0,Math.floor(+st.p||0));try{LED.tag='v:anuncio';LED.tagT=Date.now()+1500}catch(e){}S.coins+=p;S.earned=(S.earned||0)+p;try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}return p}
+  const p=t5Q()?0:Math.max(0,Math.floor(+st.p||0));if(!p){t5Warn();return 0}try{LED.tag='v:anuncio';LED.tagT=Date.now()+1500}catch(e){}S.coins+=p;S.earned=(S.earned||0)+p;try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}return p}
 function guWin(p,k){const s=GU_DW[k]||[];if(p===-1){try{sfx('big')}catch(_){}try{confetti(360)}catch(_){}troll('🎬 ¡ESTRELLA DE CINE!','título exclusivo: póntelo en Perfil › Título','#ffd600',true);try{excShow(['ti:'+GU_TITLE],{k:'🎬 Premio del Gran Premio de Cine',p:'Te ha tocado en la ruleta del Gran Premio de Cine. Muy poca gente lo tiene.'})}catch(_){}return}
   const jack=s[4]==='gold';try{sfx(jack||p>=wealth()*.05?'big':'win')}catch(_){}try{confetti(jack?320:120)}catch(_){}
   if(jack)troll('¡¡GRAN PREMIO!!','+'+short(p)+' €','#ffd600',true);else toast('¡Te ha tocado!','+'+short(p)+' € del Gran Premio de Cine','var(--mint)','🎬')}
@@ -11228,7 +11245,7 @@ function rainStart(e){if(rainIv)return;let L=$('#rainL');if(!L){L=document.creat
   rainIv=setInterval(()=>{const left=rainLeft(e),val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100),out=left<val;if(document.hidden||$('#excWin:not([hidden])'))return;if(out)return;/* bote vacío: ya no caen más monedas */if(L.childElementCount>14)return;
     const c=document.createElement('button');c.className='frcoin';c.textContent='€';c.style.left=(11+Math.random()*69)+'vw';const dur=3.2+Math.random()*2.5;c.style.animationDuration=dur+'s';c.style.setProperty('--rr',(Math.random()*720-360)+'deg');if(out){c.classList.add('empty');c.textContent='✕'}
     c.onpointerdown=ev=>{ev.preventDefault();ev.stopPropagation();if(c.dataset.got)return;c.dataset.got=1;const l2=rainLeft(e),v=Math.min(val,l2);if(v<=0||c.classList.contains('empty')){rainEmptyPop(ev,c);return}
-      if(!S.rainG||S.rainG.id!==e.id)S.rainG={id:e.id,n:0};S.rainG.n+=v;const pay=rainPay(e,v,val);S.coins+=pay;S.earned+=pay;S.rainG.p=(S.rainG.p||0)+pay;try{sfx('coin')}catch(_){}
+      if(!S.rainG||S.rainG.id!==e.id)S.rainG={id:e.id,n:0};S.rainG.n+=v;const pay=t5Q()?0:rainPay(e,v,val);if(!pay)t5Warn();S.coins+=pay;S.earned+=pay;S.rainG.p=(S.rainG.p||0)+pay;try{sfx('coin')}catch(_){}
       const pp=document.createElement('div');pp.className='rpop';pp.textContent='+'+short(pay)+' €';pp.style.left=ev.clientX-20+'px';pp.style.top=ev.clientY-20+'px';document.body.appendChild(pp);setTimeout(()=>pp.remove(),800);c.remove();
       save();if(Date.now()-rainPushT>2500){rainPushT=Date.now();NET.lastP='';pushPlayer()}else setTimeout(()=>{if(Date.now()-rainPushT>=2400){rainPushT=Date.now();NET.lastP='';pushPlayer()}},2600)};
     L.appendChild(c);setTimeout(()=>c.remove(),dur*1000+200)},420);
@@ -16013,6 +16030,7 @@ try{if(!FAQ.some(x=>x[0]==='¿Cómo funciona la Torre de Casinetori?'))FAQ.unshi
 try{if(!FAQ.some(x=>x[0]==='¿Qué es Renacer?'))FAQ.unshift(['¿Qué es Renacer?','En la Tienda. Cuando tienes muchísimo dinero (la primera estrella pide 1 quintillón de riqueza), puedes volver a empezar con 1 millón a cambio de una estrella para siempre. Cada estrella da un 10 % más en el dinero gratis y en la Fábrica, y sale junto a tu nombre. Conservas nivel, títulos, logros, amigos y cosméticos.'])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Qué son las Locuras y el Bote de los Caídos?'))FAQ.unshift(['¿Qué son las Locuras y el Bote de los Caídos?','Las Locuras están arriba del todo en el Casino: una apuesta enorme de una sola tirada, eligiendo cuánto te juegas y el multiplicador (de ×2 a ×1.000). El 10 % de lo que se pierde va al Bote de los Caídos, que cada lunes se sortea entre los que han perdido alguna Locura esa semana.'])}catch(e){}
 try{i18nAdd([['Lo nuevo, a la vista','What’s new, front and centre','Les nouveautés, bien visibles','As novidades, bem à vista'],['Escaparate de novedades','What’s-new showcase','Vitrine des nouveautés','Montra de novidades'],['Al entrar te enseñamos lo nuevo en 5 tarjetas, con un botón que te lleva directo a cada cosa. Lo puedes volver a ver desde Novedades.','When you come in we show you what’s new in 5 cards, with a button that takes you straight to each thing. You can see it again from News.','En arrivant, on te montre les nouveautés en 5 cartes, avec un bouton qui t’emmène directement à chaque chose. Tu peux la revoir depuis Nouveautés.','Ao entrar mostramos-te as novidades em 5 cartões, com um botão que te leva direto a cada coisa. Podes voltar a ver em Novidades.'],['Torre, Renacer y Locuras más bonitos','Nicer Tower, Rebirth and Madness','Tour, Renaissance et Folies plus jolies','Torre, Renascer e Loucuras mais bonitos'],['La Torre tiene dibujo y reloj en directo, el Renacer te dice claro qué ganas y qué pierdes, y las Locuras enseñan el resultado en grande. La Torre sale también en Inicio.','The Tower has artwork and a live clock, Rebirth clearly shows what you gain and lose, and Madness shows the result big. The Tower also shows on Home.','La Tour a un dessin et une horloge en direct, la Renaissance montre clairement ce que tu gagnes et perds, et les Folies affichent le résultat en grand. La Tour apparaît aussi à l’Accueil.','A Torre tem desenho e relógio em direto, o Renascer diz claramente o que ganhas e perdes, e as Loucuras mostram o resultado em grande. A Torre também aparece no Início.']])}catch(e){}
+try{i18nAdd([['Top 5 sin trampas y Bote más claro','Top 5 with no loopholes and a clearer Pot','Top 5 sans failles et Cagnotte plus claire','Top 5 sem truques e Pote mais claro'],['El top 5 ya no cobra nada gratis','The top 5 get nothing for free','Le top 5 ne touche plus rien gratuitement','O top 5 já não recebe nada grátis'],['El botón rojo (todas sus sorpresas), la lluvia de dinero, el premio por hora y los premios por anuncio ya no dan dinero a los 5 más ricos. Te sale un aviso cuando pasa.','The red button (all its surprises), money rain, the hourly prize and ad rewards no longer give money to the 5 richest. A notice tells you when it happens.','Le bouton rouge (toutes ses surprises), la pluie d’argent, le prix horaire et les récompenses de pub ne donnent plus d’argent aux 5 plus riches. Un avis te prévient.','O botão vermelho (todas as surpresas), a chuva de dinheiro, o prémio por hora e os prémios por anúncio já não dão dinheiro aos 5 mais ricos. Aparece um aviso quando acontece.'],['Bote de los Caídos explicado','The Fallen Pot, explained','La Cagnotte des Tombés expliquée','O Pote dos Caídos explicado'],['Ahora ves en 3 pasos cómo funciona, si estás dentro del sorteo, cuántas papeletas hay, tu probabilidad, la cuenta atrás y quién ganó el último.','Now you see how it works in 3 steps, whether you’re in the draw, how many tickets there are, your chance, the countdown and who won last.','Tu vois maintenant en 3 étapes comment ça marche, si tu participes, combien de tickets il y a, ta chance, le compte à rebours et le dernier gagnant.','Agora vês em 3 passos como funciona, se estás no sorteio, quantas rifas há, a tua probabilidade, a contagem e quem ganhou o último.'],['¿Vuelves después de mucho?','Back after a long time?','De retour après longtemps ?','Voltas depois de muito tempo?'],['Si llevas días sin entrar, te enseñamos el mapa del juego en un vistazo: qué es cada sección y un botón para ir.','If you haven’t played for days, we show you the game map at a glance: what each section is and a button to go there.','Si tu n’es pas venu depuis des jours, on te montre la carte du jeu d’un coup d’œil : chaque section et un bouton pour y aller.','Se estiveste dias sem entrar, mostramos-te o mapa do jogo num relance: o que é cada secção e um botão para ir.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
@@ -16312,7 +16330,7 @@ document.addEventListener('click',e=>{const d=e.target.closest('#nwShow');if(!d)
 /* deslizar con el dedo */
 {let sx=null;document.addEventListener('touchstart',e=>{if(e.target.closest('#nwShow .nwcard'))sx=e.touches[0].clientX},{passive:true});
  document.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)<50)return;NWI=Math.max(0,Math.min(NW_S.length-1,NWI+(dx<0?1:-1)));nwDraw()},{passive:true})}
-function nwMaybe(){try{if(S.nwSeen===NW_ID||!S.name)return;if(!$('#modal').hidden||$('#ageGate')||document.querySelector('#guTour:not([hidden])'))return;nwShow()}catch(e){}}
+function nwMaybe(){try{if(S.nwSeen===NW_ID||!S.name)return;if(!$('#modal').hidden||$('#ageGate')||$('#wbShow')||document.querySelector('#guTour:not([hidden])'))return;nwShow()}catch(e){}}
 /* el aviso viejo de novedades no sale encima del escaparate */
 {const _onNW=openNotes;openNotes=function(auto){if(auto&&S.nwSeen!==NW_ID)return;return _onNW.apply(this,arguments)}}
 setTimeout(nwMaybe,2600);setInterval(nwMaybe,6000);setTimeout(nwBadges,800);
@@ -16327,6 +16345,49 @@ try{i18nAdd([
  ['LOCURAS','MADNESS','FOLIES','LOUCURAS'],['Todo a una tirada','All on one shot','Tout en un coup','Tudo numa jogada'],['Elige cuánto y a qué multiplicador. Solo lo ves tú.','Choose how much and which multiplier. Only you see it.','Choisis combien et quel multiplicateur. Toi seul le vois.','Escolhe quanto e o multiplicador. Só tu vês.'],
  ['Si sale','If it hits','Si ça sort','Se sair'],['BOTE DE LOS CAÍDOS','THE FALLEN POT','CAGNOTTE DES TOMBÉS','POTE DOS CAÍDOS'],['Siguiente ›','Next ›','Suivant ›','Seguinte ›'],['¡A jugar! 🎉','Let’s play! 🎉','On joue ! 🎉','A jogar! 🎉'],['👍 Entendido','👍 Got it','👍 Compris','👍 Entendido'],
  ['🚀 Ver otra vez lo nuevo de hoy','🚀 See today’s news again','🚀 Revoir les nouveautés','🚀 Ver outra vez as novidades']])}catch(e){}
+
+/* ===== Top 5 sin dinero gratis: también el botón rojo (sus sorpresas pagaban por su cuenta), la lluvia, el premio por hora y los anuncios ===== */
+function t5Q(){try{return isTop5()}catch(e){return false}}
+function t5Say(what){try{troll('👑 ERES DEL TOP 5','Por eso '+what+' no te da dinero. Arriba solo se gana jugando: casino, juegos y Fábrica.','#ffd600',true)}catch(e){}}
+{const _rbT5=rbPress;rbPress=function(i){if(!t5Q())return _rbT5.apply(this,arguments);
+  const c0=Math.floor(+S.coins||0),e0=+S.earned||0;T5.rbUntil=Date.now()+40000;const r=_rbT5.apply(this,arguments);
+  const fix=()=>{try{const c=Math.floor(+S.coins||0);if(c>c0){const d=c-c0;S.coins=c0;S.earned=Math.max(e0,(+S.earned||0)-d);try{shownCoins=S.coins}catch(e){}save();NET.lastP='';try{pushPlayer()}catch(e){}if(!T5.rbSaid||Date.now()-T5.rbSaid>15000){T5.rbSaid=Date.now();t5Say('el botón rojo')}}}catch(e){}};
+  [1500,4000,8000,10500,16000,25000,40000].forEach(ms=>setTimeout(fix,ms));setTimeout(()=>{if(!T5.rbSaid||Date.now()-T5.rbSaid>15000){T5.rbSaid=Date.now();t5Say('el botón rojo')}},1200);return r}}
+/* mientras dura una sorpresa del botón rojo, nada de lo que «regala» cuenta para el top 5 */
+{const _gvRB=give;give=function(n){if(n>0&&T5.rbUntil&&Date.now()<T5.rbUntil&&t5Q())return;return _gvRB.apply(this,arguments)}}
+
+/* ===== Bote de los Caídos: explicado paso a paso, cuenta atrás en directo y si has ganado o no ===== */
+function bcInfo(){const w=WK(),L=bcList(w).filter(x=>x.n>0),me=L.find(x=>x.id===(NET.id||'me'))||null,pw=w-1,W=bcWinner(pw),ppot=bcPot(pw);
+  return{w,pot:bcPot(w),n:L.length,me,end:tqWeekEnd(w),last:W?{name:W.id===NET.id?'¡TÚ!':W.name,me:W.id===NET.id,pot:ppot}:null}}
+function bcHTML(){const b=bcInfo(),nh=nwH('bc');
+  return`<div class="bcbox2${nh}"><div class="bchd"><div class="bcjar"><span>💀</span><i style="height:${Math.min(92,12+Math.log10(1+b.pot)*3.6).toFixed(0)}%"></i></div><div><span class="tqk">💀 BOTE DE LOS CAÍDOS</span><b class="bcamt">${eS(b.pot)}</b><span class="skp">en el bote ahora mismo</span></div></div>
+   <div class="bcsteps"><div><span class="lzn">1</span><span>Pierdes una <b>Locura</b></span></div><div><span class="lzn">2</span><span>El <b>10 %</b> de lo que pierdes va al bote y <b>entras en el sorteo</b></span></div><div><span class="lzn">3</span><span>El <b>lunes</b> sale <b>1 ganador</b> al azar y se lleva <b>TODO</b></span></div></div>
+   <div class="bcst ${b.me?'in':'out'}">${b.me?`<b>✅ ESTÁS DENTRO DEL SORTEO</b><span>Tienes 1 de las ${fmt(b.n)} papeletas · ${b.n?Math.round(100/b.n):0} % de que te toque</span>`:`<b>❌ AÚN NO ESTÁS DENTRO</b><span>Pierde una Locura esta semana y entras · ahora hay ${fmt(b.n)} ${b.n===1?'jugador':'jugadores'} dentro</span>`}</div>
+   <div class="bcfoot"><span>⏳ Sorteo en <b data-tqe="${b.end}">${tqDur(b.end-NOWS())}</b></span>${b.last?`<span class="${b.last.me?'bcwon':''}">🏆 Último: <b>${esc(b.last.name)}</b> ${b.last.me?'ganó':'se llevó'} ${eS(b.last.pot)}</span>`:'<span>🏆 Todavía no ha habido sorteo</span>'}</div></div>`}
+{const _lzB=lzHTML;lzHTML=function(){const h=_lzB.apply(this,arguments);const i=h.indexOf('<div class="bcbox');if(i<0)return h;return h.slice(0,i)+bcHTML()+'</div>'}}
+/* aviso grande si te toca (además del mensaje), y queda apuntado */
+{const _bcP=bcPrize;bcPrize=function(){const before=S.bcWon;const r=_bcP.apply(this,arguments);try{if(S.bcWon!==before){S.bcLast={w:S.bcWon,t:Date.now()};save()}}catch(e){}return r}}
+/* en Inicio el botón del bote dice si estás dentro */
+{const _tqcB=tqCard;tqCard=function(){const r=_tqcB.apply(this,arguments);try{const b=bcInfo(),el=document.querySelector('#tqCard [data-nwgo="bc"] small');if(el){const t=eS(b.pot)+(b.me?' · ✅ dentro':'');if(el.textContent!==t)el.textContent=t}}catch(e){}return r}}
+
+/* ===== ¿Vuelves después de mucho tiempo? Te enseñamos el mapa del juego en un vistazo ===== */
+const WB_T=[['inicio','🏠','Inicio','Tu resumen: premios del día, misiones y la Torre'],['casino','🎰','Casino','Tragaperras, ruleta, blackjack… y las Locuras'],['arcade','🎮','Juegos','Minijuegos con récords: Snake, Dash, Pollo…'],['fabrica','🏭','Fábrica','Pulsa la moneda y mejora para ganar solo'],
+  ['rico','🛍️','Tienda','Compra cosas, la Torre y el Renacer'],['trading','📈','Trading','Sube o baja: apuesta al mercado'],['online','⚔️','Online','Duelos y botes contra otros jugadores'],['ranking','🏆','Clasificación','Quién va primero y tu liga semanal']];
+function wbShow(){if($('#wbShow'))return;const d=document.createElement('div');d.id='wbShow';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');
+  d.innerHTML=`<div class="nwbg"></div><div class="nwcard wbcard" style="--c:#7fd3ff"><button class="nwx" data-wb="x" aria-label="Cerrar">✕</button><span class="nwtag">👋 ¡HAS VUELTO, ${esc(String(S.name||'').toUpperCase())}!</span><h2>Esto es lo que hay ahora</h2><p>Todo sigue con <b>dinero de mentira</b>. Tu partida está intacta. Toca una sección para ir:</p>
+   <div class="wbgrid">${WB_T.filter(x=>TITLES[x[0]]).map(x=>`<button data-wbv="${x[0]}"><span class="emo">${x[1]}</span><b>${esc(x[2])}</b><small>${esc(x[3])}</small></button>`).join('')}</div>
+   <div class="nwbtns"><button class="btn nwgo" data-wb="new">🚀 Ver lo nuevo de hoy</button></div></div>`;document.body.appendChild(d);sfx('upd')}
+function wbClose(){const d=$('#wbShow');if(d)d.remove();S.wbSeen=Date.now();save()}
+document.addEventListener('click',e=>{const d=e.target.closest('#wbShow');if(!d)return;const v=e.target.closest('[data-wbv]'),b=e.target.closest('[data-wb]');
+  if(v){sfx('click');wbClose();S.nwSeen=NW_ID;save();go(v.dataset.wbv);return}if(!b)return;sfx('click');wbClose();if(b.dataset.wb==='new'){S.nwSeen='';nwShow()}else{S.nwSeen=NW_ID;save()}});
+/* sale en lugar del escaparate si llevabas más de 5 días sin entrar */
+const WB_AWAY=(()=>{try{return S.name&&prevSeen&&Date.now()-prevSeen>5*864e5}catch(e){return false}})();
+{const _nwM=nwMaybe;nwMaybe=function(){try{if(WB_AWAY&&!S.wbDone4&&S.name){if(!$('#modal').hidden||$('#ageGate')||$('#nwShow')||$('#wbShow'))return;S.wbDone4=1;save();wbShow();return}}catch(e){}return _nwM.apply(this,arguments)}}
+try{i18nAdd([
+ ['💀 BOTE DE LOS CAÍDOS','💀 THE FALLEN POT','💀 CAGNOTTE DES TOMBÉS','💀 POTE DOS CAÍDOS'],['en el bote ahora mismo','in the pot right now','dans la cagnotte en ce moment','no pote neste momento'],
+ ['✅ ESTÁS DENTRO DEL SORTEO','✅ YOU’RE IN THE DRAW','✅ TU PARTICIPES AU TIRAGE','✅ ESTÁS NO SORTEIO'],['❌ AÚN NO ESTÁS DENTRO','❌ YOU’RE NOT IN YET','❌ TU N’Y ES PAS ENCORE','❌ AINDA NÃO ESTÁS'],
+ ['👑 ERES DEL TOP 5','👑 YOU’RE IN THE TOP 5','👑 TU ES DANS LE TOP 5','👑 ESTÁS NO TOP 5'],['Esto es lo que hay ahora','This is what there is now','Voici ce qu’il y a maintenant','Isto é o que há agora'],['🚀 Ver lo nuevo de hoy','🚀 See today’s news','🚀 Voir les nouveautés','🚀 Ver as novidades']])}catch(e){}
+setTimeout(()=>nwMaybe(),2300);
 })();
 </script>
 
