@@ -4511,6 +4511,22 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 #v-inicio #t5Card{grid-column:1/-1;order:-1}
 .t5card{display:flex;align-items:center;gap:14px;padding:14px 18px;margin-bottom:14px;border:2px solid #ffd600;background:linear-gradient(135deg,rgba(255,214,0,.16),rgba(255,154,31,.08))}
 .t5card>.emo{font-size:34px}.t5card b{display:block;font:900 18px var(--f-b,system-ui)}.t5card small{display:block;font-weight:700;opacity:.9;line-height:1.4}
+/* Torre del Millonario y Locuras */
+#sinks{display:grid;gap:14px;margin:14px 0}
+@media(min-width:900px){#sinks{grid-template-columns:1fr 1.3fr}}
+.skbox{padding:16px;display:flex;flex-direction:column;gap:12px}
+.skhd{display:flex;gap:12px;align-items:flex-start}.skhd>.emo{font-size:34px;line-height:1}
+.skhd b{display:block;font-family:var(--fd,inherit);font-size:20px;letter-spacing:.3px}.skhd span{font-size:13.5px;opacity:.8;font-weight:600}
+.sktw{display:flex;gap:16px;align-items:flex-end}
+.sktwv{width:70px;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;flex:none}
+.sktwv i{display:block;width:54px;height:9px;margin-top:2px;border-radius:2px;background:hsl(var(--h) 80% 60%);box-shadow:inset 0 -2px 0 rgba(0,0,0,.25)}
+.sktwv s{display:block;width:70px;height:6px;border-radius:3px;background:#555}.sktwv em{font-style:normal;font-weight:900;font-size:12px;opacity:.75}
+.sktwi{display:flex;flex-direction:column;gap:6px;min-width:0}.skn{font-size:15px}.skn b{font-size:22px}.skp{font-size:12.5px;opacity:.75;font-weight:600}
+.sklc{display:grid;gap:8px}
+.sklci{display:flex;gap:10px;align-items:center;padding:10px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.sklci>.emo{font-size:28px;flex:none}.sklci>div{flex:1;min-width:0;display:flex;flex-direction:column}.sklci>div b{font-size:14.5px}.sklci>div span{font-size:12.5px;opacity:.75}
+.sklci .skt{color:var(--sun);opacity:1!important;font-weight:800}.sklci.has{border-color:var(--mint)}.skok{color:var(--mint);font-weight:900;font-size:13px;flex:none}
+.sklci .btn{flex:none;white-space:nowrap}.skarm{background:var(--coral)!important;color:#fff!important}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -5077,12 +5093,12 @@ window.FIREBASE_CONFIG = {
 (()=>{
 'use strict';
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
-const fmt=n=>{n=Math.floor(+n||0);return(n<0?'-':'')+String(Math.abs(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')};
+const fmt=n=>{n=Math.floor(+n||0);if(!Number.isFinite(n))n=0;const _a=Math.abs(n);return(n<0?'-':'')+(_a>=1e21?BigInt(_a).toString():String(_a)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')};
 const short=n=>{n=Math.floor(n);const a=Math.abs(n),f=(v,u)=>v.toFixed(v<10?2:1).replace('.',',')+u;
   return fmt(n)};
 /* abreviado con palabras (solo cuando el número entero no cabe) */
 function nShort(n){n=Math.floor(+n||0);const a=Math.abs(n),f=(v,u)=>{const r=v>=100?Math.round(v):Math.round(v*10)/10;return(r>=1000?fmt(r):String(r).replace('.',','))+u};
-  if(a>=1e18)return f(n/1e18,' quintill.');if(a>=1e15)return f(n/1e15,' cuatrill.');if(a>=1e12)return f(n/1e12,' trill.');if(a>=1e9)return f(n/1e9,' bill.');if(a>=1e6)return f(n/1e6,' mill.');if(a>=1e4)return f(n/1e3,' mil');return fmt(n)}
+  if(a>=1e21)return f(n/1e21,' sextill.');if(a>=1e18)return f(n/1e18,' quintill.');if(a>=1e15)return f(n/1e15,' cuatrill.');if(a>=1e12)return f(n/1e12,' trill.');if(a>=1e9)return f(n/1e9,' bill.');if(a>=1e6)return f(n/1e6,' mill.');if(a>=1e4)return f(n/1e3,' mil');return fmt(n)}
 const eur=n=>fmt(n)+' €';
 const eurS=n=>short(n)+' €';
 let WAL_MAX=99;const walShort=n=>{n=Math.floor(n);const t=fmt(n);return t.length<=WAL_MAX?t:nShort(n)};
@@ -6763,6 +6779,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-03-a',t:'Torre, Locuras y el top 5 a pelo',items:[['🏰','La Torre del Millonario','En la Tienda: construye plantas, cada una cuesta el triple que la anterior. El dinero desaparece, pero cada pocas plantas ganas un título que casi nadie tiene.','new','#ffd600'],['🔥','Locuras para los más ricos','Comprar la Luna, Saturno, una galaxia… hasta el Universo entero. Precios absurdos y un título exclusivo con cada una.','new','#ff2e88'],['👑','Top 5: solo habilidad','Si estás entre los 5 más ricos, se acabó el dinero gratis (botones, regalos, intereses…). Solo ganas en el Casino, los juegos y la Fábrica.','new','#7fd3ff'],['📮','Buzón con cifras enormes','Ya puedes escribir cantidades como «55 quintill.» o «2 sextill.» sin que salga «cifra no válida».','fix','#14e08a'],['⚡','La web carga más rápido','Menos cosas al entrar: la web aparece antes, sobre todo en el móvil.','fix','#b48cff']]},
  {v:'2026-11-02-a',t:'Liga: salen todos',items:[['💤','Los que aún no han jugado, también','En la clasificación de la liga ahora salen también los de tu liga que todavía no han jugado esta semana, con 0 puntos y «💤 Sin jugar». Ojo: quien no juega en toda la semana baja de liga.','new','#aab0c8']]},
  {v:'2026-11-01-b',t:'Guías a la vista y enlaces directos',items:[['📚','Guías en el menú y en cada juego','Nuevo botón «📚 Guías» en el menú, las guías arriba del todo en Ayuda y, en cada juego, un enlace a su guía con reglas y trucos.','new','#7fd3ff'],['🔗','Cada sección con su enlace','Ahora la dirección cambia al moverte: casinetori.com/#tienda, #bolsa, #jugar=plinko… Cópiala y pásasela a quien quieras para que entre directo ahí.','new','#14e08a']]},
  {v:'2026-11-01-a',t:'Entrar es más rápido',items:[['🚪','Ves la web nada más entrar','Ya no sale nada tapando la web al entrar. La edad solo se pregunta al ir al Casino, Trading u Online, y el nombre cuando vas a jugar.','new','#14e08a'],['📚','De la guía al juego en un toque','Cada guía tiene un botón «▶ Jugar a…» que abre ese juego directamente.','new','#3f7cff']]},
@@ -15872,6 +15889,8 @@ const LG_SEEN=30*864e5;
     zero.sort((a,b)=>(+b.t||0)-(+a.t||0));return arr.concat(zero)}catch(e){return arr}}}
 function lgActiveN(arr){return arr.filter(p=>p.me||(!p.lgZero&&pval(p,'liga')>0)).length}
 try{i18nAdd([['Liga: salen todos','League: everyone shows','Ligue : tout le monde apparaît','Liga: aparecem todos'],['Los que aún no han jugado, también','Those who haven\'t played yet show too','Ceux qui n\'ont pas encore joué aussi','Os que ainda não jogaram também'],['En la clasificación de la liga ahora salen también los de tu liga que todavía no han jugado esta semana, con 0 puntos y «💤 Sin jugar». Ojo: quien no juega en toda la semana baja de liga.','The league table now also shows players in your league who haven\'t played this week, with 0 points and «💤 Not played». Careful: whoever doesn\'t play all week goes down.','Le classement de la ligue montre aussi ceux de ta ligue qui n\'ont pas joué cette semaine, avec 0 point. Attention : qui ne joue pas de la semaine descend.','A classificação da liga agora mostra também quem ainda não jogou esta semana, com 0 pontos. Atenção: quem não joga a semana toda desce.']])}catch(e){}
+try{i18nAdd([['Torre, Locuras y el top 5 a pelo','Tower, Madness and a no-handouts top 5','Tour, Folies et un top 5 sans cadeaux','Torre, Loucuras e um top 5 sem borlas'],['La Torre del Millonario','The Millionaire Tower','La Tour du Millionnaire','A Torre do Milionário'],['En la Tienda: construye plantas, cada una cuesta el triple que la anterior. El dinero desaparece, pero cada pocas plantas ganas un título que casi nadie tiene.','In the Shop: build floors, each costs three times the last. The money is gone, but every few floors you earn a title almost nobody has.','Dans la Boutique : construis des étages, chacun coûte le triple du précédent. L’argent disparaît, mais tous les quelques étages tu gagnes un titre que presque personne n’a.','Na Loja: constrói andares, cada um custa o triplo do anterior. O dinheiro desaparece, mas a cada poucos andares ganhas um título que quase ninguém tem.'],['Locuras para los más ricos','Madness for the richest','Des folies pour les plus riches','Loucuras para os mais ricos'],['Comprar la Luna, Saturno, una galaxia… hasta el Universo entero. Precios absurdos y un título exclusivo con cada una.','Buy the Moon, Saturn, a galaxy… even the whole Universe. Absurd prices and an exclusive title with each one.','Acheter la Lune, Saturne, une galaxie… jusqu’à l’Univers entier. Prix absurdes et un titre exclusif avec chacune.','Comprar a Lua, Saturno, uma galáxia… até o Universo inteiro. Preços absurdos e um título exclusivo com cada uma.'],['Top 5: solo habilidad','Top 5: skill only','Top 5 : que du talent','Top 5: só habilidade'],['Si estás entre los 5 más ricos, se acabó el dinero gratis (botones, regalos, intereses…). Solo ganas en el Casino, los juegos y la Fábrica.','If you’re among the 5 richest, no more free money (buttons, gifts, interest…). You only win in the Casino, games and the Factory.','Si tu es parmi les 5 plus riches, fini l’argent gratuit (boutons, cadeaux, intérêts…). Tu ne gagnes qu’au Casino, aux jeux et à l’Usine.','Se estás entre os 5 mais ricos, acabou o dinheiro grátis (botões, prendas, juros…). Só ganhas no Casino, nos jogos e na Fábrica.'],['Buzón con cifras enormes','Huge amounts in the mailbox','Montants énormes dans la boîte','Caixa com valores enormes'],['Ya puedes escribir cantidades como «55 quintill.» o «2 sextill.» sin que salga «cifra no válida».','You can now type amounts like “55 quintill.” or “2 sextill.” without getting “invalid amount”.','Tu peux maintenant écrire des montants comme « 55 quintill. » ou « 2 sextill. » sans voir « montant invalide ».','Já podes escrever valores como «55 quintill.» ou «2 sextill.» sem aparecer «valor inválido».'],['La web carga más rápido','Faster loading','Chargement plus rapide','Carrega mais rápido'],['Menos cosas al entrar: la web aparece antes, sobre todo en el móvil.','Less to load on entry: the site shows up sooner, especially on mobile.','Moins de choses à l’entrée : le site s’affiche plus tôt, surtout sur mobile.','Menos coisas ao entrar: o site aparece antes, sobretudo no telemóvel.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Qué es la Torre del Millonario?'))FAQ.unshift(['¿Qué es la Torre del Millonario?','Está en la Tienda. Cada planta cuesta el triple que la anterior y el dinero desaparece para siempre. En las plantas 5, 10, 15, 20, 25, 30 y 40 ganas títulos exclusivos. Junto a la torre están las «Locuras»: cosas carísimas (la Luna, una galaxia, el Universo…) que dan un título único.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
@@ -15903,6 +15922,64 @@ try{if(!FAQ.some(x=>/top 5/.test(x[0])))FAQ.unshift(['¿Por qué no gano nada co
 /* ===== 2026-11-03: velocidad — la tarjeta de bienvenida sale desde el principio (antes esperaba a conectar y empujaba todo hacia abajo) ===== */
 try{if(!S.name){wlSoft();homeMason&&homeMason()}}catch(e){}
 try{i18nAdd([['Guías','Guides','Guides','Guias'],['📚 Guía completa: reglas, pagos y probabilidades ›','📚 Full guide: rules, payouts and odds ›','📚 Guide complet : règles, gains et probabilités ›','📚 Guia completo: regras, pagamentos e probabilidades ›'],['❓ Cómo se juega','❓ How to play','❓ Comment jouer','❓ Como se joga']])}catch(e){}
+
+/* ===== Actualización 4: sitios donde gastar a lo grande (la Torre del Millonario y las Locuras) =====
+   Todo lo que se gasta aquí desaparece del juego: no se recupera ni se vende. A cambio, títulos que solo tienen los que gastan. */
+const TW_TI=[[5,'twa','🧱 Constructor/a'],[10,'twb','🏗️ Arquitecto/a'],[15,'twc','🏢 Rascacielos'],[20,'twd','🌆 Magnate del ladrillo'],[25,'twe','🏰 Rey/Reina de la Torre'],[30,'twf','☁️ Dueño/a del cielo'],[40,'twg','🛰️ Más alto que nadie']];
+const LOCAS=[
+  ['lca','🌙','Comprar la Luna','Entera, con sus cráteres. No sirve para nada, pero es tuya.',1e15,'🌙 Dueño/a de la Luna'],
+  ['lcb','🪐','Saturno con anillos incluidos','Los anillos vienen de serie. Saturno no.',1e17,'🪐 Señor/a de Saturno'],
+  ['lcc','☀️','Apagar el Sol un rato','Cinco minutitos. Nadie se va a enterar.',1e19,'☀️ El que apagó el Sol'],
+  ['lcd','🌌','Una galaxia de segunda mano','Algunas estrellas no funcionan. Se vende tal cual.',1e21,'🌌 Emperador/a galáctico'],
+  ['lce','🕳️','Un agujero negro de mascota','Come de todo. Sobre todo dinero.',1e23,'🕳️ Se lo traga todo'],
+  ['lcf','♾️','El Universo (versión completa)','Con todo dentro. Incluido tú.',1e25,'♾️ Dueño/a del Universo']];
+try{TW_TI.forEach(t=>{if(!COS.ti.some(y=>y[0]===t[1]))COS.ti.push([t[1],t[2],999,'','s'])});LOCAS.forEach(l=>{if(!COS.ti.some(y=>y[0]===l[0]))COS.ti.push([l[0],l[5],999,'','s'])})}catch(e){}
+const twCost=n=>Math.round(1e6*Math.pow(3,n));            /* planta 1 = 3 mill., planta 20 ≈ 3,5 cuatrill., planta 30 ≈ 206 quintill. */
+const twFloor=()=>Math.max(0,Math.floor(+S.tw||0));
+function skGrant(id){S.cosOwn=Array.isArray(S.cosOwn)?S.cosOwn:[];const k='ti:'+id;if(!S.cosOwn.includes(k)){S.cosOwn.push(k);return true}return false}
+function skSpend(n,label){if(!(n>0)||S.coins<n)return false;try{movForce(label,-1)}catch(e){}S.coins-=n;S.spentSink=(+S.spentSink||0)+n;return true}
+const SKA={arm:null,armT:0};
+function skArm(key,btn){const now=Date.now();if(SKA.arm===key&&now<SKA.armT)return true;SKA.arm=key;SKA.armT=now+3500;
+  if(btn){btn.dataset.lbl=btn.dataset.lbl||btn.innerHTML;btn.innerHTML='¿Seguro? Toca otra vez';btn.classList.add('skarm');setTimeout(()=>{if(btn.isConnected&&SKA.arm===key&&Date.now()>=SKA.armT){btn.innerHTML=btn.dataset.lbl;btn.classList.remove('skarm')}},3600)}return false}
+function skHTML(){const f=twFloor(),c=twCost(f+1),nx=TW_TI.find(t=>t[0]>f),own=new Set(S.cosOwn||[]);
+  const floors=Array.from({length:Math.min(f,14)},(_,i)=>`<i style="--h:${(f-i)*23%360}"></i>`).join('');
+  return`<div class="panel skbox"><div class="skhd"><span class="emo">🏰</span><div><b>La Torre del Millonario</b><span>Cada planta cuesta el triple que la anterior. El dinero desaparece para siempre, pero la torre es tuya y da títulos que casi nadie tiene.</span></div></div>
+   <div class="sktw"><div class="sktwv" aria-hidden="true">${f>14?`<em>+${f-14}</em>`:''}${floors}<s></s></div><div class="sktwi">
+    <span class="skn">Planta <b>${fmt(f)}</b></span>${nx?`<span class="skp">Próximo título en la planta ${nx[0]}: <b>${esc(nx[2])}</b></span>`:'<span class="skp">¡Tienes todos los títulos de la torre!</span>'}
+    <button class="btn sm" data-sk="tw" ${S.coins<c?'disabled':''}>Construir planta ${f+1} · ${eurS(c)}</button>${S.coins<c?`<span class="skp">Te faltan ${eurS(c-S.coins)} en la cartera.</span>`:''}</div></div></div>
+  <div class="panel skbox"><div class="skhd"><span class="emo">🔥</span><div><b>Locuras</b><span>Cosas absurdamente caras para quien ya lo tiene todo. Cada una da un título exclusivo para siempre. No se pueden vender.</span></div></div>
+   <div class="sklc">${LOCAS.map(l=>{const has=own.has('ti:'+l[0]);return`<div class="sklci${has?' has':''}"><span class="emo">${l[1]}</span><div><b>${esc(l[2])}</b><span>${esc(l[3])}</span><span class="skt">Título: ${esc(l[5])}</span></div>${has?'<span class="skok">✔ Tuya</span>':`<button class="btn sm" data-sk="${l[0]}" ${S.coins<l[4]?'disabled':''}>${eurS(l[4])}</button>`}</div>`}).join('')}</div></div>`}
+function skRender(){try{let box=$('#sinks');if(!box){const m=$('#v-rico .money');if(!m)return;box=document.createElement('div');box.id='sinks';m.insertAdjacentElement('afterend',box)}box.innerHTML=skHTML()}catch(e){}}
+document.addEventListener('click',e=>{const b=e.target.closest('#sinks [data-sk]');if(!b||b.disabled)return;const k=b.dataset.sk;
+  if(k==='tw'){const f=twFloor(),c=twCost(f+1);if(S.coins<c)return;if(c>=S.coins*.25&&!skArm('tw'+f,b))return;
+    if(!skSpend(c,'🏰 Torre: planta '+(f+1)))return;S.tw=f+1;sfx('coin');const t=TW_TI.find(x=>x[0]===f+1);
+    if(t&&skGrant(t[1])){confetti(160);sfx('big');troll('PLANTA '+(f+1),'Título nuevo: «'+t[2]+'» · póntelo en Perfil','#ffd600',true)}else toast('Planta '+(f+1)+' construida','−'+eurS(c),'var(--sun)','🏰');
+    save();try{pushPlayer()}catch(e){}skRender();try{updMoney()}catch(e){}return}
+  const l=LOCAS.find(x=>x[0]===k);if(!l||(S.cosOwn||[]).includes('ti:'+l[0])||S.coins<l[4])return;if(!skArm(k,b))return;
+  if(!skSpend(l[4],'🔥 Locura: '+l[2]))return;skGrant(l[0]);confetti(220);sfx('big');troll(l[1]+' ¡ES TUYA!','Título: «'+l[5]+'» · póntelo en Perfil','#ff2e88',true);
+  save();try{pushPlayer()}catch(e){}skRender();try{updMoney()}catch(e){}});
+{const _rsSK=renderShop;renderShop=function(){const r=_rsSK.apply(this,arguments);skRender();return r}}
+setInterval(()=>{try{if(view==='rico'&&!document.hidden){const b=$('#sinks [data-sk="tw"]');const c=twCost(twFloor()+1);if(b&&(S.coins<c)!==b.disabled)skRender()}}catch(e){}},2000);
+try{i18nAdd([
+ ['La Torre del Millonario','The Millionaire Tower','La Tour du Millionnaire','A Torre do Milionário'],
+ ['Cada planta cuesta el triple que la anterior. El dinero desaparece para siempre, pero la torre es tuya y da títulos que casi nadie tiene.','Each floor costs three times the last one. The money is gone for good, but the tower is yours and gives titles almost nobody has.','Chaque étage coûte le triple du précédent. L’argent disparaît pour toujours, mais la tour est à toi et donne des titres que presque personne n’a.','Cada andar custa o triplo do anterior. O dinheiro desaparece para sempre, mas a torre é tua e dá títulos que quase ninguém tem.'],
+ ['Locuras','Madness','Folies','Loucuras'],
+ ['Cosas absurdamente caras para quien ya lo tiene todo. Cada una da un título exclusivo para siempre. No se pueden vender.','Absurdly expensive stuff for those who already have everything. Each one gives an exclusive title forever. They can’t be sold.','Des trucs absurdement chers pour ceux qui ont déjà tout. Chacun donne un titre exclusif pour toujours. Invendables.','Coisas absurdamente caras para quem já tem tudo. Cada uma dá um título exclusivo para sempre. Não se podem vender.'],
+ ['¿Seguro? Toca otra vez','Sure? Tap again','Sûr ? Touche encore','Certeza? Toca outra vez'],
+ ['¡Tienes todos los títulos de la torre!','You have every tower title!','Tu as tous les titres de la tour !','Tens todos os títulos da torre!'],
+ ['✔ Tuya','✔ Yours','✔ À toi','✔ Tua'],
+ ['Comprar la Luna','Buy the Moon','Acheter la Lune','Comprar a Lua'],
+ ['Entera, con sus cráteres. No sirve para nada, pero es tuya.','The whole thing, craters included. Useless, but yours.','Entière, avec ses cratères. Ça ne sert à rien, mais elle est à toi.','Inteira, com crateras. Não serve para nada, mas é tua.'],
+ ['Saturno con anillos incluidos','Saturn, rings included','Saturne, anneaux compris','Saturno com anéis incluídos'],
+ ['Los anillos vienen de serie. Saturno no.','The rings come as standard. Saturn doesn’t.','Les anneaux sont de série. Saturne, non.','Os anéis vêm de série. Saturno não.'],
+ ['Apagar el Sol un rato','Switch off the Sun for a bit','Éteindre le Soleil un moment','Desligar o Sol um bocadinho'],
+ ['Cinco minutitos. Nadie se va a enterar.','Five minutes. Nobody will notice.','Cinq petites minutes. Personne ne le saura.','Cinco minutinhos. Ninguém vai notar.'],
+ ['Una galaxia de segunda mano','A second-hand galaxy','Une galaxie d’occasion','Uma galáxia em segunda mão'],
+ ['Algunas estrellas no funcionan. Se vende tal cual.','Some stars don’t work. Sold as is.','Certaines étoiles ne marchent pas. Vendue en l’état.','Algumas estrelas não funcionam. Vende-se tal como está.'],
+ ['Un agujero negro de mascota','A pet black hole','Un trou noir de compagnie','Um buraco negro de estimação'],
+ ['Come de todo. Sobre todo dinero.','Eats everything. Mostly money.','Mange de tout. Surtout de l’argent.','Come de tudo. Sobretudo dinheiro.'],
+ ['El Universo (versión completa)','The Universe (full version)','L’Univers (version complète)','O Universo (versão completa)'],
+ ['Con todo dentro. Incluido tú.','Everything inside. Including you.','Avec tout dedans. Toi compris.','Com tudo lá dentro. Incluindo tu.']])}catch(e){}
 })();
 </script>
 
