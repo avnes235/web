@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-03-1810">
+<meta name="app-version" content="2026-11-03-1840">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4535,12 +4535,115 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 .tqr b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tqr em{font-style:normal;font-weight:900;color:var(--sun)}.tqr.me{outline:2px solid var(--sun)}
 .rnst{display:flex;gap:6px;flex-wrap:wrap}.rns{font-size:24px;width:38px;height:38px;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.05);filter:grayscale(1);opacity:.35}.rns.on{filter:none;opacity:1;background:rgba(180,140,255,.18);box-shadow:0 0 0 2px #b48cff}
 .rnbar{height:10px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden}.rnbar i{display:block;height:100%;background:linear-gradient(90deg,#b48cff,#ff2e88)}
-.tqcard{display:flex;gap:12px;align-items:center;padding:12px 14px;grid-column:1/-1;order:-1;border:2px solid rgba(255,214,0,.5)}.tqcard>.emo{font-size:30px}.tqcard>div{flex:1;min-width:0;display:flex;flex-direction:column}.tqcard>div span{font-size:13px;opacity:.85}
+.tqcard{grid-column:1/-1;order:-1}
 #lzWrap{margin-bottom:14px}.lzseg{display:flex;gap:6px;flex-wrap:wrap}.lzseg button{flex:1;min-width:56px;padding:9px 6px;border-radius:10px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:inherit;font-weight:900;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer}
 .lzseg button small{font-size:10.5px;opacity:.7;font-weight:700}.lzseg button[aria-pressed="true"]{border-color:#ff6b4a;background:rgba(255,107,74,.18)}
 .lzres{display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px;border-radius:14px;background:rgba(0,0,0,.25);min-height:84px;justify-content:center}.lzres>b{font-size:24px}.lzspin{font-size:30px!important}
 .lzgo{font-size:20px;padding:14px;background:linear-gradient(135deg,#ff6b4a,#ff2e88)!important;color:#fff!important}
 .bcbox{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:12px;background:rgba(20,224,138,.08);border:1px dashed rgba(20,224,138,.5)}.bcbox>.emo{font-size:26px}.bcbox b{display:block}.bcbox span{font-size:12.5px;opacity:.85}
+
+/* ===== Actualización 4: lo nuevo, más vistoso ===== */
+.t5card small b{display:inline;font:inherit;font-weight:900;color:#ffd600}
+.nwpanel{position:relative;overflow:hidden}
+.nwrib{position:absolute;top:12px;right:-30px;transform:rotate(35deg);background:#ff2e88;color:#fff;font:900 11px var(--f-b,system-ui);letter-spacing:1.5px;padding:4px 34px;box-shadow:0 2px 8px rgba(0,0,0,.4);z-index:2}
+.tqk{display:block;font:900 11.5px var(--f-b,system-ui);letter-spacing:1.6px;color:var(--sun);opacity:.95}
+.nwhl{animation:nwHL 1s ease-in-out 3}
+@keyframes nwHL{0%,100%{box-shadow:0 0 0 0 rgba(255,214,0,0)}50%{box-shadow:0 0 0 5px rgba(255,214,0,.9),0 0 40px rgba(255,214,0,.6)}}
+.btn.shine{position:relative;overflow:hidden}.btn.shine::after{content:"";position:absolute;top:-20%;bottom:-20%;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:btShine 2.4s ease-in-out infinite}
+@keyframes btShine{0%,55%{left:-60%}100%{left:130%}}
+/* torre */
+.tqbox{background:radial-gradient(120% 80% at 0% 0%,rgba(255,214,0,.16),transparent 60%),radial-gradient(90% 70% at 100% 100%,rgba(180,140,255,.18),transparent 60%),var(--card,#16182a)}
+.tqhero{display:flex;gap:14px;align-items:flex-end}
+.tqart{position:relative;width:104px;flex:none;display:flex;flex-direction:column;align-items:center}
+.tqsvg{width:96px;height:auto;display:block;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
+.tqtop{position:relative;display:flex;flex-direction:column;align-items:center;margin-bottom:-6px;z-index:1;animation:tqBob 2.6s ease-in-out infinite}
+.tqcrown{font-size:24px;line-height:1;margin-bottom:-6px;filter:drop-shadow(0 0 8px rgba(255,214,0,.9))}
+.tqface{width:52px;height:52px;display:grid;place-items:center;font-size:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6c2,#ffd600 45%,#b8860b);box-shadow:0 0 0 3px #120c20,0 0 22px rgba(255,214,0,.7)}
+.tqart.empty .tqface{background:#333;box-shadow:0 0 0 3px #120c20}.tqart.empty .tqcrown{opacity:.4;filter:none}
+.tqart.mine .tqface{animation:tqGlow 1.4s ease-in-out infinite}
+.tqwin{animation:tqWin 3s ease-in-out infinite}.tqwin.b{animation-delay:.8s}.tqwin.c{animation-delay:1.6s}
+@keyframes tqBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes tqGlow{0%,100%{box-shadow:0 0 0 3px #120c20,0 0 18px rgba(20,224,138,.6)}50%{box-shadow:0 0 0 3px #120c20,0 0 34px rgba(20,224,138,1)}}
+@keyframes tqWin{0%,100%{opacity:1}50%{opacity:.55}}
+.tqinfo{display:flex;flex-direction:column;gap:2px;min-width:0;padding-bottom:10px}
+.tqlab{font:900 12px var(--f-b,system-ui);letter-spacing:1.4px;opacity:.7}
+.tqwho{font-family:var(--f-d,Anton,Impact,sans-serif);font-size:34px;line-height:1.02;letter-spacing:.5px;overflow-wrap:anywhere;text-shadow:0 3px 0 rgba(0,0,0,.4)}
+.tqtime{font-weight:800;font-size:14px}.tqtime b,[data-tqt]{font-family:var(--f-m,'DM Mono',monospace);color:var(--sun);font-size:15px}
+.tqhow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tqhow>div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding:10px 6px;border-radius:12px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.07)}
+.tqhow .emo{font-size:22px}.tqhow b{font-size:13px;line-height:1.15}.tqhow span{font-size:11px;opacity:.75;font-weight:700;line-height:1.2}
+.tqgo{display:flex;flex-direction:column;align-items:center;gap:2px;padding:14px;font-size:20px;background:linear-gradient(135deg,#ffd600,#ff9a1f)!important;color:#1a1300!important}
+.tqgo small{font-size:13px;font-weight:900;opacity:.85}.tqgo:disabled{filter:grayscale(.7);opacity:.6}
+.tqneed{text-align:center}.tqmine{text-align:center;font-size:15px}
+.tqr{position:relative}.tqp{width:26px;text-align:center;font-weight:900}
+.tqrn{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.tqrn b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tqrn i{display:block;height:5px;border-radius:3px;background:linear-gradient(90deg,#ffd600,#ff9a1f)}.tqr.me .tqrn i{background:linear-gradient(90deg,#14e08a,#7fd3ff)}
+/* tarjeta de Inicio */
+.tqcard{display:block!important;padding:14px!important;border:2px solid rgba(255,214,0,.55)!important;background:radial-gradient(110% 90% at 0% 0%,rgba(255,214,0,.2),transparent 60%),radial-gradient(90% 80% at 100% 100%,rgba(255,46,136,.16),transparent 60%),var(--card,#16182a)!important;cursor:pointer}
+.tqch{display:flex;gap:12px;align-items:flex-end}.tqch .tqart{width:84px}.tqch .tqsvg{width:76px}.tqch .tqface{width:44px;height:44px;font-size:26px}
+.tqci{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;padding-bottom:6px}.tqci>b{font-family:var(--f-d,Anton,Impact,sans-serif);font-size:28px;line-height:1.05;overflow-wrap:anywhere}
+.tqci>span{font-weight:800;font-size:13.5px}
+.tqcbtn{display:inline-block;align-self:flex-start;margin-top:6px;padding:8px 12px;border-radius:10px;background:linear-gradient(135deg,#ffd600,#ff9a1f);color:#1a1300;font-weight:900!important;font-size:13px!important;box-shadow:0 3px 0 rgba(0,0,0,.35)}
+.nwtiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.nwtiles button{display:flex;flex-direction:column;align-items:center;gap:1px;padding:10px 4px;border-radius:12px;border:2px solid rgba(255,255,255,.1);background:rgba(0,0,0,.25);color:inherit;cursor:pointer;transition:transform .12s}
+.nwtiles button:active{transform:scale(.95)}.nwtiles .emo{font-size:24px}.nwtiles b{font-size:14px}.nwtiles small{font-size:11.5px;font-weight:800;opacity:.8}
+.nwtiles button[data-nwgo="lz"]{border-color:rgba(255,107,74,.5)}.nwtiles button[data-nwgo="bc"]{border-color:rgba(20,224,138,.5)}.nwtiles button[data-nwgo="rn"]{border-color:rgba(180,140,255,.55)}
+/* renacer */
+.rnbox{background:radial-gradient(120% 90% at 100% 0%,rgba(180,140,255,.22),transparent 60%),var(--card,#16182a)}
+.rnhd{display:flex;gap:12px;align-items:center}.rnbig{font-size:46px;line-height:1;filter:drop-shadow(0 0 14px rgba(180,140,255,.9));animation:tqBob 2.4s ease-in-out infinite}
+.rnt{display:block;font-family:var(--f-d,Anton,Impact,sans-serif);font-size:26px;line-height:1.05;letter-spacing:.4px}
+.rns{transition:transform .2s}.rns.nx{filter:none;opacity:.9;box-shadow:0 0 0 2px #b48cff;animation:rnNx 1.6s ease-in-out infinite}
+@keyframes rnNx{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.rnbar{position:relative;height:22px;border-radius:12px}.rnbar span{position:absolute;inset:0;display:grid;place-items:center;font:900 12px var(--f-b,system-ui);text-shadow:0 1px 2px #000}
+.rnbar i{position:relative;overflow:hidden}.rnbar i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:rnSh 1.8s linear infinite}
+@keyframes rnSh{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.rnbar.ok i{background:linear-gradient(90deg,#14e08a,#ffd600)}
+.rncols{display:grid;grid-template-columns:1fr 1fr;gap:8px}.rncols>div{display:flex;flex-direction:column;gap:4px;padding:10px;border-radius:12px;font-size:12.5px;font-weight:700;line-height:1.3}
+.rnwin{background:rgba(20,224,138,.1);border:1px solid rgba(20,224,138,.45)}.rnlose{background:rgba(255,77,99,.1);border:1px solid rgba(255,77,99,.45)}.rncols b{font-size:13px;letter-spacing:.8px}
+.rngo{padding:13px;font-size:17px}.rngo.shine{background:linear-gradient(135deg,#b48cff,#ff2e88)!important;color:#fff!important}
+@media(max-width:360px){.rncols{grid-template-columns:1fr}}
+/* locuras */
+.lzbox{background:radial-gradient(120% 80% at 50% 0%,rgba(255,107,74,.2),transparent 60%),var(--card,#16182a)}
+.lzhd{display:flex;gap:12px;align-items:center}.lzfire{font-size:46px;line-height:1;animation:lzFire 1.1s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes lzFire{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.12) rotate(3deg)}}
+.lzstep{display:flex;align-items:center;gap:8px;font:900 13px var(--f-b,system-ui);letter-spacing:.6px;text-transform:uppercase;opacity:.9}
+.lzn{width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:#ff6b4a;color:#fff;font-size:12px}
+.lzseg button{transition:transform .1s,border-color .15s}.lzseg button:active{transform:scale(.94)}
+.lzseg button.allin[aria-pressed="true"]{background:linear-gradient(135deg,#ff2e88,#b00030);border-color:#ff2e88;color:#fff}
+.lzm button{border-color:hsla(calc(40 - var(--t)*12),100%,60%,.35)}.lzm button b{font-size:15px;color:hsl(calc(50 - var(--t)*13),100%,62%)}
+.lzm button[aria-pressed="true"]{background:hsla(calc(40 - var(--t)*12),100%,55%,.2);border-color:hsl(calc(40 - var(--t)*12),100%,60%);transform:translateY(-2px)}
+.lzres{min-height:108px;border:2px solid rgba(255,255,255,.06)}.lzrow{display:flex;align-items:center;justify-content:center;gap:14px;width:100%}.lzrow>div{display:flex;flex-direction:column;align-items:center}.lzrow b{font-size:21px}
+.lzarr{font-size:22px;opacity:.6}.lzwin{color:#14e08a!important}.lzlose{color:#ff4d63!important}.lzbig{font-size:46px;line-height:1;animation:lzPop .5s cubic-bezier(.3,1.7,.5,1)}
+.lzres b.lzwin,.lzres b.lzlose{font-size:28px}
+@keyframes lzPop{from{transform:scale(.2)}to{transform:scale(1)}}
+.lz-w .lzres{border-color:#14e08a;box-shadow:0 0 30px rgba(20,224,138,.45) inset;animation:lzFlash .6s 2}
+.lz-l .lzres{border-color:#ff4d63;animation:lzShake .45s}
+@keyframes lzShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+@keyframes lzFlash{50%{background:rgba(20,224,138,.25)}}
+.lzspin{display:inline-block;animation:lzSp .22s linear infinite}@keyframes lzSp{50%{transform:scale(1.12)}}
+.lzgo{font-size:22px;padding:16px;letter-spacing:.5px}.lzgo:not(:disabled){animation:lzPulse 1.6s ease-in-out infinite}
+@keyframes lzPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,46,136,.0)}50%{box-shadow:0 0 0 6px rgba(255,46,136,.25),0 0 28px rgba(255,46,136,.45)}}
+.bcbox{align-items:center}.bcjar{width:52px;height:56px;flex:none;border-radius:12px 12px 18px 18px;background:linear-gradient(180deg,rgba(20,224,138,.15),rgba(20,224,138,.45));border:2px solid #14e08a;display:grid;place-items:center;font-size:26px;position:relative}
+.bcjar::before{content:"";position:absolute;top:-7px;left:8px;right:8px;height:8px;border-radius:4px;background:#14e08a}
+.bcbox span b{display:inline}.bcbox>div{min-width:0}
+.bcamt{font-family:var(--f-d,Anton,Impact,sans-serif);font-size:24px!important;color:#14e08a;letter-spacing:.4px}.bcin{color:#14e08a}
+/* «NUEVO» en el menú */
+.nb .nwb{position:absolute;top:1px;right:2px;z-index:3;background:#ff2e88;color:#fff;font:900 8px/1 var(--f-b,system-ui);letter-spacing:.6px;padding:3px 4px;border-radius:5px;animation:nwBlink 1.4s ease-in-out infinite;pointer-events:none}
+@keyframes nwBlink{50%{transform:scale(1.15)}}
+/* escaparate de novedades */
+#nwShow{position:fixed;inset:0;z-index:9990;display:grid;place-items:center;padding:16px}
+#nwShow .nwbg{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(40,20,70,.9),rgba(5,6,14,.94));backdrop-filter:blur(4px)}
+.nwcard{position:relative;width:min(420px,100%);padding:22px 20px 18px;border-radius:24px;text-align:center;background:linear-gradient(180deg,#1c1f36,#111325);border:3px solid var(--c);box-shadow:0 0 0 6px rgba(0,0,0,.35),0 0 60px color-mix(in srgb,var(--c) 45%,transparent);animation:nwIn .35s cubic-bezier(.3,1.5,.5,1)}
+@keyframes nwIn{from{transform:scale(.85) translateY(20px);opacity:0}to{transform:none;opacity:1}}
+.nwx{position:absolute;top:10px;right:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:#fff;font-size:16px;cursor:pointer}
+.nwtag{display:inline-block;font:900 11px var(--f-b,system-ui);letter-spacing:1.4px;color:var(--c);margin-bottom:6px}
+.nwemo{display:grid;place-items:center;margin:6px auto 4px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--c) 40%,transparent),transparent 70%)}
+.nwemo span{font-size:76px;line-height:1;animation:tqBob 2.2s ease-in-out infinite;filter:drop-shadow(0 6px 12px rgba(0,0,0,.5))}
+.nwcard h2{margin:4px 0 8px;font-family:var(--f-d,Anton,Impact,sans-serif);font-size:32px;line-height:1.05;letter-spacing:.5px;text-transform:uppercase;color:#fff}
+.nwcard p{margin:0 auto 14px;max-width:340px;font-size:16px;line-height:1.45;font-weight:600;color:#dfe3f5}.nwcard p b{color:var(--c)}
+.nwdots{display:flex;justify-content:center;gap:7px;margin-bottom:14px}.nwdots i{width:9px;height:9px;border-radius:5px;background:rgba(255,255,255,.2);cursor:pointer;transition:width .2s}.nwdots i.on{width:24px;background:var(--c)}
+.nwbtns{display:flex;flex-direction:column;gap:8px}.nwbtns .btn{width:100%;padding:13px;font-size:16px}
+.nwgo{background:var(--c)!important;color:#111!important}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -6793,6 +6896,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-03-c',t:'Lo nuevo, a la vista',items:[['🚀','Escaparate de novedades','Al entrar te enseñamos lo nuevo en 5 tarjetas, con un botón que te lleva directo a cada cosa. Lo puedes volver a ver desde Novedades.','new','#ffd600'],['✨','Torre, Renacer y Locuras más bonitos','La Torre tiene dibujo y reloj en directo, el Renacer te dice claro qué ganas y qué pierdes, y las Locuras enseñan el resultado en grande. La Torre sale también en Inicio.','fix','#ff2e88']]},
  {v:'2026-11-03-b',t:'La Torre, el Renacer, las Locuras y el Bote',items:[['👑','La Torre de Casinetori','Solo hay una para todo el juego. Para quitársela al que la tiene pagas el doble de lo que pagó él. Sin esperas. El trofeo de la semana es para quien más tiempo la tenga. Está en la Tienda.','new','#ffd600'],['⭐','Renacer con estrellas','Cuando seas muy rico, vuelve a empezar a cambio de una estrella para siempre: cada una te da un 10 % más de dinero y sale junto a tu nombre. Hay 10 distintas. En la Tienda.','new','#b48cff'],['🔥','Locuras en el Casino','Apuestas enormes de una sola tirada: elige cuánto te juegas (hasta TODO) y a qué multiplicador, de ×2 a ×1.000. Nadie más se entera.','new','#ff6b4a'],['💀','El Bote de los Caídos','El 10 % de lo que se pierde en Locuras va a un bote. Cada lunes se sortea entre todos los que han perdido alguna Locura esa semana.','new','#14e08a'],['👑','Top 5: solo habilidad','Si estás entre los 5 más ricos, se acabó el dinero gratis (botones, regalos, intereses…). Solo ganas en el Casino, los juegos y la Fábrica.','new','#7fd3ff'],['🎁','Premio de Google a tu medida','El regalo por entrar con Google ya no es fijo: es una parte de tu dinero (hasta la mitad si tienes poco).','fix','#14e08a'],['📮','Buzón con cifras enormes','Ya puedes escribir cantidades como «55 quintill.» o «2 sextill.» sin que salga «cifra no válida».','fix','#14e08a'],['⚡','La web carga más rápido','Menos cosas al entrar: la web aparece antes, sobre todo en el móvil.','fix','#b48cff']]},
  {v:'2026-11-02-a',t:'Liga: salen todos',items:[['💤','Los que aún no han jugado, también','En la clasificación de la liga ahora salen también los de tu liga que todavía no han jugado esta semana, con 0 puntos y «💤 Sin jugar». Ojo: quien no juega en toda la semana baja de liga.','new','#aab0c8']]},
  {v:'2026-11-01-b',t:'Guías a la vista y enlaces directos',items:[['📚','Guías en el menú y en cada juego','Nuevo botón «📚 Guías» en el menú, las guías arriba del todo en Ayuda y, en cada juego, un enlace a su guía con reglas y trucos.','new','#7fd3ff'],['🔗','Cada sección con su enlace','Ahora la dirección cambia al moverte: casinetori.com/#tienda, #bolsa, #jugar=plinko… Cópiala y pásasela a quien quieras para que entre directo ahí.','new','#14e08a']]},
@@ -15908,6 +16012,7 @@ try{i18nAdd([['La Torre, el Renacer, las Locuras y el Bote','The Tower, Rebirth,
 try{if(!FAQ.some(x=>x[0]==='¿Cómo funciona la Torre de Casinetori?'))FAQ.unshift(['¿Cómo funciona la Torre de Casinetori?','Está en la Tienda. Solo hay una torre para todo el juego. Para quitársela a quien la tiene pagas el doble de lo que pagó él y ese dinero desaparece. No hay esperas: te la pueden quitar y la puedes recuperar cuando quieras. Cada lunes, quien la haya tenido más tiempo esa semana gana un trofeo y el título «👑 Señor/a de la Torre».'])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Qué es Renacer?'))FAQ.unshift(['¿Qué es Renacer?','En la Tienda. Cuando tienes muchísimo dinero (la primera estrella pide 1 quintillón de riqueza), puedes volver a empezar con 1 millón a cambio de una estrella para siempre. Cada estrella da un 10 % más en el dinero gratis y en la Fábrica, y sale junto a tu nombre. Conservas nivel, títulos, logros, amigos y cosméticos.'])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Qué son las Locuras y el Bote de los Caídos?'))FAQ.unshift(['¿Qué son las Locuras y el Bote de los Caídos?','Las Locuras están arriba del todo en el Casino: una apuesta enorme de una sola tirada, eligiendo cuánto te juegas y el multiplicador (de ×2 a ×1.000). El 10 % de lo que se pierde va al Bote de los Caídos, que cada lunes se sortea entre los que han perdido alguna Locura esa semana.'])}catch(e){}
+try{i18nAdd([['Lo nuevo, a la vista','What’s new, front and centre','Les nouveautés, bien visibles','As novidades, bem à vista'],['Escaparate de novedades','What’s-new showcase','Vitrine des nouveautés','Montra de novidades'],['Al entrar te enseñamos lo nuevo en 5 tarjetas, con un botón que te lleva directo a cada cosa. Lo puedes volver a ver desde Novedades.','When you come in we show you what’s new in 5 cards, with a button that takes you straight to each thing. You can see it again from News.','En arrivant, on te montre les nouveautés en 5 cartes, avec un bouton qui t’emmène directement à chaque chose. Tu peux la revoir depuis Nouveautés.','Ao entrar mostramos-te as novidades em 5 cartões, com um botão que te leva direto a cada coisa. Podes voltar a ver em Novidades.'],['Torre, Renacer y Locuras más bonitos','Nicer Tower, Rebirth and Madness','Tour, Renaissance et Folies plus jolies','Torre, Renascer e Loucuras mais bonitos'],['La Torre tiene dibujo y reloj en directo, el Renacer te dice claro qué ganas y qué pierdes, y las Locuras enseñan el resultado en grande. La Torre sale también en Inicio.','The Tower has artwork and a live clock, Rebirth clearly shows what you gain and lose, and Madness shows the result big. The Tower also shows on Home.','La Tour a un dessin et une horloge en direct, la Renaissance montre clairement ce que tu gagnes et perds, et les Folies affichent le résultat en grand. La Tour apparaît aussi à l’Accueil.','A Torre tem desenho e relógio em direto, o Renascer diz claramente o que ganhas e perdes, e as Loucuras mostram o resultado em grande. A Torre também aparece no Início.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
@@ -16106,10 +16211,10 @@ function lzDraw(){try{if(Date.now()<SKA.armT&&$('#lzWrap .skarm'))return;const h
 function lzGo(){if(LZ.busy)return;const bet=Math.floor(Math.max(0,S.coins)*LZ_P[LZ.p]),M=LZ_M[LZ.m];if(bet<1000)return;
   LZ.busy=true;S.coins-=bet;S.st.casinoLost=(S.st.casinoLost||0);const win=Math.random()<M[1];save();
   const r=$('#lzRes');const btn=$('#lzWrap [data-lzgo]');if(btn)btn.disabled=true;let k=0;const T=setInterval(()=>{k++;if(r)r.innerHTML=`<b class="lzspin">${['🔥','💥','🎲','💸','🤑','💀'][k%6]} ×${fmt(M[0])} ${['.','..','...'][k%3]}</b>`;if(k%2)sfx('tick')},110);
-  setTimeout(()=>{clearInterval(T);LZ.busy=false;
+  setTimeout(()=>{clearInterval(T);LZ.busy=false;LZ.last=win?'w':'l';LZ.lastT=Date.now();LZ.lastV=win?bet*M[0]:bet;
     if(win){const got=bet*M[0];try{movForce('🔥 Locura ×'+fmt(M[0])+' ganada',1)}catch(e){}S.coins+=got;S.earned+=got-bet;S.st.casinoWon=(S.st.casinoWon||0)+got;S.lzW=(+S.lzW||0)+1;sfx('big');confetti(260);troll('🔥 ¡LOCURA GANADA!','×'+fmt(M[0])+' · +'+eS(got),'#14e08a',true)}
     else{try{movForce('🔥 Locura ×'+fmt(M[0])+' perdida',-1)}catch(e){}const b=bcMine();b.v=(+b.v||0)+Math.floor(bet*BC_RATE);b.n=(+b.n||0)+1;S.spentSink=(+S.spentSink||0)+bet;S.st.casinoLost=(S.st.casinoLost||0)+bet;sfx('lose');troll('💀 ¡A LA BASURA!','−'+eS(bet)+' · entras en el sorteo del Bote de los Caídos','#ff2e88',true)}
-    save();NET.lastP='';try{pushPlayer()}catch(e){}lzDraw();try{updMoney()}catch(e){}},1700)}
+    save();NET.lastP='';try{pushPlayer()}catch(e){}lzDraw();setTimeout(()=>{if(!LZ.busy)lzDraw()},6100);try{updMoney()}catch(e){}},1700)}
 /* la movida de los avisos del dinero de la cabecera se hace sola; el movimiento ya va con su nombre */
 document.addEventListener('click',e=>{const w=e.target.closest('#lzWrap');if(!w)return;const p=e.target.closest('[data-lzp]'),m=e.target.closest('[data-lzm]');
   if(p){LZ.p=+p.dataset.lzp;lzDraw();return}if(m){LZ.m=+m.dataset.lzm;lzDraw();return}
@@ -16123,6 +16228,105 @@ setInterval(()=>{try{if(document.hidden||Date.now()<SKA.armT)return;if(view==='r
 setTimeout(()=>{try{tqMine();bcMine();tqCard();lzDraw();tqWatch()}catch(e){}},1500);
 try{i18nAdd([['La Torre de Casinetori','The Casinetori Tower','La Tour de Casinetori','A Torre de Casinetori'],['Solo hay una torre para todo el juego. Para quitársela al que la tiene, pagas el doble de lo que pagó él (el dinero se quema). Sin esperas: la puedes recuperar cuando quieras. El trofeo de la semana es para quien más tiempo la tenga.','There’s only one tower in the whole game. To take it from whoever holds it, you pay double what they paid (the money is burned). No waiting: you can win it back whenever you want. The weekly trophy goes to whoever holds it longest.','Il n’y a qu’une tour pour tout le jeu. Pour la prendre à celui qui l’a, tu paies le double de ce qu’il a payé (l’argent est brûlé). Sans attente : tu peux la reprendre quand tu veux. Le trophée de la semaine va à celui qui la garde le plus longtemps.','Só há uma torre para o jogo todo. Para a tirar a quem a tem, pagas o dobro do que ele pagou (o dinheiro é queimado). Sem esperas: podes recuperá-la quando quiseres. O troféu da semana é para quem a tiver mais tempo.'],['La tiene ahora','Held by','Elle est à','Quem a tem'],['Nadie la tiene esta semana','Nobody holds it this week','Personne ne l’a cette semaine','Ninguém a tem esta semana'],['¡Sé el primero!','Be the first!','Sois le premier !','Sê o primeiro!'],['👑 Es tuya. Cada minuto cuenta para el trofeo.','👑 It’s yours. Every minute counts for the trophy.','👑 Elle est à toi. Chaque minute compte pour le trophée.','👑 É tua. Cada minuto conta para o troféu.'],['Todavía nadie.','Nobody yet.','Personne encore.','Ainda ninguém.'],['Renacer','Rebirth','Renaître','Renascer'],['Ojo: pierdes todo tu dinero, la caja fuerte, lo comprado en la Tienda y las mejoras de la Fábrica.','Careful: you lose all your money, the safe, what you bought in the Shop and the Factory upgrades.','Attention : tu perds tout ton argent, le coffre, tes achats de la Boutique et les améliorations de l’Usine.','Atenção: perdes todo o teu dinheiro, o cofre, o que compraste na Loja e as melhorias da Fábrica.'],['Apuestas enormes de una sola tirada. Eliges cuánto de tu cartera te juegas y a qué multiplicador. Cuanto más alto, menos probable. Nadie más se entera: solo lo ves tú.','Huge one-shot bets. Choose how much of your wallet you risk and the multiplier. The higher, the less likely. Nobody else finds out: only you see it.','Des paris énormes en un seul coup. Choisis combien de ton portefeuille tu mises et le multiplicateur. Plus il est haut, moins c’est probable. Personne d’autre ne le sait.','Apostas enormes de uma só vez. Escolhe quanto da tua carteira arriscas e o multiplicador. Quanto mais alto, menos provável. Mais ninguém fica a saber.'],['¿Cuánto te juegas?','How much do you bet?','Combien tu mises ?','Quanto apostas?'],['¿A qué multiplicador?','Which multiplier?','Quel multiplicateur ?','Que multiplicador?'],['Te juegas','You bet','Tu mises','Apostas'],['🔥 ¡A LO LOCO!','🔥 GO CRAZY!','🔥 À FOND !','🔥 À LOUCA!'],['TODO','ALL','TOUT','TUDO'],['Conquistar','Conquer','Conquérir','Conquistar'],['Ver','See','Voir','Ver']])}catch(e){}
 
+
+/* ===== Actualización 4 a lo grande: todo más visual, más claro y lo nuevo bien a la vista ===== */
+const NWH={k:'',u:0};const nwH=k=>NWH.k===k&&Date.now()<NWH.u?' nwhl':'';
+const hms=ms=>{ms=Math.max(0,ms);const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60,p=n=>String(n).padStart(2,'0');return(h>=24?Math.floor(h/24)+'d '+p(h%24):p(h))+':'+p(m)+':'+p(x)};
+/* dibujo de la torre: el que la tiene, arriba con la corona */
+function tqArt(av,mine,empty){return`<div class="tqart${mine?' mine':''}${empty?' empty':''}" aria-hidden="true">
+  <div class="tqtop"><span class="tqcrown">👑</span><span class="tqface">${esc(av||'🏳️')}</span></div>
+  <svg viewBox="0 0 120 150" class="tqsvg"><defs><linearGradient id="tqg" x1="0" x2="1"><stop offset="0" stop-color="#3a2a5c"/><stop offset=".5" stop-color="#5b438c"/><stop offset="1" stop-color="#2a1d44"/></linearGradient>
+   <linearGradient id="tqw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#ff9a1f"/></linearGradient></defs>
+   <path d="M22 18h14v10h10V18h12v10h10V18h12v10h10V18h14v26H22z" fill="url(#tqg)" stroke="#120c20" stroke-width="3"/>
+   <path d="M28 44h64l6 104H22z" fill="url(#tqg)" stroke="#120c20" stroke-width="3"/>
+   <path d="M34 60h52M32 80h56M30 100h60M28 120h64" stroke="#120c20" stroke-width="2" opacity=".35"/>
+   <rect x="52" y="56" width="16" height="22" rx="8" fill="url(#tqw)" class="tqwin"/><rect x="38" y="90" width="12" height="16" rx="6" fill="url(#tqw)" class="tqwin b"/><rect x="70" y="90" width="12" height="16" rx="6" fill="url(#tqw)" class="tqwin c"/>
+   <path d="M48 148v-22a12 12 0 0 1 24 0v22z" fill="#120c20"/></svg></div>`}
+function tqHTML(){const st=tqState(),L=st.last,me=st.mine,myMs=((st.rk.find(r=>r.id===NET.id))||{}).ms||0,left=tqWeekEnd(WK())-NOWS(),top=st.rk[0]?st.rk[0].ms:1;
+  const can=S.coins>=st.price;
+  return`<div class="panel skbox tqbox nwpanel${nwH('tq')}"><span class="nwrib">NUEVO</span>
+   <div class="tqhero">${tqArt(L&&L.av,me,!L)}<div class="tqinfo"><span class="tqk">👑 LA TORRE DE CASINETORI</span>
+     ${L?`<span class="tqlab">${me?'ES TUYA':'LA TIENE'}</span><b class="tqwho">${me?'¡TÚ!':esc(L.n)}</b><span class="tqtime">⏱ <b data-tqt="${L.t}">${hms(NOWS()-L.t)}</b> en la torre</span>`
+       :`<span class="tqlab">SIN DUEÑO</span><b class="tqwho">¡Nadie!</b><span class="tqtime">Sé el primero de la semana</span>`}</div></div>
+   <div class="tqhow"><div><span class="emo">💸</span><b>Paga el doble</b><span>de lo que pagó el último</span></div><div><span class="emo">⚡</span><b>Sin esperas</b><span>quítasela cuando quieras</span></div><div><span class="emo">🏆</span><b>Trofeo el lunes</b><span>al que más tiempo la tenga</span></div></div>
+   ${me?'<div class="tqmine">👑 ¡Es tuya! Cada segundo cuenta para el trofeo. Aguanta.</div>':`<button class="btn tqgo${can?' shine':''}" data-tq="go" ${can?'':'disabled'}><span>⚔️ ${L?'QUITÁRSELA':'CONQUISTAR'}</span><small>${eS(st.price)}</small></button>${can?'':`<span class="skp tqneed">Te faltan <b>${eS(st.price-S.coins)}</b> en la cartera</span>`}`}
+   <div class="tqrk"><span class="lsth">🏆 Más tiempo esta semana · quedan <b data-tqe="${tqWeekEnd(WK())}">${tqDur(left)}</b></span>
+    ${st.rk.length?st.rk.slice(0,5).map((r,i)=>`<div class="tqr${r.id===NET.id?' me':''}"><span class="tqp">${['🥇','🥈','🥉','4','5'][i]}</span><span class="emo">${esc(r.av)}</span><div class="tqrn"><b>${r.id===NET.id?'Tú':esc(r.n)}</b><i style="width:${Math.max(4,r.ms/top*100).toFixed(1)}%"></i></div><em>${tqDur(r.ms)}</em></div>`).join(''):'<span class="skp">Todavía nadie. ¡El primero se lleva ventaja!</span>'}
+    ${myMs&&!st.rk.slice(0,5).some(r=>r.id===NET.id)?`<div class="tqr me"><span class="tqp">·</span><span class="emo">${esc(S.av||'😎')}</span><div class="tqrn"><b>Tú</b><i style="width:${Math.max(4,myMs/top*100).toFixed(1)}%"></i></div><em>${tqDur(myMs)}</em></div>`:''}
+    ${S.tqWins?`<span class="skp">🏆 Has ganado <b>${fmt(S.tqWins)}</b> ${S.tqWins===1?'trofeo':'trofeos'} de la Torre</span>`:''}</div></div>`}
+function rnHTML(){const n=rnN(),full=n>=RN_ST.length,need=full?0:rnNeed(n),w=wealth(),pct=full?100:Math.min(100,w/need*100),nx=RN_ST[n],ok=!full&&w>=need;
+  return`<div class="panel skbox rnbox nwpanel${nwH('rn')}"><span class="nwrib">NUEVO</span>
+   <div class="rnhd"><span class="rnbig">${full?'♾️':nx[0]}</span><div><span class="tqk">⭐ RENACER</span><b class="rnt">${full?'Tienes todas las estrellas':'Estrella '+esc(nx[1])}</b><span class="skp">${full?'Eres leyenda de Casinetori.':'Empieza de cero y gánala para siempre'}</span></div></div>
+   <div class="rnst">${RN_ST.map((s,i)=>`<span class="rns${i<n?' on':''}${i===n?' nx':''}" title="${esc(s[1])}">${s[0]}</span>`).join('')}</div>
+   ${full?'':`<div class="rnbar${ok?' ok':''}"><i style="width:${pct.toFixed(1)}%"></i><span>${ok?'¡YA PUEDES!':pct.toFixed(pct<1?2:0)+' %'}</span></div><span class="skp rnneed">Necesitas <b>${eS(need)}</b> de riqueza (cartera + caja fuerte)</span>
+   <div class="rncols"><div class="rnwin"><b>✅ GANAS</b><span>⭐ Estrella ${esc(nx[1])} para siempre</span><span>💰 +10 % de dinero en todo lo gratis y la Fábrica</span><span>🏷️ Título «Renacido/a ${esc(nx[1])}»</span><span>🎒 Te quedas nivel, títulos, logros y amigos</span></div>
+   <div class="rnlose"><b>❌ PIERDES</b><span>💸 Todo tu dinero (empiezas con 1 mill.)</span><span>🔐 La caja fuerte</span><span>🛍️ Lo comprado en la Tienda</span><span>🏭 Las mejoras de la Fábrica</span></div></div>
+   <button class="btn rngo${ok?' shine':''}" data-rn="go" ${ok?'':'disabled'}>${ok?'⭐ RENACER AHORA':'🔒 Te faltan '+eS(need-w)}</button>`}
+   ${n?`<span class="skp">Ahora ganas un <b>${Math.round(n*10)} % más</b> gracias a ${rnStars()}</span>`:''}</div>`}
+skHTML=function(){return tqHTML()+rnHTML()};
+/* Inicio: la Torre en grande y accesos a lo nuevo */
+function tqCard(){const v=$('#v-inicio');if(!v)return;let c=$('#tqCard');if(!c){c=document.createElement('div');c.id='tqCard';c.className='panel tqcard';v.prepend(c)}
+  const st=tqState(),L=st.last,pot=bcPot(WK()),n=rnN();
+  const h=`<div class="tqch" data-tq="card">${tqArt(L&&L.av,st.mine,!L)}<div class="tqci"><span class="tqk">👑 LA TORRE · NUEVO</span>${L?`<b>${st.mine?'¡Es TUYA!':esc(L.n)}</b><span>⏱ <b data-tqt="${L.t}">${hms(NOWS()-L.t)}</b> en la torre</span>`:'<b>¡Sin dueño!</b><span>Conquístala la primera</span>'}<span class="tqcbtn">${st.mine?'Ver la Torre ›':'⚔️ Quitársela por '+eS(st.price)+' ›'}</span></div></div>
+   <div class="nwtiles"><button data-nwgo="lz"><span class="emo">🔥</span><b>Locuras</b><small>hasta ×1.000</small></button><button data-nwgo="bc"><span class="emo">💀</span><b>Bote</b><small>${eS(pot)}</small></button><button data-nwgo="rn"><span class="emo">⭐</span><b>Renacer</b><small>${n?n+' '+(n===1?'estrella':'estrellas'):'+10 % dinero'}</small></button></div>`;
+  if(c._h!==h){c._h=h;c.innerHTML=h}}
+/* Locuras más vistosas */
+function lzHTML(){const bet=Math.floor(Math.max(0,S.coins)*LZ_P[LZ.p]),M=LZ_M[LZ.m],w=WK(),pot=bcPot(w),rec=LZ.last&&Date.now()-LZ.lastT<6000;
+  return`<div class="panel skbox lzbox nwpanel${rec?' lz-'+LZ.last:''}${nwH('lz')}"><span class="nwrib">NUEVO</span>
+   <div class="lzhd"><span class="lzfire">🔥</span><div><span class="tqk">LOCURAS</span><b class="rnt">Todo a una tirada</b><span class="skp">Elige cuánto y a qué multiplicador. Solo lo ves tú.</span></div></div>
+   <div class="lzstep"><span class="lzn">1</span>¿Cuánto te juegas?</div><div class="lzseg">${LZ_P.map((p,i)=>`<button data-lzp="${i}" aria-pressed="${LZ.p===i}"${p===1?' class="allin"':''}>${p===1?'💀 TODO':Math.round(p*100)+' %'}</button>`).join('')}</div>
+   <div class="lzstep"><span class="lzn">2</span>¿A qué multiplicador?</div><div class="lzseg lzm">${LZ_M.map((m,i)=>`<button data-lzm="${i}" aria-pressed="${LZ.m===i}" style="--t:${i}"><b>×${fmt(m[0])}</b><small>${(m[1]*100).toLocaleString('es-ES',{maximumFractionDigits:3})} %</small></button>`).join('')}</div>
+   <div class="lzres" id="lzRes">${rec?(LZ.last==='w'?`<span class="lzbig">🤑</span><b class="lzwin">+${eS(LZ.lastV)}</b><span class="skp">¡LOCURA GANADA!</span>`:`<span class="lzbig">💀</span><b class="lzlose">−${eS(LZ.lastV)}</b><span class="skp">A la basura… pero entras en el Bote</span>`)
+     :`<div class="lzrow"><div><span class="skp">Te juegas</span><b>${eS(bet)}</b></div><span class="lzarr">→</span><div><span class="skp">Si sale</span><b class="lzwin">${eS(bet*M[0])}</b></div></div><span class="skp">Sale ${(M[1]*100).toLocaleString('es-ES',{maximumFractionDigits:3})} de cada 100 veces</span>`}</div>
+   <button class="btn lzgo${bet>=1000?' shine':''}" data-lzgo="1" ${bet<1000||LZ.busy?'disabled':''}>🔥 ¡A LO LOCO!</button>
+   <div class="bcbox${nwH('bc')}"><div class="bcjar"><span>💀</span></div><div><span class="tqk">BOTE DE LOS CAÍDOS</span><b class="bcamt">${eS(pot)}</b><span>El 10 % de lo que se pierde en Locuras. <b>Se sortea el lunes</b> entre los que han perdido alguna.${bcMine().n?' <b class="bcin">✅ Estás dentro</b>':' Pierde una y entras.'}</span></div></div></div>`}
+/* que todo lo que tenga el reloj vaya en directo */
+setInterval(()=>{try{if(document.hidden)return;const now=NOWS();document.querySelectorAll('[data-tqt]').forEach(e=>{e.textContent=hms(now-(+e.dataset.tqt))});document.querySelectorAll('[data-tqe]').forEach(e=>{e.textContent=tqDur(+e.dataset.tqe-now)})}catch(e){}},1000);
+/* ir a lo nuevo y resaltarlo */
+function nwGo(k){const map={tq:['rico','#sinks .tqbox'],rn:['rico','#sinks .rnbox'],lz:['casino','#lzWrap .lzbox'],bc:['casino','#lzWrap .bcbox']};const m=map[k];if(!m)return;
+  NWH.k=k;NWH.u=Date.now()+3600;if(view!==m[0])go(m[0]);const sc=()=>{try{if(m[0]==='rico')skRender();else lzDraw();const el=$(m[1]);if(el)el.scrollIntoView({behavior:'smooth',block:'center'})}catch(e){}};setTimeout(sc,450);setTimeout(sc,900)}
+document.addEventListener('click',e=>{const t=e.target.closest('#tqCard [data-nwgo]');if(t){sfx('click');nwGo(t.dataset.nwgo);return}
+  const c=e.target.closest('#tqCard [data-tq="card"]');if(c){e.stopPropagation();sfx('click');nwGo('tq')}},true);
+/* «NUEVO» en el menú hasta que lo visitas */
+function nwBadges(){try{const seen=S.nwV||{};[['rico','tq'],['casino','lz']].forEach(([v,k])=>{const b=document.querySelector('.nb[data-v="'+v+'"]');if(!b)return;let s=b.querySelector('.nwb');if(seen[k]){if(s)s.remove();return}if(!s){s=document.createElement('span');s.className='nwb';s.textContent='NUEVO';b.appendChild(s)}})}catch(e){}}
+{const _goNW=go;go=function(v){const r=_goNW.apply(this,arguments);try{const k={rico:'tq',casino:'lz'}[v];if(k&&ageGet&&(v!=='casino'||ageGet())){S.nwV={...(S.nwV||{}),[k]:1};save();nwBadges()}}catch(e){}return r}}
+/* el escaparate de novedades: sale una vez al entrar con la versión nueva */
+const NW_ID='u4';
+const NW_S=[['👑','La Torre de Casinetori','Solo hay <b>UNA</b> para todo el juego. Quítasela al que la tiene pagando <b>el doble</b>. El que más tiempo la tenga en la semana gana el <b>trofeo</b>.','tq','⚔️ Ver la Torre','#ffd600'],
+  ['🔥','Locuras','Una apuesta <b>enorme</b> de una sola tirada: elige cuánto te juegas (hasta <b>TODO</b>) y a qué multiplicador, de ×2 a <b>×1.000</b>.','lz','🔥 Probar una Locura','#ff6b4a'],
+  ['💀','El Bote de los Caídos','El 10 % de lo que se pierde en Locuras va a un bote. <b>Cada lunes</b> se sortea entre los que han perdido alguna.','bc','💀 Ver el Bote','#14e08a'],
+  ['⭐','Renacer','Cuando seas muy rico, empieza de cero y gana una <b>estrella para siempre</b>: +10 % de dinero. Hay <b>10 distintas</b>.','rn','⭐ Ver el Renacer','#b48cff'],
+  ['🏅','Top 5: solo habilidad','Si estás entre los <b>5 más ricos</b>, se acabó el dinero gratis. Solo ganas en el Casino, los juegos y la Fábrica.','','👍 Entendido','#7fd3ff']];
+let NWI=0;
+function nwShow(){if($('#nwShow'))return;NWI=0;const d=document.createElement('div');d.id='nwShow';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');document.body.appendChild(d);nwDraw();sfx('upd')}
+function nwDraw(){const d=$('#nwShow');if(!d)return;const s=NW_S[NWI],last=NWI===NW_S.length-1;
+  d.innerHTML=`<div class="nwbg"></div><div class="nwcard" style="--c:${s[5]}"><button class="nwx" data-nw="x" aria-label="Cerrar">✕</button>
+   <span class="nwtag">🚀 LO NUEVO DE HOY · ${NWI+1} de ${NW_S.length}</span><div class="nwemo"><span>${s[0]}</span></div><h2>${esc(s[1])}</h2><p>${s[2]}</p>
+   <div class="nwdots">${NW_S.map((_,i)=>`<i class="${i===NWI?'on':''}" data-nwi="${i}"></i>`).join('')}</div>
+   <div class="nwbtns">${s[3]?`<button class="btn nwgo" data-nw="go">${s[4]}</button>`:''}<button class="btn ${s[3]?'alt':'nwgo'}" data-nw="next">${last?'¡A jugar! 🎉':'Siguiente ›'}</button></div></div>`}
+function nwClose(){const d=$('#nwShow');if(d)d.remove();S.nwSeen=NW_ID;try{S.notesSeen=NOTES[0].v}catch(e){}save()}
+document.addEventListener('click',e=>{const d=e.target.closest('#nwShow');if(!d)return;const b=e.target.closest('[data-nw]'),dot=e.target.closest('[data-nwi]');
+  if(dot){NWI=+dot.dataset.nwi;nwDraw();sfx('click');return}if(!b)return;sfx('click');const a=b.dataset.nw;
+  if(a==='x'){nwClose();return}if(a==='next'){if(NWI>=NW_S.length-1){nwClose();confetti(160);return}NWI++;nwDraw();return}
+  if(a==='go'){const k=NW_S[NWI][3];nwClose();nwGo(k)}});
+/* deslizar con el dedo */
+{let sx=null;document.addEventListener('touchstart',e=>{if(e.target.closest('#nwShow .nwcard'))sx=e.touches[0].clientX},{passive:true});
+ document.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)<50)return;NWI=Math.max(0,Math.min(NW_S.length-1,NWI+(dx<0?1:-1)));nwDraw()},{passive:true})}
+function nwMaybe(){try{if(S.nwSeen===NW_ID||!S.name)return;if(!$('#modal').hidden||$('#ageGate')||document.querySelector('#guTour:not([hidden])'))return;nwShow()}catch(e){}}
+/* el aviso viejo de novedades no sale encima del escaparate */
+{const _onNW=openNotes;openNotes=function(auto){if(auto&&S.nwSeen!==NW_ID)return;return _onNW.apply(this,arguments)}}
+setTimeout(nwMaybe,2600);setInterval(nwMaybe,6000);setTimeout(nwBadges,800);
+/* botón para volver a verlo desde Novedades */
+setInterval(()=>{try{const box=$('#hlBody')||$('#v-ayuda');if(!box||$('#nwAgain'))return;const tl=box.querySelector('.tl');if(!tl)return;tl.insertAdjacentHTML('beforebegin','<button class="btn sm" id="nwAgain" style="margin-bottom:12px">🚀 Ver otra vez lo nuevo de hoy</button>')}catch(e){}},1500);
+document.addEventListener('click',e=>{if(e.target.closest('#nwAgain')){sfx('click');nwShow()}});
+try{i18nAdd([
+ ['LA TORRE DE CASINETORI','THE CASINETORI TOWER','LA TOUR DE CASINETORI','A TORRE DE CASINETORI'],['ES TUYA','IT’S YOURS','ELLE EST À TOI','É TUA'],['LA TIENE','HELD BY','ELLE EST À','QUEM A TEM'],['SIN DUEÑO','NO OWNER','SANS PROPRIÉTAIRE','SEM DONO'],
+ ['Paga el doble','Pay double','Paie le double','Paga o dobro'],['de lo que pagó el último','what the last one paid','de ce qu’a payé le dernier','do que pagou o último'],['Sin esperas','No waiting','Sans attente','Sem esperas'],['quítasela cuando quieras','take it whenever you want','prends-la quand tu veux','tira-lha quando quiseres'],
+ ['Trofeo el lunes','Trophy on Monday','Trophée le lundi','Troféu à segunda'],['al que más tiempo la tenga','for whoever holds it longest','pour celui qui la garde le plus','para quem a tiver mais tempo'],['QUITÁRSELA','TAKE IT','LA PRENDRE','TIRAR-LHA'],['CONQUISTAR','CONQUER','CONQUÉRIR','CONQUISTAR'],
+ ['RENACER','REBIRTH','RENAÎTRE','RENASCER'],['GANAS','YOU GAIN','TU GAGNES','GANHAS'],['PIERDES','YOU LOSE','TU PERDS','PERDES'],['RENACER AHORA','REBIRTH NOW','RENAÎTRE MAINTENANT','RENASCER AGORA'],
+ ['LOCURAS','MADNESS','FOLIES','LOUCURAS'],['Todo a una tirada','All on one shot','Tout en un coup','Tudo numa jogada'],['Elige cuánto y a qué multiplicador. Solo lo ves tú.','Choose how much and which multiplier. Only you see it.','Choisis combien et quel multiplicateur. Toi seul le vois.','Escolhe quanto e o multiplicador. Só tu vês.'],
+ ['Si sale','If it hits','Si ça sort','Se sair'],['BOTE DE LOS CAÍDOS','THE FALLEN POT','CAGNOTTE DES TOMBÉS','POTE DOS CAÍDOS'],['Siguiente ›','Next ›','Suivant ›','Seguinte ›'],['¡A jugar! 🎉','Let’s play! 🎉','On joue ! 🎉','A jogar! 🎉'],['👍 Entendido','👍 Got it','👍 Compris','👍 Entendido'],
+ ['🚀 Ver otra vez lo nuevo de hoy','🚀 See today’s news again','🚀 Revoir les nouveautés','🚀 Ver outra vez as novidades']])}catch(e){}
 })();
 </script>
 
