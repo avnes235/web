@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-03-1930">
+<meta name="app-version" content="2026-11-03-2005">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -16142,7 +16142,7 @@ let _tqWasMine=null;
 try{if(!COS.ti.some(y=>y[0]===TQ_TI[0]))COS.ti.push([TQ_TI[0],TQ_TI[1],999,'','s'])}catch(e){}
 function tqMine(){let q=S.tq;const w=WK();if(!q||typeof q!=='object')q={w,L:[],pw:0,pL:[]};if(q.w!==w){if(q.w===w-1){q.pw=q.w;q.pL=(q.L||[]).slice(-30)}else{q.pw=0;q.pL=[]}q.w=w;q.L=[]}S.tq=q;return q}
 /* todas las conquistas de una semana, de todos los jugadores que vemos, ordenadas por hora */
-function tqEvents(w){const out=[];const add=(id,p)=>{const q=p&&p.tq;if(!q)return;const L=q.w===w?q.L:q.pw===w?q.pL:null;if(Array.isArray(L))L.forEach(e=>{if(Array.isArray(e)&&e[0]>0&&e[1]>0)out.push({id,t:+e[0],p:+e[1],n:p.name||'Jugador',av:p.av||'🙂'})})};
+function tqEvents(w){const out=[];const add=(id,p)=>{const q=p&&p.tq;if(!q)return;const L=q.w===w?q.L:q.pw===w?q.pL:null;if(Array.isArray(L))L.forEach(e=>{const t=Array.isArray(e)?+e[0]:+(e&&e.t),pp=Array.isArray(e)?+e[1]:+(e&&e.p);if(t>0&&pp>0)out.push({id,t,p:pp,n:p.name||'Jugador',av:p.av||'🙂'})})};
   try{NET.players.forEach((p,id)=>{if(id!==NET.id)add(id,p)})}catch(e){}
   add(NET.id||'me',{tq:tqMine(),name:S.name,av:S.av});
   const seen=new Set();return out.filter(e=>{const k=e.id+'|'+e.t;if(seen.has(k))return false;seen.add(k);return true}).sort((a,b)=>a.t-b.t)}
@@ -16250,7 +16250,7 @@ document.addEventListener('click',e=>{const w=e.target.closest('#lzWrap');if(!w)
   const g=e.target.closest('[data-lzgo]');if(g&&!g.disabled){if(LZ_P[LZ.p]>=.5&&!skArm('lz'+LZ.p+LZ.m,g))return;lzGo()}});
 
 /* datos públicos: la Torre, el Bote y las estrellas */
-{const _pxTQ=pubX;pubX=function(){const x=_pxTQ.apply(this,arguments);try{const q=tqMine();x.tq={w:q.w,L:q.L||[],pw:q.pw||0,pL:q.pL||[]};const b=bcMine();x.bc={w:b.w,v:Math.floor(b.v||0),n:b.n||0,pw:b.pw||0,pv:Math.floor(b.pv||0),pn:b.pn||0};x.rn=rnN();if(S.tqWins)x.tqw=S.tqWins}catch(e){}return x}}
+{const _pxTQ=pubX;pubX=function(){const x=_pxTQ.apply(this,arguments);try{const q=tqMine();const _o=L=>(Array.isArray(L)?L:[]).map(e=>Array.isArray(e)?{t:+e[0]||0,p:+e[1]||0}:{t:+(e&&e.t)||0,p:+(e&&e.p)||0}).filter(e=>e.t>0&&e.p>0).slice(-30);x.tq={w:q.w,L:_o(q.L),pw:q.pw||0,pL:_o(q.pL)};const b=bcMine();x.bc={w:b.w,v:Math.floor(b.v||0),n:b.n||0,pw:b.pw||0,pv:Math.floor(b.pv||0),pn:b.pn||0};x.rn=rnN();if(S.tqWins)x.tqw=S.tqWins}catch(e){}return x}}
 {const _oPTQ=onPlayersT;onPlayersT=function(){const r=_oPTQ.apply(this,arguments);try{tqWatch();bcPrize();tqDraw();if(view==='casino')lzDraw()}catch(e){}return r}}
 {const _goTQ=go;go=function(v){const r=_goTQ.apply(this,arguments);setTimeout(()=>{try{if(v==='casino')lzDraw();if(v==='inicio')tqCard()}catch(e){}},60);return r}}
 setInterval(()=>{try{if(document.hidden||Date.now()<SKA.armT)return;if(view==='rico')skRender();if(view==='inicio')tqCard();if(view==='casino'&&!LZ.busy){const g=$('#lzWrap [data-lzgo]');const bet=Math.floor(Math.max(0,S.coins)*LZ_P[LZ.p]);if(g&&(bet<1000)!==g.disabled)lzDraw()}}catch(e){}},5000);
