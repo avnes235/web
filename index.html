@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-03-1900">
+<meta name="app-version" content="2026-11-03-1915">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4660,6 +4660,14 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 .wbgrid button{text-align:left;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:8px;align-items:center;padding:10px;border-radius:12px;border:2px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:inherit;cursor:pointer}
 .wbgrid .emo{grid-row:1/3;font-size:26px}.wbgrid b{font-size:14px}.wbgrid small{font-size:11.5px;opacity:.75;font-weight:700;line-height:1.25}
 .wbgrid button:active{transform:scale(.96)}
+.lzwh{position:relative;width:190px;height:190px;margin:4px auto 0}
+.lzdisc{position:absolute;inset:0;border-radius:50%;background:conic-gradient(#14e08a 0 var(--g),#8a1a2b var(--g) 360deg);box-shadow:0 0 0 6px #120c20,0 0 0 9px rgba(255,214,0,.5),0 10px 30px rgba(0,0,0,.5)}
+.lzdisc::after{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-conic-gradient(rgba(0,0,0,.18) 0 6deg,transparent 6deg 12deg)}
+.lzptr{position:absolute;top:-16px;left:50%;transform:translateX(-50%);z-index:2;font-size:30px;line-height:1;color:#ffd600;text-shadow:0 2px 0 #000,0 0 10px rgba(255,214,0,.8)}
+.lzhub{position:absolute;inset:30%;z-index:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#2a2d4a,#111325);box-shadow:0 0 0 4px #120c20;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.lzhub b{font-family:var(--f-d,Anton,Impact,sans-serif);font-size:26px;line-height:1;color:#ffd600}.lzhub small{font-size:10.5px;font-weight:800;opacity:.85;color:#14e08a}
+.lzleg{display:flex;justify-content:center;gap:16px;font-size:12.5px;font-weight:800}.lzleg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}.lzleg i.g{background:#14e08a}.lzleg i.r{background:#8a1a2b}
+.lzhow{display:flex;flex-direction:column;gap:5px;padding:10px 12px;border-radius:12px;background:rgba(255,214,0,.07);border:1px solid rgba(255,214,0,.3);font-size:13px;font-weight:600;line-height:1.4}.lzhow>b{font-size:14px;color:var(--sun)}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -6912,7 +6920,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
- {v:'2026-11-03-d',t:'Top 5 sin trampas y Bote más claro',items:[['👑','El top 5 ya no cobra nada gratis','El botón rojo (todas sus sorpresas), la lluvia de dinero, el premio por hora y los premios por anuncio ya no dan dinero a los 5 más ricos. Te sale un aviso cuando pasa.','fix','#ffd600'],['💀','Bote de los Caídos explicado','Ahora ves en 3 pasos cómo funciona, si estás dentro del sorteo, cuántas papeletas hay, tu probabilidad, la cuenta atrás y quién ganó el último.','fix','#14e08a'],['👋','¿Vuelves después de mucho?','Si llevas días sin entrar, te enseñamos el mapa del juego en un vistazo: qué es cada sección y un botón para ir.','new','#7fd3ff']]},
+ {v:'2026-11-03-d',t:'Top 5 sin trampas y Bote más claro',items:[['🎡','Locuras con rueda','Ahora las Locuras son una rueda: lo verde gana y lo rojo pierde. Ves cuánto ganas si sale y cada cuántas veces sale.','new','#ff6b4a'],['👑','El top 5 ya no cobra nada gratis','El botón rojo (todas sus sorpresas), la lluvia de dinero, el premio por hora y los premios por anuncio ya no dan dinero a los 5 más ricos. Te sale un aviso cuando pasa.','fix','#ffd600'],['💀','Bote de los Caídos explicado','Ahora ves en 3 pasos cómo funciona, si estás dentro del sorteo, cuántas papeletas hay, tu probabilidad, la cuenta atrás y quién ganó el último.','fix','#14e08a'],['👋','¿Vuelves después de mucho?','Si llevas días sin entrar, te enseñamos el mapa del juego en un vistazo: qué es cada sección y un botón para ir.','new','#7fd3ff']]},
  {v:'2026-11-03-c',t:'Lo nuevo, a la vista',items:[['🚀','Escaparate de novedades','Al entrar te enseñamos lo nuevo en 5 tarjetas, con un botón que te lleva directo a cada cosa. Lo puedes volver a ver desde Novedades.','new','#ffd600'],['✨','Torre, Renacer y Locuras más bonitos','La Torre tiene dibujo y reloj en directo, el Renacer te dice claro qué ganas y qué pierdes, y las Locuras enseñan el resultado en grande. La Torre sale también en Inicio.','fix','#ff2e88']]},
  {v:'2026-11-03-b',t:'La Torre, el Renacer, las Locuras y el Bote',items:[['👑','La Torre de Casinetori','Solo hay una para todo el juego. Para quitársela al que la tiene pagas el doble de lo que pagó él. Sin esperas. El trofeo de la semana es para quien más tiempo la tenga. Está en la Tienda.','new','#ffd600'],['⭐','Renacer con estrellas','Cuando seas muy rico, vuelve a empezar a cambio de una estrella para siempre: cada una te da un 10 % más de dinero y sale junto a tu nombre. Hay 10 distintas. En la Tienda.','new','#b48cff'],['🔥','Locuras en el Casino','Apuestas enormes de una sola tirada: elige cuánto te juegas (hasta TODO) y a qué multiplicador, de ×2 a ×1.000. Nadie más se entera.','new','#ff6b4a'],['💀','El Bote de los Caídos','El 10 % de lo que se pierde en Locuras va a un bote. Cada lunes se sortea entre todos los que han perdido alguna Locura esa semana.','new','#14e08a'],['👑','Top 5: solo habilidad','Si estás entre los 5 más ricos, se acabó el dinero gratis (botones, regalos, intereses…). Solo ganas en el Casino, los juegos y la Fábrica.','new','#7fd3ff'],['🎁','Premio de Google a tu medida','El regalo por entrar con Google ya no es fijo: es una parte de tu dinero (hasta la mitad si tienes poco).','fix','#14e08a'],['📮','Buzón con cifras enormes','Ya puedes escribir cantidades como «55 quintill.» o «2 sextill.» sin que salga «cifra no válida».','fix','#14e08a'],['⚡','La web carga más rápido','Menos cosas al entrar: la web aparece antes, sobre todo en el móvil.','fix','#b48cff']]},
  {v:'2026-11-02-a',t:'Liga: salen todos',items:[['💤','Los que aún no han jugado, también','En la clasificación de la liga ahora salen también los de tu liga que todavía no han jugado esta semana, con 0 puntos y «💤 Sin jugar». Ojo: quien no juega en toda la semana baja de liga.','new','#aab0c8']]},
@@ -16228,7 +16236,7 @@ function lzHTML(){const bet=Math.floor(Math.max(0,S.coins)*LZ_P[LZ.p]),M=LZ_M[LZ
 function lzDraw(){try{if(Date.now()<SKA.armT&&$('#lzWrap .skarm'))return;const hub=$('#czHub');if(!hub)return;let b=$('#lzWrap');if(!b){b=document.createElement('div');b.id='lzWrap';hub.prepend(b)}if(!LZ.busy)b.innerHTML=lzHTML()}catch(e){}}
 function lzGo(){if(LZ.busy)return;const bet=Math.floor(Math.max(0,S.coins)*LZ_P[LZ.p]),M=LZ_M[LZ.m];if(bet<1000)return;
   LZ.busy=true;S.coins-=bet;S.st.casinoLost=(S.st.casinoLost||0);const win=Math.random()<M[1];save();
-  const r=$('#lzRes');const btn=$('#lzWrap [data-lzgo]');if(btn)btn.disabled=true;let k=0;const T=setInterval(()=>{k++;if(r)r.innerHTML=`<b class="lzspin">${['🔥','💥','🎲','💸','🤑','💀'][k%6]} ×${fmt(M[0])} ${['.','..','...'][k%3]}</b>`;if(k%2)sfx('tick')},110);
+  try{lzSpin(win,M[1])}catch(e){}const r=$('#lzRes');const btn=$('#lzWrap [data-lzgo]');if(btn)btn.disabled=true;let k=0;const T=setInterval(()=>{k++;if(r)r.innerHTML=`<b class="lzspin">${['🔥','💥','🎲','💸','🤑','💀'][k%6]} ×${fmt(M[0])} ${['.','..','...'][k%3]}</b>`;if(k%2)sfx('tick')},110);
   setTimeout(()=>{clearInterval(T);LZ.busy=false;LZ.last=win?'w':'l';LZ.lastT=Date.now();LZ.lastV=win?bet*M[0]:bet;
     if(win){const got=bet*M[0];try{movForce('🔥 Locura ×'+fmt(M[0])+' ganada',1)}catch(e){}S.coins+=got;S.earned+=got-bet;S.st.casinoWon=(S.st.casinoWon||0)+got;S.lzW=(+S.lzW||0)+1;sfx('big');confetti(260);troll('🔥 ¡LOCURA GANADA!','×'+fmt(M[0])+' · +'+eS(got),'#14e08a',true)}
     else{try{movForce('🔥 Locura ×'+fmt(M[0])+' perdida',-1)}catch(e){}const b=bcMine();b.v=(+b.v||0)+Math.floor(bet*BC_RATE);b.n=(+b.n||0)+1;S.spentSink=(+S.spentSink||0)+bet;S.st.casinoLost=(S.st.casinoLost||0)+bet;sfx('lose');troll('💀 ¡A LA BASURA!','−'+eS(bet)+' · entras en el sorteo del Bote de los Caídos','#ff2e88',true)}
@@ -16388,6 +16396,20 @@ try{i18nAdd([
  ['✅ ESTÁS DENTRO DEL SORTEO','✅ YOU’RE IN THE DRAW','✅ TU PARTICIPES AU TIRAGE','✅ ESTÁS NO SORTEIO'],['❌ AÚN NO ESTÁS DENTRO','❌ YOU’RE NOT IN YET','❌ TU N’Y ES PAS ENCORE','❌ AINDA NÃO ESTÁS'],
  ['👑 ERES DEL TOP 5','👑 YOU’RE IN THE TOP 5','👑 TU ES DANS LE TOP 5','👑 ESTÁS NO TOP 5'],['Esto es lo que hay ahora','This is what there is now','Voici ce qu’il y a maintenant','Isto é o que há agora'],['🚀 Ver lo nuevo de hoy','🚀 See today’s news','🚀 Voir les nouveautés','🚀 Ver as novidades']])}catch(e){}
 setTimeout(()=>nwMaybe(),2300);
+/* ===== Locuras: una ruleta que se entiende sola. Lo VERDE es lo que gana; gira y, si la flecha cae en verde, te llevas tu apuesta × el multiplicador ===== */
+LZ.rot=LZ.rot||0;
+const lzG=p=>Math.max(2.2,p*360);                     /* grados de verde que se ven (los muy pequeños se dibujan un poco más anchos para verlos) */
+function lzWheel(){const M=LZ_M[LZ.m],g=lzG(M[1]),pct=(M[1]*100).toLocaleString('es-ES',{maximumFractionDigits:3});
+  return`<div class="lzwh"><div class="lzptr">▼</div><div class="lzdisc" id="lzDisc" style="--g:${g.toFixed(2)}deg;transform:rotate(${(LZ.rot%360).toFixed(1)}deg)"></div>
+   <div class="lzhub"><b>×${fmt(M[0])}</b><small>${pct} % verde</small></div></div>
+   <div class="lzleg"><span><i class="g"></i><b>VERDE</b> = ganas</span><span><i class="r"></i><b>ROJO</b> = pierdes</span></div>`}
+function lzSpin(win,p){const d=$('#lzDisc');if(!d)return;const g=lzG(p);const t=win?g*(.2+Math.random()*.6):g+4+Math.random()*(352-g);
+  const base=Math.ceil(LZ.rot/360)*360+360*5;LZ.rot=base+(360-t);d.style.transition='transform 1.6s cubic-bezier(.15,.85,.25,1)';d.style.transform='rotate('+LZ.rot.toFixed(1)+'deg)'}
+function lzHow(){const M=LZ_M[LZ.m],bet=Math.floor(Math.max(0,S.coins)*LZ_P[LZ.p]),pct=(M[1]*100).toLocaleString('es-ES',{maximumFractionDigits:3}),one=Math.round(1/M[1]);
+  return`<div class="lzhow"><b>¿Cómo se gana?</b><span>La rueda gira. Si la flecha cae en lo <b class="lzwin">verde</b>, ganas <b>${eS(bet*M[0])}</b> (tu apuesta ×${fmt(M[0])}). Si cae en lo <b class="lzlose">rojo</b>, pierdes los <b>${eS(bet)}</b> que has puesto.</span><span>Lo verde es el <b>${pct} %</b> de la rueda: sale más o menos <b>1 de cada ${fmt(one)}</b> veces. Cuanto más alto el multiplicador, más pequeño el verde.</span></div>`}
+{const _lzW=lzHTML;lzHTML=function(){let h=_lzW.apply(this,arguments);const i=h.indexOf('<div class="lzres"');if(i<0)return h;return h.slice(0,i)+lzWheel()+lzHow()+h.slice(i)}}
+try{i18nAdd([['Locuras con rueda','Madness with a wheel','Folies avec une roue','Loucuras com roda'],['Ahora las Locuras son una rueda: lo verde gana y lo rojo pierde. Ves cuánto ganas si sale y cada cuántas veces sale.','Madness is now a wheel: green wins and red loses. You see how much you win and how often it hits.','Les Folies sont maintenant une roue : le vert gagne, le rouge perd. Tu vois combien tu gagnes et à quelle fréquence ça sort.','As Loucuras agora são uma roda: o verde ganha e o vermelho perde. Vês quanto ganhas e de quantas em quantas vezes sai.']])}catch(e){}
+try{i18nAdd([['¿Cómo se gana?','How do you win?','Comment on gagne ?','Como se ganha?'],['VERDE','GREEN','VERT','VERDE'],['ROJO','RED','ROUGE','VERMELHO'],['= ganas','= you win','= tu gagnes','= ganhas'],['= pierdes','= you lose','= tu perds','= perdes']])}catch(e){}
 })();
 </script>
 
