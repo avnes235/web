@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-03-2140">
+<meta name="app-version" content="2026-11-03-2150">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -8085,7 +8085,7 @@ $('#wheelBtn').addEventListener('click',()=>{if(wBusy||Date.now()-S.wheelAt<WAIT
   setTimeout(()=>{if(!wResolve(false))wBusy=false},4300)});
 function wResolve(late){const P_=S.wPend;if(!P_)return false;delete S.wPend;if(+P_.at<=(+S.wDone||0))return false;S.wDone=+P_.at;const p=P_.p,W_={t:P_.t,id:P_.id};xp(10);
     if(late)toast('Tu tirada de antes','Recargaste mientras giraba: aquí tienes lo que te tocó','var(--sun)','🎡');
-    if(p.k==='eur'){give(p.v);sfx(p.big?'big':'win');if(p.big){confetti(320);troll('¡¡'+short(p.v).toUpperCase()+' €!!','te ha tocado el hueco bueno','#ffd600',true);try{jpWin(p.v,W_.id)}catch(e){}}else toast(W_.t,'+'+short(p.v)+' €','var(--coral)','🎡')}
+    if(p.k==='eur'){give(p.v);sfx(p.big?'big':'win');if(p.big){confetti(320);troll('¡¡'+short(p.v).toUpperCase()+' €!!','te ha tocado el hueco bueno','#ffd600',true);try{jpWin(p.v,W_.id)}catch(e){}}else troll('+'+short(p.v)+' €','🎡 '+W_.t,'#ffd600',true)}
     else if(p.k==='lose'){let t=Math.min(Math.floor(S.coins),p.v);S.coins-=t;const rest=p.v-t;if(rest>0&&(+S.safe||0)>0){const f=Math.min(Math.floor(S.safe),rest);S.safe-=f;t+=f}sfx('lose');troll('−'+short(t)+' €','la del todo o nada no perdona','#ff3b4f',true)}
     else if(p.k==='xp'){xp(p.v);sfx('win');toast(W_.t,'+'+p.v+' XP','var(--grape)','⭐')}
     else if(p.k==='face'){S.avWon=S.avWon||[];if(S.avWon.includes(p.v)){const v=1500*wMult();give(v);toast('Esa cara ya la tenías','Te la cambio por '+short(v)+' €','var(--sun)',p.v)}else{S.avWon.push(p.v);sfx('big');confetti(120);toast('¡Cara nueva!','Póntela en tu perfil: '+p.v,'var(--pink)',p.v)}}
@@ -16065,7 +16065,7 @@ const T5_PCT=.02,T5_MAX=1e6;   /* top 5: los premios gratis (ruletas, misiones, 
 /* la caja fuerte tampoco da intereses al top 5 */
 {const _saT=safeAccrue;safeAccrue=function(){if(isTop5()&&S.safe){S.safeT=Date.now();return 0}return _saT.apply(this,arguments)}}
 /* los avisos de «+X € para ti» que llegan justo después de un premio bloqueado se cambian por el del top 5 */
-function t5Fix(a,b){if(T5.red&&Date.now()-T5.red.t<1500&&!(T5.rbUntil&&Date.now()<T5.rbUntil)){const x=String(a||'')+' '+String(b||'');if(/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return['+'+nShort(T5.red.to)+' €','👑 Eres del top 5: los premios gratis son pequeños (2 %, máx. 1 mill.)']}if(Date.now()-T5.blk>1500)return null;const x=String(a||'')+' '+String(b||'');if(!/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return null;return['👑 ERES DEL TOP 5','aquí no hay dinero gratis: los 5 más ricos solo ganan en el casino']}
+function t5Fix(a,b){if(T5.red&&Date.now()-T5.red.t<1500&&!(T5.rbUntil&&Date.now()<T5.rbUntil)){const x=String(a||'')+' '+String(b||'');if(/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return['+'+nShort(T5.red.to)+' €','¡Premio!']}if(Date.now()-T5.blk>1500)return null;const x=String(a||'')+' '+String(b||'');if(!/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return null;return['👑 ERES DEL TOP 5','aquí no hay dinero gratis: los 5 más ricos solo ganan en el casino']}
 {const _trT=troll;troll=function(a,b){const f=t5Fix(a,b);if(f){arguments[0]=f[0];arguments[1]=f[1];arguments[2]='#ffd600'}return _trT.apply(this,arguments)}}
 {const _toT=toast;toast=function(a,b){const f=t5Fix(a,b);if(f){arguments[0]=f[0];arguments[1]=f[1];arguments[2]='var(--sun)';arguments[3]='👑'}return _toT.apply(this,arguments)}}
 function t5Warn(){const now=Date.now();if(now-T5.warn<20*60000)return;T5.warn=now;setTimeout(()=>{try{toast('👑 Estás en el top 5','Ruletas, misiones y premios gratis te dan poco (un 2 %, máx. 1 mill.) y el botón rojo nada. Para subir: casino, juegos y Fábrica.','var(--sun)','👑')}catch(_){}},2500)}
@@ -16418,10 +16418,20 @@ function lzHow(){const M=LZ_M[LZ.m],bet=Math.floor(Math.max(0,S.coins)*LZ_P[LZ.p
 {const _lzW=lzHTML;lzHTML=function(){let h=_lzW.apply(this,arguments);const i=h.indexOf('<div class="lzres"');if(i<0)return h;return h.slice(0,i)+lzWheel()+lzHow()+h.slice(i)}}
 try{i18nAdd([['Locuras con rueda','Madness with a wheel','Folies avec une roue','Loucuras com roda'],['Ahora las Locuras son una rueda: lo verde gana y lo rojo pierde. Ves cuánto ganas si sale y cada cuántas veces sale.','Madness is now a wheel: green wins and red loses. You see how much you win and how often it hits.','Les Folies sont maintenant une roue : le vert gagne, le rouge perd. Tu vois combien tu gagnes et à quelle fréquence ça sort.','As Loucuras agora são uma roda: o verde ganha e o vermelho perde. Vês quanto ganhas e de quantas em quantas vezes sai.']])}catch(e){}
 try{i18nAdd([['¿Cómo se gana?','How do you win?','Comment on gagne ?','Como se ganha?'],['VERDE','GREEN','VERT','VERDE'],['ROJO','RED','ROUGE','VERMELHO'],['= ganas','= you win','= tu gagnes','= ganhas'],['= pierdes','= you lose','= tu perds','= perdes']])}catch(e){}
-/* en las ruletas, si eres del top 5, se dice claro que te llevas solo un 2 % (como mucho 1 millón) */
-setInterval(()=>{try{const b=$('#wheelBtn');if(!b)return;let n=$('#t5Wh');const on=t5Q();if(!on){if(n)n.remove();return}
-  if(!n){n=document.createElement('div');n.id='t5Wh';n.className='t5wh';b.insertAdjacentElement('beforebegin',n)}const t='👑 Eres del top 5: de lo que salga te llevas solo el 2 % (como mucho 1 mill.)';if(n.textContent!==t)n.textContent=t}catch(e){}},1500);
 try{i18nAdd([['👑 Eres del top 5: de lo que salga te llevas solo el 2 % (como mucho 1 mill.)','👑 You’re in the top 5: you only get 2% of the prize (1 mill. at most)','👑 Tu es dans le top 5 : tu ne touches que 2 % du prix (1 mill. max.)','👑 Estás no top 5: só levas 2 % do prémio (máx. 1 mill.)']])}catch(e){}
+/* ===== Top 5, sin líos: el botón rojo no da nada y no dice nada; la ruleta enseña lo que vas a cobrar (1 mill. como mucho) ===== */
+t5Say=function(){};t5Warn=function(){};
+const t5Cap=v=>Math.max(0,Math.min(Math.floor(v*T5_PCT),T5_MAX));
+const t5Segs=segs=>{try{if(!t5Q())return segs;return segs.map(sg=>sg&&sg.k==='eur'&&sg.v>0?{...sg,v:Math.max(1,t5Cap(sg.v)),lab:nShort(Math.max(1,t5Cap(sg.v)))}:sg)}catch(e){return segs}};
+{const _wwT=wWeigh;wWeigh=function(id,segs){return _wwT.call(this,id,t5Segs(segs))}}
+{const _wpT=wPaint;wPaint=function(id,segs){return _wpT.call(this,id,t5Segs(segs))}}
+{const _wrT=wResolve;wResolve=function(){try{if(t5Q()&&S.wPend&&S.wPend.p&&S.wPend.p.k==='eur'){S.wPend.p.v=Math.min(+S.wPend.p.v||0,T5_MAX);S.wPend.p.lab=nShort(S.wPend.p.v)}}catch(e){}const a=arguments,t=this;return t5Allow(()=>_wrT.apply(t,a))}}
+/* durante una sorpresa del botón rojo, si eres del top 5 no sale ningún aviso de dinero */
+const t5RbMoney=(a,b)=>{try{return T5.rbUntil&&Date.now()<T5.rbUntil&&t5Q()&&/€|\+\s?[\d.,]/.test(String(a||'')+' '+String(b||''))}catch(e){return false}};
+{const _trRB=troll;troll=function(a,b){if(t5RbMoney(a,b))return;return _trRB.apply(this,arguments)}}
+{const _toRB=toast;toast=function(a,b){if(t5RbMoney(a,b))return;return _toRB.apply(this,arguments)}}
+/* el aviso pequeño de la ruleta ya no hace falta */
+setInterval(()=>{const n=document.getElementById('t5Wh');if(n)n.remove()},1000);
 })();
 </script>
 
