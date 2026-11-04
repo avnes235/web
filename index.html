@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-03-2215">
+<meta name="app-version" content="2026-11-04-0825">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -6648,7 +6648,7 @@ function applyCmd(id,c){if(c&&c.type==='restore'){S.cmdDone=S.cmdDone||[];if(S.c
     troll('PARTIDA RECUPERADA','el jefe te ha devuelto tu partida','#14e08a',true);setTimeout(()=>location.reload(),3500);return}
   if(c&&c.type==='noimg'){S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return;S.cmdDone.push(id);S.img='';save();NET.lastP='';pushPlayer();renderMe();troll('FOTO BORRADA','el jefe te ha quitado la foto de perfil','#ff3b4f',true);return}
   if(c&&c.type==='gift'){S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return;S.cmdDone.push(id);if(S.cmdDone.length>120)S.cmdDone.shift();
-    const n=Math.max(0,Math.floor(+c.n||0)),from=(NET.players.get(c.from)||{}).name||'un colega';S.coins+=n;sfx('big');confetti(140);troll('TE HAN HECHO UN REGALO','+'+short(n)+' € de '+from,'#14e08a',true);save();pushPlayer();return}
+    const n=Math.max(0,Math.floor(+c.n||0)),from=(NET.players.get(c.from)||{}).name||'un colega';S.coins+=n;S.rnG=(+S.rnG||0)+n;sfx('big');confetti(140);troll('TE HAN HECHO UN REGALO','+'+short(n)+' € de '+from,'#14e08a',true);save();pushPlayer();return}
   applyCmdBase(id,c)}
 
 /* ---- Migraciones de partidas viejas ---- */
@@ -6685,7 +6685,7 @@ $('#over').addEventListener('click',e=>{if(e.target.closest('[data-o="cont"]'))c
 function applyGifts(list){S.cmdDone=S.cmdDone||[];const fresh_=list.filter(([id])=>!S.cmdDone.includes(id));
   list.forEach(([id])=>NET.db.collection('cmds/'+NET.id+'/q').doc(id).delete().catch(()=>{}));if(!fresh_.length)return;
   let total=0;const from=new Set();fresh_.forEach(([id,c])=>{S.cmdDone.push(id);const n=Math.max(0,Math.floor(+c.n||0));total+=n;from.add((NET.players.get(c.from)||{}).name||'un colega')});
-  while(S.cmdDone.length>200)S.cmdDone.shift();S.coins+=total;save();NET.lastP='';pushPlayer();sfx('big');confetti(fresh_.length>1?200:140);
+  while(S.cmdDone.length>200)S.cmdDone.shift();S.coins+=total;S.rnG=(+S.rnG||0)+total;save();NET.lastP='';pushPlayer();sfx('big');confetti(fresh_.length>1?200:140);
   const names=[...from];troll(fresh_.length>1?'LLUVIA DE REGALOS':'TE HAN HECHO UN REGALO','+'+short(total)+' € de '+(names.length>2?names.slice(0,2).join(', ')+' y más':names.join(' y ')),'#14e08a',true);
   toast('Regalo recibido','+'+short(total)+' €'+(fresh_.length>1?' ('+fresh_.length+' regalos)':''),'var(--mint)','🎁')}
 
@@ -16190,19 +16190,20 @@ const RN_ST=[['🥉','Bronce'],['🥈','Plata'],['🥇','Oro'],['❤️‍🔥',
 const rnN=()=>Math.max(0,Math.min(RN_ST.length,Math.floor(+S.rn||0)));
 const rnNeed=n=>1e18*Math.pow(10,n);                  /* 1ª estrella: 1 quintill. de riqueza; cada una ×10 */
 const rnMult=()=>1+.1*rnN();
+const rnW=()=>Math.max(0,wealth()-Math.max(0,+S.rnG||0));
 const rnStars=()=>RN_ST.slice(0,rnN()).map(s=>s[0]).join('');
 RN_ST.forEach((s,i)=>{const id='rn'+(i+1);if(!COS.ti.some(y=>y[0]===id))COS.ti.push([id,s[0]+' Renacido/a '+s[1],999,'','s'])});
 {const _gvRN=give;give=function(n){if(n>0&&rnN())n=n*rnMult();return _gvRN.call(this,n)}}
 {const _tiRN=tiText;tiText=function(){const t=_tiRN.apply(this,arguments);const s=rnStars();return s?(s+(t?' '+t:'')):t}}
 function rnBlock(){try{if(S.tr&&Array.isArray(S.tr.pos)&&S.tr.pos.length)return'Cierra antes tus operaciones abiertas de Trading.';const h=bxHold();if(Object.values(h).some(v=>(+v||0)>0||(v&&typeof v==='object'&&(+v.n||+v.q||0)>0)))return'Vende antes tus acciones de la Bolsa de Jugadores.'}catch(e){}return''}
-function rnDo(btn){const n=rnN();if(n>=RN_ST.length)return;const need=rnNeed(n),w=wealth();if(w<need){toast('Aún no','Necesitas '+eS(need)+' de riqueza','var(--coral)','⭐');return}
+function rnDo(btn){const n=rnN();if(n>=RN_ST.length)return;const need=rnNeed(n),w=rnW();if(w<need){toast('Aún no','Necesitas '+eS(need)+' de riqueza','var(--coral)','⭐');return}
   const b=rnBlock();if(b){toast('Antes de renacer',b,'var(--coral)','⭐');return}if(!skArm('rn'+n,btn))return;
   const lost=w;try{movForce('⭐ Renacer: estrella '+(n+1),-1)}catch(e){}
-  S.coins=1e6;S.safe=0;if(S.loan)S.loan={};S.owned={};S.cart={};S.show=[];S.upg={};S.upg2={};S.rn=n+1;S.rnAt=Date.now();S.rnLost=(+S.rnLost||0)+lost;skGrant('rn'+(n+1));
+  S.coins=1e6;S.safe=0;if(S.loan)S.loan={};S.owned={};S.cart={};S.show=[];S.upg={};S.upg2={};S.rn=n+1;S.rnAt=Date.now();S.rnG=0;S.rnLost=(+S.rnLost||0)+lost;skGrant('rn'+(n+1));
   try{shownCoins=S.coins}catch(e){}save();NET.lastP='';try{pushPlayer()}catch(e){}
   const s=RN_ST[n];sfx('big');confetti(300);troll(s[0]+' ¡HAS RENACIDO!','Estrella '+s[1]+' para siempre · ahora ganas un '+Math.round(rnN()*10)+' % más','#b48cff',true);
   try{renderShop()}catch(e){}try{renderUpg(true)}catch(e){}try{renderMe()}catch(e){}}
-function rnHTML(){const n=rnN(),full=n>=RN_ST.length,need=full?0:rnNeed(n),w=wealth(),pct=full?100:Math.min(100,w/need*100),nx=RN_ST[n];
+function rnHTML(){const n=rnN(),full=n>=RN_ST.length,need=full?0:rnNeed(n),w=rnW(),pct=full?100:Math.min(100,w/need*100),nx=RN_ST[n];
   return`<div class="panel skbox rnbox"><div class="skhd"><span class="emo">⭐</span><div><b>Renacer</b><span>Cuando seas muy rico, puedes volver a empezar de cero (con 1 millón) a cambio de una <b>estrella para siempre</b>. Cada estrella te da un <b>10 % más</b> de dinero en todo lo que ganes gratis y en la Fábrica, sale al lado de tu nombre y es distinta a las demás. Conservas nivel, títulos, logros, amigos y cosméticos.</span></div></div>
    <div class="rnst">${RN_ST.map((s,i)=>`<span class="rns${i<n?' on':''}" title="${esc(s[1])}">${s[0]}</span>`).join('')}</div>
    ${full?'<div class="tqmine">♾️ Tienes todas las estrellas. Eres leyenda.</div>':`<span class="skp">Siguiente: <b>${nx[0]} Estrella ${esc(nx[1])}</b> · necesitas <b>${eS(need)}</b> de riqueza (cartera + caja fuerte)</span><div class="rnbar"><i style="width:${pct.toFixed(1)}%"></i></div>
@@ -16293,7 +16294,7 @@ function tqHTML(){const st=tqState(),L=st.last,me=st.mine,myMs=((st.rk.find(r=>r
     ${st.rk.length?st.rk.slice(0,5).map((r,i)=>`<div class="tqr${r.id===NET.id?' me':''}"><span class="tqp">${['🥇','🥈','🥉','4','5'][i]}</span><span class="emo">${esc(r.av)}</span><div class="tqrn"><b>${r.id===NET.id?'Tú':esc(r.n)}</b><i style="width:${Math.max(4,r.ms/top*100).toFixed(1)}%"></i></div><em>${tqDur(r.ms)}</em></div>`).join(''):'<span class="skp">Todavía nadie. ¡El primero se lleva ventaja!</span>'}
     ${myMs&&!st.rk.slice(0,5).some(r=>r.id===NET.id)?`<div class="tqr me"><span class="tqp">·</span><span class="emo">${esc(S.av||'😎')}</span><div class="tqrn"><b>Tú</b><i style="width:${Math.max(4,myMs/top*100).toFixed(1)}%"></i></div><em>${tqDur(myMs)}</em></div>`:''}
     ${S.tqWins?`<span class="skp">🏆 Has ganado <b>${fmt(S.tqWins)}</b> ${S.tqWins===1?'trofeo':'trofeos'} de la Torre</span>`:''}</div></div>`}
-function rnHTML(){const n=rnN(),full=n>=RN_ST.length,need=full?0:rnNeed(n),w=wealth(),pct=full?100:Math.min(100,w/need*100),nx=RN_ST[n],ok=!full&&w>=need;
+function rnHTML(){const n=rnN(),full=n>=RN_ST.length,need=full?0:rnNeed(n),w=rnW(),pct=full?100:Math.min(100,w/need*100),nx=RN_ST[n],ok=!full&&w>=need;
   return`<div class="panel skbox rnbox nwpanel${nwH('rn')}"><span class="nwrib">NUEVO</span>
    <div class="rnhd"><span class="rnbig">${full?'♾️':nx[0]}</span><div><span class="tqk">⭐ RENACER</span><b class="rnt">${full?'Tienes todas las estrellas':'Estrella '+esc(nx[1])}</b><span class="skp">${full?'Eres leyenda de Casinetori.':'Empieza de cero y gánala para siempre'}</span></div></div>
    <div class="rnst">${RN_ST.map((s,i)=>`<span class="rns${i<n?' on':''}${i===n?' nx':''}" title="${esc(s[1])}">${s[0]}</span>`).join('')}</div>
