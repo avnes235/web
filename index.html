@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-04-1145">
+<meta name="app-version" content="2026-11-04-1700">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4670,6 +4670,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 .lzhow{display:flex;flex-direction:column;gap:5px;padding:10px 12px;border-radius:12px;background:rgba(255,214,0,.07);border:1px solid rgba(255,214,0,.3);font-size:13px;font-weight:600;line-height:1.4}.lzhow>b{font-size:14px;color:var(--sun)}
 .t5wh{margin:0 auto 10px;max-width:340px;padding:8px 12px;border-radius:10px;background:rgba(255,214,0,.12);border:1px solid rgba(255,214,0,.5);font-weight:800;font-size:13px;text-align:center;line-height:1.35}
 .t5lock{position:absolute;inset:4%;z-index:3;border-radius:50%;container-type:inline-size;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5cqw;text-align:center;padding:12%;background:radial-gradient(circle,rgba(12,10,24,.95) 60%,rgba(12,10,24,.8));border:3px solid #ffd600;box-shadow:0 0 30px rgba(255,214,0,.45);color:#fff;overflow:hidden}.t5lock .t5le{font-size:13cqw;line-height:1;animation:tqBob 2.4s ease-in-out infinite}.t5lock>b{font-family:var(--f-d,Anton,Impact,sans-serif);font-size:12cqw;line-height:1.05;letter-spacing:.3px;color:#ffd600}.t5lock>span{font-size:7cqw;font-weight:700;line-height:1.25}.t5lock>span b{color:#ffd600}.t5lock>small{font-size:5.6cqw;font-weight:800;opacity:.9;margin-top:1cqw}
+body.t5on #rainL,body.t5on #evGift,body.t5on .daily #days b,body.t5on .mis .rw{display:none!important}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -6648,7 +6649,7 @@ function applyCmd(id,c){if(c&&c.type==='restore'){S.cmdDone=S.cmdDone||[];if(S.c
     troll('PARTIDA RECUPERADA','el jefe te ha devuelto tu partida','#14e08a',true);setTimeout(()=>location.reload(),3500);return}
   if(c&&c.type==='noimg'){S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return;S.cmdDone.push(id);S.img='';save();NET.lastP='';pushPlayer();renderMe();troll('FOTO BORRADA','el jefe te ha quitado la foto de perfil','#ff3b4f',true);return}
   if(c&&c.type==='gift'){S.cmdDone=S.cmdDone||[];if(S.cmdDone.includes(id))return;S.cmdDone.push(id);if(S.cmdDone.length>120)S.cmdDone.shift();
-    const n=Math.max(0,Math.floor(+c.n||0)),from=(NET.players.get(c.from)||{}).name||'un colega';S.coins+=n;S.rnG=(+S.rnG||0)+n;sfx('big');confetti(140);troll('TE HAN HECHO UN REGALO','+'+short(n)+' € de '+from,'#14e08a',true);save();pushPlayer();return}
+    const n=Math.max(0,Math.floor(+c.n||0)),from=(NET.players.get(c.from)||{}).name||'un colega';S.coins+=n;S.rnG=(+S.rnG||0)+n;try{S.gRx=(Array.isArray(S.gRx)?S.gRx:[]).concat([[Date.now(),n]]).slice(-60)}catch(e){}sfx('big');confetti(140);troll('TE HAN HECHO UN REGALO','+'+short(n)+' € de '+from,'#14e08a',true);save();pushPlayer();return}
   applyCmdBase(id,c)}
 
 /* ---- Migraciones de partidas viejas ---- */
@@ -6685,7 +6686,7 @@ $('#over').addEventListener('click',e=>{if(e.target.closest('[data-o="cont"]'))c
 function applyGifts(list){S.cmdDone=S.cmdDone||[];const fresh_=list.filter(([id])=>!S.cmdDone.includes(id));
   list.forEach(([id])=>NET.db.collection('cmds/'+NET.id+'/q').doc(id).delete().catch(()=>{}));if(!fresh_.length)return;
   let total=0;const from=new Set();fresh_.forEach(([id,c])=>{S.cmdDone.push(id);const n=Math.max(0,Math.floor(+c.n||0));total+=n;from.add((NET.players.get(c.from)||{}).name||'un colega')});
-  while(S.cmdDone.length>200)S.cmdDone.shift();S.coins+=total;S.rnG=(+S.rnG||0)+total;save();NET.lastP='';pushPlayer();sfx('big');confetti(fresh_.length>1?200:140);
+  while(S.cmdDone.length>200)S.cmdDone.shift();S.coins+=total;S.rnG=(+S.rnG||0)+total;try{S.gRx=(Array.isArray(S.gRx)?S.gRx:[]).concat([[Date.now(),total]]).slice(-60)}catch(e){}save();NET.lastP='';pushPlayer();sfx('big');confetti(fresh_.length>1?200:140);
   const names=[...from];troll(fresh_.length>1?'LLUVIA DE REGALOS':'TE HAN HECHO UN REGALO','+'+short(total)+' € de '+(names.length>2?names.slice(0,2).join(', ')+' y más':names.join(' y ')),'#14e08a',true);
   toast('Regalo recibido','+'+short(total)+' €'+(fresh_.length>1?' ('+fresh_.length+' regalos)':''),'var(--mint)','🎁')}
 
@@ -11944,12 +11945,12 @@ TITLES.bolsa='Bolsa';
 const BX_MAX=10000,BX_FEE=.02;
 let bxTab='mercado';
 /* precio de un jugador: sube si juega (nivel, actividad de la semana) y si tiene dinero; baja si deja de jugar o pierde dinero */
-function bxPrice(p){const lvl=Math.max(1,+p.lvl||1),c=Math.max(0,+p.coins||0),w=WK();
+function bxPrice(p){const lvl=Math.max(1,+p.lvl||1),c=Math.max(0,(+p.coins||0)-(+p.gr||0)),w=WK();
   const wp=+p.wk===w?(+p.wp||0):0,pw=+p.pwk===w-1?(+p.pwp||0):(+p.wk===w-1?(+p.wp||0):0);
   const prog=Math.min(1,Math.max(0,(NOWS()-(w*7*864e5+4*864e5))/(7*864e5))),act=wp+pw*(1-prog);
   const af=.5+Math.min(1.5,act/1000),idle=Math.max(0,(NOWS()-(+p.t||NOWS()))/864e5-2),decay=Math.pow(.85,Math.min(idle,20));
   return Math.max(1,Math.round(20*Math.pow(lvl,.7)*(1+Math.log10(1+c))*af*decay))}
-function bxMeP(){return{lvl:S.lvl,coins:S.coins,wk:S.wk,wp:S.wkP,pwk:S.pwk,pwp:S.pwP,t:Date.now()}}
+function bxMeP(){return{lvl:S.lvl,coins:S.coins,gr:gRx7(),wk:S.wk,wp:S.wkP,pwk:S.pwk,pwp:S.pwP,t:Date.now()}}
 function bxPlayers(){return others().filter(p=>p.name)}
 function bxGet(id){return NET.players.get(id)}
 function bxHold(){S.stk=S.stk||{};return S.stk}
@@ -16196,7 +16197,7 @@ const rnStars=()=>RN_ST.slice(0,rnN()).map(s=>s[0]).join('');
 RN_ST.forEach((s,i)=>{const id='rn'+(i+1);if(!COS.ti.some(y=>y[0]===id))COS.ti.push([id,s[0]+' Renacido/a '+s[1],999,'','s'])});
 {const _gvRN=give;give=function(n){if(n>0&&rnN())n=n*rnMult();return _gvRN.call(this,n)}}
 {const _tiRN=tiText;tiText=function(){const t=_tiRN.apply(this,arguments);const s=rnStars();return s?(s+(t?' '+t:'')):t}}
-function rnBlock(){try{const cd=rnCdLeft();if(cd>0){const d=Math.ceil(cd/864e5);return'Acabas de renacer: podrás volver a hacerlo en '+d+(d===1?' día':' días')+'.'}}catch(e){}try{if(typeof OL!=='undefined'&&OL.mine&&[...OL.mine.values()].some(d=>d&&['open','pend','full'].includes(d.st)))return'Acaba antes tus duelos online pendientes.';if((S.myPots||[]).some(mp=>mp&&!(typeof olClaimed==='function'&&olClaimed('p'+mp.id))&&Date.now()<(+mp.end||0)+6e5))return'Espera a que acaben tus botes online.';}catch(e){}try{if(S.tr&&Array.isArray(S.tr.pos)&&S.tr.pos.length)return'Cierra antes tus operaciones abiertas de Trading.';const h=bxHold();if(Object.values(h).some(v=>(+v||0)>0||(v&&typeof v==='object'&&(+v.n||+v.q||0)>0)))return'Vende antes tus acciones de la Bolsa de Jugadores.'}catch(e){}return''}
+function rnBlock(){try{const cd=rnCdLeft();if(cd>0){const d=Math.ceil(cd/864e5);return'Acabas de renacer: podrás volver a hacerlo en '+d+(d===1?' día':' días')+'.'}}catch(e){}try{if(typeof OL!=='undefined'&&OL.mine&&[...OL.mine.values()].some(d=>d&&((d.st==='open'&&d.by===NET.id)||(d.st==='full'&&!olClaimed('d'+d.id))||(d.st==='cancel'&&d.by===NET.id&&!olClaimed('c'+d.id)))))return'Acaba antes tus duelos online pendientes.';if((S.myPots||[]).some(mp=>mp&&!(typeof olClaimed==='function'&&olClaimed('p'+mp.id))&&Date.now()<(+mp.end||0)+6e5))return'Espera a que acaben tus botes online.';}catch(e){}try{if(S.tr&&Array.isArray(S.tr.pos)&&S.tr.pos.length)return'Cierra antes tus operaciones abiertas de Trading.';const h=bxHold();if(Object.values(h).some(v=>(+v||0)>0||(v&&typeof v==='object'&&(+v.n||+v.q||0)>0)))return'Vende antes tus acciones de la Bolsa de Jugadores.'}catch(e){}return''}
 function rnDo(btn){const n=rnN();if(n>=RN_ST.length)return;const need=rnNeed(n),w=rnW();if(w<need){toast('Aún no','Necesitas '+eS(need)+' de riqueza','var(--coral)','⭐');return}
   const b=rnBlock();if(b){toast('Antes de renacer',b,'var(--coral)','⭐');return}if(!skArm('rn'+n,btn))return;
   const lost=w;try{movForce('⭐ Renacer: estrella '+(n+1),-1)}catch(e){}
@@ -16250,11 +16251,11 @@ function lzHTML(){const bet=Math.floor(Math.max(0,S.coins)*LZ_P[LZ.p]),M=LZ_M[LZ
    <div class="bcbox"><span class="emo">💀</span><div><b>Bote de los Caídos: ${eS(pot)}</b><span>El 10 % de todo lo que se pierde en Locuras va a este bote. El lunes se sortea entre todos los que han perdido alguna Locura esa semana.${bcMine().n?' <b>Ya estás dentro del sorteo.</b>':''}</span></div></div></div>`}
 function lzDraw(){try{if(Date.now()<SKA.armT&&$('#lzWrap .skarm'))return;const hub=$('#czHub');if(!hub)return;let b=$('#lzWrap');if(!b){b=document.createElement('div');b.id='lzWrap';hub.prepend(b)}if(!LZ.busy)b.innerHTML=lzHTML()}catch(e){}}
 function lzGo(){if(LZ.busy)return;const bet=Math.floor(Math.max(0,S.coins)*LZ_P[LZ.p]),M=LZ_M[LZ.m];if(bet<1000)return;
-  LZ.busy=true;S.coins-=bet;S.st.casinoLost=(S.st.casinoLost||0);const win=Math.random()<M[1];save();
+  LZ.busy=true;try{movForce('🔥 Locura ×'+fmt(M[0])+' (apuesta)',-1)}catch(e){}S.coins-=bet;S.st.casinoLost=(S.st.casinoLost||0);const win=Math.random()<M[1];save();
   try{lzSpin(win,M[1])}catch(e){}const r=$('#lzRes');const btn=$('#lzWrap [data-lzgo]');if(btn)btn.disabled=true;let k=0;const T=setInterval(()=>{k++;if(r)r.innerHTML=`<b class="lzspin">${['🔥','💥','🎲','💸','🤑','💀'][k%6]} ×${fmt(M[0])} ${['.','..','...'][k%3]}</b>`;if(k%2)sfx('tick')},110);
   setTimeout(()=>{clearInterval(T);LZ.busy=false;LZ.last=win?'w':'l';LZ.lastT=Date.now();LZ.lastV=win?bet*M[0]:bet;
     if(win){const got=bet*M[0];try{movForce('🔥 Locura ×'+fmt(M[0])+' ganada',1)}catch(e){}S.coins+=got;S.earned+=got-bet;S.st.casinoWon=(S.st.casinoWon||0)+got;S.lzW=(+S.lzW||0)+1;sfx('big');confetti(260);troll('🔥 ¡LOCURA GANADA!','×'+fmt(M[0])+' · +'+eS(got),'#14e08a',true)}
-    else{try{movForce('🔥 Locura ×'+fmt(M[0])+' perdida',-1)}catch(e){}const b=bcMine();b.v=(+b.v||0)+Math.floor(bet*BC_RATE);b.n=(+b.n||0)+1;S.spentSink=(+S.spentSink||0)+bet;S.st.casinoLost=(S.st.casinoLost||0)+bet;sfx('lose');troll('💀 ¡A LA BASURA!','−'+eS(bet)+' · entras en el sorteo del Bote de los Caídos','#ff2e88',true)}
+    else{const b=bcMine();b.v=(+b.v||0)+Math.floor(bet*BC_RATE);b.n=(+b.n||0)+1;S.spentSink=(+S.spentSink||0)+bet;S.st.casinoLost=(S.st.casinoLost||0)+bet;sfx('lose');troll('💀 ¡A LA BASURA!','−'+eS(bet)+' · entras en el sorteo del Bote de los Caídos','#ff2e88',true)}
     save();NET.lastP='';try{pushPlayer()}catch(e){}lzDraw();setTimeout(()=>{if(!LZ.busy)lzDraw()},6100);try{updMoney()}catch(e){}},1700)}
 /* la movida de los avisos del dinero de la cabecera se hace sola; el movimiento ya va con su nombre */
 document.addEventListener('click',e=>{const w=e.target.closest('#lzWrap');if(!w)return;const p=e.target.closest('[data-lzp]'),m=e.target.closest('[data-lzm]');
@@ -16457,6 +16458,17 @@ function rnGiftStop(id){const l=rnGiftLeft(id);if(!l||(typeof ADM!=='undefined'&
 
 try{i18nAdd([['Entre un renacer y otro tienen que pasar 7 días.','There must be 7 days between one rebirth and the next.','Il faut 7 jours entre deux renaissances.','Entre um renascer e outro têm de passar 7 dias.']])}catch(e){}
 try{i18nAdd([['No puede recibir regalos hasta dentro de','Can’t receive gifts for another','Ne peut pas recevoir de cadeaux avant','Não pode receber prendas durante mais']])}catch(e){}
+/* regalos recibidos en los últimos 7 días (la Bolsa no los cuenta en el precio) */
+function gRx7(){try{const now=Date.now();S.gRx=(Array.isArray(S.gRx)?S.gRx:[]).filter(x=>Array.isArray(x)&&now-x[0]<7*864e5);return S.gRx.reduce((a,x)=>a+(+x[1]||0),0)}catch(e){return 0}}
+{const _pxG=pubX;pubX=function(){const x=_pxG.apply(this,arguments);try{x.gr=Math.floor(gRx7())}catch(e){}return x}}
+/* lo que llega sin que toques nada (regalos, órdenes del jefe) se sube a la nube al momento, para que no se pierda al cambiar de móvil */
+function upNow(){try{USER_ACT=Date.now();setTimeout(()=>{try{cloudSave(true)}catch(e){}},1200)}catch(e){}}
+{const _agU=applyGifts;applyGifts=function(){const c0=S.coins;const r=_agU.apply(this,arguments);if(S.coins!==c0)upNow();return r}}
+{const _acU=applyCmd;applyCmd=function(){const c0=S.coins,s0=S.safe;const r=_acU.apply(this,arguments);if(S.coins!==c0||S.safe!==s0)upNow();return r}}
+{const _bcU=bcPrize;bcPrize=function(){const c0=S.coins;const r=_bcU.apply(this,arguments);if(S.coins!==c0)upNow();return r}}
+{const _tqU=tqPrize;tqPrize=function(){const w0=S.tqWins;const r=_tqU.apply(this,arguments);if(S.tqWins!==w0)upNow();return r}}
+/* top 5: no se enseñan premios de dinero que luego no se cobran */
+setInterval(()=>{try{document.body.classList.toggle('t5on',!!t5Q())}catch(e){}},1500);
 })();
 </script>
 
