@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-04-1755">
+<meta name="app-version" content="2026-11-04-1810">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4670,7 +4670,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 .lzhow{display:flex;flex-direction:column;gap:5px;padding:10px 12px;border-radius:12px;background:rgba(255,214,0,.07);border:1px solid rgba(255,214,0,.3);font-size:13px;font-weight:600;line-height:1.4}.lzhow>b{font-size:14px;color:var(--sun)}
 .t5wh{margin:0 auto 10px;max-width:340px;padding:8px 12px;border-radius:10px;background:rgba(255,214,0,.12);border:1px solid rgba(255,214,0,.5);font-weight:800;font-size:13px;text-align:center;line-height:1.35}
 .t5lock{position:absolute;inset:4%;z-index:3;border-radius:50%;container-type:inline-size;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5cqw;text-align:center;padding:12%;background:radial-gradient(circle,rgba(12,10,24,.95) 60%,rgba(12,10,24,.8));border:3px solid #ffd600;box-shadow:0 0 30px rgba(255,214,0,.45);color:#fff;overflow:hidden}.t5lock .t5le{font-size:13cqw;line-height:1;animation:tqBob 2.4s ease-in-out infinite}.t5lock>b{font-family:var(--f-d,Anton,Impact,sans-serif);font-size:12cqw;line-height:1.05;letter-spacing:.3px;color:#ffd600}.t5lock>span{font-size:7cqw;font-weight:700;line-height:1.25}.t5lock>span b{color:#ffd600}.t5lock>small{font-size:5.6cqw;font-weight:800;opacity:.9;margin-top:1cqw}
-body.t5on #rainL,body.t5on #evGift,body.t5on .daily #days b,body.t5on .mis .rw{display:none!important}
+
 .tktcard{border:2px solid var(--c)!important;display:flex;flex-direction:column;gap:8px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 14%,transparent),transparent 70%),var(--card,#16182a)!important}
 .tkth{display:flex;align-items:center;gap:10px}.tkth .emo{font-size:30px}.tkth>div{flex:1;min-width:0;display:flex;flex-direction:column}.tkth b{font-size:17px}.tkth small{opacity:.75;font-weight:700}
 .tktnew{background:#14e08a;color:#062;font-weight:900;font-size:12px;padding:4px 8px;border-radius:8px;animation:nwBlink 1.4s ease-in-out infinite}
@@ -6933,6 +6933,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-04-b',t:'Top 5: todo vuelve, pero al 5 %',items:[['👑','El top 5 vuelve a coger premios','Si estás entre los 5 más ricos, vuelves a poder girar ruletas, pulsar el botón rojo y recoger regalos y misiones, pero solo te llevas un 5 % de lo normal. En la ruleta ya sale la cifra que te llevas.','fix','#ffd600']]},
  {v:'2026-11-04-a',t:'El Buzón ahora va por tickets',items:[['🎫','Abre un ticket y habla con el jefe','En el Buzón eliges qué es (fallo, idea u otra cosa), lo cuentas y puedes añadir una captura. Se abre un chat privado con el jefe. Hasta que te lo cierren no puedes abrir otro, pero puedes pedir que te lo cierren.','new','#ff3b4f'],['👑','Top 5 sin premios que engañan','Si estás en el top 5 ya no ves cantidades de premios que luego no se cobran (premio diario, regalo sorpresa, lluvia, misiones).','fix','#ffd600']]},
  {v:'2026-11-03-g',t:'Top 5: todo es habilidad',items:[['👑','Arriba no hay premios gratis','Si estás entre los 5 más ricos, las ruletas, misiones, cofres y el botón rojo no dan nada. En la ruleta te sale claro que estás en el top 5. El casino, los minijuegos y la Fábrica pagan normal.','fix','#ffd600']]},
  {v:'2026-11-03-f',t:'Top 5: los minijuegos pagan',items:[['🕹️','Minijuegos, podio de juegos y extra del casino: normal','Si eres del top 5, lo que ganas en los minijuegos, el premio por hora del podio de juegos y el extra de los multiplicadores del casino vuelven a cobrarse enteros, porque es habilidad.','fix','#14e08a']]},
@@ -10557,7 +10558,7 @@ function guDayRender(){const b=$('#guDayBtn'),inf=$('#guDayInfo');if(!b||guDwSpi
   else{b.disabled=false;b.textContent='🎬 Ver anuncio y girar';inf.textContent='Cada 2 horas · '+(ADS_CLIENT?'anuncio de unos segundos':'modo prueba: anuncio de mentira de 5 s')}}
 function guDayPay(){const st=S.guDay;if(!st||!st.pend)return;st.pend=0;
   if(st.t&&!guHasT()){S.exc=S.exc||[];S.exc.push('ti:'+GU_TITLE);try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}return -1}
-  const p=t5Q()?0:Math.max(0,Math.floor(+st.p||0));if(!p){t5Warn();return 0}try{LED.tag='v:anuncio';LED.tagT=Date.now()+1500}catch(e){}S.coins+=p;S.earned=(S.earned||0)+p;try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}return p}
+  const p=Math.max(0,Math.floor((+st.p||0)*(t5Q()?T5_PCT:1)));try{LED.tag='v:anuncio';LED.tagT=Date.now()+1500}catch(e){}S.coins+=p;S.earned=(S.earned||0)+p;try{save()}catch(e){}try{NET.lastP='';pushPlayer()}catch(e){}return p}
 function guWin(p,k){const s=GU_DW[k]||[];if(p===-1){try{sfx('big')}catch(_){}try{confetti(360)}catch(_){}troll('🎬 ¡ESTRELLA DE CINE!','título exclusivo: póntelo en Perfil › Título','#ffd600',true);try{excShow(['ti:'+GU_TITLE],{k:'🎬 Premio del Gran Premio de Cine',p:'Te ha tocado en la ruleta del Gran Premio de Cine. Muy poca gente lo tiene.'})}catch(_){}return}
   const jack=s[4]==='gold';try{sfx(jack||p>=wealth()*.05?'big':'win')}catch(_){}try{confetti(jack?320:120)}catch(_){}
   if(jack)troll('¡¡GRAN PREMIO!!','+'+short(p)+' €','#ffd600',true);else toast('¡Te ha tocado!','+'+short(p)+' € del Gran Premio de Cine','var(--mint)','🎬')}
@@ -11270,7 +11271,7 @@ function rainStart(e){if(rainIv)return;let L=$('#rainL');if(!L){L=document.creat
   rainIv=setInterval(()=>{const left=rainLeft(e),val=Math.max(1000,Math.round((e.pool||2e6)/300/100)*100),out=left<val;if(document.hidden||$('#excWin:not([hidden])'))return;if(out)return;/* bote vacío: ya no caen más monedas */if(L.childElementCount>14)return;
     const c=document.createElement('button');c.className='frcoin';c.textContent='€';c.style.left=(11+Math.random()*69)+'vw';const dur=3.2+Math.random()*2.5;c.style.animationDuration=dur+'s';c.style.setProperty('--rr',(Math.random()*720-360)+'deg');if(out){c.classList.add('empty');c.textContent='✕'}
     c.onpointerdown=ev=>{ev.preventDefault();ev.stopPropagation();if(c.dataset.got)return;c.dataset.got=1;const l2=rainLeft(e),v=Math.min(val,l2);if(v<=0||c.classList.contains('empty')){rainEmptyPop(ev,c);return}
-      if(!S.rainG||S.rainG.id!==e.id)S.rainG={id:e.id,n:0};S.rainG.n+=v;const pay=t5Q()?0:rainPay(e,v,val);if(!pay)t5Warn();S.coins+=pay;S.earned+=pay;S.rainG.p=(S.rainG.p||0)+pay;try{sfx('coin')}catch(_){}
+      if(!S.rainG||S.rainG.id!==e.id)S.rainG={id:e.id,n:0};S.rainG.n+=v;const pay=Math.floor(rainPay(e,v,val)*(t5Q()?T5_PCT:1));if(!pay)t5Warn();S.coins+=pay;S.earned+=pay;S.rainG.p=(S.rainG.p||0)+pay;try{sfx('coin')}catch(_){}
       const pp=document.createElement('div');pp.className='rpop';pp.textContent='+'+short(pay)+' €';pp.style.left=ev.clientX-20+'px';pp.style.top=ev.clientY-20+'px';document.body.appendChild(pp);setTimeout(()=>pp.remove(),800);c.remove();
       save();if(Date.now()-rainPushT>2500){rainPushT=Date.now();NET.lastP='';pushPlayer()}else setTimeout(()=>{if(Date.now()-rainPushT>=2400){rainPushT=Date.now();NET.lastP='';pushPlayer()}},2600)};
     L.appendChild(c);setTimeout(()=>c.remove(),dur*1000+200)},420);
@@ -16061,6 +16062,7 @@ try{i18nAdd([['Top 5: los minijuegos pagan','Top 5: minigames pay','Top 5 : les 
 try{i18nAdd([['Top 5: todo es habilidad','Top 5: it’s all skill','Top 5 : tout est talent','Top 5: é tudo habilidade'],['Arriba no hay premios gratis','No free prizes at the top','Pas de prix gratuits en haut','Lá em cima não há prémios grátis'],['Si estás entre los 5 más ricos, las ruletas, misiones, cofres y el botón rojo no dan nada. En la ruleta te sale claro que estás en el top 5. El casino, los minijuegos y la Fábrica pagan normal.','If you’re among the 5 richest, wheels, missions, chests and the red button give nothing. The wheel clearly tells you you’re in the top 5. Casino, minigames and the Factory pay normally.','Si tu es parmi les 5 plus riches, roues, missions, coffres et bouton rouge ne donnent rien. La roue t’indique clairement que tu es dans le top 5. Casino, mini-jeux et Usine paient normalement.','Se estás entre os 5 mais ricos, roletas, missões, cofres e o botão vermelho não dão nada. A roleta diz-te claramente que estás no top 5. Casino, minijogos e Fábrica pagam normal.']])}catch(e){}
 try{i18nAdd([['El Buzón ahora va por tickets','The Mailbox now uses tickets','La Boîte passe aux tickets','A Caixa agora funciona por tickets'],['Abre un ticket y habla con el jefe','Open a ticket and talk to the boss','Ouvre un ticket et parle au boss','Abre um ticket e fala com o chefe'],['En el Buzón eliges qué es (fallo, idea u otra cosa), lo cuentas y puedes añadir una captura. Se abre un chat privado con el jefe. Hasta que te lo cierren no puedes abrir otro, pero puedes pedir que te lo cierren.','In the Mailbox choose what it is (bug, idea or other), explain it and add a screenshot if you want. A private chat with the boss opens. You can’t open another until it’s closed, but you can ask to close it.','Dans la Boîte choisis le type (bug, idée ou autre), explique et ajoute une capture si tu veux. Un chat privé avec le boss s’ouvre. Tu ne peux pas en ouvrir un autre avant qu’il soit fermé, mais tu peux demander sa fermeture.','Na Caixa escolhes o que é (erro, ideia ou outra coisa), explicas e podes juntar uma captura. Abre-se um chat privado com o chefe. Até o fecharem não podes abrir outro, mas podes pedir que o fechem.'],['Top 5 sin premios que engañan','Top 5 without misleading prizes','Top 5 sans prix trompeurs','Top 5 sem prémios enganadores'],['Si estás en el top 5 ya no ves cantidades de premios que luego no se cobran (premio diario, regalo sorpresa, lluvia, misiones).','If you’re in the top 5 you no longer see prize amounts you won’t get (daily prize, surprise gift, rain, missions).','Si tu es dans le top 5, tu ne vois plus des montants de prix que tu ne touches pas (prix quotidien, cadeau surprise, pluie, missions).','Se estás no top 5 já não vês valores de prémios que não recebes (prémio diário, prenda surpresa, chuva, missões).']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Cómo hablo con el jefe?'))FAQ.unshift(['¿Cómo hablo con el jefe?','En Ayuda › Buzón eliges qué es (fallo, idea u otra cosa), lo cuentas y pulsas «Abrir ticket». Puedes añadir una captura. Se abre un chat privado con el jefe donde te contesta. Mientras tengas un ticket abierto no puedes abrir otro; si ya está resuelto, pulsa «Pedir que lo cierren».'])}catch(e){}
+try{i18nAdd([['Top 5: todo vuelve, pero al 5 %','Top 5: everything is back, at 5%','Top 5 : tout revient, mais à 5 %','Top 5: tudo volta, mas a 5 %'],['El top 5 vuelve a coger premios','The top 5 can collect prizes again','Le top 5 peut de nouveau récupérer des prix','O top 5 volta a apanhar prémios'],['Si estás entre los 5 más ricos, vuelves a poder girar ruletas, pulsar el botón rojo y recoger regalos y misiones, pero solo te llevas un 5 % de lo normal. En la ruleta ya sale la cifra que te llevas.','If you’re among the 5 richest, you can spin wheels, press the red button and collect gifts and missions again, but you only get 5% of normal. The wheel already shows what you get.','Si tu es parmi les 5 plus riches, tu peux de nouveau tourner les roues, appuyer sur le bouton rouge et récupérer cadeaux et missions, mais tu ne touches que 5 % du normal. La roue affiche déjà ce que tu touches.','Se estás entre os 5 mais ricos, voltas a poder rodar roletas, carregar no botão vermelho e apanhar prendas e missões, mas só levas 5 % do normal. A roleta já mostra o que levas.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
@@ -16076,22 +16078,22 @@ function top5Pos(){const now=Date.now();if(T5.c&&now-T5.t<10000)return T5.c;let 
 const isTop5=()=>top5Pos()>0;
 /* lo que sí cuenta: lo que se gana jugando bien (fábrica, trading, duelos contra el bot) */
 function t5Allow(fn){if(!T5)return fn();T5.allow++;try{return fn()}finally{T5.allow--}}
-const T5_PCT=0,T5_MAX=0;   /* top 5: los premios gratis (ruletas, misiones, cofres…) dan solo un 2 % y como mucho 1 millón */
+const T5_PCT=.05,T5_MAX=Infinity;   /* top 5: los premios gratis (ruletas, misiones, cofres…) dan solo un 2 % y como mucho 1 millón */
 {const _gvT=give;give=function(n){if(n>0&&!T5.allow&&isTop5()){const m=Math.max(0,Math.min(Math.floor(n*T5_PCT),T5_MAX));T5.red={to:m,t:Date.now()};T5.blk=Date.now();t5Warn();if(m>0)return _gvT.call(this,m/Math.max(1,evMult()));return}return _gvT.apply(this,arguments)}}
 {const _fgT=fabGive;fabGive=function(){return t5Allow(()=>_fgT.apply(this,arguments))}}
 /* la caja fuerte tampoco da intereses al top 5 */
 {const _saT=safeAccrue;safeAccrue=function(){if(isTop5()&&S.safe){S.safeT=Date.now();return 0}return _saT.apply(this,arguments)}}
 /* los avisos de «+X € para ti» que llegan justo después de un premio bloqueado se cambian por el del top 5 */
-function t5Fix(a,b){if(T5.red&&Date.now()-T5.red.t<500&&!(T5.rbUntil&&Date.now()<T5.rbUntil)){const x=String(a||'')+' '+String(b||'');if(/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return['👑 ESTÁS EN EL TOP 5','Aquí arriba no hay premios gratis: todo es habilidad. Gana en el casino, los juegos y la Fábrica']}if(Date.now()-T5.blk>500)return null;const x=String(a||'')+' '+String(b||'');if(!/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return null;return['👑 ESTÁS EN EL TOP 5','Aquí arriba no hay premios gratis: todo es habilidad. Gana en el casino, los juegos y la Fábrica']}
+function t5Fix(a,b){if(T5.red&&Date.now()-T5.red.t<500&&!(T5.rbUntil&&Date.now()<T5.rbUntil)){const x=String(a||'')+' '+String(b||'');if(/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return['+'+nShort(T5.red.to)+' €','👑 Top 5: de los premios gratis te llevas el 5 %']}if(Date.now()-T5.blk>500)return null;const x=String(a||'')+' '+String(b||'');if(!/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return null;return['👑 ESTÁS EN EL TOP 5','Aquí arriba no hay premios gratis: todo es habilidad. Gana en el casino, los juegos y la Fábrica']}
 {const _trT=troll;troll=function(a,b){const f=t5Fix(a,b);if(f){arguments[0]=f[0];arguments[1]=f[1];arguments[2]='#ffd600'}return _trT.apply(this,arguments)}}
 {const _toT=toast;toast=function(a,b){const f=t5Fix(a,b);if(f){arguments[0]=f[0];arguments[1]=f[1];arguments[2]='var(--sun)';arguments[3]='👑'}return _toT.apply(this,arguments)}}
 function t5Warn(){const now=Date.now();if(now-T5.warn<20*60000)return;T5.warn=now;setTimeout(()=>{try{toast('👑 Estás en el top 5','Ruletas, misiones y premios gratis te dan poco (un 2 %, máx. 1 mill.) y el botón rojo nada. Para subir: casino, juegos y Fábrica.','var(--sun)','👑')}catch(_){}},2500)}
 /* aviso en Inicio */
 function t5Card(){const v=$('#v-inicio');if(!v)return;let c=$('#t5Card');const p=isTop5()?top5Pos():0;
-  if(!p){if(c)c.remove();return}const h=`<span class="emo">👑</span><span><b>Eres el ${p}º más rico de Casinetori</b><small>Aquí arriba <b>no hay premios gratis</b>: ruletas, misiones, cofres, botón rojo, lluvia e intereses no dan nada. <b>Todo es habilidad</b>: gana en el <b>casino</b>, los <b>juegos</b> y la <b>Fábrica</b>. ¡A demostrarlo!</small></span>`;
+  if(!p){if(c)c.remove();return}const h=`<span class="emo">👑</span><span><b>Eres el ${p}º más rico de Casinetori</b><small>Aquí arriba los premios gratis dan <b>solo un 5 %</b>: ruletas, botón rojo, regalos, misiones, cofres y lluvia. Lo que ves en la ruleta ya es lo que te llevas. Para subir de verdad: <b>casino</b>, <b>juegos</b> y <b>Fábrica</b>, que pagan normal.</small></span>`;
   if(!c){const top=v.querySelector('.home-top');(top||v).insertAdjacentHTML(top?'afterend':'afterbegin','<div class="panel t5card" id="t5Card"></div>');c=$('#t5Card')}if(c._h!==h){c._h=h;c.innerHTML=h}}
 setInterval(()=>{try{t5Card()}catch(e){}},5000);setTimeout(()=>{try{t5Card()}catch(e){}},4000);
-try{if(!FAQ.some(x=>/top 5/.test(x[0])))FAQ.unshift(['¿Por qué no gano nada con el botón rojo si soy de los más ricos?','Los 5 jugadores más ricos no reciben nada gratis: ni ruletas, ni misiones, ni cofres, ni el botón rojo, ni la lluvia de dinero, ni los intereses de la caja fuerte. Arriba todo es habilidad: el casino, los minijuegos (y su podio) y la Fábrica pagan normal. Si bajas del top 5, todo vuelve a ser normal.'])}catch(e){}
+try{if(!FAQ.some(x=>/top 5/.test(x[0])))FAQ.unshift(['¿Por qué no gano nada con el botón rojo si soy de los más ricos?','Los 5 jugadores más ricos cobran solo un 5 % de los premios gratis: ruletas, botón rojo, regalos sorpresa, misiones, cofres y lluvia de dinero (en la ruleta ya sale la cifra reducida). Los intereses de la caja fuerte no les dan nada. El casino, los minijuegos (y su podio) y la Fábrica pagan normal. Si bajas del top 5, todo vuelve a ser normal.'])}catch(e){}
 /* ===== 2026-11-03: velocidad — la tarjeta de bienvenida sale desde el principio (antes esperaba a conectar y empujaba todo hacia abajo) ===== */
 try{if(!S.name){wlSoft();homeMason&&homeMason()}}catch(e){}
 try{i18nAdd([['Guías','Guides','Guides','Guias'],['📚 Guía completa: reglas, pagos y probabilidades ›','📚 Full guide: rules, payouts and odds ›','📚 Guide complet : règles, gains et probabilités ›','📚 Guia completo: regras, pagamentos e probabilidades ›'],['❓ Cómo se juega','❓ How to play','❓ Comment jouer','❓ Como se joga']])}catch(e){}
@@ -16387,10 +16389,10 @@ try{i18nAdd([
 function t5Q(){try{return isTop5()}catch(e){return false}}
 function t5Say(what){try{troll('👑 ERES DEL TOP 5','Por eso '+what+' no te da dinero. Arriba solo se gana jugando: casino, juegos y Fábrica.','#ffd600',true)}catch(e){}}
 {const _rbT5=rbPress;rbPress=function(i){if(!t5Q())return _rbT5.apply(this,arguments);
-  const c0=Math.floor(+S.coins||0),e0=+S.earned||0;T5.rbUntil=Date.now()+40000;const r=_rbT5.apply(this,arguments);
+  const c0=Math.floor(+S.coins||0),e0=+S.earned||0;const r=_rbT5.apply(this,arguments);
   return r}}
 /* mientras dura una sorpresa del botón rojo, nada de lo que «regala» cuenta para el top 5 */
-{const _gvRB=give;give=function(n){if(n>0&&!T5.allow&&T5.rbUntil&&Date.now()<T5.rbUntil&&t5Q())return;return _gvRB.apply(this,arguments)}}
+
 
 /* ===== Bote de los Caídos: explicado paso a paso, cuenta atrás en directo y si has ganado o no ===== */
 function bcInfo(){const w=WK(),L=bcList(w).filter(x=>x.n>0),me=L.find(x=>x.id===(NET.id||'me'))||null,pw=w-1,W=bcWinner(pw),ppot=bcPot(pw);
@@ -16442,12 +16444,12 @@ try{i18nAdd([['👑 Eres del top 5: de lo que salga te llevas solo el 2 % (como 
 /* ===== Top 5, sin líos: el botón rojo no da nada y no dice nada; la ruleta enseña lo que vas a cobrar (1 mill. como mucho) ===== */
 t5Say=function(){};t5Warn=function(){};
 const t5Cap=v=>Math.max(0,Math.min(Math.floor(v*T5_PCT),T5_MAX));
-const t5Segs=segs=>{try{return segs;return segs.map(sg=>sg&&sg.k==='eur'&&sg.v>0?{...sg,v:Math.max(1,t5Cap(sg.v)),lab:nShort(Math.max(1,t5Cap(sg.v)))}:sg)}catch(e){return segs}};
+const t5Segs=segs=>{try{if(!t5Q())return segs;return segs.map(sg=>sg&&sg.k==='eur'&&sg.v>0?{...sg,v:Math.max(1,t5Cap(sg.v)),lab:nShort(Math.max(1,t5Cap(sg.v)))}:sg)}catch(e){return segs}};
 {const _wwT=wWeigh;wWeigh=function(id,segs){return _wwT.call(this,id,t5Segs(segs))}}
 {const _wpT=wPaint;wPaint=function(id,segs){return _wpT.call(this,id,t5Segs(segs))}}
 {const _wrT=wResolve;wResolve=function(){try{if(t5Q()&&S.wPend&&S.wPend.p&&S.wPend.p.k==='eur'){S.wPend.p.v=Math.min(+S.wPend.p.v||0,T5_MAX);S.wPend.p.lab=nShort(S.wPend.p.v)}}catch(e){}const a=arguments,t=this;return t5Allow(()=>_wrT.apply(t,a))}}
 /* durante una sorpresa del botón rojo, si eres del top 5 no sale ningún aviso de dinero */
-const t5RbMoney=(a,b)=>{try{return T5.rbUntil&&Date.now()<T5.rbUntil&&t5Q()&&/€|\+\s?[\d.,]/.test(String(a||'')+' '+String(b||''))}catch(e){return false}};
+const t5RbMoney=(a,b)=>{try{return false&&/€|\+\s?[\d.,]/.test(String(a||'')+' '+String(b||''))}catch(e){return false}};
 {const _trRB=troll;troll=function(a,b){if(t5RbMoney(a,b))return;return _trRB.apply(this,arguments)}}
 {const _toRB=toast;toast=function(a,b){if(t5RbMoney(a,b))return;return _toRB.apply(this,arguments)}}
 /* el aviso pequeño de la ruleta ya no hace falta */
@@ -16459,8 +16461,7 @@ function t5WheelUi(){try{const on=t5Q();
     if(!on){if(o){o.remove();hide('')}return}
     if(!o){o=document.createElement('div');o.className='t5lock';o.innerHTML='<span class="t5le">👑</span><b>ESTÁS EN EL TOP 5</b><span>Aquí no hay ruletas:<br><b>todo es habilidad</b></span><small>🎰 Casino · 🎮 Juegos · 🏭 Fábrica</small>';if(getComputedStyle(w).position==='static')w.style.position='relative';w.appendChild(o)}
     hide('none')})}catch(e){}}
-document.addEventListener('click',e=>{const b=e.target.closest('#guDayBtn');if(b&&t5Q()){e.stopImmediatePropagation();e.preventDefault();t5WheelUi()}},true);
-setInterval(t5WheelUi,1200);setTimeout(t5WheelUi,1600);
+setInterval(()=>{try{document.querySelectorAll('.t5lock').forEach(o=>o.remove());['#wheelBtn','#wheelSkip','#wheelInfo','#guDayBtn','#guDayInfo'].forEach(q=>{const x=$(q);if(x&&x.style.display==='none')x.style.display=''})}catch(e){}},1200);
 try{i18nAdd([['ESTÁS EN EL TOP 5','YOU’RE IN THE TOP 5','TU ES DANS LE TOP 5','ESTÁS NO TOP 5'],['👑 ESTÁS EN EL TOP 5','👑 YOU’RE IN THE TOP 5','👑 TU ES DANS LE TOP 5','👑 ESTÁS NO TOP 5'],['Aquí arriba no hay premios gratis: todo es habilidad. Gana en el casino, los juegos y la Fábrica','Up here there are no free prizes: it’s all skill. Win in the casino, games and the Factory','Ici en haut, pas de prix gratuits : tout est talent. Gagne au casino, aux jeux et à l’Usine','Aqui em cima não há prémios grátis: é tudo habilidade. Ganha no casino, nos jogos e na Fábrica']])}catch(e){}
 /* quien acaba de renacer no puede recibir regalos durante 7 días (así nadie usa a un amigo de caja fuerte) */
 const RN_NOGIFT=7*864e5;
@@ -16540,7 +16541,7 @@ setInterval(()=>{try{const m=$('#modal'),b=$('#mbox');if(m&&!m.hidden&&b&&!b.tex
   const n=$('#nwShow');if(n&&!n.querySelector('.nwcard'))n.remove();const w=$('#wbShow');if(w&&!w.querySelector('.nwcard'))w.remove()}catch(e){}},1500);
 try{i18nAdd([['Cuenta lo que REGALAS menos lo que TE REGALAN. Ejemplo: si regalas 100 € y te regalan 60 €, cuentan 40 €. Si dos amigos se pasan el mismo dinero, se anula.','It counts what you GIVE minus what you RECEIVE. Example: give €100 and receive €60, it counts €40. If two friends pass the same money back and forth, it cancels out.','Ça compte ce que tu DONNES moins ce qu’on TE DONNE. Exemple : tu donnes 100 € et reçois 60 €, ça compte 40 €. Si deux amis se passent le même argent, ça s’annule.','Conta o que DÁS menos o que TE DÃO. Exemplo: dás 100 € e recebes 60 €, contam 40 €. Se dois amigos passam o mesmo dinheiro, anula-se.']])}catch(e){}
 /* top 5: los eventos que dan dinero gratis (regalo, lluvia, ruletas sin espera) dicen claro que no son para ti */
-const EV_T5=['gift','rain','mrain','wheel'];
+const EV_T5=[];
 {const _evR5=evRender;evRender=function(){const r=_evR5.apply(this,arguments);try{const e=curEv(),el=$('#evbar');if(!e||!el||el.hidden||!EV_T5.includes(e.type)||!t5Q())return r;
   const g=$('#evGift');if(g)g.remove();const ev=el.querySelector('.evt');if(ev&&!ev.querySelector('.evt5')){ev.querySelectorAll('small').forEach(s=>s.style.display='none');ev.insertAdjacentHTML('beforeend','<small class="evt5">👑 Estás en el top 5: este evento no te da nada. Arriba todo es habilidad.</small>')}}catch(e){}return r}}
 {const _trE5=troll;troll=function(a,b){try{if(t5Q()){const e=curEv();if(e&&EV_T5.includes(e.type)){const T=EVT[e.type];if(T&&String(b||'')===T[2])arguments[1]='👑 Estás en el top 5: este evento no te da nada';if(/REGALO (SORPRESA|DEL JEFE)/.test(String(a||''))&&/para ti/.test(String(b||''))){arguments[0]='👑 ESTÁS EN EL TOP 5';arguments[1]='Este regalo no es para ti: arriba todo es habilidad'}}}}catch(e){}return _trE5.apply(this,arguments)}}
