@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-04-1745">
+<meta name="app-version" content="2026-11-04-1755">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4680,6 +4680,7 @@ body.t5on #rainL,body.t5on #evGift,body.t5on .daily #days b,body.t5on .mis .rw{d
 .tktlockmsg{padding:10px 12px;border-radius:10px;background:rgba(255,214,0,.12);border:1px solid rgba(255,214,0,.5);font-weight:800;font-size:13.5px;margin-bottom:10px}
 .tktatt{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}.tktatt img{max-height:70px;border-radius:8px;border:2px solid rgba(255,255,255,.2)}
 .gvmine{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 12px;padding:10px 12px;border-radius:12px;background:rgba(20,224,138,.1);border:1px solid rgba(20,224,138,.4);font-weight:700;font-size:13.5px}.gvmine b{color:#14e08a}
+.evt5{display:block!important;color:#ffd600;font-weight:900!important;opacity:1!important}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -16538,6 +16539,12 @@ setInterval(()=>{try{if(view!=='ranking'||rkCat!=='gv')return;const d=$('#rkDesc
 setInterval(()=>{try{const m=$('#modal'),b=$('#mbox');if(m&&!m.hidden&&b&&!b.textContent.trim()&&!b.querySelector('img,canvas,input,button')){m.hidden=true}
   const n=$('#nwShow');if(n&&!n.querySelector('.nwcard'))n.remove();const w=$('#wbShow');if(w&&!w.querySelector('.nwcard'))w.remove()}catch(e){}},1500);
 try{i18nAdd([['Cuenta lo que REGALAS menos lo que TE REGALAN. Ejemplo: si regalas 100 € y te regalan 60 €, cuentan 40 €. Si dos amigos se pasan el mismo dinero, se anula.','It counts what you GIVE minus what you RECEIVE. Example: give €100 and receive €60, it counts €40. If two friends pass the same money back and forth, it cancels out.','Ça compte ce que tu DONNES moins ce qu’on TE DONNE. Exemple : tu donnes 100 € et reçois 60 €, ça compte 40 €. Si deux amis se passent le même argent, ça s’annule.','Conta o que DÁS menos o que TE DÃO. Exemplo: dás 100 € e recebes 60 €, contam 40 €. Se dois amigos passam o mesmo dinheiro, anula-se.']])}catch(e){}
+/* top 5: los eventos que dan dinero gratis (regalo, lluvia, ruletas sin espera) dicen claro que no son para ti */
+const EV_T5=['gift','rain','mrain','wheel'];
+{const _evR5=evRender;evRender=function(){const r=_evR5.apply(this,arguments);try{const e=curEv(),el=$('#evbar');if(!e||!el||el.hidden||!EV_T5.includes(e.type)||!t5Q())return r;
+  const g=$('#evGift');if(g)g.remove();const ev=el.querySelector('.evt');if(ev&&!ev.querySelector('.evt5')){ev.querySelectorAll('small').forEach(s=>s.style.display='none');ev.insertAdjacentHTML('beforeend','<small class="evt5">👑 Estás en el top 5: este evento no te da nada. Arriba todo es habilidad.</small>')}}catch(e){}return r}}
+{const _trE5=troll;troll=function(a,b){try{if(t5Q()){const e=curEv();if(e&&EV_T5.includes(e.type)){const T=EVT[e.type];if(T&&String(b||'')===T[2])arguments[1]='👑 Estás en el top 5: este evento no te da nada';if(/REGALO (SORPRESA|DEL JEFE)/.test(String(a||''))&&/para ti/.test(String(b||''))){arguments[0]='👑 ESTÁS EN EL TOP 5';arguments[1]='Este regalo no es para ti: arriba todo es habilidad'}}}}catch(e){}return _trE5.apply(this,arguments)}}
+try{i18nAdd([['👑 Estás en el top 5: este evento no te da nada. Arriba todo es habilidad.','👑 You’re in the top 5: this event gives you nothing. Up here it’s all skill.','👑 Tu es dans le top 5 : cet événement ne te donne rien. En haut, tout est talent.','👑 Estás no top 5: este evento não te dá nada. Lá em cima é tudo habilidade.'],['👑 Estás en el top 5: este evento no te da nada','👑 You’re in the top 5: this event gives you nothing','👑 Tu es dans le top 5 : cet événement ne te donne rien','👑 Estás no top 5: este evento não te dá nada'],['Este regalo no es para ti: arriba todo es habilidad','This gift isn’t for you: up here it’s all skill','Ce cadeau n’est pas pour toi : en haut, tout est talent','Esta prenda não é para ti: lá em cima é tudo habilidade']])}catch(e){}
 })();
 </script>
 
