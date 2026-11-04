@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-04-0840">
+<meta name="app-version" content="2026-11-04-1140">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -16190,7 +16190,7 @@ const RN_ST=[['🥉','Bronce'],['🥈','Plata'],['🥇','Oro'],['❤️‍🔥',
 const rnN=()=>Math.max(0,Math.min(RN_ST.length,Math.floor(+S.rn||0)));
 const rnNeed=n=>1e18*Math.pow(10,n);                  /* 1ª estrella: 1 quintill. de riqueza; cada una ×10 */
 const rnMult=()=>1+.1*rnN();
-const rnW=()=>Math.max(0,wealth()-Math.max(0,+S.rnG||0));
+const rnW=()=>wealth();
 const rnStars=()=>RN_ST.slice(0,rnN()).map(s=>s[0]).join('');
 RN_ST.forEach((s,i)=>{const id='rn'+(i+1);if(!COS.ti.some(y=>y[0]===id))COS.ti.push([id,s[0]+' Renacido/a '+s[1],999,'','s'])});
 {const _gvRN=give;give=function(n){if(n>0&&rnN())n=n*rnMult();return _gvRN.call(this,n)}}
@@ -16261,7 +16261,7 @@ document.addEventListener('click',e=>{const w=e.target.closest('#lzWrap');if(!w)
   const g=e.target.closest('[data-lzgo]');if(g&&!g.disabled){if(LZ_P[LZ.p]>=.5&&!skArm('lz'+LZ.p+LZ.m,g))return;lzGo()}});
 
 /* datos públicos: la Torre, el Bote y las estrellas */
-{const _pxTQ=pubX;pubX=function(){const x=_pxTQ.apply(this,arguments);try{const q=tqMine();const _o=L=>(Array.isArray(L)?L:[]).map(e=>Array.isArray(e)?{t:+e[0]||0,p:+e[1]||0}:{t:+(e&&e.t)||0,p:+(e&&e.p)||0}).filter(e=>e.t>0&&e.p>0).slice(-30);x.tq={w:q.w,L:_o(q.L),pw:q.pw||0,pL:_o(q.pL)};const b=bcMine();x.bc={w:b.w,v:Math.floor(b.v||0),n:b.n||0,pw:b.pw||0,pv:Math.floor(b.pv||0),pn:b.pn||0};x.rn=rnN();if(S.tqWins)x.tqw=S.tqWins}catch(e){}return x}}
+{const _pxTQ=pubX;pubX=function(){const x=_pxTQ.apply(this,arguments);try{const q=tqMine();const _o=L=>(Array.isArray(L)?L:[]).map(e=>Array.isArray(e)?{t:+e[0]||0,p:+e[1]||0}:{t:+(e&&e.t)||0,p:+(e&&e.p)||0}).filter(e=>e.t>0&&e.p>0).slice(-30);x.tq={w:q.w,L:_o(q.L),pw:q.pw||0,pL:_o(q.pL)};const b=bcMine();x.bc={w:b.w,v:Math.floor(b.v||0),n:b.n||0,pw:b.pw||0,pv:Math.floor(b.pv||0),pn:b.pn||0};x.rn=rnN();if(S.rnAt)x.rnAt=+S.rnAt;if(S.tqWins)x.tqw=S.tqWins}catch(e){}return x}}
 {const _oPTQ=onPlayersT;onPlayersT=function(){const r=_oPTQ.apply(this,arguments);try{tqWatch();bcPrize();tqDraw();if(view==='casino')lzDraw()}catch(e){}return r}}
 {const _goTQ=go;go=function(v){const r=_goTQ.apply(this,arguments);setTimeout(()=>{try{if(v==='casino')lzDraw();if(v==='inicio')tqCard()}catch(e){}},60);return r}}
 setInterval(()=>{try{if(document.hidden||Date.now()<SKA.armT)return;if(view==='rico')skRender();if(view==='inicio')tqCard();if(view==='casino'&&!LZ.busy){const g=$('#lzWrap [data-lzgo]');const bet=Math.floor(Math.max(0,S.coins)*LZ_P[LZ.p]);if(g&&(bet<1000)!==g.disabled)lzDraw()}}catch(e){}},5000);
@@ -16448,6 +16448,13 @@ function t5WheelUi(){try{const on=t5Q();
 document.addEventListener('click',e=>{const b=e.target.closest('#guDayBtn');if(b&&t5Q()){e.stopImmediatePropagation();e.preventDefault();t5WheelUi()}},true);
 setInterval(t5WheelUi,1200);setTimeout(t5WheelUi,1600);
 try{i18nAdd([['ESTÁS EN EL TOP 5','YOU’RE IN THE TOP 5','TU ES DANS LE TOP 5','ESTÁS NO TOP 5'],['👑 ESTÁS EN EL TOP 5','👑 YOU’RE IN THE TOP 5','👑 TU ES DANS LE TOP 5','👑 ESTÁS NO TOP 5'],['Aquí arriba no hay premios gratis: todo es habilidad. Gana en el casino, los juegos y la Fábrica','Up here there are no free prizes: it’s all skill. Win in the casino, games and the Factory','Ici en haut, pas de prix gratuits : tout est talent. Gagne au casino, aux jeux et à l’Usine','Aqui em cima não há prémios grátis: é tudo habilidade. Ganha no casino, nos jogos e na Fábrica']])}catch(e){}
+/* quien acaba de renacer no puede recibir regalos durante 7 días (así nadie usa a un amigo de caja fuerte) */
+const RN_NOGIFT=7*864e5;
+function rnGiftLeft(id){try{const p=NET.players.get(id);const t=+(p&&p.rnAt)||0;return t?Math.max(0,t+RN_NOGIFT-Date.now()):0}catch(e){return 0}}
+function rnGiftStop(id){const l=rnGiftLeft(id);if(!l||(typeof ADM!=='undefined'&&ADM.on))return false;const p=NET.players.get(id)||{},d=Math.ceil(l/864e5);
+  toast('⭐ '+(p.name||'Este jugador')+' acaba de renacer','No puede recibir regalos hasta dentro de '+d+(d===1?' día':' días'),'var(--grape)','⭐');sfx('lose');return true}
+{const _ogRN=openGift;openGift=function(id){if(rnGiftStop(id))return;return _ogRN.apply(this,arguments)}}
+try{i18nAdd([['No puede recibir regalos hasta dentro de','Can’t receive gifts for another','Ne peut pas recevoir de cadeaux avant','Não pode receber prendas durante mais']])}catch(e){}
 })();
 </script>
 
