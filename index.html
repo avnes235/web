@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-04-0825">
+<meta name="app-version" content="2026-11-04-0840">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -16068,7 +16068,7 @@ const T5_PCT=0,T5_MAX=0;   /* top 5: los premios gratis (ruletas, misiones, cofr
 /* la caja fuerte tampoco da intereses al top 5 */
 {const _saT=safeAccrue;safeAccrue=function(){if(isTop5()&&S.safe){S.safeT=Date.now();return 0}return _saT.apply(this,arguments)}}
 /* los avisos de «+X € para ti» que llegan justo después de un premio bloqueado se cambian por el del top 5 */
-function t5Fix(a,b){if(T5.red&&Date.now()-T5.red.t<1500&&!(T5.rbUntil&&Date.now()<T5.rbUntil)){const x=String(a||'')+' '+String(b||'');if(/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return['👑 ESTÁS EN EL TOP 5','Aquí arriba no hay premios gratis: todo es habilidad. Gana en el casino, los juegos y la Fábrica']}if(Date.now()-T5.blk>1500)return null;const x=String(a||'')+' '+String(b||'');if(!/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return null;return['👑 ESTÁS EN EL TOP 5','Aquí arriba no hay premios gratis: todo es habilidad. Gana en el casino, los juegos y la Fábrica']}
+function t5Fix(a,b){if(T5.red&&Date.now()-T5.red.t<500&&!(T5.rbUntil&&Date.now()<T5.rbUntil)){const x=String(a||'')+' '+String(b||'');if(/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return['👑 ESTÁS EN EL TOP 5','Aquí arriba no hay premios gratis: todo es habilidad. Gana en el casino, los juegos y la Fábrica']}if(Date.now()-T5.blk>500)return null;const x=String(a||'')+' '+String(b||'');if(!/\+\s?[\d.,]|toma|regala|cobrado|para ti/i.test(x))return null;return['👑 ESTÁS EN EL TOP 5','Aquí arriba no hay premios gratis: todo es habilidad. Gana en el casino, los juegos y la Fábrica']}
 {const _trT=troll;troll=function(a,b){const f=t5Fix(a,b);if(f){arguments[0]=f[0];arguments[1]=f[1];arguments[2]='#ffd600'}return _trT.apply(this,arguments)}}
 {const _toT=toast;toast=function(a,b){const f=t5Fix(a,b);if(f){arguments[0]=f[0];arguments[1]=f[1];arguments[2]='var(--sun)';arguments[3]='👑'}return _toT.apply(this,arguments)}}
 function t5Warn(){const now=Date.now();if(now-T5.warn<20*60000)return;T5.warn=now;setTimeout(()=>{try{toast('👑 Estás en el top 5','Ruletas, misiones y premios gratis te dan poco (un 2 %, máx. 1 mill.) y el botón rojo nada. Para subir: casino, juegos y Fábrica.','var(--sun)','👑')}catch(_){}},2500)}
@@ -16162,7 +16162,7 @@ function tqState(w){w=w==null?WK():w;const E=tqEvents(w),end=Math.min(NOWS(),tqW
   const last=E[E.length-1]||null;const price=last?Math.max(TQ_BASE,last.p*2):TQ_BASE;
   const rk=Object.values(held).sort((a,b)=>b.ms-a.ms);return{E,last,price,rk,mine:NET.id&&last&&last.id===NET.id}}
 const tqDur=ms=>{const m=Math.floor(ms/6e4),h=Math.floor(m/60),d=Math.floor(h/24);return d?d+' d '+(h%24)+' h':h?h+' h '+(m%60)+' min':Math.max(0,m)+' min'};
-function tqConquer(btn){if(!NET.ok||!NET.id||!S.name){toast('Necesitas conexión','La Torre se juega online','var(--coral)','📡');return}
+function tqConquer(btn){if(!NET.ok||!NET.id||!S.name||!NET.players||NET.players.size<3){toast('Necesitas conexión','La Torre se juega online','var(--coral)','📡');return}
   const st=tqState();if(st.mine){toast('Ya es tuya','Aguanta todo lo que puedas','var(--sun)','👑');return}const c=st.price;
   if(S.coins<c){toast('No te llega','Cuesta '+eS(c)+' en la cartera','var(--coral)','💸');sfx('lose');return}
   if(!skArm('tq'+c,btn))return;try{movForce('👑 Conquista de la Torre',-1)}catch(e){}
@@ -16195,7 +16195,7 @@ const rnStars=()=>RN_ST.slice(0,rnN()).map(s=>s[0]).join('');
 RN_ST.forEach((s,i)=>{const id='rn'+(i+1);if(!COS.ti.some(y=>y[0]===id))COS.ti.push([id,s[0]+' Renacido/a '+s[1],999,'','s'])});
 {const _gvRN=give;give=function(n){if(n>0&&rnN())n=n*rnMult();return _gvRN.call(this,n)}}
 {const _tiRN=tiText;tiText=function(){const t=_tiRN.apply(this,arguments);const s=rnStars();return s?(s+(t?' '+t:'')):t}}
-function rnBlock(){try{if(S.tr&&Array.isArray(S.tr.pos)&&S.tr.pos.length)return'Cierra antes tus operaciones abiertas de Trading.';const h=bxHold();if(Object.values(h).some(v=>(+v||0)>0||(v&&typeof v==='object'&&(+v.n||+v.q||0)>0)))return'Vende antes tus acciones de la Bolsa de Jugadores.'}catch(e){}return''}
+function rnBlock(){try{if(typeof OL!=='undefined'&&OL.mine&&[...OL.mine.values()].some(d=>d&&['open','pend','full'].includes(d.st)))return'Acaba antes tus duelos online pendientes.';if((S.myPots||[]).some(mp=>mp&&!(typeof olClaimed==='function'&&olClaimed('p'+mp.id))&&Date.now()<(+mp.end||0)+6e5))return'Espera a que acaben tus botes online.';}catch(e){}try{if(S.tr&&Array.isArray(S.tr.pos)&&S.tr.pos.length)return'Cierra antes tus operaciones abiertas de Trading.';const h=bxHold();if(Object.values(h).some(v=>(+v||0)>0||(v&&typeof v==='object'&&(+v.n||+v.q||0)>0)))return'Vende antes tus acciones de la Bolsa de Jugadores.'}catch(e){}return''}
 function rnDo(btn){const n=rnN();if(n>=RN_ST.length)return;const need=rnNeed(n),w=rnW();if(w<need){toast('Aún no','Necesitas '+eS(need)+' de riqueza','var(--coral)','⭐');return}
   const b=rnBlock();if(b){toast('Antes de renacer',b,'var(--coral)','⭐');return}if(!skArm('rn'+n,btn))return;
   const lost=w;try{movForce('⭐ Renacer: estrella '+(n+1),-1)}catch(e){}
@@ -16236,7 +16236,7 @@ function bcMine(){let b=S.bc;const w=WK();if(!b||typeof b!=='object')b={w,v:0,n:
 function bcList(w){const out=[];const add=(id,p)=>{const b=p&&p.bc;if(!b)return;const v=b.w===w?+b.v:b.pw===w?+b.pv:0,n=b.w===w?+b.n:b.pw===w?+b.pn:0;if(v>0||n>0)out.push({id,v,n,name:p.name||'Jugador'})};
   try{NET.players.forEach((p,id)=>{if(id!==NET.id)add(id,p)})}catch(e){}add(NET.id||'me',{bc:bcMine(),name:S.name});return out}
 const bcPot=w=>bcList(w).reduce((a,x)=>a+x.v,0);
-function bcWinner(w){const L=bcList(w).filter(x=>x.n>0).sort((a,b)=>a.id<b.id?-1:1);if(!L.length)return null;let x=(w*2654435761)>>>0;x=(x*1103515245+12345)>>>0;return L[x%L.length]}
+function bcWinner(w){const L=bcList(w).filter(x=>x.n>0&&x.v>0&&(x.id===NET.id||x.id==='me'||!(typeof hideId==='function'&&hideId(x.id)))).sort((a,b)=>a.id<b.id?-1:1);if(!L.length)return null;const T=L.reduce((a,x)=>a+x.v,0);let x=(w*2654435761)>>>0;x=(x*1103515245+12345)>>>0;x=(x*1103515245+12345)>>>0;let r=(x/4294967296)*T;for(const c of L){if(r<c.v)return c;r-=c.v}return L[L.length-1]}
 function bcPrize(){try{if(!NET.ok||!NET.id)return;const pw=WK()-1;if(S.bcWon&&S.bcWon>=pw)return;if(NOWS()<tqWeekEnd(pw)+5*6e4)return;const W=bcWinner(pw);if(!W||W.id!==NET.id)return;
   const pot=Math.floor(bcPot(pw));S.bcWon=pw;if(pot<=0){save();return}try{movForce('💀 Bote de los Caídos',1)}catch(e){}S.coins+=pot;S.earned+=pot;save();NET.lastP='';try{pushPlayer()}catch(e){}
   setTimeout(()=>{sfx('big');confetti(260);troll('💀 ¡TE HA TOCADO EL BOTE DE LOS CAÍDOS!','+'+eS(pot)+' de lo que perdió todo el mundo en Locuras','#14e08a',true)},1800)}catch(e){}}
@@ -16384,7 +16384,7 @@ function bcInfo(){const w=WK(),L=bcList(w).filter(x=>x.n>0),me=L.find(x=>x.id===
 function bcHTML(){const b=bcInfo(),nh=nwH('bc');
   return`<div class="bcbox2${nh}"><div class="bchd"><div class="bcjar"><span>💀</span><i style="height:${Math.min(92,12+Math.log10(1+b.pot)*3.6).toFixed(0)}%"></i></div><div><span class="tqk">💀 BOTE DE LOS CAÍDOS</span><b class="bcamt">${eS(b.pot)}</b><span class="skp">en el bote ahora mismo</span></div></div>
    <div class="bcsteps"><div><span class="lzn">1</span><span>Pierdes una <b>Locura</b></span></div><div><span class="lzn">2</span><span>El <b>10 %</b> de lo que pierdes va al bote y <b>entras en el sorteo</b></span></div><div><span class="lzn">3</span><span>El <b>lunes</b> sale <b>1 ganador</b> al azar y se lleva <b>TODO</b></span></div></div>
-   <div class="bcst ${b.me?'in':'out'}">${b.me?`<b>✅ ESTÁS DENTRO DEL SORTEO</b><span>Tienes 1 de las ${fmt(b.n)} papeletas · ${b.n?Math.round(100/b.n):0} % de que te toque</span>`:`<b>❌ AÚN NO ESTÁS DENTRO</b><span>Pierde una Locura esta semana y entras · ahora hay ${fmt(b.n)} ${b.n===1?'jugador':'jugadores'} dentro</span>`}</div>
+   <div class="bcst ${b.me?'in':'out'}">${b.me?`<b>✅ ESTÁS DENTRO DEL SORTEO</b><span>Sois ${fmt(b.n)} en el sorteo · tienes un <b>${b.pot>0?Math.max(1,Math.round(b.me.v/b.pot*100)):0} %</b> de que te toque (cuanto más pierdes, más papeletas)</span>`:`<b>❌ AÚN NO ESTÁS DENTRO</b><span>Pierde una Locura esta semana y entras · ahora hay ${fmt(b.n)} ${b.n===1?'jugador':'jugadores'} dentro</span>`}</div>
    <div class="bcfoot"><span>⏳ Sorteo en <b data-tqe="${b.end}">${tqDur(b.end-NOWS())}</b></span>${b.last?`<span class="${b.last.me?'bcwon':''}">🏆 Último: <b>${esc(b.last.name)}</b> ${b.last.me?'ganó':'se llevó'} ${eS(b.last.pot)}</span>`:'<span>🏆 Todavía no ha habido sorteo</span>'}</div></div>`}
 {const _lzB=lzHTML;lzHTML=function(){const h=_lzB.apply(this,arguments);const i=h.indexOf('<div class="bcbox');if(i<0)return h;return h.slice(0,i)+bcHTML()+'</div>'}}
 /* aviso grande si te toca (además del mensaje), y queda apuntado */
