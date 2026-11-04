@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-04-1700">
+<meta name="app-version" content="2026-11-04-1720">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4671,6 +4671,14 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 .t5wh{margin:0 auto 10px;max-width:340px;padding:8px 12px;border-radius:10px;background:rgba(255,214,0,.12);border:1px solid rgba(255,214,0,.5);font-weight:800;font-size:13px;text-align:center;line-height:1.35}
 .t5lock{position:absolute;inset:4%;z-index:3;border-radius:50%;container-type:inline-size;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5cqw;text-align:center;padding:12%;background:radial-gradient(circle,rgba(12,10,24,.95) 60%,rgba(12,10,24,.8));border:3px solid #ffd600;box-shadow:0 0 30px rgba(255,214,0,.45);color:#fff;overflow:hidden}.t5lock .t5le{font-size:13cqw;line-height:1;animation:tqBob 2.4s ease-in-out infinite}.t5lock>b{font-family:var(--f-d,Anton,Impact,sans-serif);font-size:12cqw;line-height:1.05;letter-spacing:.3px;color:#ffd600}.t5lock>span{font-size:7cqw;font-weight:700;line-height:1.25}.t5lock>span b{color:#ffd600}.t5lock>small{font-size:5.6cqw;font-weight:800;opacity:.9;margin-top:1cqw}
 body.t5on #rainL,body.t5on #evGift,body.t5on .daily #days b,body.t5on .mis .rw{display:none!important}
+.tktcard{border:2px solid var(--c)!important;display:flex;flex-direction:column;gap:8px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 14%,transparent),transparent 70%),var(--card,#16182a)!important}
+.tkth{display:flex;align-items:center;gap:10px}.tkth .emo{font-size:30px}.tkth>div{flex:1;min-width:0;display:flex;flex-direction:column}.tkth b{font-size:17px}.tkth small{opacity:.75;font-weight:700}
+.tktnew{background:#14e08a;color:#062;font-weight:900;font-size:12px;padding:4px 8px;border-radius:8px;animation:nwBlink 1.4s ease-in-out infinite}
+.tktlast{margin:0;padding:8px 10px;border-radius:10px;background:rgba(0,0,0,.25);font-weight:600;font-size:14px}
+.tktbtns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.tktask{font-weight:800;font-size:13px;color:var(--sun)}.tktnote{margin:0;font-size:12.5px}
+.tktlock #bzTxt,.tktlock #bzGo,.tktlock .bztypes button:not([data-bzt="rec"]),.tktlock .bzcount,.tktlock .bzlang,.tktlock #tktAtt,.tktlock .bzhelp{opacity:.35;pointer-events:none}
+.tktlockmsg{padding:10px 12px;border-radius:10px;background:rgba(255,214,0,.12);border:1px solid rgba(255,214,0,.5);font-weight:800;font-size:13.5px;margin-bottom:10px}
+.tktatt{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}.tktatt img{max-height:70px;border-radius:8px;border:2px solid rgba(255,255,255,.2)}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -6923,6 +6931,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-04-a',t:'El Buzón ahora va por tickets',items:[['🎫','Abre un ticket y habla con el jefe','En el Buzón eliges qué es (fallo, idea u otra cosa), lo cuentas y puedes añadir una captura. Se abre un chat privado con el jefe. Hasta que te lo cierren no puedes abrir otro, pero puedes pedir que te lo cierren.','new','#ff3b4f'],['👑','Top 5 sin premios que engañan','Si estás en el top 5 ya no ves cantidades de premios que luego no se cobran (premio diario, regalo sorpresa, lluvia, misiones).','fix','#ffd600']]},
  {v:'2026-11-03-g',t:'Top 5: todo es habilidad',items:[['👑','Arriba no hay premios gratis','Si estás entre los 5 más ricos, las ruletas, misiones, cofres y el botón rojo no dan nada. En la ruleta te sale claro que estás en el top 5. El casino, los minijuegos y la Fábrica pagan normal.','fix','#ffd600']]},
  {v:'2026-11-03-f',t:'Top 5: los minijuegos pagan',items:[['🕹️','Minijuegos, podio de juegos y extra del casino: normal','Si eres del top 5, lo que ganas en los minijuegos, el premio por hora del podio de juegos y el extra de los multiplicadores del casino vuelven a cobrarse enteros, porque es habilidad.','fix','#14e08a']]},
  {v:'2026-11-03-e',t:'Top 5: ruletas sí, pero poco',items:[['🎡','El top 5 puede ruletear','Si estás entre los 5 más ricos, las ruletas, misiones, cofres y premios vuelven a dar dinero, pero poco: un 2 % de lo normal y como mucho 1 millón. El botón rojo sigue sin dar nada.','fix','#ffd600']]},
@@ -16048,6 +16057,8 @@ try{i18nAdd([['Top 5 sin trampas y Bote más claro','Top 5 with no loopholes and
 try{i18nAdd([['Top 5: ruletas sí, pero poco','Top 5: wheels yes, but small','Top 5 : roues oui, mais peu','Top 5: roletas sim, mas pouco'],['El top 5 puede ruletear','The top 5 can spin again','Le top 5 peut refaire tourner les roues','O top 5 pode voltar a rodar'],['Si estás entre los 5 más ricos, las ruletas, misiones, cofres y premios vuelven a dar dinero, pero poco: un 2 % de lo normal y como mucho 1 millón. El botón rojo sigue sin dar nada.','If you’re among the 5 richest, wheels, missions, chests and prizes give money again, but little: 2% of normal and 1 million at most. The red button still gives nothing.','Si tu es parmi les 5 plus riches, roues, missions, coffres et prix redonnent de l’argent, mais peu : 2 % du normal et 1 million maximum. Le bouton rouge ne donne toujours rien.','Se estás entre os 5 mais ricos, roletas, missões, cofres e prémios voltam a dar dinheiro, mas pouco: 2 % do normal e no máximo 1 milhão. O botão vermelho continua sem dar nada.']])}catch(e){}
 try{i18nAdd([['Top 5: los minijuegos pagan','Top 5: minigames pay','Top 5 : les mini-jeux paient','Top 5: os minijogos pagam'],['Minijuegos, podio de juegos y extra del casino: normal','Minigames, game podium and casino extra: normal','Mini-jeux, podium des jeux et bonus casino : normal','Minijogos, pódio dos jogos e extra do casino: normal'],['Si eres del top 5, lo que ganas en los minijuegos, el premio por hora del podio de juegos y el extra de los multiplicadores del casino vuelven a cobrarse enteros, porque es habilidad.','If you’re in the top 5, minigame winnings, the hourly game-podium prize and the casino multiplier extra are paid in full again, because that’s skill.','Si tu es dans le top 5, les gains des mini-jeux, le prix horaire du podium et le bonus des multiplicateurs du casino sont de nouveau payés en entier, car c’est du talent.','Se estás no top 5, o que ganhas nos minijogos, o prémio por hora do pódio e o extra dos multiplicadores do casino voltam a pagar-se inteiros, porque é habilidade.']])}catch(e){}
 try{i18nAdd([['Top 5: todo es habilidad','Top 5: it’s all skill','Top 5 : tout est talent','Top 5: é tudo habilidade'],['Arriba no hay premios gratis','No free prizes at the top','Pas de prix gratuits en haut','Lá em cima não há prémios grátis'],['Si estás entre los 5 más ricos, las ruletas, misiones, cofres y el botón rojo no dan nada. En la ruleta te sale claro que estás en el top 5. El casino, los minijuegos y la Fábrica pagan normal.','If you’re among the 5 richest, wheels, missions, chests and the red button give nothing. The wheel clearly tells you you’re in the top 5. Casino, minigames and the Factory pay normally.','Si tu es parmi les 5 plus riches, roues, missions, coffres et bouton rouge ne donnent rien. La roue t’indique clairement que tu es dans le top 5. Casino, mini-jeux et Usine paient normalement.','Se estás entre os 5 mais ricos, roletas, missões, cofres e o botão vermelho não dão nada. A roleta diz-te claramente que estás no top 5. Casino, minijogos e Fábrica pagam normal.']])}catch(e){}
+try{i18nAdd([['El Buzón ahora va por tickets','The Mailbox now uses tickets','La Boîte passe aux tickets','A Caixa agora funciona por tickets'],['Abre un ticket y habla con el jefe','Open a ticket and talk to the boss','Ouvre un ticket et parle au boss','Abre um ticket e fala com o chefe'],['En el Buzón eliges qué es (fallo, idea u otra cosa), lo cuentas y puedes añadir una captura. Se abre un chat privado con el jefe. Hasta que te lo cierren no puedes abrir otro, pero puedes pedir que te lo cierren.','In the Mailbox choose what it is (bug, idea or other), explain it and add a screenshot if you want. A private chat with the boss opens. You can’t open another until it’s closed, but you can ask to close it.','Dans la Boîte choisis le type (bug, idée ou autre), explique et ajoute une capture si tu veux. Un chat privé avec le boss s’ouvre. Tu ne peux pas en ouvrir un autre avant qu’il soit fermé, mais tu peux demander sa fermeture.','Na Caixa escolhes o que é (erro, ideia ou outra coisa), explicas e podes juntar uma captura. Abre-se um chat privado com o chefe. Até o fecharem não podes abrir outro, mas podes pedir que o fechem.'],['Top 5 sin premios que engañan','Top 5 without misleading prizes','Top 5 sans prix trompeurs','Top 5 sem prémios enganadores'],['Si estás en el top 5 ya no ves cantidades de premios que luego no se cobran (premio diario, regalo sorpresa, lluvia, misiones).','If you’re in the top 5 you no longer see prize amounts you won’t get (daily prize, surprise gift, rain, missions).','Si tu es dans le top 5, tu ne vois plus des montants de prix que tu ne touches pas (prix quotidien, cadeau surprise, pluie, missions).','Se estás no top 5 já não vês valores de prémios que não recebes (prémio diário, prenda surpresa, chuva, missões).']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Cómo hablo con el jefe?'))FAQ.unshift(['¿Cómo hablo con el jefe?','En Ayuda › Buzón eliges qué es (fallo, idea u otra cosa), lo cuentas y pulsas «Abrir ticket». Puedes añadir una captura. Se abre un chat privado con el jefe donde te contesta. Mientras tengas un ticket abierto no puedes abrir otro; si ya está resuelto, pulsa «Pedir que lo cierren».'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
@@ -16469,6 +16480,55 @@ function upNow(){try{USER_ACT=Date.now();setTimeout(()=>{try{cloudSave(true)}cat
 {const _tqU=tqPrize;tqPrize=function(){const w0=S.tqWins;const r=_tqU.apply(this,arguments);if(S.tqWins!==w0)upNow();return r}}
 /* top 5: no se enseñan premios de dinero que luego no se cobran */
 setInterval(()=>{try{document.body.classList.toggle('t5on',!!t5Q())}catch(e){}},1500);
+
+/* ===== Buzón por tickets: abres uno (fallo, idea u otra cosa), se convierte en un chat privado con el jefe, con fotos.
+   Hasta que te lo cierren no puedes abrir otro; puedes pedir que te lo cierren. Recuperar cuenta sigue como antes. ===== */
+const TKT={img:null,busy:false};
+function tktMine(){try{return [...TK.mine.entries()].filter(([,t])=>t&&t.src==='buzon'&&!t.ib&&t.st!=='closed').sort((a,b)=>(+b[1].lt||0)-(+a[1].lt||0))[0]||null}catch(e){return null}}
+function tktTypeOf(t){const s=String(t.subj||'');const k=Object.keys(BZT).find(k=>s.startsWith(BZT[k][0]));return BZT[k||'otro']}
+function tktCardHTML(){const m=tktMine();if(!m)return'';const [id,t]=m,T=tktTypeOf(t),un=(+t.ur||0)>0,ask=/Pido que se cierre/.test(String(t.lt_txt||''));
+  return`<div class="panel tktcard" style="--c:${T[2]}"><div class="tkth"><span class="emo">${T[0]}</span><div><b>Tu ticket está abierto</b><small>${esc(T[1])} · ${bzWhen(t.t)}</small></div>${un?'<span class="tktnew">💬 Te ha contestado</span>':''}</div>
+   <p class="tktlast">${esc(String(t.lt_txt||t.subj||'').slice(0,140))}</p>
+   <div class="tktbtns"><button class="btn mint" data-tkt="open" data-id="${esc(id)}">💬 Abrir el chat</button>${ask?'<span class="tktask">🙏 Has pedido que lo cierren</span>':`<button class="btn alt sm" data-tkt="close" data-id="${esc(id)}">🙏 Pedir que lo cierren</button>`}</div>
+   <p class="muted tktnote">Mientras tengas este ticket abierto no puedes abrir otro. Cuando el jefe lo cierre, podrás abrir uno nuevo.</p></div>`}
+/* en el Buzón: el ticket abierto arriba; si hay uno abierto, el formulario se esconde (salvo «Recuperar cuenta») */
+{const _rbTk=renderBuzon;renderBuzon=function(keepForm){const r=_rbTk.apply(this,arguments);try{tktMount()}catch(e){}return r}}
+function tktMount(){const bz=document.querySelector('#hlBody .bz');if(!bz)return;let c=$('#tktCard');const h=tktCardHTML();
+  if(!h){if(c)c.remove()}else{if(!c){c=document.createElement('div');c.id='tktCard';bz.prepend(c)}if(c._h!==h){c._h=h;c.innerHTML=h}}
+  const form=bz.querySelector('.panel:not(#tktCard .panel)');const go=$('#bzGo');if(!go)return;const isRec=BZ.type==='rec',has=!!tktMine();
+  go.textContent=isRec?'Enviar al jefe':'🎫 Abrir ticket';const p=go.closest('.panel');
+  if(p){p.classList.toggle('tktlock',has&&!isRec);let n=p.querySelector('.tktlockmsg');if(has&&!isRec){if(!n){n=document.createElement('div');n.className='tktlockmsg';n.innerHTML='🎫 Ya tienes un ticket abierto (arriba). Escribe en su chat o pide que lo cierren para abrir otro.';p.prepend(n)}}else if(n)n.remove()}
+  /* foto en el primer mensaje */
+  if(!isRec&&!$('#tktAtt')){const tx=$('#bzTxt');if(tx){tx.insertAdjacentHTML('afterend',`<div class="tktatt" id="tktAtt"><label class="btn alt sm">📎 Añadir captura<input type="file" accept="image/*" id="tktFile" hidden></label><span id="tktImgP"></span></div>`);tktImgDraw()}}
+  if(isRec){const a=$('#tktAtt');if(a)a.remove()}
+  const h3=p&&p.querySelector('h3');if(h3)h3.textContent=isRec?'Recuperar tu cuenta':'Abre un ticket al jefe';
+  const sub=p&&p.querySelector('h3+p');if(sub)sub.textContent=isRec?'Lo lee el jefe y decide si lo aprueba. La respuesta te sale aquí.':'Elige qué es, cuéntalo y se abre un chat privado con el jefe. Puedes añadir una captura.'}
+setInterval(()=>{try{document.querySelectorAll('#hlBody .bz .panel h3').forEach(h=>{if(h.textContent==='Mis mensajes')h.textContent='Mensajes antiguos del buzón'})}catch(e){}},1500);
+function tktImgDraw(){const p=$('#tktImgP');if(!p)return;p.innerHTML=TKT.img?`<img src="${TKT.img}" alt="Captura"><button type="button" class="linkb" data-tktimgx>✕ Quitar</button>`:''}
+document.addEventListener('change',async e=>{if(!e.target||e.target.id!=='tktFile')return;const f=e.target.files&&e.target.files[0];if(!f)return;try{TKT.img=await tkShrink(f);tktImgDraw()}catch(err){toast('No se ha podido usar esa foto','Prueba con otra o haz una captura más pequeña','var(--coral)','📷')}e.target.value=''});
+document.addEventListener('click',async e=>{const x=e.target.closest('[data-tktimgx]');if(x){TKT.img=null;tktImgDraw();return}
+  const b=e.target.closest('[data-tkt]');if(b){sfx('click');const id=b.dataset.id;if(b.dataset.tkt==='open'){tkView(id);return}
+    if(b.dataset.tkt==='close'){if(!skArm('tkc'+id,b))return;b.disabled=true;try{const bt=NET.db.batch(),mref=NET.db.collection('tk/'+id+'/m').doc();bt.set(mref,{by:NET.id,a:0,x:'🙏 Pido que se cierre este ticket. ¡Gracias!',t:Date.now()});
+      bt.update(NET.db.collection('tk').doc(id),{lt:Date.now(),lb:'user',lt_txt:'🙏 Pido que se cierre este ticket',ua:tkFV().increment(1)});await bt.commit();toast('Pedido','El jefe lo cerrará en cuanto lo vea','var(--mint)','🙏')}catch(err){tkErr(err)}tktMount();return}}
+  /* abrir ticket (todo menos Recuperar cuenta) */
+  const g=e.target.closest('#bzGo');if(!g||BZ.type==='rec')return;e.stopImmediatePropagation();e.preventDefault();
+  if(!NET.ok||!NET.db){toast('Sin conexión','Ahora no se puede enviar','var(--coral)','📡');return}
+  if(!S.name){toast('Ponte un nombre primero','El jefe tiene que saber quién eres','var(--coral)','⚠️');openProfile(true);return}
+  const open=tktMine();if(open){toast('Ya tienes un ticket abierto','Escribe en su chat o pide que lo cierren','var(--coral)','🎫');tkView(open[0]);return}
+  const text=($('#bzTxt').value||'').trim().slice(0,400);if(text.length<5&&!TKT.img){toast('Escribe un poco más','Explícale al jefe qué pasa','var(--coral)','⚠️');return}
+  if(TKT.busy)return;TKT.busy=true;g.disabled=true;g.textContent='Abriendo…';const T=BZT[BZ.type]||BZT.otro;
+  try{const now=Date.now(),subj=(T[0]+' '+T[1]+' · '+(text||'📷 Captura')).slice(0,120);
+    const ref=await NET.db.collection('tk').add({uid:NET.id,name:S.name||'',code:S.code||'',st:'open',t:now,lt:now,lt_txt:subj,lb:'user',ua:0,ur:0,src:'buzon',ib:'',subj,seed:[]});
+    const bt=NET.db.batch(),mref=NET.db.collection('tk/'+ref.id+'/m').doc();bt.set(mref,{by:NET.id,a:0,x:text,...(TKT.img?{img:TKT.img}:{}),t:now+1});
+    bt.update(NET.db.collection('tk').doc(ref.id),{lt:now+1,lb:'user',lt_txt:subj,ua:tkFV().increment(1)});await bt.commit();
+    TK.mine.set(ref.id,{uid:NET.id,name:S.name,code:S.code,st:'open',t:now,lt:now+1,lt_txt:subj,src:'buzon',ib:'',subj,seed:[],ua:1,ur:0});
+    TKT.img=null;$('#bzTxt').value='';try{$('#bzN').textContent='0'}catch(_){}sfx('buy');toast('Ticket abierto','El jefe te contestará en el chat','var(--mint)','🎫');tktMount();tkView(ref.id)}
+  catch(err){tkErr(err)}TKT.busy=false;g.disabled=false;tktMount()},true);
+/* se actualiza solo cuando el jefe contesta o lo cierra */
+setInterval(()=>{try{if(view==='ayuda'&&typeof hlTab!=='undefined'&&hlTab==='buzon')tktMount()}catch(e){}},2500);
+try{i18nAdd([['Tu ticket está abierto','Your ticket is open','Ton ticket est ouvert','O teu ticket está aberto'],['💬 Abrir el chat','💬 Open the chat','💬 Ouvrir le chat','💬 Abrir o chat'],['🙏 Pedir que lo cierren','🙏 Ask to close it','🙏 Demander la fermeture','🙏 Pedir que o fechem'],['🎫 Abrir ticket','🎫 Open ticket','🎫 Ouvrir un ticket','🎫 Abrir ticket'],['Abre un ticket al jefe','Open a ticket with the boss','Ouvre un ticket au boss','Abre um ticket ao chefe'],
+ ['Elige qué es, cuéntalo y se abre un chat privado con el jefe. Puedes añadir una captura.','Choose what it is, explain it and a private chat with the boss opens. You can add a screenshot.','Choisis le type, explique et un chat privé avec le boss s’ouvre. Tu peux ajouter une capture.','Escolhe o que é, explica e abre-se um chat privado com o chefe. Podes juntar uma captura.'],['📎 Añadir captura','📎 Add screenshot','📎 Ajouter une capture','📎 Juntar captura'],
+ ['Mientras tengas este ticket abierto no puedes abrir otro. Cuando el jefe lo cierre, podrás abrir uno nuevo.','While this ticket is open you can’t open another. When the boss closes it, you can open a new one.','Tant que ce ticket est ouvert, tu ne peux pas en ouvrir un autre. Quand le boss le ferme, tu pourras en ouvrir un nouveau.','Enquanto este ticket estiver aberto não podes abrir outro. Quando o chefe o fechar, podes abrir um novo.']])}catch(e){}
 })();
 </script>
 
