@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-04-1720">
+<meta name="app-version" content="2026-11-04-1745">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4679,6 +4679,7 @@ body.t5on #rainL,body.t5on #evGift,body.t5on .daily #days b,body.t5on .mis .rw{d
 .tktlock #bzTxt,.tktlock #bzGo,.tktlock .bztypes button:not([data-bzt="rec"]),.tktlock .bzcount,.tktlock .bzlang,.tktlock #tktAtt,.tktlock .bzhelp{opacity:.35;pointer-events:none}
 .tktlockmsg{padding:10px 12px;border-radius:10px;background:rgba(255,214,0,.12);border:1px solid rgba(255,214,0,.5);font-weight:800;font-size:13.5px;margin-bottom:10px}
 .tktatt{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}.tktatt img{max-height:70px;border-radius:8px;border:2px solid rgba(255,255,255,.2)}
+.gvmine{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 12px;padding:10px 12px;border-radius:12px;background:rgba(20,224,138,.1);border:1px solid rgba(20,224,138,.4);font-weight:700;font-size:13.5px}.gvmine b{color:#14e08a}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -11077,7 +11078,7 @@ const _oaG=openAccount;openAccount=function(mode){_oaG.apply(this,arguments);con
 i18nAdd([['Entrar con Google','Sign in with Google','Se connecter avec Google','Entrar com o Google'],['Guardar mi partida con Google','Save my game with Google','Sauvegarder ma partie avec Google','Guardar o meu jogo com o Google'],['Crear cuenta con Google','Create account with Google','Créer un compte avec Google','Criar conta com o Google'],['Conectar también con Google','Also connect Google','Connecter aussi Google','Ligar também o Google'],['o con usuario y contraseña','or with username and password','ou avec identifiant et mot de passe','ou com utilizador e palavra-passe']]);
 
 /* ===== 2026-10-04-g: ranking de los más generosos ===== */
-RKC2.push(['gv','🎁','Generosos','Quién ha regalado más de lo que le han regalado. Pasarse dinero entre amigos o cuentas propias no cuenta.']);
+RKC2.push(['gv','🎁','Generosos','Cuenta lo que REGALAS menos lo que TE REGALAN. Ejemplo: si regalas 100 € y te regalan 60 €, cuentan 40 €. Si dos amigos se pasan el mismo dinero, se anula.']);
 (()=>{const _pv=pval;pval=function(p,cat){if(cat==='gv')return p.me?gvNet():(+p.gv||0);return _pv(p,cat)};
   const _fv=fmtVal;fmtVal=function(cat,v){if(cat==='gv')return fmt(v)+' €';return _fv(cat,v)};
   const _rl=rankList;rankList=function(tab,cat){if(cat!=='gv')return _rl(tab,cat);return _rl(tab,'coins').filter(p=>pval(p,'gv')>0).sort((a,b)=>pval(b,'gv')-pval(a,'gv'))};
@@ -16386,10 +16387,9 @@ function t5Q(){try{return isTop5()}catch(e){return false}}
 function t5Say(what){try{troll('👑 ERES DEL TOP 5','Por eso '+what+' no te da dinero. Arriba solo se gana jugando: casino, juegos y Fábrica.','#ffd600',true)}catch(e){}}
 {const _rbT5=rbPress;rbPress=function(i){if(!t5Q())return _rbT5.apply(this,arguments);
   const c0=Math.floor(+S.coins||0),e0=+S.earned||0;T5.rbUntil=Date.now()+40000;const r=_rbT5.apply(this,arguments);
-  const fix=()=>{try{const c=Math.floor(+S.coins||0);if(c>c0){const d=c-c0;S.coins=c0;S.earned=Math.max(e0,(+S.earned||0)-d);try{shownCoins=S.coins}catch(e){}save();NET.lastP='';try{pushPlayer()}catch(e){}if(!T5.rbSaid||Date.now()-T5.rbSaid>15000){T5.rbSaid=Date.now();t5Say('el botón rojo')}}}catch(e){}};
-  [1500,4000,8000,10500,16000,25000,40000].forEach(ms=>setTimeout(fix,ms));setTimeout(()=>{if(!T5.rbSaid||Date.now()-T5.rbSaid>15000){T5.rbSaid=Date.now();t5Say('el botón rojo')}},1200);return r}}
+  return r}}
 /* mientras dura una sorpresa del botón rojo, nada de lo que «regala» cuenta para el top 5 */
-{const _gvRB=give;give=function(n){if(n>0&&T5.rbUntil&&Date.now()<T5.rbUntil&&t5Q())return;return _gvRB.apply(this,arguments)}}
+{const _gvRB=give;give=function(n){if(n>0&&!T5.allow&&T5.rbUntil&&Date.now()<T5.rbUntil&&t5Q())return;return _gvRB.apply(this,arguments)}}
 
 /* ===== Bote de los Caídos: explicado paso a paso, cuenta atrás en directo y si has ganado o no ===== */
 function bcInfo(){const w=WK(),L=bcList(w).filter(x=>x.n>0),me=L.find(x=>x.id===(NET.id||'me'))||null,pw=w-1,W=bcWinner(pw),ppot=bcPot(pw);
@@ -16529,6 +16529,15 @@ setInterval(()=>{try{if(view==='ayuda'&&typeof hlTab!=='undefined'&&hlTab==='buz
 try{i18nAdd([['Tu ticket está abierto','Your ticket is open','Ton ticket est ouvert','O teu ticket está aberto'],['💬 Abrir el chat','💬 Open the chat','💬 Ouvrir le chat','💬 Abrir o chat'],['🙏 Pedir que lo cierren','🙏 Ask to close it','🙏 Demander la fermeture','🙏 Pedir que o fechem'],['🎫 Abrir ticket','🎫 Open ticket','🎫 Ouvrir un ticket','🎫 Abrir ticket'],['Abre un ticket al jefe','Open a ticket with the boss','Ouvre un ticket au boss','Abre um ticket ao chefe'],
  ['Elige qué es, cuéntalo y se abre un chat privado con el jefe. Puedes añadir una captura.','Choose what it is, explain it and a private chat with the boss opens. You can add a screenshot.','Choisis le type, explique et un chat privé avec le boss s’ouvre. Tu peux ajouter une capture.','Escolhe o que é, explica e abre-se um chat privado com o chefe. Podes juntar uma captura.'],['📎 Añadir captura','📎 Add screenshot','📎 Ajouter une capture','📎 Juntar captura'],
  ['Mientras tengas este ticket abierto no puedes abrir otro. Cuando el jefe lo cierre, podrás abrir uno nuevo.','While this ticket is open you can’t open another. When the boss closes it, you can open a new one.','Tant que ce ticket est ouvert, tu ne peux pas en ouvrir un autre. Quand le boss le ferme, tu pourras en ouvrir un nouveau.','Enquanto este ticket estiver aberto não podes abrir outro. Quando o chefe o fechar, podes abrir um novo.']])}catch(e){}
+
+/* Generosos: se ve claro de dónde sale tu número */
+setInterval(()=>{try{if(view!=='ranking'||rkCat!=='gv')return;const d=$('#rkDesc');if(!d)return;let x=$('#gvMine');const st_=S.st||{},g=+st_.gifted||0,i=(+st_.giftIn||0)+(+st_.giftSelf||0);
+  const h=`<div id="gvMine" class="gvmine"><span>🎁 Has regalado <b>${nShort(g)} €</b></span><span>➖ Te han regalado <b>${nShort(i)} €</b></span><span>= Cuentan <b>${nShort(Math.max(0,g-i))} €</b></span></div>`;
+  if(!x){d.insertAdjacentHTML('afterend',h)}else if(x.outerHTML!==h)x.outerHTML=h}catch(e){}},1200);
+/* si una ventana se queda vacía tapando la pantalla (pantalla negra), se cierra sola */
+setInterval(()=>{try{const m=$('#modal'),b=$('#mbox');if(m&&!m.hidden&&b&&!b.textContent.trim()&&!b.querySelector('img,canvas,input,button')){m.hidden=true}
+  const n=$('#nwShow');if(n&&!n.querySelector('.nwcard'))n.remove();const w=$('#wbShow');if(w&&!w.querySelector('.nwcard'))w.remove()}catch(e){}},1500);
+try{i18nAdd([['Cuenta lo que REGALAS menos lo que TE REGALAN. Ejemplo: si regalas 100 € y te regalan 60 €, cuentan 40 €. Si dos amigos se pasan el mismo dinero, se anula.','It counts what you GIVE minus what you RECEIVE. Example: give €100 and receive €60, it counts €40. If two friends pass the same money back and forth, it cancels out.','Ça compte ce que tu DONNES moins ce qu’on TE DONNE. Exemple : tu donnes 100 € et reçois 60 €, ça compte 40 €. Si deux amis se passent le même argent, ça s’annule.','Conta o que DÁS menos o que TE DÃO. Exemplo: dás 100 € e recebes 60 €, contam 40 €. Se dois amigos passam o mesmo dinheiro, anula-se.']])}catch(e){}
 })();
 </script>
 
