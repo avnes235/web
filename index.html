@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-17-1935">
+<meta name="app-version" content="2026-11-17-2010">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4797,6 +4797,49 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 .gacmp>div.lose{border-color:var(--coral)}
 .gacmp small{display:block;opacity:.8;font-weight:700}.gacmp b{display:block;font-size:15px}
 .gabtns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+
+/* títulos: buscador, ordenar y favoritos */
+.titools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px;align-items:stretch}
+.titools .tiq{flex:1 1 240px;margin:0}
+.tisort{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 10px;font:800 12px var(--f-b)}
+.tisort span{opacity:.7;text-transform:uppercase;letter-spacing:.6px}
+.tisort select{background:transparent;color:inherit;border:0;font:800 13px var(--f-b);padding:10px 2px;cursor:pointer;outline:none}
+.tisort select option{background:#16161c;color:#fff}
+.tcard .tfav{position:absolute;top:6px;right:6px;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;font-size:18px;line-height:1;color:#ffffff88;background:#0005;border:1px solid #ffffff22;cursor:pointer;z-index:2}
+.tcard .tfav:hover{color:#ffd600;border-color:#ffd60088}
+.tcard .tfav.on{color:#ffd600;background:#ffd60022;border-color:#ffd600;text-shadow:0 0 8px #ffd600}
+.tcard[aria-pressed="true"] .tfav{top:34px}
+.tcard.tok>.tic{max-width:calc(100% - 34px)}
+.tcard .tcago{font-size:10.5px!important;opacity:.6!important}
+@media (max-width:440px){.ticat{grid-template-columns:1fr}}
+.tiempty{padding:16px;text-align:center;font-weight:800;opacity:.8;background:var(--card);border:1px dashed var(--line);border-radius:12px}
+/* Mis movimientos: más grande, sobre todo en pantallas pequeñas */
+#mbox.movwide{width:min(1180px,98vw)!important;max-height:97dvh!important}
+#mbox.wide #movBox{height:min(92dvh,1000px)}
+#movBox .mvr .mvt b{font-size:16px}
+#movBox .mvr .mvt small{font-size:12.5px}
+#movBox .mvr .mva{font-size:17px}
+#movBox .mvr .mvi{font-size:26px;width:34px}
+@media (max-width:760px){
+ #modal:has(#mbox.movwide){padding:0!important;align-items:stretch!important}
+ #mbox.movwide{width:100vw!important;max-width:100vw!important;height:100dvh!important;max-height:100dvh!important;border-radius:0!important;margin:0!important;padding:10px 10px 8px!important}
+ #mbox.wide #movBox{height:calc(100dvh - 20px);padding:0!important}
+ #movBox h2{font-size:22px!important}
+ #movBox>p.muted{display:none}
+ #movBox .mvc{flex-wrap:nowrap!important;overflow-x:auto!important;margin-bottom:6px}
+ #movBox .mvc button{flex:none!important;padding:6px 10px;font-size:12px}
+ #movBox .mvf{margin-bottom:6px}#movBox .mvf button{padding:6px 4px;font-size:12px}
+ #movSum{gap:6px!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ #movSum .mvs{padding:6px 8px!important}
+ #movSum .mvs{grid-column:auto!important}
+ #movSum .mvs b{overflow-wrap:anywhere;line-height:1.15}
+ #movBox .mvr .mva{font-size:13px!important;white-space:normal;text-align:right;max-width:48%;overflow-wrap:anywhere}
+ #movSum .mvs b{font-size:14px!important}
+ #movSum .mvs small{font-size:10.5px!important}
+ #movBox .mvr{padding:10px 10px!important;gap:10px!important}
+ #movBox .mvr .mvt b{font-size:14.5px}
+ #movBox .mvr .mva{font-size:14.5px}
+}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -7049,6 +7092,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-17-b',t:'Títulos: buscador, orden y favoritos',items:[['⭐','Buscador, orden y favoritos de títulos','En Personalizar › Título puedes buscar un título, ordenarlos (más raros, comunes, recientes o de la A a la Z) y marcar tus favoritos con la ☆ para tenerlos a mano.','new','#ffd600'],['💸','Mis movimientos, más grande','La ventana de Mis movimientos ocupa casi toda la pantalla y se lee mejor, sobre todo en el móvil.','fix','#14e08a'],['🗼','La Torre, al momento','Al quitarle la Torre a alguien, ahora sale tuya en el acto, sin esperar.','fix','#ff6b4a']]},
  {v:'2026-11-17',t:'Títulos y perfil',items:[['🏷️','Títulos rehechos y únicos','Más de 80 títulos, cada uno con su diseño, color y animación, sin dos iguales. Algunos han cambiado de nombre para que no se pisen (Veterano → Habitual, Leyenda → Fenómeno…).','new','#ff4fd8'],['💎','Rareza y dónde se consigue','Cada título tiene rareza: Común, Raro, Épico, Legendario, Hasbiri, Hasbirinino, Cósmico o Exclusivo. En Personalizar ves todos, los que te faltan y cómo conseguir cada uno.','new','#7fe7ff'],['🏅','Tu liga y tu mejor racha en el perfil','Tu liga de la semana sale junto a tu nombre, y en el perfil ves tu racha diaria y tu mejor racha de siempre.','new','#ffd600'],['⚡','Tus multiplicadores','En Personalizar ves qué te hace ganar más ahora (evento, Renacer, racha, Fábrica) y cuánto suman juntos. Se multiplican entre ellos, no se suman.','new','#14e08a'],['🔐','Aviso de Google','Si conectas una cuenta de Google que ya tiene otra partida, ahora te avisa antes de cambiarte y puedes quedarte con la de ahora.','fix','#ff6b4a'],['📈','Bolsa: el límite, igual para todos','Como mucho 10.000 acciones de cada jugador, también si eres rico. Así nadie puede inflar a un amigo para hacerse rico.','fix','#7fd3ff']]},
  {v:'2026-11-04-b',t:'Top 5: todo vuelve, pero al 5 %',items:[['👑','El top 5 vuelve a coger premios','Si estás entre los 5 más ricos, vuelves a poder girar ruletas, pulsar el botón rojo y recoger regalos y misiones, pero solo te llevas un 5 % de lo normal. En la ruleta ya sale la cifra que te llevas.','fix','#ffd600']]},
  {v:'2026-11-04-a',t:'El Buzón ahora va por tickets',items:[['🎫','Abre un ticket y habla con el jefe','En el Buzón eliges qué es (fallo, idea u otra cosa), lo cuentas y puedes añadir una captura. Se abre un chat privado con el jefe. Hasta que te lo cierren no puedes abrir otro, pero puedes pedir que te lo cierren.','new','#ff3b4f'],['👑','Top 5 sin premios que engañan','Si estás en el top 5 ya no ves cantidades de premios que luego no se cobran (premio diario, regalo sorpresa, lluvia, misiones).','fix','#ffd600']]},
@@ -16185,6 +16229,7 @@ try{if(!FAQ.some(x=>x[0]==='¿Cómo consigo más títulos?'))FAQ.unshift(['¿Có
 try{if(!FAQ.some(x=>x[0]==='¿Los multiplicadores se suman?'))FAQ.unshift(['¿Los multiplicadores se suman?','No, se multiplican. Un evento ×2 con 3 estrellas de Renacer (+30 %) da ×2 × 1,3 = ×2,6. En Personalizar › Tus multiplicadores ves los que tienes ahora y el total.'])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Por qué en la Bolsa no puedo comprar más de 10.000 acciones?'))FAQ.unshift(['¿Por qué en la Bolsa no puedo comprar más de 10.000 acciones?','El límite es igual para todos, también para los ricos, para que nadie pueda inflar a un amigo y hacerse rico con la Bolsa. Para jugar fuerte están la Torre, las Locuras y el Renacer.'])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='Al conectar Google me dice que esa cuenta ya tiene una partida'))FAQ.unshift(['Al conectar Google me dice que esa cuenta ya tiene una partida','Cada cuenta de Google solo puede tener una partida. Si entras, juegas con la de esa cuenta y la de ahora (sin cuenta) se pierde. Si quieres guardar la de ahora, pulsa «Quedarme aquí» y conéctala con otra cuenta de Google o con usuario y contraseña.'])}catch(e){}
+try{i18nAdd([['Títulos: buscador, orden y favoritos','Titles: search, sort and favourites','Titres : recherche, tri et favoris','Títulos: pesquisa, ordem e favoritos'],['Buscador, orden y favoritos de títulos','Title search, sort and favourites','Recherche, tri et favoris de titres','Pesquisa, ordem e favoritos de títulos'],['En Personalizar › Título puedes buscar un título, ordenarlos (más raros, comunes, recientes o de la A a la Z) y marcar tus favoritos con la ☆ para tenerlos a mano.','In Customise › Title you can search, sort (rarest, common, recent or A–Z) and mark favourites with the ☆ to keep them handy.','Dans Personnaliser › Titre tu peux chercher, trier (plus rares, communs, récents ou A–Z) et marquer tes favoris avec la ☆.','Em Personalizar › Título podes pesquisar, ordenar (mais raros, comuns, recentes ou A–Z) e marcar favoritos com a ☆.'],['Mis movimientos, más grande','My transactions, bigger','Mes mouvements, plus grand','Os meus movimentos, maior'],['La ventana de Mis movimientos ocupa casi toda la pantalla y se lee mejor, sobre todo en el móvil.','The My transactions window takes almost the whole screen and is easier to read, especially on mobile.','La fenêtre Mes mouvements prend presque tout l’écran et se lit mieux, surtout sur mobile.','A janela Os meus movimentos ocupa quase todo o ecrã e lê-se melhor, sobretudo no telemóvel.'],['La Torre, al momento','The Tower, instantly','La Tour, tout de suite','A Torre, na hora'],['Al quitarle la Torre a alguien, ahora sale tuya en el acto, sin esperar.','When you take the Tower, it now shows as yours instantly.','Quand tu prends la Tour, elle s’affiche à toi immédiatement.','Ao tirares a Torre a alguém, agora aparece tua na hora.']])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
@@ -16761,17 +16806,39 @@ const stkTxt=n=>n===1?'1 día':fmt(n)+' días';
 {const _rmA5=renderMe;renderMe=function(){const r=_rmA5.apply(this,arguments);try{const el=$('#rkTitle');if(el){el.classList.remove('ptitle','xtt','xofit');el.classList.add('ticrow');delete el.dataset.xt;const h=lgPill({me:true})+tiChip({me:true},'b');if(el._h!==h||!el.querySelector('.tic,.lgpill')){el._h=h;el.innerHTML=h}el.hidden=!h}}catch(e){}return r}}
 
 /* ---- Personalizar: catálogo de títulos con rareza y dónde se consigue ---- */
-let tiFil='all';
+let tiFil='all',tiQ='',tiSort='rar';
 function tiLocked(d){const x=d.x,L=S.lvl;if(d.k==='i')return!S.owned[d.it];if(!x)return true;if(x[4]==='x')return!hasExc('ti',x[0]);if(x[4]==='s')return!(S.cosOwn||[]).includes('ti:'+x[0]);if(x[4]==='w')return(window.peakW?peakW():0)<x[2];return L<x[2]}
 function tiVal(d){return d.k==='i'?'it:'+d.it:d.id}
-function tiCatHTML(){const c=myCos(),cur=myTid();const all=TI.list.filter(d=>d.id!=='k'&&d.id!=='xofi'&&!(d.id==='xadm'&&tiLocked(d)));
-  const rows=all.map(d=>({d,lk:tiLocked(d)}));const have=rows.filter(r=>!r.lk).length;
-  let nw=new Set();try{nw=new Set(cosNew().filter(k=>k.startsWith('ti:')).map(k=>k.slice(3)))}catch(e){}const isN=d=>nw.has(tiVal(d));const nN=rows.filter(r=>!r.lk&&isN(r.d)).length;if(tiFil==='new'&&!nN)tiFil='all';
-  const shown=rows.filter(r=>tiFil==='all'||(tiFil==='new'?(!r.lk&&isN(r.d)):tiFil==='have'?!r.lk:r.lk)).sort((a,b)=>((b.d.id===cur)-(a.d.id===cur))||(a.lk-b.lk)||(isN(b.d)-isN(a.d))||(TR_O.indexOf(a.d.r)-TR_O.indexOf(b.d.r)));
-  return`<div class="tihd"><div class="tiprog"><b>${have}</b> de <b>${all.length}</b> títulos<i style="width:${Math.round(have/all.length*100)}%"></i></div>
-   <div class="tifil">${nN?`<button class="tinew ${tiFil==='new'?'on':''}" data-tifil="new">🆕 Nuevos · ${nN}</button>`:''}${[['all','Todos'],['have','✅ Los tengo'],['miss','🔒 Me faltan']].map(([k,l])=>`<button class="${tiFil===k?'on':''}" data-tifil="${k}">${l}</button>`).join('')}</div></div>
-   <div class="ticat"><button class="tcard tnone" data-set="ti" data-val="none" aria-pressed="${!cur}"><span class="tcn">Sin título</span><small>No llevar ninguno</small></button>
-   ${shown.map(({d,lk})=>`<button class="tcard tc-${d.r}${lk?' tlk':' tok'}" data-set="ti" data-val="${esc(tiVal(d))}" aria-pressed="${cur===d.id}" ${lk?'disabled':''}>${tiChipD(d,'',lk?'s':'c')}<span class="tcr">${TR_N[d.r]}</span><small>${esc(d.how||'')}</small><span class="tcst">${lk?'🔒 Bloqueado':cur===d.id?'⭐ Lo llevas puesto':'✅ Lo tienes'}</span></button>`).join('')}</div>`}
+const tiAll=()=>TI.list.filter(d=>d.id!=='k'&&d.id!=='xofi'&&!(d.id==='xadm'&&tiLocked(d)));
+/* cuándo conseguiste cada título (para ordenar por recientes); los que ya tenías cuentan como antiguos */
+function tiTrack(){try{const g=S.tiGot=S.tiGot||{};let ch=false;const first=!S.tiGotInit;tiAll().forEach(d=>{if(g[d.id]==null&&!tiLocked(d)){g[d.id]=first?0:Date.now();ch=true}});if(first){S.tiGotInit=1;ch=true}if(ch)save()}catch(e){}}
+setInterval(tiTrack,10000);setTimeout(tiTrack,2500);
+const tiFavs=()=>Array.isArray(S.tiFav)?S.tiFav:[];
+const tiNorm=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function tiRows(){tiTrack();const cur=myTid(),fav=new Set(tiFavs());const rows=tiAll().map(d=>({d,lk:tiLocked(d)}));
+  let nw=new Set();try{nw=new Set(cosNew().filter(k=>k.startsWith('ti:')).map(k=>k.slice(3)))}catch(e){}const isN=d=>nw.has(tiVal(d));
+  return{rows,cur,fav,isN}}
+function tiGridHTML(){const{rows,cur,fav,isN}=tiRows();const g=S.tiGot||{},q=tiNorm(tiQ).trim();
+  let shown=rows.filter(r=>tiFil==='all'||(tiFil==='new'?(!r.lk&&isN(r.d)):tiFil==='fav'?(!r.lk&&fav.has(r.d.id)):tiFil==='have'?!r.lk:r.lk));
+  if(q)shown=shown.filter(r=>tiNorm(r.d.n+' '+r.d.how+' '+TR_N[r.d.r]).includes(q));
+  const ro=d=>TR_O.indexOf(d.r);const srt={rar:(a,b)=>ro(b.d)-ro(a.d),rarU:(a,b)=>ro(a.d)-ro(b.d),new:(a,b)=>((+g[b.d.id]||0)-(+g[a.d.id]||0))||(ro(b.d)-ro(a.d)),az:(a,b)=>a.d.n.localeCompare(b.d.n,'es')}[tiSort]||((a,b)=>0);
+  shown.sort((a,b)=>((b.d.id===cur)-(a.d.id===cur))||(a.lk-b.lk)||(isN(b.d)-isN(a.d))||srt(a,b));
+  const card=({d,lk})=>{const t=+g[d.id]||0,fv=fav.has(d.id);return`<button class="tcard tc-${d.r}${lk?' tlk':' tok'}" data-set="ti" data-val="${esc(tiVal(d))}" aria-pressed="${cur===d.id}" ${lk?'disabled':''}>${lk?'':`<span class="tfav ${fv?'on':''}" data-tifav="${esc(d.id)}" role="button" aria-label="${fv?'Quitar de favoritos':'Añadir a favoritos'}" title="${fv?'Quitar de favoritos':'Añadir a favoritos'}">${fv?'★':'☆'}</span>`}${tiChipD(d,'',lk?'s':'c')}<span class="tcr">${TR_N[d.r]}</span><small>${esc(d.how||'')}</small>${!lk&&t?`<small class="tcago">🕒 Conseguido ${ago(t)}</small>`:''}<span class="tcst">${lk?'🔒 Bloqueado':cur===d.id?'⭐ Lo llevas puesto':'✅ Lo tienes'}</span></button>`};
+  const none=(!q&&(tiFil==='all'||tiFil==='have'))?`<button class="tcard tnone" data-set="ti" data-val="none" aria-pressed="${!cur}"><span class="tcn">Sin título</span><small>No llevar ninguno</small></button>`:'';
+  const empty=!shown.length?`<p class="tiempty">${q?'No hay ningún título con «'+esc(tiQ)+'».':tiFil==='fav'?'Aún no tienes favoritos. Pulsa la ☆ de un título que tengas para guardarlo aquí.':'Aquí no hay nada.'}</p>`:'';
+  return`${empty}<div class="ticat">${none}${shown.map(card).join('')}</div>`}
+function tiCatHTML(){const{rows,fav,isN}=tiRows();const have=rows.filter(r=>!r.lk).length,nN=rows.filter(r=>!r.lk&&isN(r.d)).length,nF=rows.filter(r=>!r.lk&&fav.has(r.d.id)).length;if(tiFil==='new'&&!nN)tiFil='all';
+  return`<div class="tihd"><div class="tiprog"><b>${have}</b> de <b>${rows.length}</b> títulos<i style="width:${Math.round(have/rows.length*100)}%"></i></div>
+   <div class="tifil">${nN?`<button class="tinew ${tiFil==='new'?'on':''}" data-tifil="new">🆕 Nuevos · ${nN}</button>`:''}${[['all','Todos'],['fav','⭐ Favoritos'+(nF?' · '+nF:'')],['have','✅ Los tengo'],['miss','🔒 Me faltan']].map(([k,l])=>`<button class="${tiFil===k?'on':''}" data-tifil="${k}">${l}</button>`).join('')}</div></div>
+   <div class="titools"><label class="search tiq"><svg class="ic"><use href="#i-search"/></svg><input id="tiQ" type="search" placeholder="Buscar título: «Tiburón», «Tienda», «Cósmico»…" autocomplete="off" value="${esc(tiQ)}"></label>
+    <label class="tisort"><span>Ordenar</span><select id="tiSort">${[['rar','💎 Más raros primero'],['rarU','⚪ Comunes primero'],['new','🕒 Recientes'],['az','🔤 De la A a la Z']].map(([k,l])=>`<option value="${k}" ${tiSort===k?'selected':''}>${l}</option>`).join('')}</select></label></div>
+   <div id="tiGrid">${tiGridHTML()}</div>`}
+function tiRedraw(all){const w=all?$('#tiCatB'):$('#tiGrid');if(w)w.innerHTML=all?tiCatHTML():tiGridHTML()}
+document.addEventListener('click',e=>{const f=e.target.closest('[data-tifav]');if(!f)return;e.preventDefault();e.stopPropagation();sfx('click');const id=f.dataset.tifav;let L=tiFavs().slice();L=L.includes(id)?L.filter(x=>x!==id):[...L,id];S.tiFav=L.slice(-60);save();
+  toast(L.includes(id)?'Añadido a favoritos':'Quitado de favoritos','','var(--sun)',L.includes(id)?'⭐':'☆');tiRedraw(true)},true);
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='tiQ'){tiQ=e.target.value;tiRedraw(false)}});
+document.addEventListener('change',e=>{if(e.target&&e.target.id==='tiSort'){tiSort=e.target.value;sfx('click');tiRedraw(false)}});
+
 {const _rpA5=renderPerfil;renderPerfil=function(){const r=_rpA5.apply(this,arguments);try{const body=$('#pfBody');if(!body)return r;
   /* cabecera: liga + título nuevo + racha */
   const hd=body.querySelector('.mecard .mtext');if(hd){const old=hd.querySelector('.ptitle');const row=document.createElement('div');row.innerHTML=tiRow({me:true},true)||'';const nr=row.firstElementChild;if(old)old.replaceWith(...(nr?[nr]:[]));else if(nr)hd.querySelector('h2').after(nr);
@@ -16782,7 +16849,7 @@ function tiCatHTML(){const c=myCos(),cur=myTid();const all=TI.list.filter(d=>d.i
   /* multiplicadores */
   if(!body.querySelector('#mulSec')){const acc=[...body.querySelectorAll('.pfsec')].find(s=>{const h=s.querySelector('h3');return h&&h.textContent.trim()==='Cuenta'});const h=`<div class="pfsec" id="mulSec">${mulHTML()}</div>`;if(acc)acc.insertAdjacentHTML('beforebegin',h);else body.insertAdjacentHTML('beforeend',h)}}catch(e){console.warn(e)}return r}}
 document.addEventListener('click',e=>{const c=e.target.closest('#pfBody [data-set][data-val]');if(c&&!c.disabled){try{cosSeenAdd([c.dataset.set+':'+c.dataset.val])}catch(_){}}},true);
-document.addEventListener('click',e=>{const b=e.target.closest('[data-tifil]');if(!b)return;sfx('click');tiFil=b.dataset.tifil;const w=$('#tiCatB');if(w)w.innerHTML=tiCatHTML()});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-tifil]');if(!b)return;sfx('click');tiFil=b.dataset.tifil;tiRedraw(true)});
 
 /* ---- tus multiplicadores: qué tienes ahora y cómo se juntan ---- */
 function mulHTML(){const ev=evMult(),rn=(typeof rnN==='function'?rnN():0),rm=1+.1*rn,pm=(typeof ptMul==='function'?ptMul():1),fm=(typeof fabMulNow==='function'?fabMulNow():1),t5=(typeof isTop5==='function'&&isTop5());
@@ -16815,6 +16882,9 @@ try{i18nAdd([['Tus multiplicadores','Your multipliers','Tes multiplicateurs','Os
  ['Los tengo','I have them','Je les ai','Tenho-os'],['Me faltan','Missing','Il me manque','Faltam-me'],['Todos','All','Tous','Todos'],['Sin título','No title','Sans titre','Sem título'],['No llevar ninguno','Wear none','N’en porter aucun','Não usar nenhum'],['Lo llevas puesto','You’re wearing it','Tu le portes','Estás a usá-lo'],
  ['Esa cuenta de Google ya tiene una partida','That Google account already has a game','Ce compte Google a déjà une partie','Essa conta Google já tem um jogo'],['Quedarme aquí','Stay here','Rester ici','Ficar aqui'],['Entrar en la de Google','Use the Google one','Utiliser celle de Google','Entrar na do Google'],
  ['Común','Common','Commun','Comum'],['Raro','Rare','Rare','Raro'],['Épico','Epic','Épique','Épico'],['Legendario','Legendary','Légendaire','Lendário'],['Cósmico','Cosmic','Cosmique','Cósmico'],['Exclusivo','Exclusive','Exclusif','Exclusivo']])}catch(e){}
+
+/* La Torre: al conquistarla se ve al momento (antes esperaba a que caducase el «¿Seguro?») */
+{const _tqcA6=tqConquer;tqConquer=function(btn){const c0=+S.coins||0;const r=_tqcA6.apply(this,arguments);try{if((+S.coins||0)<c0){SKA.arm='';SKA.armT=0;try{if(view==='rico')skRender()}catch(e){}try{tqCard()}catch(e){}}}catch(e){}return r}}
 })();
 </script>
 
