@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-05-2130">
+<meta name="app-version" content="2026-11-17-1830">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4684,6 +4684,94 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 /* lluvia en el móvil: zona de toque justa (no tapa los botones de al lado) */
 @media (pointer:coarse),(max-width:759px){.frcoin::before,.rcoin::before{top:-6px;right:-6px;bottom:-6px;left:-6px;inset:-6px}.frcoin{opacity:.92}}
 .rainTg{margin-left:6px;font-size:12px!important;padding:5px 9px!important;white-space:nowrap}
+
+/* ===== Act. 5: títulos con diseño propio, rareza, liga y racha ===== */
+.tic{--h:200;--h2:240;--sat:70%;--d:3s;display:inline-flex;align-items:center;gap:5px;max-width:100%;padding:3px 9px 3px 7px;border-radius:999px;font:900 10.5px/1.25 var(--f-b);letter-spacing:.5px;text-transform:uppercase;color:#fff;white-space:nowrap;vertical-align:middle;position:relative;overflow:hidden;isolation:isolate;font-style:normal;
+  background:linear-gradient(110deg,hsl(var(--h) var(--sat) 32%),hsl(var(--h2) var(--sat) 45%));border:1px solid hsl(var(--h) 75% 72% / .55);text-shadow:0 1px 0 rgba(0,0,0,.5)}
+.tic>b{font-weight:400;font-size:1.2em;line-height:1;display:inline-block;text-transform:none;letter-spacing:0}
+.tic>span{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.tic>i{font-style:normal;letter-spacing:-1px;text-transform:none}
+.tic.big{font-size:12.5px;padding:5px 12px 5px 9px}
+.tic.tic0{background:#0008;border-color:#fff3}
+.tic.tr-c{--sat:28%}
+.tic.tr-r{--sat:62%;border-color:#8fb6ff}
+.tic.tr-e{--sat:70%;border-color:#cfa3ff;box-shadow:0 0 8px -1px #b26bffaa}
+.tic.tr-l{--sat:82%;border:1px solid #ffd66b;box-shadow:0 0 10px -1px #ffb300aa}
+.tic.tr-m{--sat:88%;border:1.5px solid #ff7a88;box-shadow:0 0 12px -1px #ff3b4faa,inset 0 0 7px #ff3b4f66}
+.tic.tr-x{border:1.5px solid transparent;background:linear-gradient(110deg,hsl(var(--h) 85% 28%),hsl(var(--h2) 85% 40%)) padding-box,linear-gradient(90deg,#ff2e88,#ffd600,#14e08a,#3f7cff,#9d5cff,#ff2e88) border-box;background-size:100% 100%,300% 100%;box-shadow:0 0 12px -2px #ff2e88aa}
+.tic.tr-z{border:1.5px solid #7fe7ff;background:radial-gradient(1px 1px at 16% 30%,#fff,transparent),radial-gradient(1px 1px at 58% 72%,#fff,transparent),radial-gradient(1.3px 1.3px at 84% 26%,#bdf,transparent),radial-gradient(1px 1px at 36% 80%,#fff,transparent),linear-gradient(110deg,#050816,hsl(var(--h) 70% 24%),#050816);box-shadow:0 0 14px #7fe7ff88}
+.tic.tr-X{border:1.5px solid hsl(var(--h) 90% 66%);background:linear-gradient(110deg,#0b0b12,hsl(var(--h) 70% 22%) 55%,#0b0b12);color:hsl(var(--h) 100% 86%);box-shadow:0 0 12px -2px hsl(var(--h) 90% 60%)}
+.tic.tr-J{border:1.5px solid #ffd600;background:repeating-linear-gradient(135deg,#111 0 7px,#2a2300 7px 14px);color:#ffd600}
+/* animaciones: cada título con la suya (data-fx) y su velocidad (--d) */
+.tic.an[data-fx="0"]::after,.tic.an.tr-l::after,.tic.an.tr-m::after,.tic.an.tr-X::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:42%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:ticSh var(--d) ease-in-out infinite;z-index:-1;pointer-events:none}
+.tic.an[data-fx="1"]:not(.tr-x):not(.tr-z):not(.tr-J){background-size:220% 100%;animation:ticFl var(--d) linear infinite alternate}
+.tic.an[data-fx="2"]{animation:ticPu var(--d) ease-in-out infinite}
+.tic.an[data-fx="3"]>b{animation:ticWo var(--d) ease-in-out infinite;transform-origin:50% 80%}
+.tic.an[data-fx="4"]>b{animation:ticBo var(--d) ease-in-out infinite}
+.tic.an[data-fx="5"]::before,.tic.an.tr-z::before{content:'✦';position:absolute;right:3px;top:-2px;font-size:8px;color:#fff;animation:ticSp var(--d) ease-in-out infinite;pointer-events:none;text-shadow:0 0 4px #fff}
+.tic.an.tr-x{animation:ticRb 3s linear infinite}
+.tic.an.tr-x[data-fx="2"]{animation:ticRb 3s linear infinite,ticPu var(--d) ease-in-out infinite}
+@keyframes ticSh{0%,55%{left:-60%}100%{left:130%}}
+@keyframes ticFl{to{background-position:100% 0}}
+@keyframes ticPu{50%{filter:brightness(1.28) saturate(1.25)}}
+@keyframes ticWo{0%,70%,100%{transform:rotate(0)}78%{transform:rotate(-14deg)}86%{transform:rotate(12deg)}94%{transform:rotate(-5deg)}}
+@keyframes ticBo{0%,65%,100%{transform:translateY(0)}75%{transform:translateY(-3px)}85%{transform:translateY(0)}92%{transform:translateY(-1px)}}
+@keyframes ticSp{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes ticRb{to{background-position:0 0,300% 0}}
+@media (prefers-reduced-motion:reduce){.tic,.tic *,.tic::after,.tic::before{animation:none!important}}
+.ticrow .tic.big{white-space:normal;border-radius:12px}
+.ticrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 4px;max-width:100%;min-width:0}
+#rkTitle.ticrow{background:none!important;border:0!important;padding:0!important;box-shadow:none!important}
+.ptt .tic{max-width:46vw}
+/* liga junto al nombre */
+.lgpill{--lc:#ffd600;display:inline-flex;align-items:center;gap:5px;padding:3px 10px 3px 4px;border-radius:999px;font:900 10.5px/1.25 var(--f-b);letter-spacing:.8px;text-transform:uppercase;color:#111;position:relative;overflow:hidden;isolation:isolate;white-space:nowrap;background:var(--lc);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--lc) 70%,#fff),var(--lc) 55%,color-mix(in srgb,var(--lc) 65%,#000));border:1px solid color-mix(in srgb,var(--lc) 60%,#fff);box-shadow:0 0 10px -2px var(--lc),inset 0 1px 0 #fff8;text-shadow:0 1px 0 #fff6}
+.lgpill>i{font-style:normal;font-size:14px;line-height:1;width:20px;height:20px;display:grid;place-items:center;border-radius:50%;background:#0006;text-shadow:none}
+.lgpill::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,#fffa,transparent);transform:skewX(-20deg);animation:ticSh 4.5s ease-in-out infinite;z-index:-1}
+.lgpill.lgp4{color:#fff;text-shadow:0 1px 0 #0008;background:linear-gradient(90deg,#ff4fd8,#9d5cff,#3fa0ff,#ff4fd8);background-size:300% 100%;animation:ticFl 4s linear infinite alternate}
+@media (prefers-reduced-motion:reduce){.lgpill,.lgpill::after{animation:none!important}}
+/* racha en tu perfil */
+.pfstk{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.pfstk span{background:#0006;border:1px solid #fff3;border-radius:999px;padding:3px 10px;font:800 12px var(--f-b);color:#fff}
+.pfstk b{color:#ffd600}
+.ppstk.best b{color:var(--sun)}
+/* catálogo de títulos */
+.tihd{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:10px 0}
+.tiprog{position:relative;flex:1 1 200px;font:800 13px var(--f-b);padding:8px 12px;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;isolation:isolate}
+.tiprog i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#ffd60055,#ff4fd855);z-index:-1}
+.tifil{display:flex;gap:4px}
+.tifil button{font:800 12px var(--f-b);padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:inherit;cursor:pointer}
+.tifil button.on{background:var(--sun);color:#111;border-color:var(--sun)}
+.tcard .tic{white-space:normal;border-radius:12px;text-align:left}
+.tcard .tic>span{white-space:normal;overflow:visible}
+.ticat{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.tcard{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:10px;border-radius:12px;background:var(--card);border:2px solid var(--line);color:inherit;cursor:pointer;min-width:0;font:inherit}
+.tcard .tic{max-width:100%}
+.tcard .tcr{font:900 10px var(--f-b);letter-spacing:1px;text-transform:uppercase;opacity:.75}
+.tcard small{font-size:11.5px;line-height:1.3;opacity:.85;font-weight:700}
+.tcard[aria-pressed="true"]{border-color:var(--sun);box-shadow:0 0 0 2px #ffd60055}
+.tcard .tcon{position:absolute;top:-8px;right:8px;background:var(--sun);color:#111;font:900 9.5px var(--f-b);padding:2px 7px;border-radius:999px;text-transform:uppercase}
+.tcard:disabled{cursor:default;opacity:1}
+.tcard:disabled .tic{filter:grayscale(.85) brightness(.7)}
+.tcard:disabled small{opacity:.7}
+.tcard.tc-l .tcr{color:#ffb300;opacity:1}.tcard.tc-m .tcr{color:#ff5b6b;opacity:1}.tcard.tc-x .tcr{color:#ff4fd8;opacity:1}.tcard.tc-z .tcr{color:#7fe7ff;opacity:1}.tcard.tc-X .tcr{color:#ffd600;opacity:1}.tcard.tc-e .tcr{color:#c99bff;opacity:1}.tcard.tc-r .tcr{color:#8fb6ff;opacity:1}
+.tcard.tnone .tcn{font:900 13px var(--f-b);text-transform:uppercase}
+/* multiplicadores */
+.mulbox{display:grid;gap:6px}
+.mulr{display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:center;padding:9px 12px;background:var(--card);border:1px solid var(--line);border-radius:10px;opacity:.6}
+.mulr.on{opacity:1;border-color:#14e08a88}
+.mulr .emo{font-size:22px}
+.mulr b{display:block;font-size:14px}.mulr small{display:block;font-size:11.5px;opacity:.8;font-weight:600;line-height:1.3}
+.mulr em{font:900 16px var(--f-b);font-style:normal;color:#14e08a;white-space:nowrap}
+.multot{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;padding:12px 14px;border-radius:12px;background:linear-gradient(90deg,#14e08a22,#ffd60022);border:2px solid #14e08a}
+.multot b{font:900 24px var(--f-b);color:#14e08a;grid-row:span 2}.multot span{font-weight:800}.multot small{opacity:.8;font-weight:700}
+/* aviso de Google */
+.gask{text-align:center}.gask .gak{font-size:44px;display:block}.gask h2{margin:6px 0 8px}
+.gacmp{display:grid;gap:8px;margin:12px 0;text-align:left}
+.gacmp>div{padding:10px 12px;border-radius:10px;background:var(--card);border:2px solid #14e08a}
+.gacmp>div.lose{border-color:var(--coral)}
+.gacmp small{display:block;opacity:.8;font-weight:700}.gacmp b{display:block;font-size:15px}
+.gabtns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -6585,7 +6673,7 @@ function renderRank(){if(view!=='ranking')return;renderMe();renderRkCats();rende
       (!fr?(pend?'<button class="btn alt sm" disabled>Pendiente</button>':`<button class="btn alt sm" data-req="${esc(p.id)}">+ Amigo</button>`):'')+(rkTab==='amigos'&&fr?`<button class="btn alt sm" data-rmid="${esc(p.id)}" aria-label="Quitar de amigos">${ICON('x')}</button>`:'');
     const sh=(p.show||[]).slice(0,3).map(x=>esc(x)).join('');
     return`<div class="rkr ${p.me?'mine':''} p${i+1}" data-prof="${esc(p.id)}" title="Ver perfil"><span class="pos">${i+1}</span><span class="av emo ${frCls(p.cos)}">${avH(p)}${on?'<i class="on"></i>':''}</span>
-      <span style="min-width:0"><b><span class="${ncCls(p.cos)}">${esc(p.name||'Sin nombre')}</span>${p.me?' (tú)':''}${sh?`<span class="shw emo">${sh}</span>`:''}</b><small>${p.ti?`<em class="tt">${esc(p.ti)}</em> · `:''}Nv ${+p.lvl||1} · ${esc(p.code||'')}</small></span>
+      <span style="min-width:0"><b><span class="${ncCls(p.cos)}">${esc(p.name||'Sin nombre')}</span>${p.me?' (tú)':''}${sh?`<span class="shw emo">${sh}</span>`:''}</b><small>${p.ti?tiChip(p,'s')+' · ':''}Nv ${+p.lvl||1} · ${esc(p.code||'')}</small></span>
       <span class="val">${v==null?'–':fmtVal(rkCat,v)}</span><span class="acts">${acts}</span></div>`}).join('');
   if(NET.ok&&rkTab==='amigos'&&!(S.friends||[]).length)h+=`<div class="empty"><span class="emo">🤝</span><b>Aún no tienes amigos</b><span>Pon el código de un colega arriba o mándale solicitud desde «Todos».</span></div>`;
   else if(NET.ok&&!arr.length)h+=`<div class="empty"><span class="emo">🏁</span><b>Nadie tiene marca todavía</b><span>${rkCat==='game'?'Juega a '+GLIST.find(g=>g[0]===rkG)[1]+' en '+diffName(rkD)+' y sé el primero.':'Juega un poco y aparecerás aquí.'}</span></div>`;
@@ -6715,7 +6803,7 @@ let RK_ARR=null,RK_CAT=null;
 function rkIdx(arr,i,cat){if(!arr||!arr[i])return i;const v=pval(arr[i],cat);let j=i;while(j>0&&pval(arr[j-1],cat)===v)j--;return j}
 function podiumHTML(arr,cat){RK_ARR=arr;RK_CAT=cat;const slot=(p,k)=>{if(!p)return`<div class="pod p${k} empty"><div class="pav emo">❔</div><b>Libre</b><span class="pv">–</span><div class="step">${k}</div></div>`;
     const r=rkIdx(arr,arr.indexOf(p),cat)+1;
-    return`<div class="pod p${k} ${p.me?'me':''} ${r<k?'tie'+r:''}" data-rk="${r}" data-prof="${esc(p.id)}" title="Ver perfil">${r===1?'<span class="crown emo">👑</span>':''}<div class="pav emo ${frCls(p.cos)}">${avH(p)}</div><b class="${ncCls(p.cos)}">${esc(p.name||'Sin nombre')}${p.me?' (tú)':''}</b>${p.ti?`<span class="ptt">${esc(p.ti)}</span>`:''}<span class="pv">${fmtValP(cat,p)}</span><div class="step">${r}</div></div>`};
+    return`<div class="pod p${k} ${p.me?'me':''} ${r<k?'tie'+r:''}" data-rk="${r}" data-prof="${esc(p.id)}" title="Ver perfil">${r===1?'<span class="crown emo">👑</span>':''}<div class="pav emo ${frCls(p.cos)}">${avH(p)}</div><b class="${ncCls(p.cos)}">${esc(p.name||'Sin nombre')}${p.me?' (tú)':''}</b>${p.ti?`<span class="ptt">${tiChip(p,'s')}</span>`:''}<span class="pv">${fmtValP(cat,p)}</span><div class="step">${r}</div></div>`};
   return`<div class="podium">${slot(arr[1],2)}${slot(arr[0],1)}${slot(arr[2],3)}</div>`}
 function myPosHTML(arr,cat,unitWord){const i0=arr.findIndex(p=>p.me);if(i0<0||arr.length<2)return'';const me=arr[i0],i=rkIdx(arr,i0,cat);
   let t;if(i===0)t=i0>0||(arr[1]&&pval(arr[1],cat)===pval(me,cat))?'Vas el primero, empatado. ¡Desempata!':'Vas el primero. A ver cuánto te dura.';else{const o=arr[i-1],a=pval(o,cat),b=pval(me,cat),mn=cat==='game'&&gameMin(rkG);
@@ -6727,7 +6815,7 @@ function rowHTML(p,i,cat,top,withActs){if(RK_ARR&&RK_ARR[i]===p)i=rkIdx(RK_ARR,i
   const sh=(p.show||[]).slice(0,3).map(x=>esc(x)).join('');const mn=cat==='game'&&gameMin(rkG);
   const pct=v==null||!top?0:mn?Math.max(6,Math.min(100,top/v*100)):Math.max(3,Math.min(100,v/top*100));
   return`<div class="rkr ${p.me?'mine':''} p${i+1}" data-prof="${esc(p.id)}" title="Ver perfil"><span class="pos">${i+1}</span><span class="av emo ${frCls(p.cos)}">${avH(p)}${on?'<i class="on"></i>':''}</span>
-    <span style="min-width:0"><b><span class="${ncCls(p.cos)}">${esc(p.name||'Sin nombre')}</span>${p.rn?`<i class="rn">${esc(p.rn)}</i>`:''}${p.me?' (tú)':''}${sh?`<span class="shw emo">${sh}</span>`:''}</b><small>${p.ti?`<em class="tt">${esc(p.ti)}</em> · `:''}Nv ${+p.lvl||1}${on?` · <span class="onat">● ${esc(atTxt(p))}</span>`:''}</small><div class="rbar"><i style="width:${pct}%"></i></div></span>
+    <span style="min-width:0"><b><span class="${ncCls(p.cos)}">${esc(p.name||'Sin nombre')}</span>${p.rn?`<i class="rn">${esc(p.rn)}</i>`:''}${p.me?' (tú)':''}${sh?`<span class="shw emo">${sh}</span>`:''}</b><small>${p.ti?tiChip(p,'s')+' · ':''}Nv ${+p.lvl||1}${on?` · <span class="onat">● ${esc(atTxt(p))}</span>`:''}</small><div class="rbar"><i style="width:${pct}%"></i></div></span>
     <span class="val">${v==null?'–':fmtValP(cat,p)}</span><span class="acts">${acts}</span></div>`}
 function renderRank(){if(view!=='ranking')return;renderMe();renderRkCats();renderReqs();
   $('#netState').textContent=!NET.ok?(/^Conectando/.test(NET.why||'')?'Conectando…':'Sin conexión · toca para reintentar'):NET.ro?'Solo puedes mirar':'En línea · '+NET.online.size+' conectados ahora';
@@ -6884,7 +6972,7 @@ function openPlayer(id){const me=id===NET.id||id==='me';const p=me?myFull():{...
   const achSet=new Set((p.achL||[]).map(Number));
   const acts=me?`<button class="btn sm" data-pp="edit">Personalizar</button>`:NET.ok?(`<button class="btn mint sm" data-pp="gift">🎁 Regalar</button>`+(fr?'':(pend?'<button class="btn alt sm" disabled>Solicitud enviada</button>':`<button class="btn alt sm" data-pp="req">+ Amigo</button>`))+(fr?`<button class="btn pink sm" data-pp="troll">💬 Mensajito · 100 €</button>`:'')+`<button class="btn alt sm" data-pp="nick">✏️ Apodo</button>${fr?'<button class="btn dark sm" data-pp="unf">✕ Quitar amigo</button>':''}`):'';
   $('#modal').hidden=false;const mb=$('#mbox');mb.classList.add('wide');
-  mb.innerHTML=`<div class="pp-head mecard bg-${esc(c.bg||'pink')}"><span class="bigav emo ${frCls(c)}">${avH(p)}</span><div class="mtext" style="min-width:0;flex:1"><h2 class="${ncCls(c)}">${esc((!me&&S.nick&&S.nick[id])||p.name)}${!me&&S.nick&&S.nick[id]?`<small class="rn2">${esc(p.name)}</small>`:''}</h2>${p.ti?`<div class="ptitle">${esc(p.ti)}</div>`:''}
+  mb.innerHTML=`<div class="pp-head mecard bg-${esc(c.bg||'pink')}"><span class="bigav emo ${frCls(c)}">${avH(p)}</span><div class="mtext" style="min-width:0;flex:1"><h2 class="${ncCls(c)}">${esc((!me&&S.nick&&S.nick[id])||p.name)}${!me&&S.nick&&S.nick[id]?`<small class="rn2">${esc(p.name)}</small>`:''}</h2>${tiRow(p)}
       <div class="meta">${esc(p.code||'')} · ${me?'eres tú':on?'● '+esc(atTxt(p)):'visto '+ago(+p.t)}${p.since?' · jugando desde '+fmtDate(+p.since):''}</div></div><button class="iconbtn px" data-pp="x" aria-label="Cerrar"><svg class="ic"><use href="#i-x"/></svg></button></div>
     <div class="pp-body">${acts?`<div class="pp-acts">${acts}</div>`:''}
       <div class="pp-sec"><h3>Estadísticas</h3><div class="pp-stats">
@@ -6936,6 +7024,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-17',t:'Títulos y perfil',items:[['🏷️','Títulos rehechos y únicos','Más de 80 títulos, cada uno con su diseño, color y animación, sin dos iguales. Algunos han cambiado de nombre para que no se pisen (Veterano → Habitual, Leyenda → Fenómeno…).','new','#ff4fd8'],['💎','Rareza y dónde se consigue','Cada título tiene rareza: Común, Raro, Épico, Legendario, Hasbiri, Hasbirinino, Cósmico o Exclusivo. En Personalizar ves todos, los que te faltan y cómo conseguir cada uno.','new','#7fe7ff'],['🏅','Tu liga y tu mejor racha en el perfil','Tu liga de la semana sale junto a tu nombre, y en el perfil ves tu racha diaria y tu mejor racha de siempre.','new','#ffd600'],['⚡','Tus multiplicadores','En Personalizar ves qué te hace ganar más ahora (evento, Renacer, racha, Fábrica) y cuánto suman juntos. Se multiplican entre ellos, no se suman.','new','#14e08a'],['🔐','Aviso de Google','Si conectas una cuenta de Google que ya tiene otra partida, ahora te avisa antes de cambiarte y puedes quedarte con la de ahora.','fix','#ff6b4a'],['📈','Bolsa: el límite, igual para todos','Como mucho 10.000 acciones de cada jugador, también si eres rico. Así nadie puede inflar a un amigo para hacerse rico.','fix','#7fd3ff']]},
  {v:'2026-11-04-b',t:'Top 5: todo vuelve, pero al 5 %',items:[['👑','El top 5 vuelve a coger premios','Si estás entre los 5 más ricos, vuelves a poder girar ruletas, pulsar el botón rojo y recoger regalos y misiones, pero solo te llevas un 5 % de lo normal. En la ruleta ya sale la cifra que te llevas.','fix','#ffd600']]},
  {v:'2026-11-04-a',t:'El Buzón ahora va por tickets',items:[['🎫','Abre un ticket y habla con el jefe','En el Buzón eliges qué es (fallo, idea u otra cosa), lo cuentas y puedes añadir una captura. Se abre un chat privado con el jefe. Hasta que te lo cierren no puedes abrir otro, pero puedes pedir que te lo cierren.','new','#ff3b4f'],['👑','Top 5 sin premios que engañan','Si estás en el top 5 ya no ves cantidades de premios que luego no se cobran (premio diario, regalo sorpresa, lluvia, misiones).','fix','#ffd600']]},
  {v:'2026-11-03-g',t:'Top 5: todo es habilidad',items:[['👑','Arriba no hay premios gratis','Si estás entre los 5 más ricos, las ruletas, misiones, cofres y el botón rojo no dan nada. En la ruleta te sale claro que estás en el top 5. El casino, los minijuegos y la Fábrica pagan normal.','fix','#ffd600']]},
@@ -11063,7 +11152,7 @@ async function googleSignIn(btn){if(!NET.ok||!NET.auth||typeof firebase==='undef
     else{await NET.auth.signInWithPopup(gProv());setTimeout(()=>location.reload(),300)}}
   catch(e){const c=e&&e.code||'';if(btn)btn.disabled=false;
     if(c==='auth/credential-already-in-use'||c==='auth/email-already-in-use'||c==='auth/account-exists-with-different-credential'){const cred=firebase.auth.GoogleAuthProvider.credentialFromError?firebase.auth.GoogleAuthProvider.credentialFromError(e):e.credential;
-      if(cred&&(NET.isAnon||c==='auth/credential-already-in-use')){if(!NET.isAnon){toast('Esa cuenta de Google ya tiene otra partida','Cierra sesión y entra con Google para usarla','var(--coral)','⚠️');return}try{await gSwitchTo(cred)}catch(e2){toast('No se ha podido entrar',String(e2&&e2.code||''),'var(--coral)','⚠️')}return}}
+      if(cred&&(NET.isAnon||c==='auth/credential-already-in-use')){if(!NET.isAnon){toast('Esa cuenta de Google ya tiene otra partida','Usa otra cuenta de Google. O, si quieres jugar aquella, cierra sesión aquí y entra con Google','var(--coral)','⚠️');return}try{await gSwitchTo(cred)}catch(e2){toast('No se ha podido entrar',String(e2&&e2.code||''),'var(--coral)','⚠️')}return}}
     if(c==='auth/provider-already-linked'){toast('Ya tienes Google conectado','Puedes entrar con Google desde cualquier sitio','var(--mint)','🔐');return}
     if(c==='auth/popup-closed-by-user'||c==='auth/cancelled-popup-request')return;
     if(c==='auth/popup-blocked'||c==='auth/operation-not-supported-in-this-environment'){try{if(u)await u.linkWithRedirect(gProv());else await NET.auth.signInWithRedirect(gProv())}catch(e3){}return}
@@ -11991,7 +12080,7 @@ function renderBolsa(){const root=$('#bxRoot');if(!root||view!=='bolsa')return;b
    <details class="bx-how"><summary>❓ ¿Cómo funciona la Bolsa?</summary><ul>
     <li>El precio de cada jugador sale de su <b>nivel</b>, su <b>dinero</b> y lo que ha <b>jugado esta semana</b> (sus puntos de liga). Si lleva más de 2 días sin entrar, baja cada día.</li>
     <li>Compras al precio de ahora. Cuando vendes, cobras el precio de ese momento menos un 2 % de comisión.</li>
-    <li>Como mucho ${fmt(BX_MAX)} acciones de cada jugador. No puedes comprar acciones tuyas.</li>
+    <li>Como mucho ${fmt(BX_MAX)} acciones de cada jugador. No puedes comprar acciones tuyas.</li><li>👑 <b>El límite es igual para todos, también para los ricos</b>: así nadie puede inflar a un amigo para hacerse rico. Para jugar fuerte están la Torre, las Locuras y el Renacer.</li>
     <li>En «Mis inversores» ves quién ha apostado por ti. ¡No les falles!</li></ul></details>`;
   if(bxTab==='mercado'){const L=bxPlayers().map(p=>({p,pr:bxPrice(p)})).sort((a,b)=>b.pr-a.pr);
     h+=L.length?`<div class="bx-list">${L.map(({p,pr})=>{const c=bxChg(p.id,pr),q=(hold[p.id]||{}).q||0;return`<button class="bx-row" data-bxp="${esc(p.id)}"><span class="bx-av emo">${bxAv(p)}</span><span class="bx-nm"><b>${esc(p.name)}</b><small>Nv ${+p.lvl||1}${q?` · <span class="bx-own">tienes ${fmt(q)}</span>`:''}</small></span><span class="bx-sp">${bxSpark(p.id)}</span><span class="bx-pr"><b>${fmt(pr)} €</b><small class="${c>=0?'bx-up':'bx-dn'}">${bxChgTxt(p.id||id,c)}</small></span></button>`}).join('')}</div>`:`<div class="empty"><span class="emo">📉</span><b>Todavía no hay jugadores en la Bolsa</b></div>`}
@@ -12019,7 +12108,7 @@ function bxOpen(id){const p=bxGet(id);if(!p)return;let pr=bxPrice(p);const hd=bx
   $('#bxQ').oninput=upd;$('#mbox .amt').onclick=e=>{const b=e.target.closest('[data-bq]');if(!b)return;$('#bxQ').value=b.dataset.bq==='max'?Math.max(1,Math.min(BX_MAX-hd.q,Math.floor(S.coins/pr))):b.dataset.bq;upd()};
   $('#bxX').onclick=()=>$('#modal').hidden=true;
   const fresh=()=>{const p2=bxGet(id),np=p2?bxPrice(p2):pr;if(np!==pr){pr=np;upd();const b=$('#mbox .bx-big');if(b)b.firstChild.textContent=fmt(pr)+' € ';err('El precio acaba de cambiar a '+fmt(pr)+' €. Revisa el importe y pulsa otra vez.');return false}return true};
-  $('#bxBuy').onclick=()=>{if(!fresh())return;const n=q();if(n<1)return err('Pon cuántas acciones quieres.');if(hd.q+n>BX_MAX)return err('Como mucho '+fmt(BX_MAX)+' acciones de cada jugador.');const cost=n*pr;if(!take(cost))return err('No tienes tanto dinero.');
+  $('#bxBuy').onclick=()=>{if(!fresh())return;const n=q();if(n<1)return err('Pon cuántas acciones quieres.');if(hd.q+n>BX_MAX)return err('Como mucho '+fmt(BX_MAX)+' acciones de cada jugador (igual para todos, también para los ricos).');const cost=n*pr;if(!take(cost))return err('No tienes tanto dinero.');
     const H=bxHold(),o=H[id]||{q:0,avg:0};H[id]={q:o.q+n,avg:(o.q*o.avg+cost)/(o.q+n),n:p.name,last:pr};S.bxBuys=(S.bxBuys||0)+1;save();NET.lastP='';pushPlayer();sfx('buy');confetti(60);toast('Acciones compradas',fmt(n)+' de '+p.name+' · −'+short(cost)+' €','var(--mint)','📈');$('#modal').hidden=true;renderBolsa()};
   const sb=$('#bxSell');if(sb)sb.onclick=()=>{if(!fresh())return;const n=Math.min(q(),hd.q);if(n<1)return err('Pon cuántas acciones quieres vender.');const get=Math.floor(n*pr*(1-BX_FEE)),H=bxHold();
     S.bxReal=(S.bxReal||0)+(get-n*hd.avg);if(get>n*hd.avg)S.bxWon=(S.bxWon||0)+(get-n*hd.avg);H[id].q-=n;if(H[id].q<=0)delete H[id];S.coins+=get;save();NET.lastP='';pushPlayer();sfx('win');toast('Acciones vendidas','+'+short(get)+' €','var(--sun)','💸');$('#modal').hidden=true;renderBolsa()}}
@@ -16066,6 +16155,11 @@ try{i18nAdd([['Top 5: todo es habilidad','Top 5: it’s all skill','Top 5 : tout
 try{i18nAdd([['El Buzón ahora va por tickets','The Mailbox now uses tickets','La Boîte passe aux tickets','A Caixa agora funciona por tickets'],['Abre un ticket y habla con el jefe','Open a ticket and talk to the boss','Ouvre un ticket et parle au boss','Abre um ticket e fala com o chefe'],['En el Buzón eliges qué es (fallo, idea u otra cosa), lo cuentas y puedes añadir una captura. Se abre un chat privado con el jefe. Hasta que te lo cierren no puedes abrir otro, pero puedes pedir que te lo cierren.','In the Mailbox choose what it is (bug, idea or other), explain it and add a screenshot if you want. A private chat with the boss opens. You can’t open another until it’s closed, but you can ask to close it.','Dans la Boîte choisis le type (bug, idée ou autre), explique et ajoute une capture si tu veux. Un chat privé avec le boss s’ouvre. Tu ne peux pas en ouvrir un autre avant qu’il soit fermé, mais tu peux demander sa fermeture.','Na Caixa escolhes o que é (erro, ideia ou outra coisa), explicas e podes juntar uma captura. Abre-se um chat privado com o chefe. Até o fecharem não podes abrir outro, mas podes pedir que o fechem.'],['Top 5 sin premios que engañan','Top 5 without misleading prizes','Top 5 sans prix trompeurs','Top 5 sem prémios enganadores'],['Si estás en el top 5 ya no ves cantidades de premios que luego no se cobran (premio diario, regalo sorpresa, lluvia, misiones).','If you’re in the top 5 you no longer see prize amounts you won’t get (daily prize, surprise gift, rain, missions).','Si tu es dans le top 5, tu ne vois plus des montants de prix que tu ne touches pas (prix quotidien, cadeau surprise, pluie, missions).','Se estás no top 5 já não vês valores de prémios que não recebes (prémio diário, prenda surpresa, chuva, missões).']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Cómo hablo con el jefe?'))FAQ.unshift(['¿Cómo hablo con el jefe?','En Ayuda › Buzón eliges qué es (fallo, idea u otra cosa), lo cuentas y pulsas «Abrir ticket». Puedes añadir una captura. Se abre un chat privado con el jefe donde te contesta. Mientras tengas un ticket abierto no puedes abrir otro; si ya está resuelto, pulsa «Pedir que lo cierren».'])}catch(e){}
 try{i18nAdd([['Top 5: todo vuelve, pero al 5 %','Top 5: everything is back, at 5%','Top 5 : tout revient, mais à 5 %','Top 5: tudo volta, mas a 5 %'],['El top 5 vuelve a coger premios','The top 5 can collect prizes again','Le top 5 peut de nouveau récupérer des prix','O top 5 volta a apanhar prémios'],['Si estás entre los 5 más ricos, vuelves a poder girar ruletas, pulsar el botón rojo y recoger regalos y misiones, pero solo te llevas un 5 % de lo normal. En la ruleta ya sale la cifra que te llevas.','If you’re among the 5 richest, you can spin wheels, press the red button and collect gifts and missions again, but you only get 5% of normal. The wheel already shows what you get.','Si tu es parmi les 5 plus riches, tu peux de nouveau tourner les roues, appuyer sur le bouton rouge et récupérer cadeaux et missions, mais tu ne touches que 5 % du normal. La roue affiche déjà ce que tu touches.','Se estás entre os 5 mais ricos, voltas a poder rodar roletas, carregar no botão vermelho e apanhar prendas e missões, mas só levas 5 % do normal. A roleta já mostra o que levas.']])}catch(e){}
+try{i18nAdd([['Títulos y perfil','Titles and profile','Titres et profil','Títulos e perfil'],['Títulos rehechos y únicos','Titles remade and unique','Titres refaits et uniques','Títulos refeitos e únicos'],['Más de 80 títulos, cada uno con su diseño, color y animación, sin dos iguales. Algunos han cambiado de nombre para que no se pisen (Veterano → Habitual, Leyenda → Fenómeno…).','Over 80 titles, each with its own design, colour and animation, no two alike. Some were renamed so they don’t overlap.','Plus de 80 titres, chacun avec son design, sa couleur et son animation, aucun pareil. Certains ont changé de nom pour ne pas se marcher dessus.','Mais de 80 títulos, cada um com o seu design, cor e animação, nenhum igual. Alguns mudaram de nome para não se repetirem.'],['Rareza y dónde se consigue','Rarity and how to get it','Rareté et comment l’obtenir','Raridade e onde se consegue'],['Cada título tiene rareza: Común, Raro, Épico, Legendario, Hasbiri, Hasbirinino, Cósmico o Exclusivo. En Personalizar ves todos, los que te faltan y cómo conseguir cada uno.','Each title has a rarity: Common, Rare, Epic, Legendary, Hasbiri, Hasbirinino, Cosmic or Exclusive. In Customise you see them all, the ones you’re missing and how to get each one.','Chaque titre a une rareté : Commun, Rare, Épique, Légendaire, Hasbiri, Hasbirinino, Cosmique ou Exclusif. Dans Personnaliser tu les vois tous, ceux qui te manquent et comment les obtenir.','Cada título tem raridade: Comum, Raro, Épico, Lendário, Hasbiri, Hasbirinino, Cósmico ou Exclusivo. Em Personalizar vês todos, os que te faltam e como conseguir cada um.'],['Tu liga y tu mejor racha en el perfil','Your league and best streak on your profile','Ta ligue et ta meilleure série sur le profil','A tua liga e a melhor sequência no perfil'],['Tu liga de la semana sale junto a tu nombre, y en el perfil ves tu racha diaria y tu mejor racha de siempre.','Your weekly league shows next to your name, and your profile shows your daily streak and your best ever.','Ta ligue de la semaine s’affiche à côté de ton nom, et ton profil montre ta série quotidienne et ta meilleure série.','A tua liga da semana aparece ao lado do nome, e no perfil vês a sequência diária e a melhor de sempre.'],['Tus multiplicadores','Your multipliers','Tes multiplicateurs','Os teus multiplicadores'],['En Personalizar ves qué te hace ganar más ahora (evento, Renacer, racha, Fábrica) y cuánto suman juntos. Se multiplican entre ellos, no se suman.','In Customise you see what boosts your winnings right now (event, Rebirth, streak, Factory) and the total. They multiply, they don’t add up.','Dans Personnaliser tu vois ce qui te fait gagner plus maintenant (événement, Renaissance, série, Usine) et le total. Ils se multiplient, ils ne s’additionnent pas.','Em Personalizar vês o que te faz ganhar mais agora (evento, Renascer, sequência, Fábrica) e o total. Multiplicam-se, não se somam.'],['Aviso de Google','Google warning','Alerte Google','Aviso do Google'],['Si conectas una cuenta de Google que ya tiene otra partida, ahora te avisa antes de cambiarte y puedes quedarte con la de ahora.','If you connect a Google account that already has another game, it now warns you before switching and you can keep the current one.','Si tu connectes un compte Google qui a déjà une autre partie, il te prévient avant de changer et tu peux garder l’actuelle.','Se ligares uma conta Google que já tem outro jogo, agora avisa antes de mudar e podes ficar com o atual.'],['Bolsa: el límite, igual para todos','Stock market: same limit for everyone','Bourse : la même limite pour tous','Bolsa: o mesmo limite para todos'],['Como mucho 10.000 acciones de cada jugador, también si eres rico. Así nadie puede inflar a un amigo para hacerse rico.','At most 10,000 shares per player, even if you’re rich. That way nobody can pump a friend to get rich.','10 000 actions maximum par joueur, même si tu es riche. Personne ne peut gonfler un ami pour s’enrichir.','No máximo 10.000 ações de cada jogador, também se fores rico. Assim ninguém pode inflacionar um amigo para enriquecer.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Cómo consigo más títulos?'))FAQ.unshift(['¿Cómo consigo más títulos?','En Personalizar (toca tu cara, arriba del todo), en «Título», salen todos con su rareza y debajo pone dónde se consigue cada uno: subiendo de nivel, llegando a cierto dinero, comprando objetos de la Tienda, en la Torre, renaciendo, en eventos… Pulsa «Me faltan» para ver solo los que no tienes.'])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Los multiplicadores se suman?'))FAQ.unshift(['¿Los multiplicadores se suman?','No, se multiplican. Un evento ×2 con 3 estrellas de Renacer (+30 %) da ×2 × 1,3 = ×2,6. En Personalizar › Tus multiplicadores ves los que tienes ahora y el total.'])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Por qué en la Bolsa no puedo comprar más de 10.000 acciones?'))FAQ.unshift(['¿Por qué en la Bolsa no puedo comprar más de 10.000 acciones?','El límite es igual para todos, también para los ricos, para que nadie pueda inflar a un amigo y hacerse rico con la Bolsa. Para jugar fuerte están la Torre, las Locuras y el Renacer.'])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='Al conectar Google me dice que esa cuenta ya tiene una partida'))FAQ.unshift(['Al conectar Google me dice que esa cuenta ya tiene una partida','Cada cuenta de Google solo puede tener una partida. Si entras, juegas con la de esa cuenta y la de ahora (sin cuenta) se pierde. Si quieres guardar la de ahora, pulsa «Quedarme aquí» y conéctala con otra cuenta de Google o con usuario y contraseña.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
@@ -16351,12 +16445,12 @@ document.addEventListener('click',e=>{const t=e.target.closest('#tqCard [data-nw
 function nwBadges(){try{const seen=S.nwV||{};[['rico','tq'],['casino','lz']].forEach(([v,k])=>{const b=document.querySelector('.nb[data-v="'+v+'"]');if(!b)return;let s=b.querySelector('.nwb');if(seen[k]){if(s)s.remove();return}if(!s){s=document.createElement('span');s.className='nwb';s.textContent='NUEVO';b.appendChild(s)}})}catch(e){}}
 {const _goNW=go;go=function(v){const r=_goNW.apply(this,arguments);try{const k={rico:'tq',casino:'lz'}[v];if(k&&ageGet&&(v!=='casino'||ageGet())){S.nwV={...(S.nwV||{}),[k]:1};save();nwBadges()}}catch(e){}return r}}
 /* el escaparate de novedades: sale una vez al entrar con la versión nueva */
-const NW_ID='u4';
-const NW_S=[['👑','La Torre de Casinetori','Solo hay <b>UNA</b> para todo el juego. Quítasela al que la tiene pagando <b>el doble</b>. El que más tiempo la tenga en la semana gana el <b>trofeo</b>.','tq','⚔️ Ver la Torre','#ffd600'],
-  ['🔥','Locuras','Una apuesta <b>enorme</b> de una sola tirada: elige cuánto te juegas (hasta <b>TODO</b>) y a qué multiplicador, de ×2 a <b>×1.000</b>.','lz','🔥 Probar una Locura','#ff6b4a'],
-  ['💀','El Bote de los Caídos','El 10 % de lo que se pierde en Locuras va a un bote. <b>Cada lunes</b> se sortea entre los que han perdido alguna.','bc','💀 Ver el Bote','#14e08a'],
-  ['⭐','Renacer','Cuando seas muy rico, empieza de cero y gana una <b>estrella para siempre</b>: +10 % de dinero. Hay <b>10 distintas</b>.','rn','⭐ Ver el Renacer','#b48cff'],
-  ['🏅','Top 5: solo habilidad','Si estás entre los <b>5 más ricos</b>, se acabó el dinero gratis. Solo ganas en el Casino, los juegos y la Fábrica.','','👍 Entendido','#7fd3ff']];
+const NW_ID='u5';
+const NW_S=[['🏷️','Títulos nuevos y únicos','Más de <b>80 títulos</b>, cada uno con <b>su diseño, su color y su animación</b>. Tienen <b>rareza</b> (de Común a Cósmico) y debajo pone <b>dónde se consigue</b> cada uno.','ti','🏷️ Ver mis títulos','#ff4fd8'],
+  ['🏅','Tu liga junto al nombre','Tu <b>liga de la semana</b> sale ahora al lado de tu nombre: en tu perfil, en la Clasificación y cuando otros te miran.','pf','👀 Ver mi perfil','#7fe7ff'],
+  ['🔥','Tu mejor racha','En tu perfil sale tu <b>racha</b> del premio diario y tu <b>mejor racha</b> de siempre. ¡A batirla!','pf','🔥 Ver mi racha','#ff6b4a'],
+  ['⚡','Tus multiplicadores','Mira qué te hace ganar más ahora mismo: evento, Renacer, racha y Fábrica. <b>Se multiplican</b> entre ellos, no se suman.','mul','⚡ Ver mis multiplicadores','#14e08a'],
+  ['🔐','Google, más claro','Si entras con una cuenta de Google que ya tiene <b>otra partida</b>, ahora te avisa <b>antes</b> de cambiarte, para que no pierdas la de ahora.','','👍 Entendido','#ffd600']];
 let NWI=0;
 function nwShow(){if($('#nwShow'))return;NWI=0;const d=document.createElement('div');d.id='nwShow';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');document.body.appendChild(d);nwDraw();sfx('upd')}
 function nwDraw(){const d=$('#nwShow');if(!d)return;const s=NW_S[NWI],last=NWI===NW_S.length-1;
@@ -16560,6 +16654,140 @@ function rainSkip(L){try{if(RAINP.off)return true;const mob=rainMob();
 document.addEventListener('click',e=>{const b=e.target.closest('[data-raintg]');if(!b)return;e.stopPropagation();RAINP.off=!RAINP.off;sfx('click');
   if(RAINP.off){const L=$('#rainL');if(L)L.querySelectorAll('.frcoin').forEach(c=>c.remove());toast('Lluvia pausada','Pulsa «Seguir lloviendo» cuando quieras','var(--mint)','⏸️')}try{evRender()}catch(_){}});
 try{i18nAdd([['⏸️ Pausar lluvia','⏸️ Pause rain','⏸️ Mettre la pluie en pause','⏸️ Pausar chuva'],['▶️ Seguir lloviendo','▶️ Keep raining','▶️ Reprendre la pluie','▶️ Continuar a chover'],['Lluvia pausada','Rain paused','Pluie en pause','Chuva pausada'],['Pulsa «Seguir lloviendo» cuando quieras','Tap “Keep raining” whenever you want','Touche « Reprendre la pluie » quand tu veux','Toca «Continuar a chover» quando quiseres']])}catch(e){}
+
+/* ===== Actualización 5: títulos únicos con rareza y diseño propio, liga y mejor racha en el perfil, multiplicadores, aviso de Google ===== */
+const TR_N={c:'Común',r:'Raro',e:'Épico',l:'Legendario',m:'Hasbiri',x:'Hasbirinino',z:'Cósmico',X:'Exclusivo',J:'Del jefe'};
+const TR_O='crelmxzXJ';
+/* [id, icono, nombre, rareza, cómo se consigue, nombres antiguos] */
+const TI_SPEC=[
+ ['novato','🐣','Aspirante','c','Lo tienes desde el principio'],['viciado','🎲','Habitual','c','',['Veterano']],['habitual','⚡','Crack','r',''],['tiburon','🦈','Tiburón','r',''],
+ ['leyenda','🌟','Fenómeno','e','',['Leyenda']],['dios','🔱','Inmortal','l',''],
+ ['wmil','💵','Millonario','r',''],['wmmil','💰','Billonario','e',''],['wbil','🏦','Trillonario','l',''],['wcbil','💸','Megatrillonario','m',''],['wmbil','🤑','Cuatrillonario','x',''],['wtril','💠','Quintillonario','z',''],
+ ['ptviciado','🏅','Viciado/a','r','Juega 24 horas en total y abre su cofre en Inicio'],['ptveterano','💯','Veterano/a','e','Juega 100 horas en total y abre su cofre en Inicio'],
+ ['vault','🏛️','Coleccionista legendario','m','Completa todas las colecciones de la Bóveda (Tienda)'],['champ','🏆','Campeón del mes','x','Queda 1.º de una temporada (un mes entero) en la Clasificación',['🏆 Campeón del mes']],
+ ['tqking','🗼','Señor/a de la Torre','z','Ten la Torre de Casinetori más tiempo que nadie en una semana',['👑 Señor/a de la Torre']],
+ ['rn1','🥉','Renacido/a Bronce','e','Renace 1 vez',['🥉 Renacido/a Bronce']],['rn2','🥈','Renacido/a Plata','e','Renace 2 veces',['🥈 Renacido/a Plata']],['rn3','🥇','Renacido/a Oro','l','Renace 3 veces',['🥇 Renacido/a Oro']],
+ ['rn4','❤️‍🔥','Renacido/a Rubí','l','Renace 4 veces',['❤️‍🔥 Renacido/a Rubí']],['rn5','💚','Renacido/a Esmeralda','m','Renace 5 veces',['💚 Renacido/a Esmeralda']],['rn6','💙','Renacido/a Zafiro','m','Renace 6 veces',['💙 Renacido/a Zafiro']],
+ ['rn7','💜','Renacido/a Amatista','x','Renace 7 veces',['💜 Renacido/a Amatista']],['rn8','💎','Renacido/a Diamante','x','Renace 8 veces',['💎 Renacido/a Diamante']],['rn9','🌌','Renacido/a Cósmica','z','Renace 9 veces',['🌌 Renacido/a Cósmica']],['rn10','♾️','Renacido/a Infinita','z','Renace las 10 veces',['♾️ Renacido/a Infinita']],
+ ['hw26caza','👻','Cazafantasmas 2026','e','Halloween 2026 · ya no se puede conseguir'],['hw26lord','🦇','Señor de la Noche 2026','l','Halloween 2026 · ya no se puede conseguir',['🦇 Señor de la Noche 2026']],
+ ['hw26king','🎃','Rey Calabaza 2026','x','1.º en caramelos de Halloween 2026 · ya no se puede conseguir',['👑 Rey Calabaza 2026']],['hw26prin','🍬','Príncipe Calabaza 2026','m','2.º en caramelos de Halloween 2026 · ya no se puede conseguir',['🥈 Príncipe Calabaza 2026']],
+ ['hw26duq','🕯️','Duque Calabaza 2026','l','3.º en caramelos de Halloween 2026 · ya no se puede conseguir',['🥉 Duque Calabaza 2026']],
+ ['xcine','🎬','Estrella de Cine','X','Sale en la ruleta del Gran Premio de Cine',['🎬 Estrella de Cine']],['xog','🧢','OG','X','De los primeros jugadores que guardaron su partida con Google'],['xvip','🥂','VIP','X','De los primeros jugadores que guardaron su partida con Google'],
+ ['xfund','🗝️','Fundador','X','Solo lo da el jefe'],['xbug','🐞','Cazabugs','X','Por avisar al jefe de fallos de verdad en el Buzón'],['xjefe','🤝','Mano derecha del jefe','X','Solo lo da el jefe'],['xley','📜','Leyenda de Casinetori','X','Solo lo da el jefe'],
+ ['xadm','🛡️','Moderador','X','Solo para los moderadores del juego',['🛡️ Moderador']],['xofi','✅','Oficial ✔','X','La cuenta oficial del juego']];
+/* objetos de la Tienda: [nombre del objeto, título nuevo] (los que no salen se quedan como estaban) */
+const TI_ITREN={'Megayate':'Lobo de mar','Isla privada':'Náufrago de lujo','Equipo de la NBA':'Mandamás de la NBA','Jirafa de mascota':'Domador de jirafas','Peli de Hollywood':'Productor de Hollywood',
+ 'Cuadro famoso':'Galerista','Casino en Las Vegas':'Capo de Las Vegas','Unicornio de verdad':'Jinete de unicornios','La Luna':'Propietario lunar','El Sol':'Guardián del Sol',
+ 'Sistema solar entero':'Arquitecto solar','La Vía Láctea':'Soberano de la Vía Láctea','El Multiverso':'Amo del multiverso'};
+const TI={by:new Map(),list:[],alias:[]};
+function tiBuild(){TI.by.clear();TI.list=[];TI.alias=[];const add=(d,olds)=>{TI.by.set(d.id,d);TI.list.push(d);[d.n,d.ic+' '+d.n,...(olds||[])].forEach(s=>TI.alias.push([s,d.id]))};
+  const sp=new Map(TI_SPEC.map(x=>[x[0],x]));
+  COS.ti.forEach(x=>{if(x[0]==='none')return;const s=sp.get(x[0]);const old=x[1];let d;
+    if(s){if(x[1]!==s[2])x[1]=s[2];d={id:x[0],ic:s[1],n:s[2],r:s[3],how:s[4],k:x[4]||'l',x}}
+    else{const m=String(x[1]).match(/^(\p{Extended_Pictographic}[️‍\p{Extended_Pictographic}]*)\s+(.+)$/u);d={id:x[0],ic:m?m[1]:'🏷️',n:m?m[2]:String(x[1]),r:x[4]==='x'?'X':'e',how:'',k:x[4]||'l',x};if(m)x[1]=d.n}
+    if(d.k==='l'&&!d.how)d.how='Llega al nivel '+x[2];if(d.k==='w')d.how='Ten '+(x[5]||short(x[2]))+' € alguna vez (aunque luego gastes, no se pierde)';
+    add(d,[old,...(s&&s[5]||[])])});
+  P.forEach((p,i)=>{const nm=p[1],old=ITEM_TITLES[nm];if(!old)return;const nn=TI_ITREN[nm]||old;if(ITEM_TITLES[nm]!==nn)ITEM_TITLES[nm]=nn;
+    add({id:'i:'+nm,ic:p[0],n:nn,r:rarity(p[2])[0],how:'Compra «'+nm+'» en la Tienda',k:'i',it:i},[old])});
+  add({id:'k',ic:'👑',n:'Rey de Casinetori',r:'X',how:'Siéntate en el trono de Casinetori',k:'k'},['👑 Rey de Casinetori']);
+  /* cada título, su color: ángulo de oro para que no se repita ninguno */
+  TI.list.forEach((d,i)=>{d.h=Math.round((i*137.508+18)%360);d.h2=Math.round((d.h+28+(i*53)%80)%360);d.fx=i%6;d.d=(2.4+((i*7)%9)*.32).toFixed(2)});
+  TI.alias.sort((a,b)=>b[0].length-a[0].length)}
+tiBuild();
+/* el título que llevo puesto (id) */
+function myTid(){try{if(typeof amKing==='function'&&amKing())return'k';const t=String(myCos().ti||'none');if(t==='none')return'';if(t.startsWith('jefe:'))return'j';if(t.startsWith('it:')){const p=P[+t.slice(3)];return p&&S.owned[+t.slice(3)]?'i:'+p[1]:''}return t}catch(e){return''}}
+const tiStarSet=()=>RN_ST.map(s=>s[0]);
+function tiSplit(txt){let t=String(txt||'').trim(),st='';const S_=tiStarSet();let go=true;while(go){go=false;for(const e of S_)if(t.startsWith(e)){st+=e;t=t.slice(e.length);go=true;break}}return[st,t.trim()]}
+function tiHash(s){let h=7;for(const c of String(s))h=(h*31+c.codePointAt(0))>>>0;return h}
+/* de un jugador (o de mí) saca: estrellas, definición del título y texto */
+function tiOf(p){if(!p)return null;const me=!!p.me||p===S||(NET.id&&p.id===NET.id);let txt=String((me?tiText():p.ti)||'').trim();if(!txt)return null;
+  const id=me?myTid():(p.tid||'');const onlyStars=r=>{const[st,t]=tiSplit(r);return t===''};let d=null,st='';
+  if(id&&id!=='j'){d=TI.by.get(id)||null;if(d){const a=(txt.endsWith(d.n)&&onlyStars(txt.slice(0,-d.n.length)))?[d.n]:TI.alias.find(a=>a[1]===d.id&&txt.endsWith(a[0])&&onlyStars(txt.slice(0,-a[0].length)));if(a)st=txt.slice(0,-a[0].length).trim();else st=tiSplit(txt)[0]}}
+  if(!d&&id!=='j'){const a=TI.alias.find(a=>txt.endsWith(a[0])&&onlyStars(txt.slice(0,-a[0].length)));if(a){d=TI.by.get(a[1]);st=txt.slice(0,-a[0].length).trim()}}
+  if(!d){const[s0,t]=tiSplit(txt);st=s0;if(t){const h=tiHash(t)%360;d={id:'?',ic:id==='j'?'✍️':'🏷️',n:t,r:id==='j'?'J':'c',h,h2:(h+40)%360,fx:tiHash(t)%6,d:'3.1',how:''}}}
+  return{st,d}}
+function tiOfOLD(p){if(!p)return null;const me=!!p.me||p===S||(NET.id&&p.id===NET.id);let txt=me?tiText():p.ti;if(!txt)return null;const[st,t]=tiSplit(txt);
+  let id=me?myTid():(p.tid||'');let d=id&&id!=='j'?TI.by.get(id):null;
+  if(!d&&t&&id!=='j'){const a=TI.alias.find(a=>a[0]===t);if(a)d=TI.by.get(a[1])}
+  if(!d&&t){const h=tiHash(t)%360;d={id:'?',ic:id==='j'?'✍️':'🏷️',n:t,r:id==='j'?'J':'c',h,h2:(h+40)%360,fx:tiHash(t)%6,d:'3.1',how:''}}
+  return{st,d}}
+function tiChipD(d,st,mode){if(!d)return st?`<span class="tic tic0${mode==='b'?' big':''}"><i>${st}</i></span>`:'';const an=mode!=='s'||'elmxzXJ'.includes(d.r);
+  return`<span class="tic tr-${d.r}${mode==='b'?' big':''}${an?' an':''}" data-fx="${d.fx}" style="--h:${d.h};--h2:${d.h2};--d:${d.d}s" title="${esc(d.n+' · '+(TR_N[d.r]||''))}">${st?`<i>${st}</i>`:''}<b>${d.ic}</b><span>${esc(d.n)}</span></span>`}
+function tiChip(p,mode){try{const r=tiOf(p);if(!r)return'';return tiChipD(r.d,r.st,mode)}catch(e){return p&&p.ti?`<em class="tt">${esc(p.ti)}</em>`:''}}
+
+/* ---- liga del jugador (bonita, junto al nombre) ---- */
+function lgOfP(p){try{const me=!!p.me||(NET.id&&p.id===NET.id);if(me){if(!S.name||(NET.isAnon&&!ADM.on))return null;return S.lg||0}if(!p||p.acc==='a')return null;if(p.lg==null&&!p.wk)return null;return Math.max(0,Math.min(LG.length-1,+p.lg||0))}catch(e){return null}}
+function lgPill(p){const i=lgOfP(p);if(i==null)return'';const L=LG[i];return`<span class="lgpill lgp${i}" style="--lc:${L[2]}" title="Liga semanal"><i>${L[1]}</i>Liga ${esc(L[0])}</span>`}
+function tiRow(p,big){const a=lgPill(p),b=tiChip(p,big?'b':'b');return a||b?`<div class="ticrow">${a}${b}</div>`:''}
+
+/* ---- mejor racha (premio diario) ---- */
+function strkNow(){try{return dailyInfo().streak||0}catch(e){return 0}}
+function strkBest(){const n=strkNow();let b=Math.max(+S.strkB||0,n);try{const ix=ACH.findIndex(a=>a[1]==='Racha de hierro'),iy=ACH.findIndex(a=>a[1]==='Fiel');if(ix>=0&&(S.ach||[]).includes(ix))b=Math.max(b,30);else if(iy>=0&&(S.ach||[]).includes(iy))b=Math.max(b,7)}catch(e){}if(b!==(+S.strkB||0)){S.strkB=b;try{save()}catch(e){}}return b}
+setInterval(()=>{try{strkBest()}catch(e){}},15000);setTimeout(()=>{try{strkBest()}catch(e){}},3000);
+{const _pxA5=pubX;pubX=function(){const x=_pxA5.apply(this,arguments);try{x.tid=myTid();x.sb=strkBest()}catch(e){}return x}}
+const stkTxt=n=>n===1?'1 día':fmt(n)+' días';
+
+/* ---- en el perfil de otro (o el tuyo): liga junto al nombre y la racha en las estadísticas ---- */
+{const _opA5=openPlayer;openPlayer=function(id){const r=_opA5.apply(this,arguments);try{const me=id===NET.id||id==='me',p=me?{me:true}:{...(NET.players.get(id)||{}),id};const st=document.querySelector('#mbox .pp-stats');
+  if(st&&!st.querySelector('.ppstk')){const now=me?strkNow():(+p.strk||0),best=me?strkBest():Math.max(+p.sb||0,now);
+    st.insertAdjacentHTML('afterbegin',`<div class="pp-stat ppstk"><small><span class="ic2 emo">🔥</span>Racha diaria</small><b>${stkTxt(now)}</b></div><div class="pp-stat ppstk best"><small><span class="ic2 emo">🏅</span>Mejor racha</small><b>${stkTxt(best)}</b></div>`)}}catch(e){}return r}}
+
+/* ---- tarjeta de Clasificación (#meCard): título nuevo y liga ---- */
+{const _rmA5=renderMe;renderMe=function(){const r=_rmA5.apply(this,arguments);try{const el=$('#rkTitle');if(el){el.classList.remove('ptitle','xtt','xofit');el.classList.add('ticrow');delete el.dataset.xt;const h=lgPill({me:true})+tiChip({me:true},'b');if(el._h!==h||!el.querySelector('.tic,.lgpill')){el._h=h;el.innerHTML=h}el.hidden=!h}}catch(e){}return r}}
+
+/* ---- Personalizar: catálogo de títulos con rareza y dónde se consigue ---- */
+let tiFil='all';
+function tiLocked(d){const x=d.x,L=S.lvl;if(d.k==='i')return!S.owned[d.it];if(!x)return true;if(x[4]==='x')return!hasExc('ti',x[0]);if(x[4]==='s')return!(S.cosOwn||[]).includes('ti:'+x[0]);if(x[4]==='w')return(window.peakW?peakW():0)<x[2];return L<x[2]}
+function tiVal(d){return d.k==='i'?'it:'+d.it:d.id}
+function tiCatHTML(){const c=myCos(),cur=myTid();const all=TI.list.filter(d=>d.id!=='k'&&d.id!=='xofi'&&!(d.id==='xadm'&&tiLocked(d)));
+  const rows=all.map(d=>({d,lk:tiLocked(d)}));const have=rows.filter(r=>!r.lk).length;
+  const shown=rows.filter(r=>tiFil==='all'||(tiFil==='have'?!r.lk:r.lk)).sort((a,b)=>(a.lk-b.lk)||(TR_O.indexOf(a.d.r)-TR_O.indexOf(b.d.r)));
+  return`<div class="tihd"><div class="tiprog"><b>${have}</b> de <b>${all.length}</b> títulos<i style="width:${Math.round(have/all.length*100)}%"></i></div>
+   <div class="tifil">${[['all','Todos'],['have','Los tengo'],['miss','Me faltan']].map(([k,l])=>`<button class="${tiFil===k?'on':''}" data-tifil="${k}">${l}</button>`).join('')}</div></div>
+   <div class="ticat"><button class="tcard tnone" data-set="ti" data-val="none" aria-pressed="${!cur}"><span class="tcn">Sin título</span><small>No llevar ninguno</small></button>
+   ${shown.map(({d,lk})=>`<button class="tcard tc-${d.r}" data-set="ti" data-val="${esc(tiVal(d))}" aria-pressed="${cur===d.id}" ${lk?'disabled':''}>${tiChipD(d,'','c')}<span class="tcr">${TR_N[d.r]}</span><small>${lk?'🔒 ':'✅ '}${esc(d.how||'')}</small>${cur===d.id?'<span class="tcon">Lo llevas puesto</span>':''}</button>`).join('')}</div>`}
+{const _rpA5=renderPerfil;renderPerfil=function(){const r=_rpA5.apply(this,arguments);try{const body=$('#pfBody');if(!body)return r;
+  /* cabecera: liga + título nuevo + racha */
+  const hd=body.querySelector('.mecard .mtext');if(hd){const old=hd.querySelector('.ptitle');const row=document.createElement('div');row.innerHTML=tiRow({me:true},true)||'';const nr=row.firstElementChild;if(old)old.replaceWith(...(nr?[nr]:[]));else if(nr)hd.querySelector('h2').after(nr);
+    if(!hd.querySelector('.pfstk')){const n=strkNow(),b=strkBest();hd.insertAdjacentHTML('beforeend',`<div class="pfstk"><span>🔥 Racha <b>${stkTxt(n)}</b></span><span>🏅 Mejor racha <b>${stkTxt(b)}</b></span></div>`)}}
+  const sec=[...body.querySelectorAll('.pfsec')].find(s=>{const h=s.querySelector('h3');return h&&h.textContent.trim()==='Título'});
+  if(sec){sec.id='tiCat';const p=sec.querySelector('p');if(p)p.innerHTML='Cada título tiene <b>su propio diseño</b> y una <b>rareza</b>: Común, Raro, Épico, Legendario, Hasbiri, Hasbirinino, Cósmico y Exclusivo. Debajo de cada uno pone <b>dónde se consigue</b>. Los que ya tienes no se pierden.';
+    const o=sec.querySelector('.opts');if(o){o.outerHTML=`<div id="tiCatB">${tiCatHTML()}</div>`}}
+  /* multiplicadores */
+  if(!body.querySelector('#mulSec')){const acc=[...body.querySelectorAll('.pfsec')].find(s=>{const h=s.querySelector('h3');return h&&h.textContent.trim()==='Cuenta'});const h=`<div class="pfsec" id="mulSec">${mulHTML()}</div>`;if(acc)acc.insertAdjacentHTML('beforebegin',h);else body.insertAdjacentHTML('beforeend',h)}}catch(e){console.warn(e)}return r}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-tifil]');if(!b)return;sfx('click');tiFil=b.dataset.tifil;const w=$('#tiCatB');if(w)w.innerHTML=tiCatHTML()});
+
+/* ---- tus multiplicadores: qué tienes ahora y cómo se juntan ---- */
+function mulHTML(){const ev=evMult(),rn=(typeof rnN==='function'?rnN():0),rm=1+.1*rn,pm=(typeof ptMul==='function'?ptMul():1),fm=(typeof fabMulNow==='function'?fabMulNow():1),t5=(typeof isTop5==='function'&&isTop5());
+  const nf=x=>x.toLocaleString('es-ES',{maximumFractionDigits:2});const tot=ev*rm;
+  const row=(e,n,v,on,w)=>`<div class="mulr ${on?'on':''}"><span class="emo">${e}</span><div><b>${n}</b><small>${w}</small></div><em>${v}</em></div>`;
+  return`<h3>Tus multiplicadores</h3><p>Lo que hace que ganes más. <b>No se suman: se multiplican</b> entre ellos. Ejemplo: un evento ×2 con 3 estrellas de Renacer (+30 %) da ×2 × 1,3 = <b>×2,6</b>.</p>
+   <div class="mulbox">${row('🎉','Evento',ev>1?'×'+nf(ev):'—',ev>1,'Cuando el jefe pone un evento. Vale para todo lo que ganas. En el casino, solo para lo que ganas por encima de la apuesta.')}
+   ${row('⭐','Renacer',rn?'+'+rn*10+' %':'—',rn>0,'+10 % por cada estrella. Vale para premios, juegos y Fábrica (no para el casino).')}
+   ${row('🔥','Racha de cofres',pm>1?'+'+Math.round((pm-1)*100)+' %':'—',pm>1,'Si juegas 30 min al día, días seguidos. Solo para los cofres por jugar de Inicio.')}
+   ${row('🏭','Fábrica',fm>1?'×'+nf(fm):'—',fm>1,'Mejoras y turbos de la Fábrica. Solo para la Fábrica.')}
+   ${t5?row('👑','Top 5','5 %',true,'Estás entre los 5 más ricos: de lo gratis (ruletas, regalos, misiones…) te llevas el 5 %. Casino, juegos y Fábrica, enteros.'):''}
+   <div class="multot"><span>Ahora mismo, en premios y juegos</span><b>×${nf(tot)}</b><small>Si ganas 1.000 € te llevas ${fmt(Math.floor(1000*tot))} €${t5?' (lo gratis, al 5 %)':''}</small></div></div>`}
+
+/* ---- Google: aviso claro si esa cuenta ya tiene otra partida ---- */
+const A5={gOk:false};
+function gAsk(yes,no){const mb=$('#mbox');$('#modal').hidden=false;mb.classList.remove('wide');
+  mb.innerHTML=`<div class="gask"><span class="emo gak">⚠️</span><h2>Esa cuenta de Google ya tiene una partida</h2>
+   <p>Cada cuenta de Google solo puede tener <b>una</b> partida de Casinetori, y esa ya la tiene.</p>
+   <div class="gacmp"><div><small>Si entras, juegas con</small><b>🔐 La partida de esa cuenta de Google</b></div><div class="lose"><small>Y se pierde la de ahora (sin cuenta)</small><b>${esc(S.name||'Sin nombre')} · Nivel ${S.lvl} · ${short(S.coins)} €</b></div></div>
+   <p class="muted">¿Quieres guardar <b>esta</b> partida? Pulsa «Quedarme aquí» y conéctala con <b>otra</b> cuenta de Google o con usuario y contraseña.</p>
+   <div class="gabtns"><button class="btn alt" data-ga="no">Quedarme aquí</button><button class="btn pink" data-ga="yes">Entrar en la de Google</button></div></div>`;
+  mb.onclick=e=>{const b=e.target.closest('[data-ga]');if(!b)return;mb.onclick=null;sfx('click');if(b.dataset.ga==='yes')yes();else{closeModal();no();toast('Sigues en esta partida','No se ha cambiado nada','var(--mint)','👍')}}}
+{const _gswA5=gSwitchTo;gSwitchTo=function(cred){if(!NET.isAnon||A5.gOk||(!S.name&&(+S.lvl||1)<=1))return _gswA5.apply(this,arguments);const self=this;
+  return new Promise((res,rej)=>gAsk(()=>{A5.gOk=true;Promise.resolve(_gswA5.call(self,cred)).then(res,rej)},()=>res()))}}
+
+/* ---- escaparate y guía: ir a los títulos / al perfil ---- */
+{const _nwgA5=nwGo;nwGo=function(k){if(k==='ti'||k==='pf'||k==='mul'){try{go('perfil');const sel=k==='ti'?'#tiCat':k==='mul'?'#mulSec':'#pfBody .mecard';const sc=()=>{const el=$(sel);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})};setTimeout(sc,450);setTimeout(sc,900)}catch(e){}return}return _nwgA5.apply(this,arguments)}}
+try{const t=TUTOS.find(x=>x[1]==='Tu perfil');if(t&&!t[4].some(x=>/rareza/.test(x[0])))t[4].push(['Cada <b>título</b> tiene su propio diseño y una <b>rareza</b> (de Común a Cósmico, y los Exclusivos). En Personalizar ves <b>todos</b>, los que te faltan y <b>dónde se consigue</b> cada uno.'],['Junto a tu nombre sale tu <b>liga</b> de la semana, y en tu perfil tu <b>racha</b> y tu <b>mejor racha</b>.'],['En Personalizar › <b>Tus multiplicadores</b> ves qué te hace ganar más ahora mismo. Se multiplican entre ellos, no se suman.'])}catch(e){}
+try{i18nAdd([['Tus multiplicadores','Your multipliers','Tes multiplicateurs','Os teus multiplicadores'],['Mejor racha','Best streak','Meilleure série','Melhor sequência'],['Racha diaria','Daily streak','Série quotidienne','Sequência diária'],
+ ['Los tengo','I have them','Je les ai','Tenho-os'],['Me faltan','Missing','Il me manque','Faltam-me'],['Todos','All','Tous','Todos'],['Sin título','No title','Sans titre','Sem título'],['No llevar ninguno','Wear none','N’en porter aucun','Não usar nenhum'],['Lo llevas puesto','You’re wearing it','Tu le portes','Estás a usá-lo'],
+ ['Esa cuenta de Google ya tiene una partida','That Google account already has a game','Ce compte Google a déjà une partie','Essa conta Google já tem um jogo'],['Quedarme aquí','Stay here','Rester ici','Ficar aqui'],['Entrar en la de Google','Use the Google one','Utiliser celle de Google','Entrar na do Google'],
+ ['Común','Common','Commun','Comum'],['Raro','Rare','Rare','Raro'],['Épico','Epic','Épique','Épico'],['Legendario','Legendary','Légendaire','Lendário'],['Cósmico','Cosmic','Cosmique','Cósmico'],['Exclusivo','Exclusive','Exclusif','Exclusivo']])}catch(e){}
 })();
 </script>
 
