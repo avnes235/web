@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-17-1915">
+<meta name="app-version" content="2026-11-17-1935">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4752,7 +4752,7 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 .tcard[aria-pressed="true"]{border-color:var(--sun);box-shadow:0 0 0 2px #ffd60055}
 .tcard .tcon{position:absolute;top:-8px;right:8px;background:var(--sun);color:#111;font:900 9.5px var(--f-b);padding:2px 7px;border-radius:999px;text-transform:uppercase}
 /* 17 nov: bloqueados más claros, sin parpadeo; NUEVO dentro de la tarjeta */
-.tcard.tok{border-color:color-mix(in srgb,var(--sun) 35%,var(--line));background:linear-gradient(180deg,#ffffff0d,transparent),var(--card)}
+.tcard.tok{border-color:#14e08a55;background:linear-gradient(180deg,#ffffff0d,transparent),var(--card)}
 .tcard.tlk{background:repeating-linear-gradient(135deg,#0000 0 10px,#ffffff06 10px 20px),#111116;border:2px dashed #ffffff22}
 .tcard.tlk .tic{filter:grayscale(1) brightness(.6)!important;box-shadow:none!important}
 .tcard.tlk .tic,.tcard.tlk .tic *,.tcard.tlk .tic::before,.tcard.tlk .tic::after{animation:none!important}
@@ -4768,6 +4768,13 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
 .tifil{flex-wrap:wrap}
 .tifil .tinew{background:#ff2e88;color:#fff;border-color:#ff2e88;animation:ptPulse 1.1s infinite}
 .tifil .tinew.on{background:var(--sun);color:#111;border-color:var(--sun);animation:none}
+/* lo que llevas puesto, bien a la vista */
+.tcard[aria-pressed="true"]{border:3px solid var(--sun)!important;background:radial-gradient(120% 90% at 50% 0,#ffd60033,transparent 70%),var(--card)!important;box-shadow:0 0 0 3px #ffd60040,0 0 22px #ffd60066!important;padding-top:34px;animation:tcOn 2.2s ease-in-out infinite}
+.tcard[aria-pressed="true"]::before{content:'⭐ LO LLEVAS PUESTO';position:absolute;top:0;left:0;right:0;background:var(--sun);color:#111;font:900 11px/1 var(--f-b);letter-spacing:.8px;padding:7px 8px;border-radius:9px 9px 0 0;text-align:center}
+.tcard[aria-pressed="true"] .tcst{display:none}
+@keyframes tcOn{50%{box-shadow:0 0 0 3px #ffd60066,0 0 32px #ffd600aa}}
+@media (prefers-reduced-motion:reduce){.tcard[aria-pressed="true"]{animation:none}}
+
 
 .tcard:disabled{cursor:default;opacity:1}
 .tcard:disabled .tic{filter:grayscale(.85) brightness(.7)}
@@ -16760,7 +16767,7 @@ function tiVal(d){return d.k==='i'?'it:'+d.it:d.id}
 function tiCatHTML(){const c=myCos(),cur=myTid();const all=TI.list.filter(d=>d.id!=='k'&&d.id!=='xofi'&&!(d.id==='xadm'&&tiLocked(d)));
   const rows=all.map(d=>({d,lk:tiLocked(d)}));const have=rows.filter(r=>!r.lk).length;
   let nw=new Set();try{nw=new Set(cosNew().filter(k=>k.startsWith('ti:')).map(k=>k.slice(3)))}catch(e){}const isN=d=>nw.has(tiVal(d));const nN=rows.filter(r=>!r.lk&&isN(r.d)).length;if(tiFil==='new'&&!nN)tiFil='all';
-  const shown=rows.filter(r=>tiFil==='all'||(tiFil==='new'?(!r.lk&&isN(r.d)):tiFil==='have'?!r.lk:r.lk)).sort((a,b)=>(a.lk-b.lk)||(isN(b.d)-isN(a.d))||(TR_O.indexOf(a.d.r)-TR_O.indexOf(b.d.r)));
+  const shown=rows.filter(r=>tiFil==='all'||(tiFil==='new'?(!r.lk&&isN(r.d)):tiFil==='have'?!r.lk:r.lk)).sort((a,b)=>((b.d.id===cur)-(a.d.id===cur))||(a.lk-b.lk)||(isN(b.d)-isN(a.d))||(TR_O.indexOf(a.d.r)-TR_O.indexOf(b.d.r)));
   return`<div class="tihd"><div class="tiprog"><b>${have}</b> de <b>${all.length}</b> títulos<i style="width:${Math.round(have/all.length*100)}%"></i></div>
    <div class="tifil">${nN?`<button class="tinew ${tiFil==='new'?'on':''}" data-tifil="new">🆕 Nuevos · ${nN}</button>`:''}${[['all','Todos'],['have','✅ Los tengo'],['miss','🔒 Me faltan']].map(([k,l])=>`<button class="${tiFil===k?'on':''}" data-tifil="${k}">${l}</button>`).join('')}</div></div>
    <div class="ticat"><button class="tcard tnone" data-set="ti" data-val="none" aria-pressed="${!cur}"><span class="tcn">Sin título</span><small>No llevar ninguno</small></button>
