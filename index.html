@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-17-2010">
+<meta name="app-version" content="2026-11-24-2330">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4840,6 +4840,111 @@ html body #trLiveBar{position:static;margin:0 0 8px;left:auto;right:auto;top:aut
  #movBox .mvr .mvt b{font-size:14.5px}
  #movBox .mvr .mva{font-size:14.5px}
 }
+
+/* ===== Act. 7 · Cajas Misteriosas ===== */
+.cjwrap{display:block}
+.cjtabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.cjtabs button{flex:1 1 auto;border:2px solid var(--line);background:var(--card);color:var(--fg,#fff);border-radius:12px;padding:10px 12px;font:900 14px var(--f-b);cursor:pointer;white-space:nowrap}
+.cjtabs button[aria-pressed="true"]{background:linear-gradient(90deg,#ff7a00,#ff2e88);color:#fff;border-color:#111;box-shadow:0 4px 0 #000}
+.cjit{--tc:#8a8f9c;flex:none;width:112px;height:128px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 6px;border-radius:12px;text-align:center;position:relative;overflow:hidden;
+  background:radial-gradient(120% 80% at 50% 110%,color-mix(in srgb,var(--tc) 55%,transparent),transparent 70%),#15151c;border:2px solid color-mix(in srgb,var(--tc) 70%,#000);box-shadow:inset 0 -4px 0 var(--tc)}
+.cjit .emo{font-size:40px;line-height:1;filter:drop-shadow(0 3px 0 #0008)}
+.cjit b{font:800 11px/1.15 var(--f-b);color:#fff;max-height:2.3em;overflow:hidden}
+.cjit small{font:900 12px var(--f-n,var(--f-b));color:var(--tc);filter:brightness(1.3)}
+.cjit.t5{animation:cjGold 1.2s ease-in-out infinite}
+.cjit.empty{border-style:dashed;--tc:#555;opacity:.8}
+@keyframes cjGold{50%{box-shadow:inset 0 -4px 0 var(--tc),0 0 18px #ffd600aa}}
+.cjreels{display:grid;gap:8px;margin:0 0 10px}
+.cjreel{position:relative;height:146px;overflow:hidden;border-radius:16px;background:linear-gradient(90deg,#0b0b10,#1b1b24 20%,#1b1b24 80%,#0b0b10);border:3px solid #000;box-shadow:0 6px 0 #000,inset 0 0 30px #000}
+.cjreel::before,.cjreel::after{content:'';position:absolute;top:0;bottom:0;width:18%;z-index:2;pointer-events:none}
+.cjreel::before{left:0;background:linear-gradient(90deg,#0b0b10,transparent)}.cjreel::after{right:0;background:linear-gradient(270deg,#0b0b10,transparent)}
+.cjstrip{display:flex;gap:8px;padding:8px 0;will-change:transform}
+.cjmark{position:absolute;left:50%;top:0;bottom:0;width:4px;margin-left:-2px;background:#ffd600;z-index:3;box-shadow:0 0 12px #ffd600}
+.cjmark::before,.cjmark::after{content:'';position:absolute;left:50%;margin-left:-9px;border:9px solid transparent}
+.cjmark::before{top:0;border-top-color:#ffd600}.cjmark::after{bottom:0;border-bottom-color:#ffd600}
+.cjreels[data-n="3"] .cjreel,.cjreels[data-n="4"] .cjreel{height:120px}
+.cjreels[data-n="3"] .cjit,.cjreels[data-n="4"] .cjit{height:104px;width:96px}.cjreels[data-n="3"] .cjit .emo,.cjreels[data-n="4"] .cjit .emo{font-size:30px}
+.cjres{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 10px}
+.cjrc{display:flex;flex-direction:column;align-items:center;gap:6px;animation:cjPop .45s cubic-bezier(.2,1.6,.4,1)}
+.cjit.big{width:150px;height:170px}.cjit.big .emo{font-size:58px}.cjit.big b{font-size:13px}.cjit.big small{font-size:15px}
+@keyframes cjPop{from{transform:scale(.5);opacity:0}to{transform:none;opacity:1}}
+.cjrb{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.cjsellall{display:block;margin:0 auto 12px}
+.cjside{margin-bottom:10px}
+.cjbxs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:6px 0 10px}
+.cjbox{--c:#ff7a00;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 8px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--fg,#fff);cursor:pointer;font:inherit;text-align:center}
+.cjbox.on{border-color:var(--c);box-shadow:0 0 0 2px var(--c),0 0 18px color-mix(in srgb,var(--c) 60%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--c) 25%,transparent),var(--card))}
+.cjbart{position:relative;width:64px;height:56px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 40%,#000));border:2px solid #000;box-shadow:0 4px 0 #000}
+.cjbart .emo{font-size:30px}.cjbart i{position:absolute;right:-6px;top:-8px;font:900 18px var(--f-b);font-style:normal;color:#fff;background:#000;border-radius:50%;width:24px;height:24px;display:grid;place-items:center}
+.cjbox b{font:900 13px var(--f-b)}.cjbox small{font-size:11px;opacity:.8;font-weight:700}
+.cjbxs.sm{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
+.cjbxs.sm button{--c:#ff7a00;display:flex;align-items:center;gap:6px;justify-content:center;padding:8px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--fg,#fff);font:800 12px var(--f-b);cursor:pointer}
+.cjbxs.sm button[aria-pressed="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 25%,var(--card))}
+.cjctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 10px}
+.cjctl .c10-opts{flex:0 0 auto}
+.cjtg{display:inline-flex;align-items:center;gap:6px;font:800 13px var(--f-b);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer}
+.cjgo{width:100%;background:linear-gradient(90deg,#ff7a00,#ff2e88)!important;color:#fff!important;font-size:18px!important}
+.cjh4{margin:14px 0 8px;font:900 15px var(--f-b)}.cjh4 small{opacity:.7;font-weight:700;font-size:12px}
+.cjcont{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}
+.cjci{display:flex;flex-direction:column;align-items:center;gap:4px}.cjci .cjit{width:100%}
+.cjp{font:900 12px var(--f-b);background:#0006;border-radius:999px;padding:2px 8px}
+.cjnote{font-size:12px;opacity:.75;font-weight:700;margin:10px 0 0}
+.cjempty{padding:18px;text-align:center;font-weight:800;opacity:.8}
+.cjinvh{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;font-weight:800}
+.cjinv{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.cjinvc{display:flex;flex-direction:column;align-items:center;gap:6px}.cjinvc .cjit{width:100%}
+.cjinv.sm{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:6px}
+.cjpick{padding:0;border:3px solid transparent;border-radius:14px;background:none;cursor:pointer}.cjpick .cjit{width:100%;height:112px}.cjpick .cjit .emo{font-size:30px}
+.cjpick.on{border-color:#ffd600;box-shadow:0 0 14px #ffd60088}
+/* mejorador */
+.cjupg{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;justify-items:center;margin:4px 0 12px}
+.cjupg .cjit.big{width:min(150px,100%)}
+.cjring{--deg:180deg;position:relative;width:190px;height:190px}
+.cjdial{position:absolute;inset:0;border-radius:50%;background:conic-gradient(#14e08a 0 var(--deg),#2a2a33 var(--deg) 360deg);border:4px solid #000;box-shadow:0 6px 0 #000,inset 0 0 0 14px #0006}
+.cjdial::after{content:'';position:absolute;inset:26px;border-radius:50%;background:#101017;border:3px solid #000}
+.cjneedle{position:absolute;left:50%;top:8px;bottom:50%;width:6px;margin-left:-3px;background:#ffd600;border-radius:3px;transform-origin:50% 100%;z-index:2;box-shadow:0 0 10px #ffd600}
+.cjneedle::after{content:'';position:absolute;left:50%;bottom:-9px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:#ffd600;border:3px solid #000}
+.cjpct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;padding-top:40px}
+.cjpct b{font:900 22px var(--f-n,var(--f-b))}.cjpct small{font-size:11px;opacity:.7;font-weight:800}
+.cjring.won .cjdial{box-shadow:0 6px 0 #000,0 0 40px #14e08a}.cjring.lost .cjdial{box-shadow:0 6px 0 #000,0 0 40px #ff3b4f}
+.cjmults{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:0 0 10px}
+.cjmults button{border:2px solid var(--line);background:var(--card);color:var(--fg,#fff);border-radius:10px;padding:8px 2px;font:900 15px var(--f-b);cursor:pointer;display:flex;flex-direction:column;align-items:center}
+.cjmults button small{font-size:10px;opacity:.75}
+.cjmults button[aria-pressed="true"]{background:#ffd600;color:#111;border-color:#111}
+.cjok{color:#14e08a}.cjko{color:#ff5a6e}
+@media (max-width:620px){.cjit.big{width:132px;height:150px}.cjit.big .emo{font-size:44px}.cjupg{grid-template-columns:1fr 1fr}.cjring{grid-column:1/-1;grid-row:1;width:170px;height:170px}.cjmults{grid-template-columns:repeat(4,1fr)}.cjit{width:96px;height:112px}.cjit .emo{font-size:32px}.cjreel{height:130px}}
+/* batallas */
+.cjrow3{display:grid;gap:10px;margin:8px 0}
+.cjbtinfo{font-weight:700;font-size:13px;margin:8px 0 10px}
+.cjbtonl{font-size:12.5px;opacity:.8;font-weight:700;text-align:center;margin:8px 0}
+.cjarena{display:grid;gap:8px;margin-top:12px}
+.cjarena.n2{grid-template-columns:1fr 1fr}.cjarena.n3{grid-template-columns:repeat(3,1fr)}.cjarena.n4{grid-template-columns:repeat(4,1fr)}
+.cjpl{background:#111118;border:2px solid var(--line);border-radius:14px;padding:8px;display:flex;flex-direction:column;gap:6px;min-width:0;transition:.3s}
+.cjpl.won{border-color:#14e08a;box-shadow:0 0 22px #14e08a77}.cjpl.lost{opacity:.55}
+.cjplh{display:flex;align-items:center;gap:6px;min-width:0}.cjplh .emo{font-size:22px}.cjplh b{font:900 13px var(--f-b);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cjvr{position:relative;height:120px;overflow:hidden;border-radius:10px;background:#0a0a0f;border:2px solid #000}
+.cjvstrip{display:flex;flex-direction:column;align-items:center;gap:6px;will-change:transform}
+.cjvstrip .cjit{width:88%;height:100px}.cjvstrip .cjit .emo{font-size:30px}
+.cjmark.h{left:0;right:0;top:50%;bottom:auto;width:auto;height:3px;margin:-1.5px 0 0}
+.cjmark.h::before,.cjmark.h::after{top:50%;bottom:auto;margin:-9px 0 0;left:-2px;border-top-color:transparent;border-left-color:#ffd600}
+.cjmark.h::after{left:auto;right:-2px;border-left-color:transparent;border-right-color:#ffd600}
+.cjpll{display:flex;flex-wrap:wrap;gap:4px;min-height:10px}
+.cjit.mini{width:calc(50% - 2px);height:62px;padding:3px;gap:1px;border-radius:8px}.cjit.mini .emo{font-size:18px}.cjit.mini b{display:none}.cjit.mini small{font-size:10px}
+.cjplt{display:flex;justify-content:space-between;align-items:baseline;background:#0006;border-radius:8px;padding:6px 8px}.cjplt small{opacity:.7;font-weight:800;font-size:11px}.cjplt b{font:900 14px var(--f-n,var(--f-b));color:#ffd600}
+.cjround{text-align:center;font:900 14px var(--f-b);margin:8px 0;letter-spacing:.6px;text-transform:uppercase}
+.cjbtout{margin-top:12px;padding:14px;border-radius:14px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center;animation:cjPop .4s}
+.cjbtout.win{background:linear-gradient(90deg,#14e08a33,#ffd60033);border:2px solid #14e08a}.cjbtout.lose{background:#ff3b4f1a;border:2px solid #ff3b4f}
+.cjbtout b{font:900 22px var(--f-b)}.cjbtout span{font-weight:800}
+.cjduel .cjarena{margin-top:0}
+@media (max-width:620px){.cjarena.n3,.cjarena.n4{grid-template-columns:1fr 1fr}.cjvr{height:104px}.cjvstrip .cjit{height:88px}}
+/* destello en premios gordos */
+.cjflash{position:fixed;inset:0;z-index:9998;pointer-events:none;animation:cjFl 1.2s ease-out forwards}
+.cjflash.t4{background:radial-gradient(circle,#ff3b3b66,transparent 70%)}.cjflash.t5{background:radial-gradient(circle,#ffd60088,transparent 70%)}
+@keyframes cjFl{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.cjit.t5,.cjflash{animation:none}}
+/* Tienda: botón − */
+.prow .subb{margin-left:auto;margin-right:6px;background:#2a2a33!important;color:#fff!important}
+.prow .subb+.addb{margin-left:0}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -7092,6 +7197,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-24',t:'Cajas Misteriosas',items:[['📦','Cajas Misteriosas','Juego nuevo en el Casino: 6 cajas que se abren por lo que apuestes. La tira gira y te toca un objeto que vale de menos de lo que pagas hasta x5.000. Puedes abrir hasta 4 a la vez.','new','#ff7a00'],['⬆️','Mochila y Mejorador','Lo que sale va a tu mochila: véndelo o arriésgalo en el Mejorador para multiplicarlo (x1,5 a x100). Lo que lleva más de 6 horas en la mochila se vende solo.','new','#ffd600'],['⚔️','Batallas de cajas','Abre las mismas cajas que hasta 3 bots: el que más saca se lo lleva todo (o el que menos, en el modo loco). En Online › Duelos hay un duelo nuevo, «Cajas», para hacerlo contra gente de verdad.','new','#ff2e88'],['🛒','Tienda: botón «−»','En los productos que ya tienes en la cesta sale un «−» al lado del «+» para quitar uno.','fix','#14e08a']]},
  {v:'2026-11-17-b',t:'Títulos: buscador, orden y favoritos',items:[['⭐','Buscador, orden y favoritos de títulos','En Personalizar › Título puedes buscar un título, ordenarlos (más raros, comunes, recientes o de la A a la Z) y marcar tus favoritos con la ☆ para tenerlos a mano.','new','#ffd600'],['💸','Mis movimientos, más grande','La ventana de Mis movimientos ocupa casi toda la pantalla y se lee mejor, sobre todo en el móvil.','fix','#14e08a'],['🗼','La Torre, al momento','Al quitarle la Torre a alguien, ahora sale tuya en el acto, sin esperar.','fix','#ff6b4a']]},
  {v:'2026-11-17',t:'Títulos y perfil',items:[['🏷️','Títulos rehechos y únicos','Más de 80 títulos, cada uno con su diseño, color y animación, sin dos iguales. Algunos han cambiado de nombre para que no se pisen (Veterano → Habitual, Leyenda → Fenómeno…).','new','#ff4fd8'],['💎','Rareza y dónde se consigue','Cada título tiene rareza: Común, Raro, Épico, Legendario, Hasbiri, Hasbirinino, Cósmico o Exclusivo. En Personalizar ves todos, los que te faltan y cómo conseguir cada uno.','new','#7fe7ff'],['🏅','Tu liga y tu mejor racha en el perfil','Tu liga de la semana sale junto a tu nombre, y en el perfil ves tu racha diaria y tu mejor racha de siempre.','new','#ffd600'],['⚡','Tus multiplicadores','En Personalizar ves qué te hace ganar más ahora (evento, Renacer, racha, Fábrica) y cuánto suman juntos. Se multiplican entre ellos, no se suman.','new','#14e08a'],['🔐','Aviso de Google','Si conectas una cuenta de Google que ya tiene otra partida, ahora te avisa antes de cambiarte y puedes quedarte con la de ahora.','fix','#ff6b4a'],['📈','Bolsa: el límite, igual para todos','Como mucho 10.000 acciones de cada jugador, también si eres rico. Así nadie puede inflar a un amigo para hacerse rico.','fix','#7fd3ff']]},
  {v:'2026-11-04-b',t:'Top 5: todo vuelve, pero al 5 %',items:[['👑','El top 5 vuelve a coger premios','Si estás entre los 5 más ricos, vuelves a poder girar ruletas, pulsar el botón rojo y recoger regalos y misiones, pero solo te llevas un 5 % de lo normal. En la ruleta ya sale la cifra que te llevas.','fix','#ffd600']]},
@@ -16230,6 +16336,9 @@ try{if(!FAQ.some(x=>x[0]==='¿Los multiplicadores se suman?'))FAQ.unshift(['¿Lo
 try{if(!FAQ.some(x=>x[0]==='¿Por qué en la Bolsa no puedo comprar más de 10.000 acciones?'))FAQ.unshift(['¿Por qué en la Bolsa no puedo comprar más de 10.000 acciones?','El límite es igual para todos, también para los ricos, para que nadie pueda inflar a un amigo y hacerse rico con la Bolsa. Para jugar fuerte están la Torre, las Locuras y el Renacer.'])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='Al conectar Google me dice que esa cuenta ya tiene una partida'))FAQ.unshift(['Al conectar Google me dice que esa cuenta ya tiene una partida','Cada cuenta de Google solo puede tener una partida. Si entras, juegas con la de esa cuenta y la de ahora (sin cuenta) se pierde. Si quieres guardar la de ahora, pulsa «Quedarme aquí» y conéctala con otra cuenta de Google o con usuario y contraseña.'])}catch(e){}
 try{i18nAdd([['Títulos: buscador, orden y favoritos','Titles: search, sort and favourites','Titres : recherche, tri et favoris','Títulos: pesquisa, ordem e favoritos'],['Buscador, orden y favoritos de títulos','Title search, sort and favourites','Recherche, tri et favoris de titres','Pesquisa, ordem e favoritos de títulos'],['En Personalizar › Título puedes buscar un título, ordenarlos (más raros, comunes, recientes o de la A a la Z) y marcar tus favoritos con la ☆ para tenerlos a mano.','In Customise › Title you can search, sort (rarest, common, recent or A–Z) and mark favourites with the ☆ to keep them handy.','Dans Personnaliser › Titre tu peux chercher, trier (plus rares, communs, récents ou A–Z) et marquer tes favoris avec la ☆.','Em Personalizar › Título podes pesquisar, ordenar (mais raros, comuns, recentes ou A–Z) e marcar favoritos com a ☆.'],['Mis movimientos, más grande','My transactions, bigger','Mes mouvements, plus grand','Os meus movimentos, maior'],['La ventana de Mis movimientos ocupa casi toda la pantalla y se lee mejor, sobre todo en el móvil.','The My transactions window takes almost the whole screen and is easier to read, especially on mobile.','La fenêtre Mes mouvements prend presque tout l’écran et se lit mieux, surtout sur mobile.','A janela Os meus movimentos ocupa quase todo o ecrã e lê-se melhor, sobretudo no telemóvel.'],['La Torre, al momento','The Tower, instantly','La Tour, tout de suite','A Torre, na hora'],['Al quitarle la Torre a alguien, ahora sale tuya en el acto, sin esperar.','When you take the Tower, it now shows as yours instantly.','Quand tu prends la Tour, elle s’affiche à toi immédiatement.','Ao tirares a Torre a alguém, agora aparece tua na hora.']])}catch(e){}
+try{i18nAdd([['Cajas Misteriosas','Mystery Boxes','Caisses Mystères','Caixas Mistério'],['Cajas Misteriosas','Mystery Boxes','Caisses Mystères','Caixas Mistério'],['Juego nuevo en el Casino: 6 cajas que se abren por lo que apuestes. La tira gira y te toca un objeto que vale de menos de lo que pagas hasta x5.000. Puedes abrir hasta 4 a la vez.','New Casino game: 6 boxes you open for your bet. The strip spins and lands on an item worth less than you paid up to x5,000. Open up to 4 at once.','Nouveau jeu au Casino : 6 caisses qui s’ouvrent pour ta mise. La bande tourne et s’arrête sur un objet qui vaut de moins que ta mise jusqu’à x5 000. Jusqu’à 4 à la fois.','Jogo novo no Casino: 6 caixas que se abrem pelo que apostares. A fita gira e calha-te um objeto que vale de menos do que pagaste até x5.000. Até 4 de uma vez.'],['Mochila y Mejorador','Backpack and Upgrader','Sac et Améliorateur','Mochila e Melhorador'],['Lo que sale va a tu mochila: véndelo o arriésgalo en el Mejorador para multiplicarlo (x1,5 a x100). Lo que lleva más de 6 horas en la mochila se vende solo.','What you get goes to your backpack: sell it or risk it in the Upgrader to multiply it (x1.5 to x100). Items older than 6 hours are sold automatically.','Ce que tu obtiens va dans ton sac : vends-le ou risque-le dans l’Améliorateur pour le multiplier (x1,5 à x100). Après 6 heures, c’est vendu tout seul.','O que sai vai para a mochila: vende ou arrisca no Melhorador para multiplicar (x1,5 a x100). Ao fim de 6 horas vende-se sozinho.'],['Batallas de cajas','Box battles','Batailles de caisses','Batalhas de caixas'],['Abre las mismas cajas que hasta 3 bots: el que más saca se lo lleva todo (o el que menos, en el modo loco). En Online › Duelos hay un duelo nuevo, «Cajas», para hacerlo contra gente de verdad.','Open the same boxes as up to 3 bots: whoever gets the most takes it all (or the least, in crazy mode). In Online › Duels there’s a new «Boxes» duel to battle real people.','Ouvre les mêmes caisses que jusqu’à 3 bots : celui qui obtient le plus rafle tout (ou le moins, en mode fou). Dans En ligne › Duels, un nouveau duel « Caisses » contre de vraies personnes.','Abre as mesmas caixas que até 3 bots: quem tirar mais leva tudo (ou menos, no modo louco). Em Online › Duelos há um duelo novo, «Caixas», contra pessoas reais.'],['Tienda: botón «−»','Shop: «−» button','Boutique : bouton « − »','Loja: botão «−»'],['En los productos que ya tienes en la cesta sale un «−» al lado del «+» para quitar uno.','Products already in your basket show a «−» next to the «+» to remove one.','Les produits déjà dans le panier ont un « − » à côté du « + » pour en retirer un.','Os produtos que já estão no cesto têm um «−» ao lado do «+» para tirar um.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Cómo funcionan las Cajas Misteriosas?'))FAQ.unshift(['¿Cómo funcionan las Cajas Misteriosas?','En Casino › Cajas Misteriosas eliges una caja y la abres por lo que apuestes. Te toca un objeto que vale un múltiplo de lo que has pagado y va a tu mochila: lo vendes, lo guardas (hasta 6 horas) o lo intentas mejorar en el Mejorador. En cada caja se ve qué puede salir y con qué probabilidad.'])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Qué es una batalla de cajas?'))FAQ.unshift(['¿Qué es una batalla de cajas?','Varios jugadores abren las mismas cajas y el que más valor saca se lo lleva todo. Contra bots está en Casino › Cajas Misteriosas › Batallas; contra otra persona, en Online › Duelos eligiendo «Cajas».'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
@@ -16515,12 +16624,11 @@ document.addEventListener('click',e=>{const t=e.target.closest('#tqCard [data-nw
 function nwBadges(){try{const seen=S.nwV||{};[['rico','tq'],['casino','lz']].forEach(([v,k])=>{const b=document.querySelector('.nb[data-v="'+v+'"]');if(!b)return;let s=b.querySelector('.nwb');if(seen[k]){if(s)s.remove();return}if(!s){s=document.createElement('span');s.className='nwb';s.textContent='NUEVO';b.appendChild(s)}})}catch(e){}}
 {const _goNW=go;go=function(v){const r=_goNW.apply(this,arguments);try{const k={rico:'tq',casino:'lz'}[v];if(k&&ageGet&&(v!=='casino'||ageGet())){S.nwV={...(S.nwV||{}),[k]:1};save();nwBadges()}}catch(e){}return r}}
 /* el escaparate de novedades: sale una vez al entrar con la versión nueva */
-const NW_ID='u5';
-const NW_S=[['🏷️','Títulos nuevos y únicos','Más de <b>80 títulos</b>, cada uno con <b>su diseño, su color y su animación</b>. Tienen <b>rareza</b> (de Común a Cósmico) y debajo pone <b>dónde se consigue</b> cada uno.','ti','🏷️ Ver mis títulos','#ff4fd8'],
-  ['🏅','Tu liga junto al nombre','Tu <b>liga de la semana</b> sale ahora al lado de tu nombre: en tu perfil, en la Clasificación y cuando otros te miran.','pf','👀 Ver mi perfil','#7fe7ff'],
-  ['🔥','Tu mejor racha','En tu perfil sale tu <b>racha</b> del premio diario y tu <b>mejor racha</b> de siempre. ¡A batirla!','pf','🔥 Ver mi racha','#ff6b4a'],
-  ['⚡','Tus multiplicadores','Mira qué te hace ganar más ahora mismo: evento, Renacer, racha y Fábrica. <b>Se multiplican</b> entre ellos, no se suman.','mul','⚡ Ver mis multiplicadores','#14e08a'],
-  ['🔐','Google, más claro','Si entras con una cuenta de Google que ya tiene <b>otra partida</b>, ahora te avisa <b>antes</b> de cambiarte, para que no pierdas la de ahora.','','👍 Entendido','#ffd600']];
+const NW_ID='u7';
+const NW_S=[['📦','Cajas Misteriosas','Juego nuevo en el Casino: <b>6 cajas</b> que se abren por lo que apuestes. La tira gira y te toca un objeto que puede valer <b>hasta x5.000</b>.','cajas','📦 Abrir una caja','#ff7a00'],
+  ['⬆️','El Mejorador','Lo que te sale va a tu <b>mochila</b>. Véndelo o arriésgalo en el <b>Mejorador</b>: eliges a cuánto lo subes y la aguja decide.','cajasup','⬆️ Probar el Mejorador','#ffd600'],
+  ['⚔️','Batallas de cajas','Abre las mismas cajas que hasta <b>3 bots</b>: el que más saca <b>se lo lleva todo</b>. Y en Online › Duelos, <b>batallas contra gente de verdad</b>.','cajasbt','⚔️ Hacer una batalla','#ff2e88'],
+  ['🛒','Tienda: botón «−»','Ahora, al lado del «+», sale un <b>«−»</b> para quitar de la cesta sin abrirla.','','👍 Genial','#14e08a']];
 let NWI=0;
 function nwShow(){if($('#nwShow'))return;NWI=0;const d=document.createElement('div');d.id='nwShow';d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');document.body.appendChild(d);nwDraw();sfx('upd')}
 function nwDraw(){const d=$('#nwShow');if(!d)return;const s=NW_S[NWI],last=NWI===NW_S.length-1;
@@ -16885,6 +16993,236 @@ try{i18nAdd([['Tus multiplicadores','Your multipliers','Tes multiplicateurs','Os
 
 /* La Torre: al conquistarla se ve al momento (antes esperaba a que caducase el «¿Seguro?») */
 {const _tqcA6=tqConquer;tqConquer=function(btn){const c0=+S.coins||0;const r=_tqcA6.apply(this,arguments);try{if((+S.coins||0)<c0){SKA.arm='';SKA.armT=0;try{if(view==='rico')skRender()}catch(e){}try{tqCard()}catch(e){}}}catch(e){}return r}}
+
+/* ===================== ACT. 7 · CAJAS MISTERIOSAS: abrir cajas, mochila, mejorador y batallas (contra bots y online) ===================== */
+/* [id, icono, nombre, color, objetos de la Tienda (de menos a más valor), multiplicadores (sin el primero), probabilidades (sin la primera)]
+   El primero (el más común) se calcula para que todas devuelvan el 95 % de media */
+const CJ_DEF=[
+ ['calle','🍔','Caja Callejera','#ffb020',[58,0,59,1,3,4,5,6],[.5,.8,1.2,1.6,2.5,5,12],[.30,.2,.12,.08,.05,.02,.006]],
+ ['motor','🏎️','Caja Motor','#ff4f4f',[63,8,11,9,10,13,12,65],[.4,.7,1.3,2,4,10,30],[.3,.18,.1,.07,.04,.012,.003]],
+ ['mansion','🏰','Caja Mansión','#14e08a',[14,15,16,17,66,18,19,67],[.3,.6,1.4,2.5,6,20,75],[.3,.17,.1,.06,.03,.006,.0013]],
+ ['galaxia','🚀','Caja Galáctica','#3f9bff',[22,23,38,41,43,44,45,46],[.25,.5,1.5,3,10,40,200],[.3,.16,.09,.05,.018,.004,.0006]],
+ ['vegas','🎰','Caja Las Vegas','#ff2e88',[33,35,36,37,39,40,42,74],[.2,.5,1.5,4,15,100,500],[.3,.15,.08,.035,.01,.0013,.0003]],
+ ['multi','♾️','Caja Multiverso','#a35cff',[47,50,51,53,55,56,77,57],[.15,.3,1.5,5,25,250,5000],[.3,.15,.07,.03,.007,.0008,.00004]]];
+const CJB={};CJ_DEF.forEach(([id,ic,n,c,objs,ms,ps])=>{const ev=ms.reduce((a,m,i)=>a+m*ps[i],0),p0=1-ps.reduce((a,b)=>a+b,0),m0=Math.max(.05,Math.floor((.95-ev)/p0*100)/100);
+  const its=[[m0,p0],...ms.map((m,i)=>[m,ps[i]])].sort((a,b)=>a[0]-b[0]).map(([m,p],i)=>({o:objs[i],m,p}));const rtp=its.reduce((a,x)=>a+x.m*x.p,0);
+  CJB[id]={id,ic,n,c,its,max:its[its.length-1].m,rtp}});
+const CJ_T=[['Común','#8a8f9c'],['Raro','#3f9bff'],['Épico','#a35cff'],['Legendario','#ff2e88'],['Mítico','#ff3b3b'],['¡LOCURA!','#ffd600']];
+const cjTier=m=>m<1?0:m<2?1:m<5?2:m<20?3:m<100?4:5;
+const CJ={box:'calle',tab:'abrir',qty:1,busy:false,last:[],upSel:null,upM:2,bt:{box:'calle',rounds:3,players:2,mode:'normal'},btBusy:false};
+function cjS(){S.cj=S.cj&&typeof S.cj==='object'?S.cj:{};const c=S.cj;if(!Array.isArray(c.inv))c.inv=[];return c}
+function cjPick(box,r){const B=CJB[box];let x=r==null?c10R():r;for(const it of B.its){if(x<it.p)return it;x-=it.p}return B.its[0]}
+const cjFast=()=>!!cjS().fast,cjAuto=()=>!!cjS().auto;
+const CJ_MAXINV=30,CJ_KEEP=6*36e5;
+function cjItemH(o,v,m,cls=''){const p=P[o]||['📦','?'],t=cjTier(m);return`<div class="cjit t${t} ${cls}" style="--tc:${CJ_T[t][1]}"><span class="emo">${p[0]}</span><b>${esc(p[1])}</b><small>${v!=null?short(v)+' €':'x'+String(m).replace('.',',')}</small></div>`}
+
+/* ---------- sonidos nuevos ---------- */
+Object.assign(SFX,{
+  cjtick:()=>tone(900+Math.random()*200,.02,'square',.018),
+  cjopen:()=>{tone(220,.12,'sawtooth',.04,180);tone(440,.18,'triangle',.05,300,.08)},
+  cjr0:()=>tone(420,.12,'triangle',.05,-60),
+  cjr1:()=>{tone(660,.1,'triangle',.06);tone(880,.14,'triangle',.06,0,.08)},
+  cjr2:()=>[660,830,990].forEach((f,i)=>tone(f,.14,'triangle',.06,0,i*.07)),
+  cjr3:()=>[523,784,1047,1319].forEach((f,i)=>tone(f,.18,'square',.05,0,i*.08)),
+  cjr4:()=>{[392,523,659,784,1047,1319].forEach((f,i)=>tone(f,.2,'square',.05,0,i*.07));tone(110,.6,'sawtooth',.04,-50,.1)},
+  cjr5:()=>{[523,659,784,1047,1319,1568,2093].forEach((f,i)=>tone(f,.24,'square',.055,0,i*.08));[1047,1568].forEach((f,i)=>tone(f,.5,'triangle',.05,0,.7+i*.15))},
+  upspin:()=>tone(300,.05,'square',.03,200),
+  upwin:()=>[784,988,1175,1568].forEach((f,i)=>tone(f,.18,'triangle',.07,0,i*.08)),
+  uplose:()=>{tone(300,.25,'sawtooth',.05,-200);tone(150,.45,'square',.04,-80,.2)},
+  vs:()=>{tone(180,.3,'sawtooth',.05,120);tone(360,.3,'square',.04,240,.15)}});
+
+/* ---------- mochila ---------- */
+function cjAdd(o,v,m,box){const c=cjS();c.inv.unshift({id:Date.now().toString(36)+Math.floor(c10R()*1e6).toString(36),o,v:Math.floor(v),m,b:box,t:Date.now()});
+  while(c.inv.length>CJ_MAXINV){const x=c.inv.pop();S.coins+=x.v}}
+function cjSell(id,silent){const c=cjS(),i=c.inv.findIndex(x=>x.id===id);if(i<0)return 0;const x=c.inv.splice(i,1)[0];S.coins+=x.v;if(!silent){sfx('coin');toast('Vendido',P[x.o][0]+' '+P[x.o][1]+' · +'+short(x.v)+' €','var(--mint)','💰')}try{updMoney()}catch(e){}c10Ui();save();return x.v}
+function cjSellAll(){const c=cjS();if(!c.inv.length)return;const t=c.inv.reduce((a,x)=>a+x.v,0),n=c.inv.length;c.inv=[];S.coins+=t;sfx('big');toast('Mochila vendida',n+' objetos · +'+short(t)+' €','var(--mint)','💰');try{updMoney()}catch(e){}c10Ui();save();cjDraw()}
+const cjInvVal=()=>cjS().inv.reduce((a,x)=>a+(+x.v||0),0);
+/* lo que lleva más de 6 horas en la mochila se vende solo */
+function cjExpire(){try{const c=cjS(),now=Date.now(),old=c.inv.filter(x=>now-(+x.t||0)>CJ_KEEP);if(!old.length)return;const t=old.reduce((a,x)=>a+x.v,0);c.inv=c.inv.filter(x=>now-(+x.t||0)<=CJ_KEEP);S.coins+=t;save();
+  toast('Mochila de cajas',old.length+(old.length===1?' objeto llevaba':' objetos llevaban')+' más de 6 h: vendidos por '+short(t)+' €','var(--mint)','🎒');if(view==='casino'&&casTab==='cajas')cjDraw()}catch(e){}}
+setInterval(cjExpire,60000);setTimeout(cjExpire,4000);
+/* el Renacer no deja guardarse dinero en la mochila */
+{const _rbCJ=rnBlock;rnBlock=function(){const r=_rbCJ.apply(this,arguments);if(r)return r;try{if(cjS().inv.length)return'Vende antes lo que tienes en la mochila de las Cajas Misteriosas.'}catch(e){}return''}}
+
+/* ---------- la tira que gira ---------- */
+function cjStrip(box,win,n=64,at=56){const B=CJB[box],arr=[];for(let i=0;i<n;i++)arr.push(i===at?win:cjPick(box));return arr}
+function cjReelH(k){return`<div class="cjreel" id="cjR${k}"><div class="cjstrip"></div><i class="cjmark"></i></div>`}
+function cjSpin(el,box,win,v,bet,ms){return new Promise(res=>{const strip=el.querySelector('.cjstrip'),at=56,items=cjStrip(box,win,64,at);
+  strip.style.transition='none';strip.style.transform='translateX(0)';strip.innerHTML=items.map((it,i)=>cjItemH(it.o,i===at?v:Math.floor(bet*it.m),it.m,i===at?'win':'')).join('');
+  const card=strip.children[0],W=card?card.getBoundingClientRect().width+8:120,cw=el.getBoundingClientRect().width,jit=(c10R()-.5)*W*.7;
+  const x=-(at*W+W/2-cw/2+jit);void strip.offsetWidth;
+  if(c10Lite()||ms<=0){strip.style.transform=`translateX(${x}px)`;return res()}
+  strip.style.transition=`transform ${ms}ms cubic-bezier(.1,.72,.16,1)`;strip.style.transform=`translateX(${x}px)`;
+  let last=0;const t0=performance.now();const tick=()=>{const m=getComputedStyle(strip).transform;let tx=0;try{tx=new DOMMatrix(m).m41}catch(e){}const k=Math.floor(-tx/W);if(k!==last){last=k;if(view==='casino')sfx('cjtick')}if(performance.now()-t0<ms+60)requestAnimationFrame(tick)};requestAnimationFrame(tick);
+  setTimeout(res,ms+80)})}
+
+/* ---------- abrir ---------- */
+async function cjOpen(){if(CJ.busy)return;const bet=curBet(),q=Math.max(1,Math.min(4,CJ.qty|0)),tot=bet*q,msg=$('#cjMsg');
+  if(!(bet>=10)){msg.textContent='La caja cuesta lo que apuestes arriba (mínimo 10 €).';sfx('lose');return}
+  if(!take(tot)){noMoney(msg);return}ev('spins');xp(Math.min(30,3+Math.log10(tot+1)*3));
+  /* se pagan los cuatro dibujos ya (si se cierra la página, lo tienes en la mochila) */
+  CJ.last=[];const box=CJ.box,res=[];for(let i=0;i<q;i++){const it=cjPick(box);res.push({it,v:Math.floor(bet*it.m)})}
+  const sum=res.reduce((a,r)=>a+r.v,0),c0=S.coins;c10Settle('cajas',tot,sum,true);const got=S.coins-c0;
+  res.forEach(r=>{r.v=sum>0?Math.floor(r.v*got/sum):0});const auto=cjAuto();
+  if(!auto){const keep=res.reduce((a,r)=>a+r.v,0);S.coins-=Math.min(S.coins,keep);res.forEach(r=>{if(r.v>0){cjAdd(r.it.o,r.v,r.it.m,box);r.id=cjS().inv[0].id}})}
+  const c=cjS();c.n=(+c.n||0)+q;const bestM=Math.max(...res.map(r=>r.it.m));if(!c.best||bestM>c.best)c.best=bestM;save();try{updMoney()}catch(e){}c10Ui();
+  CJ.busy=true;cjUI();sfx('cjopen');$('#cjRes').innerHTML='';const wrap=$('#cjReels');wrap.innerHTML=res.map((_,i)=>cjReelH(i)).join('');wrap.dataset.n=q;
+  const ms=cjFast()?1300:5200;await Promise.all(res.map((r,i)=>cjSpin($('#cjR'+i),box,r.it,r.v,bet,ms+i*260)));
+  CJ.busy=false;const best=res.reduce((a,r)=>r.it.m>a.it.m?r:a,res[0]),t=cjTier(best.it.m);sfx('cjr'+t);c10Cheer(best.it.m,$('#cjReels'));if(t>=4)cjFlash(t);
+  CJ.last=res;msg.innerHTML=auto?`Vendido al momento: <b>+${short(got)} €</b>`:`Lo tienes en la <b>mochila</b>. Véndelo, guárdalo o intenta <b>mejorarlo</b>.`;
+  cjResDraw();cjUI();cjInvDraw();cjTabsDraw()}
+function cjFlash(t){const f=document.createElement('div');f.className='cjflash t'+t;document.body.appendChild(f);setTimeout(()=>f.remove(),1300)}
+function cjResDraw(){const el=$('#cjRes');if(!el)return;const inv=new Set(cjS().inv.map(x=>x.id));const L=CJ.last.filter(r=>r.id?inv.has(r.id):cjAuto());
+  if(!L.length){el.innerHTML='';return}const tot=L.reduce((a,r)=>a+r.v,0);
+  el.innerHTML=`<div class="cjres">${L.map(r=>`<div class="cjrc">${cjItemH(r.it.o,r.v,r.it.m,'big')}${r.id?`<div class="cjrb"><button class="btn mint sm" data-cjsell="${r.id}">💰 Vender ${short(r.v)} €</button><button class="btn alt sm" data-cjup="${r.id}">⬆️ Mejorar</button></div>`:''}</div>`).join('')}</div>
+   ${L.length>1&&L.some(r=>r.id)?`<button class="btn big cjsellall" data-cjsellres>💰 Vender todo · ${short(tot)} €</button>`:''}`}
+
+/* ---------- mejorador ---------- */
+const CJ_UPM=[1.5,2,3,5,10,25,100];
+const cjUpChance=m=>.95/m;
+function cjNear(val){let b=0,bd=1e99;P.forEach((p,i)=>{const d=Math.abs(Math.log((p[2]||1)/Math.max(1,val)));if(d<bd){bd=d;b=i}});return b}
+async function cjUpgrade(){if(CJ.busy)return;const c=cjS(),x=c.inv.find(y=>y.id===CJ.upSel);const msg=$('#cjUpMsg');if(!x){msg.textContent='Elige primero un objeto de tu mochila.';sfx('lose');return}
+  const m=CJ.upM,ch=cjUpChance(m),r=c10R(),win=r<ch;CJ.busy=true;
+  c.inv=c.inv.filter(y=>y.id!==x.id);S.coins+=x.v;take(x.v);ev('spins');
+  const pay=win?Math.floor(x.v*m):0,c0=S.coins;c10Settle('cajas',x.v,pay,true);const got=S.coins-c0;let nid=null;
+  const no=cjNear(P[x.o][2]*m);if(got>0){S.coins-=Math.min(S.coins,got);cjAdd(no,got,(x.m||1)*m,x.b);nid=cjS().inv[0].id}save();try{updMoney()}catch(e){}c10Ui();
+  /* aguja */
+  const nd=$('#cjNeedle'),turns=4+Math.floor(c10R()*2),ang=turns*360+r*360;cjUI();
+  if(nd){nd.style.transition='none';nd.style.transform='rotate(0deg)';void nd.offsetWidth;const ms=c10Lite()?0:(cjFast()?1400:3600);nd.style.transition=`transform ${ms}ms cubic-bezier(.12,.75,.15,1)`;nd.style.transform=`rotate(${ang}deg)`;
+    const t0=performance.now();let lt=0;const tk=()=>{const e=performance.now()-t0;if(e-lt>Math.min(260,40+e/12)){lt=e;sfx('upspin')}if(e<ms)requestAnimationFrame(tk)};requestAnimationFrame(tk);await c10Wait(ms+120)}
+  CJ.busy=false;const ring=$('#cjRing');if(ring)ring.classList.add(win?'won':'lost');
+  if(win){sfx('upwin');c10Cheer(m,ring);CJ.upSel=nid;msg.innerHTML=`<b class="cjok">¡MEJORADO!</b> Ahora tienes ${P[no][0]} <b>${esc(P[no][1])}</b> · ${short(got)} €`}
+  else{sfx('uplose');c10Shake(ring||document.body);CJ.upSel=null;msg.innerHTML=`<b class="cjko">¡FALLO!</b> Has perdido ${P[x.o][0]} ${esc(P[x.o][1])} (${short(x.v)} €)`}
+  setTimeout(()=>{const g=$('#cjRing');if(g)g.classList.remove('won','lost')},2200);cjInvDraw();cjUpDraw(true);cjTabsDraw()}
+function cjUpDraw(keepMsg){const el=$('#cjUp');if(!el)return;const c=cjS(),x=c.inv.find(y=>y.id===CJ.upSel),m=CJ.upM,ch=cjUpChance(m),deg=Math.round(ch*360);
+  const tgt=x?cjNear(P[x.o][2]*m):null;const msg=keepMsg&&$('#cjUpMsg')?$('#cjUpMsg').innerHTML:'Elige un objeto de tu mochila y a cuánto lo quieres subir. Si la aguja cae en lo verde, lo mejoras. Si no, lo pierdes.';
+  el.innerHTML=`<div class="cjupg"><div class="cjupL">${x?cjItemH(x.o,x.v,x.m||1,'big'):'<div class="cjit empty"><span class="emo">❔</span><b>Elige un objeto</b><small>de tu mochila</small></div>'}</div>
+   <div class="cjring" id="cjRing" style="--deg:${deg}deg"><div class="cjdial"></div><div class="cjneedle" id="cjNeedle"></div><div class="cjpct"><b>${c10Pct(ch)}</b><small>de lograrlo</small></div></div>
+   <div class="cjupR">${x?cjItemH(tgt,Math.floor(x.v*m),(x.m||1)*m,'big'):'<div class="cjit empty"><span class="emo">🎯</span><b>Objetivo</b><small>x'+String(m).replace('.',',')+'</small></div>'}</div></div>
+   <div class="cjmults">${CJ_UPM.map(k=>`<button data-cjm="${k}" aria-pressed="${k===m}">x${String(k).replace('.',',')}<small>${c10Pct(cjUpChance(k))}</small></button>`).join('')}</div>
+   <button class="btn big cjgo" id="cjUpGo" ${x&&!CJ.busy?'':'disabled'}>⬆️ Mejorar${x?' a '+short(Math.floor(x.v*m))+' €':''}</button><p class="rmsg c10-msg" id="cjUpMsg">${msg}</p>
+   <h4 class="cjh4">🎒 Tu mochila · toca un objeto para elegirlo</h4><div class="cjinv sm">${c.inv.length?c.inv.map(y=>`<button class="cjpick ${y.id===CJ.upSel?'on':''}" data-cjupsel="${y.id}">${cjItemH(y.o,y.v,y.m||1)}</button>`).join(''):'<p class="cjempty">Tu mochila está vacía. Abre alguna caja.</p>'}</div>`}
+
+/* ---------- batallas contra bots ---------- */
+const CJ_BOTS=[['Bot Paco','🤖'],['Bot Lola','👾'],['Bot Rayo','🦾'],['Bot Chispa','🛸'],['Bot Turbo','🐙'],['Bot Nube','👻']];
+function cjBtDraw(){const el=$('#cjBt');if(!el||CJ.btBusy)return;const b=CJ.bt,bet=curBet(),ent=bet*b.rounds;
+  el.innerHTML=`<div class="cjbtcfg"><div><span class="c10-lbl">Caja</span><div class="cjbxs sm">${Object.values(CJB).map(B=>`<button data-cjbtbox="${B.id}" aria-pressed="${b.box===B.id}" style="--c:${B.c}"><span class="emo">${B.ic}</span>${esc(B.n.replace('Caja ',''))}</button>`).join('')}</div></div>
+   <div class="cjrow3"><div><span class="c10-lbl">Rondas</span><div class="c10-opts">${[1,2,3,4,5].map(n=>`<button data-cjbtr="${n}" aria-pressed="${b.rounds===n}">${n}</button>`).join('')}</div></div>
+   <div><span class="c10-lbl">Jugadores</span><div class="c10-opts">${[[2,'1 vs 1'],[3,'1v1v1'],[4,'1v1v1v1']].map(([n,l])=>`<button data-cjbtp="${n}" aria-pressed="${b.players===n}">${l}</button>`).join('')}</div></div>
+   <div><span class="c10-lbl">Modo</span><div class="c10-opts">${[['normal','🏆 Gana el que más saca'],['loco','🤪 Gana el que MENOS saca']].map(([k,l])=>`<button data-cjbtm="${k}" aria-pressed="${b.mode===k}">${l}</button>`).join('')}</div></div></div></div>
+   <p class="cjbtinfo">Todos abrís las mismas cajas. ${b.mode==='normal'?'Al final, <b>el que más valor ha sacado se lleva todo</b> lo de todos.':'Al final, <b>el que menos valor ha sacado se lleva el bote</b> (el 95 % de lo que habéis pagado entre todos).'} Entrada: <b>${b.rounds} ${b.rounds===1?'caja':'cajas'} × ${short(bet)} € = ${short(ent)} €</b>.</p>
+   <button class="btn big cjgo" id="cjBtGo">⚔️ Empezar batalla · ${short(ent)} €</button>
+   <p class="cjbtonl">¿Contra gente de verdad? En <b>Online › Duelos</b> elige <b>📦 Cajas</b> y reta a quien quieras.</p><div id="cjBtArena"></div>`}
+function cjArenaH(pl,rounds){return`<div class="cjarena n${pl.length}">${pl.map((p,k)=>`<div class="cjpl" id="cjP${k}"><div class="cjplh"><span class="emo">${p.av}</span><b>${esc(p.name)}</b>${p.me?'<span class="tag on">Tú</span>':''}</div><div class="cjvr" id="cjV${k}"><div class="cjvstrip"></div><i class="cjmark h"></i></div><div class="cjpll" id="cjL${k}"></div><div class="cjplt"><small>Total</small><b id="cjT${k}">0 €</b></div></div>`).join('')}</div><div class="cjround" id="cjRound">Ronda 1 de ${rounds}</div>`}
+function cjVSpin(el,box,win,unit,ms){return new Promise(res=>{const strip=el.querySelector('.cjvstrip'),at=26,items=cjStrip(box,win,30,at);strip.style.transition='none';strip.style.transform='translateY(0)';
+  strip.innerHTML=items.map((it,i)=>cjItemH(it.o,Math.floor(unit*it.m),it.m,'v'+(i===at?' win':''))).join('');const card=strip.children[0],H=card?card.getBoundingClientRect().height+6:76,ch=el.getBoundingClientRect().height,y=-(at*H+H/2-ch/2+(c10R()-.5)*H*.5);void strip.offsetWidth;
+  if(c10Lite()||ms<=0){strip.style.transform=`translateY(${y}px)`;return res()}strip.style.transition=`transform ${ms}ms cubic-bezier(.12,.75,.16,1)`;strip.style.transform=`translateY(${y}px)`;setTimeout(res,ms+60)})}
+/* anima una batalla: pl=[{name,av,me,picks:[it...]}]; devuelve los totales */
+async function cjBattleAnim(root,pl,box,unit,rounds,wait){root.innerHTML=cjArenaH(pl,rounds);const tot=pl.map(()=>0);sfx('vs');if(await wait(700))return tot;
+  for(let r=0;r<rounds;r++){const rd=$('#cjRound');if(rd)rd.textContent='Ronda '+(r+1)+' de '+rounds;const ms=cjFast()?900:2600;
+    const spins=pl.map((p,k)=>{const el=$('#cjV'+k);return el?cjVSpin(el,box,p.picks[r],unit,ms+k*120):Promise.resolve()});
+    const skipped=await Promise.race([Promise.all(spins).then(()=>false),wait(ms+pl.length*120+200)]);
+    let bestK=0;pl.forEach((p,k)=>{const it=p.picks[r];tot[k]+=Math.floor(unit*it.m);const L=$('#cjL'+k);if(L)L.insertAdjacentHTML('beforeend',cjItemH(it.o,Math.floor(unit*it.m),it.m,'mini'));const T=$('#cjT'+k);if(T)T.textContent=short(tot[k])+' €';if(it.m>pl[bestK].picks[r].m)bestK=k});
+    sfx('cjr'+Math.min(5,cjTier(Math.max(...pl.map(p=>p.picks[r].m)))));if(skipped)break;if(await wait(600))break}
+  return pl.map(p=>p.picks.reduce((a,it)=>a+Math.floor(unit*it.m),0))}
+async function cjBattle(){if(CJ.btBusy||CJ.busy)return;const b=CJ.bt,bet=curBet(),ent=bet*b.rounds,n=b.players;if(!(bet>=10)){toast('Mínimo 10 € por caja','Sube la apuesta de arriba','var(--coral)','⚠️');return}
+  if(!take(ent)){noMoney($('#cjMsg'));toast('No te llega','La entrada son '+short(ent)+' €','var(--coral)','💸');return}ev('spins');xp(Math.min(30,3+Math.log10(ent+1)*3));
+  const bots=c10Shuf(CJ_BOTS.slice()).slice(0,n-1);const pl=[{name:S.name||'Tú',av:S.av||'😎',me:true},...bots.map(x=>({name:x[0],av:x[1]}))];pl.forEach(p=>{p.picks=[];for(let r=0;r<b.rounds;r++)p.picks.push(cjPick(b.box))});
+  const tots=pl.map(p=>p.picks.reduce((a,it)=>a+Math.floor(bet*it.m),0)),pot=b.mode==='normal'?tots.reduce((a,x)=>a+x,0):Math.floor(ent*n*.95);
+  const tgt=b.mode==='normal'?Math.max(...tots):Math.min(...tots),winners=tots.map((t,k)=>t===tgt?k:-1).filter(k=>k>=0),meWin=winners.includes(0),pay=meWin?Math.floor(pot/winners.length):0;
+  c10Settle('cajas',ent,pay,true);save();try{updMoney()}catch(e){}c10Ui();
+  CJ.btBusy=true;const ar=$('#cjBtArena');$('#cjBtGo').disabled=true;let skip=false;const wait=ms=>new Promise(r=>{const t0=Date.now();const f=()=>{if(skip||!$('#cjBtArena'))return r(true);if(Date.now()-t0>=ms)return r(false);setTimeout(f,30)};f()});
+  ar.insertAdjacentHTML('beforebegin','<button class="linkb" id="cjBtSkip">Saltar animación</button>');$('#cjBtSkip').onclick=()=>{skip=true};ar.scrollIntoView({behavior:'smooth',block:'start'});
+  await cjBattleAnim(ar,pl,b.box,bet,b.rounds,wait);CJ.btBusy=false;const sk=$('#cjBtSkip');if(sk)sk.remove();if(!$('#cjBtArena'))return;
+  pl.forEach((p,k)=>{const L=$('#cjL'+k);if(L&&L.children.length<p.picks.length)L.innerHTML=p.picks.map(it=>cjItemH(it.o,Math.floor(bet*it.m),it.m,'mini')).join('');const T=$('#cjT'+k);if(T)T.textContent=short(tots[k])+' €';const P_=$('#cjP'+k);if(P_)P_.classList.add(winners.includes(k)?'won':'lost')});
+  const out=document.createElement('div');out.className='cjbtout '+(meWin?'win':'lose');out.innerHTML=meWin?`<b>${winners.length>1?'¡EMPATE A LA CABEZA!':'¡HAS GANADO LA BATALLA!'}</b><span>Te llevas ${short(pay)} €</span>`:`<b>Has perdido</b><span>Gana ${esc(pl[winners[0]].name)} · pierdes ${short(ent)} €</span>`;
+  ar.appendChild(out);out.insertAdjacentHTML('beforeend',`<button class="btn" id="cjBtAgain">⚔️ Otra batalla · ${short(ent)} €</button>`);$('#cjBtAgain').onclick=()=>{cjBtDraw();cjBattle()};
+  if(meWin){c10Cheer(pay/ent,out);sfx('big')}else sfx('lose');const g=$('#cjBtGo');if(g)g.disabled=false;cjTabsDraw()}
+
+/* ---------- batalla de cajas online (duelo): 3 cajas Mansión cada uno, misma semilla que los demás duelos ---------- */
+OGAMES.cajas=['📦','Cajas','3 cajas cada uno. Gana quien saque más'];OL2G.cajas=OGAMES.cajas;OL2C.cajas='#ff7a00';OL2SN.cajas='Cajas';if(!OL2ORD.includes('cajas'))OL2ORD.push('cajas');
+const CJ_DBOX='mansion',CJ_DR=3;
+{const _doCJ=duelOutcome;duelOutcome=async function(d){if(d.game!=='cajas')return _doCJ(d);
+  const base=d.id+'|'+d.by+'|'+d.opp+'|'+tsMs(d.tj)+'|'+d.amt+'|'+d.game,B=[...await h32(base),...await h32(base+'|2')];const rr=i=>((B[2*i]<<8)|B[2*i+1])/65536;
+  const pa=[],pc=[];for(let r=0;r<CJ_DR;r++){pa.push(cjPick(CJ_DBOX,rr(r)));pc.push(cjPick(CJ_DBOX,rr(CJ_DR+r)))}
+  const A=pa.reduce((a,x)=>a+x.m,0),C=pc.reduce((a,x)=>a+x.m,0);return{pa,pc,A,C,win:A>C?'by':C>A?'opp':'tie'}}}
+OL2A.cajas=async function(st,d,o,c,L,R){const unit=Math.max(1,Math.floor(d.amt/CJ_DR));st.innerHTML='<div class="cjduel" id="cjDuel"></div>';
+  const pl=[{name:L.name,av:L.av,me:L.id===NET.id,picks:o.pa},{name:R.name,av:R.av,me:R.id===NET.id,picks:o.pc}];await cjBattleAnim($('#cjDuel'),pl,CJ_DBOX,unit,CJ_DR,c.wait);
+  const tots=[o.pa,o.pc].map(a=>a.reduce((s,it)=>s+Math.floor(unit*it.m),0));[0,1].forEach(k=>{const T=$('#cjT'+k);if(T)T.textContent=short(tots[k])+' €';const Lx=$('#cjL'+k);if(Lx&&Lx.children.length<CJ_DR)Lx.innerHTML=pl[k].picks.map(it=>cjItemH(it.o,Math.floor(unit*it.m),it.m,'mini')).join('')})};
+
+/* ---------- pantalla ---------- */
+function cjBoxCard(B,bet,on){return`<button class="cjbox ${on?'on':''}" data-cjbox="${B.id}" style="--c:${B.c}"><span class="cjbart"><span class="emo">${B.ic}</span><i>?</i></span><b>${esc(B.n)}</b><small>Hasta x${fmt(B.max)} · ${short(Math.floor(bet*B.max))} €</small></button>`}
+function cjTabsDraw(){const t=$('#cjTabs');if(!t)return;const n=cjS().inv.length;t.innerHTML=[['abrir','📦 Abrir cajas'],['mejorar','⬆️ Mejorador'],['batalla','⚔️ Batallas'],['mochila','🎒 Mochila'+(n?' · '+n:'')]].map(([k,l])=>`<button data-cjtab="${k}" aria-pressed="${CJ.tab===k}">${l}</button>`).join('')}
+function cjUI(){const go=$('#cjGo');if(go){const bet=curBet(),q=CJ.qty;go.disabled=CJ.busy;go.innerHTML=CJ.busy?'Abriendo…':`📦 Abrir ${q>1?q+' cajas':'caja'} · ${short(bet*q)} €`}
+  const qq=$('#cjQty');if(qq)qq.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.cjq===CJ.qty));
+  const f=$('#cjFast');if(f)f.checked=cjFast();const a=$('#cjAuto');if(a)a.checked=cjAuto()}
+function cjInvDraw(){const el=$('#cjInv');if(!el)return;const c=cjS(),tot=cjInvVal();
+  el.innerHTML=c.inv.length?`<div class="cjinvh"><span>${c.inv.length} ${c.inv.length===1?'objeto':'objetos'} · valen <b>${short(tot)} €</b></span><button class="btn mint sm" data-cjsellall>💰 Vender todo</button></div>
+   <div class="cjinv">${c.inv.map(x=>`<div class="cjinvc">${cjItemH(x.o,x.v,x.m||1)}<div class="cjrb"><button class="btn mint sm" data-cjsell="${x.id}">💰 ${short(x.v)} €</button><button class="btn alt sm" data-cjup="${x.id}">⬆️</button></div></div>`).join('')}</div>
+   <p class="cjnote">Lo que guardas no cuenta como dinero hasta que lo vendes. Si pasa más de 6 horas en la mochila, se vende solo.</p>`
+   :'<p class="cjempty">🎒 Tu mochila está vacía. Lo que saques de las cajas aparece aquí.</p>'}
+function cjContentsDraw(){const el=$('#cjCont');if(!el)return;const B=CJB[CJ.box],bet=curBet();
+  el.innerHTML=`<h4 class="cjh4">Qué puede salir en la ${esc(B.n)} <small>(con tu apuesta de ${short(bet)} €)</small></h4><div class="cjcont">${B.its.slice().reverse().map(it=>`<div class="cjci">${cjItemH(it.o,Math.floor(bet*it.m),it.m)}<span class="cjp">${it.p<.001?c10Pct(it.p).replace(/,0 %$/,' %'):c10Pct(it.p)}</span></div>`).join('')}</div>
+   <p class="cjnote">De media, cada caja devuelve el ${Math.round(B.rtp*1000)/10} % de lo que cuesta. Todo es dinero de mentira.</p>`}
+function cjDraw(){const root=$('#c-cajas');if(!root)return;const bet=curBet();cjTabsDraw();
+  ['abrir','mejorar','batalla','mochila'].forEach(k=>{const p=$('#cjPane-'+k);if(p)p.hidden=CJ.tab!==k});
+  if(CJ.tab==='abrir'){$('#cjBoxes').innerHTML=Object.values(CJB).map(B=>cjBoxCard(B,bet,CJ.box===B.id)).join('');cjContentsDraw();cjUI();cjResDraw();
+    const rl=$('#cjReels');if(rl&&!rl.children.length&&!CJ.busy){rl.innerHTML=cjReelH(0);const el=$('#cjR0'),B=CJB[CJ.box];el.querySelector('.cjstrip').innerHTML=cjStrip(CJ.box,B.its[B.its.length-1],12,6).map(it=>cjItemH(it.o,Math.floor(bet*it.m),it.m)).join('');el.querySelector('.cjstrip').style.transform='translateX(-120px)'}}
+  if(CJ.tab==='mejorar'&&!CJ.busy)cjUpDraw();if(CJ.tab==='batalla')cjBtDraw();if(CJ.tab==='mochila')cjInvDraw()}
+const CJ_HTML=`<div id="c-cajas" class="c10 cjwrap" hidden>
+  <div class="cjtabs" id="cjTabs"></div>
+  <div id="cjPane-abrir"><div class="cjreels" id="cjReels"></div><div id="cjRes"></div>
+    <div class="panel cjside"><span class="c10-lbl">Elige la caja · cuesta lo que apuestes arriba</span><div class="cjbxs" id="cjBoxes"></div>
+     <div class="cjctl"><div class="c10-opts" id="cjQty">${[1,2,3,4].map(n=>`<button data-cjq="${n}">x${n}</button>`).join('')}</div>
+      <label class="cjtg"><input type="checkbox" id="cjFast"><span>⚡ Rápido</span></label><label class="cjtg"><input type="checkbox" id="cjAuto"><span>💰 Vender al momento</span></label></div>
+     <button class="btn big cjgo" id="cjGo">📦 Abrir caja</button><p class="rmsg c10-msg" id="cjMsg">Abre una caja: la tira gira y te toca un objeto. Lo vendes, lo guardas o lo intentas mejorar.</p></div>
+    <div class="panel" id="cjCont"></div></div>
+  <div id="cjPane-mejorar" hidden><div class="panel" id="cjUp"></div></div>
+  <div id="cjPane-batalla" hidden><div class="panel" id="cjBt"></div></div>
+  <div id="cjPane-mochila" hidden><div class="panel" id="cjInv"></div></div></div>`;
+(()=>{const t=$('#c-torre');if(t&&!$('#c-cajas'))t.insertAdjacentHTML('afterend',CJ_HTML)})();
+/* enganche con el casino */
+C10K.push('cajas');CAS2BW.cajas='cajas';BWG.cajas=['📦','Cajas Misteriosas'];C10SHOW.cajas=cjDraw;C10UPD.cajas=()=>{if(!CJ.busy&&!CJ.btBusy&&CJ.tab==='abrir'){cjUI()}};
+czMaxF.cajas=()=>CJB[CJ.box].max;
+CZ.cajas={id:'cajas',n:'Cajas Misteriosas',c:'#ff7a00',d:'Abre cajas, mejora lo que te toque y haz batallas.',tag:'NUEVO · Hasta x5.000',hot:1,steps:['Elige cuánto apuestas arriba: es lo que cuesta cada caja.','Elige una caja y pulsa «Abrir». La tira gira y te toca un objeto.','Véndelo, guárdalo en la mochila o intenta mejorarlo en el Mejorador.','En «Batallas» abres las mismas cajas que unos bots: el que más saca se lo lleva todo.']};
+CZ_COV.cajas=`<svg viewBox="0 0 200 120"><defs><linearGradient id="cjg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a00"/><stop offset="1" stop-color="#ff2e88"/></linearGradient></defs><rect width="200" height="120" fill="url(#cjg)"/><g opacity=".2" fill="#fff"><circle cx="20" cy="20" r="3"/><circle cx="180" cy="30" r="4"/><circle cx="160" cy="100" r="3"/><circle cx="30" cy="96" r="4"/></g><g transform="translate(100 66)"><path d="M-42-14 0-32 42-14 0 4z" fill="#ffd36b" stroke="#000" stroke-width="3"/><path d="M-42-14 0 4v42l-42-18z" fill="#c96a00" stroke="#000" stroke-width="3"/><path d="M42-14 0 4v42l42-18z" fill="#ff9a1f" stroke="#000" stroke-width="3"/><path d="M-21-23 21-5" stroke="#ff2e88" stroke-width="8"/><text x="-2" y="34" font-family="Arial Black,Arial" font-weight="900" font-size="30" fill="#fff" stroke="#000" stroke-width="2.5" text-anchor="middle">?</text></g><g fill="#fff"><path d="M40 30l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/><path d="M162 58l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></g></svg>`;
+if(!CZ_NEW.includes('cajas'))CZ_NEW.unshift('cajas');
+try{czRenderHub()}catch(e){}
+/* clics */
+document.addEventListener('click',e=>{const t=e.target;if(!t.closest||!t.closest('#c-cajas'))return;
+  const tb=t.closest('[data-cjtab]');if(tb){if(CJ.busy||CJ.btBusy)return;CJ.tab=tb.dataset.cjtab;sfx('click');cjDraw();return}
+  const bx=t.closest('[data-cjbox]');if(bx){if(CJ.busy)return;CJ.box=bx.dataset.cjbox;sfx('click');$('#cjReels').innerHTML='';cjDraw();try{czHowAmt()}catch(_){}return}
+  const q=t.closest('[data-cjq]');if(q){CJ.qty=+q.dataset.cjq;sfx('click');cjUI();return}
+  if(t.closest('#cjGo')){cjOpen();return}
+  const sl=t.closest('[data-cjsell]');if(sl){cjSell(sl.dataset.cjsell);cjResDraw();cjInvDraw();cjTabsDraw();if(CJ.tab==='mejorar')cjUpDraw();return}
+  if(t.closest('[data-cjsellres]')){CJ.last.forEach(r=>{if(r.id)cjSell(r.id,true)});sfx('big');toast('Vendido todo','','var(--mint)','💰');cjResDraw();cjInvDraw();cjTabsDraw();return}
+  if(t.closest('[data-cjsellall]')){cjSellAll();return}
+  const up=t.closest('[data-cjup]');if(up){CJ.upSel=up.dataset.cjup;CJ.tab='mejorar';sfx('click');cjDraw();return}
+  const us=t.closest('[data-cjupsel]');if(us){if(CJ.busy)return;CJ.upSel=us.dataset.cjupsel;sfx('click');cjUpDraw();return}
+  const um=t.closest('[data-cjm]');if(um){if(CJ.busy)return;CJ.upM=+um.dataset.cjm;sfx('click');cjUpDraw();return}
+  if(t.closest('#cjUpGo')){cjUpgrade();return}
+  const bb=t.closest('[data-cjbtbox]');if(bb&&!CJ.btBusy){CJ.bt.box=bb.dataset.cjbtbox;sfx('click');cjBtDraw();return}
+  const br=t.closest('[data-cjbtr]');if(br&&!CJ.btBusy){CJ.bt.rounds=+br.dataset.cjbtr;sfx('click');cjBtDraw();return}
+  const bp=t.closest('[data-cjbtp]');if(bp&&!CJ.btBusy){CJ.bt.players=+bp.dataset.cjbtp;sfx('click');cjBtDraw();return}
+  const bm=t.closest('[data-cjbtm]');if(bm&&!CJ.btBusy){CJ.bt.mode=bm.dataset.cjbtm;sfx('click');cjBtDraw();return}
+  if(t.closest('#cjBtGo')){cjBattle();return}});
+document.addEventListener('change',e=>{if(e.target.id==='cjFast'){cjS().fast=e.target.checked;save()}if(e.target.id==='cjAuto'){cjS().auto=e.target.checked;save()}});
+/* al cambiar la apuesta, se actualizan los precios */
+{const _ubCJ=updBetUI;updBetUI=function(){const r=_ubCJ.apply(this,arguments);try{if(view==='casino'&&casTab==='cajas'&&!CJ.busy&&!CJ.btBusy){clearTimeout(CJ.bt_t);CJ.bt_t=setTimeout(()=>{if(CJ.tab==='abrir'){const bet=curBet();const bx=$('#cjBoxes');if(bx)bx.innerHTML=Object.values(CJB).map(B=>cjBoxCard(B,bet,CJ.box===B.id)).join('');cjContentsDraw();cjUI()}else if(CJ.tab==='batalla'){const a=$('#cjBtArena');if(!a||!a.children.length)cjBtDraw()}},120)}}catch(e){}return r}}
+
+/* ---------- Tienda: botón «−» al lado del «+» cuando ya tienes algo en la cesta ---------- */
+function shopSubSync(){try{document.querySelectorAll('#prods [data-add]').forEach(b=>{const i=+b.dataset.add,q=S.cart[i]||0;let s=b.parentNode.querySelector('[data-sub]');
+  if(q>0&&!s)b.insertAdjacentHTML('beforebegin',`<button class="addb subb" data-sub="${i}" aria-label="Quitar uno de la cesta">${ICON('minus')}</button>`);else if(!q&&s)s.remove()})}catch(e){}}
+{const _rsCJ=renderShop;renderShop=function(){const r=_rsCJ.apply(this,arguments);shopSubSync();return r}}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#prods [data-sub]');if(!b)return;e.stopPropagation();const i=+b.dataset.sub;if(!S.cart[i])return;S.cart[i]--;if(S.cart[i]<=0)delete S.cart[i];sfx('click');
+  const card=b.closest('.prod'),pin=card&&card.querySelector('.pin');if(pin){if(S.cart[i])pin.textContent=S.cart[i]+' en la cesta';else pin.remove()}try{updMoney()}catch(_){}save();shopSubSync()},true);
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#prods [data-add]'))setTimeout(shopSubSync,0)});
+setTimeout(shopSubSync,1500);
+/* escaparate: ir directo a las cajas */
+{const _nwgCJ=nwGo;nwGo=function(k){if(k==='cajas'||k==='cajasup'||k==='cajasbt'){try{CJ.tab=k==='cajasup'?'mejorar':k==='cajasbt'?'batalla':'abrir';if(isU18&&isU18()){toast('Solo para mayores de 18','','var(--coral)','🔞');return}go('casino','cajas');setTimeout(()=>{cjDraw();const el=$('#c-cajas');if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},450)}catch(e){}return}return _nwgCJ.apply(this,arguments)}}
+try{const t=TUTOS.find(x=>/[Cc]asino/.test(x[1]));if(t&&!t[4].some(x=>/Cajas Misteriosas/.test(x[0])))t[4].push(['<b>Cajas Misteriosas</b>: abre cajas por lo que apuestes, guarda lo que salga en la mochila, súbelo en el <b>Mejorador</b> o haz <b>batallas</b> contra bots (y en Online, contra gente).'])}catch(e){}
+try{i18nAdd([['Cajas Misteriosas','Mystery Boxes','Caisses Mystères','Caixas Mistério'],['📦 Abrir cajas','📦 Open boxes','📦 Ouvrir des caisses','📦 Abrir caixas'],['⬆️ Mejorador','⬆️ Upgrader','⬆️ Améliorateur','⬆️ Melhorador'],['⚔️ Batallas','⚔️ Battles','⚔️ Batailles','⚔️ Batalhas'],
+ ['⚡ Rápido','⚡ Fast','⚡ Rapide','⚡ Rápido'],['💰 Vender al momento','💰 Sell instantly','💰 Vendre tout de suite','💰 Vender logo'],['¡MEJORADO!','UPGRADED!','AMÉLIORÉ !','MELHORADO!'],['¡FALLO!','FAILED!','RATÉ !','FALHOU!'],['¡HAS GANADO LA BATALLA!','YOU WON THE BATTLE!','TU AS GAGNÉ LA BATAILLE !','GANHASTE A BATALHA!']])}catch(e){}
 })();
 </script>
 
