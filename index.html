@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-28-1900">
+<meta name="app-version" content="2026-11-28-2130">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -4979,6 +4979,74 @@ html[data-skin="tapete"] body{background-image:radial-gradient(rgba(255,255,255,
 #evbar.evbar{background:var(--card2)!important;color:var(--fg)!important;border-color:var(--sun)!important}
 #evbar.evbar *{color:inherit}
 #evbar.evbar b,#evbar.evbar strong{color:var(--sun)}
+
+/* ===== Act. 7 parte 2: minijuegos ===== */
+.g48{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:8px;padding:10px;background:#2a2620;border-radius:14px;border:3px solid #000;max-width:440px;margin:0 auto;aspect-ratio:1;touch-action:none;user-select:none}
+.g48c{display:grid;place-items:center;border-radius:8px;background:#3a352d;font:900 clamp(18px,6vw,34px) var(--f-b);color:#3a2f22}
+.g48c.v2{background:#f3eadc}.g48c.v4{background:#efe0c4}.g48c.v8{background:#f4b06b;color:#fff}.g48c.v16{background:#f5935a;color:#fff}.g48c.v32{background:#f57a5a;color:#fff}.g48c.v64{background:#f55a3a;color:#fff}
+.g48c.v128{background:#edd07a;color:#fff;font-size:clamp(16px,5vw,28px)}.g48c.v256{background:#edcc62;color:#fff;font-size:clamp(16px,5vw,28px)}.g48c.v512{background:#edc850;color:#fff;font-size:clamp(16px,5vw,28px)}
+.g48c.v1024{background:#edc53f;color:#fff;font-size:clamp(13px,4vw,22px)}.g48c.v2048,.g48c.v4096{background:#ffd600;color:#111;font-size:clamp(13px,4vw,22px);box-shadow:0 0 0 3px #000 inset}
+.apcv{display:block;width:100%;max-width:360px;margin:0 auto;border-radius:14px;border:3px solid #000;touch-action:none;background:#14141a}
+.tptime{height:10px;border-radius:5px;background:#0006;margin:0 auto 10px;max-width:440px;overflow:hidden}.tptime i{display:block;height:100%;width:100%;background:var(--mint);transition:width .1s linear}
+.tpg{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:10px;max-width:440px;margin:0 auto;padding:12px;background:#4a9a3c;border-radius:16px;border:3px solid #000;touch-action:none;user-select:none}
+.tph{aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 60%,#2a1b0e 55%,#3d2a17 56%);border:3px solid #000;position:relative;overflow:hidden;cursor:pointer;padding:0}
+.tpm{position:absolute;left:0;right:0;bottom:-70%;font-size:clamp(26px,9vw,46px);line-height:1;transition:bottom .12s ease-out;pointer-events:none}
+.tph.up .tpm{bottom:12%}.tph.boom{background:#ff4d63}
+.smg{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:360px;aspect-ratio:1;margin:0 auto;padding:10px;background:#111;border-radius:50%;border:4px solid #000;touch-action:none;user-select:none}
+.smb{border:3px solid #000;background:color-mix(in srgb,var(--c) 55%,#000);cursor:pointer;transition:filter .08s,background .08s}
+.smb:nth-child(1){border-radius:100% 0 0 0}.smb:nth-child(2){border-radius:0 100% 0 0}.smb:nth-child(3){border-radius:0 0 0 100%}.smb:nth-child(4){border-radius:0 0 100% 0}
+.smb.on{background:var(--c);filter:brightness(1.35)}
+.smc{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:34%;aspect-ratio:1;border-radius:50%;background:#1c1c24;border:4px solid #000;display:grid;place-items:center;font:900 15px var(--f-b);color:#fff;text-align:center;pointer-events:none}
+.pchw{max-width:460px;margin:0 auto}
+.pchb{display:grid;grid-template-columns:repeat(11,1fr);gap:2px;aspect-ratio:1;background:#000;padding:2px;border-radius:12px;user-select:none}
+.pc{position:relative;background:#e9e3d6;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1px;min-width:0}
+.pc:not(.t):not(.h):not(.b):not(.m){background:#2a2a30}
+.pc.t{background:#f6f1e6}.pc.s{background:color-mix(in srgb,var(--pc) 55%,#fff)}.pc.h{background:color-mix(in srgb,var(--pc) 70%,#fff)}.pc.b{background:color-mix(in srgb,var(--pc) 85%,#000)}.pc.m{background:conic-gradient(#ffd600 0 25%,#3f9bff 0 50%,#14e08a 0 75%,#ff4d63 0)}
+.pf{display:block;width:62%;aspect-ratio:1;border-radius:50%;background:var(--pc);border:2px solid #000;box-shadow:inset 0 -3px 0 #0005;font-style:normal}
+.pc .pf+.pf{width:44%}
+.pf.can{animation:pfC .7s ease-in-out infinite;cursor:pointer;outline:3px solid #fff}
+@keyframes pfC{50%{transform:scale(1.2)}}
+.pchs{display:flex;align-items:center;gap:12px;margin-top:10px}
+.pchd{width:74px;height:74px;flex:none;border-radius:16px;border:3px solid #000;background:#fff;font-size:44px;line-height:1;cursor:pointer;box-shadow:0 5px 0 var(--pc)}
+.pchd.go{animation:pfC .9s ease-in-out infinite}
+.pcht{display:flex;flex-direction:column;gap:2px;font-weight:800}.pcht b{font:900 17px var(--f-b)}.pcht span{font-size:14px}
+/* ===== Act. 7 parte 2: casino ===== */
+.k7-stage{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:300px;padding:16px;background:radial-gradient(ellipse at 50% 40%,#1d5a3c,#0c2a1c);border-radius:16px;border:3px solid #000}
+.k7c{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:64px;height:90px;border-radius:9px;background:#fffdf6;border:2px solid #000;color:#111;font:900 22px var(--f-b);box-shadow:0 4px 0 #0007;position:relative}
+.k7c i{font-style:normal;font-size:26px;line-height:1}.k7c.red{color:#d62839}
+.k7c.back{background:repeating-linear-gradient(45deg,#b3122e 0 6px,#8c0d23 6px 12px);border-color:#000}
+.k7c.big{width:96px;height:134px;font-size:32px}.k7c.big i{font-size:40px}
+.k7c.in{animation:k7In .3s ease-out}@keyframes k7In{from{transform:translateY(-20px) rotate(-8deg);opacity:0}}
+.vp-hand{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.vpk{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;padding:0;cursor:pointer;color:#fff;font:800 10px var(--f-b)}
+.vpk.hold .k7c{transform:translateY(-8px);outline:3px solid #ffd600}.vpk:disabled{cursor:default}
+.vp-tab{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 12px;width:100%;max-width:520px;font-size:12px;font-weight:800;color:#e8e2d2}
+.vp-tab div{display:flex;justify-content:space-between;padding:3px 8px;border-radius:6px;background:#0005}.vp-tab div.on{background:#ffd600;color:#111}
+.k7bets{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0 10px}.k7bets.rf{grid-template-columns:repeat(3,1fr)}
+.k7bets button{--c:#ffd600;display:flex;flex-direction:column;align-items:center;padding:10px 4px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;font:inherit}
+.k7bets button b{font:900 14px var(--f-b)}.k7bets button small{font-size:11px;opacity:.8;font-weight:700}
+.k7bets button[aria-pressed="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 30%,var(--card));box-shadow:0 3px 0 #000}
+.bac-stage{flex-direction:row;flex-wrap:wrap;gap:18px}.bac-side{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:150px}
+.bac-side span{font:900 14px var(--f-b);color:#fff;letter-spacing:1px}.bac-side b{display:inline-block;min-width:26px;background:#ffd600;color:#111;border-radius:6px;padding:0 6px;margin-left:4px}
+.bac-h{display:flex;gap:6px;min-height:94px}
+.rf-wrap{position:relative;width:min(320px,80vw);aspect-ratio:1}.rf-wrap canvas{width:100%;height:100%;display:block}
+.rf-ptr{position:absolute;left:50%;top:-6px;margin-left:-12px;border:12px solid transparent;border-top:22px solid #ffd600;filter:drop-shadow(0 2px 0 #000)}
+.dt-stage{flex-direction:row;gap:16px}.dt-side{display:flex;flex-direction:column;align-items:center;gap:8px}.dt-side span{font:900 15px var(--f-b);color:#fff}
+.dt-vs{font:900 30px var(--f-d);color:#ffd600}
+.dn-coin{position:relative;width:130px;height:130px;transform-style:preserve-3d}
+.dn-coin i{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;font-size:56px;font-style:normal;background:radial-gradient(circle at 35% 30%,#fff3b0,#e0a800 60%,#a77a00);border:5px solid #000;backface-visibility:hidden}
+.dn-coin .b{transform:rotateY(180deg)}
+.dn-coin.spin{animation:dnS 1s cubic-bezier(.2,.7,.3,1) forwards}.dn-coin.spin.x{animation-name:dnX}
+@keyframes dnS{from{transform:rotateY(0)}to{transform:rotateY(1800deg)}}@keyframes dnX{from{transform:rotateY(0)}to{transform:rotateY(1980deg)}}
+.dn-steps{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;max-width:520px}
+.dn-steps span{font:800 12px var(--f-b);padding:4px 8px;border-radius:999px;background:#0006;color:#cfc8b6}
+.dn-steps span.ok{background:#14e08a;color:#111}.dn-steps span.now{background:#ffd600;color:#111}
+#dnCash{width:100%;margin-top:6px}
+.g48,.tpg,.pchw,.tptime{width:min(440px,100%)}.smg{width:min(360px,100%)}.apcv{width:min(360px,100%)}
+.tpm{text-align:center}
+.pc.b{background:color-mix(in srgb,var(--pc) 45%,#fff)}
+.vp-hand{flex-wrap:nowrap;gap:5px}.vp-hand .k7c{width:min(64px,16vw);height:calc(min(64px,16vw)*1.4);font-size:min(22px,5.5vw)}.vp-hand .k7c i{font-size:min(26px,6.5vw)}
+@media (max-width:620px){.vp-tab{grid-template-columns:repeat(2,1fr)}.bac-side{min-width:0}.bac-h .k7c{width:50px;height:70px;font-size:17px}.bac-h .k7c i{font-size:20px}.k7c.big{width:80px;height:112px}}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -7231,6 +7299,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-28-b',t:'10 juegos nuevos',items:[['🎮','5 minijuegos nuevos','2048, Apila, Topos, Simón y Parchís (tú contra 3 bots, se sale con un 5). Todos con récord semanal y clasificación.','new','#3f9bff'],['🃏','5 juegos de casino nuevos','Video póker (hasta x250), Bacará, Rueda de la Fortuna (hasta x48), Dragón y Tigre y Doble o Nada (cara o cruz, hasta x2.800).','new','#ff4d63']]},
  {v:'2026-11-28',t:'El juego, ordenado',items:[['🧹','Menú de 5 secciones','Inicio, Casino, Juegos, Tienda y Competir. El Trading está dentro del Casino, la Fábrica en Juegos, la Bolsa en la Tienda, y la Clasificación, los duelos y los Logros en Competir.','new','#ffd600'],['🎨','4 estilos para elegir','Calle, Tapete, Vino y Medianoche, sin brillos de neón. Cámbialo en Ajustes.','new','#14e08a'],['⚔️','Reta a alguien desde el juego','En Dados, Tragaperras, Carreras, Ruleta, Blackjack, Mayor o menor y Cajas hay un botón para jugar eso mismo contra gente de verdad.','new','#ff6b4a'],['🔢','Cifras más claras y menos avisos','Las cifras largas llevan su abreviatura al lado (por ejemplo, 1,68 cuatrill.) y sale un solo aviso a la vez.','fix','#7fd3ff']]},
  {v:'2026-11-24',t:'Cajas Misteriosas',items:[['📦','Cajas Misteriosas','Juego nuevo en el Casino: 6 cajas que se abren por lo que apuestes. La tira gira y te toca un objeto que vale de menos de lo que pagas hasta x5.000. Puedes abrir hasta 4 a la vez.','new','#ff7a00'],['⬆️','Mochila y Mejorador','Lo que sale va a tu mochila: véndelo o arriésgalo en el Mejorador para multiplicarlo (x1,5 a x100). Lo que lleva más de 6 horas en la mochila se vende solo.','new','#ffd600'],['⚔️','Batallas de cajas','Abre las mismas cajas que hasta 3 bots: el que más saca se lo lleva todo (o el que menos, en el modo loco). En Online › Duelos hay un duelo nuevo, «Cajas», para hacerlo contra gente de verdad.','new','#ff2e88'],['🛒','Tienda: botón «−»','En los productos que ya tienes en la cesta sale un «−» al lado del «+» para quitar uno.','fix','#14e08a']]},
  {v:'2026-11-17-b',t:'Títulos: buscador, orden y favoritos',items:[['⭐','Buscador, orden y favoritos de títulos','En Personalizar › Título puedes buscar un título, ordenarlos (más raros, comunes, recientes o de la A a la Z) y marcar tus favoritos con la ☆ para tenerlos a mano.','new','#ffd600'],['💸','Mis movimientos, más grande','La ventana de Mis movimientos ocupa casi toda la pantalla y se lee mejor, sobre todo en el móvil.','fix','#14e08a'],['🗼','La Torre, al momento','Al quitarle la Torre a alguien, ahora sale tuya en el acto, sin esperar.','fix','#ff6b4a']]},
@@ -16377,6 +16446,9 @@ try{if(!FAQ.some(x=>x[0]==='¿Qué es una batalla de cajas?'))FAQ.unshift(['¿Qu
 try{i18nAdd([['El juego, ordenado','The game, tidied up','Le jeu, rangé','O jogo, arrumado'],['Menú de 5 secciones','5-section menu','Menu en 5 sections','Menu de 5 secções'],['Inicio, Casino, Juegos, Tienda y Competir. El Trading está dentro del Casino, la Fábrica en Juegos, la Bolsa en la Tienda, y la Clasificación, los duelos y los Logros en Competir.','Home, Casino, Games, Shop and Compete. Trading is inside Casino, the Factory in Games, the Stock market in the Shop, and Ranking, duels and Achievements in Compete.','Accueil, Casino, Jeux, Boutique et Compétition. Le Trading est dans le Casino, l’Usine dans Jeux, la Bourse dans la Boutique, et le Classement, les duels et les Succès dans Compétition.','Início, Casino, Jogos, Loja e Competir. O Trading está no Casino, a Fábrica em Jogos, a Bolsa na Loja, e a Classificação, os duelos e as Conquistas em Competir.'],['4 estilos para elegir','4 styles to choose from','4 styles au choix','4 estilos à escolha'],['Calle, Tapete, Vino y Medianoche, sin brillos de neón. Cámbialo en Ajustes.','Street, Felt, Wine and Midnight, without neon glow. Change it in Settings.','Rue, Tapis, Vin et Minuit, sans néon. Change-le dans Réglages.','Rua, Pano, Vinho e Meia-noite, sem néon. Muda-o nas Definições.'],['Reta a alguien desde el juego','Challenge someone from the game','Défie quelqu’un depuis le jeu','Desafia alguém a partir do jogo'],['En Dados, Tragaperras, Carreras, Ruleta, Blackjack, Mayor o menor y Cajas hay un botón para jugar eso mismo contra gente de verdad.','Dice, Slots, Races, Roulette, Blackjack, Higher or lower and Boxes have a button to play the same against real people.','Dés, Machines à sous, Courses, Roulette, Blackjack, Plus ou moins et Caisses ont un bouton pour jouer contre de vraies personnes.','Dados, Slots, Corridas, Roleta, Blackjack, Maior ou menor e Caixas têm um botão para jogar o mesmo contra pessoas reais.'],['Cifras más claras y menos avisos','Clearer numbers and fewer pop-ups','Chiffres plus clairs et moins d’alertes','Números mais claros e menos avisos'],['Las cifras largas llevan su abreviatura al lado (por ejemplo, 1,68 cuatrill.) y sale un solo aviso a la vez.','Long numbers show their short form next to them and only one notice appears at a time.','Les grands nombres ont leur abréviation à côté et une seule alerte s’affiche à la fois.','Os números longos têm a abreviatura ao lado e só aparece um aviso de cada vez.']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Dónde están el Trading, la Bolsa, la Fábrica y lo Online?'))FAQ.unshift(['¿Dónde están el Trading, la Bolsa, la Fábrica y lo Online?','Desde el 28 de noviembre el menú tiene 5 secciones. El Trading está dentro del Casino, la Fábrica dentro de Juegos y la Bolsa dentro de la Tienda (arriba de cada sección hay botones para cambiar). La Clasificación, los duelos y botes online y los Logros están en Competir.'])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Cómo cambio el estilo del juego?'))FAQ.unshift(['¿Cómo cambio el estilo del juego?','En Ajustes › Estilo del casino. Hay 4: Calle, Tapete, Vino y Medianoche.'])}catch(e){}
+try{i18nAdd([['10 juegos nuevos','10 new games','10 nouveaux jeux','10 jogos novos'],['5 minijuegos nuevos','5 new minigames','5 nouveaux mini-jeux','5 minijogos novos'],['2048, Apila, Topos, Simón y Parchís (tú contra 3 bots, se sale con un 5). Todos con récord semanal y clasificación.','2048, Stack, Moles, Simon and Ludo (you against 3 bots, a 5 to get out). All with weekly records and rankings.','2048, Empile, Taupes, Simon et Petits chevaux (toi contre 3 bots, il faut un 5 pour sortir). Tous avec record hebdo et classement.','2048, Empilha, Toupeiras, Simão e Ludo (tu contra 3 bots, sai-se com um 5). Todos com recorde semanal e classificação.'],['5 juegos de casino nuevos','5 new casino games','5 nouveaux jeux de casino','5 jogos de casino novos'],['Video póker (hasta x250), Bacará, Rueda de la Fortuna (hasta x48), Dragón y Tigre y Doble o Nada (cara o cruz, hasta x2.800).','Video poker (up to x250), Baccarat, Wheel of Fortune (up to x48), Dragon Tiger and Double or Nothing (heads or tails, up to x2,800).','Vidéo poker (jusqu’à x250), Baccara, Roue de la Fortune (jusqu’à x48), Dragon Tigre et Quitte ou Double (pile ou face, jusqu’à x2 800).','Vídeo póquer (até x250), Bacará, Roda da Fortuna (até x48), Dragão e Tigre e Dobro ou Nada (cara ou coroa, até x2.800).']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Cómo se juega al Parchís?'))FAQ.unshift(['¿Cómo se juega al Parchís?','Eres el amarillo contra 3 bots. Toca el dado: para sacar una ficha necesitas un 5 y con un 6 repites. Si caes en la casilla de otra ficha, se la comes y vuelve a su casa. Gana quien mete antes todas sus fichas; tu puesto es tu resultado.'])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Cuánto devuelven los juegos nuevos del casino?'))FAQ.unshift(['¿Cuánto devuelven los juegos nuevos del casino?','Video póker, alrededor del 96 % jugando bien; Bacará, un 98,8-99 % (el empate, un 85,6 %); Rueda de la Fortuna, el 96 %; Dragón y Tigre, alrededor del 96 %; Doble o Nada, un 97 % por cada lanzamiento. Las tablas completas están en la página de probabilidades.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
@@ -17326,6 +17398,248 @@ setInterval(()=>{try{if(view==='ranking')abbrIn($('#v-ranking'));if($('#movBox')
 try{i18nAdd([['🎨 Elige el estilo de tu casino','🎨 Choose your casino style','🎨 Choisis le style de ton casino','🎨 Escolhe o estilo do teu casino'],['Competir','Compete','Compétition','Competir'],['Duelos y botes','Duels and pots','Duels et cagnottes','Duelos e potes'],['Minijuegos','Minigames','Mini-jeux','Minijogos'],
  ['Juega esto contra gente de verdad','Play this against real people','Joue contre de vraies personnes','Joga isto contra pessoas reais'],['🎨 Estilo del casino','🎨 Casino style','🎨 Style du casino','🎨 Estilo do casino'],['¡Listo!','Done!','C’est fait !','Pronto!']])}catch(e){}
 {const _nwgLP=nwGo;nwGo=function(k){if(k==='ranking'){go('ranking');return}if(k==='skin'){skinPick(false);return}return _nwgLP.apply(this,arguments)}}
+
+/* ===================== ACT. 7 · PARTE 2 · MINIJUEGOS NUEVOS: 2048, Apila, Topos, Simón y Parchís ===================== */
+const A7R=()=>Math.random();
+function a7Swipe(el,fn){let x0=0,y0=0,on=false;el.addEventListener('pointerdown',e=>{on=true;x0=e.clientX;y0=e.clientY});
+  el.addEventListener('pointerup',e=>{if(!on)return;on=false;const dx=e.clientX-x0,dy=e.clientY-y0;if(Math.max(Math.abs(dx),Math.abs(dy))<24)return;fn(Math.abs(dx)>Math.abs(dy)?(dx>0?'right':'left'):(dy>0?'down':'up'))});el.style.touchAction='none'}
+
+/* ---------- 2048 ---------- */
+GAMES.g2048={low:[600,'¡A POR EL 2048!','junta fichas iguales para que crezcan'],name:'2048',dom:true,unit:'Puntos',best:'max',hint:'Desliza (o usa las flechas) para mover todas las fichas. Dos iguales se juntan y suman. ¡Llega al 2048!',
+ reward:s=>Math.round(s/6),
+ mount(el){this.el=el;this.n={f:5,n:4,d:4,h:4,x:4}[curDiff()];this.new();this.draw();a7Swipe(el,k=>this.key(k))},
+ new(){const n=this.n;this.b=Array.from({length:n*n},()=>0);this.add();this.add();this.moved=0},
+ add(){const e=this.b.map((v,i)=>v?-1:i).filter(i=>i>=0);if(!e.length)return;const D=curDiff();this.b[e[Math.floor(A7R()*e.length)]]=A7R()<({f:.95,n:.9,d:.85,h:.75,x:.65}[D])?2:4},
+ start(){this.new();setScore(0);this.draw()},
+ line(i,d){const n=this.n,r=[];for(let k=0;k<n;k++){let x,y;if(d==='left'){x=k;y=i}else if(d==='right'){x=n-1-k;y=i}else if(d==='up'){x=i;y=k}else{x=i;y=n-1-k}r.push(y*n+x)}return r},
+ key(d){if(!running||!['left','right','up','down'].includes(d))return;const n=this.n;let moved=false,gain=0;
+  for(let i=0;i<n;i++){const idx=this.line(i,d),vals=idx.map(j=>this.b[j]).filter(v=>v),out=[];
+   for(let k=0;k<vals.length;k++){if(vals[k]===vals[k+1]){out.push(vals[k]*2);gain+=vals[k]*2;k++}else out.push(vals[k])}
+   while(out.length<n)out.push(0);idx.forEach((j,k)=>{if(this.b[j]!==out[k])moved=true;this.b[j]=out[k]})}
+  if(!moved)return;sfx(gain?'coin':'click');if(gain)addScore(gain);this.add();this.draw();
+  if(this.b.includes(2048)&&!this.won){this.won=true;toast('¡2048!','Sigue para hacer más puntos','var(--sun)','🏆')}
+  if(!this.canMove()){sfx('hit');setTimeout(()=>gEnd(),500)}},
+ canMove(){const n=this.n,b=this.b;if(b.includes(0))return true;for(let y=0;y<n;y++)for(let x=0;x<n;x++){const v=b[y*n+x];if(x<n-1&&b[y*n+x+1]===v)return true;if(y<n-1&&b[(y+1)*n+x]===v)return true}return false},
+ draw(){const n=this.n;this.el.innerHTML=`<div class="g48" style="--n:${n}">${this.b.map(v=>`<div class="g48c v${Math.min(v,4096)}">${v||''}</div>`).join('')}</div>`},
+ stop(){}};
+
+/* ---------- Apila (como el Stack) ---------- */
+GAMES.apila={low:[5,'¡PULSO FIRME!','suelta el bloque justo encima'],name:'Apila',dom:true,unit:'Pisos',best:'max',hint:'El bloque va y viene: toca (o espacio) para soltarlo. Lo que sobresale se corta. Si fallas del todo, se acaba.',
+ reward:s=>s*14,
+ mount(el){this.el=el;el.innerHTML='<canvas class="apcv" width="360" height="460"></canvas>';this.cv=el.querySelector('canvas');this.cx=this.cv.getContext('2d');
+  this.cv.addEventListener('pointerdown',e=>{e.preventDefault();this.drop()});this.reset();this.draw()},
+ reset(){this.st=[{x:90,w:180}];this.cur={x:0,w:180,dir:1};this.cam=0;this.sp={f:150,n:200,d:250,h:310,x:370}[curDiff()];this.cuts=[];this.hue=A7R()*360},
+ start(){this.reset();setScore(0);cancelAnimationFrame(this.raf);let l=performance.now();const loop=t=>{const dt=Math.min(.033,(t-l)/1000);l=t;this.upd(dt);this.draw();this.raf=requestAnimationFrame(loop)};this.raf=requestAnimationFrame(loop)},
+ stop(){cancelAnimationFrame(this.raf)},
+ key(k){if(k==='up'||k===' ')this.drop()},
+ upd(dt){if(!running)return;const c=this.cur;c.x+=c.dir*this.sp*dt*(1+score*.02);if(c.x+c.w>360){c.x=360-c.w;c.dir=-1}if(c.x<0){c.x=0;c.dir=1}
+  const want=Math.max(0,(this.st.length-7)*28);this.cam+=(want-this.cam)*Math.min(1,dt*6);this.cuts.forEach(p=>{p.vy+=900*dt;p.y+=p.vy*dt});this.cuts=this.cuts.filter(p=>p.y<800)},
+ drop(){if(!running)return;const c=this.cur,top=this.st[this.st.length-1],a=Math.max(c.x,top.x),b=Math.min(c.x+c.w,top.x+top.w),w=b-a;
+  const y=460-28*(this.st.length+1)+this.cam;
+  if(w<=0){this.cuts.push({x:c.x,w:c.w,y,vy:0});sfx('hit');running&&setTimeout(()=>gEnd(),600);this.cur={x:-999,w:0,dir:1};return}
+  if(Math.abs(c.x-top.x)<4){c.x=top.x;sfx('big')}else{const cx=c.x<top.x?c.x:b,cw=c.w-w;if(cw>0)this.cuts.push({x:cx,w:cw,y,vy:0});sfx('coin')}
+  this.st.push({x:Math.abs(c.x-top.x)<4?top.x:a,w:Math.abs(c.x-top.x)<4?top.w:w});addScore(1);this.cur={x:c.dir>0?0:360-this.st[this.st.length-1].w,w:this.st[this.st.length-1].w,dir:c.dir>0?1:-1}},
+ draw(){const g=this.cx;if(!g)return;g.fillStyle='#14141a';g.fillRect(0,0,360,460);const H=28,col=i=>`hsl(${(this.hue+i*9)%360} 70% ${48+(i%2)*6}%)`;
+  this.st.forEach((b,i)=>{const y=460-H*(i+1)+this.cam;if(y>-H&&y<460){g.fillStyle=col(i);g.fillRect(b.x,y,b.w,H-2);g.fillStyle='rgba(0,0,0,.25)';g.fillRect(b.x,y+H-8,b.w,6)}});
+  const c=this.cur;if(running&&c.w>0){const y=460-H*(this.st.length+1)+this.cam;g.fillStyle=col(this.st.length);g.fillRect(c.x,y,c.w,H-2)}
+  this.cuts.forEach(p=>{g.fillStyle='rgba(255,255,255,.35)';g.fillRect(p.x,p.y,p.w,H-2)});
+  g.fillStyle='#fff';g.font='900 30px Anton, sans-serif';g.textAlign='center';g.fillText(score,180,52)}};
+
+/* ---------- Topos ---------- */
+GAMES.topos={low:[8,'¡MÁS RÁPIDO!','dale al topo antes de que se esconda'],name:'Topos',dom:true,unit:'Topos',best:'max',hint:'Tienes 30 segundos: toca los topos 🐹 antes de que se escondan. ¡No toques las bombas 💣!',
+ reward:s=>s*9,
+ mount(el){this.el=el;this.n={f:3,n:3,d:4,h:4,x:4}[curDiff()];el.innerHTML=`<div class="tptime"><i id="tpBar"></i></div><div class="tpg" style="--n:${this.n}">${Array.from({length:this.n*this.n},(_,i)=>`<button class="tph" data-h="${i}"><span class="tpm"></span></button>`).join('')}</div>`;
+  el.querySelector('.tpg').addEventListener('pointerdown',e=>{const b=e.target.closest('.tph');if(b){e.preventDefault();this.hit(b)}})},
+ start(){this.mount(this.el);setScore(0);this.t0=performance.now();this.dur=30000;clearInterval(this.iv);this.next=0;this.iv=setInterval(()=>this.tick(),60)},
+ stop(){clearInterval(this.iv)},
+ tick(){if(!running){clearInterval(this.iv);return}const el=this.el,t=performance.now()-this.t0,left=Math.max(0,1-t/this.dur);const bar=el.querySelector('#tpBar');if(bar)bar.style.width=(left*100)+'%';
+  if(t>=this.dur){clearInterval(this.iv);setTimeout(()=>gEnd(),300);return}
+  const D=curDiff(),life={f:1300,n:1050,d:850,h:700,x:580}[D],gap={f:650,n:520,d:420,h:340,x:280}[D];
+  el.querySelectorAll('.tph.up').forEach(b=>{if(t>+b.dataset.until){b.classList.remove('up','bomb','gold')}});
+  if(t>=this.next){this.next=t+gap*(0.7+A7R()*.6);const free=[...el.querySelectorAll('.tph:not(.up)')];if(free.length){const b=free[Math.floor(A7R()*free.length)];const r=A7R();
+    b.classList.add('up');b.classList.toggle('bomb',D!=='f'&&r<({n:.12,d:.18,h:.22,x:.26}[D]||0));b.classList.toggle('gold',!b.classList.contains('bomb')&&r>.93);
+    b.querySelector('.tpm').textContent=b.classList.contains('bomb')?'💣':b.classList.contains('gold')?'⭐':'🐹';b.dataset.until=t+life}}},
+ hit(b){if(!running||!b.classList.contains('up'))return;if(b.classList.contains('bomb')){sfx('hit');addScore(-3);b.classList.add('boom');setTimeout(()=>b.classList.remove('boom'),300)}
+  else{const g=b.classList.contains('gold');sfx(g?'big':'coin');addScore(g?3:1)}b.classList.remove('up','bomb','gold')}};
+
+/* ---------- Simón ---------- */
+GAMES.simon={low:[4,'¡MEMORIA DE PEZ!','fíjate en el orden de los colores'],name:'Simón',dom:true,unit:'Rondas',best:'max',hint:'Mira el orden en que se encienden los colores y repítelo. Cada ronda, uno más.',
+ reward:s=>s*16,
+ mount(el){this.el=el;el.innerHTML=`<div class="smg">${['#ff4d63','#14e08a','#3f9bff','#ffd600'].map((c,i)=>`<button class="smb" data-s="${i}" style="--c:${c}"></button>`).join('')}<div class="smc" id="smC">Simón</div></div>`;
+  el.querySelector('.smg').addEventListener('pointerdown',e=>{const b=e.target.closest('.smb');if(b){e.preventDefault();this.tap(+b.dataset.s)}})},
+ start(){this.seq=[];this.pos=0;setScore(0);this.round()},
+ stop(){clearTimeout(this.tm)},
+ tone(i){try{tone([330,392,494,587][i],.28,'triangle',.07)}catch(e){}},
+ flash(i,ms){const b=this.el.querySelector(`[data-s="${i}"]`);if(!b)return;b.classList.add('on');this.tone(i);setTimeout(()=>b.classList.remove('on'),ms)},
+ round(){this.seq.push(Math.floor(A7R()*4));this.pos=0;this.lock=true;const sp=Math.max(220,{f:650,n:520,d:430,h:360,x:300}[curDiff()]-this.seq.length*10);const c=$('#smC');if(c)c.textContent='Mira…';
+  this.seq.forEach((s,k)=>{this.tm=setTimeout(()=>this.flash(s,sp*.7),400+k*sp)});this.tm=setTimeout(()=>{this.lock=false;const c=$('#smC');if(c)c.textContent='¡Tu turno!'},400+this.seq.length*sp)},
+ tap(i){if(!running||this.lock)return;this.flash(i,180);if(i!==this.seq[this.pos]){this.lock=true;sfx('hit');const c=$('#smC');if(c)c.textContent='¡Fallo!';setTimeout(()=>gEnd(),600);return}
+  this.pos++;if(this.pos===this.seq.length){addScore(1);sfx('coin');this.lock=true;const c=$('#smC');if(c)c.textContent='¡Bien!';this.tm=setTimeout(()=>this.round(),700)}}};
+
+/* ---------- Parchís (versión rápida: tú contra 3 bots) ---------- */
+const PCH_T=[[0,4],[1,4],[2,4],[3,4],[4,4],[4,3],[4,2],[4,1],[4,0],[5,0],[6,0],[6,1],[6,2],[6,3],[6,4],[7,4],[8,4],[9,4],[10,4],[10,5],[10,6],[9,6],[8,6],[7,6],[6,6],[6,7],[6,8],[6,9],[6,10],[5,10],[4,10],[4,9],[4,8],[4,7],[4,6],[3,6],[2,6],[1,6],[0,6],[0,5]];
+const PCH_H=[[[1,5],[2,5],[3,5],[4,5]],[[5,1],[5,2],[5,3],[5,4]],[[9,5],[8,5],[7,5],[6,5]],[[5,9],[5,8],[5,7],[5,6]]];
+const PCH_B=[[[0,0],[1,0],[0,1],[1,1]],[[9,0],[10,0],[9,1],[10,1]],[[9,9],[10,9],[9,10],[10,10]],[[0,9],[1,9],[0,10],[1,10]]];
+const PCH_C=['#ffd600','#3f9bff','#14e08a','#ff4d63'],PCH_N=['Tú','Bot Azul','Bot Verde','Bot Rojo'];
+GAMES.parchis={low:[4,'¡OTRA PARTIDA!','sacar con un 5 y comer fichas es la clave'],name:'Parchís',dom:true,unit:'Puesto',best:'min',fmt:v=>v?v+'.º':'–',
+ hint:'Tú eres el amarillo contra 3 bots. Para sacar ficha necesitas un 5. Con un 6 repites. Si caes donde hay otra ficha, se la comes y vuelve a casa. Gana el primero que meta todas.',
+ reward:p=>({1:420,2:160,3:70,4:25}[p]||25),endTitle:p=>p===1?'¡HAS GANADO!':p+'.º puesto',
+ mount(el){this.el=el;this.np={f:1,n:2,d:2,h:3,x:4}[curDiff()];this.init();this.render()},
+ init(){this.p=[0,1,2,3].map(()=>Array.from({length:this.np},()=>-1));this.turn=0;this.die=0;this.done=[];this.wait=true;this.msg='Toca el dado para tirar'},
+ start(){this.init();setScore(0);this.render()},
+ stop(){clearTimeout(this.tm)},
+ sq(pl,v){if(v<0)return null;if(v<40)return PCH_T[(pl*10+v)%40];if(v<44)return PCH_H[pl][v-40];return[5,5]},
+ can(pl,k,d){const v=this.p[pl][k];if(v===44)return false;if(v<0)return d===5;return v+d<=44},
+ opts(pl,d){return this.p[pl].map((_,k)=>k).filter(k=>this.can(pl,k,d))},
+ move(pl,k,d){let v=this.p[pl][k];v=v<0?0:v+d;this.p[pl][k]=v;let ate=false;
+  if(v<40){const [x,y]=this.sq(pl,v);for(let q=0;q<4;q++){if(q===pl)continue;this.p[q].forEach((w,j)=>{if(w>=0&&w<40){const s=this.sq(q,w);if(s[0]===x&&s[1]===y){this.p[q][j]=-1;ate=true}}})}}
+  if(ate){sfx(pl===0?'big':'hit');this.msg=pl===0?'¡Te has comido una ficha!':PCH_N[pl]+' se ha comido una ficha'}else sfx('click');
+  if(this.p[pl].every(w=>w===44)&&!this.done.includes(pl)){this.done.push(pl);if(pl===0){setScore(this.done.length);this.render();setTimeout(()=>gEnd(),900);return 'end'}
+   if(this.done.length===3&&!this.done.includes(0)){setScore(4);this.render();setTimeout(()=>gEnd(),900);return 'end'}}return ate},
+ roll(){return 1+Math.floor(A7R()*6)},
+ next(again){if(!again){do{this.turn=(this.turn+1)%4}while(this.done.includes(this.turn))}this.die=0;this.render();if(this.turn!==0){this.tm=setTimeout(()=>this.bot(),650)}else{this.wait=true;this.msg='Tu turno: toca el dado';this.render()}},
+ tapDie(){if(!running||this.turn!==0||!this.wait)return;this.wait=false;const d=this.roll();this.die=d;sfx('click');const o=this.opts(0,d);
+  if(!o.length){this.msg=d===5?'No puedes mover':'Sacaste un '+d+(this.p[0].every(v=>v<0)?': necesitas un 5 para salir':': no puedes mover');this.render();this.tm=setTimeout(()=>this.next(d===6),900);return}
+  if(o.length===1){this.tm=setTimeout(()=>this.pick(o[0]),350);this.msg='Sacaste un '+d;this.render();return}
+  this.msg='Sacaste un '+d+': toca la ficha que quieres mover';this.choose=o;this.render()},
+ pick(k){if(this.turn!==0||!this.die)return;if(!this.opts(0,this.die).includes(k))return;this.choose=null;const r=this.move(0,k,this.die);if(r==='end')return;this.next(this.die===6)},
+ bot(){if(!running)return;const pl=this.turn,d=this.roll();this.die=d;const o=this.opts(pl,d);this.msg=PCH_N[pl]+' saca un '+d;this.render();if(!o.length){this.tm=setTimeout(()=>this.next(d===6),700);return}
+  const smart=curDiff()!=='f'&&curDiff()!=='n'?1:(A7R()<.5?1:0);let best=o[Math.floor(A7R()*o.length)];
+  if(smart){let bs=-1e9;o.forEach(k=>{const v=this.p[pl][k],nv=v<0?0:v+d;let sc=nv;if(v<0)sc+=30;if(nv===44)sc+=60;if(nv<40){const[x,y]=this.sq(pl,nv);for(let q=0;q<4;q++)if(q!==pl)this.p[q].forEach(w=>{if(w>=0&&w<40){const s=this.sq(q,w);if(s[0]===x&&s[1]===y)sc+=q===0?90:50}})}if(sc>bs){bs=sc;best=k}})}
+  this.tm=setTimeout(()=>{const r=this.move(pl,best,d);if(r==='end')return;this.render();this.tm=setTimeout(()=>this.next(d===6),500)},500)},
+ render(){const el=this.el;if(!el)return;const cells=[];const at={};this.p.forEach((arr,pl)=>arr.forEach((v,k)=>{let s;if(v<0)s=PCH_B[pl][k];else if(v===44)s=[5,5];else s=this.sq(pl,v);const key=s[0]+','+s[1];(at[key]=at[key]||[]).push([pl,k])}));
+  const trk=new Set(PCH_T.map(p=>p+'')),hom={};PCH_H.forEach((h,pl)=>h.forEach(p=>hom[p+'']=pl));const bas={};PCH_B.forEach((b,pl)=>b.forEach(p=>bas[p+'']=pl));const st={};[0,1,2,3].forEach(pl=>st[PCH_T[pl*10]+'']=pl);
+  for(let y=0;y<11;y++)for(let x=0;x<11;x++){const k=x+','+y;let cls='pc';let sty='';if(trk.has(k)){cls+=' t';if(st[k]!=null){cls+=' s';sty=`--pc:${PCH_C[st[k]]}`}}else if(hom[k]!=null){cls+=' h';sty=`--pc:${PCH_C[hom[k]]}`}else if(bas[k]!=null){cls+=' b';sty=`--pc:${PCH_C[bas[k]]}`}else if(k==='5,5'){cls+=' m'}
+   const pcs=(at[k]||[]).map(([pl,i])=>`<i class="pf${pl===0&&this.choose&&this.choose.includes(i)?' can':''}" style="--pc:${PCH_C[pl]}" ${pl===0?`data-pf="${i}"`:''}></i>`).join('');cells.push(`<div class="${cls}" style="${sty}">${pcs}</div>`)}
+  el.innerHTML=`<div class="pchw"><div class="pchb">${cells.join('')}</div><div class="pchs"><button class="pchd ${this.turn===0&&this.wait&&running?'go':''}" data-pdie style="--pc:${PCH_C[this.turn]}">${this.die?['⚀','⚁','⚂','⚃','⚄','⚅'][this.die-1]:'🎲'}</button>
+   <div class="pcht"><b style="color:${PCH_C[this.turn]}">${PCH_N[this.turn]}</b><span>${esc(this.msg||'')}</span></div></div></div>`;
+  el.onclick=e=>{if(e.target.closest('[data-pdie]'))this.tapDie();const f=e.target.closest('[data-pf]');if(f)this.pick(+f.dataset.pf)}}};
+
+/* registro en Juegos */
+[['g2048','2048','#ffb020'],['apila','Apila','#3f9bff'],['topos','Topos','#14e08a'],['simon','Simón','#ff4d63'],['parchis','Parchís','#ffd600']].forEach(g=>{if(!GLIST.find(x=>x[0]===g[0]))GLIST.push(g)});
+Object.assign(COVERS,{
+ g2048:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#ffb020"/><g font-family="Arial Black,Arial" font-weight="900" text-anchor="middle">${[[40,20,'2','#fff3d6'],[88,20,'4','#ffe0a3'],[136,20,'8','#ff9a3c'],[40,66,'16','#ff7a2e'],[88,66,'32','#ff5a2e'],[136,66,'2048','#ffd600']].map(([x,y,t,c])=>`<rect x="${x-20}" y="${y}" width="44" height="40" rx="6" fill="${c}" stroke="#000" stroke-width="3"/><text x="${x+2}" y="${y+28}" font-size="${t.length>2?13:20}" fill="#222">${t}</text>`).join('')}</g></svg>`,
+ apila:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#16263f"/>${[0,1,2,3,4,5].map(i=>`<rect x="${60+(i%2)*6-i*2}" y="${100-i*15}" width="${80-i*4}" height="13" fill="hsl(${200+i*18} 70% ${50+(i%2)*6}%)" stroke="#000" stroke-width="2"/>`).join('')}<rect x="110" y="8" width="60" height="13" fill="#ffd600" stroke="#000" stroke-width="2"/></svg>`,
+ topos:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#5bbf4a"/>${[[50,80],[100,70],[150,82]].map(([x,y])=>`<ellipse cx="${x}" cy="${y+14}" rx="28" ry="9" fill="#3b2a1a"/>`).join('')}<text x="100" y="80" font-size="42" text-anchor="middle">🐹</text><text x="150" y="94" font-size="30" text-anchor="middle">💣</text></svg>`,
+ simon:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#1c1c24"/><g transform="translate(100 60)" stroke="#000" stroke-width="3"><path d="M0-50A50 50 0 0 1 50 0H8A8 8 0 0 0 0-8z" fill="#ff4d63"/><path d="M50 0A50 50 0 0 1 0 50V8A8 8 0 0 0 8 0z" fill="#3f9bff"/><path d="M0 50A50 50 0 0 1-50 0H-8A8 8 0 0 0 0 8z" fill="#ffd600"/><path d="M-50 0A50 50 0 0 1 0-50V-8A8 8 0 0 0-8 0z" fill="#14e08a"/></g></svg>`,
+ parchis:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#f3efe6"/><g stroke="#000" stroke-width="2"><rect x="45" y="5" width="110" height="110" fill="#fff"/><rect x="45" y="5" width="40" height="40" fill="#ffd600"/><rect x="115" y="5" width="40" height="40" fill="#3f9bff"/><rect x="115" y="75" width="40" height="40" fill="#14e08a"/><rect x="45" y="75" width="40" height="40" fill="#ff4d63"/><path d="M85 60h30M100 45v30"/></g><text x="100" y="68" font-size="26" text-anchor="middle">🎲</text></svg>`});
+try{i18nAdd([['Apila','Stack','Empile','Empilha'],['Topos','Moles','Taupes','Toupeiras'],['Simón','Simon','Simon','Simão'],['Parchís','Ludo','Petits chevaux','Ludo'],['¡HAS GANADO!','YOU WON!','TU AS GAGNÉ !','GANHASTE!']])}catch(e){}
+
+/* ===================== ACT. 7 · PARTE 2 · CASINO NUEVO: Video póker, Bacará, Rueda de la Fortuna, Dragón y Tigre, Doble o Nada ===================== */
+const K7S=['♠','♥','♦','♣'],K7V=['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+const k7Card=()=>({v:c10I(13),s:c10I(4)});
+const k7H=(c,cls='')=>c?`<span class="k7c ${c.s===1||c.s===2?'red':''} ${cls}"><b>${K7V[c.v]}</b><i>${K7S[c.s]}</i></span>`:`<span class="k7c back ${cls}"></span>`;
+function c7Add(id,name,color,desc,tag,steps,html,cover,maxF,show){const t=$('#c-cajas')||$('#c-torre');if(t&&!$('#c-'+id))t.insertAdjacentHTML('afterend',html);
+  C10K.push(id);CAS2BW[id]=id;BWG[id]=[cover.e,name];C10SHOW[id]=show;C10UPD[id]=show;czMaxF[id]=maxF;
+  CZ[id]={id,n:name,c:color,d:desc,tag,hot:0,steps};CZ_COV[id]=cover.svg;if(!CZ_NEW.includes(id))CZ_NEW.splice(1,0,id)}
+const c7Cov=(bg,emo,txt)=>`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="${bg}"/><rect x="8" y="8" width="184" height="104" rx="10" fill="none" stroke="#0004" stroke-width="4"/><text x="100" y="72" font-size="48" text-anchor="middle">${emo}</text><text x="100" y="104" font-family="Arial Black,Arial" font-weight="900" font-size="15" fill="#fff" stroke="#000" stroke-width="3" paint-order="stroke" text-anchor="middle">${txt}</text></svg>`;
+const c7Side=(id,body)=>`<div class="panel c10-side">${body}<p class="rmsg c10-msg" id="${id}Msg"></p></div>`;
+
+/* ---------- 1. Video póker (Jotas o más) ---------- */
+const VP_T=[['Escalera real',250],['Escalera de color',50],['Póker',25],['Full',8],['Color',5],['Escalera',4],['Trío',3],['Dobles parejas',2],['Jotas o más',1]];
+const VP={st:'bet',h:[],hold:[false,false,false,false,false],bet:0,deck:[]};
+function vpDeck(){const d=[];for(let s=0;s<4;s++)for(let v=0;v<13;v++)d.push({v,s});for(let i=d.length-1;i>0;i--){const j=c10I(i+1);[d[i],d[j]]=[d[j],d[i]]}return d}
+function vpRank(h){const vs=h.map(c=>c.v).sort((a,b)=>a-b),fl=h.every(c=>c.s===h[0].s),cnt={};vs.forEach(v=>cnt[v]=(cnt[v]||0)+1);const g=Object.values(cnt).sort((a,b)=>b-a);
+  const uniq=[...new Set(vs)];let st=uniq.length===5&&(vs[4]-vs[0]===4||(vs.join()==='0,1,2,3,12'));
+  if(st&&fl)return vs[0]===8?0:1;if(g[0]===4)return 2;if(g[0]===3&&g[1]===2)return 3;if(fl)return 4;if(st)return 5;if(g[0]===3)return 6;if(g[0]===2&&g[1]===2)return 7;
+  if(g[0]===2){const p=+Object.keys(cnt).find(k=>cnt[k]===2);if(p>=9)return 8}return -1}
+function vpUI(){const el=$('#vpHand');if(!el)return;el.innerHTML=VP.h.length?VP.h.map((c,i)=>`<button class="vpk ${VP.hold[i]?'hold':''}" data-vph="${i}" ${VP.st!=='draw'?'disabled':''}>${k7H(c)}<small>${VP.hold[i]?'GUARDADA':VP.st==='draw'?'Tocar':''}</small></button>`).join(''):[0,1,2,3,4].map(()=>`<span class="vpk">${k7H(null)}</span>`).join('');
+  const r=VP.h.length===5?vpRank(VP.h):-1;$('#vpTab').innerHTML=VP_T.map(([n,m],i)=>`<div class="${i===r?'on':''}"><span>${n}</span><b>x${m}</b></div>`).join('');
+  const go=$('#vpGo');if(go)go.innerHTML=VP.st==='draw'?'<span class="c10l">Cambiar cartas</span>':'<span class="c10l">Repartir</span> <span class="bamt"></span>';try{c10Ui()}catch(e){}}
+function vpGo(){const msg=$('#vpMsg');if(VP.st!=='draw'){const b=c10Bet(msg);if(!b)return;VP.bet=b;VP.deck=vpDeck();VP.h=VP.deck.splice(0,5);VP.hold=[false,false,false,false,false];VP.st='draw';sfx('click');msg.textContent='Toca las cartas que quieres guardar y pulsa «Cambiar cartas».';vpUI();return}
+  VP.h=VP.h.map((c,i)=>VP.hold[i]?c:VP.deck.shift());VP.st='bet';const r=vpRank(VP.h),m=r>=0?VP_T[r][1]:0;c10Settle('vp',VP.bet,VP.bet*m);
+  if(m){msg.innerHTML=`<b>${VP_T[r][0]}</b>: cobras ${c10E(VP.bet*m)}`;c10Cheer(m,$('#vpHand'))}else{msg.textContent='Nada esta vez. Pierdes '+short(VP.bet)+' €.';sfx('lose')}vpUI()}
+c7Add('vp','Video póker','#3f7cff','Póker de 5 cartas: guarda las buenas y cambia el resto.','Hasta x250',
+ ['Apuesta arriba y pulsa «Repartir».','Toca las cartas que quieres guardar.','Pulsa «Cambiar cartas»: las demás se cambian.','Con pareja de jotas o más ya cobras. La escalera real paga x250.'],
+ `<div id="c-vp" class="c10 c10-grid" hidden><div class="c10-stage k7-stage"><div class="vp-hand" id="vpHand"></div><div class="vp-tab" id="vpTab"></div></div>${c7Side('vp','<button class="btn big c10-main" id="vpGo"><span class="c10l">Repartir</span> <span class="bamt"></span></button>')}</div>`,
+ {e:'🃏',svg:c7Cov('#1d4fd8','🃏','VIDEO PÓKER')},()=>250,vpUI);
+document.addEventListener('click',e=>{if(e.target.closest('#vpGo')){vpGo();return}const h=e.target.closest('[data-vph]');if(h&&VP.st==='draw'){VP.hold[+h.dataset.vph]=!VP.hold[+h.dataset.vph];sfx('click');vpUI()}});
+
+/* ---------- 2. Bacará ---------- */
+const BAC={pick:'p',busy:false,hist:[]};const BAC_M={p:2,b:1.95,t:9};
+const bacV=c=>c.v>=8&&c.v<=11?0:c.v===12?1:c.v+2;const bacS=h=>h.reduce((a,c)=>a+bacV(c),0)%10;
+function bacUI(){const b=$('#bacBets');if(b)b.innerHTML=[['p','Jugador','x2','#3f9bff'],['t','Empate','x9','#14e08a'],['b','Banca','x1,95','#ff4d63']].map(([k,n,m,c])=>`<button data-bac="${k}" aria-pressed="${BAC.pick===k}" style="--c:${c}"><b>${n}</b><small>${m}</small></button>`).join('');try{c10Ui()}catch(e){}}
+async function bacGo(){if(BAC.busy)return;const msg=$('#bacMsg'),bet=c10Bet(msg);if(!bet)return;BAC.busy=true;const P=[k7Card(),k7Card()],B=[k7Card(),k7Card()];
+  let ps=bacS(P),bs=bacS(B);if(ps<8&&bs<8){let p3=null;if(ps<=5){p3=k7Card();P.push(p3)}bs=bacS(B);
+   const v3=p3?bacV(p3):-1;const draw=p3===null?bs<=5:(bs<=2||(bs===3&&v3!==8)||(bs===4&&v3>=2&&v3<=7)||(bs===5&&v3>=4&&v3<=7)||(bs===6&&(v3===6||v3===7)));if(draw)B.push(k7Card())}
+  ps=bacS(P);bs=bacS(B);const w=ps>bs?'p':bs>ps?'b':'t';
+  const show=async(n)=>{$('#bacP').innerHTML=P.slice(0,n[0]).map(c=>k7H(c,'in')).join('');$('#bacB').innerHTML=B.slice(0,n[1]).map(c=>k7H(c,'in')).join('');sfx('click');await c10Wait(c10Lite()?0:420)};
+  $('#bacPs').textContent='';$('#bacBs').textContent='';await show([1,0]);await show([1,1]);await show([2,1]);await show([2,2]);if(P.length>2)await show([3,2]);if(B.length>2)await show([3,3]);
+  $('#bacPs').textContent=ps;$('#bacBs').textContent=bs;let pay=0;if(BAC.pick===w)pay=bet*BAC_M[w];else if(w==='t'&&BAC.pick!=='t')pay=bet;
+  c10Settle('bac',bet,pay);const nm={p:'Jugador',b:'Banca',t:'Empate'};
+  if(pay>bet){msg.innerHTML=`Gana <b>${nm[w]}</b> (${ps} a ${bs}). Cobras ${c10E(pay)}`;c10Cheer(pay/bet,$('#bacStage'))}else if(pay===bet){msg.textContent='Empate: te devolvemos la apuesta.';sfx('coin')}else{msg.textContent=`Gana ${nm[w]} (${ps} a ${bs}). Pierdes ${short(bet)} €.`;sfx('lose')}
+  BAC.busy=false}
+c7Add('bac','Bacará','#14e08a','Apuesta a quién se acerca más a 9: Jugador o Banca.','Hasta x9',
+ ['Elige Jugador, Banca o Empate.','Se reparten dos cartas a cada lado (a veces una tercera, según las reglas).','Gana quien sume más cerca de 9. Las figuras y el 10 valen 0.','Jugador paga x2, Banca x1,95 y Empate x9. Si sale empate y no apostaste a él, recuperas la apuesta.'],
+ `<div id="c-bac" class="c10 c10-grid" hidden><div class="c10-stage k7-stage bac-stage" id="bacStage"><div class="bac-side"><span>JUGADOR <b id="bacPs"></b></span><div class="bac-h" id="bacP"></div></div><div class="bac-side"><span>BANCA <b id="bacBs"></b></span><div class="bac-h" id="bacB"></div></div></div>${c7Side('bac','<span class="c10-lbl">¿A quién apuestas?</span><div class="k7bets" id="bacBets"></div><button class="btn big c10-main" id="bacGo"><span class="c10l">Repartir</span> <span class="bamt"></span></button>')}</div>`,
+ {e:'🎴',svg:c7Cov('#0e7a4f','🎴','BACARÁ')},()=>9,bacUI);
+document.addEventListener('click',e=>{if(e.target.closest('#bacGo')){bacGo();return}const b=e.target.closest('[data-bac]');if(b&&!BAC.busy){BAC.pick=b.dataset.bac;sfx('click');bacUI()}});
+
+/* ---------- 3. Rueda de la Fortuna ---------- */
+const RF_S=[[2,24,'#3f9bff'],[4,12,'#14e08a'],[8,6,'#ffb020'],[12,4,'#ff4d63'],[24,2,'#a35cff'],[48,1,'#ffd600'],[0,1,'#222']];
+const RF={pick:2,rot:0,busy:false,segs:null};
+function rfSegs(){if(RF.segs)return RF.segs;const L=[];const pool=[];RF_S.forEach(([m,c])=>{for(let i=0;i<c;i++)pool.push(m)});const by={};pool.forEach(m=>(by[m]=by[m]||[]).push(m));
+  const order=[];const keys=Object.keys(by).map(Number).sort((a,b)=>by[b].length-by[a].length);while(order.length<pool.length){keys.forEach(k=>{if(by[k].length)order.push(by[k].pop())})}
+  for(let i=0;i<order.length;i++){if(order[i]===order[(i+1)%order.length]&&order[i]===2){const j=order.findIndex((m,q)=>q>i+1&&m!==2&&order[q-1]!==m);if(j>0)[order[i+1],order[j]]=[order[j],order[i+1]]}}
+  return RF.segs=order}
+const rfCol=m=>(RF_S.find(x=>x[0]===m)||[0,0,'#222'])[2];
+function rfDraw(){const cv=$('#rfCv');if(!cv)return;const g=cv.getContext('2d'),S_=rfSegs(),n=S_.length,R=150;g.clearRect(0,0,320,320);g.save();g.translate(160,160);g.rotate(RF.rot);
+  S_.forEach((m,i)=>{const a0=i/n*Math.PI*2-Math.PI/2,a1=(i+1)/n*Math.PI*2-Math.PI/2;g.beginPath();g.moveTo(0,0);g.arc(0,0,R,a0,a1);g.closePath();g.fillStyle=rfCol(m);g.fill();g.strokeStyle='#000';g.lineWidth=1.5;g.stroke();
+   g.save();g.rotate((a0+a1)/2);g.fillStyle=m===48||m===8?'#111':'#fff';g.font='900 11px Arial';g.textAlign='right';g.fillText(m?'x'+m:'💀',R-8,4);g.restore()});
+  g.beginPath();g.arc(0,0,26,0,7);g.fillStyle='#111';g.fill();g.strokeStyle='#ffd600';g.lineWidth=3;g.stroke();g.restore()}
+function rfUI(){const b=$('#rfBets');if(b)b.innerHTML=RF_S.filter(x=>x[0]).map(([m,c,col])=>`<button data-rf="${m}" aria-pressed="${RF.pick===m}" style="--c:${col}"><b>x${m}</b><small>${c} de 50</small></button>`).join('');rfDraw();try{c10Ui()}catch(e){}}
+async function rfGo(){if(RF.busy)return;const msg=$('#rfMsg'),bet=c10Bet(msg);if(!bet)return;RF.busy=true;const S_=rfSegs(),n=S_.length,k=c10I(n),m=S_[k];
+  const target=-((k+.5)/n)*Math.PI*2,cur=RF.rot%(Math.PI*2),turns=5+c10I(3);const from=RF.rot,to=from-cur+target-turns*Math.PI*2+((c10R()-.5)*.7/n)*Math.PI*2;
+  const ms=c10Lite()?0:4200,t0=performance.now();let lastSeg=-1;await new Promise(res=>{const f=t=>{const p=ms?Math.min(1,(t-t0)/ms):1,e=1-Math.pow(1-p,4);RF.rot=from+(to-from)*e;rfDraw();
+    const seg=Math.floor((((-RF.rot)%(Math.PI*2)+Math.PI*2)%(Math.PI*2))/(Math.PI*2)*n);if(seg!==lastSeg){lastSeg=seg;sfx('cjtick')}if(p<1)requestAnimationFrame(f);else res()};requestAnimationFrame(f)});
+  const win=m===RF.pick,pay=win?bet*m:0;c10Settle('rf',bet,pay);
+  if(win){msg.innerHTML=`¡Ha salido <b>x${m}</b>! Cobras ${c10E(pay)}`;c10Cheer(m,$('#rfCv'))}else{msg.textContent=m?`Ha salido x${m} y apostaste a x${RF.pick}. Pierdes ${short(bet)} €.`:`¡Calavera! Pierdes ${short(bet)} €.`;sfx('lose')}RF.busy=false}
+c7Add('rf','Rueda de la Fortuna','#ffb020','Elige un número y gira la rueda gigante.','Hasta x48',
+ ['Elige a qué número apuestas: x2, x4, x8, x12, x24 o x48.','Cuanto más alto, menos huecos tiene en la rueda.','Gira: si para en tu número, cobras ese multiplicador.','La calavera 💀 no paga a nadie.'],
+ `<div id="c-rf" class="c10 c10-grid" hidden><div class="c10-stage k7-stage rf-stage"><div class="rf-wrap"><canvas id="rfCv" width="320" height="320"></canvas><i class="rf-ptr"></i></div></div>${c7Side('rf','<span class="c10-lbl">¿A qué número?</span><div class="k7bets rf" id="rfBets"></div><button class="btn big c10-main" id="rfGo"><span class="c10l">Girar</span> <span class="bamt"></span></button>')}</div>`,
+ {e:'🎡',svg:c7Cov('#d97706','🎡','RUEDA')},()=>48,rfUI);
+document.addEventListener('click',e=>{if(e.target.closest('#rfGo')){rfGo();return}const b=e.target.closest('[data-rf]');if(b&&!RF.busy){RF.pick=+b.dataset.rf;sfx('click');rfUI()}});
+
+/* ---------- 4. Dragón y Tigre ---------- */
+const DT={pick:'d',busy:false};
+function dtUI(){const b=$('#dtBets');if(b)b.innerHTML=[['d','🐉 Dragón','x2','#ff4d63'],['t','Empate','x12','#14e08a'],['g','🐯 Tigre','x2','#ffb020']].map(([k,n,m,c])=>`<button data-dt="${k}" aria-pressed="${DT.pick===k}" style="--c:${c}"><b>${n}</b><small>${m}</small></button>`).join('');try{c10Ui()}catch(e){}}
+async function dtGo(){if(DT.busy)return;const msg=$('#dtMsg'),bet=c10Bet(msg);if(!bet)return;DT.busy=true;const a=k7Card(),b=k7Card();$('#dtD').innerHTML=k7H(null);$('#dtG').innerHTML=k7H(null);
+  await c10Wait(c10Lite()?0:300);$('#dtD').innerHTML=k7H(a,'in big');sfx('click');await c10Wait(c10Lite()?0:500);$('#dtG').innerHTML=k7H(b,'in big');sfx('click');
+  const w=a.v>b.v?'d':b.v>a.v?'g':'t';let pay=0;if(w===DT.pick)pay=w==='t'?bet*12:bet*2;else if(w==='t')pay=Math.floor(bet/2);c10Settle('dt',bet,pay);
+  if(pay>bet){msg.innerHTML=`¡Gana ${w==='d'?'el Dragón':w==='g'?'el Tigre':'el empate'}! Cobras ${c10E(pay)}`;c10Cheer(pay/bet,$('#dtStage'))}else if(w==='t'){msg.textContent='Empate: recuperas la mitad.';sfx('coin')}else{msg.textContent=`Gana ${w==='d'?'el Dragón':'el Tigre'}. Pierdes ${short(bet)} €.`;sfx('lose')}DT.busy=false}
+c7Add('dt','Dragón y Tigre','#ff4d63','Una carta para cada uno: ¿cuál es más alta?','Hasta x12',
+ ['Elige Dragón, Tigre o Empate.','Sale una carta para el Dragón y otra para el Tigre. El As es la más alta.','Si aciertas quién gana, cobras x2. El empate paga x12.','Si sale empate y apostaste a Dragón o Tigre, recuperas la mitad.'],
+ `<div id="c-dt" class="c10 c10-grid" hidden><div class="c10-stage k7-stage dt-stage" id="dtStage"><div class="dt-side"><span>🐉 DRAGÓN</span><div id="dtD">${k7H(null,'big')}</div></div><div class="dt-vs">VS</div><div class="dt-side"><span>🐯 TIGRE</span><div id="dtG">${k7H(null,'big')}</div></div></div>${c7Side('dt','<span class="c10-lbl">¿Quién gana?</span><div class="k7bets" id="dtBets"></div><button class="btn big c10-main" id="dtGo"><span class="c10l">Sacar cartas</span> <span class="bamt"></span></button>')}</div>`,
+ {e:'🐉',svg:c7Cov('#991b1b','🐉','DRAGÓN Y TIGRE')},()=>12,dtUI);
+document.addEventListener('click',e=>{if(e.target.closest('#dtGo')){dtGo();return}const b=e.target.closest('[data-dt]');if(b&&!DT.busy){DT.pick=b.dataset.dt;sfx('click');dtUI()}});
+
+/* ---------- 5. Doble o Nada ---------- */
+const DN={st:'bet',bet:0,k:0,busy:false,side:'c'};const DN_M=1.94,DN_MAX=12;
+const dnMult=k=>Math.floor(Math.pow(DN_M,k)*100)/100;
+function dnUI(){const s=$('#dnSteps');if(s)s.innerHTML=Array.from({length:DN_MAX},(_,i)=>`<span class="${i<DN.k?'ok':i===DN.k&&DN.st==='play'?'now':''}">x${String(dnMult(i+1)).replace('.',',')}</span>`).join('');
+  const go=$('#dnGo'),cash=$('#dnCash');if(go)go.innerHTML=DN.st==='play'?`<span class="c10l">🪙 Lanzar (${DN.side==='c'?'Cara':'Cruz'})</span>`:'<span class="c10l">Empezar</span> <span class="bamt"></span>';
+  if(cash){cash.hidden=!(DN.st==='play'&&DN.k>0);cash.textContent='💰 Plantarme con '+short(Math.floor(DN.bet*dnMult(DN.k)))+' €'}
+  const sd=$('#dnSide');if(sd)sd.innerHTML=[['c','Cara 👑'],['x','Cruz ⭐']].map(([k,n])=>`<button data-dnside="${k}" aria-pressed="${DN.side===k}">${n}</button>`).join('');try{c10Ui()}catch(e){}}
+async function dnGo(){if(DN.busy)return;const msg=$('#dnMsg');if(DN.st!=='play'){const b=c10Bet(msg);if(!b)return;DN.bet=b;DN.k=0;DN.st='play';msg.textContent='Elige cara o cruz y lanza. Cada acierto multiplica.';dnUI();return}
+  DN.busy=true;const coin=$('#dnCoin'),r=c10R()<.5?'c':'x';coin.classList.remove('c','x','spin');void coin.offsetWidth;coin.classList.add('spin',r);sfx('click');await c10Wait(c10Lite()?0:1100);
+  if(r===DN.side){DN.k++;sfx('coin');if(DN.k>=DN_MAX){dnCash();DN.busy=false;return}msg.innerHTML=`¡${r==='c'?'Cara':'Cruz'}! Vas por <b>x${String(dnMult(DN.k)).replace('.',',')}</b>. ¿Sigues o te plantas?`}
+  else{DN.st='bet';c10Settle('dn',DN.bet,0);msg.textContent=`Ha salido ${r==='c'?'cara':'cruz'}. Lo pierdes todo (${short(DN.bet)} €).`;sfx('lose');c10Shake($('#dnStage'))}DN.busy=false;dnUI()}
+function dnCash(){if(DN.st!=='play'||DN.k<1||DN.busy)return;const m=dnMult(DN.k),pay=Math.floor(DN.bet*m);DN.st='bet';c10Settle('dn',DN.bet,pay);$('#dnMsg').innerHTML=`Te plantas con <b>x${String(m).replace('.',',')}</b>: cobras ${c10E(pay)}`;c10Cheer(m,$('#dnStage'));dnUI()}
+c7Add('dn','Doble o Nada','#a35cff','Cara o cruz: cada acierto casi te duplica. ¿Hasta dónde llegas?','Hasta x2.800',
+ ['Apuesta y pulsa «Empezar».','Elige cara o cruz y lanza la moneda.','Si aciertas, tu premio casi se duplica (x1,94). Si fallas, lo pierdes todo.','Plántate cuando quieras para cobrar.'],
+ `<div id="c-dn" class="c10 c10-grid" hidden><div class="c10-stage k7-stage dn-stage" id="dnStage"><div class="dn-coin" id="dnCoin"><i class="f">👑</i><i class="b">⭐</i></div><div class="dn-steps" id="dnSteps"></div></div>${c7Side('dn','<div class="c10-opts" id="dnSide"></div><button class="btn big c10-main" id="dnGo"><span class="c10l">Empezar</span> <span class="bamt"></span></button><button class="btn mint" id="dnCash" hidden></button>')}</div>`,
+ {e:'🪙',svg:c7Cov('#6d28d9','🪙','DOBLE O NADA')},()=>dnMult(DN_MAX),dnUI);
+document.addEventListener('click',e=>{if(e.target.closest('#dnGo')){dnGo();return}if(e.target.closest('#dnCash')){dnCash();return}const b=e.target.closest('[data-dnside]');if(b&&!DN.busy){DN.side=b.dataset.dnside;sfx('click');dnUI()}});
+/* si se cierra con una partida a medias de Doble o Nada, se cobra lo que lleve */
+addEventListener('pagehide',()=>{try{if(DN.st==='play'&&DN.k>0)dnCash();else if(DN.st==='play'){c10Settle('dn',DN.bet,0,true);DN.st='bet'}if(VP.st==='draw'){VP.st='bet';const r=vpRank(VP.h),m=r>=0?VP_T[r][1]:0;c10Settle('vp',VP.bet,VP.bet*m,true)}}catch(e){}});
+try{czRenderHub()}catch(e){}
+try{i18nAdd([['Video póker','Video poker','Vidéo poker','Vídeo póquer'],['Bacará','Baccarat','Baccara','Bacará'],['Rueda de la Fortuna','Wheel of Fortune','Roue de la Fortune','Roda da Fortuna'],['Dragón y Tigre','Dragon Tiger','Dragon Tigre','Dragão e Tigre'],['Doble o Nada','Double or Nothing','Quitte ou Double','Dobro ou Nada'],['Repartir','Deal','Distribuer','Dar cartas'],['Cambiar cartas','Draw','Changer','Trocar cartas'],['Girar','Spin','Tourner','Girar']])}catch(e){}
+
+/* escaparate: los juegos nuevos */
+NW_S.splice(1,0,['🎮','5 minijuegos nuevos','<b>2048</b>, <b>Apila</b>, <b>Topos</b>, <b>Simón</b> y el <b>Parchís</b> (tú contra 3 bots). Todos con récord semanal y clasificación.','arcade','🎮 Jugar ahora','#3f9bff'],['🃏','5 juegos de casino nuevos','<b>Video póker</b>, <b>Bacará</b>, <b>Rueda de la Fortuna</b>, <b>Dragón y Tigre</b> y <b>Doble o Nada</b>. Las probabilidades, en cada juego.','casino','🃏 Ir al Casino','#ff4d63']);
+{const _nwgG7=nwGo;nwGo=function(k){if(k==='arcade'||k==='casino'){go(k);return}return _nwgG7.apply(this,arguments)}}
+try{const t=TUTOS.find(x=>/[Jj]uegos|[Mm]inijuegos/.test(x[1]));if(t&&!t[4].some(x=>/Parchís/.test(x[0])))t[4].push(['Nuevos: <b>2048</b>, <b>Apila</b>, <b>Topos</b>, <b>Simón</b> y <b>Parchís</b> contra 3 bots (para sacar ficha hace falta un 5).'])}catch(e){}
+try{const t=TUTOS.find(x=>/[Cc]asino/.test(x[1]));if(t&&!t[4].some(x=>/Video póker/.test(x[0])))t[4].push(['Nuevos: <b>Video póker</b>, <b>Bacará</b>, <b>Rueda de la Fortuna</b>, <b>Dragón y Tigre</b> y <b>Doble o Nada</b>.'])}catch(e){}
 })();
 </script>
 
