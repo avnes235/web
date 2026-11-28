@@ -13,7 +13,7 @@ d.onclick=function(){try{localStorage.setItem('vicio-arcade-v2-v','inicio')}catc
 <script>try{if(/[?&]v=\d/.test(location.search)){var q=location.search.replace(/[?&]v=\d+/,"").replace(/^&/,"?");history.replaceState(null,"",location.pathname+(q==="?"?"":q)+location.hash)}}catch(e){}</script>
 <title>Casinetori · Minijuegos, ligas y retos con amigos</title>
 <meta name="theme-color" content="#141416">
-<meta name="app-version" content="2026-11-28-2130">
+<meta name="app-version" content="2026-11-28-2330">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=4"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=4">
 <style>[hidden]{display:none!important}html,body{margin:0}img{max-width:100%}#toasts{top:auto;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:880px){#toasts{top:calc(var(--barh,64px) + 8px + env(safe-area-inset-top,0px));bottom:auto}}
@@ -5027,11 +5027,11 @@ html[data-skin="tapete"] body{background-image:radial-gradient(rgba(255,255,255,
 .k7bets button b{font:900 14px var(--f-b)}.k7bets button small{font-size:11px;opacity:.8;font-weight:700}
 .k7bets button[aria-pressed="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 30%,var(--card));box-shadow:0 3px 0 #000}
 .bac-stage{flex-direction:row;flex-wrap:wrap;gap:18px}.bac-side{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:150px}
-.bac-side span{font:900 14px var(--f-b);color:#fff;letter-spacing:1px}.bac-side b{display:inline-block;min-width:26px;background:#ffd600;color:#111;border-radius:6px;padding:0 6px;margin-left:4px}
+.bac-side>span{font:900 14px var(--f-b);color:#fff;letter-spacing:1px}.bac-side>span>b{display:inline-block;min-width:26px;background:#ffd600;color:#111;border-radius:6px;padding:0 6px;margin-left:4px}
 .bac-h{display:flex;gap:6px;min-height:94px}
 .rf-wrap{position:relative;width:min(320px,80vw);aspect-ratio:1}.rf-wrap canvas{width:100%;height:100%;display:block}
 .rf-ptr{position:absolute;left:50%;top:-6px;margin-left:-12px;border:12px solid transparent;border-top:22px solid #ffd600;filter:drop-shadow(0 2px 0 #000)}
-.dt-stage{flex-direction:row;gap:16px}.dt-side{display:flex;flex-direction:column;align-items:center;gap:8px}.dt-side span{font:900 15px var(--f-b);color:#fff}
+.dt-stage{flex-direction:row;gap:16px}.dt-side{display:flex;flex-direction:column;align-items:center;gap:8px}.dt-side>span{font:900 15px var(--f-b);color:#fff}
 .dt-vs{font:900 30px var(--f-d);color:#ffd600}
 .dn-coin{position:relative;width:130px;height:130px;transform-style:preserve-3d}
 .dn-coin i{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;font-size:56px;font-style:normal;background:radial-gradient(circle at 35% 30%,#fff3b0,#e0a800 60%,#a77a00);border:5px solid #000;backface-visibility:hidden}
@@ -5047,6 +5047,54 @@ html[data-skin="tapete"] body{background-image:radial-gradient(rgba(255,255,255,
 .pc.b{background:color-mix(in srgb,var(--pc) 45%,#fff)}
 .vp-hand{flex-wrap:nowrap;gap:5px}.vp-hand .k7c{width:min(64px,16vw);height:calc(min(64px,16vw)*1.4);font-size:min(22px,5.5vw)}.vp-hand .k7c i{font-size:min(26px,6.5vw)}
 @media (max-width:620px){.vp-tab{grid-template-columns:repeat(2,1fr)}.bac-side{min-width:0}.bac-h .k7c{width:50px;height:70px;font-size:17px}.bac-h .k7c i{font-size:20px}.k7c.big{width:80px;height:112px}}
+/* 2026-11-28-c: desplegables, Ayuda visible, pantalla quieta, dibujos */
+html{scrollbar-gutter:stable}
+#arGamesGo{display:none!important}
+.fold-x{display:none!important}
+.foldh{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 12px;padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--fg);font:inherit;text-align:left;cursor:pointer;box-shadow:0 3px 0 #0006}
+.foldh[aria-expanded="true"]{margin-bottom:8px;border-color:color-mix(in srgb,var(--fg) 25%,var(--line))}
+.foldh .emo{font-size:24px;line-height:1;flex:none}
+.foldh .fht{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.foldh .fht b{font:900 16px var(--f-b);letter-spacing:.3px}
+.foldh .fht small{font-size:12px;font-weight:700;opacity:.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.foldh .fhc{flex:none;font-style:normal;font:800 12px var(--f-b);padding:6px 12px;border-radius:999px;background:#ffd600;color:#141a2e;border:2px solid #000}
+.foldh[aria-expanded="true"] .fhc{background:transparent;color:var(--fg);border-color:var(--line)}
+.foldh:hover{filter:brightness(1.08)}
+.lzhowd{border-radius:12px}
+.lzhowd>summary{cursor:pointer;list-style:none;font-weight:800;font-size:13px;padding:8px 12px;border-radius:10px;border:1px dashed rgba(255,214,0,.45);color:#ffe36b;width:max-content;max-width:100%}
+.lzhowd>summary::-webkit-details-marker{display:none}
+.lzhowd[open]>summary{margin-bottom:6px}
+/* botón de Ayuda */
+.hlpbtn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px 0 5px;border-radius:999px;border:2px solid #000;background:#ffd600;color:#141a2e;font:900 13px var(--f-b);cursor:pointer;flex:none;box-shadow:0 3px 0 #0007;margin-left:4px}
+.hlpbtn .hq{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#141a2e;color:#ffd600;font-size:15px}
+.hlpbtn:hover{filter:brightness(1.06)}
+@media (max-width:520px){.hlpbtn{padding:0 5px;height:32px}.hlpbtn .hl{display:none}}
+#guPop.hlpop .hlpgo{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+/* barra del evento: siempre de una línea, que no empuje lo de abajo */
+#evbar{height:46px;box-sizing:border-box;overflow:hidden;flex-wrap:nowrap!important;align-items:center!important}
+#evbar>*{min-width:0}
+#evbar .evt{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden}
+#evbar .evt b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.15}
+#evbar .num,#evbar .eve{flex:none}
+@media (max-width:620px){#evbar{height:40px}}
+/* Topos dibujados */
+.tpm svg{display:block;width:74%;height:auto;margin:0 auto}
+.tph.up .tpm{bottom:6%}
+/* Parchís: tablero de verdad */
+.pchb{background:#fdf6e6!important;gap:0!important;padding:6px!important;border:3px solid #000;box-shadow:0 6px 0 #0008;position:relative}
+.pchb .pc{border:1px solid #d8ccb0}
+.pchb .pc:not(.t):not(.h):not(.b):not(.m){background:transparent!important;border-color:transparent}
+.pchb .pc.t{background:#fffdf6}
+.pchb .pc.h{background:color-mix(in srgb,var(--pc) 75%,#fff)!important}
+.pchb .pc.s{background:color-mix(in srgb,var(--pc) 60%,#fff)!important}
+.pchb .pc.b{background:transparent!important;border:0;z-index:2}
+.pchb .pc.b::before{content:'';position:absolute;inset:14%;border-radius:50%;background:#ffffffb0;border:2px dashed #0004}
+.pchb .pc.b .pf{position:relative;z-index:1}
+.pchb .pc.m{background:conic-gradient(from 45deg,#3f9bff 0 25%,#14e08a 0 50%,#ff4d63 0 75%,#ffd600 0)!important;border:2px solid #000}
+.pq{z-index:1;border-radius:10px;margin:3px;background:var(--pc);border:3px solid #000;box-shadow:inset 0 0 0 6px #ffffff55}
+.pchb .pf{background:radial-gradient(circle at 35% 30%,#ffffffaa 0 18%,transparent 20%),var(--pc);border:2.5px solid #000;box-shadow:0 2px 0 #0007}
+.pchd{display:grid;place-items:center;padding:6px;background:#fffdf6}
+.pchd svg{width:100%;height:100%}
 </style>
 
 <!-- ===== SEO: Casinetori ===== -->
@@ -7299,6 +7347,7 @@ const _rme=renderMe;renderMe=function(){_rme();const v=$('#rkVit');if(v)v.innerH
 
 /* ---- Novedades ---- */
 const NOTES=[
+ {v:'2026-11-28-c',t:'Más claro y más bonito',items:[['❓','Botón de Ayuda','Arriba, al lado del título, siempre a mano: te explica la pantalla y te lleva a los tutoriales, las preguntas y las novedades.','imp','#ffd600'],['📂','Menos cosas a la vez','Locuras, la Caja fuerte, el Banco, los Premios cada hora y otras partes grandes ahora se abren y se cierran con un toque. Al cambiar de sección vuelves arriba y la pantalla ya no salta.','imp','#3f9bff'],['🎨','Dibujos nuevos y arreglos','Portadas dibujadas para los juegos nuevos, topos de verdad, tablero de Parchís nuevo con dado dibujado. Arreglado: en Dragón y Tigre y en Bacará algunas cartas salían en blanco.','fix','#14e08a']]},
  {v:'2026-11-28-b',t:'10 juegos nuevos',items:[['🎮','5 minijuegos nuevos','2048, Apila, Topos, Simón y Parchís (tú contra 3 bots, se sale con un 5). Todos con récord semanal y clasificación.','new','#3f9bff'],['🃏','5 juegos de casino nuevos','Video póker (hasta x250), Bacará, Rueda de la Fortuna (hasta x48), Dragón y Tigre y Doble o Nada (cara o cruz, hasta x2.800).','new','#ff4d63']]},
  {v:'2026-11-28',t:'El juego, ordenado',items:[['🧹','Menú de 5 secciones','Inicio, Casino, Juegos, Tienda y Competir. El Trading está dentro del Casino, la Fábrica en Juegos, la Bolsa en la Tienda, y la Clasificación, los duelos y los Logros en Competir.','new','#ffd600'],['🎨','4 estilos para elegir','Calle, Tapete, Vino y Medianoche, sin brillos de neón. Cámbialo en Ajustes.','new','#14e08a'],['⚔️','Reta a alguien desde el juego','En Dados, Tragaperras, Carreras, Ruleta, Blackjack, Mayor o menor y Cajas hay un botón para jugar eso mismo contra gente de verdad.','new','#ff6b4a'],['🔢','Cifras más claras y menos avisos','Las cifras largas llevan su abreviatura al lado (por ejemplo, 1,68 cuatrill.) y sale un solo aviso a la vez.','fix','#7fd3ff']]},
  {v:'2026-11-24',t:'Cajas Misteriosas',items:[['📦','Cajas Misteriosas','Juego nuevo en el Casino: 6 cajas que se abren por lo que apuestes. La tira gira y te toca un objeto que vale de menos de lo que pagas hasta x5.000. Puedes abrir hasta 4 a la vez.','new','#ff7a00'],['⬆️','Mochila y Mejorador','Lo que sale va a tu mochila: véndelo o arriésgalo en el Mejorador para multiplicarlo (x1,5 a x100). Lo que lleva más de 6 horas en la mochila se vende solo.','new','#ffd600'],['⚔️','Batallas de cajas','Abre las mismas cajas que hasta 3 bots: el que más saca se lo lleva todo (o el que menos, en el modo loco). En Online › Duelos hay un duelo nuevo, «Cajas», para hacerlo contra gente de verdad.','new','#ff2e88'],['🛒','Tienda: botón «−»','En los productos que ya tienes en la cesta sale un «−» al lado del «+» para quitar uno.','fix','#14e08a']]},
@@ -16449,6 +16498,9 @@ try{if(!FAQ.some(x=>x[0]==='¿Cómo cambio el estilo del juego?'))FAQ.unshift(['
 try{i18nAdd([['10 juegos nuevos','10 new games','10 nouveaux jeux','10 jogos novos'],['5 minijuegos nuevos','5 new minigames','5 nouveaux mini-jeux','5 minijogos novos'],['2048, Apila, Topos, Simón y Parchís (tú contra 3 bots, se sale con un 5). Todos con récord semanal y clasificación.','2048, Stack, Moles, Simon and Ludo (you against 3 bots, a 5 to get out). All with weekly records and rankings.','2048, Empile, Taupes, Simon et Petits chevaux (toi contre 3 bots, il faut un 5 pour sortir). Tous avec record hebdo et classement.','2048, Empilha, Toupeiras, Simão e Ludo (tu contra 3 bots, sai-se com um 5). Todos com recorde semanal e classificação.'],['5 juegos de casino nuevos','5 new casino games','5 nouveaux jeux de casino','5 jogos de casino novos'],['Video póker (hasta x250), Bacará, Rueda de la Fortuna (hasta x48), Dragón y Tigre y Doble o Nada (cara o cruz, hasta x2.800).','Video poker (up to x250), Baccarat, Wheel of Fortune (up to x48), Dragon Tiger and Double or Nothing (heads or tails, up to x2,800).','Vidéo poker (jusqu’à x250), Baccara, Roue de la Fortune (jusqu’à x48), Dragon Tigre et Quitte ou Double (pile ou face, jusqu’à x2 800).','Vídeo póquer (até x250), Bacará, Roda da Fortuna (até x48), Dragão e Tigre e Dobro ou Nada (cara ou coroa, até x2.800).']])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Cómo se juega al Parchís?'))FAQ.unshift(['¿Cómo se juega al Parchís?','Eres el amarillo contra 3 bots. Toca el dado: para sacar una ficha necesitas un 5 y con un 6 repites. Si caes en la casilla de otra ficha, se la comes y vuelve a su casa. Gana quien mete antes todas sus fichas; tu puesto es tu resultado.'])}catch(e){}
 try{if(!FAQ.some(x=>x[0]==='¿Cuánto devuelven los juegos nuevos del casino?'))FAQ.unshift(['¿Cuánto devuelven los juegos nuevos del casino?','Video póker, alrededor del 96 % jugando bien; Bacará, un 98,8-99 % (el empate, un 85,6 %); Rueda de la Fortuna, el 96 %; Dragón y Tigre, alrededor del 96 %; Doble o Nada, un 97 % por cada lanzamiento. Las tablas completas están en la página de probabilidades.'])}catch(e){}
+try{i18nAdd([['Más claro y más bonito','Clearer and nicer','Plus clair et plus joli','Mais claro e mais bonito'],['Botón de Ayuda','Help button','Bouton Aide','Botão de Ajuda'],['Arriba, al lado del título, siempre a mano: te explica la pantalla y te lleva a los tutoriales, las preguntas y las novedades.','Always at the top, next to the title: it explains the screen and takes you to tutorials, questions and what\'s new.','Toujours en haut, à côté du titre : il explique l\'écran et t\'emmène aux tutoriels, questions et nouveautés.','Sempre em cima, ao lado do título: explica o ecrã e leva-te aos tutoriais, perguntas e novidades.'],['Menos cosas a la vez','Fewer things at once','Moins de choses à la fois','Menos coisas ao mesmo tempo'],['Locuras, la Caja fuerte, el Banco, los Premios cada hora y otras partes grandes ahora se abren y se cierran con un toque. Al cambiar de sección vuelves arriba y la pantalla ya no salta.','Madness, the Safe, the Bank, Hourly prizes and other big parts now open and close with one tap. Changing section takes you to the top and the screen no longer jumps.','Folies, le Coffre-fort, la Banque, les Prix chaque heure et d\'autres grandes parties s\'ouvrent et se ferment d\'un toucher. En changeant de section tu remontes en haut et l\'écran ne saute plus.','Loucuras, o Cofre, o Banco, os Prémios a cada hora e outras partes grandes abrem-se e fecham-se com um toque. Ao mudar de secção voltas ao topo e o ecrã já não salta.'],['Dibujos nuevos y arreglos','New drawings and fixes','Nouveaux dessins et corrections','Desenhos novos e correções'],['Portadas dibujadas para los juegos nuevos, topos de verdad, tablero de Parchís nuevo con dado dibujado. Arreglado: en Dragón y Tigre y en Bacará algunas cartas salían en blanco.','Drawn covers for the new games, real moles, a new Ludo board with a drawn die. Fixed: in Dragon Tiger and Baccarat some cards showed up blank.','Couvertures dessinées pour les nouveaux jeux, vraies taupes, nouveau plateau de Petits chevaux avec un dé dessiné. Corrigé : dans Dragon Tigre et Baccara certaines cartes apparaissaient blanches.','Capas desenhadas para os jogos novos, toupeiras a sério, tabuleiro de Ludo novo com dado desenhado. Corrigido: no Dragão e Tigre e no Bacará algumas cartas apareciam em branco.']])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Dónde está la ayuda?'))FAQ.unshift(['¿Dónde está la ayuda?','Arriba del todo, al lado del nombre de la sección, tienes el botón amarillo «Ayuda» (en el móvil es un «?» amarillo). Te explica la pantalla en la que estás y te lleva a los tutoriales, a las preguntas frecuentes y a las novedades.'])}catch(e){}
+try{if(!FAQ.some(x=>x[0]==='¿Dónde se ha ido Locuras (o la Caja fuerte, o el Banco)?'))FAQ.unshift(['¿Dónde se ha ido Locuras (o la Caja fuerte, o el Banco)?','Siguen en el mismo sitio, pero plegados para que la pantalla no abrume. Toca su barra («Ver») para abrirlos y otra vez («Ocultar») para cerrarlos. El juego recuerda cómo los dejaste.'])}catch(e){}
 /* al final de cargar: abrir la pantalla en la que estabas (antes podía romper el arranque, p. ej. desde Tu perfil) */
 try{if(typeof startV!=='undefined')go(view!==startV?startV:view)}catch(e){try{go('inicio')}catch(_){}}
 window.__casOK=1;
@@ -17446,7 +17498,7 @@ GAMES.apila={low:[5,'¡PULSO FIRME!','suelta el bloque justo encima'],name:'Apil
   g.fillStyle='#fff';g.font='900 30px Anton, sans-serif';g.textAlign='center';g.fillText(score,180,52)}};
 
 /* ---------- Topos ---------- */
-GAMES.topos={low:[8,'¡MÁS RÁPIDO!','dale al topo antes de que se esconda'],name:'Topos',dom:true,unit:'Topos',best:'max',hint:'Tienes 30 segundos: toca los topos 🐹 antes de que se escondan. ¡No toques las bombas 💣!',
+GAMES.topos={low:[8,'¡MÁS RÁPIDO!','dale al topo antes de que se esconda'],name:'Topos',dom:true,unit:'Topos',best:'max',hint:'Tienes 30 segundos: toca los topos antes de que se escondan. ¡No toques las bombas! Los dorados valen más.',
  reward:s=>s*9,
  mount(el){this.el=el;this.n={f:3,n:3,d:4,h:4,x:4}[curDiff()];el.innerHTML=`<div class="tptime"><i id="tpBar"></i></div><div class="tpg" style="--n:${this.n}">${Array.from({length:this.n*this.n},(_,i)=>`<button class="tph" data-h="${i}"><span class="tpm"></span></button>`).join('')}</div>`;
   el.querySelector('.tpg').addEventListener('pointerdown',e=>{const b=e.target.closest('.tph');if(b){e.preventDefault();this.hit(b)}})},
@@ -17458,7 +17510,7 @@ GAMES.topos={low:[8,'¡MÁS RÁPIDO!','dale al topo antes de que se esconda'],na
   el.querySelectorAll('.tph.up').forEach(b=>{if(t>+b.dataset.until){b.classList.remove('up','bomb','gold')}});
   if(t>=this.next){this.next=t+gap*(0.7+A7R()*.6);const free=[...el.querySelectorAll('.tph:not(.up)')];if(free.length){const b=free[Math.floor(A7R()*free.length)];const r=A7R();
     b.classList.add('up');b.classList.toggle('bomb',D!=='f'&&r<({n:.12,d:.18,h:.22,x:.26}[D]||0));b.classList.toggle('gold',!b.classList.contains('bomb')&&r>.93);
-    b.querySelector('.tpm').textContent=b.classList.contains('bomb')?'💣':b.classList.contains('gold')?'⭐':'🐹';b.dataset.until=t+life}}},
+    b.querySelector('.tpm').innerHTML=TP_ART[b.classList.contains('bomb')?'b':b.classList.contains('gold')?'g':'m'];b.dataset.until=t+life}}},
  hit(b){if(!running||!b.classList.contains('up'))return;if(b.classList.contains('bomb')){sfx('hit');addScore(-3);b.classList.add('boom');setTimeout(()=>b.classList.remove('boom'),300)}
   else{const g=b.classList.contains('gold');sfx(g?'big':'coin');addScore(g?3:1)}b.classList.remove('up','bomb','gold')}};
 
@@ -17479,7 +17531,7 @@ GAMES.simon={low:[4,'¡MEMORIA DE PEZ!','fíjate en el orden de los colores'],na
 /* ---------- Parchís (versión rápida: tú contra 3 bots) ---------- */
 const PCH_T=[[0,4],[1,4],[2,4],[3,4],[4,4],[4,3],[4,2],[4,1],[4,0],[5,0],[6,0],[6,1],[6,2],[6,3],[6,4],[7,4],[8,4],[9,4],[10,4],[10,5],[10,6],[9,6],[8,6],[7,6],[6,6],[6,7],[6,8],[6,9],[6,10],[5,10],[4,10],[4,9],[4,8],[4,7],[4,6],[3,6],[2,6],[1,6],[0,6],[0,5]];
 const PCH_H=[[[1,5],[2,5],[3,5],[4,5]],[[5,1],[5,2],[5,3],[5,4]],[[9,5],[8,5],[7,5],[6,5]],[[5,9],[5,8],[5,7],[5,6]]];
-const PCH_B=[[[0,0],[1,0],[0,1],[1,1]],[[9,0],[10,0],[9,1],[10,1]],[[9,9],[10,9],[9,10],[10,10]],[[0,9],[1,9],[0,10],[1,10]]];
+const PCH_B=[[[1,1],[2,1],[1,2],[2,2]],[[8,1],[9,1],[8,2],[9,2]],[[8,8],[9,8],[8,9],[9,9]],[[1,8],[2,8],[1,9],[2,9]]];
 const PCH_C=['#ffd600','#3f9bff','#14e08a','#ff4d63'],PCH_N=['Tú','Bot Azul','Bot Verde','Bot Rojo'];
 GAMES.parchis={low:[4,'¡OTRA PARTIDA!','sacar con un 5 y comer fichas es la clave'],name:'Parchís',dom:true,unit:'Puesto',best:'min',fmt:v=>v?v+'.º':'–',
  hint:'Tú eres el amarillo contra 3 bots. Para sacar ficha necesitas un 5. Con un 6 repites. Si caes donde hay otra ficha, se la comes y vuelve a casa. Gana el primero que meta todas.',
@@ -17640,6 +17692,85 @@ NW_S.splice(1,0,['🎮','5 minijuegos nuevos','<b>2048</b>, <b>Apila</b>, <b>Top
 {const _nwgG7=nwGo;nwGo=function(k){if(k==='arcade'||k==='casino'){go(k);return}return _nwgG7.apply(this,arguments)}}
 try{const t=TUTOS.find(x=>/[Jj]uegos|[Mm]inijuegos/.test(x[1]));if(t&&!t[4].some(x=>/Parchís/.test(x[0])))t[4].push(['Nuevos: <b>2048</b>, <b>Apila</b>, <b>Topos</b>, <b>Simón</b> y <b>Parchís</b> contra 3 bots (para sacar ficha hace falta un 5).'])}catch(e){}
 try{const t=TUTOS.find(x=>/[Cc]asino/.test(x[1]));if(t&&!t[4].some(x=>/Video póker/.test(x[0])))t[4].push(['Nuevos: <b>Video póker</b>, <b>Bacará</b>, <b>Rueda de la Fortuna</b>, <b>Dragón y Tigre</b> y <b>Doble o Nada</b>.'])}catch(e){}
+/* ===================== 2026-11-28-c: dibujos de verdad para los juegos nuevos ===================== */
+const A9K='#141a2e';
+const a9Card=(x,y,r,rk,su,red,w=38,h=54)=>`<g transform="translate(${x} ${y}) rotate(${r})"><rect x="${-w/2}" y="${-h/2}" width="${w}" height="${h}" rx="5" fill="#fffdf6" stroke="${A9K}" stroke-width="3"/><text x="${-w/2+5}" y="${-h/2+15}" font-family="Arial Black,Arial" font-weight="900" font-size="13" fill="${red?'#d62839':'#1b1b22'}">${rk}</text><text x="${w/2-6}" y="${h/2-6}" font-family="Arial" font-size="11" text-anchor="end" fill="${red?'#d62839':'#1b1b22'}">${su}</text><text x="0" y="8" font-family="Arial" font-size="22" text-anchor="middle" fill="${red?'#d62839':'#1b1b22'}">${su}</text></g>`;
+const a9Chip=(x,y,c,n=3)=>Array.from({length:n},(_,i)=>`<g transform="translate(${x} ${y-i*6})"><ellipse rx="14" ry="6" fill="${c}" stroke="${A9K}" stroke-width="2.5"/><ellipse rx="8" ry="3.2" fill="none" stroke="#fff" stroke-width="1.6" stroke-dasharray="3 2.5"/></g>`).join('');
+const a9Coin=(x,y,r)=>`<g transform="translate(${x} ${y})"><circle r="${r}" fill="#ffc400" stroke="${A9K}" stroke-width="3.5"/><circle r="${r*.78}" fill="#ffd84d" stroke="#c98a00" stroke-width="2.5"/><path d="M0 ${-r*.5}L${r*.14} ${-r*.16}L${r*.48} ${-r*.15}L${r*.21} ${r*.07}L${r*.3} ${r*.43}L0 ${r*.22}L${-r*.3} ${r*.43}L${-r*.21} ${r*.07}L${-r*.48} ${-r*.15}L${-r*.14} ${-r*.16}Z" fill="#c98a00"/><path d="M${-r*.55} ${-r*.5}A${r*.78} ${r*.78} 0 0 1 ${r*.2} ${-r*.75}" fill="none" stroke="#fff6c4" stroke-width="3" stroke-linecap="round"/></g>`;
+/* topo, bomba y topo de oro (para el juego) */
+const a9Mole=(body,belly,crown)=>`<svg viewBox="0 0 60 60" aria-hidden="true"><path d="M7 62Q7 12 30 10Q53 12 53 62Z" fill="${body}" stroke="${A9K}" stroke-width="3"/><ellipse cx="30" cy="50" rx="13" ry="12" fill="${belly}"/><circle cx="22" cy="27" r="3.4" fill="${A9K}"/><circle cx="38" cy="27" r="3.4" fill="${A9K}"/><circle cx="23.2" cy="25.8" r="1.2" fill="#fff"/><circle cx="39.2" cy="25.8" r="1.2" fill="#fff"/><circle cx="16" cy="35" r="3.6" fill="#ff9db0" opacity=".8"/><circle cx="44" cy="35" r="3.6" fill="#ff9db0" opacity=".8"/><ellipse cx="30" cy="34" rx="6.5" ry="4.5" fill="#ff7d96" stroke="${A9K}" stroke-width="2.2"/><rect x="26.6" y="39" width="6.8" height="6" rx="1" fill="#fff" stroke="${A9K}" stroke-width="1.8"/><path d="M30 39v6" stroke="${A9K}" stroke-width="1.2"/><ellipse cx="17" cy="56" rx="6" ry="4" fill="#f2c39a" stroke="${A9K}" stroke-width="2"/><ellipse cx="43" cy="56" rx="6" ry="4" fill="#f2c39a" stroke="${A9K}" stroke-width="2"/>${crown?`<path d="M19 14L21 4L26 10L30 2L34 10L39 4L41 14Z" fill="#ffd600" stroke="${A9K}" stroke-width="2.2" stroke-linejoin="round"/>`:''}</svg>`;
+const TP_ART={m:a9Mole('#9a6334','#e3b07c'),g:a9Mole('#ffc400','#fff0a8',1),
+ b:`<svg viewBox="0 0 60 60" aria-hidden="true"><path d="M38 16Q44 6 52 8" fill="none" stroke="#8a6a3a" stroke-width="3" stroke-linecap="round"/><path d="M52 3l2 4 4-1-3 3 2 4-4-2-3 3 1-4-4-2 4-1z" fill="#ffd600" stroke="#ff7a00" stroke-width="1"/><rect x="29" y="13" width="12" height="9" rx="2" transform="rotate(30 35 17)" fill="#555" stroke="${A9K}" stroke-width="2.5"/><circle cx="28" cy="38" r="20" fill="#2b2b33" stroke="${A9K}" stroke-width="3"/><path d="M17 30A12 12 0 0 1 27 22" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity=".55"/><path d="M20 42l5-4M25 42l-5-4M32 42l5-4M37 42l-5-4" stroke="#ff4d63" stroke-width="2.6" stroke-linecap="round"/></svg>`};
+/* dado dibujado */
+const A9PIP={1:[[2,2]],2:[[1,1],[3,3]],3:[[1,1],[2,2],[3,3]],4:[[1,1],[3,1],[1,3],[3,3]],5:[[1,1],[3,1],[2,2],[1,3],[3,3]],6:[[1,1],[3,1],[1,2],[3,2],[1,3],[3,3]]};
+const a9Die=n=>`<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="36" height="36" rx="8" fill="#fffdf6" stroke="${A9K}" stroke-width="3"/>${n?A9PIP[n].map(([x,y])=>`<circle cx="${x*10}" cy="${y*10}" r="3.6" fill="${n===1?'#d62839':A9K}"/>`).join(''):`<text x="20" y="27" text-anchor="middle" font-family="Arial Black,Arial" font-weight="900" font-size="20" fill="${A9K}">?</text>`}</svg>`;
+
+/* ---------- portadas del Casino ---------- */
+const A9COV={
+vp:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#1d4fd8"/><g fill="#3f7cff" opacity=".55">${[0,1,2,3,4,5,6].map(i=>`<path d="M${i*34} 0l12 14-12 14-12-14z"/><path d="M${i*34+17} 92l12 14-12 14-12-14z"/>`).join('')}</g><ellipse cx="100" cy="122" rx="96" ry="22" fill="#123a9e"/>${[['10','♥'],['J','♥'],['Q','♥'],['K','♥'],['A','♥']].map(([r,s],i)=>`<g transform="rotate(${-28+i*14} 100 150)">${a9Card(100,72,0,r,s,1)}</g>`).join('')}<g transform="translate(166 28) rotate(12) scale(1.25)"><path d="M0-21l6 9 11-2-5 10 8 8-11 2-1 11-8-7-8 7-1-11-11-2 8-8-5-10 11 2z" fill="#ffd600" stroke="${A9K}" stroke-width="3" stroke-linejoin="round"/><text y="5" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="13" fill="${A9K}">x250</text></g></svg>`,
+bac:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#0b5e3d"/><ellipse cx="100" cy="132" rx="118" ry="84" fill="#0e7a4f" stroke="#e8c15a" stroke-width="3"/><ellipse cx="100" cy="132" rx="96" ry="64" fill="none" stroke="#e8c15a" stroke-width="1.5" stroke-dasharray="5 4" opacity=".8"/><g font-family="Anton,Impact,sans-serif" font-size="11" fill="#e8c15a" text-anchor="middle" letter-spacing="1"><text x="56" y="112">JUGADOR</text><text x="146" y="112">BANCA</text></g>${a9Card(44,64,-10,'9','♦',1,34,48)}${a9Card(70,66,8,'K','♠',0,34,48)}${a9Card(132,66,-8,'4','♣',0,34,48)}${a9Card(158,64,10,'3','♥',1,34,48)}<g transform="translate(100 30)"><circle r="17" fill="#ffd600" stroke="${A9K}" stroke-width="3"/><text y="9" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="24" fill="${A9K}">9</text></g>${a9Chip(18,108,'#ff4d63')}${a9Chip(184,108,'#3f7cff',4)}</svg>`,
+rf:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#7a2bd9"/><g fill="#9a52f0">${Array.from({length:12},(_,i)=>`<path d="M100 64L${100+160*Math.cos((i*30-4)*Math.PI/180)} ${64+160*Math.sin((i*30-4)*Math.PI/180)}L${100+160*Math.cos((i*30+11)*Math.PI/180)} ${64+160*Math.sin((i*30+11)*Math.PI/180)}Z"/>`).join('')}</g><path d="M82 104h36l10 16H72z" fill="#c98a00" stroke="${A9K}" stroke-width="3"/><g transform="translate(100 60)">${Array.from({length:12},(_,i)=>{const a0=(i*30-90)*Math.PI/180,a1=((i+1)*30-90)*Math.PI/180;return`<path d="M0 0L${44*Math.cos(a0)} ${44*Math.sin(a0)}A44 44 0 0 1 ${44*Math.cos(a1)} ${44*Math.sin(a1)}Z" fill="${['#ff4d63','#ffd600','#3f9bff','#14e08a','#ff9a1c','#ff5fa8'][i%6]}" stroke="${A9K}" stroke-width="1.6"/>`}).join('')}<circle r="47" fill="none" stroke="${A9K}" stroke-width="6"/><circle r="47" fill="none" stroke="#ffd600" stroke-width="2.5"/>${Array.from({length:12},(_,i)=>`<circle cx="${47*Math.cos((i*30+15)*Math.PI/180)}" cy="${47*Math.sin((i*30+15)*Math.PI/180)}" r="2.6" fill="#fff6c4"/>`).join('')}<circle r="10" fill="#ffd600" stroke="${A9K}" stroke-width="3"/><circle r="3.5" fill="${A9K}"/></g><path d="M100 22l-9-16h18z" fill="#fff" stroke="${A9K}" stroke-width="3" stroke-linejoin="round"/></svg>`,
+dt:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#e07a12"/><path d="M0 0H118L82 120H0z" fill="#b8162f"/><g stroke="#ffffff" stroke-opacity=".12" stroke-width="8">${[0,1,2,3].map(i=>`<path d="M${-20+i*22} 0l-30 120"/>`).join('')}</g>
+<g transform="translate(6 18)"><path d="M10 48Q4 30 18 22L12 6L26 16Q32 8 44 10L42 0L54 12Q66 12 74 22L86 26Q94 30 90 38L74 42Q82 46 82 54Q70 62 56 56Q46 70 26 66Q12 62 10 48Z" fill="#2bb673" stroke="${A9K}" stroke-width="3" stroke-linejoin="round"/><path d="M18 50Q30 48 40 54" fill="none" stroke="${A9K}" stroke-width="2"/><path d="M74 42Q60 46 56 56" fill="none" stroke="${A9K}" stroke-width="2.5"/><path d="M62 47l3 5 3-5zM70 45l2 5 3-5z" fill="#fff" stroke="${A9K}" stroke-width="1.2"/><ellipse cx="56" cy="27" rx="7" ry="5.5" fill="#ffd600" stroke="${A9K}" stroke-width="2.2"/><ellipse cx="57.5" cy="27" rx="2" ry="4" fill="${A9K}"/><circle cx="86" cy="31" r="1.8" fill="${A9K}"/><path d="M88 36Q100 42 96 58M84 40Q92 52 84 64" fill="none" stroke="#ffd600" stroke-width="2.4" stroke-linecap="round"/><path d="M14 34Q2 40 6 54M20 60Q12 74 24 80" fill="none" stroke="#ff4d63" stroke-width="5" stroke-linecap="round"/></g>
+<g transform="translate(150 60)"><circle cx="-24" cy="-26" r="11" fill="#ff9a1c" stroke="${A9K}" stroke-width="3"/><circle cx="24" cy="-26" r="11" fill="#ff9a1c" stroke="${A9K}" stroke-width="3"/><circle cx="-24" cy="-26" r="5" fill="#ffc9b8"/><circle cx="24" cy="-26" r="5" fill="#ffc9b8"/><ellipse rx="34" ry="31" fill="#ff9a1c" stroke="${A9K}" stroke-width="3"/><path d="M0-31v12M-11-29l3 10M11-29l-3 10M-34-4l12 2M-33 8l11-3M34-4l-12 2M33 8l-11-3" stroke="${A9K}" stroke-width="3.2" stroke-linecap="round"/><ellipse cy="14" rx="19" ry="13" fill="#fff8ea"/><ellipse cx="-12" cy="-6" rx="6" ry="5" fill="#fff"/><ellipse cx="12" cy="-6" rx="6" ry="5" fill="#fff"/><ellipse cx="-12" cy="-6" rx="2.2" ry="4.4" fill="#2bb673" stroke="${A9K}" stroke-width="1.2"/><ellipse cx="12" cy="-6" rx="2.2" ry="4.4" fill="#2bb673" stroke="${A9K}" stroke-width="1.2"/><path d="M-6 5h12l-6 6z" fill="${A9K}"/><path d="M0 11v5M0 16q-5 5-9 1M0 16q5 5 9 1" fill="none" stroke="${A9K}" stroke-width="2" stroke-linecap="round"/></g>
+<g transform="translate(100 98)"><circle r="15" fill="#ffd600" stroke="${A9K}" stroke-width="3"/><text y="6" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="16" fill="${A9K}">VS</text></g></svg>`,
+dn:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#4c1d95"/><g stroke="#6d33c9" stroke-width="10">${[0,1,2,3,4,5,6,7].map(i=>`<path d="M${i*34-40} 130l70-150"/>`).join('')}</g><path d="M112 104L134 80L150 86L170 52L184 56" fill="none" stroke="${A9K}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M112 104L134 80L150 86L170 52L184 56" fill="none" stroke="#14e08a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M186 40l6 18-18-2z" fill="#14e08a" stroke="${A9K}" stroke-width="2.5" stroke-linejoin="round"/><g font-family="Anton,Impact,sans-serif" font-size="12" fill="#fff" stroke="${A9K}" stroke-width="3" paint-order="stroke" text-anchor="middle"><text x="132" y="72">x2</text><text x="168" y="44">x4</text><text x="186" y="88">x8</text></g>${a9Coin(62,62,40)}<g transform="translate(124 28)"><ellipse rx="8" ry="20" fill="#e0a800" stroke="${A9K}" stroke-width="3"/><path d="M-2-16v32" stroke="#fff6c4" stroke-width="2"/></g><path d="M112 22l4-8M118 30l9-3M110 40l3 7" stroke="#ffd600" stroke-width="3" stroke-linecap="round"/></svg>`
+};
+/* ---------- portadas de Juegos (las que eran solo un emoji) ---------- */
+const A9GC={
+topos:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#8fd16a"/><path d="M0 34Q50 22 100 32T200 28V0H0z" fill="#bfe8ff"/><circle cx="170" cy="14" r="9" fill="#ffd600"/><g fill="#6fbf4a">${[[20,52],[70,46],[132,50],[184,44]].map(([x,y])=>`<path d="M${x-6} ${y}q3-8 6 0q3-8 6 0z"/>`).join('')}</g>${[[42,96],[158,98]].map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="30" ry="10" fill="#3b2614" stroke="${A9K}" stroke-width="3"/><ellipse cx="${x}" cy="${y+1}" rx="22" ry="5" fill="#1d120a"/>`).join('')}<ellipse cx="100" cy="102" rx="34" ry="11" fill="#3b2614" stroke="${A9K}" stroke-width="3"/><svg x="72" y="40" width="56" height="62" viewBox="0 6 60 56">${TP_ART.m.replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg><ellipse cx="100" cy="103" rx="34" ry="8" fill="none"/><path d="M66 102a34 11 0 0 0 68 0" fill="#3b2614" stroke="${A9K}" stroke-width="3"/><g transform="translate(150 36) rotate(30)"><rect x="-4" y="0" width="8" height="46" rx="3" fill="#c98a4a" stroke="${A9K}" stroke-width="3"/><rect x="-18" y="-14" width="36" height="20" rx="5" fill="#ff4d63" stroke="${A9K}" stroke-width="3"/><rect x="-18" y="-14" width="8" height="20" rx="3" fill="#ffd600" stroke="${A9K}" stroke-width="2"/></g><path d="M118 34l-8-8M126 30l-2-10M110 42l-10-2" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>`,
+parchis:`<svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#2b1d12"/><g stroke="#3a2818" stroke-width="2">${[0,1,2,3,4,5,6].map(i=>`<path d="M0 ${i*20}h200"/>`).join('')}</g><g transform="translate(46 6)"><rect width="108" height="108" rx="6" fill="#fdf6e6" stroke="${A9K}" stroke-width="3"/>${[['#ffd600',0,0],['#3f9bff',66,0],['#14e08a',66,66],['#ff4d63',0,66]].map(([c,x,y])=>`<rect x="${x+3}" y="${y+3}" width="36" height="36" rx="4" fill="${c}" stroke="${A9K}" stroke-width="2.5"/><circle cx="${x+21}" cy="${y+21}" r="12" fill="#fff" stroke="${A9K}" stroke-width="2"/>`).join('')}<g stroke="#c9bfa8" stroke-width="1.2">${[0,1,2,3,4,5].map(i=>`<path d="M42 ${i*7+3}h24M42 ${108-i*7-3}h24M${i*7+3} 42v24M${108-i*7-3} 42v24"/>`).join('')}</g><rect x="47" y="3" width="14" height="38" fill="#3f9bff" opacity=".85"/><rect x="47" y="67" width="14" height="38" fill="#ff4d63" opacity=".85"/><rect x="3" y="47" width="38" height="14" fill="#ffd600" opacity=".85"/><rect x="67" y="47" width="38" height="14" fill="#14e08a" opacity=".85"/><path d="M42 42h24v24H42z" fill="#fff" stroke="${A9K}" stroke-width="2"/><path d="M42 42L54 54L66 42z" fill="#3f9bff"/><path d="M66 42L54 54L66 66z" fill="#14e08a"/><path d="M66 66L54 54L42 66z" fill="#ff4d63"/><path d="M42 66L54 54L42 42z" fill="#ffd600"/>${[['#ffd600',21,21],['#3f9bff',87,21],['#14e08a',87,87],['#ff4d63',21,87],['#ffd600',54,24]].map(([c,x,y])=>`<circle cx="${x}" cy="${y}" r="6" fill="${c}" stroke="${A9K}" stroke-width="2.5"/><circle cx="${x-2}" cy="${y-2}" r="1.8" fill="#fff" opacity=".8"/>`).join('')}</g><g transform="translate(166 82) rotate(-14)"><svg x="-15" y="-15" width="30" height="30" viewBox="0 0 40 40">${a9Die(5).replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg></g><g transform="translate(30 30) rotate(12)"><svg x="-13" y="-13" width="26" height="26" viewBox="0 0 40 40">${a9Die(6).replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg></g></svg>`
+};
+try{Object.keys(A9COV).forEach(k=>{if(CZ[k])CZ_COV[k]=A9COV[k]});Object.assign(COVERS,A9GC)}catch(e){}
+/* Parchís: tablero con casas de colores, dado dibujado */
+if(GAMES.parchis){const _pr=GAMES.parchis.render;GAMES.parchis.render=function(){_pr.apply(this,arguments);try{const b=this.el&&this.el.querySelector('.pchb');if(!b)return;
+  [...b.children].forEach((c,i)=>{c.style.gridArea=`${Math.floor(i/11)+1}/${i%11+1}`});
+  b.insertAdjacentHTML('afterbegin',[['#ffd600','1/1/5/5'],['#3f9bff','1/8/5/12'],['#14e08a','8/8/12/12'],['#ff4d63','8/1/12/5']].map(([c,a])=>`<div class="pq" style="--pc:${c};grid-area:${a}"></div>`).join(''));
+  const d=this.el.querySelector('.pchd');if(d)d.innerHTML=a9Die(this.die||0)}catch(e){}}}
+/* ===================== 2026-11-28-c: desplegables, botón de Ayuda siempre visible y pantalla quieta ===================== */
+const FOLDS=[
+ ['#lzWrap','lz','🔥','Locuras: todo a una tirada',()=>'Hasta ×1.000 · Bote de los caídos: '+eS(bcPot(WK()))],
+ ['#topPay','toppay','🏆','Premios cada hora',()=>'Los 3 primeros de cada juego cobran cada hora'],
+ ['#sinks','sinks','👑','La Torre y Renacer',()=>'Lo más caro del juego'],
+ ['#safeCard','safe','🔐','Caja fuerte',()=>'Guardado: '+eS(Math.floor(+S.safe||0))],
+ ['#bankCard','bank','🏦','Banco',()=>'Préstamos según lo que tienes'],
+ ['#seoAbout','about','📖','¿Qué es Casinetori?',()=>'Cómo funciona el juego, explicado'],
+ ['#momBox','mom','📸','Tus jugadas',()=>'Tus premios gordos guardados']
+];
+function foldOpen(k){return !!(S.fold&&S.fold[k])}
+function foldSet(k,on){S.fold=S.fold||{};if(on)S.fold[k]=1;else delete S.fold[k];try{save()}catch(e){}foldSync()}
+function foldSync(){FOLDS.forEach(([sel,k,em,t,sub])=>{const el=document.querySelector(sel);if(!el)return;
+  let h=el.previousElementSibling;if(!h||h.dataset.foldh!==k){h=document.createElement('button');h.type='button';h.className='foldh';h.dataset.foldh=k;el.insertAdjacentElement('beforebegin',h)}
+  const on=foldOpen(k);el.dataset.fold=k;el.classList.toggle('fold-x',!on);h.setAttribute('aria-expanded',on);
+  let s='';try{s=sub()}catch(e){}const html=`<span class="emo">${em}</span><span class="fht"><b>${t}</b><small>${on?'Toca para ocultar':esc(s)}</small></span><i class="fhc">${on?'Ocultar':'Ver'}</i>`;
+  if(h._h!==html){h._h=html;h.innerHTML=html}h.hidden=!!(el.hidden||el.style.display==='none')})}
+document.addEventListener('click',e=>{const h=e.target.closest&&e.target.closest('[data-foldh]');if(!h)return;e.preventDefault();try{sfx('click')}catch(_){}foldSet(h.dataset.foldh,!foldOpen(h.dataset.foldh))});
+/* si algo intenta llevarte a un sitio plegado, se abre solo */
+{const _siv=Element.prototype.scrollIntoView;Element.prototype.scrollIntoView=function(){try{const f=this.closest&&this.closest('.fold-x');if(f&&f.dataset.fold)foldSet(f.dataset.fold,true)}catch(e){}return _siv.apply(this,arguments)}}
+/* «¿Cómo se gana?» de Locuras, plegado */
+let LZHOW_OPEN=false;
+{const _lzH=lzHow;lzHow=function(){const h=_lzH.apply(this,arguments);return`<details class="lzhowd"${LZHOW_OPEN?' open':''}><summary>❓ ¿Cómo se gana?</summary>${h}</details>`}}
+document.addEventListener('toggle',e=>{if(e.target&&e.target.classList&&e.target.classList.contains('lzhowd'))LZHOW_OPEN=e.target.open},true);
+
+/* ---------- Ayuda: botón con texto, siempre visible ---------- */
+function hlpSync(){let b=$('#helpBtn');if(!b){const t=$('#title');if(!t)return;t.insertAdjacentHTML('afterend','<button class="hlpbtn" id="helpBtn" type="button" aria-label="Ayuda"><span class="hq">?</span><span class="hl">Ayuda</span></button>');b=$('#helpBtn')}
+  const q=$('#guQ');if(q)q.hidden=true}
+{const _gqs=guQSync;guQSync=function(){const r=_gqs.apply(this,arguments);try{hlpSync()}catch(e){}return r}}
+window.addEventListener('click',e=>{const t=e.target;if(!t.closest)return;
+  const g=t.closest('[data-hlgo]');if(g){e.preventDefault();e.stopPropagation();try{sfx('click')}catch(_){}guClosePop();hlTab=g.dataset.hlgo;go('ayuda');try{renderAyuda()}catch(_){}return}
+  const b=t.closest('#helpBtn');if(!b)return;e.preventDefault();e.stopPropagation();try{sfx('click')}catch(_){}
+  const op=$('#guPop');if(op&&op.dataset.from==='help'){guClosePop();return}
+  const nm=(typeof GU_NAMES!=='undefined'&&GU_NAMES[view])||'Ayuda',sm=(typeof GU_SUM!=='undefined'&&GU_SUM[view])||'Aquí tienes los tutoriales de cada parte del juego y las preguntas frecuentes.';
+  guPop(b,nm,sm,(typeof GU_T!=='undefined'&&GU_T[view])?view:'');const p=$('#guPop');if(!p)return;p.dataset.from='help';p.classList.add('hlpop');
+  const x=p.querySelector('small');const add='<div class="hlpgo"><button class="btn sm alt" type="button" data-hlgo="tuto">📚 Tutoriales</button><button class="btn sm alt" type="button" data-hlgo="faq">❓ Preguntas</button><button class="btn sm alt" type="button" data-hlgo="news">✨ Novedades</button></div>';
+  if(x)x.insertAdjacentHTML('beforebegin',add);else p.insertAdjacentHTML('beforeend',add)},true);
+
+/* ---------- pantalla quieta: arriba del todo al cambiar de sección ---------- */
+{const _g9=go;go=function(v){const pv=view;const r=_g9.apply(this,arguments);try{if(v!==pv)window.scrollTo({top:0,left:0,behavior:'instant'})}catch(e){try{scrollTo(0,0)}catch(_){}}
+  try{foldSync();hlpSync()}catch(e){}setTimeout(()=>{try{foldSync()}catch(e){}},120);setTimeout(()=>{try{foldSync()}catch(e){}},600);return r}}
+setInterval(()=>{if(document.hidden)return;try{foldSync()}catch(e){}},1500);
+setTimeout(()=>{try{foldSync();hlpSync()}catch(e){}},300);
+try{i18nAdd([['Ayuda','Help','Aide','Ajuda'],['Ocultar','Hide','Masquer','Ocultar'],['Ver','Show','Voir','Ver'],['Toca para ocultar','Tap to hide','Touche pour masquer','Toca para ocultar'],['📚 Tutoriales','📚 Tutorials','📚 Tutoriels','📚 Tutoriais'],['❓ Preguntas','❓ Questions','❓ Questions','❓ Perguntas'],['✨ Novedades','✨ What\'s new','✨ Nouveautés','✨ Novidades'],['❓ ¿Cómo se gana?','❓ How do you win?','❓ Comment on gagne ?','❓ Como se ganha?'],['Locuras: todo a una tirada','Madness: all on one shot','Folies : tout en un coup','Loucuras: tudo numa jogada'],['Premios cada hora','Hourly prizes','Prix chaque heure','Prémios a cada hora'],['La Torre y Renacer','The Tower and Rebirth','La Tour et Renaître','A Torre e Renascer'],['Caja fuerte','Safe','Coffre-fort','Cofre'],['Banco','Bank','Banque','Banco'],['¿Qué es Casinetori?','What is Casinetori?','Qu\'est-ce que Casinetori ?','O que é Casinetori?'],['Tus jugadas','Your plays','Tes coups','As tuas jogadas']])}catch(e){}
 })();
 </script>
 
